@@ -36,7 +36,7 @@ final class VideoGameRepository extends ServiceEntityRepository
                 $pagination->getDirection()->getSql()
             );
 
-        if ($filter->getSearch() !== null) {
+        if (null !== $filter->getSearch()) {
             $queryBuilder
                 ->andWhere(
                     $queryBuilder->expr()->orX(
@@ -49,7 +49,6 @@ final class VideoGameRepository extends ServiceEntityRepository
         }
 
         if ([] !== $filter->getTags()) {
-            // Utilisez une sous-requête pour filtrer les jeux ayant tous les tags requis
             $subQuery = $this->getEntityManager()->createQueryBuilder()
                 ->select('vg2.id')
                 ->from(VideoGame::class, 'vg2')
@@ -64,6 +63,9 @@ final class VideoGameRepository extends ServiceEntityRepository
                 ->setParameter('tagCount', count($filter->getTags()));
         }
 
-        return new Paginator($queryBuilder, fetchJoinCollection: true);
+        /** @var Paginator<VideoGame> $paginator */
+        $paginator = new Paginator($queryBuilder, fetchJoinCollection: true);
+
+        return $paginator;
     }
 }

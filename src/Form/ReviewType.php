@@ -7,11 +7,13 @@ namespace App\Form;
 use App\Model\Entity\Review;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @extends AbstractType<Review>
+ */
 final class ReviewType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
@@ -22,7 +24,7 @@ final class ReviewType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('rating', ChoiceType::class, [
+            ->add('note', ChoiceType::class, [
                 'label' => 'Note',
                 'choices' => [
                     '1' => 1,
@@ -30,14 +32,19 @@ final class ReviewType extends AbstractType
                     '3' => 3,
                     '4' => 4,
                     '5' => 5,
-                ]
+                ],
             ])
             ->add('comment', TextareaType::class, [
                 'label' => 'Commentaire',
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'Commentaire',
-                ]
+                ],
             ]);
+    }
+
+    public function getBlockPrefix(): string
+    {
+        return 'review_form';
     }
 }

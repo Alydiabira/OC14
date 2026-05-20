@@ -11,7 +11,16 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email as EmailConstraint;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NoSuspiciousCharacters;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotCompromisedPassword;
+use Symfony\Component\Validator\Constraints\PasswordStrength;
 
+/**
+ * @extends AbstractType<User>
+ */
 final class RegisterType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
@@ -24,21 +33,41 @@ final class RegisterType extends AbstractType
         $builder
             ->add('username', TextType::class, [
                 'label' => 'Pseudo',
+                'error_bubbling' => true,
+                'empty_data' => '',
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(max: 30),
+                ],
                 'attr' => [
                     'placeholder' => 'Pseudo',
-                ]
+                ],
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
+                'empty_data' => '',
+                'constraints' => [
+                    new NotBlank(),
+                    new EmailConstraint(),
+                    new NoSuspiciousCharacters(),
+                    new Length(max: 180),
+                ],
                 'attr' => [
                     'placeholder' => 'Email',
-                ]
+                ],
             ])
             ->add('plainPassword', PasswordType::class, [
                 'label' => 'Mot de passe',
+                'mapped' => false,
+                'empty_data' => '',
+                'constraints' => [
+                    new NotBlank(),
+                    new PasswordStrength(),
+                    new NotCompromisedPassword(),
+                ],
                 'attr' => [
                     'placeholder' => 'Mot de passe',
-                ]
+                ],
             ]);
     }
 }

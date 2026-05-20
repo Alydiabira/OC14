@@ -1,0 +1,1006 @@
+<?php
+
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Extension\SandboxExtension;
+use Twig\Markup;
+use Twig\Sandbox\SecurityError;
+use Twig\Sandbox\SecurityNotAllowedTagError;
+use Twig\Sandbox\SecurityNotAllowedFilterError;
+use Twig\Sandbox\SecurityNotAllowedFunctionError;
+use Twig\Source;
+use Twig\Template;
+
+/* @WebProfiler/Collector/request.html.twig */
+class __TwigTemplate_d2f2af18ca81fab6a31d87b6d45683ba extends Template
+{
+    private $source;
+    private $macros = [];
+
+    public function __construct(Environment $env)
+    {
+        parent::__construct($env);
+
+        $this->source = $this->getSourceContext();
+
+        $this->blocks = [
+            'head' => [$this, 'block_head'],
+            'toolbar' => [$this, 'block_toolbar'],
+            'menu' => [$this, 'block_menu'],
+            'panel' => [$this, 'block_panel'],
+        ];
+        $macros["_self"] = $this->macros["_self"] = $this;
+    }
+
+    protected function doGetParent(array $context)
+    {
+        // line 1
+        return "@WebProfiler/Profiler/layout.html.twig";
+    }
+
+    protected function doDisplay(array $context, array $blocks = [])
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "@WebProfiler/Collector/request.html.twig"));
+
+        $this->parent = $this->loadTemplate("@WebProfiler/Profiler/layout.html.twig", "@WebProfiler/Collector/request.html.twig", 1);
+        $this->parent->display($context, array_merge($this->blocks, $blocks));
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+    }
+
+    // line 3
+    public function block_head($context, array $blocks = [])
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "head"));
+
+        // line 4
+        echo "    ";
+        $this->displayParentBlock("head", $context, $blocks);
+        echo "
+
+    <style>
+        .empty-query-post-files {
+            display: flex;
+            justify-content: space-between;
+        }
+        .empty-query-post-files > div {
+            flex: 1;
+        }
+        .empty-query-post-files > div + div {
+            margin-left: 30px;
+        }
+        .empty-query-post-files h3 {
+            margin-top: 0;
+        }
+        .empty-query-post-files .empty {
+            margin-bottom: 0;
+        }
+    </style>
+";
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+    }
+
+    // line 26
+    public function block_toolbar($context, array $blocks = [])
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "toolbar"));
+
+        // line 27
+        echo "    ";
+        ob_start(function () { return ''; });
+        // line 28
+        echo "        ";
+        echo twig_call_macro($macros["_self"], "macro_set_handler", [twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "controller", [], "any", false, false, false, 28)], 28, $context, $this->getSourceContext());
+        echo "
+    ";
+        $context["request_handler"] = ('' === $tmp = ob_get_clean()) ? '' : new Markup($tmp, $this->env->getCharset());
+        // line 30
+        echo "
+    ";
+        // line 31
+        if (twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "redirect", [], "any", false, false, false, 31)) {
+            // line 32
+            echo "        ";
+            ob_start(function () { return ''; });
+            // line 33
+            echo "            ";
+            echo twig_call_macro($macros["_self"], "macro_set_handler", [twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "redirect", [], "any", false, false, false, 33), "controller", [], "any", false, false, false, 33), twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "redirect", [], "any", false, false, false, 33), "route", [], "any", false, false, false, 33), ((("GET" != twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "redirect", [], "any", false, false, false, 33), "method", [], "any", false, false, false, 33))) ? (twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "redirect", [], "any", false, false, false, 33), "method", [], "any", false, false, false, 33)) : (""))], 33, $context, $this->getSourceContext());
+            echo "
+        ";
+            $context["redirect_handler"] = ('' === $tmp = ob_get_clean()) ? '' : new Markup($tmp, $this->env->getCharset());
+            // line 35
+            echo "    ";
+        }
+        // line 36
+        echo "
+    ";
+        // line 37
+        if (twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "forwardtoken", [], "any", false, false, false, 37)) {
+            // line 38
+            echo "        ";
+            $context["forward_profile"] = twig_get_attribute($this->env, $this->source, ($context["profile"] ?? null), "childByToken", [twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "forwardtoken", [], "any", false, false, false, 38)], "method", false, false, false, 38);
+            // line 39
+            echo "        ";
+            ob_start(function () { return ''; });
+            // line 40
+            echo "            ";
+            echo twig_call_macro($macros["_self"], "macro_set_handler", [((($context["forward_profile"] ?? null)) ? (twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["forward_profile"] ?? null), "collector", ["request"], "method", false, false, false, 40), "controller", [], "any", false, false, false, 40)) : ("n/a"))], 40, $context, $this->getSourceContext());
+            echo "
+        ";
+            $context["forward_handler"] = ('' === $tmp = ob_get_clean()) ? '' : new Markup($tmp, $this->env->getCharset());
+            // line 42
+            echo "    ";
+        }
+        // line 43
+        echo "
+    ";
+        // line 44
+        $context["request_status_code_color"] = (((twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "statuscode", [], "any", false, false, false, 44) >= 400)) ? ("red") : ((((twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "statuscode", [], "any", false, false, false, 44) >= 300)) ? ("yellow") : ("green"))));
+        // line 45
+        echo "
+    ";
+        // line 46
+        ob_start(function () { return ''; });
+        // line 47
+        echo "        <span class=\"sf-toolbar-status sf-toolbar-status-";
+        echo twig_escape_filter($this->env, ($context["request_status_code_color"] ?? null), "html", null, true);
+        echo "\">";
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "statuscode", [], "any", false, false, false, 47), "html", null, true);
+        echo "</span>
+        ";
+        // line 48
+        if (twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "route", [], "any", false, false, false, 48)) {
+            // line 49
+            echo "            ";
+            if (twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "redirect", [], "any", false, false, false, 49)) {
+                echo "<span class=\"sf-toolbar-request-icon\">";
+                echo twig_source($this->env, "@WebProfiler/Icon/redirect.svg");
+                echo "</span>";
+            }
+            // line 50
+            echo "            ";
+            if (twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "forwardtoken", [], "any", false, false, false, 50)) {
+                echo "<span class=\"sf-toolbar-request-icon\">";
+                echo twig_source($this->env, "@WebProfiler/Icon/forward.svg");
+                echo "</span>";
+            }
+            // line 51
+            echo "            <span class=\"sf-toolbar-label\">";
+            ((("GET" != twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "method", [], "any", false, false, false, 51))) ? (print (twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "method", [], "any", false, false, false, 51), "html", null, true))) : (print ("")));
+            echo " @</span>
+            <span class=\"sf-toolbar-value sf-toolbar-info-piece-additional\">";
+            // line 52
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "route", [], "any", false, false, false, 52), "html", null, true);
+            echo "</span>
+        ";
+        }
+        // line 54
+        echo "    ";
+        $context["icon"] = ('' === $tmp = ob_get_clean()) ? '' : new Markup($tmp, $this->env->getCharset());
+        // line 55
+        echo "
+    ";
+        // line 56
+        ob_start(function () { return ''; });
+        // line 57
+        echo "        <div class=\"sf-toolbar-info-group\">
+            <div class=\"sf-toolbar-info-piece\">
+                <b>HTTP status</b>
+                <span>";
+        // line 60
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "statuscode", [], "any", false, false, false, 60), "html", null, true);
+        echo " ";
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "statustext", [], "any", false, false, false, 60), "html", null, true);
+        echo "</span>
+            </div>
+
+            ";
+        // line 63
+        if (("GET" != twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "method", [], "any", false, false, false, 63))) {
+            // line 64
+            echo "<div class=\"sf-toolbar-info-piece\">
+                    <b>Method</b>
+                    <span>";
+            // line 66
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "method", [], "any", false, false, false, 66), "html", null, true);
+            echo "</span>
+                </div>";
+        }
+        // line 69
+        echo "
+            <div class=\"sf-toolbar-info-piece\">
+                <b>Controller</b>
+                <span>";
+        // line 72
+        echo twig_escape_filter($this->env, ($context["request_handler"] ?? null), "html", null, true);
+        echo "</span>
+            </div>
+
+            <div class=\"sf-toolbar-info-piece\">
+                <b>Route name</b>
+                <span>";
+        // line 77
+        echo twig_escape_filter($this->env, ((twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "route", [], "any", true, true, false, 77)) ? (_twig_default_filter(twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "route", [], "any", false, false, false, 77), "n/a")) : ("n/a")), "html", null, true);
+        echo "</span>
+            </div>
+
+            <div class=\"sf-toolbar-info-piece\">
+                <b>Has session</b>
+                <span>";
+        // line 82
+        if (twig_length_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "sessionmetadata", [], "any", false, false, false, 82))) {
+            echo "yes";
+        } else {
+            echo "no";
+        }
+        echo "</span>
+            </div>
+
+            <div class=\"sf-toolbar-info-piece\">
+                <b>Stateless Check</b>
+                <span>";
+        // line 87
+        if (twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "statelesscheck", [], "any", false, false, false, 87)) {
+            echo "yes";
+        } else {
+            echo "no";
+        }
+        echo "</span>
+            </div>
+        </div>
+
+        ";
+        // line 91
+        if (array_key_exists("redirect_handler", $context)) {
+            // line 92
+            echo "<div class=\"sf-toolbar-info-group\">
+                <div class=\"sf-toolbar-info-piece\">
+                    <b>
+                        <span class=\"sf-toolbar-redirection-status sf-toolbar-status-yellow\">";
+            // line 95
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "redirect", [], "any", false, false, false, 95), "status_code", [], "any", false, false, false, 95), "html", null, true);
+            echo "</span>
+                        Redirect from
+                    </b>
+                    <span>
+                        ";
+            // line 99
+            echo twig_escape_filter($this->env, ($context["redirect_handler"] ?? null), "html", null, true);
+            echo "
+                        (<a href=\"";
+            // line 100
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("_profiler", ["token" => twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "redirect", [], "any", false, false, false, 100), "token", [], "any", false, false, false, 100)]), "html", null, true);
+            echo "\">";
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "redirect", [], "any", false, false, false, 100), "token", [], "any", false, false, false, 100), "html", null, true);
+            echo "</a>)
+                    </span>
+                </div>
+            </div>
+        ";
+        }
+        // line 105
+        echo "
+        ";
+        // line 106
+        if (array_key_exists("forward_handler", $context)) {
+            // line 107
+            echo "            <div class=\"sf-toolbar-info-group\">
+                <div class=\"sf-toolbar-info-piece\">
+                    <b>Forwarded to</b>
+                    <span>
+                        ";
+            // line 111
+            echo twig_escape_filter($this->env, ($context["forward_handler"] ?? null), "html", null, true);
+            echo "
+                        (<a href=\"";
+            // line 112
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("_profiler", ["token" => twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "forwardtoken", [], "any", false, false, false, 112)]), "html", null, true);
+            echo "\">";
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "forwardtoken", [], "any", false, false, false, 112), "html", null, true);
+            echo "</a>)
+                    </span>
+                </div>
+            </div>
+        ";
+        }
+        // line 117
+        echo "    ";
+        $context["text"] = ('' === $tmp = ob_get_clean()) ? '' : new Markup($tmp, $this->env->getCharset());
+        // line 118
+        echo "
+    ";
+        // line 119
+        echo twig_include($this->env, $context, "@WebProfiler/Profiler/toolbar_item.html.twig", ["link" => ($context["profiler_url"] ?? null)]);
+        echo "
+";
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+    }
+
+    // line 122
+    public function block_menu($context, array $blocks = [])
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "menu"));
+
+        // line 123
+        echo "    <span class=\"label\">
+        <span class=\"icon\">";
+        // line 124
+        echo twig_source($this->env, "@WebProfiler/Icon/request.svg");
+        echo "</span>
+        <strong>Request / Response</strong>
+    </span>
+";
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+    }
+
+    // line 129
+    public function block_panel($context, array $blocks = [])
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "panel"));
+
+        // line 130
+        echo "    ";
+        $context["controller_name"] = twig_call_macro($macros["_self"], "macro_set_handler", [twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "controller", [], "any", false, false, false, 130)], 130, $context, $this->getSourceContext());
+        // line 131
+        echo "    <h2>
+        ";
+        // line 132
+        ((twig_in_filter("n/a", ($context["controller_name"] ?? null))) ? (print ("Request / Response")) : (print (twig_escape_filter($this->env, ($context["controller_name"] ?? null), "html", null, true))));
+        echo "
+    </h2>
+
+    <div class=\"sf-tabs\">
+        <div class=\"tab\">
+            <h3 class=\"tab-title\">Request</h3>
+
+            <div class=\"tab-content\">
+                ";
+        // line 140
+        $context["has_no_query_post_or_files"] = ((twig_test_empty(twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "requestquery", [], "any", false, false, false, 140), "all", [], "any", false, false, false, 140)) && twig_test_empty(twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "requestrequest", [], "any", false, false, false, 140), "all", [], "any", false, false, false, 140))) && twig_test_empty(twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "requestfiles", [], "any", false, false, false, 140)));
+        // line 141
+        echo "                ";
+        if (($context["has_no_query_post_or_files"] ?? null)) {
+            // line 142
+            echo "                    <div class=\"empty-query-post-files\" style=\"display: flex; align-items: stretch\">
+                        <div>
+                            <h3>GET Parameters</h3>
+                            <div class=\"empty\"><p>None</p></div>
+                        </div>
+                        <div>
+                            <h3>POST Parameters</h3>
+                            <div class=\"empty\"><p>None</p></div>
+                        </div>
+                        <div>
+                            <h3>Uploaded Files</h3>
+                            <div class=\"empty\"><p>None</p></div>
+                        </div>
+                    </div>
+                ";
+        } else {
+            // line 157
+            echo "                    <h3>GET Parameters</h3>
+
+                    ";
+            // line 159
+            if (twig_test_empty(twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "requestquery", [], "any", false, false, false, 159), "all", [], "any", false, false, false, 159))) {
+                // line 160
+                echo "                        <div class=\"empty\">
+                            <p>No GET parameters</p>
+                        </div>
+                    ";
+            } else {
+                // line 164
+                echo "                        ";
+                echo twig_include($this->env, $context, "@WebProfiler/Profiler/bag.html.twig", ["bag" => twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "requestquery", [], "any", false, false, false, 164), "maxDepth" => 1], false);
+                echo "
+                    ";
+            }
+            // line 166
+            echo "
+                    <h3>POST Parameters</h3>
+
+                    ";
+            // line 169
+            if (twig_test_empty(twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "requestrequest", [], "any", false, false, false, 169), "all", [], "any", false, false, false, 169))) {
+                // line 170
+                echo "                        <div class=\"empty\">
+                            <p>No POST parameters</p>
+                        </div>
+                    ";
+            } else {
+                // line 174
+                echo "                        ";
+                echo twig_include($this->env, $context, "@WebProfiler/Profiler/bag.html.twig", ["bag" => twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "requestrequest", [], "any", false, false, false, 174), "maxDepth" => 1], false);
+                echo "
+                    ";
+            }
+            // line 176
+            echo "
+                    <h4>Uploaded Files</h4>
+
+                    ";
+            // line 179
+            if (twig_test_empty(twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "requestfiles", [], "any", false, false, false, 179))) {
+                // line 180
+                echo "                        <div class=\"empty\">
+                            <p>No files were uploaded</p>
+                        </div>
+                    ";
+            } else {
+                // line 184
+                echo "                        ";
+                echo twig_include($this->env, $context, "@WebProfiler/Profiler/bag.html.twig", ["bag" => twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "requestfiles", [], "any", false, false, false, 184), "maxDepth" => 1], false);
+                echo "
+                    ";
+            }
+            // line 186
+            echo "                ";
+        }
+        // line 187
+        echo "
+                <h3>Request Attributes</h3>
+
+                ";
+        // line 190
+        if (twig_test_empty(twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "requestattributes", [], "any", false, false, false, 190), "all", [], "any", false, false, false, 190))) {
+            // line 191
+            echo "                    <div class=\"empty\">
+                        <p>No attributes</p>
+                    </div>
+                ";
+        } else {
+            // line 195
+            echo "                    ";
+            echo twig_include($this->env, $context, "@WebProfiler/Profiler/bag.html.twig", ["bag" => twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "requestattributes", [], "any", false, false, false, 195)], false);
+            echo "
+                ";
+        }
+        // line 197
+        echo "
+                <h3>Request Headers</h3>
+                ";
+        // line 199
+        echo twig_include($this->env, $context, "@WebProfiler/Profiler/bag.html.twig", ["bag" => twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "requestheaders", [], "any", false, false, false, 199), "labels" => ["Header", "Value"], "maxDepth" => 1], false);
+        echo "
+
+                <h3>Request Content</h3>
+
+                ";
+        // line 203
+        if ((twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "content", [], "any", false, false, false, 203) == false)) {
+            // line 204
+            echo "                    <div class=\"empty\">
+                        <p>Request content not available (it was retrieved as a resource).</p>
+                    </div>
+                ";
+        } elseif (twig_get_attribute($this->env, $this->source,         // line 207
+($context["collector"] ?? null), "content", [], "any", false, false, false, 207)) {
+            // line 208
+            echo "                    <div class=\"sf-tabs\">
+                        ";
+            // line 209
+            $context["prettyJson"] = ((twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "isJsonRequest", [], "any", false, false, false, 209)) ? (twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "prettyJson", [], "any", false, false, false, 209)) : (null));
+            // line 210
+            echo "                        ";
+            if ( !(null === ($context["prettyJson"] ?? null))) {
+                // line 211
+                echo "                        <div class=\"tab\">
+                            <h3 class=\"tab-title\">Pretty</h3>
+                            <div class=\"tab-content\">
+                                <div class=\"card\" style=\"max-height: 500px; overflow-y: auto;\">
+                                    <pre class=\"break-long-words\">";
+                // line 215
+                echo twig_escape_filter($this->env, ($context["prettyJson"] ?? null), "html", null, true);
+                echo "</pre>
+                                </div>
+                            </div>
+                        </div>
+                        ";
+            }
+            // line 220
+            echo "
+                        <div class=\"tab\">
+                            <h3 class=\"tab-title\">Raw</h3>
+                            <div class=\"tab-content\">
+                                <div class=\"card\">
+                                    <pre class=\"break-long-words\">";
+            // line 225
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "content", [], "any", false, false, false, 225), "html", null, true);
+            echo "</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ";
+        } else {
+            // line 231
+            echo "                    <div class=\"empty\">
+                        <p>No content</p>
+                    </div>
+                ";
+        }
+        // line 235
+        echo "            </div>
+        </div>
+
+        <div class=\"tab\">
+            <h3 class=\"tab-title\">Response</h3>
+
+            <div class=\"tab-content\">
+                <h3>Response Headers</h3>
+
+                ";
+        // line 244
+        echo twig_include($this->env, $context, "@WebProfiler/Profiler/bag.html.twig", ["bag" => twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "responseheaders", [], "any", false, false, false, 244), "labels" => ["Header", "Value"], "maxDepth" => 1], false);
+        echo "
+            </div>
+        </div>
+
+        <div class=\"tab ";
+        // line 248
+        echo (((twig_test_empty(twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "requestcookies", [], "any", false, false, false, 248), "all", [], "any", false, false, false, 248)) && twig_test_empty(twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "responsecookies", [], "any", false, false, false, 248), "all", [], "any", false, false, false, 248)))) ? ("disabled") : (""));
+        echo "\">
+            <h3 class=\"tab-title\">Cookies</h3>
+
+            <div class=\"tab-content\">
+                <h3>Request Cookies</h3>
+
+                ";
+        // line 254
+        if (twig_test_empty(twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "requestcookies", [], "any", false, false, false, 254), "all", [], "any", false, false, false, 254))) {
+            // line 255
+            echo "                    <div class=\"empty\">
+                        <p>No request cookies</p>
+                    </div>
+                ";
+        } else {
+            // line 259
+            echo "                    ";
+            echo twig_include($this->env, $context, "@WebProfiler/Profiler/bag.html.twig", ["bag" => twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "requestcookies", [], "any", false, false, false, 259)], false);
+            echo "
+                ";
+        }
+        // line 261
+        echo "
+                <h3>Response Cookies</h3>
+
+                ";
+        // line 264
+        if (twig_test_empty(twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "responsecookies", [], "any", false, false, false, 264), "all", [], "any", false, false, false, 264))) {
+            // line 265
+            echo "                    <div class=\"empty\">
+                        <p>No response cookies</p>
+                    </div>
+                ";
+        } else {
+            // line 269
+            echo "                    ";
+            echo twig_include($this->env, $context, "@WebProfiler/Profiler/bag.html.twig", ["bag" => twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "responsecookies", [], "any", false, false, false, 269)], true);
+            echo "
+                ";
+        }
+        // line 271
+        echo "            </div>
+        </div>
+
+        <div class=\"tab ";
+        // line 274
+        echo ((twig_test_empty(twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "sessionmetadata", [], "any", false, false, false, 274))) ? ("disabled") : (""));
+        echo "\">
+            <h3 class=\"tab-title\">Session";
+        // line 275
+        if ( !twig_test_empty(twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "sessionusages", [], "any", false, false, false, 275))) {
+            echo " <span class=\"badge\">";
+            echo twig_escape_filter($this->env, twig_length_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "sessionusages", [], "any", false, false, false, 275)), "html", null, true);
+            echo "</span>";
+        }
+        echo "</h3>
+
+            <div class=\"tab-content\">
+                <h3>Session Metadata</h3>
+
+                ";
+        // line 280
+        if (twig_test_empty(twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "sessionmetadata", [], "any", false, false, false, 280))) {
+            // line 281
+            echo "                    <div class=\"empty\">
+                        <p>No session metadata</p>
+                    </div>
+                ";
+        } else {
+            // line 285
+            echo "                    ";
+            echo twig_include($this->env, $context, "@WebProfiler/Profiler/table.html.twig", ["data" => twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "sessionmetadata", [], "any", false, false, false, 285)], false);
+            echo "
+                ";
+        }
+        // line 287
+        echo "
+                <h3>Session Attributes</h3>
+
+                ";
+        // line 290
+        if (twig_test_empty(twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "sessionattributes", [], "any", false, false, false, 290))) {
+            // line 291
+            echo "                    <div class=\"empty\">
+                        <p>No session attributes</p>
+                    </div>
+                ";
+        } else {
+            // line 295
+            echo "                    ";
+            echo twig_include($this->env, $context, "@WebProfiler/Profiler/table.html.twig", ["data" => twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "sessionattributes", [], "any", false, false, false, 295), "labels" => ["Attribute", "Value"]], false);
+            echo "
+                ";
+        }
+        // line 297
+        echo "
+                <h3>Session Usage</h3>
+
+                <div class=\"metrics\">
+                    <div class=\"metric\">
+                        <span class=\"value\">";
+        // line 302
+        echo twig_escape_filter($this->env, twig_length_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "sessionusages", [], "any", false, false, false, 302)), "html", null, true);
+        echo "</span>
+                        <span class=\"label\">Usages</span>
+                    </div>
+
+                    <div class=\"metric\">
+                        <span class=\"value\">";
+        // line 307
+        echo twig_source($this->env, (("@WebProfiler/Icon/" . ((twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "statelesscheck", [], "any", false, false, false, 307)) ? ("yes") : ("no"))) . ".svg"));
+        echo "</span>
+                        <span class=\"label\">Stateless check enabled</span>
+                    </div>
+                </div>
+
+                ";
+        // line 312
+        if (twig_test_empty(twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "sessionusages", [], "any", false, false, false, 312))) {
+            // line 313
+            echo "                    <div class=\"empty\">
+                        <p>Session not used.</p>
+                    </div>
+                ";
+        } else {
+            // line 317
+            echo "                    <table class=\"session_usages\">
+                        <thead>
+                        <tr>
+                            <th class=\"full-width\">Usage</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        ";
+            // line 325
+            $context['_parent'] = $context;
+            $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "sessionusages", [], "any", false, false, false, 325));
+            foreach ($context['_seq'] as $context["key"] => $context["usage"]) {
+                // line 326
+                echo "                            <tr>
+                                <td class=\"font-normal\">";
+                // line 328
+                $context["link"] = $this->extensions['Symfony\Bridge\Twig\Extension\CodeExtension']->getFileLink(twig_get_attribute($this->env, $this->source, $context["usage"], "file", [], "any", false, false, false, 328), twig_get_attribute($this->env, $this->source, $context["usage"], "line", [], "any", false, false, false, 328));
+                // line 329
+                if (($context["link"] ?? null)) {
+                    echo "<a href=\"";
+                    echo twig_escape_filter($this->env, ($context["link"] ?? null), "html", null, true);
+                    echo "\" title=\"";
+                    echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["usage"], "name", [], "any", false, false, false, 329), "html", null, true);
+                    echo "\">";
+                } else {
+                    echo "<span title=\"";
+                    echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["usage"], "name", [], "any", false, false, false, 329), "html", null, true);
+                    echo "\">";
+                }
+                // line 330
+                echo "                                        ";
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["usage"], "name", [], "any", false, false, false, 330), "html", null, true);
+                // line 331
+                if (($context["link"] ?? null)) {
+                    echo "</a>";
+                } else {
+                    echo "</span>";
+                }
+                // line 332
+                echo "                                    <div class=\"text-small font-normal\">
+                                        ";
+                // line 333
+                $context["usage_id"] = ("session-usage-trace-" . $context["key"]);
+                // line 334
+                echo "                                        <a class=\"btn btn-link text-small sf-toggle\" data-toggle-selector=\"#";
+                echo twig_escape_filter($this->env, ($context["usage_id"] ?? null), "html", null, true);
+                echo "\" data-toggle-alt-content=\"Hide trace\">Show trace</a>
+                                    </div>
+                                    <div id=\"";
+                // line 336
+                echo twig_escape_filter($this->env, ($context["usage_id"] ?? null), "html", null, true);
+                echo "\" class=\"context sf-toggle-content sf-toggle-hidden\">
+                                        ";
+                // line 337
+                echo $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, twig_get_attribute($this->env, $this->source, $context["usage"], "trace", [], "any", false, false, false, 337), 2);
+                echo "
+                                    </div>
+                                </td>
+                            </tr>
+                        ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['key'], $context['usage'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 342
+            echo "                        </tbody>
+                    </table>
+                ";
+        }
+        // line 345
+        echo "            </div>
+        </div>
+
+        <div class=\"tab ";
+        // line 348
+        echo ((twig_test_empty(twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "flashes", [], "any", false, false, false, 348))) ? ("disabled") : (""));
+        echo "\">
+            <h3 class=\"tab-title\">Flashes</h3>
+
+            <div class=\"tab-content\">
+                <h3>Flashes</h3>
+
+                ";
+        // line 354
+        if (twig_test_empty(twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "flashes", [], "any", false, false, false, 354))) {
+            // line 355
+            echo "                    <div class=\"empty\">
+                        <p>No flash messages were created.</p>
+                    </div>
+                ";
+        } else {
+            // line 359
+            echo "                    ";
+            echo twig_include($this->env, $context, "@WebProfiler/Profiler/table.html.twig", ["data" => twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "flashes", [], "any", false, false, false, 359)], false);
+            echo "
+                ";
+        }
+        // line 361
+        echo "            </div>
+        </div>
+
+        <div class=\"tab\">
+            <h3 class=\"tab-title\">Server Parameters</h3>
+            <div class=\"tab-content\">
+                <h3>Server Parameters</h3>
+                <h4>Defined in .env</h4>
+                ";
+        // line 369
+        echo twig_include($this->env, $context, "@WebProfiler/Profiler/bag.html.twig", ["bag" => twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "dotenvvars", [], "any", false, false, false, 369)], false);
+        echo "
+
+                <h4>Defined as regular env variables</h4>
+                ";
+        // line 372
+        $context["requestserver"] = [];
+        // line 373
+        echo "                ";
+        $context['_parent'] = $context;
+        $context['_seq'] = twig_ensure_traversable(twig_array_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "requestserver", [], "any", false, false, false, 373), function ($_____, $__key__) use ($context, $macros) { $context["_"] = $_____; $context["key"] = $__key__; return !twig_in_filter($context["key"], twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["collector"] ?? null), "dotenvvars", [], "any", false, false, false, 373), "keys", [], "any", false, false, false, 373)); }));
+        foreach ($context['_seq'] as $context["key"] => $context["value"]) {
+            // line 374
+            echo "                    ";
+            $context["requestserver"] = twig_array_merge(($context["requestserver"] ?? null), [$context["key"] => $context["value"]]);
+            // line 375
+            echo "                ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['key'], $context['value'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 376
+        echo "                ";
+        echo twig_include($this->env, $context, "@WebProfiler/Profiler/table.html.twig", ["data" => ($context["requestserver"] ?? null)], false);
+        echo "
+            </div>
+        </div>
+
+        ";
+        // line 380
+        if (twig_get_attribute($this->env, $this->source, ($context["profile"] ?? null), "parent", [], "any", false, false, false, 380)) {
+            // line 381
+            echo "        <div class=\"tab\">
+            <h3 class=\"tab-title\">Parent Request</h3>
+
+            <div class=\"tab-content\">
+                <h3>
+                    <a href=\"";
+            // line 386
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("_profiler", ["token" => twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["profile"] ?? null), "parent", [], "any", false, false, false, 386), "token", [], "any", false, false, false, 386)]), "html", null, true);
+            echo "\">Return to parent request</a>
+                    <small>(token = ";
+            // line 387
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["profile"] ?? null), "parent", [], "any", false, false, false, 387), "token", [], "any", false, false, false, 387), "html", null, true);
+            echo ")</small>
+                </h3>
+
+                ";
+            // line 390
+            echo twig_include($this->env, $context, "@WebProfiler/Profiler/bag.html.twig", ["bag" => twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["profile"] ?? null), "parent", [], "any", false, false, false, 390), "getcollector", ["request"], "method", false, false, false, 390), "requestattributes", [], "any", false, false, false, 390)], false);
+            echo "
+            </div>
+        </div>
+        ";
+        }
+        // line 394
+        echo "
+        ";
+        // line 395
+        if (twig_length_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["profile"] ?? null), "children", [], "any", false, false, false, 395))) {
+            // line 396
+            echo "        <div class=\"tab\">
+            <h3 class=\"tab-title\">Sub Requests <span class=\"badge\">";
+            // line 397
+            echo twig_escape_filter($this->env, twig_length_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["profile"] ?? null), "children", [], "any", false, false, false, 397)), "html", null, true);
+            echo "</span></h3>
+
+            <div class=\"tab-content\">
+                ";
+            // line 400
+            $context['_parent'] = $context;
+            $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, ($context["profile"] ?? null), "children", [], "any", false, false, false, 400));
+            foreach ($context['_seq'] as $context["_key"] => $context["child"]) {
+                // line 401
+                echo "                    <h3>
+                        ";
+                // line 402
+                echo twig_call_macro($macros["_self"], "macro_set_handler", [twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["child"], "getcollector", ["request"], "method", false, false, false, 402), "controller", [], "any", false, false, false, 402)], 402, $context, $this->getSourceContext());
+                echo "
+                        <small>(token = <a href=\"";
+                // line 403
+                echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("_profiler", ["token" => twig_get_attribute($this->env, $this->source, $context["child"], "token", [], "any", false, false, false, 403)]), "html", null, true);
+                echo "\">";
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["child"], "token", [], "any", false, false, false, 403), "html", null, true);
+                echo "</a>)</small>
+                    </h3>
+
+                    ";
+                // line 406
+                echo twig_include($this->env, $context, "@WebProfiler/Profiler/bag.html.twig", ["bag" => twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["child"], "getcollector", ["request"], "method", false, false, false, 406), "requestattributes", [], "any", false, false, false, 406)], false);
+                echo "
+                ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['child'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 408
+            echo "            </div>
+        </div>
+        ";
+        }
+        // line 411
+        echo "    </div>
+";
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+    }
+
+    // line 414
+    public function macro_set_handler($__controller__ = null, $__route__ = null, $__method__ = null, ...$__varargs__)
+    {
+        $macros = $this->macros;
+        $context = $this->env->mergeGlobals([
+            "controller" => $__controller__,
+            "route" => $__route__,
+            "method" => $__method__,
+            "varargs" => $__varargs__,
+        ]);
+
+        $blocks = [];
+
+        ob_start(function () { return ''; });
+        try {
+            $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+            $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "macro", "set_handler"));
+
+            // line 415
+            echo "    ";
+            if (twig_get_attribute($this->env, $this->source, ($context["controller"] ?? null), "class", [], "any", true, true, false, 415)) {
+                // line 416
+                if (((array_key_exists("method", $context)) ? (_twig_default_filter(($context["method"] ?? null), false)) : (false))) {
+                    echo "<span class=\"sf-toolbar-status sf-toolbar-redirection-method\">";
+                    echo twig_escape_filter($this->env, ($context["method"] ?? null), "html", null, true);
+                    echo "</span>";
+                }
+                // line 417
+                $context["link"] = $this->extensions['Symfony\Bridge\Twig\Extension\CodeExtension']->getFileLink(twig_get_attribute($this->env, $this->source, ($context["controller"] ?? null), "file", [], "any", false, false, false, 417), twig_get_attribute($this->env, $this->source, ($context["controller"] ?? null), "line", [], "any", false, false, false, 417));
+                // line 418
+                if (($context["link"] ?? null)) {
+                    echo "<a href=\"";
+                    echo twig_escape_filter($this->env, ($context["link"] ?? null), "html", null, true);
+                    echo "\" title=\"";
+                    echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["controller"] ?? null), "class", [], "any", false, false, false, 418), "html", null, true);
+                    echo "\">";
+                } else {
+                    echo "<span title=\"";
+                    echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["controller"] ?? null), "class", [], "any", false, false, false, 418), "html", null, true);
+                    echo "\">";
+                }
+                // line 420
+                if (((array_key_exists("route", $context)) ? (_twig_default_filter(($context["route"] ?? null), false)) : (false))) {
+                    // line 421
+                    echo "@";
+                    echo twig_escape_filter($this->env, ($context["route"] ?? null), "html", null, true);
+                } else {
+                    // line 423
+                    echo twig_escape_filter($this->env, twig_striptags($this->extensions['Symfony\Bridge\Twig\Extension\CodeExtension']->abbrClass(twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["controller"] ?? null), "class", [], "any", false, false, false, 423), "html", null, true))), "html", null, true);
+                    // line 424
+                    ((twig_get_attribute($this->env, $this->source, ($context["controller"] ?? null), "method", [], "any", false, false, false, 424)) ? (print (twig_escape_filter($this->env, (" :: " . twig_get_attribute($this->env, $this->source, ($context["controller"] ?? null), "method", [], "any", false, false, false, 424)), "html", null, true))) : (print ("")));
+                }
+                // line 427
+                if (($context["link"] ?? null)) {
+                    echo "</a>";
+                } else {
+                    echo "</span>";
+                }
+            } else {
+                // line 429
+                echo "<span>";
+                echo twig_escape_filter($this->env, ((array_key_exists("route", $context)) ? (_twig_default_filter(($context["route"] ?? null), ($context["controller"] ?? null))) : (($context["controller"] ?? null))), "html", null, true);
+                echo "</span>";
+            }
+            
+            $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+
+            return ('' === $tmp = ob_get_contents()) ? '' : new Markup($tmp, $this->env->getCharset());
+        } finally {
+            ob_end_clean();
+        }
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getTemplateName()
+    {
+        return "@WebProfiler/Collector/request.html.twig";
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function isTraitable()
+    {
+        return false;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getDebugInfo()
+    {
+        return array (  964 => 429,  957 => 427,  954 => 424,  952 => 423,  948 => 421,  946 => 420,  934 => 418,  932 => 417,  926 => 416,  923 => 415,  905 => 414,  897 => 411,  892 => 408,  884 => 406,  876 => 403,  872 => 402,  869 => 401,  865 => 400,  859 => 397,  856 => 396,  854 => 395,  851 => 394,  844 => 390,  838 => 387,  834 => 386,  827 => 381,  825 => 380,  817 => 376,  811 => 375,  808 => 374,  803 => 373,  801 => 372,  795 => 369,  785 => 361,  779 => 359,  773 => 355,  771 => 354,  762 => 348,  757 => 345,  752 => 342,  741 => 337,  737 => 336,  731 => 334,  729 => 333,  726 => 332,  720 => 331,  717 => 330,  705 => 329,  703 => 328,  700 => 326,  696 => 325,  686 => 317,  680 => 313,  678 => 312,  670 => 307,  662 => 302,  655 => 297,  649 => 295,  643 => 291,  641 => 290,  636 => 287,  630 => 285,  624 => 281,  622 => 280,  610 => 275,  606 => 274,  601 => 271,  595 => 269,  589 => 265,  587 => 264,  582 => 261,  576 => 259,  570 => 255,  568 => 254,  559 => 248,  552 => 244,  541 => 235,  535 => 231,  526 => 225,  519 => 220,  511 => 215,  505 => 211,  502 => 210,  500 => 209,  497 => 208,  495 => 207,  490 => 204,  488 => 203,  481 => 199,  477 => 197,  471 => 195,  465 => 191,  463 => 190,  458 => 187,  455 => 186,  449 => 184,  443 => 180,  441 => 179,  436 => 176,  430 => 174,  424 => 170,  422 => 169,  417 => 166,  411 => 164,  405 => 160,  403 => 159,  399 => 157,  382 => 142,  379 => 141,  377 => 140,  366 => 132,  363 => 131,  360 => 130,  353 => 129,  342 => 124,  339 => 123,  332 => 122,  323 => 119,  320 => 118,  317 => 117,  307 => 112,  303 => 111,  297 => 107,  295 => 106,  292 => 105,  282 => 100,  278 => 99,  271 => 95,  266 => 92,  264 => 91,  253 => 87,  241 => 82,  233 => 77,  225 => 72,  220 => 69,  215 => 66,  211 => 64,  209 => 63,  201 => 60,  196 => 57,  194 => 56,  191 => 55,  188 => 54,  183 => 52,  178 => 51,  171 => 50,  164 => 49,  162 => 48,  155 => 47,  153 => 46,  150 => 45,  148 => 44,  145 => 43,  142 => 42,  136 => 40,  133 => 39,  130 => 38,  128 => 37,  125 => 36,  122 => 35,  116 => 33,  113 => 32,  111 => 31,  108 => 30,  102 => 28,  99 => 27,  92 => 26,  63 => 4,  56 => 3,  39 => 1,);
+    }
+
+    public function getSourceContext()
+    {
+        return new Source("", "@WebProfiler/Collector/request.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/Exercice Mettez en place des tests dans votre code/vendor/symfony/web-profiler-bundle/Resources/views/Collector/request.html.twig");
+    }
+}

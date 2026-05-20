@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -22,24 +23,39 @@ final class AuthController extends AbstractController
         return $this->render('views/auth/login.html.twig', [
             'controller_name' => 'LoginController',
             'last_username' => $authenticationUtils->getLastUsername(),
-            'error'         => $authenticationUtils->getLastAuthenticationError(),
+            'error' => $authenticationUtils->getLastAuthenticationError(),
         ]);
     }
 
     #[Route('/register', name: 'register', methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    public function register(Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function register(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $passwordHasher,
+    ): Response {
         $user = new User();
 
         $form = $this->createForm(RegisterType::class, $user)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // 🔥 Correction PHPStan : sécurisation + typage strict
+            $data = $form->get('plainPassword')->getData();
+            $plainPassword = is_string($data) ? $data : '';
+
+            $hashedPassword = $passwordHasher->hashPassword($user, $plainPassword);
+            $user->setPassword($hashedPassword);
+
             $entityManager->persist($user);
             $entityManager->flush();
+
             $this->addFlash('success', 'Inscription réussie. Vous pouvez vous connecter !');
+
             return $this->redirectToRoute('auth_login');
         }
 
-        return $this->render('views/auth/register.html.twig', ['form' => $form]);
+        return $this->render('views/auth/register.html.twig', [
+            'form' => $form,
+        ]);
     }
 }

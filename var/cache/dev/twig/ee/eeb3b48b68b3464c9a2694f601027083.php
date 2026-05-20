@@ -1,0 +1,345 @@
+<?php
+
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Extension\SandboxExtension;
+use Twig\Markup;
+use Twig\Sandbox\SecurityError;
+use Twig\Sandbox\SecurityNotAllowedTagError;
+use Twig\Sandbox\SecurityNotAllowedFilterError;
+use Twig\Sandbox\SecurityNotAllowedFunctionError;
+use Twig\Source;
+use Twig\Template;
+
+/* @WebProfiler/Profiler/layout.html.twig */
+class __TwigTemplate_0b30f973a9cfa5e04d3a8ec04be0ac3e extends Template
+{
+    private $source;
+    private $macros = [];
+
+    public function __construct(Environment $env)
+    {
+        parent::__construct($env);
+
+        $this->source = $this->getSourceContext();
+
+        $this->blocks = [
+            'body' => [$this, 'block_body'],
+            'summary' => [$this, 'block_summary'],
+            'sidebar' => [$this, 'block_sidebar'],
+            'sidebar_shortcuts_links' => [$this, 'block_sidebar_shortcuts_links'],
+            'panel' => [$this, 'block_panel'],
+        ];
+    }
+
+    protected function doGetParent(array $context)
+    {
+        // line 1
+        return "@WebProfiler/Profiler/base.html.twig";
+    }
+
+    protected function doDisplay(array $context, array $blocks = [])
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "@WebProfiler/Profiler/layout.html.twig"));
+
+        $this->parent = $this->loadTemplate("@WebProfiler/Profiler/base.html.twig", "@WebProfiler/Profiler/layout.html.twig", 1);
+        $this->parent->display($context, array_merge($this->blocks, $blocks));
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+    }
+
+    // line 3
+    public function block_body($context, array $blocks = [])
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
+
+        // line 4
+        echo "    <div class=\"container\">
+        ";
+        // line 5
+        echo twig_include($this->env, $context, "@WebProfiler/Profiler/header.html.twig", ["profile_type" => ($context["profile_type"] ?? null)], false);
+        echo "
+
+        <div id=\"summary\">
+        ";
+        // line 8
+        $this->displayBlock('summary', $context, $blocks);
+        // line 21
+        echo "    </div>
+
+        <div id=\"content\">
+            <div id=\"main\">
+                <div id=\"sidebar\">
+                    ";
+        // line 26
+        $this->displayBlock('sidebar', $context, $blocks);
+        // line 71
+        echo "                </div>
+
+                <div id=\"collector-wrapper\">
+                    <div id=\"collector-content\">
+                        ";
+        // line 75
+        echo twig_include($this->env, $context, "@WebProfiler/Profiler/base_js.html.twig");
+        echo "
+                        ";
+        // line 76
+        $this->displayBlock('panel', $context, $blocks);
+        // line 77
+        echo "                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+";
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+    }
+
+    // line 8
+    public function block_summary($context, array $blocks = [])
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "summary"));
+
+        // line 9
+        echo "            ";
+        if (array_key_exists("profile", $context)) {
+            // line 10
+            echo "                ";
+            $context["request_collector"] = ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["profile"] ?? null), "collectors", [], "any", false, true, false, 10), "request", [], "any", true, true, false, 10)) ? (_twig_default_filter(twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["profile"] ?? null), "collectors", [], "any", false, true, false, 10), "request", [], "any", false, false, false, 10), false)) : (false));
+            // line 11
+            echo "
+                ";
+            // line 12
+            echo twig_include($this->env, $context, twig_sprintf("@WebProfiler/Profiler/_%s_summary.html.twig", ($context["profile_type"] ?? null)), ["profile" =>             // line 13
+($context["profile"] ?? null), "command_collector" => ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source,             // line 14
+($context["profile"] ?? null), "collectors", [], "any", false, true, false, 14), "command", [], "any", true, true, false, 14)) ? (_twig_default_filter(twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["profile"] ?? null), "collectors", [], "any", false, true, false, 14), "command", [], "any", false, false, false, 14), false)) : (false)), "request_collector" =>             // line 15
+($context["request_collector"] ?? null), "request" =>             // line 16
+($context["request"] ?? null), "token" =>             // line 17
+($context["token"] ?? null)], false);
+            // line 18
+            echo "
+            ";
+        }
+        // line 20
+        echo "        ";
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+    }
+
+    // line 26
+    public function block_sidebar($context, array $blocks = [])
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "sidebar"));
+
+        // line 27
+        echo "                        <div id=\"sidebar-contents\">
+                            <div id=\"sidebar-shortcuts\">
+                                ";
+        // line 29
+        $this->displayBlock('sidebar_shortcuts_links', $context, $blocks);
+        // line 39
+        echo "
+                                ";
+        // line 40
+        echo $this->env->getRuntime('Symfony\Bridge\Twig\Extension\HttpKernelRuntime')->renderFragment(Symfony\Bridge\Twig\Extension\HttpKernelExtension::controller("web_profiler.controller.profiler::searchBarAction", array(), twig_array_merge(["type" => ($context["profile_type"] ?? null)], twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["request"] ?? null), "query", [], "any", false, false, false, 40), "all", [], "any", false, false, false, 40))));
+        echo "
+                            </div>
+
+                            ";
+        // line 43
+        if (array_key_exists("templates", $context)) {
+            // line 44
+            echo "                                <ul id=\"menu-profiler\">
+                                    ";
+            // line 45
+            if (("request" === ($context["profile_type"] ?? null))) {
+                // line 46
+                echo "                                        ";
+                $context["excludes"] = ["command"];
+                // line 47
+                echo "                                    ";
+            } elseif (("command" === ($context["profile_type"] ?? null))) {
+                // line 48
+                echo "                                        ";
+                $context["excludes"] = ["request", "router"];
+                // line 49
+                echo "                                    ";
+            }
+            // line 50
+            echo "
+                                    ";
+            // line 51
+            $context['_parent'] = $context;
+            $context['_seq'] = twig_ensure_traversable(twig_array_filter($this->env, ($context["templates"] ?? null), function ($__t__, $__n__) use ($context, $macros) { $context["t"] = $__t__; $context["n"] = $__n__; return !twig_in_filter(($context["n"] ?? null), ($context["excludes"] ?? null)); }));
+            $context['loop'] = [
+              'parent' => $context['_parent'],
+              'index0' => 0,
+              'index'  => 1,
+              'first'  => true,
+            ];
+            if (is_array($context['_seq']) || (is_object($context['_seq']) && $context['_seq'] instanceof \Countable)) {
+                $length = count($context['_seq']);
+                $context['loop']['revindex0'] = $length - 1;
+                $context['loop']['revindex'] = $length;
+                $context['loop']['length'] = $length;
+                $context['loop']['last'] = 1 === $length;
+            }
+            foreach ($context['_seq'] as $context["name"] => $context["template"]) {
+                // line 52
+                echo "                                        ";
+                ob_start(function () { return ''; });
+                // line 53
+                if (                $this->loadTemplate($context["template"], "@WebProfiler/Profiler/layout.html.twig", 53)->hasBlock("menu", $context)) {
+                    // line 54
+                    $__internal_compile_0 = $context;
+                    $__internal_compile_1 = ["collector" => twig_get_attribute($this->env, $this->source, ($context["profile"] ?? null), "getcollector", [$context["name"]], "method", false, false, false, 54), "profiler_markup_version" => ($context["profiler_markup_version"] ?? null)];
+                    if (!is_iterable($__internal_compile_1)) {
+                        throw new RuntimeError('Variables passed to the "with" tag must be a hash.', 54, $this->getSourceContext());
+                    }
+                    $__internal_compile_1 = twig_to_array($__internal_compile_1);
+                    $context = $this->env->mergeGlobals(array_merge($context, $__internal_compile_1));
+                    // line 55
+                    $this->loadTemplate($context["template"], "@WebProfiler/Profiler/layout.html.twig", 55)->displayBlock("menu", $context);
+                    $context = $__internal_compile_0;
+                }
+                $context["menu"] = ('' === $tmp = ob_get_clean()) ? '' : new Markup($tmp, $this->env->getCharset());
+                // line 59
+                echo "                                        ";
+                if ( !twig_test_empty(($context["menu"] ?? null))) {
+                    // line 60
+                    echo "                                            <li class=\"";
+                    echo twig_escape_filter($this->env, $context["name"], "html", null, true);
+                    echo " ";
+                    echo ((($context["name"] == ($context["panel"] ?? null))) ? ("selected") : (""));
+                    echo "\">
+                                                <a href=\"";
+                    // line 61
+                    echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("_profiler", ["token" => ($context["token"] ?? null), "panel" => $context["name"], "type" => ($context["profile_type"] ?? null)]), "html", null, true);
+                    echo "\">";
+                    echo ($context["menu"] ?? null);
+                    echo "</a>
+                                            </li>
+                                        ";
+                }
+                // line 64
+                echo "                                    ";
+                ++$context['loop']['index0'];
+                ++$context['loop']['index'];
+                $context['loop']['first'] = false;
+                if (isset($context['loop']['length'])) {
+                    --$context['loop']['revindex0'];
+                    --$context['loop']['revindex'];
+                    $context['loop']['last'] = 0 === $context['loop']['revindex0'];
+                }
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['name'], $context['template'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 65
+            echo "                                </ul>
+                            ";
+        }
+        // line 67
+        echo "                        </div>
+
+                        ";
+        // line 69
+        echo twig_include($this->env, $context, "@WebProfiler/Profiler/settings.html.twig");
+        echo "
+                    ";
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+    }
+
+    // line 29
+    public function block_sidebar_shortcuts_links($context, array $blocks = [])
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "sidebar_shortcuts_links"));
+
+        // line 30
+        echo "                                    <div class=\"shortcuts\">
+                                        <a class=\"btn btn-link\" href=\"";
+        // line 31
+        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("_profiler_search", ["limit" => 10, "type" => ($context["profile_type"] ?? null)]), "html", null, true);
+        echo "\">Last 10</a>
+                                        <a class=\"btn btn-link\" href=\"";
+        // line 32
+        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("_profiler", twig_array_merge(["token" => "latest", "type" => ($context["profile_type"] ?? null)], twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["request"] ?? null), "query", [], "any", false, false, false, 32), "all", [], "any", false, false, false, 32))), "html", null, true);
+        echo "\">Latest</a>
+
+                                        <a class=\"sf-toggle btn btn-link\" data-toggle-selector=\"#sidebar-search\" ";
+        // line 34
+        if ((array_key_exists("tokens", $context) || array_key_exists("about", $context))) {
+            echo "data-toggle-initial=\"display\"";
+        }
+        echo ">
+                                            ";
+        // line 35
+        echo twig_source($this->env, "@WebProfiler/Icon/search.svg");
+        echo " <span class=\"hidden-small\">Search</span>
+                                        </a>
+                                    </div>
+                                ";
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+    }
+
+    // line 76
+    public function block_panel($context, array $blocks = [])
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "panel"));
+
+        echo "";
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getTemplateName()
+    {
+        return "@WebProfiler/Profiler/layout.html.twig";
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function isTraitable()
+    {
+        return false;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getDebugInfo()
+    {
+        return array (  305 => 76,  294 => 35,  288 => 34,  283 => 32,  279 => 31,  276 => 30,  269 => 29,  260 => 69,  256 => 67,  252 => 65,  238 => 64,  230 => 61,  223 => 60,  220 => 59,  215 => 55,  207 => 54,  205 => 53,  202 => 52,  185 => 51,  182 => 50,  179 => 49,  176 => 48,  173 => 47,  170 => 46,  168 => 45,  165 => 44,  163 => 43,  157 => 40,  154 => 39,  152 => 29,  148 => 27,  141 => 26,  134 => 20,  130 => 18,  128 => 17,  127 => 16,  126 => 15,  125 => 14,  124 => 13,  123 => 12,  120 => 11,  117 => 10,  114 => 9,  107 => 8,  95 => 77,  93 => 76,  89 => 75,  83 => 71,  81 => 26,  74 => 21,  72 => 8,  66 => 5,  63 => 4,  56 => 3,  39 => 1,);
+    }
+
+    public function getSourceContext()
+    {
+        return new Source("", "@WebProfiler/Profiler/layout.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/Exercice Mettez en place des tests dans votre code/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/layout.html.twig");
+    }
+}
