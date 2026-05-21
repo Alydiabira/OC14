@@ -16,7 +16,7 @@ if (!\class_exists(App_KernelDevDebugContainer::class, false)) {
 
 return new \ContainerMUDo61x\App_KernelDevDebugContainer([
     'container.build_hash' => 'MUDo61x',
-    'container.build_id' => '2e710deb',
-    'container.build_time' => 1779354013,
+    'container.build_id' => 'ea24bb80',
+    'container.build_time' => 1779382246,
     'container.runtime_mode' => \in_array(\PHP_SAPI, ['cli', 'phpdbg', 'embed'], true) ? 'web=0' : 'web=1',
 ], __DIR__.\DIRECTORY_SEPARATOR.'ContainerMUDo61x');
