@@ -142,7 +142,7 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
     }
 
     /**
-     * @default null
+     * @default '%env(default::SYMFONY_IDE)%'
      * @param ParamConfigurator|mixed $value
      * @return $this
      */
@@ -578,7 +578,7 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
 
     /**
      * Asset Mapper configuration
-     * @default {"enabled":true,"paths":[],"excluded_patterns":[],"exclude_dotfiles":true,"server":false,"public_prefix":"\/assets\/","missing_import_mode":"warn","extensions":[],"importmap_path":"%kernel.project_dir%\/importmap.php","importmap_polyfill":"es-module-shims","importmap_script_attributes":[],"vendor_dir":"%kernel.project_dir%\/assets\/vendor"}
+     * @default {"enabled":true,"paths":[],"excluded_patterns":[],"exclude_dotfiles":true,"server":true,"public_prefix":"\/assets\/","missing_import_mode":"warn","extensions":[],"importmap_path":"%kernel.project_dir%\/importmap.php","importmap_polyfill":"es-module-shims","importmap_script_attributes":[],"vendor_dir":"%kernel.project_dir%\/assets\/vendor"}
     */
     public function assetMapper(array $value = []): \Symfony\Config\Framework\AssetMapperConfig
     {
@@ -637,7 +637,7 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
 
     /**
      * annotation configuration
-     * @default {"enabled":true,"cache":"php_array","file_cache_dir":"%kernel.cache_dir%\/annotations","debug":false}
+     * @default {"enabled":true,"cache":"php_array","file_cache_dir":"%kernel.cache_dir%\/annotations","debug":true}
     */
     public function annotations(array $value = []): \Symfony\Config\Framework\AnnotationsConfig
     {
@@ -728,7 +728,7 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
 
     /**
      * PHP errors handling configuration
-     * @default {"throw":false}
+     * @default {"throw":true}
     */
     public function phpErrors(array $value = []): \Symfony\Config\Framework\PhpErrorsConfig
     {
@@ -894,7 +894,7 @@ class FrameworkConfig implements \Symfony\Component\Config\Builder\ConfigBuilder
 
     /**
      * Enabled by default when debug is enabled.
-     * @default false
+     * @default true
      * @param ParamConfigurator|bool $value
      * @return $this
      */
