@@ -7,18 +7,16 @@ namespace App\Tests\Functional;
 final class SmokeTest extends FunctionalTestCase
 {
     /**
-     * @dataProvider provideUri
+     * @dataProvider provideUrls
      */
     public function testShouldTestUri(string $method, string $uri): void
     {
         $this->client->request($method, $uri);
-        self::assertTrue(500 > $this->client->getResponse()->getStatusCode());
+
+        self::assertTrue($this->client->getResponse()->isSuccessful());
     }
 
-    /**
-     * @return iterable<array{string, string}>
-     */
-    public static function provideUri(): iterable
+    public function provideUrls(): iterable
     {
         yield ['GET', '/'];
         yield ['GET', '/jeu-video-0'];

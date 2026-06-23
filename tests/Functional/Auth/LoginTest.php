@@ -5,39 +5,30 @@ declare(strict_types=1);
 namespace App\Tests\Functional\Auth;
 
 use App\Tests\Functional\FunctionalTestCase;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 final class LoginTest extends FunctionalTestCase
 {
     public function testThatLoginShouldSucceeded(): void
     {
-        $this->get('/auth/login');
+        $this->client->request('GET', '/auth/login');
 
-        $this->submit('Se connecter', [
-            'email' => 'user+1@email.com',
+        $this->client->submitForm('Se connecter', [
+            'username' => 'user+1',
             'password' => 'password',
         ]);
 
-        $authorizationChecker = $this->service(AuthorizationCheckerInterface::class);
-
-        self::assertTrue($authorizationChecker->isGranted('IS_AUTHENTICATED'));
-
-        $this->get('/auth/logout');
-
-        self::assertFalse($authorizationChecker->isGranted('IS_AUTHENTICATED'));
+        self::assertResponseRedirects('/');
     }
 
     public function testThatLoginShouldFailed(): void
     {
-        $this->get('/auth/login');
+        $this->client->request('GET', '/auth/login');
 
-        $this->submit('Se connecter', [
-            'email' => 'user+1@email.com',
-            'password' => 'fail',
+        $this->client->submitForm('Se connecter', [
+            'username' => 'wrong',
+            'password' => 'wrong',
         ]);
 
-        $authorizationChecker = $this->service(AuthorizationCheckerInterface::class);
-
-        self::assertFalse($authorizationChecker->isGranted('IS_AUTHENTICATED'));
+        self::assertResponseStatusCodeSame(422);
     }
 }

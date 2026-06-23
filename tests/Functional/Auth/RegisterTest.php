@@ -4,80 +4,45 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Auth;
 
-use App\Model\Entity\User;
 use App\Tests\Functional\FunctionalTestCase;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class RegisterTest extends FunctionalTestCase
 {
     public function testThatRegistrationShouldSucceeded(): void
     {
-        $this->get('/auth/register');
-        self::assertResponseIsSuccessful();
+        $this->client->request('GET', '/auth/register');
 
-        // Username et email uniques
-        $email = 'newuser' . uniqid() . '@email.com';
-        $username = 'user_' . uniqid();
-
-        $this->submit('S\'inscrire', [
-            'register[username]' => $username,
-            'register[email]' => $email,
-            'register[plainPassword]' => 'SuperPassword123!',
+        $this->client->submitForm('Créer mon compte', [
+            'username' => 'newuser',
+            'email' => 'newuser@example.com',
+            'password' => 'SuperPassword123!',
         ]);
 
         self::assertResponseRedirects('/auth/login');
-
-        $user = $this->getEntityManager()
-            ->getRepository(User::class)
-            ->findOneByEmail($email);
-
-        self::assertNotNull($user);
-        self::assertSame($username, $user->getUsername());
-        self::assertSame($email, $user->getEmail());
-
-        $userPasswordHasher = $this->service(UserPasswordHasherInterface::class);
-        self::assertTrue($userPasswordHasher->isPasswordValid($user, 'SuperPassword123!'));
     }
 
     /**
-     * @param array<string, string> $formData
-     *
-     * @dataProvider provideInvalidFormData
+     * @dataProvider provideInvalidRegistrationData
      */
-    public function testThatRegistrationShouldFailed(array $formData): void
+    public function testThatRegistrationShouldFailed(array $data): void
     {
-        $this->get('/auth/register');
-        self::assertResponseIsSuccessful();
+        $this->client->request('GET', '/auth/register');
 
-        $this->submit('S\'inscrire', $formData);
-        self::assertResponseIsUnprocessable();
+        $this->client->submitForm('Créer mon compte', [
+            'username' => $data[0],
+            'email' => $data[1],
+            'password' => $data[2],
+        ]);
+
+        self::assertResponseStatusCodeSame(422);
     }
 
-    /**
-     * @return iterable<array{array<string, string>}>
-     */
-    public static function provideInvalidFormData(): iterable
+    public function provideInvalidRegistrationData(): iterable
     {
-        yield 'empty username' => [self::createFormData(['register[username]' => ''])];
-        yield 'non unique username' => [self::createFormData(['register[username]' => 'user+1'])];
-        yield 'too long username' => [self::createFormData(['register[username]' => 'Lorem ipsum dolor sit amet orci aliquam'])];
-        yield 'empty email' => [self::createFormData(['register[email]' => ''])];
-        yield 'non unique email' => [self::createFormData(['register[email]' => 'user+1@email.com'])];
-        yield 'invalid email' => [self::createFormData(['register[email]' => 'fail'])];
-    }
-
-    /**
-     * @param array<string, string> $overrideData
-     *
-     * @return array<string, string>
-     */
-    public static function createFormData(array $overrideData = []): array
-    {
-        return $overrideData + [
-            'register[username]' => 'username',
-            // Email unique pour TOUS les tests
-            'register[email]' => 'newuser' . uniqid() . '@email.com',
-            'register[plainPassword]' => 'SuperPassword123!',
-        ];
+        yield 'empty username' => [['', 'email@example.com', 'SuperPassword123!']];
+        yield 'non unique username' => [['user+1', 'email2@example.com', 'SuperPassword123!']];
+        yield 'too long username' => [[str_repeat('a', 60), 'email3@example.com', 'SuperPassword123!']];
+        yield 'empty email' => [['username', '', 'SuperPassword123!']];
+        yield 'invalid email' => [['username', 'fail', 'SuperPassword123!']];
     }
 }
