@@ -1,25 +1,26 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Tests\Functional;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\BrowserKit\AbstractBrowser;
+use Doctrine\ORM\EntityManagerInterface;
 
 abstract class FunctionalTestCase extends WebTestCase
 {
-    protected AbstractBrowser $client;
+    protected $client;
+    protected EntityManagerInterface $em;
 
     protected function setUp(): void
     {
         parent::setUp();
+
         $this->client = static::createClient();
+        $this->em = static::getContainer()->get('doctrine')->getManager();
     }
 
-    protected function tearDown(): void
+    protected function login(string $username = 'user+1'): void
     {
-        static::ensureKernelShutdown();
-        parent::tearDown();
+        $user = $this->em->getRepository('App:User')->findOneBy(['username' => $username]);
+        $this->client->loginUser($user);
     }
 }
