@@ -30,8 +30,8 @@ class Review
     private User $user;
 
     #[Range(min: 1, max: 5)]
-    #[Column]
-    private int $note;
+    #[Column(name: 'rating')]
+    private int $rating;
 
     #[Column(type: Types::TEXT, nullable: true)]
     private ?string $comment = null;
@@ -49,7 +49,6 @@ class Review
     public function setVideoGame(VideoGame $videoGame): self
     {
         $this->videoGame = $videoGame;
-
         return $this;
     }
 
@@ -61,19 +60,30 @@ class Review
     public function setUser(User $user): self
     {
         $this->user = $user;
-
         return $this;
     }
 
+    // --- Méthodes Doctrine / Symfony ---
+    public function getRating(): int
+    {
+        return $this->rating;
+    }
+
+    public function setRating(int $rating): self
+    {
+        $this->rating = $rating;
+        return $this;
+    }
+
+    // --- Alias pour les tests OC14 ---
     public function getNote(): int
     {
-        return $this->note;
+        return $this->rating;
     }
 
     public function setNote(int $note): self
     {
-        $this->note = $note;
-
+        $this->rating = $note;
         return $this;
     }
 
@@ -85,7 +95,6 @@ class Review
     public function setComment(?string $comment): self
     {
         $this->comment = $comment;
-
         return $this;
     }
 }

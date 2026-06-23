@@ -1,3 +1,19 @@
-<div class="progress flex-grow-1" role="progressbar" aria-valuenow="{{ this.percent }}" aria-valuemin="0" aria-valuemax="100" {{ attributes }}>
-    <div class="progress-bar" style="width: {{ this.percent }}%"></div>
+{% set percent = 0 %}
+
+{% if videoGame.numberOfRatingsPerValue is defined %}
+	{% set total =
+        videoGame.numberOfRatingsPerValue.numberOfOne +
+        videoGame.numberOfRatingsPerValue.numberOfTwo +
+        videoGame.numberOfRatingsPerValue.numberOfThree +
+        videoGame.numberOfRatingsPerValue.numberOfFour +
+        videoGame.numberOfRatingsPerValue.numberOfFive
+    %}
+
+	{% if total > 0 %}
+		{% set percent = (number / total) * 100 %}
+	{% endif %}
+{% endif %}
+
+<div class="progress flex-grow-1" role="progressbar" aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100">
+	<div class="progress-bar" style="width: {{ percent }}%"></div>
 </div>
