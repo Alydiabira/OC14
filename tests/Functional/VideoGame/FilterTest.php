@@ -222,7 +222,9 @@ final class FilterTest extends FunctionalTestCase
             'article.game-card:nth-child(10) h2.game-card-title a',
             'Jeu vidéo 9'
         );
-
+$this->submitForm('Envoyer', [
+    // champs du formulaire
+]);
         $this->submit('Trier', ['limit' => 25, 'sorting' => 'Title', 'direction' => 'Ascending'], 'GET');
         self::assertResponseIsSuccessful();
         self::assertSelectorCount(25, 'article.game-card');

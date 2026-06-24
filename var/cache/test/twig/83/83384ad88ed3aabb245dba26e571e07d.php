@@ -45,16 +45,44 @@ class __TwigTemplate_731e118a13ab23ab1a0744f59d820256 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "components/Progress.html.twig"));
 
         // line 1
-        yield "<div class=\"progress flex-grow-1\" role=\"progressbar\" aria-valuenow=\"";
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["this"]) || array_key_exists("this", $context) ? $context["this"] : (function () { throw new RuntimeError('Variable "this" does not exist.', 1, $this->source); })()), "percent", [], "any", false, false, false, 1), "html", null, true);
-        yield "\" aria-valuemin=\"0\" aria-valuemax=\"100\" ";
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["attributes"]) || array_key_exists("attributes", $context) ? $context["attributes"] : (function () { throw new RuntimeError('Variable "attributes" does not exist.', 1, $this->source); })()), "html", null, true);
-        yield ">
-    <div class=\"progress-bar\" style=\"width: ";
+        $context["percent"] = 0;
         // line 2
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["this"]) || array_key_exists("this", $context) ? $context["this"] : (function () { throw new RuntimeError('Variable "this" does not exist.', 2, $this->source); })()), "percent", [], "any", false, false, false, 2), "html", null, true);
+        yield "
+";
+        // line 3
+        if (CoreExtension::getAttribute($this->env, $this->source, ($context["videoGame"] ?? null), "numberOfRatingsPerValue", [], "any", true, true, false, 3)) {
+            // line 4
+            yield "\t";
+            $context["total"] = ((((CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source,             // line 5
+(isset($context["videoGame"]) || array_key_exists("videoGame", $context) ? $context["videoGame"] : (function () { throw new RuntimeError('Variable "videoGame" does not exist.', 5, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 5), "numberOfOne", [], "any", false, false, false, 5) + CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source,             // line 6
+(isset($context["videoGame"]) || array_key_exists("videoGame", $context) ? $context["videoGame"] : (function () { throw new RuntimeError('Variable "videoGame" does not exist.', 6, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 6), "numberOfTwo", [], "any", false, false, false, 6)) + CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source,             // line 7
+(isset($context["videoGame"]) || array_key_exists("videoGame", $context) ? $context["videoGame"] : (function () { throw new RuntimeError('Variable "videoGame" does not exist.', 7, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 7), "numberOfThree", [], "any", false, false, false, 7)) + CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source,             // line 8
+(isset($context["videoGame"]) || array_key_exists("videoGame", $context) ? $context["videoGame"] : (function () { throw new RuntimeError('Variable "videoGame" does not exist.', 8, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 8), "numberOfFour", [], "any", false, false, false, 8)) + CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source,             // line 9
+(isset($context["videoGame"]) || array_key_exists("videoGame", $context) ? $context["videoGame"] : (function () { throw new RuntimeError('Variable "videoGame" does not exist.', 9, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 9), "numberOfFive", [], "any", false, false, false, 9));
+            // line 11
+            yield "
+\t";
+            // line 12
+            if (((isset($context["total"]) || array_key_exists("total", $context) ? $context["total"] : (function () { throw new RuntimeError('Variable "total" does not exist.', 12, $this->source); })()) > 0)) {
+                // line 13
+                yield "\t\t";
+                $context["percent"] = (((isset($context["number"]) || array_key_exists("number", $context) ? $context["number"] : (function () { throw new RuntimeError('Variable "number" does not exist.', 13, $this->source); })()) / (isset($context["total"]) || array_key_exists("total", $context) ? $context["total"] : (function () { throw new RuntimeError('Variable "total" does not exist.', 13, $this->source); })())) * 100);
+                // line 14
+                yield "\t";
+            }
+        }
+        // line 16
+        yield "
+<div class=\"progress flex-grow-1\" role=\"progressbar\" aria-valuenow=\"";
+        // line 17
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["percent"]) || array_key_exists("percent", $context) ? $context["percent"] : (function () { throw new RuntimeError('Variable "percent" does not exist.', 17, $this->source); })()), "html", null, true);
+        yield "\" aria-valuemin=\"0\" aria-valuemax=\"100\">
+\t<div class=\"progress-bar\" style=\"width: ";
+        // line 18
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["percent"]) || array_key_exists("percent", $context) ? $context["percent"] : (function () { throw new RuntimeError('Variable "percent" does not exist.', 18, $this->source); })()), "html", null, true);
         yield "%\"></div>
-</div>";
+</div>
+";
         
         $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
 
@@ -85,13 +113,30 @@ class __TwigTemplate_731e118a13ab23ab1a0744f59d820256 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  55 => 2,  48 => 1,);
+        return array (  82 => 18,  78 => 17,  75 => 16,  71 => 14,  68 => 13,  66 => 12,  63 => 11,  61 => 9,  60 => 8,  59 => 7,  58 => 6,  57 => 5,  55 => 4,  53 => 3,  50 => 2,  48 => 1,);
     }
 
     public function getSourceContext(): Source
     {
-        return new Source("<div class=\"progress flex-grow-1\" role=\"progressbar\" aria-valuenow=\"{{ this.percent }}\" aria-valuemin=\"0\" aria-valuemax=\"100\" {{ attributes }}>
-    <div class=\"progress-bar\" style=\"width: {{ this.percent }}%\"></div>
-</div>", "components/Progress.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/templates/components/Progress.html.twig");
+        return new Source("{% set percent = 0 %}
+
+{% if videoGame.numberOfRatingsPerValue is defined %}
+\t{% set total =
+        videoGame.numberOfRatingsPerValue.numberOfOne +
+        videoGame.numberOfRatingsPerValue.numberOfTwo +
+        videoGame.numberOfRatingsPerValue.numberOfThree +
+        videoGame.numberOfRatingsPerValue.numberOfFour +
+        videoGame.numberOfRatingsPerValue.numberOfFive
+    %}
+
+\t{% if total > 0 %}
+\t\t{% set percent = (number / total) * 100 %}
+\t{% endif %}
+{% endif %}
+
+<div class=\"progress flex-grow-1\" role=\"progressbar\" aria-valuenow=\"{{ percent }}\" aria-valuemin=\"0\" aria-valuemax=\"100\">
+\t<div class=\"progress-bar\" style=\"width: {{ percent }}%\"></div>
+</div>
+", "components/Progress.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/templates/components/Progress.html.twig");
     }
 }
