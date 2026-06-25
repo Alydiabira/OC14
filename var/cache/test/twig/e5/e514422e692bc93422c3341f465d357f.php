@@ -73,51 +73,34 @@ class __TwigTemplate_cc5b9230e5a11ad6b88844080524160b extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
         // line 4
-        yield "    <div class=\"container h-100 d-flex flex-column justify-content-center\">
-        <div class=\"row justify-content-center\">
-            <form action=\"";
+        yield "\t<div class=\"container h-100 d-flex flex-column justify-content-center\">
+\t\t<div class=\"row justify-content-center\">
+\t\t\t<form action=\"";
         // line 6
         yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("auth_login");
         yield "\" method=\"post\" name=\"login\">
-                <h1 class=\"h3 mb-3 fw-normal\">Connectez-vous !</h1>
-                ";
+\t\t\t\t<div class=\"form-floating mb-3\">
+\t\t\t\t\t<input type=\"text\" class=\"form-control\" name=\"username\" id=\"username\" placeholder=\"Nom d’utilisateur\" value=\"";
         // line 8
-        if ((($tmp = (isset($context["error"]) || array_key_exists("error", $context) ? $context["error"] : (function () { throw new RuntimeError('Variable "error" does not exist.', 8, $this->source); })())) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-            // line 9
-            yield "                    ";
-            yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Alert", ["type" => "danger", "message" => $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans(CoreExtension::getAttribute($this->env, $this->source, (isset($context["error"]) || array_key_exists("error", $context) ? $context["error"] : (function () { throw new RuntimeError('Variable "error" does not exist.', 9, $this->source); })()), "messageKey", [], "any", false, false, false, 9), CoreExtension::getAttribute($this->env, $this->source, (isset($context["error"]) || array_key_exists("error", $context) ? $context["error"] : (function () { throw new RuntimeError('Variable "error" does not exist.', 9, $this->source); })()), "messageData", [], "any", false, false, false, 9), "security")]);
-            yield "
-                ";
-        }
-        // line 11
-        yield "                <fieldset class=\"mb-3\">
-                    <div class=\"form-floating\">
-                        <input type=\"email\" class=\"form-control\" name=\"email\" id=\"email\" placeholder=\"nom@exemple.com\" value=\"";
-        // line 13
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["last_username"]) || array_key_exists("last_username", $context) ? $context["last_username"] : (function () { throw new RuntimeError('Variable "last_username" does not exist.', 13, $this->source); })()), "html", null, true);
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape((isset($context["last_username"]) || array_key_exists("last_username", $context) ? $context["last_username"] : (function () { throw new RuntimeError('Variable "last_username" does not exist.', 8, $this->source); })()), "html", null, true);
         yield "\">
-                        <label for=\"email\">Email</label>
-                    </div>
-                    <div class=\"form-floating\">
-                        <input type=\"password\" class=\"form-control\" name=\"password\" id=\"password\" placeholder=\"Mot de passe\">
-                        <label for=\"password\">Mot de passe</label>
-                    </div>
-                </fieldset>
-                <div class=\"form-check text-start my-3\">
-                    <input class=\"form-check-input\" type=\"checkbox\" name=\"_remember_me\" id=\"_remember_me\" checked>
-                    <label class=\"form-check-label\" for=\"_remember_me\">
-                        Se souvenir de moi
-                    </label>
-                </div>
-                <input type=\"hidden\" name=\"_csrf_token\" value=\"";
-        // line 27
+\t\t\t\t\t<label for=\"username\">Nom d’utilisateur</label>
+\t\t\t\t</div>
+
+\t\t\t\t<div class=\"form-floating mb-3\">
+\t\t\t\t\t<input type=\"password\" class=\"form-control\" name=\"password\" id=\"password\" placeholder=\"Mot de passe\">
+\t\t\t\t\t<label for=\"password\">Mot de passe</label>
+\t\t\t\t</div>
+
+\t\t\t\t<input type=\"hidden\" name=\"_csrf_token\" value=\"";
+        // line 17
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken("authenticate"), "html", null, true);
         yield "\">
-                <button class=\"btn btn-primary w-100 py-2\" type=\"submit\">Se connecter</button>
-            </form>
-        </div>
-    </div>
 
+\t\t\t\t<button class=\"btn btn-primary w-100 py-2\" type=\"submit\">Se connecter</button>
+\t\t\t</form>
+\t\t</div>
+\t</div>
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -149,7 +132,7 @@ class __TwigTemplate_cc5b9230e5a11ad6b88844080524160b extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  114 => 27,  97 => 13,  93 => 11,  87 => 9,  85 => 8,  80 => 6,  76 => 4,  63 => 3,  40 => 1,);
+        return array (  97 => 17,  85 => 8,  80 => 6,  76 => 4,  63 => 3,  40 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -157,36 +140,26 @@ class __TwigTemplate_cc5b9230e5a11ad6b88844080524160b extends Template
         return new Source("{% extends \x27base.html.twig\x27 %}
 
 {% block body %}
-    <div class=\"container h-100 d-flex flex-column justify-content-center\">
-        <div class=\"row justify-content-center\">
-            <form action=\"{{ path(\x27auth_login\x27) }}\" method=\"post\" name=\"login\">
-                <h1 class=\"h3 mb-3 fw-normal\">Connectez-vous !</h1>
-                {% if error %}
-                    {{ component(\x27Alert\x27, { type: \x27danger\x27, message: (error.messageKey|trans(error.messageData, \x27security\x27)) }) }}
-                {% endif %}
-                <fieldset class=\"mb-3\">
-                    <div class=\"form-floating\">
-                        <input type=\"email\" class=\"form-control\" name=\"email\" id=\"email\" placeholder=\"nom@exemple.com\" value=\"{{ last_username }}\">
-                        <label for=\"email\">Email</label>
-                    </div>
-                    <div class=\"form-floating\">
-                        <input type=\"password\" class=\"form-control\" name=\"password\" id=\"password\" placeholder=\"Mot de passe\">
-                        <label for=\"password\">Mot de passe</label>
-                    </div>
-                </fieldset>
-                <div class=\"form-check text-start my-3\">
-                    <input class=\"form-check-input\" type=\"checkbox\" name=\"_remember_me\" id=\"_remember_me\" checked>
-                    <label class=\"form-check-label\" for=\"_remember_me\">
-                        Se souvenir de moi
-                    </label>
-                </div>
-                <input type=\"hidden\" name=\"_csrf_token\" value=\"{{ csrf_token(\x27authenticate\x27) }}\">
-                <button class=\"btn btn-primary w-100 py-2\" type=\"submit\">Se connecter</button>
-            </form>
-        </div>
-    </div>
+\t<div class=\"container h-100 d-flex flex-column justify-content-center\">
+\t\t<div class=\"row justify-content-center\">
+\t\t\t<form action=\"{{ path(\x27auth_login\x27) }}\" method=\"post\" name=\"login\">
+\t\t\t\t<div class=\"form-floating mb-3\">
+\t\t\t\t\t<input type=\"text\" class=\"form-control\" name=\"username\" id=\"username\" placeholder=\"Nom d’utilisateur\" value=\"{{ last_username }}\">
+\t\t\t\t\t<label for=\"username\">Nom d’utilisateur</label>
+\t\t\t\t</div>
 
+\t\t\t\t<div class=\"form-floating mb-3\">
+\t\t\t\t\t<input type=\"password\" class=\"form-control\" name=\"password\" id=\"password\" placeholder=\"Mot de passe\">
+\t\t\t\t\t<label for=\"password\">Mot de passe</label>
+\t\t\t\t</div>
+
+\t\t\t\t<input type=\"hidden\" name=\"_csrf_token\" value=\"{{ csrf_token(\x27authenticate\x27) }}\">
+
+\t\t\t\t<button class=\"btn btn-primary w-100 py-2\" type=\"submit\">Se connecter</button>
+\t\t\t</form>
+\t\t</div>
+\t</div>
 {% endblock %}
-", "views/auth/login.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/templates/views/auth/login.html.twig");
+", "views/auth/login.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/templates/views/auth/login.html.twig");
     }
 }

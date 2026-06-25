@@ -73,53 +73,55 @@ class __TwigTemplate_3e300d36479f4f61d25a5161756924c6 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
         // line 4
-        yield "    <div class=\"container\">
-        <div class=\"row\">
-            <div class=\"col-9 d-flex flex-column gap-4\">
-                ";
+        yield "\t<div class=\"container\">
+\t\t<div class=\"row\">
+\t\t\t<div class=\"col-9 d-flex flex-column gap-4\">
+\t\t\t\t";
         // line 7
         yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Sorting", ["list" => (isset($context["list"]) || array_key_exists("list", $context) ? $context["list"] : (function () { throw new RuntimeError('Variable "list" does not exist.', 7, $this->source); })())]);
         yield "
-                ";
+\t\t\t\t";
         // line 8
         yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Info", ["info" => CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["list"]) || array_key_exists("list", $context) ? $context["list"] : (function () { throw new RuntimeError('Variable "list" does not exist.', 8, $this->source); })()), "pagination", [], "any", false, false, false, 8), "info", [], "any", false, false, false, 8)]);
         yield "
-                <div class=\"video-games-list d-flex flex-column gap-5\">
-                    ";
-        // line 10
+
+\t\t\t\t<div class=\"video-games-list d-flex flex-column gap-5\">
+\t\t\t\t\t";
+        // line 11
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["list"]) || array_key_exists("list", $context) ? $context["list"] : (function () { throw new RuntimeError('Variable "list" does not exist.', 10, $this->source); })()));
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["list"]) || array_key_exists("list", $context) ? $context["list"] : (function () { throw new RuntimeError('Variable "list" does not exist.', 11, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["video_game"]) {
-            // line 11
-            yield "                        ";
+            // line 12
+            yield "\t\t\t\t\t\t";
             yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Card", ["video_game" => $context["video_game"]]);
             yield "
-                    ";
+\t\t\t\t\t";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['video_game'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 13
-        yield "                </div>
-                ";
         // line 14
-        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["list"]) || array_key_exists("list", $context) ? $context["list"] : (function () { throw new RuntimeError('Variable "list" does not exist.', 14, $this->source); })()), "pagination", [], "any", false, false, false, 14)) > 1)) {
-            // line 15
-            yield "                    ";
-            yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Pagination", ["pagination" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["list"]) || array_key_exists("list", $context) ? $context["list"] : (function () { throw new RuntimeError('Variable "list" does not exist.', 15, $this->source); })()), "pagination", [], "any", false, false, false, 15)]);
+        yield "\t\t\t\t</div>
+
+\t\t\t\t";
+        // line 16
+        if ((Twig\Extension\CoreExtension::length($this->env->getCharset(), CoreExtension::getAttribute($this->env, $this->source, (isset($context["list"]) || array_key_exists("list", $context) ? $context["list"] : (function () { throw new RuntimeError('Variable "list" does not exist.', 16, $this->source); })()), "pagination", [], "any", false, false, false, 16)) > 1)) {
+            // line 17
+            yield "\t\t\t\t\t";
+            yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Pagination", ["pagination" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["list"]) || array_key_exists("list", $context) ? $context["list"] : (function () { throw new RuntimeError('Variable "list" does not exist.', 17, $this->source); })()), "pagination", [], "any", false, false, false, 17)]);
             yield "
-                ";
+\t\t\t\t";
         }
-        // line 17
-        yield "            </div>
-            <div class=\"col-3\">
-                ";
         // line 19
-        yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Filter", ["list" => (isset($context["list"]) || array_key_exists("list", $context) ? $context["list"] : (function () { throw new RuntimeError('Variable "list" does not exist.', 19, $this->source); })())]);
+        yield "\t\t\t</div>
+\t\t\t<div class=\"col-3\">
+\t\t\t\t";
+        // line 21
+        yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Filter", ["list" => (isset($context["list"]) || array_key_exists("list", $context) ? $context["list"] : (function () { throw new RuntimeError('Variable "list" does not exist.', 21, $this->source); })())]);
         yield "
-            </div>
-        </div>
-    </div>
+\t\t\t</div>
+\t\t</div>
+\t</div>
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -151,7 +153,7 @@ class __TwigTemplate_3e300d36479f4f61d25a5161756924c6 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  118 => 19,  114 => 17,  108 => 15,  106 => 14,  103 => 13,  94 => 11,  90 => 10,  85 => 8,  81 => 7,  76 => 4,  63 => 3,  40 => 1,);
+        return array (  120 => 21,  116 => 19,  110 => 17,  108 => 16,  104 => 14,  95 => 12,  91 => 11,  85 => 8,  81 => 7,  76 => 4,  63 => 3,  40 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -159,26 +161,28 @@ class __TwigTemplate_3e300d36479f4f61d25a5161756924c6 extends Template
         return new Source("{% extends \x27base.html.twig\x27 %}
 
 {% block body %}
-    <div class=\"container\">
-        <div class=\"row\">
-            <div class=\"col-9 d-flex flex-column gap-4\">
-                {{ component(\x27Sorting\x27, { list: list }) }}
-                {{ component(\x27Info\x27, { info: list.pagination.info }) }}
-                <div class=\"video-games-list d-flex flex-column gap-5\">
-                    {% for video_game in list %}
-                        {{ component(\x27Card\x27, { video_game: video_game }) }}
-                    {% endfor %}
-                </div>
-                {% if list.pagination|length > 1 %}
-                    {{ component(\x27Pagination\x27, { pagination: list.pagination }) }}
-                {% endif %}
-            </div>
-            <div class=\"col-3\">
-                {{ component(\x27Filter\x27, { list: list }) }}
-            </div>
-        </div>
-    </div>
+\t<div class=\"container\">
+\t\t<div class=\"row\">
+\t\t\t<div class=\"col-9 d-flex flex-column gap-4\">
+\t\t\t\t{{ component(\x27Sorting\x27, { list: list }) }}
+\t\t\t\t{{ component(\x27Info\x27, { info: list.pagination.info }) }}
+
+\t\t\t\t<div class=\"video-games-list d-flex flex-column gap-5\">
+\t\t\t\t\t{% for video_game in list %}
+\t\t\t\t\t\t{{ component(\x27Card\x27, { video_game: video_game }) }}
+\t\t\t\t\t{% endfor %}
+\t\t\t\t</div>
+
+\t\t\t\t{% if list.pagination|length > 1 %}
+\t\t\t\t\t{{ component(\x27Pagination\x27, { pagination: list.pagination }) }}
+\t\t\t\t{% endif %}
+\t\t\t</div>
+\t\t\t<div class=\"col-3\">
+\t\t\t\t{{ component(\x27Filter\x27, { list: list }) }}
+\t\t\t</div>
+\t\t</div>
+\t</div>
 {% endblock %}
-", "views/video_games/list.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/templates/views/video_games/list.html.twig");
+", "views/video_games/list.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/templates/views/video_games/list.html.twig");
     }
 }

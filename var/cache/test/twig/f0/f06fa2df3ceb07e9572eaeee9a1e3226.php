@@ -73,38 +73,34 @@ class __TwigTemplate_44ec1baa0cf3fceecc4c2280b78853ac extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
         // line 4
-        yield "    <div class=\"container h-100 d-flex flex-column justify-content-center\">
-        <div class=\"row justify-content-center\">
-            ";
+        yield "\t<div class=\"container h-100 d-flex flex-column justify-content-center\">
+\t\t<div class=\"row justify-content-center\">
+\t\t\t";
         // line 6
         yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 6, $this->source); })()), 'form_start');
         yield "
-                <h1 class=\"h3 mb-3 fw-normal\">Bienvenue !</h1>
-                ";
+
+\t\t\t";
         // line 8
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 8, $this->source); })()), 'errors');
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 8, $this->source); })()), "username", [], "any", false, false, false, 8), 'row');
         yield "
-                <fieldset class=\"mb-3\">
-                    ";
+\t\t\t";
+        // line 9
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 9, $this->source); })()), "email", [], "any", false, false, false, 9), 'row');
+        yield "
+\t\t\t";
         // line 10
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 10, $this->source); })()), "username", [], "any", false, false, false, 10), 'row');
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 10, $this->source); })()), "plainPassword", [], "any", false, false, false, 10), 'row');
         yield "
-                    ";
-        // line 11
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 11, $this->source); })()), "email", [], "any", false, false, false, 11), 'row');
+
+\t\t\t<button class=\"btn btn-primary\">Créer mon compte</button>
+
+\t\t\t";
+        // line 14
+        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 14, $this->source); })()), 'form_end');
         yield "
-                    ";
-        // line 12
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 12, $this->source); })()), "plainPassword", [], "any", false, false, false, 12), 'row');
-        yield "
-                </fieldset>
-                <button class=\"btn btn-primary w-100 py-2\" type=\"submit\">S\x27inscrire</button>
-            ";
-        // line 15
-        yield         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 15, $this->source); })()), 'form_end');
-        yield "
-        </div>
-    </div>
+\t\t</div>
+\t</div>
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -136,7 +132,7 @@ class __TwigTemplate_44ec1baa0cf3fceecc4c2280b78853ac extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  104 => 15,  98 => 12,  94 => 11,  90 => 10,  85 => 8,  80 => 6,  76 => 4,  63 => 3,  40 => 1,);
+        return array (  100 => 14,  93 => 10,  89 => 9,  85 => 8,  80 => 6,  76 => 4,  63 => 3,  40 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -144,21 +140,20 @@ class __TwigTemplate_44ec1baa0cf3fceecc4c2280b78853ac extends Template
         return new Source("{% extends \x27base.html.twig\x27 %}
 
 {% block body %}
-    <div class=\"container h-100 d-flex flex-column justify-content-center\">
-        <div class=\"row justify-content-center\">
-            {{ form_start(form) }}
-                <h1 class=\"h3 mb-3 fw-normal\">Bienvenue !</h1>
-                {{ form_errors(form) }}
-                <fieldset class=\"mb-3\">
-                    {{ form_row(form.username) }}
-                    {{ form_row(form.email) }}
-                    {{ form_row(form.plainPassword) }}
-                </fieldset>
-                <button class=\"btn btn-primary w-100 py-2\" type=\"submit\">S\x27inscrire</button>
-            {{ form_end(form) }}
-        </div>
-    </div>
+\t<div class=\"container h-100 d-flex flex-column justify-content-center\">
+\t\t<div class=\"row justify-content-center\">
+\t\t\t{{ form_start(form) }}
+
+\t\t\t{{ form_row(form.username) }}
+\t\t\t{{ form_row(form.email) }}
+\t\t\t{{ form_row(form.plainPassword) }}
+
+\t\t\t<button class=\"btn btn-primary\">Créer mon compte</button>
+
+\t\t\t{{ form_end(form) }}
+\t\t</div>
+\t</div>
 {% endblock %}
-", "views/auth/register.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/templates/views/auth/register.html.twig");
+", "views/auth/register.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/templates/views/auth/register.html.twig");
     }
 }

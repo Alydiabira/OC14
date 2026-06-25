@@ -20,7 +20,6 @@ final class AuthController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         return $this->render('views/auth/login.html.twig', [
-            'controller_name' => 'LoginController',
             'last_username' => $authenticationUtils->getLastUsername(),
             'error'         => $authenticationUtils->getLastAuthenticationError(),
         ]);
@@ -31,15 +30,22 @@ final class AuthController extends AbstractController
     {
         $user = new User();
 
-        $form = $this->createForm(RegisterType::class, $user)->handleRequest($request);
+        $form = $this->createForm(RegisterType::class, $user);
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword(
+                password_hash($form->get('plainPassword')->getData(), PASSWORD_BCRYPT)
+            );
+
             $entityManager->persist($user);
             $entityManager->flush();
-            $this->addFlash('success', 'Inscription réussie. Vous pouvez vous connecter !');
+
             return $this->redirectToRoute('auth_login');
         }
 
-        return $this->render('views/auth/register.html.twig', ['form' => $form]);
+        return $this->render('views/auth/register.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }

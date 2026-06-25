@@ -51,8 +51,9 @@ abstract class FunctionalTestCase extends WebTestCase
             $form[$name] = $value;
         }
 
-        return $this->client->submit($form, [], $method);
+        return $this->client->submit($form, $fields);
     }
+
 
     protected function login(string $username = 'user+1'): void
     {

@@ -73,156 +73,155 @@ class __TwigTemplate_fb4a1662116952c6ab49c209c1b8ea20 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
         // line 4
-        yield "\t<div class=\"container\">
-\t\t<div class=\"row mb-4\">
-\t\t\t<div class=\"col\">
-\t\t\t\t<div class=\"rounded-5 bg-light p-4 d-flex flex-column align-items-center\">
-\t\t\t\t\t<h1 class=\"mb-4 text-center text-uppercase\">";
+        yield "    <div class=\"container\">
+        <div class=\"row mb-4\">
+            <div class=\"col\">
+                <div class=\"rounded-5 bg-light p-4 d-flex flex-column align-items-center\">
+                    <h1 class=\"mb-4 text-center text-uppercase\">";
         // line 8
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 8, $this->source); })()), "title", [], "any", false, false, false, 8), "html", null, true);
         yield "</h1>
 
-\t\t\t\t\t<div class=\"tags d-flex justify-content-center gap-3 mb-3\">
-\t\t\t\t\t\t";
+                    <div class=\"tags d-flex justify-content-center gap-3 mb-3\">
+                        ";
         // line 11
         $context['_parent'] = $context;
         $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 11, $this->source); })()), "tags", [], "any", false, false, false, 11));
         foreach ($context['_seq'] as $context["_key"] => $context["tag"]) {
             // line 12
-            yield "\t\t\t\t\t\t\t<span class=\"badge bg-primary\">";
+            yield "                            <span class=\"badge bg-primary\">";
             yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["tag"], "name", [], "any", false, false, false, 12), "html", null, true);
             yield "</span>
-\t\t\t\t\t\t";
+                        ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['tag'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
         // line 14
-        yield "\t\t\t\t\t</div>
+        yield "                    </div>
 
-\t\t\t\t\t<small class=\"text-muted\">
-\t\t\t\t\t\tSortie :
-\t\t\t\t\t\t";
-        // line 18
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 18, $this->source); })()), "releaseDate", [], "any", false, false, false, 18), "m/d/Y"), "html", null, true);
+                    <small class=\"text-muted\">
+                        Sortie : ";
+        // line 17
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 17, $this->source); })()), "releaseDate", [], "any", false, false, false, 17), "m/d/Y"), "html", null, true);
         yield "
-\t\t\t\t\t</small>
-\t\t\t\t</div>
-\t\t\t</div>
-\t\t</div>
+                    </small>
+                </div>
+            </div>
+        </div>
 
-\t\t<div
-\t\t\tclass=\"row\">
-\t\t\t<!-- Colonne gauche -->
-\t\t\t<div class=\"col-md-4\">
-\t\t\t\t<img src=\"";
-        // line 28
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Vich\UploaderBundle\Twig\Extension\UploaderExtensionRuntime')->asset((isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 28, $this->source); })()), "imageFile", "App\\Model\\Entity\\VideoGame"), "html", null, true);
-        yield "\" class=\"img-fluid rounded\" alt=\"Couverture de ";
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 28, $this->source); })()), "title", [], "any", false, false, false, 28));
+        <div class=\"row\">
+            <div class=\"col-md-4\">
+                <img src=\"";
+        // line 25
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Vich\UploaderBundle\Twig\Extension\UploaderExtensionRuntime')->asset((isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 25, $this->source); })()), "imageFile", "App\\Model\\Entity\\VideoGame"), "html", null, true);
+        yield "\"
+                     class=\"img-fluid rounded\"
+                     alt=\"Couverture de ";
+        // line 27
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 27, $this->source); })()), "title", [], "any", false, false, false, 27));
         yield "\">
 
-\t\t\t\t<div class=\"ratings justify-content-between mt-3\">
-\t\t\t\t\t";
+                <div class=\"ratings justify-content-between mt-3\">
+                    ";
+        // line 30
+        yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Rating", ["rating" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 30, $this->source); })()), "rating", [], "any", false, false, false, 30), "label" => "Test"]);
+        yield "
+                    ";
         // line 31
-        yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Rating", ["rating" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 31, $this->source); })()), "rating", [], "any", false, false, false, 31), "label" => "Test"]);
-        yield "
-\t\t\t\t\t";
-        // line 32
-        if ((($tmp =  !(null === CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 32, $this->source); })()), "averageRating", [], "any", false, false, false, 32))) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
-            // line 33
-            yield "\t\t\t\t\t\t";
-            yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Rating", ["rating" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 33, $this->source); })()), "averageRating", [], "any", false, false, false, 33), "label" => "Avis"]);
+        if ((($tmp =  !(null === CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 31, $this->source); })()), "averageRating", [], "any", false, false, false, 31))) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 32
+            yield "                        ";
+            yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Rating", ["rating" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 32, $this->source); })()), "averageRating", [], "any", false, false, false, 32), "label" => "Avis"]);
             yield "
-\t\t\t\t\t";
+                    ";
         }
-        // line 35
-        yield "\t\t\t\t</div>
+        // line 34
+        yield "                </div>
 
-\t\t\t\t<div class=\"mt-4\">
-\t\t\t\t\t<h2 class=\"text-uppercase\">Notes</h2>
+                <div class=\"mt-4\">
+                    <h2 class=\"text-uppercase\">Notes</h2>
 
-\t\t\t\t\t<ul class=\"d-flex flex-column gap-2 p-0\">
-\t\t\t\t\t\t<li class=\"d-flex gap-2 align-items-center\">
-\t\t\t\t\t\t\t<span>5/5</span>
-\t\t\t\t\t\t\t";
+                    <ul class=\"d-flex flex-column gap-2 p-0\">
+                        <li class=\"d-flex gap-2 align-items-center\">
+                            <span>5/5</span>
+                            ";
+        // line 42
+        yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Progress", ["videoGame" => (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 42, $this->source); })()), "number" => CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 42, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 42), "numberOfFive", [], "any", false, false, false, 42)]);
+        yield "
+                            <span>";
         // line 43
-        yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Progress", ["videoGame" => (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 43, $this->source); })()), "number" => CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 43, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 43), "numberOfFive", [], "any", false, false, false, 43)]);
-        yield "
-\t\t\t\t\t\t\t<span>";
-        // line 44
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 44, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 44), "numberOfFive", [], "any", false, false, false, 44), "html", null, true);
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 43, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 43), "numberOfFive", [], "any", false, false, false, 43), "html", null, true);
         yield "</span>
-\t\t\t\t\t\t</li>
-\t\t\t\t\t\t<li class=\"d-flex gap-2 align-items-center\">
-\t\t\t\t\t\t\t<span>4/5</span>
-\t\t\t\t\t\t\t";
+                        </li>
+                        <li class=\"d-flex gap-2 align-items-center\">
+                            <span>4/5</span>
+                            ";
+        // line 47
+        yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Progress", ["videoGame" => (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 47, $this->source); })()), "number" => CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 47, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 47), "numberOfFour", [], "any", false, false, false, 47)]);
+        yield "
+                            <span>";
         // line 48
-        yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Progress", ["videoGame" => (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 48, $this->source); })()), "number" => CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 48, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 48), "numberOfFour", [], "any", false, false, false, 48)]);
-        yield "
-\t\t\t\t\t\t\t<span>";
-        // line 49
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 49, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 49), "numberOfFour", [], "any", false, false, false, 49), "html", null, true);
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 48, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 48), "numberOfFour", [], "any", false, false, false, 48), "html", null, true);
         yield "</span>
-\t\t\t\t\t\t</li>
-\t\t\t\t\t\t<li class=\"d-flex gap-2 align-items-center\">
-\t\t\t\t\t\t\t<span>3/5</span>
-\t\t\t\t\t\t\t";
+                        </li>
+                        <li class=\"d-flex gap-2 align-items-center\">
+                            <span>3/5</span>
+                            ";
+        // line 52
+        yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Progress", ["videoGame" => (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 52, $this->source); })()), "number" => CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 52, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 52), "numberOfThree", [], "any", false, false, false, 52)]);
+        yield "
+                            <span>";
         // line 53
-        yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Progress", ["videoGame" => (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 53, $this->source); })()), "number" => CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 53, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 53), "numberOfThree", [], "any", false, false, false, 53)]);
-        yield "
-\t\t\t\t\t\t\t<span>";
-        // line 54
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 54, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 54), "numberOfThree", [], "any", false, false, false, 54), "html", null, true);
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 53, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 53), "numberOfThree", [], "any", false, false, false, 53), "html", null, true);
         yield "</span>
-\t\t\t\t\t\t</li>
-\t\t\t\t\t\t<li class=\"d-flex gap-2 align-items-center\">
-\t\t\t\t\t\t\t<span>2/5</span>
-\t\t\t\t\t\t\t";
+                        </li>
+                        <li class=\"d-flex gap-2 align-items-center\">
+                            <span>2/5</span>
+                            ";
+        // line 57
+        yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Progress", ["videoGame" => (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 57, $this->source); })()), "number" => CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 57, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 57), "numberOfTwo", [], "any", false, false, false, 57)]);
+        yield "
+                            <span>";
         // line 58
-        yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Progress", ["videoGame" => (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 58, $this->source); })()), "number" => CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 58, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 58), "numberOfTwo", [], "any", false, false, false, 58)]);
-        yield "
-\t\t\t\t\t\t\t<span>";
-        // line 59
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 59, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 59), "numberOfTwo", [], "any", false, false, false, 59), "html", null, true);
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 58, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 58), "numberOfTwo", [], "any", false, false, false, 58), "html", null, true);
         yield "</span>
-\t\t\t\t\t\t</li>
-\t\t\t\t\t\t<li class=\"d-flex gap-2 align-items-center\">
-\t\t\t\t\t\t\t<span>1/5</span>
-\t\t\t\t\t\t\t";
+                        </li>
+                        <li class=\"d-flex gap-2 align-items-center\">
+                            <span>1/5</span>
+                            ";
+        // line 62
+        yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Progress", ["videoGame" => (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 62, $this->source); })()), "number" => CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 62, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 62), "numberOfOne", [], "any", false, false, false, 62)]);
+        yield "
+                            <span>";
         // line 63
-        yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Progress", ["videoGame" => (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 63, $this->source); })()), "number" => CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 63, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 63), "numberOfOne", [], "any", false, false, false, 63)]);
-        yield "
-\t\t\t\t\t\t\t<span>";
-        // line 64
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 64, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 64), "numberOfOne", [], "any", false, false, false, 64), "html", null, true);
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 63, $this->source); })()), "numberOfRatingsPerValue", [], "any", false, false, false, 63), "numberOfOne", [], "any", false, false, false, 63), "html", null, true);
         yield "</span>
-\t\t\t\t\t\t</li>
-\t\t\t\t\t</ul>
-\t\t\t\t</div>
-\t\t\t</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-\t\t\t<!-- Colonne droite -->
-\t\t\t<div class=\"col-8\">
-\t\t\t\t";
-        // line 72
+            <div class=\"col-8\">
+                ";
+        // line 70
         $_v0 = $this->env->getRuntime("Symfony\\UX\\TwigComponent\\Twig\\ComponentRuntime");
         $preRendered = $_v0->preRender("Tabs", Twig\Extension\CoreExtension::toArray([]));
         if (null !== $preRendered) {
             yield $preRendered; 
         } else {
-            $preRenderEvent = $_v0->startEmbedComponent("Tabs", Twig\Extension\CoreExtension::toArray([]), $context, "views/video_games/show.html.twig", 39292991341);
+            $preRenderEvent = $_v0->startEmbedComponent("Tabs", Twig\Extension\CoreExtension::toArray([]), $context, "views/video_games/show.html.twig", 709246901);
             $embeddedContext = $preRenderEvent->getVariables();
             $embeddedContext["__parent__"] = $preRenderEvent->getTemplate();
             $embeddedContext["outerBlocks"] ??= new \Symfony\UX\TwigComponent\BlockStack();
-            $embeddedBlocks = $embeddedContext["outerBlocks"]->convert($blocks, 39292991341);
-            $this->load("views/video_games/show.html.twig", 72, "39292991341")->display($embeddedContext, $embeddedBlocks);
+            $embeddedBlocks = $embeddedContext["outerBlocks"]->convert($blocks, 709246901);
+            $this->load("views/video_games/show.html.twig", 70, "709246901")->display($embeddedContext, $embeddedBlocks);
             $_v0->finishEmbedComponent();
         }
-        // line 114
-        yield "\t\t\t</div>
-\t\t</div>
-\t</div>
+        // line 112
+        yield "            </div>
+        </div>
+    </div>
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -254,7 +253,7 @@ class __TwigTemplate_fb4a1662116952c6ab49c209c1b8ea20 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  223 => 114,  209 => 72,  198 => 64,  194 => 63,  187 => 59,  183 => 58,  176 => 54,  172 => 53,  165 => 49,  161 => 48,  154 => 44,  150 => 43,  140 => 35,  134 => 33,  132 => 32,  128 => 31,  120 => 28,  107 => 18,  101 => 14,  92 => 12,  88 => 11,  82 => 8,  76 => 4,  63 => 3,  40 => 1,);
+        return array (  222 => 112,  208 => 70,  198 => 63,  194 => 62,  187 => 58,  183 => 57,  176 => 53,  172 => 52,  165 => 48,  161 => 47,  154 => 43,  150 => 42,  140 => 34,  134 => 32,  132 => 31,  128 => 30,  122 => 27,  117 => 25,  106 => 17,  101 => 14,  92 => 12,  88 => 11,  82 => 8,  76 => 4,  63 => 3,  40 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -262,127 +261,125 @@ class __TwigTemplate_fb4a1662116952c6ab49c209c1b8ea20 extends Template
         return new Source("{% extends \x27base.html.twig\x27 %}
 
 {% block body %}
-\t<div class=\"container\">
-\t\t<div class=\"row mb-4\">
-\t\t\t<div class=\"col\">
-\t\t\t\t<div class=\"rounded-5 bg-light p-4 d-flex flex-column align-items-center\">
-\t\t\t\t\t<h1 class=\"mb-4 text-center text-uppercase\">{{ video_game.title }}</h1>
+    <div class=\"container\">
+        <div class=\"row mb-4\">
+            <div class=\"col\">
+                <div class=\"rounded-5 bg-light p-4 d-flex flex-column align-items-center\">
+                    <h1 class=\"mb-4 text-center text-uppercase\">{{ video_game.title }}</h1>
 
-\t\t\t\t\t<div class=\"tags d-flex justify-content-center gap-3 mb-3\">
-\t\t\t\t\t\t{% for tag in video_game.tags %}
-\t\t\t\t\t\t\t<span class=\"badge bg-primary\">{{ tag.name }}</span>
-\t\t\t\t\t\t{% endfor %}
-\t\t\t\t\t</div>
+                    <div class=\"tags d-flex justify-content-center gap-3 mb-3\">
+                        {% for tag in video_game.tags %}
+                            <span class=\"badge bg-primary\">{{ tag.name }}</span>
+                        {% endfor %}
+                    </div>
 
-\t\t\t\t\t<small class=\"text-muted\">
-\t\t\t\t\t\tSortie :
-\t\t\t\t\t\t{{ video_game.releaseDate|date(\x27m/d/Y\x27) }}
-\t\t\t\t\t</small>
-\t\t\t\t</div>
-\t\t\t</div>
-\t\t</div>
+                    <small class=\"text-muted\">
+                        Sortie : {{ video_game.releaseDate|date(\x27m/d/Y\x27) }}
+                    </small>
+                </div>
+            </div>
+        </div>
 
-\t\t<div
-\t\t\tclass=\"row\">
-\t\t\t<!-- Colonne gauche -->
-\t\t\t<div class=\"col-md-4\">
-\t\t\t\t<img src=\"{{ vich_uploader_asset(video_game, \x27imageFile\x27, \x27App\\\\Model\\\\Entity\\\\VideoGame\x27) }}\" class=\"img-fluid rounded\" alt=\"Couverture de {{ video_game.title|e }}\">
+        <div class=\"row\">
+            <div class=\"col-md-4\">
+                <img src=\"{{ vich_uploader_asset(video_game, \x27imageFile\x27, \x27App\\\\Model\\\\Entity\\\\VideoGame\x27) }}\"
+                     class=\"img-fluid rounded\"
+                     alt=\"Couverture de {{ video_game.title|e }}\">
 
-\t\t\t\t<div class=\"ratings justify-content-between mt-3\">
-\t\t\t\t\t{{ component(\x27Rating\x27, { rating: (video_game.rating), label: \x27Test\x27 }) }}
-\t\t\t\t\t{% if video_game.averageRating is not null %}
-\t\t\t\t\t\t{{ component(\x27Rating\x27, { rating: (video_game.averageRating), label: \x27Avis\x27 }) }}
-\t\t\t\t\t{% endif %}
-\t\t\t\t</div>
+                <div class=\"ratings justify-content-between mt-3\">
+                    {{ component(\x27Rating\x27, { rating: (video_game.rating), label: \x27Test\x27 }) }}
+                    {% if video_game.averageRating is not null %}
+                        {{ component(\x27Rating\x27, { rating: (video_game.averageRating), label: \x27Avis\x27 }) }}
+                    {% endif %}
+                </div>
 
-\t\t\t\t<div class=\"mt-4\">
-\t\t\t\t\t<h2 class=\"text-uppercase\">Notes</h2>
+                <div class=\"mt-4\">
+                    <h2 class=\"text-uppercase\">Notes</h2>
 
-\t\t\t\t\t<ul class=\"d-flex flex-column gap-2 p-0\">
-\t\t\t\t\t\t<li class=\"d-flex gap-2 align-items-center\">
-\t\t\t\t\t\t\t<span>5/5</span>
-\t\t\t\t\t\t\t{{ component(\x27Progress\x27, { videoGame: video_game, number: video_game.numberOfRatingsPerValue.numberOfFive }) }}
-\t\t\t\t\t\t\t<span>{{ video_game.numberOfRatingsPerValue.numberOfFive }}</span>
-\t\t\t\t\t\t</li>
-\t\t\t\t\t\t<li class=\"d-flex gap-2 align-items-center\">
-\t\t\t\t\t\t\t<span>4/5</span>
-\t\t\t\t\t\t\t{{ component(\x27Progress\x27, { videoGame: video_game, number: video_game.numberOfRatingsPerValue.numberOfFour }) }}
-\t\t\t\t\t\t\t<span>{{ video_game.numberOfRatingsPerValue.numberOfFour }}</span>
-\t\t\t\t\t\t</li>
-\t\t\t\t\t\t<li class=\"d-flex gap-2 align-items-center\">
-\t\t\t\t\t\t\t<span>3/5</span>
-\t\t\t\t\t\t\t{{ component(\x27Progress\x27, { videoGame: video_game, number: video_game.numberOfRatingsPerValue.numberOfThree }) }}
-\t\t\t\t\t\t\t<span>{{ video_game.numberOfRatingsPerValue.numberOfThree }}</span>
-\t\t\t\t\t\t</li>
-\t\t\t\t\t\t<li class=\"d-flex gap-2 align-items-center\">
-\t\t\t\t\t\t\t<span>2/5</span>
-\t\t\t\t\t\t\t{{ component(\x27Progress\x27, { videoGame: video_game, number: video_game.numberOfRatingsPerValue.numberOfTwo }) }}
-\t\t\t\t\t\t\t<span>{{ video_game.numberOfRatingsPerValue.numberOfTwo }}</span>
-\t\t\t\t\t\t</li>
-\t\t\t\t\t\t<li class=\"d-flex gap-2 align-items-center\">
-\t\t\t\t\t\t\t<span>1/5</span>
-\t\t\t\t\t\t\t{{ component(\x27Progress\x27, { videoGame: video_game, number: video_game.numberOfRatingsPerValue.numberOfOne }) }}
-\t\t\t\t\t\t\t<span>{{ video_game.numberOfRatingsPerValue.numberOfOne }}</span>
-\t\t\t\t\t\t</li>
-\t\t\t\t\t</ul>
-\t\t\t\t</div>
-\t\t\t</div>
+                    <ul class=\"d-flex flex-column gap-2 p-0\">
+                        <li class=\"d-flex gap-2 align-items-center\">
+                            <span>5/5</span>
+                            {{ component(\x27Progress\x27, { videoGame: video_game, number: video_game.numberOfRatingsPerValue.numberOfFive }) }}
+                            <span>{{ video_game.numberOfRatingsPerValue.numberOfFive }}</span>
+                        </li>
+                        <li class=\"d-flex gap-2 align-items-center\">
+                            <span>4/5</span>
+                            {{ component(\x27Progress\x27, { videoGame: video_game, number: video_game.numberOfRatingsPerValue.numberOfFour }) }}
+                            <span>{{ video_game.numberOfRatingsPerValue.numberOfFour }}</span>
+                        </li>
+                        <li class=\"d-flex gap-2 align-items-center\">
+                            <span>3/5</span>
+                            {{ component(\x27Progress\x27, { videoGame: video_game, number: video_game.numberOfRatingsPerValue.numberOfThree }) }}
+                            <span>{{ video_game.numberOfRatingsPerValue.numberOfThree }}</span>
+                        </li>
+                        <li class=\"d-flex gap-2 align-items-center\">
+                            <span>2/5</span>
+                            {{ component(\x27Progress\x27, { videoGame: video_game, number: video_game.numberOfRatingsPerValue.numberOfTwo }) }}
+                            <span>{{ video_game.numberOfRatingsPerValue.numberOfTwo }}</span>
+                        </li>
+                        <li class=\"d-flex gap-2 align-items-center\">
+                            <span>1/5</span>
+                            {{ component(\x27Progress\x27, { videoGame: video_game, number: video_game.numberOfRatingsPerValue.numberOfOne }) }}
+                            <span>{{ video_game.numberOfRatingsPerValue.numberOfOne }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-\t\t\t<!-- Colonne droite -->
-\t\t\t<div class=\"col-8\">
-\t\t\t\t{% component \x27Tabs\x27 %}
-\t\t\t\t\t{% block home %}
-\t\t\t\t\t\t<div class=\"bg-light p-3 rounded\">
-\t\t\t\t\t\t\t<h2 class=\"text-uppercase\">Description</h2>
-\t\t\t\t\t\t\t{{ video_game.description|nl2br }}
-\t\t\t\t\t\t</div>
-\t\t\t\t\t{% endblock %}
+            <div class=\"col-8\">
+                {% component \x27Tabs\x27 %}
+                    {% block home %}
+                        <div class=\"bg-light p-3 rounded\">
+                            <h2 class=\"text-uppercase\">Description</h2>
+                            {{ video_game.description|nl2br }}
+                        </div>
+                    {% endblock %}
 
-\t\t\t\t\t{% block test %}
-\t\t\t\t\t\t<div class=\"bg-light p-3 rounded\">
-\t\t\t\t\t\t\t<h2 class=\"text-uppercase\">Test CritiPixel</h2>
-\t\t\t\t\t\t\t{{ video_game.test|nl2br }}
-\t\t\t\t\t\t</div>
-\t\t\t\t\t{% endblock %}
+                    {% block test %}
+                        <div class=\"bg-light p-3 rounded\">
+                            <h2 class=\"text-uppercase\">Test CritiPixel</h2>
+                            {{ video_game.test|nl2br }}
+                        </div>
+                    {% endblock %}
 
-\t\t\t\t\t{% block reviews %}
-\t\t\t\t\t\t<div class=\"bg-light p-3 rounded\">
-\t\t\t\t\t\t\t<h2 class=\"text-uppercase\">Avis des lecteurs</h2>
+                    {% block reviews %}
+                        <div class=\"bg-light p-3 rounded\">
+                            <h2 class=\"text-uppercase\">Avis des lecteurs</h2>
 
-\t\t\t\t\t\t\t{% if is_granted(\x27review\x27, video_game) %}
-\t\t\t\t\t\t\t\t<div class=\"mb-4\">
-\t\t\t\t\t\t\t\t\t{{ form_start(form, { attr: { id: \x27review_form\x27 } }) }}
-\t\t\t\t\t\t\t\t\t{{ form_errors(form) }}
+                            {% if is_granted(\x27review\x27, video_game) %}
+                                <div class=\"mb-4\">
+                                    {{ form_start(form, { attr: { id: \x27review_form\x27 } }) }}
+                                    {{ form_errors(form) }}
 
-\t\t\t\t\t\t\t\t\t<fieldset class=\"mb-3\">
-\t\t\t\t\t\t\t\t\t\t{{ form_row(form.note) }}
-\t\t\t\t\t\t\t\t\t\t{{ form_row(form.comment) }}
-\t\t\t\t\t\t\t\t\t</fieldset>
+                                    <fieldset class=\"mb-3\">
+                                        {{ form_row(form.note) }}
+                                        {{ form_row(form.comment) }}
+                                    </fieldset>
 
-\t\t\t\t\t\t\t\t\t<button class=\"btn btn-primary py-2\" type=\"submit\">Poster</button>
-\t\t\t\t\t\t\t\t\t{{ form_end(form) }}
-\t\t\t\t\t\t\t\t</div>
-\t\t\t\t\t\t\t{% endif %}
+                                    <button class=\"btn btn-primary py-2\" type=\"submit\">Poster</button>
+                                    {{ form_end(form) }}
+                                </div>
+                            {% endif %}
 
-\t\t\t\t\t\t\t<div class=\"list-group\">
-\t\t\t\t\t\t\t\t{% for review in video_game.reviews %}
-\t\t\t\t\t\t\t\t\t{{ component(\x27Review\x27, { review: review }) }}
-\t\t\t\t\t\t\t\t{% endfor %}
-\t\t\t\t\t\t\t</div>
-\t\t\t\t\t\t</div>
-\t\t\t\t\t{% endblock %}
-\t\t\t\t{% endcomponent %}
-\t\t\t</div>
-\t\t</div>
-\t</div>
+                            <div class=\"list-group\">
+                                {% for review in video_game.reviews %}
+                                    {{ component(\x27Review\x27, { review: review }) }}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endblock %}
+                {% endcomponent %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
-", "views/video_games/show.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/templates/views/video_games/show.html.twig");
+", "views/video_games/show.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/templates/views/video_games/show.html.twig");
     }
 }
 
 
 /* views/video_games/show.html.twig */
-class __TwigTemplate_fb4a1662116952c6ab49c209c1b8ea20___39292991341 extends Template
+class __TwigTemplate_fb4a1662116952c6ab49c209c1b8ea20___709246901 extends Template
 {
     private Source $source;
     /**
@@ -406,8 +403,8 @@ class __TwigTemplate_fb4a1662116952c6ab49c209c1b8ea20___39292991341 extends Temp
 
     protected function doGetParent(array $context): bool|string|Template|TemplateWrapper
     {
-        // line 72
-        return $this->load((isset($context["__parent__"]) || array_key_exists("__parent__", $context) ? $context["__parent__"] : (function () { throw new RuntimeError('Variable "__parent__" does not exist.', 72, $this->source); })()), 72);
+        // line 70
+        return $this->load((isset($context["__parent__"]) || array_key_exists("__parent__", $context) ? $context["__parent__"] : (function () { throw new RuntimeError('Variable "__parent__" does not exist.', 70, $this->source); })()), 70);
     }
 
     protected function doDisplay(array $context, array $blocks = []): iterable
@@ -449,7 +446,7 @@ class __TwigTemplate_fb4a1662116952c6ab49c209c1b8ea20___39292991341 extends Temp
         yield from [];
     }
 
-    // line 73
+    // line 71
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -462,15 +459,15 @@ class __TwigTemplate_fb4a1662116952c6ab49c209c1b8ea20___39292991341 extends Temp
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "home"));
 
+        // line 72
+        yield "                        <div class=\"bg-light p-3 rounded\">
+                            <h2 class=\"text-uppercase\">Description</h2>
+                            ";
         // line 74
-        yield "\t\t\t\t\t\t<div class=\"bg-light p-3 rounded\">
-\t\t\t\t\t\t\t<h2 class=\"text-uppercase\">Description</h2>
-\t\t\t\t\t\t\t";
-        // line 76
-        yield Twig\Extension\CoreExtension::nl2br($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 76, $this->source); })()), "description", [], "any", false, false, false, 76), "html", null, true));
+        yield Twig\Extension\CoreExtension::nl2br($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 74, $this->source); })()), "description", [], "any", false, false, false, 74), "html", null, true));
         yield "
-\t\t\t\t\t\t</div>
-\t\t\t\t\t";
+                        </div>
+                    ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -480,7 +477,7 @@ class __TwigTemplate_fb4a1662116952c6ab49c209c1b8ea20___39292991341 extends Temp
         yield from [];
     }
 
-    // line 80
+    // line 78
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -493,15 +490,15 @@ class __TwigTemplate_fb4a1662116952c6ab49c209c1b8ea20___39292991341 extends Temp
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "test"));
 
+        // line 79
+        yield "                        <div class=\"bg-light p-3 rounded\">
+                            <h2 class=\"text-uppercase\">Test CritiPixel</h2>
+                            ";
         // line 81
-        yield "\t\t\t\t\t\t<div class=\"bg-light p-3 rounded\">
-\t\t\t\t\t\t\t<h2 class=\"text-uppercase\">Test CritiPixel</h2>
-\t\t\t\t\t\t\t";
-        // line 83
-        yield Twig\Extension\CoreExtension::nl2br($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 83, $this->source); })()), "test", [], "any", false, false, false, 83), "html", null, true));
+        yield Twig\Extension\CoreExtension::nl2br($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 81, $this->source); })()), "test", [], "any", false, false, false, 81), "html", null, true));
         yield "
-\t\t\t\t\t\t</div>
-\t\t\t\t\t";
+                        </div>
+                    ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -511,7 +508,7 @@ class __TwigTemplate_fb4a1662116952c6ab49c209c1b8ea20___39292991341 extends Temp
         yield from [];
     }
 
-    // line 87
+    // line 85
     /**
      * @return iterable<null|scalar|\Stringable>
      */
@@ -524,64 +521,64 @@ class __TwigTemplate_fb4a1662116952c6ab49c209c1b8ea20___39292991341 extends Temp
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "reviews"));
 
-        // line 88
-        yield "\t\t\t\t\t\t<div class=\"bg-light p-3 rounded\">
-\t\t\t\t\t\t\t<h2 class=\"text-uppercase\">Avis des lecteurs</h2>
+        // line 86
+        yield "                        <div class=\"bg-light p-3 rounded\">
+                            <h2 class=\"text-uppercase\">Avis des lecteurs</h2>
 
-\t\t\t\t\t\t\t";
-        // line 91
-        if ((($tmp = $this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("review", (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 91, $this->source); })()))) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                            ";
+        // line 89
+        if ((($tmp = $this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("review", (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 89, $this->source); })()))) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+            // line 90
+            yield "                                <div class=\"mb-4\">
+                                    ";
+            // line 91
+            yield             $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 91, $this->source); })()), 'form_start', ["attr" => ["id" => "review_form"]]);
+            yield "
+                                    ";
             // line 92
-            yield "\t\t\t\t\t\t\t\t<div class=\"mb-4\">
-\t\t\t\t\t\t\t\t\t";
-            // line 93
-            yield             $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 93, $this->source); })()), 'form_start', ["attr" => ["id" => "review_form"]]);
-            yield "
-\t\t\t\t\t\t\t\t\t";
-            // line 94
-            yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 94, $this->source); })()), 'errors');
+            yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 92, $this->source); })()), 'errors');
             yield "
 
-\t\t\t\t\t\t\t\t\t<fieldset class=\"mb-3\">
-\t\t\t\t\t\t\t\t\t\t";
-            // line 97
-            yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 97, $this->source); })()), "note", [], "any", false, false, false, 97), 'row');
+                                    <fieldset class=\"mb-3\">
+                                        ";
+            // line 95
+            yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 95, $this->source); })()), "note", [], "any", false, false, false, 95), 'row');
             yield "
-\t\t\t\t\t\t\t\t\t\t";
-            // line 98
-            yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 98, $this->source); })()), "comment", [], "any", false, false, false, 98), 'row');
+                                        ";
+            // line 96
+            yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 96, $this->source); })()), "comment", [], "any", false, false, false, 96), 'row');
             yield "
-\t\t\t\t\t\t\t\t\t</fieldset>
+                                    </fieldset>
 
-\t\t\t\t\t\t\t\t\t<button class=\"btn btn-primary py-2\" type=\"submit\">Poster</button>
-\t\t\t\t\t\t\t\t\t";
-            // line 102
-            yield             $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 102, $this->source); })()), 'form_end');
+                                    <button class=\"btn btn-primary py-2\" type=\"submit\">Poster</button>
+                                    ";
+            // line 100
+            yield             $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock((isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 100, $this->source); })()), 'form_end');
             yield "
-\t\t\t\t\t\t\t\t</div>
-\t\t\t\t\t\t\t";
+                                </div>
+                            ";
         }
-        // line 105
+        // line 103
         yield "
-\t\t\t\t\t\t\t<div class=\"list-group\">
-\t\t\t\t\t\t\t\t";
-        // line 107
+                            <div class=\"list-group\">
+                                ";
+        // line 105
         $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 107, $this->source); })()), "reviews", [], "any", false, false, false, 107));
+        $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["video_game"]) || array_key_exists("video_game", $context) ? $context["video_game"] : (function () { throw new RuntimeError('Variable "video_game" does not exist.', 105, $this->source); })()), "reviews", [], "any", false, false, false, 105));
         foreach ($context['_seq'] as $context["_key"] => $context["review"]) {
-            // line 108
-            yield "\t\t\t\t\t\t\t\t\t";
+            // line 106
+            yield "                                    ";
             yield $this->env->getRuntime('Symfony\UX\TwigComponent\Twig\ComponentRuntime')->render("Review", ["review" => $context["review"]]);
             yield "
-\t\t\t\t\t\t\t\t";
+                                ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_key'], $context['review'], $context['_parent']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 110
-        yield "\t\t\t\t\t\t\t</div>
-\t\t\t\t\t\t</div>
-\t\t\t\t\t";
+        // line 108
+        yield "                            </div>
+                        </div>
+                    ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
@@ -612,7 +609,7 @@ class __TwigTemplate_fb4a1662116952c6ab49c209c1b8ea20___39292991341 extends Temp
      */
     public function getDebugInfo(): array
     {
-        return array (  582 => 110,  573 => 108,  569 => 107,  565 => 105,  559 => 102,  552 => 98,  548 => 97,  542 => 94,  538 => 93,  535 => 92,  533 => 91,  528 => 88,  515 => 87,  501 => 83,  497 => 81,  484 => 80,  470 => 76,  466 => 74,  453 => 73,  410 => 72,  223 => 114,  209 => 72,  198 => 64,  194 => 63,  187 => 59,  183 => 58,  176 => 54,  172 => 53,  165 => 49,  161 => 48,  154 => 44,  150 => 43,  140 => 35,  134 => 33,  132 => 32,  128 => 31,  120 => 28,  107 => 18,  101 => 14,  92 => 12,  88 => 11,  82 => 8,  76 => 4,  63 => 3,  40 => 1,);
+        return array (  579 => 108,  570 => 106,  566 => 105,  562 => 103,  556 => 100,  549 => 96,  545 => 95,  539 => 92,  535 => 91,  532 => 90,  530 => 89,  525 => 86,  512 => 85,  498 => 81,  494 => 79,  481 => 78,  467 => 74,  463 => 72,  450 => 71,  407 => 70,  222 => 112,  208 => 70,  198 => 63,  194 => 62,  187 => 58,  183 => 57,  176 => 53,  172 => 52,  165 => 48,  161 => 47,  154 => 43,  150 => 42,  140 => 34,  134 => 32,  132 => 31,  128 => 30,  122 => 27,  117 => 25,  106 => 17,  101 => 14,  92 => 12,  88 => 11,  82 => 8,  76 => 4,  63 => 3,  40 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -620,120 +617,118 @@ class __TwigTemplate_fb4a1662116952c6ab49c209c1b8ea20___39292991341 extends Temp
         return new Source("{% extends \x27base.html.twig\x27 %}
 
 {% block body %}
-\t<div class=\"container\">
-\t\t<div class=\"row mb-4\">
-\t\t\t<div class=\"col\">
-\t\t\t\t<div class=\"rounded-5 bg-light p-4 d-flex flex-column align-items-center\">
-\t\t\t\t\t<h1 class=\"mb-4 text-center text-uppercase\">{{ video_game.title }}</h1>
+    <div class=\"container\">
+        <div class=\"row mb-4\">
+            <div class=\"col\">
+                <div class=\"rounded-5 bg-light p-4 d-flex flex-column align-items-center\">
+                    <h1 class=\"mb-4 text-center text-uppercase\">{{ video_game.title }}</h1>
 
-\t\t\t\t\t<div class=\"tags d-flex justify-content-center gap-3 mb-3\">
-\t\t\t\t\t\t{% for tag in video_game.tags %}
-\t\t\t\t\t\t\t<span class=\"badge bg-primary\">{{ tag.name }}</span>
-\t\t\t\t\t\t{% endfor %}
-\t\t\t\t\t</div>
+                    <div class=\"tags d-flex justify-content-center gap-3 mb-3\">
+                        {% for tag in video_game.tags %}
+                            <span class=\"badge bg-primary\">{{ tag.name }}</span>
+                        {% endfor %}
+                    </div>
 
-\t\t\t\t\t<small class=\"text-muted\">
-\t\t\t\t\t\tSortie :
-\t\t\t\t\t\t{{ video_game.releaseDate|date(\x27m/d/Y\x27) }}
-\t\t\t\t\t</small>
-\t\t\t\t</div>
-\t\t\t</div>
-\t\t</div>
+                    <small class=\"text-muted\">
+                        Sortie : {{ video_game.releaseDate|date(\x27m/d/Y\x27) }}
+                    </small>
+                </div>
+            </div>
+        </div>
 
-\t\t<div
-\t\t\tclass=\"row\">
-\t\t\t<!-- Colonne gauche -->
-\t\t\t<div class=\"col-md-4\">
-\t\t\t\t<img src=\"{{ vich_uploader_asset(video_game, \x27imageFile\x27, \x27App\\\\Model\\\\Entity\\\\VideoGame\x27) }}\" class=\"img-fluid rounded\" alt=\"Couverture de {{ video_game.title|e }}\">
+        <div class=\"row\">
+            <div class=\"col-md-4\">
+                <img src=\"{{ vich_uploader_asset(video_game, \x27imageFile\x27, \x27App\\\\Model\\\\Entity\\\\VideoGame\x27) }}\"
+                     class=\"img-fluid rounded\"
+                     alt=\"Couverture de {{ video_game.title|e }}\">
 
-\t\t\t\t<div class=\"ratings justify-content-between mt-3\">
-\t\t\t\t\t{{ component(\x27Rating\x27, { rating: (video_game.rating), label: \x27Test\x27 }) }}
-\t\t\t\t\t{% if video_game.averageRating is not null %}
-\t\t\t\t\t\t{{ component(\x27Rating\x27, { rating: (video_game.averageRating), label: \x27Avis\x27 }) }}
-\t\t\t\t\t{% endif %}
-\t\t\t\t</div>
+                <div class=\"ratings justify-content-between mt-3\">
+                    {{ component(\x27Rating\x27, { rating: (video_game.rating), label: \x27Test\x27 }) }}
+                    {% if video_game.averageRating is not null %}
+                        {{ component(\x27Rating\x27, { rating: (video_game.averageRating), label: \x27Avis\x27 }) }}
+                    {% endif %}
+                </div>
 
-\t\t\t\t<div class=\"mt-4\">
-\t\t\t\t\t<h2 class=\"text-uppercase\">Notes</h2>
+                <div class=\"mt-4\">
+                    <h2 class=\"text-uppercase\">Notes</h2>
 
-\t\t\t\t\t<ul class=\"d-flex flex-column gap-2 p-0\">
-\t\t\t\t\t\t<li class=\"d-flex gap-2 align-items-center\">
-\t\t\t\t\t\t\t<span>5/5</span>
-\t\t\t\t\t\t\t{{ component(\x27Progress\x27, { videoGame: video_game, number: video_game.numberOfRatingsPerValue.numberOfFive }) }}
-\t\t\t\t\t\t\t<span>{{ video_game.numberOfRatingsPerValue.numberOfFive }}</span>
-\t\t\t\t\t\t</li>
-\t\t\t\t\t\t<li class=\"d-flex gap-2 align-items-center\">
-\t\t\t\t\t\t\t<span>4/5</span>
-\t\t\t\t\t\t\t{{ component(\x27Progress\x27, { videoGame: video_game, number: video_game.numberOfRatingsPerValue.numberOfFour }) }}
-\t\t\t\t\t\t\t<span>{{ video_game.numberOfRatingsPerValue.numberOfFour }}</span>
-\t\t\t\t\t\t</li>
-\t\t\t\t\t\t<li class=\"d-flex gap-2 align-items-center\">
-\t\t\t\t\t\t\t<span>3/5</span>
-\t\t\t\t\t\t\t{{ component(\x27Progress\x27, { videoGame: video_game, number: video_game.numberOfRatingsPerValue.numberOfThree }) }}
-\t\t\t\t\t\t\t<span>{{ video_game.numberOfRatingsPerValue.numberOfThree }}</span>
-\t\t\t\t\t\t</li>
-\t\t\t\t\t\t<li class=\"d-flex gap-2 align-items-center\">
-\t\t\t\t\t\t\t<span>2/5</span>
-\t\t\t\t\t\t\t{{ component(\x27Progress\x27, { videoGame: video_game, number: video_game.numberOfRatingsPerValue.numberOfTwo }) }}
-\t\t\t\t\t\t\t<span>{{ video_game.numberOfRatingsPerValue.numberOfTwo }}</span>
-\t\t\t\t\t\t</li>
-\t\t\t\t\t\t<li class=\"d-flex gap-2 align-items-center\">
-\t\t\t\t\t\t\t<span>1/5</span>
-\t\t\t\t\t\t\t{{ component(\x27Progress\x27, { videoGame: video_game, number: video_game.numberOfRatingsPerValue.numberOfOne }) }}
-\t\t\t\t\t\t\t<span>{{ video_game.numberOfRatingsPerValue.numberOfOne }}</span>
-\t\t\t\t\t\t</li>
-\t\t\t\t\t</ul>
-\t\t\t\t</div>
-\t\t\t</div>
+                    <ul class=\"d-flex flex-column gap-2 p-0\">
+                        <li class=\"d-flex gap-2 align-items-center\">
+                            <span>5/5</span>
+                            {{ component(\x27Progress\x27, { videoGame: video_game, number: video_game.numberOfRatingsPerValue.numberOfFive }) }}
+                            <span>{{ video_game.numberOfRatingsPerValue.numberOfFive }}</span>
+                        </li>
+                        <li class=\"d-flex gap-2 align-items-center\">
+                            <span>4/5</span>
+                            {{ component(\x27Progress\x27, { videoGame: video_game, number: video_game.numberOfRatingsPerValue.numberOfFour }) }}
+                            <span>{{ video_game.numberOfRatingsPerValue.numberOfFour }}</span>
+                        </li>
+                        <li class=\"d-flex gap-2 align-items-center\">
+                            <span>3/5</span>
+                            {{ component(\x27Progress\x27, { videoGame: video_game, number: video_game.numberOfRatingsPerValue.numberOfThree }) }}
+                            <span>{{ video_game.numberOfRatingsPerValue.numberOfThree }}</span>
+                        </li>
+                        <li class=\"d-flex gap-2 align-items-center\">
+                            <span>2/5</span>
+                            {{ component(\x27Progress\x27, { videoGame: video_game, number: video_game.numberOfRatingsPerValue.numberOfTwo }) }}
+                            <span>{{ video_game.numberOfRatingsPerValue.numberOfTwo }}</span>
+                        </li>
+                        <li class=\"d-flex gap-2 align-items-center\">
+                            <span>1/5</span>
+                            {{ component(\x27Progress\x27, { videoGame: video_game, number: video_game.numberOfRatingsPerValue.numberOfOne }) }}
+                            <span>{{ video_game.numberOfRatingsPerValue.numberOfOne }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
-\t\t\t<!-- Colonne droite -->
-\t\t\t<div class=\"col-8\">
-\t\t\t\t{% component \x27Tabs\x27 %}
-\t\t\t\t\t{% block home %}
-\t\t\t\t\t\t<div class=\"bg-light p-3 rounded\">
-\t\t\t\t\t\t\t<h2 class=\"text-uppercase\">Description</h2>
-\t\t\t\t\t\t\t{{ video_game.description|nl2br }}
-\t\t\t\t\t\t</div>
-\t\t\t\t\t{% endblock %}
+            <div class=\"col-8\">
+                {% component \x27Tabs\x27 %}
+                    {% block home %}
+                        <div class=\"bg-light p-3 rounded\">
+                            <h2 class=\"text-uppercase\">Description</h2>
+                            {{ video_game.description|nl2br }}
+                        </div>
+                    {% endblock %}
 
-\t\t\t\t\t{% block test %}
-\t\t\t\t\t\t<div class=\"bg-light p-3 rounded\">
-\t\t\t\t\t\t\t<h2 class=\"text-uppercase\">Test CritiPixel</h2>
-\t\t\t\t\t\t\t{{ video_game.test|nl2br }}
-\t\t\t\t\t\t</div>
-\t\t\t\t\t{% endblock %}
+                    {% block test %}
+                        <div class=\"bg-light p-3 rounded\">
+                            <h2 class=\"text-uppercase\">Test CritiPixel</h2>
+                            {{ video_game.test|nl2br }}
+                        </div>
+                    {% endblock %}
 
-\t\t\t\t\t{% block reviews %}
-\t\t\t\t\t\t<div class=\"bg-light p-3 rounded\">
-\t\t\t\t\t\t\t<h2 class=\"text-uppercase\">Avis des lecteurs</h2>
+                    {% block reviews %}
+                        <div class=\"bg-light p-3 rounded\">
+                            <h2 class=\"text-uppercase\">Avis des lecteurs</h2>
 
-\t\t\t\t\t\t\t{% if is_granted(\x27review\x27, video_game) %}
-\t\t\t\t\t\t\t\t<div class=\"mb-4\">
-\t\t\t\t\t\t\t\t\t{{ form_start(form, { attr: { id: \x27review_form\x27 } }) }}
-\t\t\t\t\t\t\t\t\t{{ form_errors(form) }}
+                            {% if is_granted(\x27review\x27, video_game) %}
+                                <div class=\"mb-4\">
+                                    {{ form_start(form, { attr: { id: \x27review_form\x27 } }) }}
+                                    {{ form_errors(form) }}
 
-\t\t\t\t\t\t\t\t\t<fieldset class=\"mb-3\">
-\t\t\t\t\t\t\t\t\t\t{{ form_row(form.note) }}
-\t\t\t\t\t\t\t\t\t\t{{ form_row(form.comment) }}
-\t\t\t\t\t\t\t\t\t</fieldset>
+                                    <fieldset class=\"mb-3\">
+                                        {{ form_row(form.note) }}
+                                        {{ form_row(form.comment) }}
+                                    </fieldset>
 
-\t\t\t\t\t\t\t\t\t<button class=\"btn btn-primary py-2\" type=\"submit\">Poster</button>
-\t\t\t\t\t\t\t\t\t{{ form_end(form) }}
-\t\t\t\t\t\t\t\t</div>
-\t\t\t\t\t\t\t{% endif %}
+                                    <button class=\"btn btn-primary py-2\" type=\"submit\">Poster</button>
+                                    {{ form_end(form) }}
+                                </div>
+                            {% endif %}
 
-\t\t\t\t\t\t\t<div class=\"list-group\">
-\t\t\t\t\t\t\t\t{% for review in video_game.reviews %}
-\t\t\t\t\t\t\t\t\t{{ component(\x27Review\x27, { review: review }) }}
-\t\t\t\t\t\t\t\t{% endfor %}
-\t\t\t\t\t\t\t</div>
-\t\t\t\t\t\t</div>
-\t\t\t\t\t{% endblock %}
-\t\t\t\t{% endcomponent %}
-\t\t\t</div>
-\t\t</div>
-\t</div>
+                            <div class=\"list-group\">
+                                {% for review in video_game.reviews %}
+                                    {{ component(\x27Review\x27, { review: review }) }}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endblock %}
+                {% endcomponent %}
+            </div>
+        </div>
+    </div>
 {% endblock %}
-", "views/video_games/show.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/templates/views/video_games/show.html.twig");
+", "views/video_games/show.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/templates/views/video_games/show.html.twig");
     }
 }
