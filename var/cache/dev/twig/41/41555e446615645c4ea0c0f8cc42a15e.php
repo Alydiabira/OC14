@@ -98,6 +98,6 @@ class __TwigTemplate_99fe23c4054e7b93c5c10b616b861744 extends Template
         return new Source("<div class=\"fw-bold\" {{ attributes }}>
     Affiche {{ info.count }} jeux vidéo de {{ info.from }} à {{ info.to }} sur les {{ info.total }} jeux vidéo
 </div>
-", "components/Info.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/templates/components/Info.html.twig");
+", "components/Info.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/templates/components/Info.html.twig");
     }
 }

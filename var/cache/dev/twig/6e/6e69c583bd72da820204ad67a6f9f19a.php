@@ -1489,6 +1489,6 @@ class __TwigTemplate_341679202dbbaef59539a06e6fe6093d extends Template
         <span>{{ route|default(controller) }}</span>
     {%- endif %}
 {% endmacro %}
-", "@WebProfiler/Collector/request.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/symfony/web-profiler-bundle/Resources/views/Collector/request.html.twig");
+", "@WebProfiler/Collector/request.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/vendor/symfony/web-profiler-bundle/Resources/views/Collector/request.html.twig");
     }
 }

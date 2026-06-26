@@ -180,6 +180,6 @@ class __TwigTemplate_bb6f7b537a75bd20593ca4d74ebeccb3 extends Template
 
     {{ include(\x27@WebProfiler/Profiler/toolbar_item.html.twig\x27, { link: profiler_url, name: \x27time\x27, status: status_color }) }}
 {% endblock %}
-", "@WebProfiler/Collector/memory.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/symfony/web-profiler-bundle/Resources/views/Collector/memory.html.twig");
+", "@WebProfiler/Collector/memory.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/vendor/symfony/web-profiler-bundle/Resources/views/Collector/memory.html.twig");
     }
 }

@@ -349,6 +349,6 @@ class __TwigTemplate_74388724218f2992a44ce994072567d6 extends Template
         </tbody>
     </table>
 {% endblock %}
-", "@VichUploader/Collector/mapping_collector.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/vich/uploader-bundle/templates/Collector/mapping_collector.html.twig");
+", "@VichUploader/Collector/mapping_collector.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/vendor/vich/uploader-bundle/templates/Collector/mapping_collector.html.twig");
     }
 }

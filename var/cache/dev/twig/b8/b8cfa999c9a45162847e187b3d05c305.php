@@ -94,6 +94,6 @@ class __TwigTemplate_855e4ed318ecd22ffabc38d48a8687da extends Template
         return new Source("<div class=\"alert alert-{{ type }}\" role=\"alert\" {{ attributes }}>
     {{ message }}
 </div>
-", "components/Alert.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/templates/components/Alert.html.twig");
+", "components/Alert.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/templates/components/Alert.html.twig");
     }
 }

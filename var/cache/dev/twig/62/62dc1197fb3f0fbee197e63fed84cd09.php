@@ -482,6 +482,6 @@ class __TwigTemplate_4a6f9a612e79d43c73ca174d68b3c020 extends Template
     {%- set widget_class = widget_class|default(\x27mr-2\x27) -%}
     {{- parent() -}}
 {%- endblock radio_widget -%}
-", "tailwind_2_layout.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/symfony/twig-bridge/Resources/views/Form/tailwind_2_layout.html.twig");
+", "tailwind_2_layout.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/vendor/symfony/twig-bridge/Resources/views/Form/tailwind_2_layout.html.twig");
     }
 }

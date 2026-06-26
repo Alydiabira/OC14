@@ -337,6 +337,6 @@ class __TwigTemplate_c4b8b88acf0a672308fb008df92b61e5 extends Template
         {% block body \x27\x27 %}
     </body>
 </html>
-", "@WebProfiler/Profiler/base.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/base.html.twig");
+", "@WebProfiler/Profiler/base.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/base.html.twig");
     }
 }

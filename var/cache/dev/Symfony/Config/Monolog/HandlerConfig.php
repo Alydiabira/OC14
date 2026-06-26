@@ -6,6 +6,7 @@ require_once __DIR__.\DIRECTORY_SEPARATOR.'HandlerConfig'.\DIRECTORY_SEPARATOR.'
 require_once __DIR__.\DIRECTORY_SEPARATOR.'HandlerConfig'.\DIRECTORY_SEPARATOR.'ExcludedHttpCodeConfig.php';
 require_once __DIR__.\DIRECTORY_SEPARATOR.'HandlerConfig'.\DIRECTORY_SEPARATOR.'PublisherConfig.php';
 require_once __DIR__.\DIRECTORY_SEPARATOR.'HandlerConfig'.\DIRECTORY_SEPARATOR.'MongoConfig.php';
+require_once __DIR__.\DIRECTORY_SEPARATOR.'HandlerConfig'.\DIRECTORY_SEPARATOR.'MongodbConfig.php';
 require_once __DIR__.\DIRECTORY_SEPARATOR.'HandlerConfig'.\DIRECTORY_SEPARATOR.'ElasticsearchConfig.php';
 require_once __DIR__.\DIRECTORY_SEPARATOR.'HandlerConfig'.\DIRECTORY_SEPARATOR.'RedisConfig.php';
 require_once __DIR__.\DIRECTORY_SEPARATOR.'HandlerConfig'.\DIRECTORY_SEPARATOR.'PredisConfig.php';
@@ -23,9 +24,11 @@ class HandlerConfig
 {
     private $type;
     private $id;
+    private $enabled;
     private $priority;
     private $level;
     private $bubble;
+    private $interactiveOnly;
     private $appName;
     private $fillExtraContext;
     private $includeStacktraces;
@@ -64,6 +67,7 @@ class HandlerConfig
     private $includeExtra;
     private $iconEmoji;
     private $webhookUrl;
+    private $excludeFields;
     private $team;
     private $notify;
     private $nickname;
@@ -96,6 +100,7 @@ class HandlerConfig
     private $disableNotification;
     private $splitLongMessages;
     private $delayBetweenMessages;
+    private $topic;
     private $factor;
     private $tags;
     private $consoleFormaterOptions;
@@ -104,6 +109,7 @@ class HandlerConfig
     private $nested;
     private $publisher;
     private $mongo;
+    private $mongodb;
     private $elasticsearch;
     private $index;
     private $documentType;
@@ -149,6 +155,19 @@ class HandlerConfig
     }
 
     /**
+     * @default true
+     * @param ParamConfigurator|bool $value
+     * @return $this
+     */
+    public function enabled($value): static
+    {
+        $this->_usedProperties['enabled'] = true;
+        $this->enabled = $value;
+
+        return $this;
+    }
+
+    /**
      * @default 0
      * @param ParamConfigurator|mixed $value
      * @return $this
@@ -183,6 +202,19 @@ class HandlerConfig
     {
         $this->_usedProperties['bubble'] = true;
         $this->bubble = $value;
+
+        return $this;
+    }
+
+    /**
+     * @default false
+     * @param ParamConfigurator|bool $value
+     * @return $this
+     */
+    public function interactiveOnly($value): static
+    {
+        $this->_usedProperties['interactiveOnly'] = true;
+        $this->interactiveOnly = $value;
 
         return $this;
     }
@@ -227,7 +259,7 @@ class HandlerConfig
     }
 
     /**
-     * @template TValue
+     * @template TValue of mixed
      * @param TValue $value
      * @default {"enabled":null}
      * @return \Symfony\Config\Monolog\HandlerConfig\ProcessPsr3MessagesConfig|$this
@@ -435,8 +467,12 @@ class HandlerConfig
     }
 
     /**
-     * @template TValue
+     * @template TValue of mixed
      * @param TValue $value
+     * Only for "fingers_crossed" handler type
+     * @example 403
+     * @example 404
+     * @example {"400":["^\/foo","^\/bar"]}
      * @return \Symfony\Config\Monolog\HandlerConfig\ExcludedHttpCodeConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\Monolog\HandlerConfig\ExcludedHttpCodeConfig : static)
      */
@@ -695,6 +731,19 @@ class HandlerConfig
     {
         $this->_usedProperties['webhookUrl'] = true;
         $this->webhookUrl = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param ParamConfigurator|list<ParamConfigurator|mixed> $value
+     *
+     * @return $this
+     */
+    public function excludeFields(ParamConfigurator|array $value): static
+    {
+        $this->_usedProperties['excludeFields'] = true;
+        $this->excludeFields = $value;
 
         return $this;
     }
@@ -1117,6 +1166,19 @@ class HandlerConfig
     }
 
     /**
+     * @default null
+     * @param ParamConfigurator|int $value
+     * @return $this
+     */
+    public function topic($value): static
+    {
+        $this->_usedProperties['topic'] = true;
+        $this->topic = $value;
+
+        return $this;
+    }
+
+    /**
      * @default 1
      * @param ParamConfigurator|int $value
      * @return $this
@@ -1159,7 +1221,7 @@ class HandlerConfig
 
     /**
      * @default array (
-    )
+     * )
      * @param ParamConfigurator|mixed $value
      *
      * @return $this
@@ -1200,7 +1262,7 @@ class HandlerConfig
     }
 
     /**
-     * @template TValue
+     * @template TValue of string|array
      * @param TValue $value
      * @return \Symfony\Config\Monolog\HandlerConfig\PublisherConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\Monolog\HandlerConfig\PublisherConfig : static)
@@ -1225,7 +1287,7 @@ class HandlerConfig
     }
 
     /**
-     * @template TValue
+     * @template TValue of string|array
      * @param TValue $value
      * @return \Symfony\Config\Monolog\HandlerConfig\MongoConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\Monolog\HandlerConfig\MongoConfig : static)
@@ -1250,7 +1312,32 @@ class HandlerConfig
     }
 
     /**
-     * @template TValue
+     * @template TValue of string|array
+     * @param TValue $value
+     * @return \Symfony\Config\Monolog\HandlerConfig\MongodbConfig|$this
+     * @psalm-return (TValue is array ? \Symfony\Config\Monolog\HandlerConfig\MongodbConfig : static)
+     */
+    public function mongodb(string|array $value = []): \Symfony\Config\Monolog\HandlerConfig\MongodbConfig|static
+    {
+        if (!\is_array($value)) {
+            $this->_usedProperties['mongodb'] = true;
+            $this->mongodb = $value;
+
+            return $this;
+        }
+
+        if (!$this->mongodb instanceof \Symfony\Config\Monolog\HandlerConfig\MongodbConfig) {
+            $this->_usedProperties['mongodb'] = true;
+            $this->mongodb = new \Symfony\Config\Monolog\HandlerConfig\MongodbConfig($value);
+        } elseif (0 < \func_num_args()) {
+            throw new InvalidConfigurationException('The node created by "mongodb()" has already been initialized. You cannot pass values the second time you call mongodb().');
+        }
+
+        return $this->mongodb;
+    }
+
+    /**
+     * @template TValue of string|array
      * @param TValue $value
      * @return \Symfony\Config\Monolog\HandlerConfig\ElasticsearchConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\Monolog\HandlerConfig\ElasticsearchConfig : static)
@@ -1314,7 +1401,7 @@ class HandlerConfig
     }
 
     /**
-     * @template TValue
+     * @template TValue of string|array
      * @param TValue $value
      * @return \Symfony\Config\Monolog\HandlerConfig\RedisConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\Monolog\HandlerConfig\RedisConfig : static)
@@ -1339,7 +1426,7 @@ class HandlerConfig
     }
 
     /**
-     * @template TValue
+     * @template TValue of string|array
      * @param TValue $value
      * @return \Symfony\Config\Monolog\HandlerConfig\PredisConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\Monolog\HandlerConfig\PredisConfig : static)
@@ -1442,7 +1529,7 @@ class HandlerConfig
     }
 
     /**
-     * @template TValue
+     * @template TValue of string|array
      * @param TValue $value
      * @return \Symfony\Config\Monolog\HandlerConfig\EmailPrototypeConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\Monolog\HandlerConfig\EmailPrototypeConfig : static)
@@ -1479,22 +1566,9 @@ class HandlerConfig
         return $this;
     }
 
-    /**
-     * @template TValue
-     * @param TValue $value
-     * @return \Symfony\Config\Monolog\HandlerConfig\VerbosityLevelsConfig|$this
-     * @psalm-return (TValue is array ? \Symfony\Config\Monolog\HandlerConfig\VerbosityLevelsConfig : static)
-     */
-    public function verbosityLevels(array $value = []): \Symfony\Config\Monolog\HandlerConfig\VerbosityLevelsConfig|static
+    public function verbosityLevels(array $value = []): \Symfony\Config\Monolog\HandlerConfig\VerbosityLevelsConfig
     {
-        if (!\is_array($value)) {
-            $this->_usedProperties['verbosityLevels'] = true;
-            $this->verbosityLevels = $value;
-
-            return $this;
-        }
-
-        if (!$this->verbosityLevels instanceof \Symfony\Config\Monolog\HandlerConfig\VerbosityLevelsConfig) {
+        if (null === $this->verbosityLevels) {
             $this->_usedProperties['verbosityLevels'] = true;
             $this->verbosityLevels = new \Symfony\Config\Monolog\HandlerConfig\VerbosityLevelsConfig($value);
         } elseif (0 < \func_num_args()) {
@@ -1505,7 +1579,7 @@ class HandlerConfig
     }
 
     /**
-     * @template TValue
+     * @template TValue of mixed
      * @param TValue $value
      * @return \Symfony\Config\Monolog\HandlerConfig\ChannelsConfig|$this
      * @psalm-return (TValue is array ? \Symfony\Config\Monolog\HandlerConfig\ChannelsConfig : static)
@@ -1543,6 +1617,12 @@ class HandlerConfig
             unset($value['id']);
         }
 
+        if (array_key_exists('enabled', $value)) {
+            $this->_usedProperties['enabled'] = true;
+            $this->enabled = $value['enabled'];
+            unset($value['enabled']);
+        }
+
         if (array_key_exists('priority', $value)) {
             $this->_usedProperties['priority'] = true;
             $this->priority = $value['priority'];
@@ -1559,6 +1639,12 @@ class HandlerConfig
             $this->_usedProperties['bubble'] = true;
             $this->bubble = $value['bubble'];
             unset($value['bubble']);
+        }
+
+        if (array_key_exists('interactive_only', $value)) {
+            $this->_usedProperties['interactiveOnly'] = true;
+            $this->interactiveOnly = $value['interactive_only'];
+            unset($value['interactive_only']);
         }
 
         if (array_key_exists('app_name', $value)) {
@@ -1789,6 +1875,12 @@ class HandlerConfig
             unset($value['webhook_url']);
         }
 
+        if (array_key_exists('exclude_fields', $value)) {
+            $this->_usedProperties['excludeFields'] = true;
+            $this->excludeFields = $value['exclude_fields'];
+            unset($value['exclude_fields']);
+        }
+
         if (array_key_exists('team', $value)) {
             $this->_usedProperties['team'] = true;
             $this->team = $value['team'];
@@ -1981,6 +2073,12 @@ class HandlerConfig
             unset($value['delay_between_messages']);
         }
 
+        if (array_key_exists('topic', $value)) {
+            $this->_usedProperties['topic'] = true;
+            $this->topic = $value['topic'];
+            unset($value['topic']);
+        }
+
         if (array_key_exists('factor', $value)) {
             $this->_usedProperties['factor'] = true;
             $this->factor = $value['factor'];
@@ -2027,6 +2125,12 @@ class HandlerConfig
             $this->_usedProperties['mongo'] = true;
             $this->mongo = \is_array($value['mongo']) ? new \Symfony\Config\Monolog\HandlerConfig\MongoConfig($value['mongo']) : $value['mongo'];
             unset($value['mongo']);
+        }
+
+        if (array_key_exists('mongodb', $value)) {
+            $this->_usedProperties['mongodb'] = true;
+            $this->mongodb = \is_array($value['mongodb']) ? new \Symfony\Config\Monolog\HandlerConfig\MongodbConfig($value['mongodb']) : $value['mongodb'];
+            unset($value['mongodb']);
         }
 
         if (array_key_exists('elasticsearch', $value)) {
@@ -2139,6 +2243,9 @@ class HandlerConfig
         if (isset($this->_usedProperties['id'])) {
             $output['id'] = $this->id;
         }
+        if (isset($this->_usedProperties['enabled'])) {
+            $output['enabled'] = $this->enabled;
+        }
         if (isset($this->_usedProperties['priority'])) {
             $output['priority'] = $this->priority;
         }
@@ -2147,6 +2254,9 @@ class HandlerConfig
         }
         if (isset($this->_usedProperties['bubble'])) {
             $output['bubble'] = $this->bubble;
+        }
+        if (isset($this->_usedProperties['interactiveOnly'])) {
+            $output['interactive_only'] = $this->interactiveOnly;
         }
         if (isset($this->_usedProperties['appName'])) {
             $output['app_name'] = $this->appName;
@@ -2262,6 +2372,9 @@ class HandlerConfig
         if (isset($this->_usedProperties['webhookUrl'])) {
             $output['webhook_url'] = $this->webhookUrl;
         }
+        if (isset($this->_usedProperties['excludeFields'])) {
+            $output['exclude_fields'] = $this->excludeFields;
+        }
         if (isset($this->_usedProperties['team'])) {
             $output['team'] = $this->team;
         }
@@ -2358,6 +2471,9 @@ class HandlerConfig
         if (isset($this->_usedProperties['delayBetweenMessages'])) {
             $output['delay_between_messages'] = $this->delayBetweenMessages;
         }
+        if (isset($this->_usedProperties['topic'])) {
+            $output['topic'] = $this->topic;
+        }
         if (isset($this->_usedProperties['factor'])) {
             $output['factor'] = $this->factor;
         }
@@ -2381,6 +2497,9 @@ class HandlerConfig
         }
         if (isset($this->_usedProperties['mongo'])) {
             $output['mongo'] = $this->mongo instanceof \Symfony\Config\Monolog\HandlerConfig\MongoConfig ? $this->mongo->toArray() : $this->mongo;
+        }
+        if (isset($this->_usedProperties['mongodb'])) {
+            $output['mongodb'] = $this->mongodb instanceof \Symfony\Config\Monolog\HandlerConfig\MongodbConfig ? $this->mongodb->toArray() : $this->mongodb;
         }
         if (isset($this->_usedProperties['elasticsearch'])) {
             $output['elasticsearch'] = $this->elasticsearch instanceof \Symfony\Config\Monolog\HandlerConfig\ElasticsearchConfig ? $this->elasticsearch->toArray() : $this->elasticsearch;

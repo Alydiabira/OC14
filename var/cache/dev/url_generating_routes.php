@@ -20,10 +20,12 @@ return [
     '_profiler_exception_css' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::stylesheet'], [], [['text', '/exception.css'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], [], []],
     'auth_login' => [[], ['_controller' => 'App\\Controller\\AuthController::login'], [], [['text', '/auth/login']], [], [], []],
     'auth_register' => [[], ['_controller' => 'App\\Controller\\AuthController::register'], [], [['text', '/auth/register']], [], [], []],
+    'homepage' => [[], ['_controller' => 'App\\Controller\\HomeController::index'], [], [['text', '/']], [], [], []],
     'video_games_list' => [[], ['_controller' => 'App\\Controller\\VideoGameController::list'], [], [['text', '/']], [], [], []],
     'video_games_show' => [['slug'], ['_controller' => 'App\\Controller\\VideoGameController::show'], [], [['variable', '/', '[^/]++', 'slug', true]], [], [], []],
     'App\Controller\AuthController::login' => [[], ['_controller' => 'App\\Controller\\AuthController::login'], [], [['text', '/auth/login']], [], [], []],
     'App\Controller\AuthController::register' => [[], ['_controller' => 'App\\Controller\\AuthController::register'], [], [['text', '/auth/register']], [], [], []],
+    'App\Controller\HomeController::index' => [[], ['_controller' => 'App\\Controller\\HomeController::index'], [], [['text', '/']], [], [], []],
     'App\Controller\VideoGameController::list' => [[], ['_controller' => 'App\\Controller\\VideoGameController::list'], [], [['text', '/']], [], [], []],
     'App\Controller\VideoGameController::show' => [['slug'], ['_controller' => 'App\\Controller\\VideoGameController::show'], [], [['variable', '/', '[^/]++', 'slug', true]], [], [], []],
 ];

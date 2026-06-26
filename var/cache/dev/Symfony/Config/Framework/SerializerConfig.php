@@ -118,10 +118,10 @@ class SerializerConfig
     /**
      * @return $this
      */
-    public function defaultContext(string $name, mixed $value): static
+    public function defaultContext(string $key, mixed $value): static
     {
         $this->_usedProperties['defaultContext'] = true;
-        $this->defaultContext[$name] = $value;
+        $this->defaultContext[$key] = $value;
 
         return $this;
     }

@@ -49,7 +49,7 @@ class TwigConfig implements \Symfony\Component\Config\Builder\ConfigBuilderInter
     }
 
     /**
-     * @template TValue
+     * @template TValue of mixed
      * @param TValue $value
      * @example "@bar"
      * @example 3.14

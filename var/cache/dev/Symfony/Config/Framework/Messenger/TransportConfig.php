@@ -48,14 +48,12 @@ class TransportConfig
     }
 
     /**
-     * @param ParamConfigurator|list<ParamConfigurator|mixed> $value
-     *
      * @return $this
      */
-    public function options(ParamConfigurator|array $value): static
+    public function option(string $key, mixed $value): static
     {
         $this->_usedProperties['options'] = true;
-        $this->options = $value;
+        $this->options[$key] = $value;
 
         return $this;
     }
@@ -75,7 +73,7 @@ class TransportConfig
     }
 
     /**
-     * @template TValue
+     * @template TValue of mixed
      * @param TValue $value
      * @default {"service":null,"max_retries":3,"delay":1000,"multiplier":2,"max_delay":0}
      * @return \Symfony\Config\Framework\Messenger\TransportConfig\RetryStrategyConfig|$this

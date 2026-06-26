@@ -178,6 +178,6 @@ class __TwigTemplate_bd5d8e20ffbf2b62d8516ea25ce8ddb0 extends Template
         </div>
     </div>
 </article>
-", "components/Card.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/templates/components/Card.html.twig");
+", "components/Card.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/templates/components/Card.html.twig");
     }
 }

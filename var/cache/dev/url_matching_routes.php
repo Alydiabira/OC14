@@ -17,7 +17,10 @@ return [
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
         '/auth/login' => [[['_route' => 'auth_login', '_controller' => 'App\\Controller\\AuthController::login'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/auth/register' => [[['_route' => 'auth_register', '_controller' => 'App\\Controller\\AuthController::register'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        '/' => [[['_route' => 'video_games_list', '_controller' => 'App\\Controller\\VideoGameController::list'], null, ['GET' => 0], null, false, false, null]],
+        '/' => [
+            [['_route' => 'homepage', '_controller' => 'App\\Controller\\HomeController::index'], null, ['GET' => 0], null, false, false, null],
+            [['_route' => 'video_games_list', '_controller' => 'App\\Controller\\VideoGameController::list'], null, ['GET' => 0], null, false, false, null],
+        ],
     ],
     [ // $regexpList
         0 => '{^(?'

@@ -1597,6 +1597,6 @@ class __TwigTemplate_946f30df35c3b9c8e5f1d0c6ebb4a182 extends Template
 {% macro render_time_cell(item) %}
     <span class=\"nowrap\">{{ \x27%.2f\x27|format(item.time * 1000) }} ms</span>
 {% endmacro %}
-", "@WebProfiler/Collector/serializer.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/symfony/web-profiler-bundle/Resources/views/Collector/serializer.html.twig");
+", "@WebProfiler/Collector/serializer.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/vendor/symfony/web-profiler-bundle/Resources/views/Collector/serializer.html.twig");
     }
 }

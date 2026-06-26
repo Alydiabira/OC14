@@ -1014,6 +1014,6 @@ $context["call"], "return", [], "any", false, false, false, 295) === false)) {
         </menu>
     </dialog>
 {% endblock %}
-", "@WebProfiler/Collector/workflow.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/symfony/web-profiler-bundle/Resources/views/Collector/workflow.html.twig");
+", "@WebProfiler/Collector/workflow.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/vendor/symfony/web-profiler-bundle/Resources/views/Collector/workflow.html.twig");
     }
 }

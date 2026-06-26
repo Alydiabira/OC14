@@ -101,6 +101,6 @@ class __TwigTemplate_7ae4cecc23354472010bdfc487b51fbc extends Template
         <span class=\"value\">{{ rating }}</span>
         <span class=\"label\">{{ label }}</span>
     </div>
-</div>", "components/Rating.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/templates/components/Rating.html.twig");
+</div>", "components/Rating.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/templates/components/Rating.html.twig");
     }
 }

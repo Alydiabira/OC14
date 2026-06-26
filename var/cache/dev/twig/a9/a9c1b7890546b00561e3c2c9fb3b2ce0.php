@@ -1453,6 +1453,6 @@ class __TwigTemplate_b671c96bbff912bafa58315eef9e8238 extends Template
         Sfjs.loadToolbar(\x27{{ token }}\x27);
     /*]]>*/</script>
 </div>
-", "@WebProfiler/Profiler/toolbar_js.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/toolbar_js.html.twig");
+", "@WebProfiler/Profiler/toolbar_js.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/toolbar_js.html.twig");
     }
 }

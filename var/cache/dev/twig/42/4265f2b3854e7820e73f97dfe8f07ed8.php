@@ -1943,6 +1943,6 @@ class __TwigTemplate_4389d79d668d3411f76615754644a285 extends Template
         </tbody>
     </table>
 {% endmacro %}
-", "@Doctrine/Collector/db.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/doctrine/doctrine-bundle/templates/Collector/db.html.twig");
+", "@Doctrine/Collector/db.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/vendor/doctrine/doctrine-bundle/templates/Collector/db.html.twig");
     }
 }

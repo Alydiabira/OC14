@@ -226,6 +226,6 @@ class __TwigTemplate_444b3b88975e68facf6120db970187e2 extends Template
         <button type=\"submit\" class=\"w-100 h-100 btn btn-primary\">Trier</button>
     </div>
 </form>
-", "components/Sorting.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/templates/components/Sorting.html.twig");
+", "components/Sorting.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/templates/components/Sorting.html.twig");
     }
 }

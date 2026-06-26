@@ -1095,6 +1095,6 @@ class __TwigTemplate_782c1c01b51d3a57ffbf167fd0e2c01e extends Template
         {% endfor %}
     </div>
 {% endblock %}
-", "@TwigComponent/Collector/twig_component.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/symfony/ux-twig-component/templates/Collector/twig_component.html.twig");
+", "@TwigComponent/Collector/twig_component.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/vendor/symfony/ux-twig-component/templates/Collector/twig_component.html.twig");
     }
 }

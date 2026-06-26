@@ -29,4 +29,5 @@ final class SmokeTest extends FunctionalTestCase
         yield ['GET', '/auth/register'];
         yield ['POST', '/auth/register'];
     }
+    
 }

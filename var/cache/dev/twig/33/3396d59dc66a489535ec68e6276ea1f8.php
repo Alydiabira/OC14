@@ -186,6 +186,6 @@ class __TwigTemplate_d8aff29798c6901e191bdf6c2fc3dc04 extends Template
         {%- endfor -%}
     </pre>
 {% endif %}
-", "@Doctrine/Collector/explain.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/doctrine/doctrine-bundle/templates/Collector/explain.html.twig");
+", "@Doctrine/Collector/explain.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/vendor/doctrine/doctrine-bundle/templates/Collector/explain.html.twig");
     }
 }

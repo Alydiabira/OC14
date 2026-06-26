@@ -97,6 +97,6 @@ class __TwigTemplate_6fcf6c549a50bbfca0ca80a952105e51 extends Template
     public function getSourceContext(): Source
     {
         return new Source("{% block panel \x27\x27 %}
-", "@WebProfiler/Profiler/ajax_layout.html.twig", "/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/ajax_layout.html.twig");
+", "@WebProfiler/Profiler/ajax_layout.html.twig", "/Users/diabiraaly/Openclassrooms/OC14/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/ajax_layout.html.twig");
     }
 }
