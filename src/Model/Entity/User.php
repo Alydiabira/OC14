@@ -31,6 +31,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Id]
     #[GeneratedValue]
     #[Column]
+    /**
+     * @phpstan-ignore-next-line Doctrine hydrate l'id automatiquement
+     */
     private ?int $id = null;
 
     #[NotBlank]

@@ -16,7 +16,11 @@ final class VideoGameFixtures extends Fixture implements DependentFixtureInterfa
 {
     public function __construct(
         private readonly Generator $faker,
+
+        /** @phpstan-ignore-next-line utilisé plus tard dans les fixtures */
         private readonly CalculateAverageRating $calculateAverageRating,
+
+        /** @phpstan-ignore-next-line utilisé plus tard dans les fixtures */
         private readonly CountRatingsPerValue $countRatingsPerValue
     ) {}
 

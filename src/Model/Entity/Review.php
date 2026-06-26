@@ -19,7 +19,11 @@ class Review
     #[Id]
     #[GeneratedValue]
     #[Column]
+    /**
+     * @phpstan-ignore-next-line Doctrine hydrate l'id automatiquement
+     */
     private ?int $id = null;
+
 
     #[ManyToOne(targetEntity: VideoGame::class, inversedBy: 'reviews')]
     #[JoinColumn(nullable: false, onDelete: 'CASCADE')]
@@ -63,7 +67,6 @@ class Review
         return $this;
     }
 
-    // --- Méthodes Doctrine / Symfony ---
     public function getRating(): int
     {
         return $this->rating;
@@ -75,7 +78,7 @@ class Review
         return $this;
     }
 
-    // --- Alias pour les tests OC14 ---
+    // Alias OC14
     public function getNote(): int
     {
         return $this->rating;

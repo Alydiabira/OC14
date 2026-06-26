@@ -23,6 +23,8 @@ final class RegisterTest extends FunctionalTestCase
 
     /**
      * @dataProvider provideInvalidRegistrationData
+     *
+     * @param array{string, string, string} $data
      */
     public function testThatRegistrationShouldFailed(array $data): void
     {
@@ -37,12 +39,15 @@ final class RegisterTest extends FunctionalTestCase
         self::assertResponseStatusCodeSame(422);
     }
 
+    /**
+     * @return iterable<string, array{string, string, string}>
+     */
     public function provideInvalidRegistrationData(): iterable
     {
-        yield 'empty username' => [['', 'email@example.com', 'SuperPassword123!']];
-        yield 'non unique username' => [['user+1', 'email2@example.com', 'SuperPassword123!']];
-        yield 'too long username' => [[str_repeat('a', 60), 'email3@example.com', 'SuperPassword123!']];
-        yield 'empty email' => [['username', '', 'SuperPassword123!']];
-        yield 'invalid email' => [['username', 'fail', 'SuperPassword123!']];
+        yield 'empty username' => ['', 'email@example.com', 'SuperPassword123!'];
+        yield 'non unique username' => ['user+1', 'email2@example.com', 'SuperPassword123!'];
+        yield 'too long username' => [str_repeat('a', 60), 'email3@example.com', 'SuperPassword123!'];
+        yield 'empty email' => ['username', '', 'SuperPassword123!'];
+        yield 'invalid email' => ['username', 'fail', 'SuperPassword123!'];
     }
 }

@@ -25,7 +25,7 @@ final class LoginTest extends FunctionalTestCase
         $this->client->request('GET', '/auth/login');
 
         $this->client->submitForm('Se connecter', [
-            'username' => 'wrong',
+            'email' => 'wrong@example.com',
             'password' => 'wrong',
         ]);
 

@@ -16,6 +16,9 @@ final class SmokeTest extends FunctionalTestCase
         self::assertTrue($this->client->getResponse()->isSuccessful());
     }
 
+    /**
+     * @return iterable<int, array{string, string}>
+     */
     public function provideUrls(): iterable
     {
         yield ['GET', '/'];
