@@ -10,21 +10,25 @@ final class LoginTest extends FunctionalTestCase
 {
     public function testThatLoginShouldSucceeded(): void
     {
-        $this->client->request('GET', '/auth/login');
+        $crawler = $this->client->request('GET', '/auth/login');
 
-        $this->client->submitForm('Se connecter', [
+        $form = $crawler->filter('form')->form();
+
+        $this->client->submit($form, [
             'email' => 'user+1@example.com',
             'password' => 'password',
-        ]);;
+        ]);
 
         self::assertResponseRedirects('/');
     }
 
     public function testThatLoginShouldFailed(): void
     {
-        $this->client->request('GET', '/auth/login');
+        $crawler = $this->client->request('GET', '/auth/login');
 
-        $this->client->submitForm('Se connecter', [
+        $form = $crawler->filter('form')->form();
+
+        $this->client->submit($form, [
             'email' => 'wrong@example.com',
             'password' => 'wrong',
         ]);
