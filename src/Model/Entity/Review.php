@@ -14,8 +14,9 @@ class Review
     #[ORM\Column]
     private ?int $id = null;
 
+    // ✔️ Correction : les tests OC14 attendent "note", pas "rating"
     #[ORM\Column(type: 'integer')]
-    private int $rating;
+    private int $note;
 
     #[ORM\Column(type: 'text')]
     private string $comment;
@@ -31,14 +32,15 @@ class Review
         return $this->id;
     }
 
-    public function getRating(): int
+    // ✔️ Ajout des bons getters/setters attendus par les tests
+    public function getNote(): int
     {
-        return $this->rating;
+        return $this->note;
     }
 
-    public function setRating(int $rating): self
+    public function setNote(int $note): self
     {
-        $this->rating = $rating;
+        $this->note = $note;
         return $this;
     }
 
