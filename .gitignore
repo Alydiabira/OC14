@@ -1,0 +1,6 @@
+/var/cache/
+/var/log/
+/var/dart-sass/
+/var/sass/
+/public/build/
+/node_modules/
