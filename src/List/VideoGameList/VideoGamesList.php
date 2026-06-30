@@ -7,6 +7,7 @@ namespace App\List\VideoGameList;
 use App\Doctrine\Repository\VideoGameRepository;
 use App\Form\FilterType;
 use App\Model\Entity\VideoGame;
+use App\Model\ValueObject\Info;
 use App\Model\ValueObject\Page;
 use Countable;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -37,6 +38,8 @@ final class VideoGamesList implements Countable, IteratorAggregate
      */
     private array $routeParameters;
 
+    private Info $info;
+
     public function __construct(
         private UrlGeneratorInterface $urlGenerator,
         private FormFactoryInterface $formFactory,
@@ -47,6 +50,11 @@ final class VideoGamesList implements Countable, IteratorAggregate
     public function getForm(): FormView
     {
         return $this->form;
+    }
+
+    public function getInfo(): Info
+    {
+        return $this->info;
     }
 
     public function handleRequest(Request $request): self
@@ -68,9 +76,24 @@ final class VideoGamesList implements Countable, IteratorAggregate
             ->handleRequest($request)
             ->createView();
 
+        // Récupération des jeux filtrés + paginés
         $this->data = $this->videoGameRepository->getVideoGames($this->pagination, $this->filter);
 
-        $this->pagination->init(count($this->data), count($this));
+        // --- Calcul de l'objet Info (OC14) ---
+        $total = count($this->data);              // total filtré
+        $count = iterator_count($this->data);     // éléments affichés sur la page
+        $start = $this->pagination->getOffset() + 1;
+        $end = $this->pagination->getOffset() + $count;
+
+        $this->info = new Info(
+            count: $count,
+            start: $start,
+            end: $end,
+            total: $total
+        );
+
+        // Initialisation de la pagination
+        $this->pagination->init($total, $count);
 
         if ($this->pagination->getPage() > 1) {
             $this->pagination->add(
@@ -148,7 +171,7 @@ final class VideoGamesList implements Countable, IteratorAggregate
 
     public function count(): int
     {
-        return count($this->data);
+        return iterator_count($this->data);
     }
 
     public function generateUrl(int $page): string

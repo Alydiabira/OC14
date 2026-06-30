@@ -73,7 +73,7 @@ abstract class FunctionalTestCase extends WebTestCase
         return $this->client->submit($form, $fields);
     }
 
-    protected function login(string $username = 'user+1'): void
+    protected function login(string $username = 'user+0'): void
     {
         $user = $this->em?->getRepository(User::class)->findOneBy(['username' => $username]);
         $this->client->loginUser($user);

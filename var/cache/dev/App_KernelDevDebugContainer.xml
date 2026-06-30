@@ -476,9 +476,9 @@
     </service>
     <service id="App\Rating\RatingHandler" class="App\Rating\RatingHandler" autowire="true" autoconfigure="true"/>
     <service id="App\Security\LoginAuthenticator" class="App\Security\LoginAuthenticator" autowire="true" autoconfigure="true">
-      <argument type="service" id="security.user.provider.concrete.user_provider"/>
       <argument type="service" id="router.default"/>
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
+      <argument type="service" id="twig"/>
     </service>
     <service id="App\Security\Voter\VideoGameVoter" class="App\Security\Voter\VideoGameVoter" autowire="true" autoconfigure="true">
       <tag name="security.voter"/>
