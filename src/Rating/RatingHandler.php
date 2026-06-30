@@ -18,7 +18,7 @@ final readonly class RatingHandler implements CalculateAverageRating, CountRatin
 
         $ratingsSum = array_sum(
             array_map(
-                static fn(Review $review): int => $review->getRating(),
+                static fn(Review $review): int => $review->getNote(),
                 $videoGame->getReviews()->toArray()
             )
         );
@@ -35,7 +35,8 @@ final readonly class RatingHandler implements CalculateAverageRating, CountRatin
         }
 
         foreach ($videoGame->getReviews() as $review) {
-            match ($review->getRating()) {
+            match ($$review->getNote()
+()) {
                 1 => $videoGame->getNumberOfRatingsPerValue()->increaseOne(),
                 2 => $videoGame->getNumberOfRatingsPerValue()->increaseTwo(),
                 3 => $videoGame->getNumberOfRatingsPerValue()->increaseThree(),
@@ -45,3 +46,4 @@ final readonly class RatingHandler implements CalculateAverageRating, CountRatin
         }
     }
 }
+

@@ -24,7 +24,7 @@ final class Progress
 
         foreach ($reviews as $review) {
             // IMPORTANT : remplacer note par rating
-            $sum += $review->getRating();
+            $sum += $review->getNote();
         }
 
         // Calcul OC14 : rating sur 5 → pourcentage
