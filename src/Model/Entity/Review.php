@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Symfony\Component\Validator\Constraints\Range;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Entity]
 class Review
@@ -57,8 +58,12 @@ class Review
         return $this->user;
     }
 
-    public function setUser(User $user): Review
+    public function setUser(UserInterface $user): self
     {
+        if (!$user instanceof User) {
+            throw new \InvalidArgumentException('Expected instance of User.');
+        }
+
         $this->user = $user;
         return $this;
     }

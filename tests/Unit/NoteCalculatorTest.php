@@ -49,7 +49,7 @@ final class NoteCalculatorTest extends TestCase
         $videoGame = new VideoGame();
 
         foreach ($notes as $note) {
-            $videoGame->getReviews()->add((new Review())->setNote($note));
+            $videoGame->getReviews()->add((new Review())->setRating($note));
         }
 
         return $videoGame;

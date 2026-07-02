@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Twig\Components;
 
 use App\Model\Entity\VideoGame;
@@ -12,22 +10,11 @@ final class Progress
 {
     public VideoGame $videoGame;
 
+    public int $number;
+
     public function getPercent(): int
     {
-        $reviews = $this->videoGame->getReviews();
-
-        if ($reviews->count() === 0) {
-            return 0;
-        }
-
-        $sum = 0;
-
-        foreach ($reviews as $review) {
-            // IMPORTANT : remplacer note par rating
-            $sum += $review->getNote();
-        }
-
-        // Calcul OC14 : rating sur 5 → pourcentage
-        return (int) round(($sum / ($reviews->count() * 5)) * 100);
+        $nbOfReviews = count($this->videoGame->getReviews());
+        return $nbOfReviews === 0 ? 0 : (int) round(($this->number / $nbOfReviews) * 100);
     }
 }

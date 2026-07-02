@@ -28,12 +28,10 @@ use Symfony\Component\Validator\Constraints\PasswordStrength;
 #[EntityListeners([UserListener::class])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    /** @phpstan-ignore-next-line */
     #[Id]
     #[GeneratedValue]
     #[Column]
-    /**
-     * @phpstan-ignore-next-line Doctrine hydrate l'id automatiquement
-     */
     private ?int $id = null;
 
     #[NotBlank]
@@ -65,7 +63,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->username;
     }
 
-    public function setUsername(string $username): User
+    public function setUsername(string $username): self
     {
         $this->username = $username;
         return $this;
@@ -76,7 +74,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): User
+    public function setEmail(string $email): self
     {
         $this->email = $email;
         return $this;
@@ -87,7 +85,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): User
+    public function setPassword(string $password): self
     {
         $this->password = $password;
         return $this;
@@ -98,7 +96,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->plainPassword;
     }
 
-    public function setPlainPassword(?string $plainPassword): User
+    public function setPlainPassword(?string $plainPassword): self
     {
         $this->plainPassword = $plainPassword;
         return $this;
