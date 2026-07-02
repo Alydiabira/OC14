@@ -4,74 +4,84 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Symfony\Component\Validator\Constraints\Range;
 
-#[ORM\Entity]
+#[Entity]
 class Review
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[Id]
+    #[GeneratedValue]
+    #[Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'integer')]
-    private int $note;
+    #[ManyToOne(targetEntity: VideoGame::class, inversedBy: 'reviews')]
+    #[JoinColumn(nullable: false, onDelete: 'CASCADE')]
+    private VideoGame $videoGame;
 
-    #[ORM\Column(type: 'text')]
-    private string $comment;
+    #[ManyToOne(targetEntity: User::class)]
+    #[JoinColumn(nullable: false)]
+    private User $user;
 
-    #[ORM\ManyToOne(inversedBy: 'reviews')]
-    private ?User $user = null;
+    #[Range(min: 1, max: 5)]
+    #[Column]
+    private int $rating;
 
-    #[ORM\ManyToOne(inversedBy: 'reviews')]
-    private ?VideoGame $videoGame = null;
+    #[Column(type: Types::TEXT, nullable: true)]
+    private ?string $comment = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNote(): int
+    public function getVideoGame(): VideoGame
     {
-        return $this->note;
+        return $this->videoGame;
     }
 
-    public function setNote(int $note): self
+    public function setVideoGame(VideoGame $videoGame): Review
     {
-        $this->note = $note;
+        $this->videoGame = $videoGame;
         return $this;
     }
 
-    public function getComment(): string
-    {
-        return $this->comment;
-    }
-
-    public function setComment(string $comment): self
-    {
-        $this->comment = $comment;
-        return $this;
-    }
-
-    public function getUser(): ?User
+    public function getUser(): User
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(User $user): Review
     {
         $this->user = $user;
         return $this;
     }
 
-    public function getVideoGame(): ?VideoGame
+    public function getRating(): int
     {
-        return $this->videoGame;
+        return $this->rating;
     }
 
-    public function setVideoGame(?VideoGame $videoGame): self
+    public function setRating(int $rating): Review
     {
-        $this->videoGame = $videoGame;
+        $this->rating = $rating;
+        return $this;
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?string $comment): Review
+    {
+        $this->comment = $comment;
         return $this;
     }
 }
