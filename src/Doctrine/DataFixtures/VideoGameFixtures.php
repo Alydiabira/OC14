@@ -29,6 +29,7 @@ final class VideoGameFixtures extends Fixture implements DependentFixtureInterfa
         $videoGames = array_map(
             fn(int $index) => (new VideoGame())
                 ->setTitle(sprintf('Jeu vidéo %d', $index))
+                ->setSlug(sprintf('jeu-video-%d', $index))
                 ->setDescription($this->faker->paragraphs(10, true))
                 ->setReleaseDate(new \DateTimeImmutable())
                 ->setTest($this->faker->paragraphs(6, true))
@@ -37,6 +38,7 @@ final class VideoGameFixtures extends Fixture implements DependentFixtureInterfa
                 ->setImageSize(2_098_872),
             range(0, 49)
         );
+
 
         foreach ($videoGames as $videoGame) {
             $manager->persist($videoGame);
