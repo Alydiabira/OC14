@@ -127,6 +127,12 @@ class VideoGame
     {
         return $this->slug;
     }
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
 
     public function setImageFile(?File $imageFile = null): void
     {
@@ -245,5 +251,19 @@ class VideoGame
         return $this->reviews->exists(
             static fn(int $key, Review $review): bool => $review->getUser() === $user
         );
+    }
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags->add($tag);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        $this->tags->removeElement($tag);
+        return $this;
     }
 }

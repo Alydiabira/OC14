@@ -12,16 +12,17 @@ final class ShowTest extends FunctionalTestCase
 {
     public function testShouldShowVideoGame(): void
     {
-        $this->get('/jeu-video-0');
+        $this->get('/video-games/jeu-video-0');
         self::assertResponseIsSuccessful();
         self::assertSelectorTextContains('h1', 'Jeu vidéo 0');
     }
 
     public function testShouldPostReview(): void
     {
-        $this->login(); // user+0
+        $this->login('user+1');
 
-        $this->get('/jeu-video-49');
+
+        $this->get('/video-games/jeu-video-49');
         self::assertResponseIsSuccessful();
 
         $this->submit(
@@ -35,7 +36,7 @@ final class ShowTest extends FunctionalTestCase
         self::assertResponseStatusCodeSame(Response::HTTP_FOUND);
         $this->client->followRedirect();
 
-        self::assertSelectorTextContains('div.list-group-item:last-child h3', 'user+0');
+        self::assertSelectorTextContains('div.list-group-item:last-child h3', 'user+1');
         self::assertSelectorTextContains('div.list-group-item:last-child p', 'Mon commentaire');
         self::assertSelectorTextContains('div.list-group-item:last-child span.value', '4');
     }

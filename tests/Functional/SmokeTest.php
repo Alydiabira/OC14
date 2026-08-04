@@ -22,12 +22,11 @@ final class SmokeTest extends FunctionalTestCase
     public function provideUrls(): iterable
     {
         yield ['GET', '/'];
-        yield ['GET', '/jeu-video-0'];
-        yield ['POST', '/jeu-video-0'];
+        yield ['GET', '/video-games/jeu-video-0'];
+        yield ['POST', '/video-games/jeu-video-0'];
         yield ['GET', '/auth/login'];
         yield ['POST', '/auth/login'];
         yield ['GET', '/auth/register'];
         yield ['POST', '/auth/register'];
     }
-    
 }
