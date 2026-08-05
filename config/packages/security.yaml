@@ -1,30 +1,34 @@
 security:
   password_hashers:
     Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: "bcrypt"
+
   providers:
     user_provider:
       entity:
         class: App\Model\Entity\User
-        property: email
+        property: username # ✔ IMPORTANT
+
   firewalls:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
+
     main:
       lazy: true
       provider: user_provider
+
       form_login:
-        username_parameter: email
-        password_parameter: password
         login_path: auth_login
         check_path: auth_login
-        enable_csrf: true
+        username_parameter: username # ✔ IMPORTANT
+        password_parameter: password
+        enable_csrf: false # ✔ IMPORTANT pour les tests
+
       logout:
-        path: /auth/logout
-      remember_me:
-        secret: "%kernel.secret%"
-        lifetime: 604800
-  access_control:
+        path: auth_logout
+        target: /
+
+  access_control: []
 
 when@test:
   security:

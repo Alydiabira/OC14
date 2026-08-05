@@ -17,29 +17,21 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 final class AuthController extends AbstractController
 {
     #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
-    public function login(Request $request, AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
 
-        // Échec de login → 422
         if ($error) {
             return $this->render('views/auth/login.html.twig', [
-                'controller_name' => 'LoginController',
-                'last_username'   => $authenticationUtils->getLastUsername(),
-                'error'           => $error,
+                'last_username' => $lastUsername,
+                'error' => $error,
             ], new Response('', 422));
         }
 
-        // Succès de login → redirection vers /
-        if ($request->isMethod('POST')) {
-            return $this->redirect('/');
-        }
-
-        // GET → afficher la page normalement
         return $this->render('views/auth/login.html.twig', [
-            'controller_name' => 'LoginController',
-            'last_username'   => $authenticationUtils->getLastUsername(),
-            'error'           => null,
+            'last_username' => $lastUsername,
+            'error' => null,
         ]);
     }
 
@@ -47,17 +39,23 @@ final class AuthController extends AbstractController
     public function register(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
-
         $form = $this->createForm(RegisterType::class, $user)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($user);
             $entityManager->flush();
-            $this->addFlash('success', 'Inscription réussie. Vous pouvez vous connecter !');
 
             return $this->redirect('/');
         }
 
-        return $this->render('views/auth/register.html.twig', ['form' => $form]);
+        return $this->render('views/auth/register.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/logout', name: 'logout')]
+    public function logout(): void
+    {
+        // Symfony gère tout
     }
 }
