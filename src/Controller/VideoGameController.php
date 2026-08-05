@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\ValueResolver;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/video-games', name: 'video_games_')]
 final class VideoGameController extends AbstractController
@@ -34,7 +33,7 @@ final class VideoGameController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}', name: 'show', methods: [Request::METHOD_GET, Request::METHOD_POST])]
+    #[Route('/{slug}', name: 'show', methods: ['GET', 'POST'])]
     public function show(VideoGame $videoGame, EntityManagerInterface $entityManager, Request $request): Response
     {
         $review = new Review();
@@ -57,7 +56,7 @@ final class VideoGameController extends AbstractController
 
         return $this->render('views/video_games/show.html.twig', [
             'video_game' => $videoGame,
-            'form' => $form
+            'form' => $form->createView(),
         ]);
     }
 }

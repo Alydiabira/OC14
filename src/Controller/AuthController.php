@@ -16,7 +16,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 #[Route('/auth', name: 'auth_')]
 final class AuthController extends AbstractController
 {
-    #[Route('/login', name: 'login', methods: [Request::METHOD_GET, Request::METHOD_POST])]
+    #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
     public function login(Request $request, AuthenticationUtils $authenticationUtils): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -30,12 +30,12 @@ final class AuthController extends AbstractController
             ], new Response('', 422));
         }
 
-        // Succès de login (POST sans erreur) → redirection vers /
-        if ($request->isMethod(Request::METHOD_POST)) {
+        // Succès de login → redirection vers /
+        if ($request->isMethod('POST')) {
             return $this->redirect('/');
         }
 
-        // GET simple → page de login 200
+        // GET → afficher la page normalement
         return $this->render('views/auth/login.html.twig', [
             'controller_name' => 'LoginController',
             'last_username'   => $authenticationUtils->getLastUsername(),
@@ -43,7 +43,7 @@ final class AuthController extends AbstractController
         ]);
     }
 
-    #[Route('/register', name: 'register', methods: [Request::METHOD_GET, Request::METHOD_POST])]
+    #[Route('/register', name: 'register', methods: ['GET', 'POST'])]
     public function register(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
@@ -55,7 +55,6 @@ final class AuthController extends AbstractController
             $entityManager->flush();
             $this->addFlash('success', 'Inscription réussie. Vous pouvez vous connecter !');
 
-            // Les tests attendent une redirection vers /
             return $this->redirect('/');
         }
 

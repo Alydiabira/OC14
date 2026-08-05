@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Doctrine\Repository\VideoGameRepository as RepositoryVideoGameRepository;
+use App\Repository\VideoGameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class HomeController extends AbstractController
 {
     #[Route('/', name: 'homepage', methods: ['GET'])]
-    public function index(Request $request, RepositoryVideoGameRepository $repo): Response
+    public function index(Request $request, VideoGameRepository $repo): Response
     {
         $query = $request->query->all();
         $list  = $repo->findByFilters($query);
