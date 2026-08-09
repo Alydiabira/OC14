@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace App\Form;
 
 use App\List\VideoGameList\Filter;
-use App\Model\Entity\Tag;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,20 +19,19 @@ final class FilterType extends AbstractType
             ->add('search', TextType::class, [
                 'label' => 'Rechercher',
                 'required' => false,
-                'attr' =>  [
+                'attr' => [
                     'placeholder' => 'Rechercher...',
                 ],
             ])
-            ->add('tags', EntityType::class, [
+
+            // 🔥 IMPORTANT : ChoiceType + multiple
+            // On accepte des IDs (strings), pas des objets Tag
+            ->add('tags', ChoiceType::class, [
                 'label' => 'Tags',
                 'required' => false,
                 'multiple' => true,
-                'expanded' => true,
-                'class' => Tag::class,
-                'choice_label' => 'name',
-                'attr' =>  [
-                    'class' => 'd-flex gap-2 flex-wrap',
-                ],
+                'expanded' => false,   // select multiple
+                'choices' => [],       // tu rempliras plus tard si tu veux
             ]);
     }
 

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Model\Entity\VideoGame;
 use App\Doctrine\Repository\VideoGameRepository;
 use App\Model\ValueObject\Sorting;
 use App\Model\ValueObject\Direction;
@@ -35,7 +34,7 @@ final class VideoGameController extends AbstractController
         $sorting = $request->query->get('sorting');
         $direction = $request->query->get('direction', 'Descending');
         $search = $request->query->all('filter')['search'] ?? null;
-        $tags = $request->query->all('filter')['tags'] ?? [];
+        $tagsIds = $request->query->all('filter')['tags'] ?? [];
 
         // 2) Récupération des jeux
         $games = $repo->findAll();
@@ -45,12 +44,12 @@ final class VideoGameController extends AbstractController
             $games = array_filter($games, fn($g) => str_contains($g->getTitle(), $search));
         }
 
-        // 4) Filtre tags
-        if (!empty($tags)) {
+        // 4) Filtre tags (IDs)
+        if (!empty($tagsIds)) {
             $games = array_filter(
                 $games,
                 fn($g) =>
-                count(array_intersect($tags, $g->getTagsIds())) === count($tags)
+                count(array_intersect($tagsIds, $g->getTagsIds())) === count($tagsIds)
             );
         }
 
@@ -91,10 +90,10 @@ final class VideoGameController extends AbstractController
             $directionVO
         );
 
-        // 8) Création du filtre
+        // 8) Création du filtre (avec IDs)
         $filter = new Filter(
             search: $search,
-            tags: $tags
+            tags: $tagsIds
         );
 
         // 9) Création de l'objet VideoGamesList COMPLET
@@ -106,9 +105,25 @@ final class VideoGameController extends AbstractController
             $filter
         );
 
-        // 10) Rendu
+        // 10) Initialisation complète
+        $list->handleRequest($request);
+
         return $this->render('views/video_games/list.html.twig', [
             'list' => $list,
+        ]);
+    }
+
+    #[Route('/{slug}', name: 'show', methods: ['GET'])]
+    public function show(string $slug, VideoGameRepository $repo): Response
+    {
+        $game = $repo->findOneBy(['slug' => $slug]);
+
+        if (!$game) {
+            throw $this->createNotFoundException("Jeu introuvable");
+        }
+
+        return $this->render('views/video_games/show.html.twig', [
+            'game' => $game,
         ]);
     }
 }
