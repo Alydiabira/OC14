@@ -238,6 +238,14 @@ class VideoGame
         return $this->tags;
     }
 
+    public function getTagsIds(): array
+    {
+        return array_map(
+            fn(Tag $tag) => $tag->getId(),
+            $this->tags->toArray()
+        );
+    }
+
     /**
      * @return Collection<int, Review>
      */

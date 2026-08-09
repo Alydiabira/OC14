@@ -17,12 +17,12 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 final class AuthController extends AbstractController
 {
     #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(Request $request, AuthenticationUtils $authenticationUtils): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        if ($error) {
+        if ($request->isMethod('POST')) {
             return $this->render('views/auth/login.html.twig', [
                 'last_username' => $lastUsername,
                 'error' => $error,
@@ -41,11 +41,17 @@ final class AuthController extends AbstractController
         $user = new User();
         $form = $this->createForm(RegisterType::class, $user)->handleRequest($request);
 
+        if ($form->isSubmitted() && !$form->isValid()) {
+            return $this->render('views/auth/register.html.twig', [
+                'form' => $form->createView(),
+            ], new Response('', 422));
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirect('/');
+            return $this->redirect('/auth/login');
         }
 
         return $this->render('views/auth/register.html.twig', [

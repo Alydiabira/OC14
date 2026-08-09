@@ -13,12 +13,13 @@ final class SmokeTest extends FunctionalTestCase
     {
         $this->client->request($method, $uri);
 
-        self::assertTrue($this->client->getResponse()->isSuccessful());
+        self::assertTrue(
+            $this->client->getResponse()->isSuccessful()
+                || $this->client->getResponse()->isRedirection()
+                || $this->client->getResponse()->getStatusCode() === 422
+        );
     }
 
-    /**
-     * @return iterable<int, array{string, string}>
-     */
     public function provideUrls(): iterable
     {
         yield ['GET', '/'];

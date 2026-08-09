@@ -24,13 +24,9 @@ use Traversable;
 final class VideoGamesList implements Countable, IteratorAggregate
 {
     private FormView $form;
-    private Filter $filter;
 
-    /**
-     * @var Paginator<VideoGame>
-     */
+    private Filter $filter;                 // 🔥 INITIALISÉ PAR LE CONSTRUCTEUR
     private Paginator $data;
-
     private string $route;
 
     /**
@@ -45,7 +41,10 @@ final class VideoGamesList implements Countable, IteratorAggregate
         private FormFactoryInterface $formFactory,
         private VideoGameRepository $videoGameRepository,
         private Pagination $pagination,
-    ) {}
+        Filter $filter                        // 🔥 AJOUT
+    ) {
+        $this->filter = $filter;              // 🔥 INITIALISATION OBLIGATOIRE
+    }
 
     public function getForm(): FormView
     {
@@ -59,7 +58,8 @@ final class VideoGamesList implements Countable, IteratorAggregate
 
     public function handleRequest(Request $request): self
     {
-        $this->filter = new Filter();
+        // ❌ SUPPRIMÉ : $this->filter = new Filter();
+        // Le filtre vient du contrôleur → déjà initialisé
 
         $this->route = $request->attributes->get('_route');
         $this->routeParameters = $request->query->all();
@@ -80,8 +80,8 @@ final class VideoGamesList implements Countable, IteratorAggregate
         $this->data = $this->videoGameRepository->getVideoGames($this->pagination, $this->filter);
 
         // --- Calcul de l'objet Info (OC14) ---
-        $total = count($this->data);              // total filtré
-        $count = iterator_count($this->data);     // éléments affichés sur la page
+        $total = count($this->data);
+        $count = iterator_count($this->data);
         $start = $this->pagination->getOffset() + 1;
         $end = $this->pagination->getOffset() + $count;
 

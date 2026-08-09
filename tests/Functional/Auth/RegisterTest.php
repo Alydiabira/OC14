@@ -25,8 +25,6 @@ final class RegisterTest extends FunctionalTestCase
 
     /**
      * @dataProvider provideInvalidRegistrationData
-     *
-     * @param array{string, string, string} $data
      */
     public function testThatRegistrationShouldFailed(array $data): void
     {
@@ -43,9 +41,6 @@ final class RegisterTest extends FunctionalTestCase
         self::assertResponseStatusCodeSame(422);
     }
 
-    /**
-     * @return iterable<string, array{array{string, string, string}}>
-     */
     public function provideInvalidRegistrationData(): iterable
     {
         yield 'empty username' => [['', 'email@example.com', 'SuperPassword123!']];
