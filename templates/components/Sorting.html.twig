@@ -2,8 +2,9 @@
 	<input type="hidden" name="page" value="1">
 	<input type="hidden" name="filter[search]" value="{{ list.filter.search }}"/>
 	{% for tag in list.filter.tags %}
-		<input type="hidden" name="filter[tags][]" value="{{ tag }}"/>
+		<input type="hidden" name="filter[tags][]" value="{{ tag.id }}"/>
 	{% endfor %}
+
 
 	<div class="col">
 		<div class="form-floating">

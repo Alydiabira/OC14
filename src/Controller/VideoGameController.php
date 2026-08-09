@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Doctrine\Repository\TagRepository;
 use App\Doctrine\Repository\VideoGameRepository;
 use App\Form\ReviewType;
 use App\Model\ValueObject\Sorting;
@@ -26,7 +27,8 @@ final class VideoGameController extends AbstractController
         Request $request,
         VideoGameRepository $repo,
         UrlGeneratorInterface $urlGenerator,
-        FormFactoryInterface $formFactory
+        FormFactoryInterface $formFactory,
+        TagRepository $tagRepository
     ): Response {
 
         // 1) Lecture des paramètres GET
@@ -37,41 +39,19 @@ final class VideoGameController extends AbstractController
         $search = $request->query->all('filter')['search'] ?? null;
         $tagsIds = $request->query->all('filter')['tags'] ?? [];
 
-        // 2) Récupération des jeux
-        $games = $repo->findAll();
-
-        // 3) Filtre search
-        if ($search) {
-            $games = array_filter($games, fn($g) => str_contains($g->getTitle(), $search));
-        }
-
-        // 4) Filtre tags (IDs)
+        // 2) Conversion des IDs → objets Tag (OPTION A)
+        $tags = [];
         if (!empty($tagsIds)) {
-            $games = array_filter(
-                $games,
-                fn($g) =>
-                count(array_intersect($tagsIds, $g->getTagsIds())) === count($tagsIds)
-            );
+            $tags = $tagRepository->findBy(['id' => $tagsIds]);
         }
 
-        // 5) Tri
-        if ($sorting === 'Title') {
-            usort(
-                $games,
-                fn($a, $b) =>
-                $direction === 'Ascending'
-                    ? strcmp($a->getTitle(), $b->getTitle())
-                    : strcmp($b->getTitle(), $a->getTitle())
-            );
-        }
+        // 3) Création du filtre (avec objets Tag)
+        $filter = new Filter(
+            search: $search,
+            tags: $tags
+        );
 
-        // 6) Pagination
-        $total = count($games);
-        $offsetFrom = (($page - 1) * $limit) + 1;
-        $offsetTo = min($offsetFrom + $limit - 1, $total);
-        $games = array_slice($games, $offsetFrom - 1, $limit);
-
-        // 7) Conversion ENUMS
+        // 4) Création des ValueObjects de tri
         $sortingVO = match ($sorting) {
             'Title' => Sorting::Title,
             'ReleaseDate' => Sorting::ReleaseDate,
@@ -84,6 +64,7 @@ final class VideoGameController extends AbstractController
             default => Direction::Descending,
         };
 
+        // 5) Pagination
         $pagination = new Pagination(
             $page,
             $limit,
@@ -91,13 +72,7 @@ final class VideoGameController extends AbstractController
             $directionVO
         );
 
-        // 8) Création du filtre (avec IDs)
-        $filter = new Filter(
-            search: $search,
-            tags: $tagsIds
-        );
-
-        // 9) Création de l'objet VideoGamesList COMPLET
+        // 6) Création de l'objet VideoGamesList COMPLET
         $list = new VideoGamesList(
             $urlGenerator,
             $formFactory,
@@ -106,36 +81,39 @@ final class VideoGameController extends AbstractController
             $filter
         );
 
-        // 10) Initialisation complète
+        // 7) Initialisation complète
         $list->handleRequest($request);
 
+        // 8) Rendu
         return $this->render('views/video_games/list.html.twig', [
             'list' => $list,
         ]);
     }
 
+
     #[Route('/{slug}', name: 'show', methods: ['GET', 'POST'])]
     public function show(
         string $slug,
         VideoGameRepository $repo,
-        TagRepository $tagRepo,
         Request $request
     ): Response {
 
+        // 1) Récupération du jeu
         $game = $repo->findOneBy(['slug' => $slug]);
 
         if (!$game) {
             throw $this->createNotFoundException("Jeu introuvable");
         }
 
-        // 🔥 Hydratation des tags
-        $tagObjects = $tagRepo->findBy(['id' => $game->getTagsIds()]);
-        $game->setTags($tagObjects);
+        // 2) Doctrine hydrate automatiquement les tags :
+        // $game->getTags() retourne une Collection<Tag>
+        // Donc pas besoin de TagRepository
 
-        // 🔥 Formulaire d'avis
+        // 3) Formulaire d'avis
         $form = $this->createForm(ReviewType::class);
         $form->handleRequest($request);
 
+        // 4) Rendu
         return $this->render('views/video_games/show.html.twig', [
             'game' => $game,
             'form' => $form->createView(),

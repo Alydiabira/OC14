@@ -22,6 +22,18 @@ final class VideoGameRepository extends ServiceEntityRepository
     }
 
     /**
+     * 🔥 Ajout : findAll() qui hydrate les tags
+     */
+    public function findAll(): array
+    {
+        return $this->createQueryBuilder('v')
+            ->leftJoin('v.tags', 't')
+            ->addSelect('t')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
      * @return Paginator<VideoGame>
      */
     public function getVideoGames(Pagination $pagination, Filter $filter): Paginator
@@ -49,7 +61,6 @@ final class VideoGameRepository extends ServiceEntityRepository
         }
 
         if ([] !== $filter->getTags()) {
-            // Utilisez une sous-requête pour filtrer les jeux ayant tous les tags requis
             $subQuery = $this->getEntityManager()->createQueryBuilder()
                 ->select('vg2.id')
                 ->from(VideoGame::class, 'vg2')
