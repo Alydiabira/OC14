@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Doctrine\Repository\VideoGameRepository;
+use App\Form\ReviewType;
 use App\Model\ValueObject\Sorting;
 use App\Model\ValueObject\Direction;
 use App\List\VideoGameList\VideoGamesList;
@@ -113,17 +114,31 @@ final class VideoGameController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}', name: 'show', methods: ['GET'])]
-    public function show(string $slug, VideoGameRepository $repo): Response
-    {
+    #[Route('/{slug}', name: 'show', methods: ['GET', 'POST'])]
+    public function show(
+        string $slug,
+        VideoGameRepository $repo,
+        TagRepository $tagRepo,
+        Request $request
+    ): Response {
+
         $game = $repo->findOneBy(['slug' => $slug]);
 
         if (!$game) {
             throw $this->createNotFoundException("Jeu introuvable");
         }
 
+        // 🔥 Hydratation des tags
+        $tagObjects = $tagRepo->findBy(['id' => $game->getTagsIds()]);
+        $game->setTags($tagObjects);
+
+        // 🔥 Formulaire d'avis
+        $form = $this->createForm(ReviewType::class);
+        $form->handleRequest($request);
+
         return $this->render('views/video_games/show.html.twig', [
             'game' => $game,
+            'form' => $form->createView(),
         ]);
     }
 }
