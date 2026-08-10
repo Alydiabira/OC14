@@ -15,7 +15,7 @@ final class LoginTest extends FunctionalTestCase
         $form = $crawler->filter('form')->form();
 
         $this->client->submit($form, [
-            'username' => 'user+1',
+            'email' => 'user+1@example.com',
             'password' => 'password',
         ]);
 
@@ -29,7 +29,7 @@ final class LoginTest extends FunctionalTestCase
         $form = $crawler->filter('form')->form();
 
         $this->client->submit($form, [
-            'username' => 'wrong',
+            'email' => 'wrong@example.com',
             'password' => 'wrong',
         ]);
 
