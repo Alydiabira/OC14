@@ -12,6 +12,8 @@ use App\Model\ValueObject\Direction;
 use App\List\VideoGameList\VideoGamesList;
 use App\List\VideoGameList\Pagination;
 use App\List\VideoGameList\Filter;
+use App\Model\Entity\Review;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +24,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 #[Route('/video-games', name: 'video_games_')]
 final class VideoGameController extends AbstractController
 {
-    #[Route('/', name: 'list', methods: ['GET'])]
+    #[Route('', name: 'list', methods: ['GET'])]
     public function list(
         Request $request,
         VideoGameRepository $repo,
@@ -39,19 +41,19 @@ final class VideoGameController extends AbstractController
         $search = $request->query->all('filter')['search'] ?? null;
         $tagsIds = $request->query->all('filter')['tags'] ?? [];
 
-        // 2) Conversion des IDs → objets Tag (OPTION A)
+        // 2) Conversion des IDs → objets Tag
         $tags = [];
         if (!empty($tagsIds)) {
             $tags = $tagRepository->findBy(['id' => $tagsIds]);
         }
 
-        // 3) Création du filtre (avec objets Tag)
+        // 3) Création du filtre
         $filter = new Filter(
             search: $search,
             tags: $tags
         );
 
-        // 4) Création des ValueObjects de tri
+        // 4) Tri
         $sortingVO = match ($sorting) {
             'Title' => Sorting::Title,
             'ReleaseDate' => Sorting::ReleaseDate,
@@ -72,7 +74,7 @@ final class VideoGameController extends AbstractController
             $directionVO
         );
 
-        // 6) Création de l'objet VideoGamesList COMPLET
+        // 6) Création de la liste
         $list = new VideoGamesList(
             $urlGenerator,
             $formFactory,
@@ -81,7 +83,7 @@ final class VideoGameController extends AbstractController
             $filter
         );
 
-        // 7) Initialisation complète
+        // 7) Initialisation
         $list->handleRequest($request);
 
         // 8) Rendu
@@ -95,7 +97,8 @@ final class VideoGameController extends AbstractController
     public function show(
         string $slug,
         VideoGameRepository $repo,
-        Request $request
+        Request $request,
+        EntityManagerInterface $em
     ): Response {
 
         // 1) Récupération du jeu
@@ -105,15 +108,27 @@ final class VideoGameController extends AbstractController
             throw $this->createNotFoundException("Jeu introuvable");
         }
 
-        // 2) Doctrine hydrate automatiquement les tags :
-        // $game->getTags() retourne une Collection<Tag>
-        // Donc pas besoin de TagRepository
-
-        // 3) Formulaire d'avis
-        $form = $this->createForm(ReviewType::class);
+        // 2) Création du formulaire d'avis
+        $review = new Review();
+        $form = $this->createForm(ReviewType::class, $review);
         $form->handleRequest($request);
 
-        // 4) Rendu
+        // 3) Traitement du POST
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $review->setVideoGame($game);
+            $review->setUser($this->getUser());
+
+            $em->persist($review);
+            $em->flush();
+
+            // ✔ Redirection attendue par le test
+            return $this->redirectToRoute('video_games_show', [
+                'slug' => $game->getSlug(),
+            ]);
+        }
+
+        // 4) Affichage
         return $this->render('views/video_games/show.html.twig', [
             'game' => $game,
             'form' => $form->createView(),

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\VideoGame;
 
-use App\Model\Entity\User;
 use App\Tests\Functional\FunctionalTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -21,15 +20,14 @@ final class ShowTest extends FunctionalTestCase
     {
         $this->login('user+1');
 
-
         $this->get('/video-games/jeu-video-49');
         self::assertResponseIsSuccessful();
 
         $this->submit(
             'Poster',
             [
-                'review_form[note]' => 4,
-                'review_form[comment]' => 'Mon commentaire',
+                'review[rating]' => 4,
+                'review[comment]' => 'Mon commentaire',
             ]
         );
 
