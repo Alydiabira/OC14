@@ -3,31 +3,24 @@
 {% block body %}
 	<div class="container">
 		<div class="row">
-			<div
-				class="col-9 d-flex flex-column gap-4">
+			<div class="col-9 d-flex flex-column gap-4">
 
-				{# Tri #}
 				{{ component('Sorting', { list: list }) }}
 
-				{# Informations de pagination #}
 				{{ component('Info', { info: list.info }) }}
 
-				{# Liste des jeux vidéo #}
 				<div class="video-games-list d-flex flex-column gap-5">
 					{% for video_game in list %}
 						{{ component('Card', { video_game: video_game }) }}
 					{% endfor %}
 				</div>
 
-				{# Pagination #}
 				{% if list.pagination|length > 1 %}
 					{{ component('Pagination', { pagination: list.pagination }) }}
 				{% endif %}
 			</div>
 
-			<div
-				class="col-3">
-				{# Filtres #}
+			<div class="col-3">
 				{{ component('Filter', { list: list }) }}
 			</div>
 		</div>

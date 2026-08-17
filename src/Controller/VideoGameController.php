@@ -87,11 +87,10 @@ final class VideoGameController extends AbstractController
         $list->handleRequest($request);
 
         // 8) Rendu
-        return $this->render('views/video_games/list.html.twig', [
+        return $this->render('@views/video_games/list.html.twig', [
             'list' => $list,
         ]);
     }
-
 
     #[Route('/{slug}', name: 'show', methods: ['GET', 'POST'])]
     public function show(
@@ -129,7 +128,7 @@ final class VideoGameController extends AbstractController
         }
 
         // 4) Affichage
-        return $this->render('views/video_games/show.html.twig', [
+        return $this->render('@views/video_games/show.html.twig', [
             'game' => $game,
             'form' => $form->createView(),
         ]);

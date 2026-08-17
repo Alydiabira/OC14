@@ -24,14 +24,14 @@ use Traversable;
 final class VideoGamesList implements Countable, IteratorAggregate
 {
     private FormView $form;
-
-    private Filter $filter;                 // 🔥 INITIALISÉ PAR LE CONSTRUCTEUR
+    private Filter $filter;
     private Paginator $data;
     private string $route;
 
-    /**
-     * @var array<string, mixed>
-     */
+    /** @var VideoGame[] */
+    private array $items = [];
+
+    /** @var array<string, mixed> */
     private array $routeParameters;
 
     private Info $info;
@@ -41,9 +41,9 @@ final class VideoGamesList implements Countable, IteratorAggregate
         private FormFactoryInterface $formFactory,
         private VideoGameRepository $videoGameRepository,
         private Pagination $pagination,
-        Filter $filter                        // 🔥 AJOUT
+        Filter $filter
     ) {
-        $this->filter = $filter;              // 🔥 INITIALISATION OBLIGATOIRE
+        $this->filter = $filter;
     }
 
     public function getForm(): FormView
@@ -56,11 +56,13 @@ final class VideoGamesList implements Countable, IteratorAggregate
         return $this->info;
     }
 
+    public function info(): Info
+    {
+        return $this->info;
+    }
+
     public function handleRequest(Request $request): self
     {
-        // ❌ SUPPRIMÉ : $this->filter = new Filter();
-        // Le filtre vient du contrôleur → déjà initialisé
-
         $this->route = $request->attributes->get('_route');
         $this->routeParameters = $request->query->all();
 
@@ -76,12 +78,15 @@ final class VideoGamesList implements Countable, IteratorAggregate
             ->handleRequest($request)
             ->createView();
 
-        // Récupération des jeux filtrés + paginés
-        $this->data = $this->videoGameRepository->getVideoGames($this->pagination, $this->filter);
+        $this->data = $this->videoGameRepository->getVideoGames(
+            $this->pagination,
+            $this->filter
+        );
 
-        // --- Calcul de l'objet Info (OC14) ---
+        $this->items = iterator_to_array($this->data);
+
         $total = count($this->data);
-        $count = iterator_count($this->data);
+        $count = count($this->items);
         $start = $this->pagination->getOffset() + 1;
         $end = $this->pagination->getOffset() + $count;
 
@@ -92,27 +97,22 @@ final class VideoGamesList implements Countable, IteratorAggregate
             total: $total
         );
 
-        // Initialisation de la pagination
         $this->pagination->init($total, $count);
 
         if ($this->pagination->getPage() > 1) {
-            $this->pagination->add(
-                new Page(
-                    1,
-                    false,
-                    'Première page',
-                    $this->generateUrl(1)
-                )
-            );
+            $this->pagination->add(new Page(
+                1,
+                false,
+                'Première page',
+                $this->generateUrl(1)
+            ));
 
-            $this->pagination->add(
-                new Page(
-                    $this->pagination->getPage() - 1,
-                    false,
-                    'Précédent',
-                    $this->generateUrl($this->pagination->getPage() - 1)
-                )
-            );
+            $this->pagination->add(new Page(
+                $this->pagination->getPage() - 1,
+                false,
+                'Précédent',
+                $this->generateUrl($this->pagination->getPage() - 1)
+            ));
         }
 
         $pageRange = range(
@@ -121,34 +121,28 @@ final class VideoGamesList implements Countable, IteratorAggregate
         );
 
         foreach ($pageRange as $page) {
-            $this->pagination->add(
-                new Page(
-                    $page,
-                    $page === $this->pagination->getPage(),
-                    (string) $page,
-                    $this->generateUrl($page)
-                )
-            );
+            $this->pagination->add(new Page(
+                $page,
+                $page === $this->pagination->getPage(),
+                (string) $page,
+                $this->generateUrl($page)
+            ));
         }
 
         if ($this->pagination->getPage() < $this->pagination->getLastPage()) {
-            $this->pagination->add(
-                new Page(
-                    $this->pagination->getPage() + 1,
-                    false,
-                    'Suivant',
-                    $this->generateUrl($this->pagination->getPage() + 1)
-                )
-            );
+            $this->pagination->add(new Page(
+                $this->pagination->getPage() + 1,
+                false,
+                'Suivant',
+                $this->generateUrl($this->pagination->getPage() + 1)
+            ));
 
-            $this->pagination->add(
-                new Page(
-                    $this->pagination->getLastPage(),
-                    false,
-                    'Dernière page',
-                    $this->generateUrl($this->pagination->getLastPage())
-                )
-            );
+            $this->pagination->add(new Page(
+                $this->pagination->getLastPage(),
+                false,
+                'Dernière page',
+                $this->generateUrl($this->pagination->getLastPage())
+            ));
         }
 
         return $this;
@@ -166,12 +160,12 @@ final class VideoGamesList implements Countable, IteratorAggregate
 
     public function getIterator(): Traversable
     {
-        return $this->data;
+        return new \ArrayIterator($this->items);
     }
 
     public function count(): int
     {
-        return iterator_count($this->data);
+        return count($this->items);
     }
 
     public function generateUrl(int $page): string

@@ -1,7 +1,12 @@
 twig:
-    file_name_pattern: '*.twig'
-    form_themes: ['form_theme.html.twig']
+  file_name_pattern: "*.twig"
+  form_themes: ["form_theme.html.twig"]
+
+  paths:
+    "%kernel.project_dir%/templates/views": views
 
 when@test:
-    twig:
-        strict_variables: true
+  twig:
+    strict_variables: true
+    paths:
+      "%kernel.project_dir%/templates/views": views
