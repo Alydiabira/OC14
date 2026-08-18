@@ -7,7 +7,7 @@
 
 				{{ component('Sorting', { list: list }) }}
 
-				{{ component('Info', { info: list.info }) }}
+				{{ component('Info', { info: list.pagination.info }) }}
 
 				<div class="video-games-list d-flex flex-column gap-5">
 					{% for video_game in list %}
