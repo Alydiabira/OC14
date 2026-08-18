@@ -6,7 +6,7 @@ security:
     user_provider:
       entity:
         class: App\Model\Entity\User
-        property: username # ✔ IMPORTANT
+        property: email
 
   firewalls:
     dev:
@@ -17,12 +17,8 @@ security:
       lazy: true
       provider: user_provider
 
-      form_login:
-        login_path: auth_login
-        check_path: auth_login
-        username_parameter: username # ✔ IMPORTANT
-        password_parameter: password
-        enable_csrf: false # ✔ IMPORTANT pour les tests
+      custom_authenticators:
+        - App\Security\LoginAuthenticator
 
       logout:
         path: auth_logout

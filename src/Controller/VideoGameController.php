@@ -21,10 +21,10 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 
-#[Route('/video-games', name: 'video_games_')]
+#[Route('/video-games')]
 final class VideoGameController extends AbstractController
 {
-    #[Route('', name: 'list', methods: ['GET'])]
+    #[Route('', name: 'video_games_list', methods: ['GET'])]
     public function list(
         Request $request,
         VideoGameRepository $repo,
@@ -92,7 +92,7 @@ final class VideoGameController extends AbstractController
         ]);
     }
 
-    #[Route('/{slug}', name: 'show', methods: ['GET', 'POST'])]
+    #[Route('/{slug}', name: 'video_games_show', methods: ['GET', 'POST'])]
     public function show(
         string $slug,
         VideoGameRepository $repo,
@@ -121,7 +121,6 @@ final class VideoGameController extends AbstractController
             $em->persist($review);
             $em->flush();
 
-            // ✔ Redirection attendue par le test
             return $this->redirectToRoute('video_games_show', [
                 'slug' => $game->getSlug(),
             ]);
