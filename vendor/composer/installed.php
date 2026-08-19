@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '61d73c8e70234f822148d963201e1c3d33e2d757',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '61d73c8e70234f822148d963201e1c3d33e2d757',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -142,6 +142,15 @@
             'reference' => '6c1925561632e83d60a44492e0b344cf48ab85ef',
             'type' => 'library',
             'install_path' => __DIR__ . '/./xdebug-handler',
+            'aliases' => array(),
+            'dev_requirement' => true,
+        ),
+        'dama/doctrine-test-bundle' => array(
+            'pretty_version' => 'v8.2.2',
+            'version' => '8.2.2.0',
+            'reference' => 'eefe54fdf00d910f808efea9cfce9cc261064a0a',
+            'type' => 'symfony-bundle',
+            'install_path' => __DIR__ . '/../dama/doctrine-test-bundle',
             'aliases' => array(),
             'dev_requirement' => true,
         ),
