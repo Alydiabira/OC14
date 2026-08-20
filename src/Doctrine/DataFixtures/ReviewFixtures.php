@@ -8,28 +8,26 @@ use App\Model\Entity\VideoGame;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Faker\Factory;
 
 final class ReviewFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        $faker = Factory::create();
+        foreach (range(0, 49) as $i) {
+            $review = new Review();
 
-        $users = $manager->getRepository(User::class)->findAll();
-        $games = $manager->getRepository(VideoGame::class)->findAll();
+            $review->setVideoGame(
+                $this->getReference('video-game-' . $i, VideoGame::class)
+            );
 
-        foreach ($games as $game) {
-            // 3 reviews par jeu
-            for ($i = 0; $i < 3; $i++) {
-                $review = (new Review())
-                    ->setRating($faker->numberBetween(1, 5))
-                    ->setComment($faker->sentence(10))
-                    ->setUser($faker->randomElement($users))
-                    ->setVideoGame($game);
+            $review->setUser(
+                $this->getReference('user-' . (($i % 2) + 1), User::class)
+            );
 
-                $manager->persist($review);
-            }
+            $review->setNote(($i % 5) + 1);
+            $review->setComment('Commentaire ' . $i);
+
+            $manager->persist($review);
         }
 
         $manager->flush();

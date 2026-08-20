@@ -10,12 +10,14 @@ final class TagFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $tags = ['Action', 'Aventure', 'RPG', 'Sport', 'Stratégie'];
+        $names = ['Action', 'Aventure', 'RPG', 'Sport', 'Stratégie'];
 
-        foreach ($tags as $name) {
+        foreach ($names as $i => $name) {
             $tag = (new Tag())->setName($name);
             $manager->persist($tag);
-            $this->addReference('tag_' . $name, $tag);
+
+            // IMPORTANT : références conformes au corrigé OC
+            $this->addReference('tag-' . ($i + 1), $tag);
         }
 
         $manager->flush();

@@ -6,6 +6,7 @@ namespace App\Doctrine\Repository;
 
 use App\List\VideoGameList\Filter;
 use App\List\VideoGameList\Pagination;
+use App\Model\Entity\Tag;
 use App\Model\Entity\VideoGame;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -61,6 +62,12 @@ final class VideoGameRepository extends ServiceEntityRepository
         }
 
         if ([] !== $filter->getTags()) {
+            // ✅ Conversion des objets Tag en IDs
+            $tagIds = array_map(
+                fn(Tag $t) => $t->getId(),
+                $filter->getTags()
+            );
+
             $subQuery = $this->getEntityManager()->createQueryBuilder()
                 ->select('vg2.id')
                 ->from(VideoGame::class, 'vg2')
@@ -71,8 +78,8 @@ final class VideoGameRepository extends ServiceEntityRepository
 
             $queryBuilder
                 ->andWhere($queryBuilder->expr()->in('vg.id', $subQuery->getDQL()))
-                ->setParameter('tags', $filter->getTags())
-                ->setParameter('tagCount', count($filter->getTags()));
+                ->setParameter('tags', $tagIds)
+                ->setParameter('tagCount', count($tagIds));
         }
 
         return new Paginator($queryBuilder, fetchJoinCollection: true);
