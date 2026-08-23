@@ -1,4 +1,4 @@
-<article{{attributes}} class="card game-card">
+<article class="game-card">
 	<div class="row g-0">
 		<a href="{{ path('video_games_show', {slug: video_game.slug}) }}" class="col-md-4">
 			<img src="{{ vich_uploader_asset(video_game, 'imageFile', 'App\\Model\\Entity\\VideoGame') }}" class="img-fluid rounded-start game-card-image" alt="Couverture de {{ video_game.title|e }}">
@@ -7,11 +7,11 @@
 		<div class="col-md-8">
 			<div class="card-body">
 
-				<h5 class="game-card-title">
+				<h2 class="game-card-title">
 					<a href="{{ path('video_games_show', {slug: video_game.slug}) }}" class="text-decoration-none">
 						{{ video_game.title }}
 					</a>
-				</h5>
+				</h2>
 
 				<p class="game-card-description">
 					{{ video_game.description|u.truncate(130, '...', true)|raw }}

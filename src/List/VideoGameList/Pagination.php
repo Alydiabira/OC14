@@ -22,12 +22,9 @@ final class Pagination implements IteratorAggregate, Countable
     private bool $initialized = false;
 
     private int $total;
-
     private int $count;
 
-    /**
-     * @var array<int, Page>
-     */
+    /** @var Page[] */
     private array $pages = [];
 
     public function __construct(
@@ -56,6 +53,9 @@ final class Pagination implements IteratorAggregate, Countable
         $this->total = $total;
         $this->count = $count;
         $this->initialized = true;
+
+        // 🔥 Correction OC : vider les pages avant reconstruction
+        $this->pages = [];
     }
 
     public function add(Page $page): self
@@ -64,9 +64,6 @@ final class Pagination implements IteratorAggregate, Countable
         return $this;
     }
 
-    /**
-     * @return Traversable<int, Page>
-     */
     public function getIterator(): Traversable
     {
         if (!$this->initialized) {
@@ -100,17 +97,11 @@ final class Pagination implements IteratorAggregate, Countable
         return $this->limit;
     }
 
-    /**
-     * @return array<int, Direction>
-     */
     public function getDirections(): array
     {
         return Direction::cases();
     }
 
-    /**
-     * @return array<int, Sorting>
-     */
     public function getAllSorting(): array
     {
         return Sorting::cases();
@@ -126,9 +117,6 @@ final class Pagination implements IteratorAggregate, Countable
         return $this->direction;
     }
 
-    /**
-     * @return array{page: int, limit: int, sorting: string, direction: string}
-     */
     public function toArray(): array
     {
         return [

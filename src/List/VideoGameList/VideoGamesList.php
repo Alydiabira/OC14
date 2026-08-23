@@ -56,28 +56,21 @@ final class VideoGamesList implements Countable, IteratorAggregate
         return $this->info;
     }
 
-    public function info(): Info
-    {
-        return $this->info;
-    }
-
     public function handleRequest(Request $request): self
     {
         $this->route = $request->attributes->get('_route');
         $this->routeParameters = $request->query->all();
 
+        // Formulaire
         $this->form = $this->formFactory
-            ->create(
-                FilterType::class,
-                $this->filter,
-                [
-                    'method' => Request::METHOD_GET,
-                    'csrf_protection' => false,
-                ]
-            )
+            ->create(FilterType::class, $this->filter, [
+                'method' => Request::METHOD_GET,
+                'csrf_protection' => false,
+            ])
             ->handleRequest($request)
             ->createView();
 
+        // Données
         $this->data = $this->videoGameRepository->getVideoGames(
             $this->pagination,
             $this->filter
@@ -87,19 +80,24 @@ final class VideoGamesList implements Countable, IteratorAggregate
 
         $total = count($this->data);
         $count = count($this->items);
-        $start = $this->pagination->getOffset() + 1;
-        $end = $this->pagination->getOffset() + $count;
 
+        // Info
         $this->info = new Info(
             count: $count,
-            start: $start,
-            end: $end,
+            offsetFrom: $this->pagination->getOffset() + 1,
+            offsetTo: $this->pagination->getOffset() + $count,
             total: $total
         );
 
+        // Initialisation pagination (⚠ vide les pages)
         $this->pagination->init($total, $count);
 
-        if ($this->pagination->getPage() > 1) {
+        // Construction pagination
+        $current = $this->pagination->getPage();
+        $last = $this->pagination->getLastPage();
+
+        // Première page / Précédent
+        if ($current > 1) {
             $this->pagination->add(new Page(
                 1,
                 false,
@@ -108,40 +106,42 @@ final class VideoGamesList implements Countable, IteratorAggregate
             ));
 
             $this->pagination->add(new Page(
-                $this->pagination->getPage() - 1,
+                $current - 1,
                 false,
                 'Précédent',
-                $this->generateUrl($this->pagination->getPage() - 1)
+                $this->generateUrl($current - 1)
             ));
         }
 
+        // Pages numérotées
         $pageRange = range(
-            max(1, $this->pagination->getPage() - 3),
-            min($this->pagination->getLastPage(), $this->pagination->getPage() + 3)
+            max(1, $current - 3),
+            min($last, $current + 3)
         );
 
         foreach ($pageRange as $page) {
             $this->pagination->add(new Page(
                 $page,
-                $page === $this->pagination->getPage(),
+                $page === $current,
                 (string) $page,
                 $this->generateUrl($page)
             ));
         }
 
-        if ($this->pagination->getPage() < $this->pagination->getLastPage()) {
+        // Suivant / Dernière page
+        if ($current < $last) {
             $this->pagination->add(new Page(
-                $this->pagination->getPage() + 1,
+                $current + 1,
                 false,
                 'Suivant',
-                $this->generateUrl($this->pagination->getPage() + 1)
+                $this->generateUrl($current + 1)
             ));
 
             $this->pagination->add(new Page(
-                $this->pagination->getLastPage(),
+                $last,
                 false,
                 'Dernière page',
-                $this->generateUrl($this->pagination->getLastPage())
+                $this->generateUrl($last)
             ));
         }
 
@@ -168,7 +168,7 @@ final class VideoGamesList implements Countable, IteratorAggregate
         return count($this->items);
     }
 
-    public function generateUrl(int $page): string
+    private function generateUrl(int $page): string
     {
         return $this->urlGenerator->generate(
             $this->route,

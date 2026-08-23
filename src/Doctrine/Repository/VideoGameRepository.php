@@ -12,9 +12,6 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<VideoGame>
- */
 final class VideoGameRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -22,9 +19,6 @@ final class VideoGameRepository extends ServiceEntityRepository
         parent::__construct($registry, VideoGame::class);
     }
 
-    /**
-     * 🔥 Ajout : findAll() qui hydrate les tags
-     */
     public function findAll(): array
     {
         return $this->createQueryBuilder('v')
@@ -34,39 +28,39 @@ final class VideoGameRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    /**
-     * @return Paginator<VideoGame>
-     */
     public function getVideoGames(Pagination $pagination, Filter $filter): Paginator
     {
-        $queryBuilder = $this->createQueryBuilder('vg')
+        // Tri conforme aux tests OC
+        $orderField = match ($pagination->getSorting()->name) {
+            'Title' => 'vg.title',
+            'ReleaseDate' => 'vg.releaseDate',
+            'Rating' => 'vg.rating',
+            'AverageRating' => 'vg.averageRating',
+            default => 'vg.id',
+        };
+
+        $qb = $this->createQueryBuilder('vg')
             ->addSelect('t')
             ->leftJoin('vg.tags', 't')
+            ->orderBy($orderField, $pagination->getDirection()->getSql())
             ->setFirstResult($pagination->getOffset())
-            ->setMaxResults($pagination->getLimit())
-            ->orderBy(
-                $pagination->getSorting()->getSql(),
-                $pagination->getDirection()->getSql()
-            );
+            ->setMaxResults($pagination->getLimit());
 
+        // Filtre recherche
         if ($filter->getSearch() !== null) {
-            $queryBuilder
-                ->andWhere(
-                    $queryBuilder->expr()->orX(
-                        $queryBuilder->expr()->like('vg.title', ':search'),
-                        $queryBuilder->expr()->like('vg.description', ':search'),
-                        $queryBuilder->expr()->like('vg.test', ':search'),
-                    )
+            $qb->andWhere(
+                $qb->expr()->orX(
+                    $qb->expr()->like('vg.title', ':search'),
+                    $qb->expr()->like('vg.description', ':search'),
+                    $qb->expr()->like('vg.test', ':search')
                 )
+            )
                 ->setParameter('search', '%' . $filter->getSearch() . '%');
         }
 
+        // Filtre tags
         if ([] !== $filter->getTags()) {
-            // ✅ Conversion des objets Tag en IDs
-            $tagIds = array_map(
-                fn(Tag $t) => $t->getId(),
-                $filter->getTags()
-            );
+            $tagIds = array_map(fn(Tag $t) => $t->getId(), $filter->getTags());
 
             $subQuery = $this->getEntityManager()->createQueryBuilder()
                 ->select('vg2.id')
@@ -74,14 +68,17 @@ final class VideoGameRepository extends ServiceEntityRepository
                 ->join('vg2.tags', 't2')
                 ->where('t2.id IN (:tags)')
                 ->groupBy('vg2.id')
-                ->having('COUNT(DISTINCT t2.id) = :tagCount');
+                ->having('COUNT(DISTINCT t2.id) = :tagCount')
+                ->getDQL();
 
-            $queryBuilder
-                ->andWhere($queryBuilder->expr()->in('vg.id', $subQuery->getDQL()))
+            $qb->andWhere('vg.id IN (' . $subQuery . ')')
                 ->setParameter('tags', $tagIds)
                 ->setParameter('tagCount', count($tagIds));
+
+            // Pagination après filtrage
+            $qb->setMaxResults($pagination->getLimit());
         }
 
-        return new Paginator($queryBuilder, fetchJoinCollection: true);
+        return new Paginator($qb, fetchJoinCollection: true);
     }
 }
