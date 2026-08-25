@@ -70,18 +70,24 @@ final class VideoGamesList implements Countable, IteratorAggregate
             ->handleRequest($request)
             ->createView();
 
-        // Données
-        $this->data = $this->videoGameRepository->getVideoGames(
+        // Données filtrées + paginées
+        $paginator = $this->videoGameRepository->getVideoGames(
             $this->pagination,
             $this->filter
         );
 
-        $this->items = iterator_to_array($this->data);
+        // ⚠️ Le total doit venir du paginator
+        $total = count($paginator);
 
-        $total = count($this->data);
+        // ⚠️ Les items doivent venir du paginator (page courante)
+        $this->items = [];
+        foreach ($paginator as $item) {
+            $this->items[] = $item;
+        }
+
         $count = count($this->items);
 
-        // Info
+        // Info conforme aux tests OC
         $this->info = new Info(
             count: $count,
             offsetFrom: $this->pagination->getOffset() + 1,
@@ -89,10 +95,9 @@ final class VideoGamesList implements Countable, IteratorAggregate
             total: $total
         );
 
-        // Initialisation pagination (⚠ vide les pages)
+        // Pagination conforme aux tests OC
         $this->pagination->init($total, $count);
 
-        // Construction pagination
         $current = $this->pagination->getPage();
         $last = $this->pagination->getLastPage();
 
@@ -147,6 +152,7 @@ final class VideoGamesList implements Countable, IteratorAggregate
 
         return $this;
     }
+
 
     public function getFilter(): Filter
     {

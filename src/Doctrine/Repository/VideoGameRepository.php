@@ -19,18 +19,8 @@ final class VideoGameRepository extends ServiceEntityRepository
         parent::__construct($registry, VideoGame::class);
     }
 
-    public function findAll(): array
-    {
-        return $this->createQueryBuilder('v')
-            ->leftJoin('v.tags', 't')
-            ->addSelect('t')
-            ->getQuery()
-            ->getResult();
-    }
-
     public function getVideoGames(Pagination $pagination, Filter $filter): Paginator
     {
-        // Tri conforme aux tests OC
         $orderField = match ($pagination->getSorting()->name) {
             'Title' => 'vg.title',
             'ReleaseDate' => 'vg.releaseDate',
@@ -58,7 +48,7 @@ final class VideoGameRepository extends ServiceEntityRepository
                 ->setParameter('search', '%' . $filter->getSearch() . '%');
         }
 
-        // Filtre tags
+        // Filtre tags (corrigé OC)
         if ([] !== $filter->getTags()) {
             $tagIds = array_map(fn(Tag $t) => $t->getId(), $filter->getTags());
 
@@ -75,7 +65,6 @@ final class VideoGameRepository extends ServiceEntityRepository
                 ->setParameter('tags', $tagIds)
                 ->setParameter('tagCount', count($tagIds));
 
-            // Pagination après filtrage
             $qb->setMaxResults($pagination->getLimit());
         }
 

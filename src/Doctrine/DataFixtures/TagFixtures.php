@@ -16,7 +16,6 @@ final class TagFixtures extends Fixture
             $tag = (new Tag())->setName($name);
             $manager->persist($tag);
 
-            // IMPORTANT : références conformes au corrigé OC
             $this->addReference('tag-' . ($i + 1), $tag);
         }
 

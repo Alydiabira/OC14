@@ -17,15 +17,15 @@ final class ReviewFixtures extends Fixture implements DependentFixtureInterface
             $review = new Review();
 
             $review->setVideoGame(
-                $this->getReference('video-game-' . $i, VideoGame::class)
+                $this->getReference("video-game-$i", VideoGame::class)
             );
 
             $review->setUser(
-                $this->getReference('user-' . (($i % 2) + 1), User::class)
+                $this->getReference("user-" . (($i % 2) + 1), User::class)
             );
 
             $review->setNote(($i % 5) + 1);
-            $review->setComment('Commentaire ' . $i);
+            $review->setComment("Commentaire $i");
 
             $manager->persist($review);
         }

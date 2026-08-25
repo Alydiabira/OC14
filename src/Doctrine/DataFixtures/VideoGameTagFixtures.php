@@ -12,7 +12,6 @@ final class VideoGameTagFixtures extends Fixture implements DependentFixtureInte
 {
     public function load(ObjectManager $manager): void
     {
-        // Récupération des tags via références
         $tag1 = $this->getReference('tag-1', Tag::class);
         $tag2 = $this->getReference('tag-2', Tag::class);
         $tag3 = $this->getReference('tag-3', Tag::class);
@@ -21,28 +20,30 @@ final class VideoGameTagFixtures extends Fixture implements DependentFixtureInte
 
         foreach (range(0, 49) as $i) {
             /** @var VideoGame $game */
-            $game = $this->getReference('video-game-' . $i, VideoGame::class);
+            $game = $this->getReference("video-game-$i", VideoGame::class);
 
-            // Tag 1 pour tous les jeux
-            $game->addTag($tag1);
+            // Tag 1
+            if (in_array($i, [0, 21, 22, 23, 24, 25, 46, 47, 48, 49])) {
+                $game->addTag($tag1);
+            }
 
-            // Tag 2 pour jeux >= 22
-            if ($i >= 22) {
+            // Tag 2
+            if (in_array($i, [22, 23, 24, 25, 47, 48, 49])) {
                 $game->addTag($tag2);
             }
 
-            // Tag 3 pour jeux >= 23
-            if ($i >= 23) {
+            // Tag 3
+            if (in_array($i, [23, 24, 25, 48, 49])) {
                 $game->addTag($tag3);
             }
 
-            // Tag 4 pour jeux >= 24
-            if ($i >= 24) {
+            // Tag 4
+            if (in_array($i, [24, 25, 49])) {
                 $game->addTag($tag4);
             }
 
-            // Tag 5 pour jeux >= 25
-            if ($i >= 25) {
+            // Tag 5
+            if ($i === 25) {
                 $game->addTag($tag5);
             }
         }
