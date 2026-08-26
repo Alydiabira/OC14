@@ -7,24 +7,23 @@ namespace App\Controller;
 use App\Doctrine\Repository\TagRepository;
 use App\Doctrine\Repository\VideoGameRepository;
 use App\Form\ReviewType;
-use App\Model\ValueObject\Sorting;
-use App\Model\ValueObject\Direction;
-use App\List\VideoGameList\VideoGamesList;
-use App\List\VideoGameList\Pagination;
 use App\List\VideoGameList\Filter;
+use App\List\VideoGameList\Pagination;
+use App\List\VideoGameList\VideoGamesList;
 use App\Model\Entity\Review;
+use App\Model\ValueObject\Direction;
+use App\Model\ValueObject\Sorting;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Form\FormFactoryInterface;
 
-#[Route('/video-games')]
 final class VideoGameController extends AbstractController
 {
-    #[Route('', name: 'video_games_list', methods: ['GET'])]
+    #[Route('/video-games/', name: 'video_games_list', methods: ['GET'])]
     public function list(
         Request $request,
         VideoGameRepository $repo,
@@ -33,66 +32,46 @@ final class VideoGameController extends AbstractController
         TagRepository $tagRepository
     ): Response {
 
-        // 1) Lecture des paramètres GET
-        $page = (int) $request->query->get('page', 1);
-        $limit = (int) $request->query->get('limit', 10);
-        $sorting = $request->query->get('sorting');
-        $direction = $request->query->get('direction', 'Descending');
+        $page = $request->query->getInt('page', 1);
+        $limit = $request->query->getInt('limit', 10);
+
+        // Enums corrects
+        $sorting = Sorting::tryFrom($request->query->get('sorting') ?? 'Title') ?? Sorting::Title;
+        $direction = Direction::tryFrom($request->query->get('direction') ?? 'Descending') ?? Direction::Descending;
+
         $search = $request->query->all('filter')['search'] ?? null;
         $tagsIds = $request->query->all('filter')['tags'] ?? [];
 
-        // 2) Conversion des IDs → objets Tag
         $tags = [];
         if (!empty($tagsIds)) {
             $tags = $tagRepository->findBy(['id' => $tagsIds]);
         }
 
-        // 3) Création du filtre
-        $filter = new Filter(
-            search: $search,
-            tags: $tags
-        );
+        $filter = new Filter($search, $tags);
 
-        // 4) Tri
-        $sortingVO = match ($sorting) {
-            'Title' => Sorting::Title,
-            'ReleaseDate' => Sorting::ReleaseDate,
-            default => Sorting::Title,
-        };
-
-        $directionVO = match ($direction) {
-            'Ascending' => Direction::Ascending,
-            'Descending' => Direction::Descending,
-            default => Direction::Descending,
-        };
-
-        // 5) Pagination
         $pagination = new Pagination(
-            $page,
-            $limit,
-            $sortingVO,
-            $directionVO
+            page: $page,
+            limit: $limit,
+            sorting: $sorting,
+            direction: $direction
         );
 
-        // 6) Création de la liste
         $list = new VideoGamesList(
-            $urlGenerator,
-            $formFactory,
-            $repo,
-            $pagination,
-            $filter
+            urlGenerator: $urlGenerator,
+            formFactory: $formFactory,
+            videoGameRepository: $repo,
+            pagination: $pagination,
+            filter: $filter
         );
 
-        // 7) Initialisation
         $list->handleRequest($request);
 
-        // 8) Rendu
-        return $this->render('@views/video_games/list.html.twig', [
+        return $this->render('views/video_games/list.html.twig', [
             'list' => $list,
         ]);
     }
 
-    #[Route('/{slug}', name: 'video_games_show', methods: ['GET', 'POST'])]
+    #[Route('/video-games/{slug}', name: 'video_games_show', methods: ['GET', 'POST'])]
     public function show(
         string $slug,
         VideoGameRepository $repo,
@@ -100,19 +79,16 @@ final class VideoGameController extends AbstractController
         EntityManagerInterface $em
     ): Response {
 
-        // 1) Récupération du jeu
         $game = $repo->findOneBy(['slug' => $slug]);
 
         if (!$game) {
             throw $this->createNotFoundException("Jeu introuvable");
         }
 
-        // 2) Création du formulaire d'avis
         $review = new Review();
         $form = $this->createForm(ReviewType::class, $review);
         $form->handleRequest($request);
 
-        // 3) Traitement du POST
         if ($form->isSubmitted() && $form->isValid()) {
 
             $review->setVideoGame($game);
@@ -126,8 +102,7 @@ final class VideoGameController extends AbstractController
             ]);
         }
 
-        // 4) Affichage
-        return $this->render('@views/video_games/show.html.twig', [
+        return $this->render('views/video_games/show.html.twig', [
             'game' => $game,
             'form' => $form->createView(),
         ]);

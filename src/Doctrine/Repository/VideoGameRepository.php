@@ -21,53 +21,31 @@ final class VideoGameRepository extends ServiceEntityRepository
 
     public function getVideoGames(Pagination $pagination, Filter $filter): Paginator
     {
-        $orderField = match ($pagination->getSorting()->name) {
-            'Title' => 'vg.title',
-            'ReleaseDate' => 'vg.releaseDate',
-            'Rating' => 'vg.rating',
-            'AverageRating' => 'vg.averageRating',
-            default => 'vg.id',
-        };
+        $qb = $this->createQueryBuilder('vg');
 
-        $qb = $this->createQueryBuilder('vg')
-            ->addSelect('t')
-            ->leftJoin('vg.tags', 't')
-            ->orderBy($orderField, $pagination->getDirection()->getSql())
-            ->setFirstResult($pagination->getOffset())
-            ->setMaxResults($pagination->getLimit());
-
-        // Filtre recherche
-        if ($filter->getSearch() !== null) {
-            $qb->andWhere(
-                $qb->expr()->orX(
-                    $qb->expr()->like('vg.title', ':search'),
-                    $qb->expr()->like('vg.description', ':search'),
-                    $qb->expr()->like('vg.test', ':search')
-                )
-            )
+        // --- Search ---
+        if ($filter->getSearch()) {
+            $qb->andWhere('vg.title LIKE :search')
                 ->setParameter('search', '%' . $filter->getSearch() . '%');
         }
 
-        // Filtre tags (corrigé OC)
-        if ([] !== $filter->getTags()) {
-            $tagIds = array_map(fn(Tag $t) => $t->getId(), $filter->getTags());
-
-            $subQuery = $this->getEntityManager()->createQueryBuilder()
-                ->select('vg2.id')
-                ->from(VideoGame::class, 'vg2')
-                ->join('vg2.tags', 't2')
-                ->where('t2.id IN (:tags)')
-                ->groupBy('vg2.id')
-                ->having('COUNT(DISTINCT t2.id) = :tagCount')
-                ->getDQL();
-
-            $qb->andWhere('vg.id IN (' . $subQuery . ')')
-                ->setParameter('tags', $tagIds)
-                ->setParameter('tagCount', count($tagIds));
-
-            $qb->setMaxResults($pagination->getLimit());
+        // --- Tags ---
+        if (!empty($filter->getTags())) {
+            $qb->join('vg.tags', 't')
+                ->andWhere('t.id IN (:tags)')
+                ->setParameter('tags', array_map(fn($tag) => $tag->getId(), $filter->getTags()));
         }
 
-        return new Paginator($qb, fetchJoinCollection: true);
+        // --- Sorting ---
+        $qb->orderBy(
+            $pagination->getSorting()->toSql(),
+            $pagination->getDirection()->toSql()
+        );
+
+        // --- Pagination ---
+        $qb->setFirstResult($pagination->getOffset())
+            ->setMaxResults($pagination->getLimit());
+
+        return new Paginator($qb);
     }
 }
