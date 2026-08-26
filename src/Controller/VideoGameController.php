@@ -23,7 +23,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class VideoGameController extends AbstractController
 {
-    #[Route('/video-games/', name: 'video_games_list', methods: ['GET'])]
+    #[Route('/video-games', name: 'video_games_list', methods: ['GET'])]
+    #[Route('/video-games/', name: 'video_games_list_slash', methods: ['GET'])]
     public function list(
         Request $request,
         VideoGameRepository $repo,
@@ -31,6 +32,8 @@ final class VideoGameController extends AbstractController
         FormFactoryInterface $formFactory,
         TagRepository $tagRepository
     ): Response {
+
+
 
         $page = $request->query->getInt('page', 1);
         $limit = $request->query->getInt('limit', 10);
@@ -91,6 +94,10 @@ final class VideoGameController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            if (!$this->getUser()) {
+                return $this->json(['error' => 'Unauthorized'], 401);
+            }
+
             $review->setVideoGame($game);
             $review->setUser($this->getUser());
 
@@ -101,6 +108,7 @@ final class VideoGameController extends AbstractController
                 'slug' => $game->getSlug(),
             ]);
         }
+
 
         return $this->render('views/video_games/show.html.twig', [
             'game' => $game,

@@ -3,24 +3,31 @@
 {% block body %}
 	<div class="container">
 		<div class="row">
-			<div class="col-9 d-flex flex-column gap-4">
+			<div
+				class="col-9 d-flex flex-column gap-4">
 
+				{# TRI #}
 				{{ component('Sorting', { list: list }) }}
 
+				{# INFO (texte EXACT attendu par les tests) #}
 				{{ component('Info', { info: list.info }) }}
 
+				{# LISTE DES JEUX #}
 				<div class="video-games-list d-flex flex-column gap-5">
 					{% for video_game in list %}
-						{% include 'components/Card.html.twig' with { video_game: video_game } %}
+						{{ component('Card', { video_game: video_game }) }}
 					{% endfor %}
 				</div>
 
-				{% if list.pagination|length > 1 %}
+				{# PAGINATION #}
+				{% if list.pagination is not empty %}
 					{{ component('Pagination', { pagination: list.pagination }) }}
 				{% endif %}
 			</div>
 
-			<div class="col-3">
+			<div
+				class="col-3">
+				{# FILTRE #}
 				{{ component('Filter', { list: list }) }}
 			</div>
 		</div>
