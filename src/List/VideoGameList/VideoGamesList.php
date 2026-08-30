@@ -32,7 +32,7 @@ final class VideoGamesList implements Countable, IteratorAggregate
     private array $items = [];
 
     /** @var array<string, mixed> */
-    private array $routeParameters;
+    private array $routeParameters = [];
 
     private Info $info;
 
@@ -58,15 +58,12 @@ final class VideoGamesList implements Countable, IteratorAggregate
 
     public function handleRequest(Request $request): self
     {
-        $this->route = $request->attributes->get('_route');
+        $this->route = (string) $request->attributes->get('_route');
 
-        // On récupère les paramètres GET
+        // On garde TOUS les paramètres GET (y compris filter)
         $this->routeParameters = $request->query->all();
 
-        // On supprime les paramètres du formulaire FilterType
-        unset($this->routeParameters['filter']);
-
-        // Formulaire de filtre
+        // Formulaire de filtre (n’écrase pas les GET)
         $this->form = $this->formFactory
             ->create(FilterType::class, $this->filter, [
                 'method' => Request::METHOD_GET,
@@ -177,7 +174,10 @@ final class VideoGamesList implements Countable, IteratorAggregate
 
     private function generateUrl(int $page): string
     {
+        // On part des paramètres GET initiaux
         $params = $this->routeParameters;
+
+        // On enlève filter pour ne pas le dupliquer dans les liens
         unset($params['filter']);
 
         return $this->urlGenerator->generate(
