@@ -1,10 +1,10 @@
 <div class="rounded bg-light p-3">
 	{{ form_start(list.form, { method: 'get' }) }}
 
-	<input type="hidden" name="filter[page]" value="1"/>
-	<input type="hidden" name="filter[limit]" value="{{ list.pagination.limit }}"/>
-	<input type="hidden" name="filter[sorting]" value="{{ list.pagination.sorting.name }}"/>
-	<input type="hidden" name="filter[direction]" value="{{ list.pagination.direction.name }}"/>
+	<input type="hidden" name="page" value="1"/>
+	<input type="hidden" name="limit" value="{{ list.pagination.limit }}"/>
+	<input type="hidden" name="sorting" value="{{ list.pagination.sorting.name }}"/>
+	<input type="hidden" name="direction" value="{{ list.pagination.direction.name }}"/>
 
 	<fieldset class="mb-3">
 		{{ form_row(list.form.search) }}

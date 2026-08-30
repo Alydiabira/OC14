@@ -1,5 +1,14 @@
-<form name="sorting" method="get" class="row">
-	<input type="hidden" name="page" value="1">
+<form
+	name="sorting" method="get" class="row">
+
+	{# --- Paramètres de pagination / tri --- #}
+	<input type="hidden" name="page" value="{{ list.pagination.page }}">
+	<input type="hidden" name="limit" value="{{ list.pagination.limit }}">
+	<input type="hidden" name="sorting" value="{{ list.pagination.sorting.name }}">
+	<input
+	type="hidden" name="direction" value="{{ list.pagination.direction.name }}">
+
+	{# --- Paramètres de filtre (search + tags) --- #}
 	<input type="hidden" name="filter[search]" value="{{ list.filter.search }}"/>
 
 	{% for tag in list.filter.tags %}

@@ -46,6 +46,6 @@ final class VideoGameRepository extends ServiceEntityRepository
         $qb->setFirstResult($pagination->getOffset())
             ->setMaxResults($pagination->getLimit());
 
-        return new Paginator($qb);
+        return new Paginator($qb->getQuery());
     }
 }

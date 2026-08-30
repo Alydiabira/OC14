@@ -178,7 +178,7 @@ final class FilterTest extends FunctionalTestCase
         array $expectedPaginationLinks,
         array $expectedVideoGames
     ): void {
-        $this->get('/', $query);
+        $this->get('/video-games', $query);
         self::assertResponseIsSuccessful();
         self::assertSelectorCount($expectedCount, 'article.game-card');
         self::assertSelectorTextSame(
@@ -210,7 +210,7 @@ final class FilterTest extends FunctionalTestCase
 
     public function testShouldSortVideoGames(): void
     {
-        $this->get('/');
+        $this->get('/video-games');
         self::assertResponseIsSuccessful();
         self::assertSelectorCount(10, 'article.game-card');
         self::assertSelectorTextSame(
@@ -222,7 +222,7 @@ final class FilterTest extends FunctionalTestCase
             'Jeu vidéo 9'
         );
 
-        $this->submit('Trier', ['limit' => 25,'sorting' => 'Title', 'direction' => 'Ascending'], 'GET');
+        $this->submit('Trier', ['limit' => 25, 'sorting' => 'Title', 'direction' => 'Ascending'], 'GET');
         self::assertResponseIsSuccessful();
         self::assertSelectorCount(25, 'article.game-card');
         self::assertSelectorTextSame(
@@ -237,7 +237,7 @@ final class FilterTest extends FunctionalTestCase
 
     public function testShouldFilterBySearchVideoGames(): void
     {
-        $this->get('/');
+        $this->get('/video-games');
         self::assertResponseIsSuccessful();
         self::assertSelectorCount(10, 'article.game-card');
         self::assertSelectorTextSame(
@@ -260,7 +260,7 @@ final class FilterTest extends FunctionalTestCase
 
     public function testShouldFilterByTagsVideoGames(): void
     {
-        $this->get('/');
+        $this->get('/video-games');
         self::assertResponseIsSuccessful();
         self::assertSelectorCount(10, 'article.game-card');
         self::assertSelectorTextSame(
@@ -351,13 +351,13 @@ final class FilterTest extends FunctionalTestCase
             'expectedPage' => $expectedPage,
             'expectedPaginationLinks' => $expectedPaginationLinks ?? [],
             'expectedVideoGames' => $expectedVideoGames ?? array_fill_callback(
-                    $expectedOffsetFrom - 1,
-                    $expectedCount,
-                    static fn (int $index) => sprintf(
-                        'Jeu vidéo %d',
-                        $index
-                    )
+                $expectedOffsetFrom - 1,
+                $expectedCount,
+                static fn(int $index) => sprintf(
+                    'Jeu vidéo %d',
+                    $index
                 )
+            )
         ];
     }
 }
