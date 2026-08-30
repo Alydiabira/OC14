@@ -177,9 +177,12 @@ final class VideoGamesList implements Countable, IteratorAggregate
 
     private function generateUrl(int $page): string
     {
+        $params = $this->routeParameters;
+        unset($params['filter']);
+
         return $this->urlGenerator->generate(
             $this->route,
-            ['page' => $page] + $this->pagination->toArray() + $this->routeParameters
+            ['page' => $page] + $this->pagination->toArray() + $params
         );
     }
 }

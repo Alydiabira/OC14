@@ -42,7 +42,8 @@ final class VideoGameController extends AbstractController
         $sorting = Sorting::tryFrom($request->query->get('sorting') ?? 'Title') ?? Sorting::Title;
         $direction = Direction::tryFrom($request->query->get('direction') ?? 'Descending') ?? Direction::Descending;
 
-        $filterParams = $request->query->all('filter');
+        $all = $request->query->all();
+        $filterParams = $all['filter'] ?? [];
 
         $search = $filterParams['search'] ?? null;
         $tagsIds = $filterParams['tags'] ?? [];
