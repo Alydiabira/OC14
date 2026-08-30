@@ -31,7 +31,7 @@ final class VideoGameRepository extends ServiceEntityRepository
 
         // --- Tags ---
         if (!empty($filter->getTags())) {
-            $qb->join('vg.tags', 't')
+            $qb->leftJoin('vg.tags', 't')
                 ->andWhere('t.id IN (:tags)')
                 ->setParameter('tags', array_map(fn($tag) => $tag->getId(), $filter->getTags()));
         }
@@ -48,4 +48,4 @@ final class VideoGameRepository extends ServiceEntityRepository
 
         return new Paginator($qb->getQuery());
     }
-}
+} 

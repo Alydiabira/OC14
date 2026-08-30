@@ -59,27 +59,31 @@ final class VideoGamesList implements Countable, IteratorAggregate
     public function handleRequest(Request $request): self
     {
         $this->route = $request->attributes->get('_route');
+
+        // On récupère les paramètres GET
         $this->routeParameters = $request->query->all();
 
-        // Formulaire
+        // On supprime les paramètres du formulaire FilterType
+        unset($this->routeParameters['filter']);
+
+        // Formulaire de filtre
         $this->form = $this->formFactory
             ->create(FilterType::class, $this->filter, [
                 'method' => Request::METHOD_GET,
                 'csrf_protection' => false,
+                'allow_extra_fields' => true,
             ])
             ->handleRequest($request)
             ->createView();
 
-        // Données filtrées + paginées
+        // Récupération des jeux filtrés + paginés
         $paginator = $this->videoGameRepository->getVideoGames(
             $this->pagination,
             $this->filter
         );
 
-        // ⚠️ Le total doit venir du paginator
         $total = count($paginator);
 
-        // ⚠️ Les items doivent venir du paginator (page courante)
         $this->items = [];
         foreach ($paginator as $item) {
             $this->items[] = $item;
@@ -87,7 +91,7 @@ final class VideoGamesList implements Countable, IteratorAggregate
 
         $count = count($this->items);
 
-        // Info conforme aux tests OC
+        // Informations pour l'affichage
         $this->info = new Info(
             count: $count,
             offsetFrom: $this->pagination->getOffset() + 1,
@@ -95,13 +99,13 @@ final class VideoGamesList implements Countable, IteratorAggregate
             total: $total
         );
 
-        // Pagination conforme aux tests OC
+        // Mise à jour de la pagination
         $this->pagination->init($total, $count);
 
         $current = $this->pagination->getPage();
         $last = $this->pagination->getLastPage();
 
-        // Première page / Précédent
+        // Liens de pagination
         if ($current > 1) {
             $this->pagination->add(new Page(
                 1,
@@ -118,7 +122,6 @@ final class VideoGamesList implements Countable, IteratorAggregate
             ));
         }
 
-        // Pages numérotées
         $pageRange = range(
             max(1, $current - 3),
             min($last, $current + 3)
@@ -133,7 +136,6 @@ final class VideoGamesList implements Countable, IteratorAggregate
             ));
         }
 
-        // Suivant / Dernière page
         if ($current < $last) {
             $this->pagination->add(new Page(
                 $current + 1,
@@ -152,7 +154,6 @@ final class VideoGamesList implements Countable, IteratorAggregate
 
         return $this;
     }
-
 
     public function getFilter(): Filter
     {

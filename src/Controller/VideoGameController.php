@@ -42,8 +42,10 @@ final class VideoGameController extends AbstractController
         $sorting = Sorting::tryFrom($request->query->get('sorting') ?? 'Title') ?? Sorting::Title;
         $direction = Direction::tryFrom($request->query->get('direction') ?? 'Descending') ?? Direction::Descending;
 
-        $search = $request->query->all('filter')['search'] ?? null;
-        $tagsIds = $request->query->all('filter')['tags'] ?? [];
+        $filterParams = $request->query->all('filter');
+
+        $search = $filterParams['search'] ?? null;
+        $tagsIds = $filterParams['tags'] ?? [];
 
         $tags = [];
         if (!empty($tagsIds)) {
@@ -51,6 +53,7 @@ final class VideoGameController extends AbstractController
         }
 
         $filter = new Filter($search, $tags);
+
 
         $pagination = new Pagination(
             page: $page,
