@@ -32,7 +32,7 @@ class Review
 
     #[Range(min: 1, max: 5)]
     #[Column]
-    private int $note;
+    private int $rating;
 
     #[Column(type: Types::TEXT, nullable: true)]
     private ?string $comment = null;
@@ -68,14 +68,14 @@ class Review
         return $this;
     }
 
-    public function getNote(): int
+    public function getRating(): int
     {
-        return $this->note;
+        return $this->rating;
     }
 
-    public function setNote(int $note): self
+    public function setRating(int $rating): self
     {
-        $this->note = $note;
+        $this->rating = $rating;
         return $this;
     }
 

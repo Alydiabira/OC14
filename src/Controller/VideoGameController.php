@@ -33,15 +33,13 @@ final class VideoGameController extends AbstractController
         TagRepository $tagRepository
     ): Response {
 
-
-
         $page = $request->query->getInt('page', 1);
         $limit = $request->query->getInt('limit', 10);
 
-        // Enums corrects
         $sorting = Sorting::tryFrom($request->query->get('sorting') ?? 'Title') ?? Sorting::Title;
         $direction = Direction::tryFrom($request->query->get('direction') ?? 'Descending') ?? Direction::Descending;
 
+        // 🔥 Correction OC14 : lecture correcte des paramètres filter
         $all = $request->query->all();
         $filterParams = $all['filter'] ?? [];
 
@@ -54,7 +52,6 @@ final class VideoGameController extends AbstractController
         }
 
         $filter = new Filter($search, $tags);
-
 
         $pagination = new Pagination(
             page: $page,
@@ -112,7 +109,6 @@ final class VideoGameController extends AbstractController
                 'slug' => $game->getSlug(),
             ]);
         }
-
 
         return $this->render('views/video_games/show.html.twig', [
             'game' => $game,

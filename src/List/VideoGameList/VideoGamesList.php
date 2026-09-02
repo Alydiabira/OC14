@@ -174,10 +174,9 @@ final class VideoGamesList implements Countable, IteratorAggregate
 
     private function generateUrl(int $page): string
     {
-        // On part des paramètres GET initiaux
         $params = $this->routeParameters;
 
-        // On enlève filter pour ne pas le dupliquer dans les liens
+        // On supprime filter UNIQUEMENT dans les liens de pagination
         unset($params['filter']);
 
         return $this->urlGenerator->generate(

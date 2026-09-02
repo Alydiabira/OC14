@@ -24,7 +24,7 @@ final class ReviewFixtures extends Fixture implements DependentFixtureInterface
                 $this->getReference("user-" . (($i % 2) + 1), User::class)
             );
 
-            $review->setNote(($i % 5) + 1);
+            $review->setRating(($i % 5) + 1);
             $review->setComment("Commentaire $i");
 
             $manager->persist($review);
