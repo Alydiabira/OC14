@@ -9,7 +9,7 @@
 				{# TRI #}
 				{{ component('Sorting', { list: list }) }}
 
-				{# INFO (texte EXACT attendu par les tests) #}
+				{# INFO #}
 				{{ component('Info', { info: list.info }) }}
 
 				{# LISTE DES JEUX #}
@@ -19,8 +19,9 @@
 					{% endfor %}
 				</div>
 
-				{# PAGINATION #}
-				{% if list.pagination is not empty %}
+				{# PAGINATION : seulement si total > limit #}
+
+				{% if list.pagination.total > list.pagination.limit %}
 					{{ component('Pagination', { pagination: list.pagination }) }}
 				{% endif %}
 			</div>

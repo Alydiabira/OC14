@@ -4,26 +4,12 @@ declare(strict_types=1);
 
 namespace App\List\VideoGameList;
 
-use App\Model\ValueObject\Direction;
-use App\Model\ValueObject\Info;
 use App\Model\ValueObject\Page;
+use App\Model\ValueObject\Direction;
 use App\Model\ValueObject\Sorting;
-use ArrayIterator;
-use Countable;
-use IteratorAggregate;
-use RuntimeException;
-use Traversable;
 
-/**
- * @implements IteratorAggregate<int, Page>
- */
-final class Pagination implements IteratorAggregate, Countable
+final class Pagination
 {
-    private bool $initialized = false;
-
-    private int $total;
-    private int $count;
-
     /** @var Page[] */
     private array $pages = [];
 
@@ -31,60 +17,30 @@ final class Pagination implements IteratorAggregate, Countable
         private int $page,
         private int $limit,
         private Sorting $sorting,
-        private Direction $direction
-    ) {}
-
-    public function getOffset(): int
-    {
-        return ($this->page - 1) * $this->limit;
-    }
-
-    public function getLastPage(): int
-    {
-        if (!$this->initialized) {
-            throw new RuntimeException('Pagination is not initialized');
-        }
-
-        return (int) ceil($this->total / $this->limit);
+        private Direction $direction,
+        private int $total = 0,
+        private int $count = 0
+    ) {
     }
 
     public function init(int $total, int $count): void
     {
         $this->total = $total;
         $this->count = $count;
-        $this->initialized = true;
-
-        // 🔥 Correction OC : vider les pages avant reconstruction
         $this->pages = [];
     }
 
-    public function add(Page $page): self
+    public function add(Page $page): void
     {
         $this->pages[] = $page;
-        return $this;
     }
 
-    public function getIterator(): Traversable
+    /**
+     * @return Page[]
+     */
+    public function getPages(): array
     {
-        if (!$this->initialized) {
-            throw new RuntimeException('Pagination is not initialized');
-        }
-
-        return new ArrayIterator($this->pages);
-    }
-
-    public function getInfo(): Info
-    {
-        if (!$this->initialized) {
-            throw new RuntimeException('Pagination is not initialized');
-        }
-
-        return new Info(
-            $this->count,
-            $this->getOffset() + 1,
-            $this->getOffset() + $this->count,
-            $this->total
-        );
+        return $this->pages;
     }
 
     public function getPage(): int
@@ -97,14 +53,28 @@ final class Pagination implements IteratorAggregate, Countable
         return $this->limit;
     }
 
-    public function getDirections(): array
+    public function getOffset(): int
     {
-        return Direction::cases();
+        return ($this->page - 1) * $this->limit;
     }
 
-    public function getAllSorting(): array
+    public function getLastPage(): int
     {
-        return Sorting::cases();
+        if ($this->total === 0) {
+            return 1;
+        }
+
+        return (int) ceil($this->total / $this->limit);
+    }
+
+    public function getTotal(): int
+    {
+        return $this->total;
+    }
+
+    public function getCount(): int
+    {
+        return $this->count;
     }
 
     public function getSorting(): Sorting
@@ -117,18 +87,15 @@ final class Pagination implements IteratorAggregate, Countable
         return $this->direction;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return [
-            'page' => $this->page,
-            'limit' => $this->limit,
-            'sorting' => $this->sorting->name,
-            'direction' => $this->direction->name,
+            'limit'     => $this->limit,
+            'sorting'   => $this->sorting->value,
+            'direction' => $this->direction->value,
         ];
-    }
-
-    public function count(): int
-    {
-        return $this->getLastPage();
     }
 }

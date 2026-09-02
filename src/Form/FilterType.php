@@ -5,40 +5,47 @@ declare(strict_types=1);
 namespace App\Form;
 
 use App\List\VideoGameList\Filter;
-use App\Model\Entity\Tag;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Doctrine\Repository\TagRepository;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class FilterType extends AbstractType
 {
+    public function __construct(private TagRepository $tagRepository) {}
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $tags = $this->tagRepository->findAll();
+
+        $choices = [];
+        foreach ($tags as $tag) {
+            $choices[$tag->getName()] = $tag->getId();
+        }
+
         $builder
-            ->add('search', TextType::class, [
-                'label' => 'Rechercher',
+            ->add('search', SearchType::class, [
                 'required' => false,
-                'attr' =>  [
-                    'placeholder' => 'Rechercher...',
-                ],
+                'label'    => 'Rechercher',
             ])
-            ->add('tags', EntityType::class, [
-                'label' => 'Tags',
+            ->add('tags', ChoiceType::class, [
                 'required' => false,
                 'multiple' => true,
                 'expanded' => true,
-                'class' => Tag::class,
-                'choice_label' => 'name',
-                'attr' =>  [
-                    'class' => 'd-flex gap-2 flex-wrap',
-                ],
+                'choices'  => $choices,
+                'label'    => 'Tags',
             ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefault('data_class', Filter::class);
+        $resolver->setDefaults([
+            'data_class'        => Filter::class,
+            'method'            => 'GET',
+            'csrf_protection'   => false,
+            'allow_extra_fields' => true,
+        ]);
     }
 }

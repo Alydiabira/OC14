@@ -39,7 +39,6 @@ final class VideoGameController extends AbstractController
         $sorting = Sorting::tryFrom($request->query->get('sorting') ?? 'Title') ?? Sorting::Title;
         $direction = Direction::tryFrom($request->query->get('direction') ?? 'Descending') ?? Direction::Descending;
 
-        // 🔥 Correction OC14 : lecture correcte des paramètres filter
         $all = $request->query->all();
         $filterParams = $all['filter'] ?? [];
 
@@ -114,5 +113,11 @@ final class VideoGameController extends AbstractController
             'game' => $game,
             'form' => $form->createView(),
         ]);
+    }
+
+    #[Route('/', name: 'home', methods: ['GET'])]
+    public function home(): Response
+    {
+        return $this->redirectToRoute('video_games_list');
     }
 }
