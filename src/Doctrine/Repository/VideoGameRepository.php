@@ -35,7 +35,7 @@ final class VideoGameRepository extends ServiceEntityRepository
         }
 
         $qb->orderBy(
-            $pagination->getSorting()->toSql(),
+            'vg.' . $pagination->getSorting()->toSql(),
             $pagination->getDirection()->toSql()
         );
 

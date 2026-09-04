@@ -60,10 +60,8 @@ final class VideoGamesList implements Countable, IteratorAggregate
     {
         $this->route = (string) $request->attributes->get('_route');
 
-        // On garde TOUS les paramètres GET (y compris filter)
         $this->routeParameters = $request->query->all();
 
-        // Formulaire de filtre (n’écrase pas les GET)
         $this->form = $this->formFactory
             ->create(FilterType::class, $this->filter, [
                 'method' => Request::METHOD_GET,
@@ -73,7 +71,6 @@ final class VideoGamesList implements Countable, IteratorAggregate
             ->handleRequest($request)
             ->createView();
 
-        // Récupération des jeux filtrés + paginés
         $paginator = $this->videoGameRepository->getVideoGames(
             $this->pagination,
             $this->filter
@@ -88,7 +85,6 @@ final class VideoGamesList implements Countable, IteratorAggregate
 
         $count = count($this->items);
 
-        // Informations pour l'affichage
         $this->info = new Info(
             count: $count,
             offsetFrom: $this->pagination->getOffset() + 1,
@@ -96,13 +92,11 @@ final class VideoGamesList implements Countable, IteratorAggregate
             total: $total
         );
 
-        // Mise à jour de la pagination
         $this->pagination->init($total, $count);
 
         $current = $this->pagination->getPage();
         $last = $this->pagination->getLastPage();
 
-        // Liens de pagination
         if ($current > 1) {
             $this->pagination->add(new Page(
                 1,
@@ -176,7 +170,6 @@ final class VideoGamesList implements Countable, IteratorAggregate
     {
         $params = $this->routeParameters;
 
-        // On supprime filter UNIQUEMENT dans les liens de pagination
         unset($params['filter']);
 
         return $this->urlGenerator->generate(

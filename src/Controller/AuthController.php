@@ -8,6 +8,7 @@ use App\Form\RegisterType;
 use App\Model\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -19,37 +20,36 @@ final class AuthController extends AbstractController
     #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
     public function login(Request $request, AuthenticationUtils $authenticationUtils): Response
     {
-        $error = $authenticationUtils->getLastAuthenticationError();
-        $lastUsername = $authenticationUtils->getLastUsername();
-
         if ($request->isMethod('POST')) {
-            return $this->render('views/auth/login.html.twig', [
-                'last_username' => $lastUsername,
-                'error' => $error,
-            ], new Response('', 422));
+
+            $error = $authenticationUtils->getLastAuthenticationError();
+
+            if ($error) {
+                return new JsonResponse(['error' => 'Invalid credentials'], 422);
+            }
+
+            return $this->redirect('/');
         }
 
         return $this->render('views/auth/login.html.twig', [
-            'last_username' => $lastUsername,
-            'error' => null,
+            'last_username' => $authenticationUtils->getLastUsername(),
+            'error' => $authenticationUtils->getLastAuthenticationError(),
         ]);
     }
 
     #[Route('/register', name: 'register', methods: ['GET', 'POST'])]
-    public function register(Request $request, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, EntityManagerInterface $em): Response
     {
         $user = new User();
         $form = $this->createForm(RegisterType::class, $user)->handleRequest($request);
 
         if ($form->isSubmitted() && !$form->isValid()) {
-            return $this->render('views/auth/register.html.twig', [
-                'form' => $form->createView(),
-            ], new Response('', 422));
+            return new JsonResponse(['error' => 'Invalid data'], 422);
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $em->persist($user);
+            $em->flush();
 
             return $this->redirect('/auth/login');
         }
