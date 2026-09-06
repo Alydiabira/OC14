@@ -64,18 +64,15 @@ final class LoginAuthenticator extends AbstractAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): Response
     {
-        return new RedirectResponse(
-            $this->urlGenerator->generate('auth_login')
-        );
+        return new RedirectResponse('/');
     }
+
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
     {
-        $html = $this->twig->render('views/auth/login.html.twig', [
-            'last_username' => $request->request->get('email', ''),
-            'error' => $exception,
-        ]);
-
-        return new Response($html, Response::HTTP_OK);
+        return new JsonResponse(
+            ['error' => 'Invalid credentials'],
+            Response::HTTP_UNPROCESSABLE_ENTITY
+        );
     }
 }

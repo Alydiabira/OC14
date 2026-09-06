@@ -6,7 +6,7 @@ use App\List\VideoGameList\Pagination as PaginationList;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent]
-final class Pagination
+final class PaginationComponent
 {
     public PaginationList $pagination;
 }

@@ -7,26 +7,34 @@ namespace App\List\VideoGameList;
 use App\Model\ValueObject\Direction;
 use App\Model\ValueObject\Sorting;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Attribute\AsTargetedValueResolver;
-use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
+use Symfony\Component\HttpKernel\Attribute\AsControllerArgumentValueResolver;
+use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
-#[AsTargetedValueResolver('pagination')]
-final readonly class PaginationValueResolver implements ValueResolverInterface
+#[AsControllerArgumentValueResolver('pagination')]
+final readonly class PaginationValueResolver implements ArgumentValueResolverInterface
 {
+    public function supports(Request $request, ArgumentMetadata $argument): bool
+    {
+        return $argument->getType() === Pagination::class;
+    }
+
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
-        if ($argument->getType() !== Pagination::class) {
-            return [];
-        }
+        $page   = $request->query->getInt('page', 1);
+        $limit  = $request->query->getInt('limit', 10);
 
-        return [
-            new Pagination(
-                $request->query->getInt('page', 1),
-                $request->query->getInt('limit', 10),
-                Sorting::tryFromName($request->query->get('sorting', 'Title')) ?? Sorting::Title,
-                Direction::tryFromName($request->query->get('direction', 'Ascending')) ?? Direction::Ascending,
-            )
-        ];
+        $sortingParam = $request->query->get('sorting', 'title');
+        $sorting      = Sorting::tryFrom($sortingParam) ?? Sorting::Title;
+
+        $directionParam = $request->query->get('direction', 'Descending');
+        $direction      = Direction::tryFrom($directionParam) ?? Direction::Descending;
+
+        yield new Pagination(
+            page: $page,
+            limit: $limit,
+            sorting: $sorting,
+            direction: $direction,
+        );
     }
 }

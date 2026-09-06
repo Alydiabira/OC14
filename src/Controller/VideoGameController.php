@@ -11,8 +11,6 @@ use App\List\VideoGameList\Filter;
 use App\List\VideoGameList\Pagination;
 use App\List\VideoGameList\VideoGamesList;
 use App\Model\Entity\Review;
-use App\Model\ValueObject\Direction;
-use App\Model\ValueObject\Sorting;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -27,38 +25,15 @@ final class VideoGameController extends AbstractController
     #[Route('/video-games/', name: 'video_games_list_slash', methods: ['GET'])]
     public function list(
         Request $request,
+        Pagination $pagination,
+        Filter $filter,
         VideoGameRepository $repo,
         UrlGeneratorInterface $urlGenerator,
         FormFactoryInterface $formFactory,
         TagRepository $tagRepository
     ): Response {
 
-        $page = $request->query->getInt('page', 1);
-        $limit = $request->query->getInt('limit', 10);
-
-        $sorting = Sorting::tryFrom($request->query->get('sorting') ?? 'Title') ?? Sorting::Title;
-        $direction = Direction::tryFrom($request->query->get('direction') ?? 'Descending') ?? Direction::Descending;
-
-        $all = $request->query->all();
-        $filterParams = $all['filter'] ?? [];
-
-        $search = $filterParams['search'] ?? null;
-        $tagsIds = $filterParams['tags'] ?? [];
-
-        $tags = [];
-        if (!empty($tagsIds)) {
-            $tags = $tagRepository->findBy(['id' => $tagsIds]);
-        }
-
-        $filter = new Filter($search, $tags);
-
-        $pagination = new Pagination(
-            page: $page,
-            limit: $limit,
-            sorting: $sorting,
-            direction: $direction
-        );
-
+        // Création de la liste
         $list = new VideoGamesList(
             urlGenerator: $urlGenerator,
             formFactory: $formFactory,
@@ -67,7 +42,19 @@ final class VideoGameController extends AbstractController
             filter: $filter
         );
 
+        // Le formulaire GET réécrit le Filter
         $list->handleRequest($request);
+
+        // Convertir les IDs en objets Tag APRÈS handleRequest()
+        $tags = $tagRepository->findBy(['id' => $list->getFilter()->getTags()]);
+
+        // Remplacer complètement l'objet Filter via le setter
+        $list->setFilter(
+            new Filter(
+                search: $list->getFilter()->getSearch(),
+                tags: $tags
+            )
+        );
 
         return $this->render('views/video_games/list.html.twig', [
             'list' => $list,

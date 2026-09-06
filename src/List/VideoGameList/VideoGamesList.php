@@ -45,6 +45,11 @@ final class VideoGamesList implements Countable, IteratorAggregate
     ) {
         $this->filter = $filter;
     }
+    public function setFilter(Filter $filter): void
+    {
+        $this->filter = $filter;
+    }
+
 
     public function getForm(): FormView
     {

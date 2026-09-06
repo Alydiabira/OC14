@@ -22,8 +22,10 @@
 				{# PAGINATION : seulement si total > limit #}
 
 				{% if list.pagination.total > list.pagination.limit %}
-					{{ component('Pagination', { pagination: list.pagination }) }}
+					{% component 'PaginationComponent' with { pagination: list.pagination } %}
+					{% endcomponent %}
 				{% endif %}
+
 			</div>
 
 			<div
