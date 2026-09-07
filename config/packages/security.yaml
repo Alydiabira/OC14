@@ -23,6 +23,11 @@ security:
       custom_authenticators:
         - App\Security\LoginAuthenticator
 
+      form_login: ~
+
+      remember_me:
+        secret: "%kernel.secret%"
+
       logout:
         path: auth_logout
         target: /
