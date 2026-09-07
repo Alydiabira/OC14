@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/auth', name: 'auth_')]
 final class AuthController extends AbstractController
@@ -38,8 +39,11 @@ final class AuthController extends AbstractController
     }
 
     #[Route('/register', name: 'register', methods: ['GET', 'POST'])]
-    public function register(Request $request, EntityManagerInterface $em): Response
-    {
+    public function register(
+        Request $request,
+        EntityManagerInterface $em,
+        UserPasswordHasherInterface $passwordHasher
+    ): Response {
         $user = new User();
         $form = $this->createForm(RegisterType::class, $user)->handleRequest($request);
 
@@ -48,6 +52,14 @@ final class AuthController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // 🔥 Le mot de passe doit être hashé
+            $hashed = $passwordHasher->hashPassword($user, $user->getPlainPassword());
+            $user->setPassword($hashed);
+
+            // 🔥 Supprimer plainPassword
+            $user->eraseCredentials();
+
             $em->persist($user);
             $em->flush();
 

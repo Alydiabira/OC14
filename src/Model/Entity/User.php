@@ -25,7 +25,6 @@ use Symfony\Component\Validator\Constraints\PasswordStrength;
 #[Table('`user`')]
 #[UniqueEntity('email')]
 #[UniqueEntity('username')]
-#[EntityListeners([UserListener::class])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /** @phpstan-ignore-next-line */
@@ -49,8 +48,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $password;
 
     #[NotBlank]
-    #[NotCompromisedPassword]
-    #[PasswordStrength]
     private ?string $plainPassword = null;
 
     public function getId(): ?int

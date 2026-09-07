@@ -15,8 +15,6 @@ class RegisterType extends AbstractType
         $builder
             ->add('username', TextType::class)
             ->add('email', EmailType::class)
-            ->add('plainPassword', PasswordType::class, [
-                'mapped' => false,
-            ]);
+            ->add('plainPassword', PasswordType::class); // ✔ mapped = true par défaut
     }
 }
