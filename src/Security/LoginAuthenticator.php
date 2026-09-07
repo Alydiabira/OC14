@@ -6,6 +6,7 @@ namespace App\Security;
 
 use App\Model\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,14 +19,12 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
-use Twig\Environment;
 
 final class LoginAuthenticator extends AbstractAuthenticator
 {
     public function __construct(
         private UrlGeneratorInterface $urlGenerator,
         private EntityManagerInterface $entityManager,
-        private Environment $twig,
     ) {}
 
     public function supports(Request $request): bool
@@ -36,8 +35,8 @@ final class LoginAuthenticator extends AbstractAuthenticator
 
     public function authenticate(Request $request): Passport
     {
-        $email = (string) $request->request->get('email', '');
-        $password = (string) $request->request->get('password', '');
+        $email = trim((string) $request->request->get('email', ''));
+        $password = trim((string) $request->request->get('password', ''));
 
         if ($email === '' || $password === '') {
             throw new AuthenticationException('Invalid credentials.');
@@ -67,8 +66,7 @@ final class LoginAuthenticator extends AbstractAuthenticator
         return new RedirectResponse('/');
     }
 
-
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
         return new JsonResponse(
             ['error' => 'Invalid credentials'],
