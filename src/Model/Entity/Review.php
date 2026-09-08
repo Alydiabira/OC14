@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Symfony\Component\Validator\Constraints\Range;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Entity]
 class Review
@@ -47,7 +46,7 @@ class Review
         return $this->videoGame;
     }
 
-    public function setVideoGame(VideoGame $videoGame): self
+    public function setVideoGame(VideoGame $videoGame): Review
     {
         $this->videoGame = $videoGame;
         return $this;
@@ -58,12 +57,8 @@ class Review
         return $this->user;
     }
 
-    public function setUser(UserInterface $user): self
+    public function setUser(User $user): Review
     {
-        if (!$user instanceof User) {
-            throw new \InvalidArgumentException('Expected instance of User.');
-        }
-
         $this->user = $user;
         return $this;
     }
@@ -73,7 +68,7 @@ class Review
         return $this->rating;
     }
 
-    public function setRating(int $rating): self
+    public function setRating(int $rating): Review
     {
         $this->rating = $rating;
         return $this;
@@ -84,7 +79,7 @@ class Review
         return $this->comment;
     }
 
-    public function setComment(?string $comment): self
+    public function setComment(?string $comment): Review
     {
         $this->comment = $comment;
         return $this;

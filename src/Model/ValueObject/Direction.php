@@ -4,16 +4,20 @@ declare(strict_types=1);
 
 namespace App\Model\ValueObject;
 
+use App\Model\Trait\EnumTrait;
+
 enum Direction: string
 {
-    case Ascending = 'Ascending';
-    case Descending = 'Descending';
+    use EnumTrait;
 
-    public function toSql(): string
+    case Ascending = 'Croissant';
+    case Descending = 'Décroissant';
+
+    public function getSql(): string
     {
         return match($this) {
-            self::Ascending => 'ASC',
-            self::Descending => 'DESC',
+            self::Ascending => 'asc',
+            self::Descending => 'desc',
         };
     }
 }

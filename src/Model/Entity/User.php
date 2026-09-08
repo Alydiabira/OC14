@@ -25,9 +25,9 @@ use Symfony\Component\Validator\Constraints\PasswordStrength;
 #[Table('`user`')]
 #[UniqueEntity('email')]
 #[UniqueEntity('username')]
+#[EntityListeners([UserListener::class])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    /** @phpstan-ignore-next-line */
     #[Id]
     #[GeneratedValue]
     #[Column]
@@ -48,6 +48,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $password;
 
     #[NotBlank]
+    #[NotCompromisedPassword]
+    #[PasswordStrength]
     private ?string $plainPassword = null;
 
     public function getId(): ?int
@@ -60,7 +62,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(string $username): User
     {
         $this->username = $username;
         return $this;
@@ -71,7 +73,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(string $email): User
     {
         $this->email = $email;
         return $this;
@@ -82,7 +84,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(string $password): User
     {
         $this->password = $password;
         return $this;
@@ -93,7 +95,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->plainPassword;
     }
 
-    public function setPlainPassword(?string $plainPassword): self
+    public function setPlainPassword(?string $plainPassword): User
     {
         $this->plainPassword = $plainPassword;
         return $this;

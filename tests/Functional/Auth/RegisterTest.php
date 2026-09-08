@@ -4,49 +4,58 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Auth;
 
+use App\Model\Entity\User;
 use App\Tests\Functional\FunctionalTestCase;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class RegisterTest extends FunctionalTestCase
 {
     public function testThatRegistrationShouldSucceeded(): void
     {
-        $crawler = $this->client->request('GET', '/auth/register');
+        $this->get('/auth/register');
 
-        $form = $crawler->filter('form')->form();
-
-        $this->client->submit($form, [
-            'register[username]' => 'newuser',
-            'register[email]' => 'newuser@example.com',
-            'register[plainPassword]' => 'SuperPassword123!',
-        ]);
+        $this->client->submitForm('S\'inscrire', self::getFormData());
 
         self::assertResponseRedirects('/auth/login');
+
+        $user = $this->getEntityManager()->getRepository(User::class)->findOneByEmail('user@email.com');
+
+        $userPasswordHasher = $this->service(UserPasswordHasherInterface::class);
+
+        self::assertNotNull($user);
+        self::assertSame('username', $user->getUsername());
+        self::assertSame('user@email.com', $user->getEmail());
+        self::assertTrue($userPasswordHasher->isPasswordValid($user, 'SuperPassword123!'));
     }
 
     /**
-     * @dataProvider provideInvalidRegistrationData
+     * @dataProvider provideInvalidFormData
      */
-    public function testThatRegistrationShouldFailed(array $data): void
+    public function testThatRegistrationShouldFailed(array $formData): void
     {
-        $crawler = $this->client->request('GET', '/auth/register');
+        $this->get('/auth/register');
 
-        $form = $crawler->filter('form')->form();
+        $this->client->submitForm('S\'inscrire', $formData);
 
-        $this->client->submit($form, [
-            'register[username]' => $data[0],
-            'register[email]' => $data[1],
-            'register[plainPassword]' => $data[2],
-        ]);
-
-        self::assertResponseStatusCodeSame(422);
+        self::assertResponseIsUnprocessable();
     }
 
-    public function provideInvalidRegistrationData(): iterable
+    public static function provideInvalidFormData(): iterable
     {
-        yield 'empty username' => [['', 'email@example.com', 'SuperPassword123!']];
-        yield 'non unique username' => [['user+1', 'email2@example.com', 'SuperPassword123!']];
-        yield 'too long username' => [[str_repeat('a', 60), 'email3@example.com', 'SuperPassword123!']];
-        yield 'empty email' => [['username', '', 'SuperPassword123!']];
-        yield 'invalid email' => [['username', 'fail', 'SuperPassword123!']];
+        yield 'empty username' => [self::getFormData(['register[username]' => ''])];
+        yield 'non unique username' => [self::getFormData(['register[username]' => 'user+1'])];
+        yield 'too long username' => [self::getFormData(['register[username]' => 'Lorem ipsum dolor sit amet orci aliquam'])];
+        yield 'empty email' => [self::getFormData(['register[email]' => ''])];
+        yield 'non unique email' => [self::getFormData(['register[email]' => 'user+1@email.com'])];
+        yield 'invalid email' => [self::getFormData(['register[email]' => 'fail'])];
+    }
+
+    public static function getFormData(array $overrideData = []): array
+    {
+        return [
+            'register[username]' => 'username',
+            'register[email]' => 'user@email.com',
+            'register[plainPassword]' => 'SuperPassword123!'
+        ] + $overrideData;
     }
 }

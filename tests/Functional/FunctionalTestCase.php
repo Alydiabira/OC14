@@ -5,77 +5,45 @@ declare(strict_types=1);
 namespace App\Tests\Functional;
 
 use App\Model\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 
 abstract class FunctionalTestCase extends WebTestCase
 {
     protected KernelBrowser $client;
-    protected ?EntityManagerInterface $em = null;
 
     protected function setUp(): void
     {
         parent::setUp();
-
         $this->client = static::createClient();
-        $this->em = static::getContainer()->get('doctrine')->getManager();
     }
 
-    protected function tearDown(): void
+    protected function getEntityManager(): EntityManagerInterface
     {
-        parent::tearDown();
-
-        if ($this->em !== null) {
-            $this->em->close();
-        }
-
-        // Correction PHPStan : pas de unset()
-        $this->em = null;
+        return $this->service(EntityManagerInterface::class);
     }
 
     /**
-     * @param array<string, mixed> $params
+     * @template T
+     * @param class-string<T> $id
+     * @return T
      */
-    protected function get(string $uri, array $params = []): Crawler
+    protected function service(string $id): object
     {
-        return $this->client->request('GET', $uri, $params);
+        return $this->client->getContainer()->get($id);
     }
 
-    /**
-     * @param array<string, mixed> $params
-     */
-    protected function post(string $uri, array $params = []): Crawler
+    protected function get(string $uri, array $parameters = []): Crawler
     {
-        return $this->client->request('POST', $uri, $params);
+        return $this->client->request('GET', $uri, $parameters);
     }
 
-    /**
-     * @param array<string, mixed> $fields
-     */
-    protected function submitForm(string $button, array $fields): Crawler
+    protected function login(string $email = 'user+0@email.com'): void
     {
-        return $this->client->submitForm($button, $fields);
-    }
+        $user = $this->service(EntityManagerInterface::class)->getRepository(User::class)->findOneByEmail($email);
 
-    /**
-     * @param array<string, mixed> $fields
-     */
-    protected function submit(string $button, array $fields = [], string $method = 'POST'): Crawler
-    {
-        $form = $this->client->getCrawler()->selectButton($button)->form();
-
-        foreach ($fields as $name => $value) {
-            $form[$name] = $value;
-        }
-
-        return $this->client->submit($form, $fields);
-    }
-
-    protected function login(string $username = 'user+1'): void
-    {
-        $user = $this->em?->getRepository(User::class)->findOneBy(['username' => $username]);
         $this->client->loginUser($user);
     }
 }

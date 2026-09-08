@@ -4,107 +4,58 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Doctrine\Repository\TagRepository;
 use App\Doctrine\Repository\VideoGameRepository;
 use App\Form\ReviewType;
-use App\List\VideoGameList\Filter;
+use App\List\ListFactory;
 use App\List\VideoGameList\Pagination;
-use App\List\VideoGameList\VideoGamesList;
 use App\Model\Entity\Review;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\ValueResolver;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+#[Route('/video-games', name: 'video_games_')]
 final class VideoGameController extends AbstractController
 {
-    #[Route('/video-games', name: 'video_games_list', methods: ['GET'])]
-    #[Route('/video-games/', name: 'video_games_list_slash', methods: ['GET'])]
+    #[Route('', name: 'list', methods: [Request::METHOD_GET])]
     public function list(
-        Request $request,
+        #[ValueResolver('pagination')]
         Pagination $pagination,
-        Filter $filter,
-        VideoGameRepository $repo,
-        UrlGeneratorInterface $urlGenerator,
-        FormFactoryInterface $formFactory,
-        TagRepository $tagRepository
+        Request $request,
+        ListFactory $listFactory,
     ): Response {
+        $videoGamesList = $listFactory->createVideoGamesList($pagination)->handleRequest($request);
 
-        // Création de la liste
-        $list = new VideoGamesList(
-            urlGenerator: $urlGenerator,
-            formFactory: $formFactory,
-            videoGameRepository: $repo,
-            pagination: $pagination,
-            filter: $filter
-        );
-
-        // Le formulaire GET réécrit le Filter
-        $list->handleRequest($request);
-
-        // Convertir les IDs en objets Tag APRÈS handleRequest()
-        $tags = $tagRepository->findBy(['id' => $list->getFilter()->getTags()]);
-
-        // Remplacer complètement l'objet Filter via le setter
-        $list->setFilter(
-            new Filter(
-                search: $list->getFilter()->getSearch(),
-                tags: $tags
-            )
-        );
-
-        return $this->render('views/video_games/list.html.twig', [
-            'list' => $list,
-        ]);
+        return $this->render('views/video_games/list.html.twig', ['list' => $videoGamesList]);
     }
 
-    #[Route('/video-games/{slug}', name: 'video_games_show', methods: ['GET', 'POST'])]
-    public function show(
-        string $slug,
-        VideoGameRepository $repo,
-        Request $request,
-        EntityManagerInterface $em
-    ): Response {
+    #[Route('/{slug}', name: 'show', methods: [Request::METHOD_GET, Request::METHOD_POST])]
+    public function show(string $slug, VideoGameRepository $repo, EntityManagerInterface $entityManager, Request $request): Response
+    {
+        $videoGame = $repo->findOneBy(['slug' => $slug]);
 
-        $game = $repo->findOneBy(['slug' => $slug]);
-
-        if (!$game) {
+        if (!$videoGame) {
             throw $this->createNotFoundException("Jeu introuvable");
         }
 
         $review = new Review();
-        $form = $this->createForm(ReviewType::class, $review);
-        $form->handleRequest($request);
+        $form = $this->createForm(ReviewType::class, $review)->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            if (!$this->getUser()) {
-                return $this->json(['error' => 'Unauthorized'], 401);
-            }
-
-            $review->setVideoGame($game);
+            $this->denyAccessUnlessGranted('review', $videoGame);
+            $review->setVideoGame($videoGame);
             $review->setUser($this->getUser());
+            $entityManager->persist($review);
+            $entityManager->flush();
 
-            $em->persist($review);
-            $em->flush();
-
-            return $this->redirectToRoute('video_games_show', [
-                'slug' => $game->getSlug(),
-            ]);
+            return $this->redirectToRoute('video_games_show', ['slug' => $videoGame->getSlug()]);
         }
 
         return $this->render('views/video_games/show.html.twig', [
-            'game' => $game,
-            'form' => $form->createView(),
+            'video_game' => $videoGame,
+            'form' => $form,
         ]);
-    }
-
-    #[Route('/', name: 'home', methods: ['GET'])]
-    public function home(): Response
-    {
-        return $this->redirectToRoute('video_games_list');
     }
 }

@@ -15,7 +15,12 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\Result as DriverResult;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Result;
+use Doctrine\DBAL\Schema\Column;
+use Doctrine\DBAL\Schema\Name\Identifier;
+use Doctrine\DBAL\Schema\Name\UnqualifiedName;
+use Doctrine\DBAL\Schema\PrimaryKeyConstraint;
 use Doctrine\DBAL\Schema\Schema;
+use Doctrine\DBAL\Schema\Table;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Security\Core\Authentication\RememberMe\PersistentToken;
 use Symfony\Component\Security\Core\Authentication\RememberMe\PersistentTokenInterface;
@@ -129,14 +134,7 @@ class DoctrineTokenProvider implements TokenProviderInterface, TokenVerifierInte
             return true;
         }
 
-        // Generate an alternative series id here by changing the suffix == to _
-        // this is needed to be able to store an older token value in the database
-        // which has a PRIMARY(series), and it works as long as series ids are
-        // generated using base64_encode(random_bytes(64)) which always outputs
-        // a == suffix, but if it should not work for some reason we abort
-        // for safety
-        $tmpSeries = preg_replace('{=+$}', '_', $token->getSeries());
-        if ($tmpSeries === $token->getSeries()) {
+        if (null === $tmpSeries = self::getPreviousTokenSeries($token->getSeries())) {
             return false;
         }
 
@@ -165,9 +163,7 @@ class DoctrineTokenProvider implements TokenProviderInterface, TokenVerifierInte
         // Persist a copy of the previous token for authentication
         // in verifyToken should the old token still be sent by the browser
         // in a request concurrent to the one that did this token update
-        $tmpSeries = preg_replace('{=+$}', '_', $token->getSeries());
-        // if we cannot generate a unique series it is not worth trying further
-        if ($tmpSeries === $token->getSeries()) {
+        if (null === $tmpSeries = self::getPreviousTokenSeries($token->getSeries())) {
             return;
         }
 
@@ -188,30 +184,79 @@ class DoctrineTokenProvider implements TokenProviderInterface, TokenVerifierInte
      * Adds the Table to the Schema if "remember me" uses this Connection.
      *
      * @param \Closure $isSameDatabase
+     *
+     * @return Schema The (possibly new) schema with the table added
      */
-    public function configureSchema(Schema $schema, Connection $forConnection/* , \Closure $isSameDatabase */): void
+    public function configureSchema(Schema $schema, Connection $forConnection/* , \Closure $isSameDatabase */)
     {
         if ($schema->hasTable('rememberme_token')) {
-            return;
+            return $schema;
         }
 
         $isSameDatabase = 2 < \func_num_args() ? func_get_arg(2) : static fn () => false;
 
         if ($forConnection !== $this->conn && !$isSameDatabase($this->conn->executeStatement(...))) {
-            return;
+            return $schema;
         }
 
-        $this->addTableToSchema($schema);
+        return $this->addTableToSchema($schema);
     }
 
-    private function addTableToSchema(Schema $schema): void
+    private function addTableToSchema(Schema $schema): Schema
     {
-        $table = $schema->createTable('rememberme_token');
+        if (method_exists($schema, 'edit')) {
+            return $schema->edit()->addTable($this->buildSchemaTable())->create();
+        }
+
+        $this->configureSchemaTable($schema->createTable('rememberme_token'));
+
+        return $schema;
+    }
+
+    private function buildSchemaTable(): Table
+    {
+        return Table::editor()
+            ->setUnquotedName('rememberme_token')
+            ->addColumn(Column::editor()->setUnquotedName('series')->setTypeName(Types::STRING)->setLength(88)->create())
+            ->addColumn(Column::editor()->setUnquotedName('value')->setTypeName(Types::STRING)->setLength(88)->create())
+            ->addColumn(Column::editor()->setUnquotedName('lastUsed')->setTypeName(Types::DATETIME_IMMUTABLE)->create())
+            ->addColumn(Column::editor()->setUnquotedName('class')->setTypeName(Types::STRING)->setLength(100)->setDefaultValue('')->create())
+            ->addColumn(Column::editor()->setUnquotedName('username')->setTypeName(Types::STRING)->setLength(200)->create())
+            ->addPrimaryKeyConstraint(new PrimaryKeyConstraint(null, [new UnqualifiedName(Identifier::unquoted('series'))], true))
+            ->create();
+    }
+
+    /**
+     * To be removed when doctrine/dbal minimum is bumped to ^4.5.
+     */
+    private function configureSchemaTable(Table $table): void
+    {
         $table->addColumn('series', Types::STRING, ['length' => 88]);
         $table->addColumn('value', Types::STRING, ['length' => 88]);
         $table->addColumn('lastUsed', Types::DATETIME_IMMUTABLE);
-        $table->addColumn('class', Types::STRING, ['length' => 100]);
+        $table->addColumn('class', Types::STRING, ['length' => 100, 'default' => '']);
         $table->addColumn('username', Types::STRING, ['length' => 200]);
-        $table->setPrimaryKey(['series']);
+
+        if (class_exists(PrimaryKeyConstraint::class)) {
+            $table->addPrimaryKeyConstraint(new PrimaryKeyConstraint(null, [new UnqualifiedName(Identifier::unquoted('series'))], true));
+        } else {
+            $table->setPrimaryKey(['series']);
+        }
+    }
+
+    /**
+     * Returns the series under which a copy of the previous token is stored, or null when none can be derived.
+     *
+     * Series are base64 encoded without padding and shorter than the column, so a "_" suffix keeps the copy
+     * apart from any series the remember-me handler generates. Series created before Symfony 5.3 ended with
+     * "==" and filled the column: their padding is replaced instead.
+     */
+    private static function getPreviousTokenSeries(string $series): ?string
+    {
+        if (str_ends_with($series, '=')) {
+            return preg_replace('{=+$}', '_', $series);
+        }
+
+        return \strlen($series) < 88 ? $series.'_' : null;
     }
 }

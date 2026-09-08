@@ -210,6 +210,10 @@ class ContextListener extends AbstractListener
      */
     protected function refreshUser(TokenInterface $token): ?TokenInterface
     {
+        if ($token instanceof SwitchUserToken && $token->getOriginalToken()->getUser() && !$this->refreshUser($token->getOriginalToken())) {
+            return null;
+        }
+
         $user = $token->getUser();
 
         $userNotFoundByProvider = false;
@@ -284,7 +288,7 @@ class ContextListener extends AbstractListener
         });
 
         try {
-            $token = unserialize($serializedToken);
+            $token = unserialize($serializedToken, ['allowed_classes' => true]);
         } catch (\ErrorException $e) {
             if (0x37313BC !== $e->getCode()) {
                 throw $e;

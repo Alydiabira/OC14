@@ -34,9 +34,6 @@ class VideoGame
     #[Id]
     #[GeneratedValue]
     #[Column]
-    /**
-     * @phpstan-ignore-next-line Doctrine hydrate l'id automatiquement
-     */
     private ?int $id = null;
 
     #[NotBlank]
@@ -55,9 +52,6 @@ class VideoGame
 
     #[Column(unique: true)]
     #[Slug(fields: ['title'])]
-    /**
-     * @phpstan-ignore-next-line Slug écrit automatiquement par Gedmo
-     */
     private string $slug;
 
     #[NotBlank]
@@ -68,9 +62,6 @@ class VideoGame
     private DateTimeInterface $releaseDate;
 
     #[Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    /**
-     * @phpstan-ignore-next-line utilisé par VichUploader
-     */
     private DateTimeImmutable $updatedAt;
 
     #[Column(type: Types::TEXT, nullable: true)]
@@ -87,14 +78,14 @@ class VideoGame
     private NumberOfRatingPerValue $numberOfRatingsPerValue;
 
     /**
-     * @var Collection<int, Tag>
+     * @var Collection<Tag>
      */
     #[ManyToMany(targetEntity: Tag::class)]
     #[JoinTable(name: 'video_game_tags')]
     private Collection $tags;
 
     /**
-     * @var Collection<int, Review>
+     * @var Collection<Review>
      */
     #[OneToMany(targetEntity: Review::class, mappedBy: 'videoGame')]
     private Collection $reviews;
@@ -127,12 +118,6 @@ class VideoGame
     {
         return $this->slug;
     }
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
-        return $this;
-    }
-
 
     public function setImageFile(?File $imageFile = null): void
     {
@@ -231,23 +216,15 @@ class VideoGame
     }
 
     /**
-     * @return Collection<int, Tag>
+     * @return Collection<Tag>
      */
     public function getTags(): Collection
     {
         return $this->tags;
     }
 
-    public function getTagsIds(): array
-    {
-        return array_map(
-            fn(Tag $tag) => $tag->getId(),
-            $this->tags->toArray()
-        );
-    }
-
     /**
-     * @return Collection<int, Review>
+     * @return Collection<Review>
      */
     public function getReviews(): Collection
     {
@@ -256,22 +233,6 @@ class VideoGame
 
     public function hasAlreadyReview(User $user): bool
     {
-        return $this->reviews->exists(
-            static fn(int $key, Review $review): bool => $review->getUser() === $user
-        );
-    }
-    public function addTag(Tag $tag): self
-    {
-        if (!$this->tags->contains($tag)) {
-            $this->tags->add($tag);
-        }
-
-        return $this;
-    }
-
-    public function removeTag(Tag $tag): self
-    {
-        $this->tags->removeElement($tag);
-        return $this;
+        return $this->reviews->exists(static fn (int $key, Review $review): bool => $review->getUser() === $user);
     }
 }

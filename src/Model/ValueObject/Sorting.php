@@ -4,15 +4,24 @@ declare(strict_types=1);
 
 namespace App\Model\ValueObject;
 
+use App\Model\Trait\EnumTrait;
+
 enum Sorting: string
 {
-    case Title = 'title';
-    case ReleaseDate = 'releaseDate';
-    case Rating = 'rating';
-    case AverageRating = 'averageRating';
+    use EnumTrait;
 
-    public function toSql(): string
+    case ReleaseDate = 'Date de sortie';
+    case Title = 'Titre';
+    case Rating = 'Note CritiPixel';
+    case AverageRating = 'Note moyenne';
+
+    public function getSql(): string
     {
-        return $this->value; // PAS "vg.title"
+        return match($this) {
+            self::ReleaseDate => 'vg.releaseDate',
+            self::Title => 'vg.title',
+            self::Rating => 'vg.rating',
+            self::AverageRating => 'vg.averageRating',
+        };
     }
 }

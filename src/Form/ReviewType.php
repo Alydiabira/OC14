@@ -6,38 +6,38 @@ namespace App\Form;
 
 use App\Model\Entity\Review;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ReviewType extends AbstractType
 {
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefault('data_class', Review::class);
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('rating', IntegerType::class, [
+            ->add('rating', ChoiceType::class, [
                 'label' => 'Note',
-                'required' => true,
-                'attr' => [
-                    'min' => 1,
-                    'max' => 5,
-                ],
+                'choices' => [
+                    '1' => 1,
+                    '2' => 2,
+                    '3' => 3,
+                    '4' => 4,
+                    '5' => 5,
+                ]
             ])
             ->add('comment', TextareaType::class, [
                 'label' => 'Commentaire',
-                'required' => true,
+                'required' => false,
                 'attr' => [
-                    'rows' => 5,
-                    'placeholder' => 'Votre avis…',
-                ],
+                    'placeholder' => 'Commentaire',
+                ]
             ]);
-    }
-
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => Review::class,
-        ]);
     }
 }

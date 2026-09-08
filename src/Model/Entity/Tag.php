@@ -20,16 +20,10 @@ class Tag
     #[Id]
     #[GeneratedValue]
     #[Column]
-    /**
-     * @phpstan-ignore-next-line Doctrine hydrate l'id automatiquement
-     */
     private ?int $id = null;
 
     #[Column(unique: true)]
     #[Slug(fields: ['name'])]
-    /**
-     * @phpstan-ignore-next-line Slug écrit automatiquement par Gedmo
-     */
     private string $code;
 
     #[NotBlank]
