@@ -45,11 +45,21 @@ final class VideoGamesList implements Countable, IteratorAggregate
     ) {
         $this->filter = $filter;
     }
+
     public function setFilter(Filter $filter): void
     {
         $this->filter = $filter;
     }
 
+    public function getFilter(): Filter
+    {
+        return $this->filter;
+    }
+
+    public function getItems(): array
+    {
+        return $this->items;
+    }
 
     public function getForm(): FormView
     {
@@ -64,7 +74,6 @@ final class VideoGamesList implements Countable, IteratorAggregate
     public function handleRequest(Request $request): self
     {
         $this->route = (string) $request->attributes->get('_route');
-
         $this->routeParameters = $request->query->all();
 
         $this->form = $this->formFactory
@@ -149,11 +158,6 @@ final class VideoGamesList implements Countable, IteratorAggregate
         }
 
         return $this;
-    }
-
-    public function getFilter(): Filter
-    {
-        return $this->filter;
     }
 
     public function getPagination(): Pagination

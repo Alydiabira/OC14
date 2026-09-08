@@ -13,15 +13,15 @@ final class Pagination
     /** @var Page[] */
     private array $pages = [];
 
+    private int $total = 0;
+    private int $count = 0;
+
     public function __construct(
         private int $page,
         private int $limit,
         private Sorting $sorting,
-        private Direction $direction,
-        private int $total = 0,
-        private int $count = 0
-    ) {
-    }
+        private Direction $direction
+    ) {}
 
     public function init(int $total, int $count): void
     {
@@ -75,6 +75,24 @@ final class Pagination
     public function getCount(): int
     {
         return $this->count;
+    }
+
+    public function getStart(): int
+    {
+        if ($this->total === 0) {
+            return 0;
+        }
+
+        return $this->getOffset() + 1;
+    }
+
+    public function getEnd(): int
+    {
+        if ($this->total === 0) {
+            return 0;
+        }
+
+        return $this->getOffset() + $this->count;
     }
 
     public function getSorting(): Sorting

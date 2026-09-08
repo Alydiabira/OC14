@@ -3,34 +3,19 @@
 {% block body %}
 	<div class="container">
 		<div class="row">
-			<div
-				class="col-9 d-flex flex-column gap-4">
-
-				{# TRI #}
+			<div class="col-9 d-flex flex-column gap-4">
 				{{ component('Sorting', { list: list }) }}
-
-				{# INFO #}
 				{{ component('Info', { info: list.info }) }}
-
-				{# LISTE DES JEUX #}
 				<div class="video-games-list d-flex flex-column gap-5">
 					{% for video_game in list %}
 						{{ component('Card', { video_game: video_game }) }}
 					{% endfor %}
 				</div>
-
-				{# PAGINATION : seulement si total > limit #}
-
-				{% if list.pagination.total > list.pagination.limit %}
-					{% component 'PaginationComponent' with { pagination: list.pagination } %}
-					{% endcomponent %}
+				{% if list.pagination|length > 1 %}
+					{{ component('Pagination', { pagination: list.pagination }) }}
 				{% endif %}
-
 			</div>
-
-			<div
-				class="col-3">
-				{# FILTRE #}
+			<div class="col-3">
 				{{ component('Filter', { list: list }) }}
 			</div>
 		</div>

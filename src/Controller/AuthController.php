@@ -8,7 +8,6 @@ use App\Form\RegisterType;
 use App\Model\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -19,19 +18,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 final class AuthController extends AbstractController
 {
     #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
-    public function login(Request $request, AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        if ($request->isMethod('POST')) {
-
-            $error = $authenticationUtils->getLastAuthenticationError();
-
-            if ($error) {
-                return new JsonResponse(['error' => 'Invalid credentials'], 422);
-            }
-
-            return $this->redirect('/');
-        }
-
         return $this->render('views/auth/login.html.twig', [
             'last_username' => $authenticationUtils->getLastUsername(),
             'error' => $authenticationUtils->getLastAuthenticationError(),
@@ -48,16 +36,16 @@ final class AuthController extends AbstractController
         $form = $this->createForm(RegisterType::class, $user)->handleRequest($request);
 
         if ($form->isSubmitted() && !$form->isValid()) {
-            return new JsonResponse(['error' => 'Invalid data'], 422);
+            return new Response('Invalid data', 422);
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // 🔥 Le mot de passe doit être hashé
+            // Hash du mot de passe
             $hashed = $passwordHasher->hashPassword($user, $user->getPlainPassword());
             $user->setPassword($hashed);
 
-            // 🔥 Supprimer plainPassword
+            // Supprimer plainPassword
             $user->eraseCredentials();
 
             $em->persist($user);
