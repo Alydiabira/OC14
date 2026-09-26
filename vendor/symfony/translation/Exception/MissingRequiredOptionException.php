@@ -18,7 +18,11 @@ class MissingRequiredOptionException extends IncompleteDsnException
 {
     public function __construct(string $option, ?string $dsn = null, ?\Throwable $previous = null)
     {
+<<<<<<< HEAD
         $message = sprintf('The option "%s" is required but missing.', $option);
+=======
+        $message = \sprintf('The option "%s" is required but missing.', $option);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         parent::__construct($message, $dsn, $previous);
     }

@@ -91,6 +91,15 @@ class YamlFileLoader extends FileLoader
                     $options = $this->parseNodes($options);
                 }
 
+<<<<<<< HEAD
+=======
+                if (null !== $options && (!\is_array($options) || array_is_list($options))) {
+                    $options = [
+                        'value' => $options,
+                    ];
+                }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $values[] = $this->newConstraint(key($childNodes), $options);
             } else {
                 if (\is_array($childNodes)) {
@@ -115,7 +124,11 @@ class YamlFileLoader extends FileLoader
         try {
             $classes = $this->yamlParser->parseFile($path, Yaml::PARSE_CONSTANT);
         } catch (ParseException $e) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('The file "%s" does not contain valid YAML: ', $path).$e->getMessage(), 0, $e);
+=======
+            throw new \InvalidArgumentException(\sprintf('The file "%s" does not contain valid YAML: ', $path).$e->getMessage(), 0, $e);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         // empty file
@@ -125,7 +138,11 @@ class YamlFileLoader extends FileLoader
 
         // not an array
         if (!\is_array($classes)) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('The file "%s" must contain a YAML array.', $this->file));
+=======
+            throw new \InvalidArgumentException(\sprintf('The file "%s" must contain a YAML array.', $this->file));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $classes;

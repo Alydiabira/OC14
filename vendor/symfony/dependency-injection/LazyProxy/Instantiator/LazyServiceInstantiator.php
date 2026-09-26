@@ -26,7 +26,11 @@ final class LazyServiceInstantiator implements InstantiatorInterface
         $dumper = new LazyServiceDumper();
 
         if (!$dumper->isProxyCandidate($definition, $asGhostObject, $id)) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Cannot instantiate lazy proxy for service "%s".', $id));
+=======
+            throw new InvalidArgumentException(\sprintf('Cannot instantiate lazy proxy for service "%s".', $id));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (!class_exists($proxyClass = $dumper->getProxyClass($definition, $asGhostObject), false)) {

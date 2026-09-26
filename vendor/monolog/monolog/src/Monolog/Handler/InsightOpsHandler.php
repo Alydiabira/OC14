@@ -43,7 +43,11 @@ class InsightOpsHandler extends SocketHandler
         ?float $connectionTimeout = null,
         ?int $chunkSize = null
     ) {
+<<<<<<< HEAD
         if ($useSSL && !extension_loaded('openssl')) {
+=======
+        if ($useSSL && !\extension_loaded('openssl')) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new MissingExtensionException('The OpenSSL PHP plugin is required to use SSL encrypted connection for InsightOpsHandler');
         }
 

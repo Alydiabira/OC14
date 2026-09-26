@@ -13,9 +13,15 @@ For the complete list of supported PHPDoc features check out PHPStan documentati
 
 * [PHPDoc Basics](https://phpstan.org/writing-php-code/phpdocs-basics) (list of PHPDoc tags)
 * [PHPDoc Types](https://phpstan.org/writing-php-code/phpdoc-types) (list of PHPDoc types)
+<<<<<<< HEAD
 * [phpdoc-parser API Reference](https://phpstan.github.io/phpdoc-parser/namespace-PHPStan.PhpDocParser.html) with all the AST node types etc.
 
 This parser also supports parsing [Doctrine Annotations](https://github.com/doctrine/annotations). The AST nodes live in the [PHPStan\PhpDocParser\Ast\PhpDoc\Doctrine namespace](https://phpstan.github.io/phpdoc-parser/namespace-PHPStan.PhpDocParser.Ast.PhpDoc.Doctrine.html). The support needs to be turned on by setting `bool $parseDoctrineAnnotations` to `true` in `Lexer` and `PhpDocParser` class constructors.
+=======
+* [phpdoc-parser API Reference](https://phpstan.github.io/phpdoc-parser/1.23.x/namespace-PHPStan.PhpDocParser.html) with all the AST node types etc.
+
+This parser also supports parsing [Doctrine Annotations](https://github.com/doctrine/annotations). The AST nodes live in the [PHPStan\PhpDocParser\Ast\PhpDoc\Doctrine namespace](https://phpstan.github.io/phpdoc-parser/1.23.x/namespace-PHPStan.PhpDocParser.Ast.PhpDoc.Doctrine.html). The support needs to be turned on by setting `bool $parseDoctrineAnnotations` to `true` in `Lexer` and `PhpDocParser` class constructors.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 ## Installation
 

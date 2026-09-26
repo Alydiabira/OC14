@@ -95,7 +95,12 @@ class Validator
     public static $validateWritableDirectory = true;
 
     /**
+<<<<<<< HEAD
      * @param string $field
+=======
+     * @param ClassMetadata<object> $meta
+     * @param string                $field
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return void
      */
@@ -105,7 +110,12 @@ class Validator
     }
 
     /**
+<<<<<<< HEAD
      * @param string $field
+=======
+     * @param ClassMetadata<object> $meta
+     * @param string                $field
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return void
      */
@@ -115,7 +125,12 @@ class Validator
     }
 
     /**
+<<<<<<< HEAD
      * @param string $field
+=======
+     * @param ClassMetadata<object> $meta
+     * @param string                $field
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return void
      */
@@ -125,7 +140,12 @@ class Validator
     }
 
     /**
+<<<<<<< HEAD
      * @param string $field
+=======
+     * @param ClassMetadata<object> $meta
+     * @param string                $field
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return void
      */
@@ -135,10 +155,17 @@ class Validator
     }
 
     /**
+<<<<<<< HEAD
      * @param ClassMetadata $meta
      * @param string        $field
      * @param string        $uploadableField
      * @param string[]      $validFieldTypes
+=======
+     * @param ClassMetadata<object> $meta
+     * @param string                $field
+     * @param string                $uploadableField
+     * @param string[]              $validFieldTypes
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return void
      */
@@ -150,7 +177,11 @@ class Validator
 
         $fieldMapping = $meta->getFieldMapping($field);
 
+<<<<<<< HEAD
         if (!in_array($fieldMapping['type'], $validFieldTypes, true)) {
+=======
+        if (!in_array($fieldMapping->type ?? $fieldMapping['type'], $validFieldTypes, true)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $msg = 'Field "%s" to work as an "%s" field must be of one of the following types: "%s".';
 
             throw new InvalidMappingException(sprintf($msg, $field, $uploadableField, implode(', ', $validFieldTypes)));
@@ -182,9 +213,16 @@ class Validator
     }
 
     /**
+<<<<<<< HEAD
      * @param array<string, mixed> $config
      *
      * @return void
+=======
+     * @param ClassMetadata<object> $meta
+     * @param array<string, mixed>  $config
+     *
+     * @return array<string, mixed>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @todo Stop receiving by reference the `$config` parameter and use `array` as return type declaration
      */

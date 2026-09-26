@@ -61,10 +61,17 @@ class LoginLinkFactory extends AbstractFactory
                 ->info('Cache service id used to expired links of max_uses is set.')
             ->end()
             ->scalarNode('success_handler')
+<<<<<<< HEAD
                 ->info(sprintf('A service id that implements %s.', AuthenticationSuccessHandlerInterface::class))
             ->end()
             ->scalarNode('failure_handler')
                 ->info(sprintf('A service id that implements %s.', AuthenticationFailureHandlerInterface::class))
+=======
+                ->info(\sprintf('A service id that implements %s.', AuthenticationSuccessHandlerInterface::class))
+            ->end()
+            ->scalarNode('failure_handler')
+                ->info(\sprintf('A service id that implements %s.', AuthenticationFailureHandlerInterface::class))
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->end()
             ->scalarNode('provider')
                 ->info('The user provider to load users from.')

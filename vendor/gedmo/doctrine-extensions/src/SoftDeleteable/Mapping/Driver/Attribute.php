@@ -9,6 +9,7 @@
 
 namespace Gedmo\SoftDeleteable\Mapping\Driver;
 
+<<<<<<< HEAD
 use Gedmo\Mapping\Annotation\SoftDeleteable;
 use Gedmo\Mapping\Driver\AttributeDriverInterface;
 
@@ -22,4 +23,65 @@ use Gedmo\Mapping\Driver\AttributeDriverInterface;
  */
 final class Attribute extends Annotation implements AttributeDriverInterface
 {
+=======
+use Gedmo\Exception\InvalidMappingException;
+use Gedmo\Mapping\Annotation\SoftDeleteable;
+use Gedmo\Mapping\Driver\AbstractAnnotationDriver;
+use Gedmo\SoftDeleteable\Mapping\Validator;
+
+/**
+ * Mapping driver for the soft-deletable extension which reads extended metadata from attributes on a soft-deletable class.
+ *
+ * @author Gustavo Falco <comfortablynumb84@gmail.com>
+ * @author Gediminas Morkevicius <gediminas.morkevicius@gmail.com>
+ *
+ * @internal
+ */
+class Attribute extends AbstractAnnotationDriver
+{
+    /**
+     * Mapping object for the soft-deletable extension.
+     */
+    public const SOFT_DELETEABLE = SoftDeleteable::class;
+
+    public function readExtendedMetadata($meta, array &$config)
+    {
+        $class = $this->getMetaReflectionClass($meta);
+
+        // class annotations
+        if (null !== $class && $annot = $this->reader->getClassAnnotation($class, self::SOFT_DELETEABLE)) {
+            \assert($annot instanceof SoftDeleteable);
+
+            $config['softDeleteable'] = true;
+
+            Validator::validateField($meta, $annot->fieldName);
+
+            $config['fieldName'] = $annot->fieldName;
+
+            $config['timeAware'] = false;
+
+            if (isset($annot->timeAware)) { // @phpstan-ignore-line
+                if (!is_bool($annot->timeAware)) {
+                    throw new InvalidMappingException('timeAware must be boolean. '.gettype($annot->timeAware).' provided.');
+                }
+
+                $config['timeAware'] = $annot->timeAware;
+            }
+
+            $config['hardDelete'] = true;
+
+            if (isset($annot->hardDelete)) { // @phpstan-ignore-line
+                if (!is_bool($annot->hardDelete)) {
+                    throw new InvalidMappingException('hardDelete must be boolean. '.gettype($annot->hardDelete).' provided.');
+                }
+
+                $config['hardDelete'] = $annot->hardDelete;
+            }
+        }
+
+        $this->validateFullMetadata($meta, $config);
+
+        return $config;
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

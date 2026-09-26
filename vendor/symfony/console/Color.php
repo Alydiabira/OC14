@@ -60,7 +60,11 @@ final class Color
 
         foreach ($options as $option) {
             if (!isset(self::AVAILABLE_OPTIONS[$option])) {
+<<<<<<< HEAD
                 throw new InvalidArgumentException(sprintf('Invalid option specified: "%s". Expected one of (%s).', $option, implode(', ', array_keys(self::AVAILABLE_OPTIONS))));
+=======
+                throw new InvalidArgumentException(\sprintf('Invalid option specified: "%s". Expected one of (%s).', $option, implode(', ', array_keys(self::AVAILABLE_OPTIONS))));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $this->options[$option] = self::AVAILABLE_OPTIONS[$option];
@@ -84,11 +88,19 @@ final class Color
         foreach ($this->options as $option) {
             $setCodes[] = $option['set'];
         }
+<<<<<<< HEAD
         if (0 === \count($setCodes)) {
             return '';
         }
 
         return sprintf("\033[%sm", implode(';', $setCodes));
+=======
+        if (!$setCodes) {
+            return '';
+        }
+
+        return \sprintf("\033[%sm", implode(';', $setCodes));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function unset(): string
@@ -103,11 +115,19 @@ final class Color
         foreach ($this->options as $option) {
             $unsetCodes[] = $option['unset'];
         }
+<<<<<<< HEAD
         if (0 === \count($unsetCodes)) {
             return '';
         }
 
         return sprintf("\033[%sm", implode(';', $unsetCodes));
+=======
+        if (!$unsetCodes) {
+            return '';
+        }
+
+        return \sprintf("\033[%sm", implode(';', $unsetCodes));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function parseColor(string $color, bool $background = false): string
@@ -128,6 +148,10 @@ final class Color
             return ($background ? '10' : '9').self::BRIGHT_COLORS[$color];
         }
 
+<<<<<<< HEAD
         throw new InvalidArgumentException(sprintf('Invalid "%s" color; expected one of (%s).', $color, implode(', ', array_merge(array_keys(self::COLORS), array_keys(self::BRIGHT_COLORS)))));
+=======
+        throw new InvalidArgumentException(\sprintf('Invalid "%s" color; expected one of (%s).', $color, implode(', ', array_merge(array_keys(self::COLORS), array_keys(self::BRIGHT_COLORS)))));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

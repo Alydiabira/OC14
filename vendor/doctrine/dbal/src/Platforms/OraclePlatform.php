@@ -473,8 +473,11 @@ class OraclePlatform extends AbstractPlatform
      * @deprecated The SQL used for schema introspection is an implementation detail and should not be relied upon.
      *
      * {@inheritDoc}
+<<<<<<< HEAD
      *
      * @link http://ezcomponents.org/docs/api/trunk/DatabaseSchema/ezcDbSchemaOracleReader.html
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getListTableIndexesSQL($table, $database = null)
     {

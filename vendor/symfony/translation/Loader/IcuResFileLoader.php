@@ -26,11 +26,19 @@ class IcuResFileLoader implements LoaderInterface
     public function load(mixed $resource, string $locale, string $domain = 'messages'): MessageCatalogue
     {
         if (!stream_is_local($resource)) {
+<<<<<<< HEAD
             throw new InvalidResourceException(sprintf('This is not a local file "%s".', $resource));
         }
 
         if (!is_dir($resource)) {
             throw new NotFoundResourceException(sprintf('File "%s" not found.', $resource));
+=======
+            throw new InvalidResourceException(\sprintf('This is not a local file "%s".', $resource));
+        }
+
+        if (!is_dir($resource)) {
+            throw new NotFoundResourceException(\sprintf('File "%s" not found.', $resource));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         try {
@@ -40,7 +48,11 @@ class IcuResFileLoader implements LoaderInterface
         }
 
         if (!$rb) {
+<<<<<<< HEAD
             throw new InvalidResourceException(sprintf('Cannot load resource "%s".', $resource));
+=======
+            throw new InvalidResourceException(\sprintf('Cannot load resource "%s".', $resource));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } elseif (intl_is_failure($rb->getErrorCode())) {
             throw new InvalidResourceException($rb->getErrorMessage(), $rb->getErrorCode());
         }

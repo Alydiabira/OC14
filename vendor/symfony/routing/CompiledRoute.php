@@ -16,7 +16,11 @@ namespace Symfony\Component\Routing;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
+<<<<<<< HEAD
 class CompiledRoute implements \Serializable
+=======
+class CompiledRoute
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 {
     private array $variables;
     private array $tokens;
@@ -63,6 +67,7 @@ class CompiledRoute implements \Serializable
         ];
     }
 
+<<<<<<< HEAD
     /**
      * @internal
      */
@@ -73,6 +78,17 @@ class CompiledRoute implements \Serializable
 
     public function __unserialize(array $data): void
     {
+=======
+    public function __unserialize(array $data): void
+    {
+        if (($data['path_prefix'] ?? null) instanceof \Stringable
+            || ($data['path_regex'] ?? null) instanceof \Stringable
+            || ($data['host_regex'] ?? null) instanceof \Stringable
+        ) {
+            throw new \BadMethodCallException('Cannot unserialize '.self::class);
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->variables = $data['vars'];
         $this->staticPrefix = $data['path_prefix'];
         $this->regex = $data['path_regex'];
@@ -84,6 +100,7 @@ class CompiledRoute implements \Serializable
     }
 
     /**
+<<<<<<< HEAD
      * @internal
      */
     final public function unserialize(string $serialized): void
@@ -92,6 +109,8 @@ class CompiledRoute implements \Serializable
     }
 
     /**
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Returns the static prefix.
      */
     public function getStaticPrefix(): string

@@ -57,7 +57,11 @@ final class SMimeSigner extends SMime
         $this->iteratorToFile($message->getBody()->toIterable(), $bufferFile);
 
         if (!@openssl_pkcs7_sign(stream_get_meta_data($bufferFile)['uri'], stream_get_meta_data($outputFile)['uri'], $this->signCertificate, $this->signPrivateKey, [], $this->signOptions, $this->extraCerts)) {
+<<<<<<< HEAD
             throw new RuntimeException(sprintf('Failed to sign S/Mime message. Error: "%s".', openssl_error_string()));
+=======
+            throw new RuntimeException(\sprintf('Failed to sign S/Mime message. Error: "%s".', openssl_error_string()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return new Message($message->getHeaders(), $this->convertMessageToSMimePart($outputFile, 'multipart', 'signed'));

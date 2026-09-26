@@ -52,11 +52,16 @@ class ContainerDebugCommand extends Command
                 new InputOption('types', null, InputOption::VALUE_NONE, 'Display types (classes/interfaces) available in the container'),
                 new InputOption('env-var', null, InputOption::VALUE_REQUIRED, 'Display a specific environment variable used in the container'),
                 new InputOption('env-vars', null, InputOption::VALUE_NONE, 'Display environment variables used in the container'),
+<<<<<<< HEAD
                 new InputOption('format', null, InputOption::VALUE_REQUIRED, sprintf('The output format ("%s")', implode('", "', $this->getAvailableFormatOptions())), 'txt'),
+=======
+                new InputOption('format', null, InputOption::VALUE_REQUIRED, \sprintf('The output format ("%s")', implode('", "', $this->getAvailableFormatOptions())), 'txt'),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 new InputOption('raw', null, InputOption::VALUE_NONE, 'To output raw description'),
                 new InputOption('deprecations', null, InputOption::VALUE_NONE, 'Display deprecations generated when compiling and warming up the container'),
             ])
             ->setHelp(<<<'EOF'
+<<<<<<< HEAD
 The <info>%command.name%</info> command displays all configured <comment>public</comment> services:
 
   <info>php %command.full_name%</info>
@@ -107,6 +112,58 @@ using the <info>--show-hidden</info> flag:
   <info>php %command.full_name% --show-hidden</info>
 
 EOF
+=======
+                The <info>%command.name%</info> command displays all configured <comment>public</comment> services:
+
+                  <info>php %command.full_name%</info>
+
+                To see deprecations generated during container compilation and cache warmup, use the <info>--deprecations</info> option:
+
+                  <info>php %command.full_name% --deprecations</info>
+
+                To get specific information about a service, specify its name:
+
+                  <info>php %command.full_name% validator</info>
+
+                To get specific information about a service including all its arguments, use the <info>--show-arguments</info> flag:
+
+                  <info>php %command.full_name% validator --show-arguments</info>
+
+                To see available types that can be used for autowiring, use the <info>--types</info> flag:
+
+                  <info>php %command.full_name% --types</info>
+
+                To see environment variables used by the container, use the <info>--env-vars</info> flag:
+
+                  <info>php %command.full_name% --env-vars</info>
+
+                Display a specific environment variable by specifying its name with the <info>--env-var</info> option:
+
+                  <info>php %command.full_name% --env-var=APP_ENV</info>
+
+                Use the --tags option to display tagged <comment>public</comment> services grouped by tag:
+
+                  <info>php %command.full_name% --tags</info>
+
+                Find all services with a specific tag by specifying the tag name with the <info>--tag</info> option:
+
+                  <info>php %command.full_name% --tag=form.type</info>
+
+                Use the <info>--parameters</info> option to display all parameters:
+
+                  <info>php %command.full_name% --parameters</info>
+
+                Display a specific parameter by specifying its name with the <info>--parameter</info> option:
+
+                  <info>php %command.full_name% --parameter=kernel.debug</info>
+
+                By default, internal services are hidden. You can display them
+                using the <info>--show-hidden</info> flag:
+
+                  <info>php %command.full_name% --show-hidden</info>
+
+                EOF
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -171,19 +228,31 @@ EOF
                 if ($object->hasDefinition($options['id'])) {
                     $definition = $object->getDefinition($options['id']);
                     if ($definition->isDeprecated()) {
+<<<<<<< HEAD
                         $errorIo->warning($definition->getDeprecation($options['id'])['message'] ?? sprintf('The "%s" service is deprecated.', $options['id']));
+=======
+                        $errorIo->warning($definition->getDeprecation($options['id'])['message'] ?? \sprintf('The "%s" service is deprecated.', $options['id']));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
                 }
                 if ($object->hasAlias($options['id'])) {
                     $alias = $object->getAlias($options['id']);
                     if ($alias->isDeprecated()) {
+<<<<<<< HEAD
                         $errorIo->warning($alias->getDeprecation($options['id'])['message'] ?? sprintf('The "%s" alias is deprecated.', $options['id']));
+=======
+                        $errorIo->warning($alias->getDeprecation($options['id'])['message'] ?? \sprintf('The "%s" alias is deprecated.', $options['id']));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
                 }
             }
 
             if (isset($options['id']) && isset($kernel->getContainer()->getRemovedIds()[$options['id']])) {
+<<<<<<< HEAD
                 $errorIo->note(sprintf('The "%s" service or alias has been removed or inlined when the container was compiled.', $options['id']));
+=======
+                $errorIo->note(\sprintf('The "%s" service or alias has been removed or inlined when the container was compiled.', $options['id']));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         } catch (ServiceNotFoundException $e) {
             if ('' !== $e->getId() && '@' === $e->getId()[0]) {
@@ -277,14 +346,24 @@ EOF
 
         $matchingServices = $this->findServiceIdsContaining($container, $name, $showHidden);
         if (!$matchingServices) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('No services found that match "%s".', $name));
+=======
+            throw new InvalidArgumentException(\sprintf('No services found that match "%s".', $name));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (1 === \count($matchingServices)) {
             return $matchingServices[0];
         }
 
+<<<<<<< HEAD
         return $io->choice('Select one of the following services to display its information', $matchingServices);
+=======
+        natsort($matchingServices);
+
+        return $io->choice('Select one of the following services to display its information', array_values($matchingServices));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function findProperTagName(InputInterface $input, SymfonyStyle $io, ContainerBuilder $container, string $tagName): string
@@ -295,14 +374,24 @@ EOF
 
         $matchingTags = $this->findTagsContaining($container, $tagName);
         if (!$matchingTags) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('No tags found that match "%s".', $tagName));
+=======
+            throw new InvalidArgumentException(\sprintf('No tags found that match "%s".', $tagName));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (1 === \count($matchingTags)) {
             return $matchingTags[0];
         }
 
+<<<<<<< HEAD
         return $io->choice('Select one of the following tags to display its information', $matchingTags);
+=======
+        natsort($matchingTags);
+
+        return $io->choice('Select one of the following tags to display its information', array_values($matchingTags));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function findServiceIdsContaining(ContainerBuilder $container, string $name, bool $showHidden): array

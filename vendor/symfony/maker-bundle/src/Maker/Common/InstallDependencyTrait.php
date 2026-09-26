@@ -30,11 +30,19 @@ trait InstallDependencyTrait
             return $io;
         }
 
+<<<<<<< HEAD
         $io->writeln(sprintf('Running: composer require %s', $composerPackage));
 
         Process::fromShellCommandline(sprintf('composer require %s', $composerPackage))->run();
 
         $io->writeln(sprintf('%s successfully installed!', $composerPackage));
+=======
+        $io->writeln(\sprintf('Running: composer require %s', $composerPackage));
+
+        Process::fromShellCommandline(\sprintf('composer require %s', $composerPackage))->run();
+
+        $io->writeln(\sprintf('%s successfully installed!', $composerPackage));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $io->newLine();
 
         return $io;

@@ -13,6 +13,10 @@ namespace Symfony\Component\Security\Http;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Firewall\ExceptionListener;
+<<<<<<< HEAD
+=======
+use Symfony\Component\Security\Http\Firewall\FirewallListenerInterface;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Security\Http\Firewall\LogoutListener;
 
 /**
@@ -35,7 +39,11 @@ interface FirewallMapInterface
      * If there is no logout listener, the third element of the outer array
      * must be null.
      *
+<<<<<<< HEAD
      * @return array{iterable<mixed, callable>, ExceptionListener, LogoutListener}
+=======
+     * @return array{iterable<mixed, callable|FirewallListenerInterface>, ExceptionListener, LogoutListener}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getListeners(Request $request);
 }

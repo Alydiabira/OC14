@@ -94,7 +94,11 @@ class FlattenException
         if (!$cloner ??= $defaultCloner) {
             $cloner = $defaultCloner = new VarCloner();
             $cloner->addCasters([
+<<<<<<< HEAD
                 \Throwable::class => function (\Throwable $e, array $a, Stub $s, bool $isNested): array {
+=======
+                \Throwable::class => static function (\Throwable $e, array $a, Stub $s, bool $isNested): array {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     if (!$isNested) {
                         unset($a[Caster::PREFIX_PROTECTED.'message']);
                         unset($a[Caster::PREFIX_PROTECTED.'code']);
@@ -228,7 +232,11 @@ class FlattenException
     public function setMessage(string $message): static
     {
         if (str_contains($message, "@anonymous\0")) {
+<<<<<<< HEAD
             $message = preg_replace_callback('/[a-zA-Z_\x7f-\xff][\\\\a-zA-Z0-9_\x7f-\xff]*+@anonymous\x00.*?\.php(?:0x?|:[0-9]++\$)[0-9a-fA-F]++/', fn ($m) => class_exists($m[0], false) ? (get_parent_class($m[0]) ?: key(class_implements($m[0])) ?: 'class').'@anonymous' : $m[0], $message);
+=======
+            $message = preg_replace_callback('/[a-zA-Z_\x7f-\xff][\\\\a-zA-Z0-9_\x7f-\xff]*+@anonymous\x00.*?\.php(?:0x?|:[0-9]++\$)?[0-9a-fA-F]++/', static fn ($m) => class_exists($m[0], false) ? (get_parent_class($m[0]) ?: key(class_implements($m[0])) ?: 'class').'@anonymous' : $m[0], $message);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->message = $message;

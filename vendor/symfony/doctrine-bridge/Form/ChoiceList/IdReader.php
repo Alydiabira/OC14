@@ -83,7 +83,11 @@ class IdReader
         }
 
         if (!$this->om->contains($object)) {
+<<<<<<< HEAD
             throw new RuntimeException(sprintf('Entity of type "%s" passed to the choice field must be managed. Maybe you forget to persist it in the entity manager?', get_debug_type($object)));
+=======
+            throw new RuntimeException(\sprintf('Entity of type "%s" passed to the choice field must be managed. Maybe you forget to persist it in the entity manager?', get_debug_type($object)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->om->initializeObject($object);

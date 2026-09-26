@@ -58,7 +58,11 @@ class ValueToDuplicatesTransformer implements DataTransformerInterface
         $emptyKeys = [];
 
         foreach ($this->keys as $key) {
+<<<<<<< HEAD
             if (isset($array[$key]) && '' !== $array[$key] && false !== $array[$key] && [] !== $array[$key]) {
+=======
+            if (isset($array[$key]) && false !== $array[$key] && [] !== $array[$key]) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if ($array[$key] !== $result) {
                     throw new TransformationFailedException('All values in the array should be the same.');
                 }
@@ -67,13 +71,21 @@ class ValueToDuplicatesTransformer implements DataTransformerInterface
             }
         }
 
+<<<<<<< HEAD
         if (\count($emptyKeys) > 0) {
+=======
+        if ($emptyKeys) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (\count($emptyKeys) == \count($this->keys)) {
                 // All keys empty
                 return null;
             }
 
+<<<<<<< HEAD
             throw new TransformationFailedException(sprintf('The keys "%s" should not be empty.', implode('", "', $emptyKeys)));
+=======
+            throw new TransformationFailedException(\sprintf('The keys "%s" should not be empty.', implode('", "', $emptyKeys)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $result;

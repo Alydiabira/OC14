@@ -55,11 +55,19 @@ class ProcessHelper extends Helper
             $process = $cmd[0];
             unset($cmd[0]);
         } else {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('Invalid command provided to "%s()": the command should be an array whose first element is either the path to the binary to run or a "Process" object.', __METHOD__));
         }
 
         if ($verbosity <= $output->getVerbosity()) {
             $output->write($formatter->start(spl_object_hash($process), $this->escapeString($process->getCommandLine())));
+=======
+            throw new \InvalidArgumentException(\sprintf('Invalid command provided to "%s()": the command should be an array whose first element is either the path to the binary to run or a "Process" object.', __METHOD__));
+        }
+
+        if ($verbosity <= $output->getVerbosity()) {
+            $output->write($formatter->start(spl_object_id($process), $this->escapeString($process->getCommandLine())));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($output->isDebug()) {
@@ -69,12 +77,21 @@ class ProcessHelper extends Helper
         $process->run($callback, $cmd);
 
         if ($verbosity <= $output->getVerbosity()) {
+<<<<<<< HEAD
             $message = $process->isSuccessful() ? 'Command ran successfully' : sprintf('%s Command did not run successfully', $process->getExitCode());
             $output->write($formatter->stop(spl_object_hash($process), $message, $process->isSuccessful()));
         }
 
         if (!$process->isSuccessful() && null !== $error) {
             $output->writeln(sprintf('<error>%s</error>', $this->escapeString($error)));
+=======
+            $message = $process->isSuccessful() ? 'Command ran successfully' : \sprintf('%s Command did not run successfully', $process->getExitCode());
+            $output->write($formatter->stop(spl_object_id($process), $message, $process->isSuccessful()));
+        }
+
+        if (!$process->isSuccessful() && null !== $error) {
+            $output->writeln(\sprintf('<error>%s</error>', $this->escapeString($error)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $process;
@@ -117,7 +134,11 @@ class ProcessHelper extends Helper
         $formatter = $this->getHelperSet()->get('debug_formatter');
 
         return function ($type, $buffer) use ($output, $process, $callback, $formatter) {
+<<<<<<< HEAD
             $output->write($formatter->progress(spl_object_hash($process), $this->escapeString($buffer), Process::ERR === $type));
+=======
+            $output->write($formatter->progress(spl_object_id($process), $this->escapeString($buffer), Process::ERR === $type));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             if (null !== $callback) {
                 $callback($type, $buffer);

@@ -31,10 +31,17 @@ class EnterProfileNode extends Node
     public function compile(Compiler $compiler): void
     {
         $compiler
+<<<<<<< HEAD
             ->write(sprintf('$%s = $this->extensions[', $this->getAttribute('var_name')))
             ->repr($this->getAttribute('extension_name'))
             ->raw("];\n")
             ->write(sprintf('$%s->enter($%s = new \Twig\Profiler\Profile($this->getTemplateName(), ', $this->getAttribute('var_name'), $this->getAttribute('var_name').'_prof'))
+=======
+            ->write(\sprintf('$%s = $this->extensions[', $this->getAttribute('var_name')))
+            ->repr($this->getAttribute('extension_name'))
+            ->raw("];\n")
+            ->write(\sprintf('$%s->enter($%s = new \Twig\Profiler\Profile($this->getTemplateName(), ', $this->getAttribute('var_name'), $this->getAttribute('var_name').'_prof'))
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->repr($this->getAttribute('type'))
             ->raw(', ')
             ->repr($this->getAttribute('name'))

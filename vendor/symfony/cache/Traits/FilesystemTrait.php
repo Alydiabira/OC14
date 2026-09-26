@@ -92,7 +92,11 @@ trait FilesystemTrait
         }
 
         if ($failed && !is_writable($this->directory)) {
+<<<<<<< HEAD
             throw new CacheException(sprintf('Cache directory is not writable (%s).', $this->directory));
+=======
+            throw new CacheException(\sprintf('Cache directory is not writable (%s).', $this->directory));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $failed;

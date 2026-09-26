@@ -25,7 +25,11 @@ final class TraversableContainsIdentical extends TraversableContains
     protected function matches($other): bool
     {
         if ($other instanceof SplObjectStorage) {
+<<<<<<< HEAD
             return $other->contains($this->value());
+=======
+            return $other->offsetExists($this->value());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         foreach ($other as $element) {

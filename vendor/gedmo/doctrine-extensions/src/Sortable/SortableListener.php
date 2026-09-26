@@ -11,12 +11,23 @@ namespace Gedmo\Sortable;
 
 use Doctrine\Common\Comparable;
 use Doctrine\Common\EventArgs;
+<<<<<<< HEAD
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\Persistence\Event\LoadClassMetadataEventArgs;
+=======
+use Doctrine\Deprecations\Deprecation;
+use Doctrine\Persistence\Event\LifecycleEventArgs;
+use Doctrine\Persistence\Event\LoadClassMetadataEventArgs;
+use Doctrine\Persistence\Event\ManagerEventArgs;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\ObjectManager;
 use Gedmo\Mapping\MappedEventSubscriber;
 use Gedmo\Sortable\Mapping\Event\SortableAdapter;
+<<<<<<< HEAD
+=======
+use Gedmo\Tool\ClassUtils;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use ProxyManager\Proxy\GhostObjectInterface;
 
 /**
@@ -44,9 +55,13 @@ use ProxyManager\Proxy\GhostObjectInterface;
  *   }>,
  * }
  *
+<<<<<<< HEAD
  * @phpstan-method SortableConfiguration getConfiguration(ObjectManager $objectManager, $class)
  *
  * @method SortableAdapter getEventAdapter(EventArgs $args)
+=======
+ * @phpstan-extends MappedEventSubscriber<SortableConfiguration, SortableAdapter>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @final since gedmo/doctrine-extensions 3.11
  */
@@ -107,6 +122,13 @@ class SortableListener extends MappedEventSubscriber
      * The synchronization of the objects in memory is done in postFlush. This
      * ensures that the positions have been successfully persisted to database.
      *
+<<<<<<< HEAD
+=======
+     * @param ManagerEventArgs $args
+     *
+     * @phpstan-param ManagerEventArgs<ObjectManager> $args
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function onFlush(EventArgs $args)
@@ -130,7 +152,11 @@ class SortableListener extends MappedEventSubscriber
         foreach ($ea->getScheduledObjectUpdates($uow) as $object) {
             $meta = $om->getClassMetadata(get_class($object));
             if ($config = $this->getConfiguration($om, $meta->getName())) {
+<<<<<<< HEAD
                 $position = $meta->getReflectionProperty($config['position'])->getValue($object);
+=======
+                $position = $meta->getFieldValue($object, $config['position']);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $updateValues[$position] = [$ea, $config, $meta, $object];
             }
         }
@@ -151,6 +177,13 @@ class SortableListener extends MappedEventSubscriber
     /**
      * Update maxPositions as needed
      *
+<<<<<<< HEAD
+=======
+     * @param LifecycleEventArgs $args
+     *
+     * @phpstan-param LifecycleEventArgs<ObjectManager> $args
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function prePersist(EventArgs $args)
@@ -175,6 +208,13 @@ class SortableListener extends MappedEventSubscriber
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * @param LifecycleEventArgs $args
+     *
+     * @phpstan-param LifecycleEventArgs<ObjectManager> $args
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function postPersist(EventArgs $args)
@@ -185,6 +225,13 @@ class SortableListener extends MappedEventSubscriber
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * @param LifecycleEventArgs $args
+     *
+     * @phpstan-param LifecycleEventArgs<ObjectManager> $args
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function preUpdate(EventArgs $args)
@@ -195,6 +242,13 @@ class SortableListener extends MappedEventSubscriber
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * @param LifecycleEventArgs $args
+     *
+     * @phpstan-param LifecycleEventArgs<ObjectManager> $args
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function postRemove(EventArgs $args)
@@ -207,6 +261,13 @@ class SortableListener extends MappedEventSubscriber
     /**
      * Sync objects in memory
      *
+<<<<<<< HEAD
+=======
+     * @param ManagerEventArgs $args
+     *
+     * @phpstan-param ManagerEventArgs<ObjectManager> $args
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function postFlush(EventArgs $args)
@@ -253,12 +314,20 @@ class SortableListener extends MappedEventSubscriber
                         }
 
                         $oid = spl_object_id($object);
+<<<<<<< HEAD
                         $pos = $meta->getReflectionProperty($config['position'])->getValue($object);
+=======
+                        $pos = $meta->getFieldValue($object, $config['position']);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $matches = $pos >= $delta['start'];
                         $matches = $matches && ($delta['stop'] <= 0 || $pos < $delta['stop']);
                         $value = reset($relocation['groups']);
                         while ($matches && ($group = key($relocation['groups']))) {
+<<<<<<< HEAD
                             $gr = $meta->getReflectionProperty($group)->getValue($object);
+=======
+                            $gr = $meta->getFieldValue($object, $group);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                             if (null === $value) {
                                 $matches = null === $gr;
                             } elseif (is_object($gr) && is_object($value) && $gr !== $value) {
@@ -271,12 +340,22 @@ class SortableListener extends MappedEventSubscriber
                                     if (is_int($matches)) {
                                         $matches = 0 === $matches;
                                     } else {
+<<<<<<< HEAD
                                         @trigger_error(sprintf(
+=======
+                                        Deprecation::trigger(
+                                            'gedmo/doctrine-extensions',
+                                            'https://github.com/doctrine-extensions/DoctrineExtensions/pull/2542',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                                             'Support for "%s" as return type from "%s::compareTo()" is deprecated since'
                                             .' gedmo/doctrine-extensions 3.11 and will be removed in version 4.0. Return "integer" instead.',
                                             gettype($matches),
                                             Comparable::class
+<<<<<<< HEAD
                                         ), E_USER_DEPRECATED);
+=======
+                                        );
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                                     }
                                 } else {
                                     $matches = $gr == $value;
@@ -299,7 +378,11 @@ class SortableListener extends MappedEventSubscriber
                             }
                             $updatedObjects[$oid]['newValue'] = $pos + $delta['delta'];
 
+<<<<<<< HEAD
                             $meta->getReflectionProperty($config['position'])->setValue($object, $updatedObjects[$oid]['newValue']);
+=======
+                            $meta->setFieldValue($object, $config['position'], $updatedObjects[$oid]['newValue']);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         }
                     }
                 }
@@ -318,16 +401,29 @@ class SortableListener extends MappedEventSubscriber
     /**
      * Computes node positions and updates the sort field in memory and in the db
      *
+<<<<<<< HEAD
      * @param array<string, mixed> $config
      * @param ClassMetadata        $meta
      * @param object               $object
+=======
+     * @param array<string, mixed>  $config
+     * @param ClassMetadata<object> $meta
+     * @param object                $object
+     *
+     * @phpstan-param SortableConfiguration $config
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return void
      */
     protected function processInsert(SortableAdapter $ea, array $config, $meta, $object)
     {
+<<<<<<< HEAD
         $old = $meta->getReflectionProperty($config['position'])->getValue($object);
         $newPosition = $meta->getReflectionProperty($config['position'])->getValue($object);
+=======
+        $old = $meta->getFieldValue($object, $config['position']);
+        $newPosition = $meta->getFieldValue($object, $config['position']);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (null === $newPosition) {
             $newPosition = -1;
@@ -384,9 +480,17 @@ class SortableListener extends MappedEventSubscriber
     /**
      * Computes node positions and updates the sort field in memory and in the db
      *
+<<<<<<< HEAD
      * @param array<string, mixed> $config
      * @param ClassMetadata        $meta
      * @param object               $object
+=======
+     * @param array<string, mixed>  $config
+     * @param ClassMetadata<object> $meta
+     * @param object                $object
+     *
+     * @phpstan-param SortableConfiguration $config
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return void
      */
@@ -420,7 +524,11 @@ class SortableListener extends MappedEventSubscriber
             if (array_key_exists($config['position'], $changeSet)) {
                 $oldPosition = $changeSet[$config['position']][0];
             } else {
+<<<<<<< HEAD
                 $oldPosition = $meta->getReflectionProperty($config['position'])->getValue($object);
+=======
+                $oldPosition = $meta->getFieldValue($object, $config['position']);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $this->addRelocation($oldHash, $config['useObjectClass'], $oldGroups, $oldPosition + 1, $this->maxPositions[$oldHash] + 1, -1);
             $groupHasChanged = true;
@@ -516,15 +624,27 @@ class SortableListener extends MappedEventSubscriber
     /**
      * Computes node positions and updates the sort field in memory and in the db
      *
+<<<<<<< HEAD
      * @param array<string, mixed> $config
      * @param ClassMetadata        $meta
      * @param object               $object
+=======
+     * @param array<string, mixed>  $config
+     * @param ClassMetadata<object> $meta
+     * @param object                $object
+     *
+     * @phpstan-param SortableConfiguration $config
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return void
      */
     protected function processDeletion(SortableAdapter $ea, array $config, $meta, $object)
     {
+<<<<<<< HEAD
         $position = $meta->getReflectionProperty($config['position'])->getValue($object);
+=======
+        $position = $meta->getFieldValue($object, $config['position']);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         // Get groups
         $groups = $this->getGroups($meta, $config, $object);
@@ -570,6 +690,11 @@ class SortableListener extends MappedEventSubscriber
      * @param array<string, mixed> $groups
      * @param array<string, mixed> $config
      *
+<<<<<<< HEAD
+=======
+     * @phpstan-param SortableConfiguration $config
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return string
      */
     protected function getHash($groups, array $config)
@@ -588,10 +713,19 @@ class SortableListener extends MappedEventSubscriber
     }
 
     /**
+<<<<<<< HEAD
      * @param ClassMetadata        $meta
      * @param array<string, mixed> $config
      * @param object               $object
      * @param array<string, mixed> $groups
+=======
+     * @param ClassMetadata<object> $meta
+     * @param array<string, mixed>  $config
+     * @param object                $object
+     * @param array<string, mixed>  $groups
+     *
+     * @phpstan-param SortableConfiguration $config
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return int
      */
@@ -674,10 +808,19 @@ class SortableListener extends MappedEventSubscriber
     }
 
     /**
+<<<<<<< HEAD
      * @param ClassMetadata                        $meta
      * @param array<string, array<string, string>> $config
      * @param object                               $object
      *
+=======
+     * @param ClassMetadata<object>                $meta
+     * @param array<string, array<string, string>> $config
+     * @param object                               $object
+     *
+     * @phpstan-param SortableConfiguration $config
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return array<string, mixed>
      */
     protected function getGroups($meta, $config, $object)
@@ -685,7 +828,11 @@ class SortableListener extends MappedEventSubscriber
         $groups = [];
         if (isset($config['groups'])) {
             foreach ($config['groups'] as $group) {
+<<<<<<< HEAD
                 $groups[$group] = $meta->getReflectionProperty($group)->getValue($object);
+=======
+                $groups[$group] = $meta->getFieldValue($object, $group);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 

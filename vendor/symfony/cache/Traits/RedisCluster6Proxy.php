@@ -25,6 +25,12 @@ class_exists(\Symfony\Component\VarExporter\Internal\LazyObjectState::class);
  */
 class RedisCluster6Proxy extends \RedisCluster implements ResetInterface, LazyObjectInterface
 {
+<<<<<<< HEAD
+=======
+    use RedisCluster61ProxyTrait;
+    use RedisCluster62ProxyTrait;
+    use RedisCluster63ProxyTrait;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     use LazyProxyTrait {
         resetLazyObject as reset;
     }
@@ -33,7 +39,11 @@ class RedisCluster6Proxy extends \RedisCluster implements ResetInterface, LazyOb
 
     public function __construct($name, $seeds = null, $timeout = 0, $read_timeout = 0, $persistent = false, #[\SensitiveParameter] $auth = null, $context = null)
     {
+<<<<<<< HEAD
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->__construct(...\func_get_args());
+=======
+        ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->__construct(...\func_get_args());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function _compress($value): string
@@ -656,11 +666,14 @@ class RedisCluster6Proxy extends \RedisCluster implements ResetInterface, LazyOb
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->pttl(...\func_get_args());
     }
 
+<<<<<<< HEAD
     public function publish($channel, $message): \RedisCluster|bool
     {
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->publish(...\func_get_args());
     }
 
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function pubsub($key_or_address, ...$values): mixed
     {
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->pubsub(...\func_get_args());

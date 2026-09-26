@@ -39,6 +39,12 @@ class Cookie
     private const RESERVED_CHARS_FROM = ['=', ',', ';', ' ', "\t", "\r", "\n", "\v", "\f"];
     private const RESERVED_CHARS_TO = ['%3D', '%2C', '%3B', '%20', '%09', '%0D', '%0A', '%0B', '%0C'];
 
+<<<<<<< HEAD
+=======
+    // same list as above minus "=", which PHP allows in the path and domain attributes
+    private const RESERVED_ATTR_CHARS_LIST = ",; \t\r\n\v\f";
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Creates cookie from raw header string.
      */
@@ -101,13 +107,23 @@ class Cookie
     {
         // from PHP source code
         if ($raw && false !== strpbrk($name, self::RESERVED_CHARS_LIST)) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('The cookie name "%s" contains invalid characters.', $name));
+=======
+            throw new \InvalidArgumentException(\sprintf('The cookie name "%s" contains invalid characters.', $name));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (empty($name)) {
             throw new \InvalidArgumentException('The cookie name cannot be empty.');
         }
 
+<<<<<<< HEAD
+=======
+        self::validateAttribute('path', $path);
+        self::validateAttribute('domain', $domain);
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->name = $name;
         $this->value = $value;
         $this->domain = $domain;
@@ -136,6 +152,11 @@ class Cookie
      */
     public function withDomain(?string $domain): static
     {
+<<<<<<< HEAD
+=======
+        self::validateAttribute('domain', $domain);
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $cookie = clone $this;
         $cookie->domain = $domain;
 
@@ -173,10 +194,28 @@ class Cookie
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Rejects the characters that PHP's setcookie() also rejects in the path and domain attributes.
+     */
+    private static function validateAttribute(string $attribute, ?string $value): void
+    {
+        if (null !== $value && false !== strpbrk($value, self::RESERVED_ATTR_CHARS_LIST)) {
+            throw new \InvalidArgumentException(\sprintf('The cookie %s "%s" contains invalid characters.', $attribute, $value));
+        }
+    }
+
+    /**
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Creates a cookie copy with a new path on the server in which the cookie will be available on.
      */
     public function withPath(string $path): static
     {
+<<<<<<< HEAD
+=======
+        self::validateAttribute('path', $path);
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $cookie = clone $this;
         $cookie->path = '' === $path ? '/' : $path;
 
@@ -211,7 +250,11 @@ class Cookie
     public function withRaw(bool $raw = true): static
     {
         if ($raw && false !== strpbrk($this->name, self::RESERVED_CHARS_LIST)) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('The cookie name "%s" contains invalid characters.', $this->name));
+=======
+            throw new \InvalidArgumentException(\sprintf('The cookie name "%s" contains invalid characters.', $this->name));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $cookie = clone $this;

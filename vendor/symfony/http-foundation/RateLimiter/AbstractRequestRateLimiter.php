@@ -37,7 +37,11 @@ abstract class AbstractRequestRateLimiter implements PeekableRequestRateLimiterI
     private function doConsume(Request $request, int $tokens): RateLimit
     {
         $limiters = $this->getLimiters($request);
+<<<<<<< HEAD
         if (0 === \count($limiters)) {
+=======
+        if (!$limiters) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $limiters = [new NoLimiter()];
         }
 

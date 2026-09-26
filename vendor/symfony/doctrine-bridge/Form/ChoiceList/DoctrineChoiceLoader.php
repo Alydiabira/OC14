@@ -41,7 +41,11 @@ class DoctrineChoiceLoader extends AbstractChoiceLoader
         private readonly ?EntityLoaderInterface $objectLoader = null,
     ) {
         if ($idReader && !$idReader->isSingleId()) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('The "$idReader" argument of "%s" must be null when the query cannot be optimized because of composite id fields.', __METHOD__));
+=======
+            throw new \InvalidArgumentException(\sprintf('The "$idReader" argument of "%s" must be null when the query cannot be optimized because of composite id fields.', __METHOD__));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->class = $manager->getClassMetadata($class)->getName();

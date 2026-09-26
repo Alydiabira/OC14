@@ -65,7 +65,11 @@ class FormDataCollector extends DataCollector implements FormDataCollectorInterf
     public function __construct(FormDataExtractorInterface $dataExtractor)
     {
         if (!class_exists(ClassStub::class)) {
+<<<<<<< HEAD
             throw new \LogicException(sprintf('The VarDumper component is needed for using the "%s" class. Install symfony/var-dumper version 3.4 or above.', __CLASS__));
+=======
+            throw new \LogicException(\sprintf('The VarDumper component is needed for using the "%s" class. Install symfony/var-dumper version 3.4 or above.', __CLASS__));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->dataExtractor = $dataExtractor;
@@ -91,12 +95,20 @@ class FormDataCollector extends DataCollector implements FormDataCollectorInterf
 
     public function associateFormWithView(FormInterface $form, FormView $view): void
     {
+<<<<<<< HEAD
         $this->formsByView[spl_object_hash($view)] = spl_object_hash($form);
+=======
+        $this->formsByView[spl_object_id($view)] = spl_object_id($form);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function collectConfiguration(FormInterface $form): void
     {
+<<<<<<< HEAD
         $hash = spl_object_hash($form);
+=======
+        $hash = spl_object_id($form);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (!isset($this->dataByForm[$hash])) {
             $this->dataByForm[$hash] = [];
@@ -114,7 +126,11 @@ class FormDataCollector extends DataCollector implements FormDataCollectorInterf
 
     public function collectDefaultData(FormInterface $form): void
     {
+<<<<<<< HEAD
         $hash = spl_object_hash($form);
+=======
+        $hash = spl_object_id($form);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (!isset($this->dataByForm[$hash])) {
             // field was created by form event
@@ -133,7 +149,11 @@ class FormDataCollector extends DataCollector implements FormDataCollectorInterf
 
     public function collectSubmittedData(FormInterface $form): void
     {
+<<<<<<< HEAD
         $hash = spl_object_hash($form);
+=======
+        $hash = spl_object_id($form);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (!isset($this->dataByForm[$hash])) {
             // field was created by form event
@@ -156,7 +176,11 @@ class FormDataCollector extends DataCollector implements FormDataCollectorInterf
 
             // Expand current form if there are children with errors
             if (empty($this->dataByForm[$hash]['has_children_error'])) {
+<<<<<<< HEAD
                 $childData = $this->dataByForm[spl_object_hash($child)];
+=======
+                $childData = $this->dataByForm[spl_object_id($child)];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $this->dataByForm[$hash]['has_children_error'] = !empty($childData['has_children_error']) || !empty($childData['errors']);
             }
         }
@@ -164,7 +188,11 @@ class FormDataCollector extends DataCollector implements FormDataCollectorInterf
 
     public function collectViewVariables(FormView $view): void
     {
+<<<<<<< HEAD
         $hash = spl_object_hash($view);
+=======
+        $hash = spl_object_id($view);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (!isset($this->dataByView[$hash])) {
             $this->dataByView[$hash] = [];
@@ -200,10 +228,14 @@ class FormDataCollector extends DataCollector implements FormDataCollectorInterf
         return $this->data;
     }
 
+<<<<<<< HEAD
     /**
      * @internal
      */
     public function __sleep(): array
+=======
+    public function __serialize(): array
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         foreach ($this->data['forms_by_hash'] as &$form) {
             if (isset($form['type_class']) && !$form['type_class'] instanceof ClassStub) {
@@ -211,9 +243,13 @@ class FormDataCollector extends DataCollector implements FormDataCollectorInterf
             }
         }
 
+<<<<<<< HEAD
         $this->data = $this->cloneVar($this->data);
 
         return parent::__sleep();
+=======
+        return ['data' => $this->data = $this->cloneVar($this->data)];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function getCasters(): array
@@ -244,7 +280,11 @@ class FormDataCollector extends DataCollector implements FormDataCollectorInterf
 
     private function &recursiveBuildPreliminaryFormTree(FormInterface $form, array &$outputByHash): array
     {
+<<<<<<< HEAD
         $hash = spl_object_hash($form);
+=======
+        $hash = spl_object_id($form);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $output = &$outputByHash[$hash];
         $output = $this->dataByForm[$hash]
@@ -261,11 +301,19 @@ class FormDataCollector extends DataCollector implements FormDataCollectorInterf
 
     private function &recursiveBuildFinalFormTree(?FormInterface $form, FormView $view, array &$outputByHash): array
     {
+<<<<<<< HEAD
         $viewHash = spl_object_hash($view);
         $formHash = null;
 
         if (null !== $form) {
             $formHash = spl_object_hash($form);
+=======
+        $viewHash = spl_object_id($view);
+        $formHash = null;
+
+        if (null !== $form) {
+            $formHash = spl_object_id($form);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } elseif (isset($this->formsByView[$viewHash])) {
             // The FormInterface instance of the CSRF token is never contained in
             // the FormInterface tree of the form, so we need to get the

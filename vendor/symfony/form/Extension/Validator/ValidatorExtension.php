@@ -36,13 +36,24 @@ class ValidatorExtension extends AbstractExtension
     {
         $this->legacyErrorMessages = $legacyErrorMessages;
 
+<<<<<<< HEAD
         $metadata = $validator->getMetadataFor(\Symfony\Component\Form\Form::class);
 
+=======
+        /** @var ClassMetadata $metadata */
+        $metadata = $validator->getMetadataFor(\Symfony\Component\Form\Form::class);
+
+        $this->validator = $validator;
+        $this->formRenderer = $formRenderer;
+        $this->translator = $translator;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         // Register the form constraints in the validator programmatically.
         // This functionality is required when using the Form component without
         // the DIC, where the XML file is loaded automatically. Thus the following
         // code must be kept synchronized with validation.xml
 
+<<<<<<< HEAD
         /* @var $metadata ClassMetadata */
         $metadata->addConstraint(new Form());
         $metadata->addConstraint(new Traverse(false));
@@ -50,6 +61,16 @@ class ValidatorExtension extends AbstractExtension
         $this->validator = $validator;
         $this->formRenderer = $formRenderer;
         $this->translator = $translator;
+=======
+        foreach ($metadata->getConstraints() as $constraint) {
+            if ($constraint instanceof Form) {
+                return;
+            }
+        }
+
+        $metadata->addConstraint(new Form());
+        $metadata->addConstraint(new Traverse(false));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function loadTypeGuesser(): ?FormTypeGuesserInterface

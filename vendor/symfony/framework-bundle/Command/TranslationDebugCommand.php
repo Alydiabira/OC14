@@ -79,12 +79,17 @@ class TranslationDebugCommand extends Command
             ->setDefinition([
                 new InputArgument('locale', InputArgument::REQUIRED, 'The locale'),
                 new InputArgument('bundle', InputArgument::OPTIONAL, 'The bundle name or directory where to load the messages'),
+<<<<<<< HEAD
                 new InputOption('domain', null, InputOption::VALUE_OPTIONAL, 'The messages domain'),
+=======
+                new InputOption('domain', null, InputOption::VALUE_REQUIRED, 'The messages domain'),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 new InputOption('only-missing', null, InputOption::VALUE_NONE, 'Display only missing messages'),
                 new InputOption('only-unused', null, InputOption::VALUE_NONE, 'Display only unused messages'),
                 new InputOption('all', null, InputOption::VALUE_NONE, 'Load messages from all registered bundles'),
             ])
             ->setHelp(<<<'EOF'
+<<<<<<< HEAD
 The <info>%command.name%</info> command helps finding unused or missing translation
 messages and comparing them with the fallback ones by inspecting the
 templates and translation files of a given bundle or the default translations directory.
@@ -114,6 +119,37 @@ You can display information about translations in all registered bundles in a sp
   <info>php %command.full_name% --all en</info>
 
 EOF
+=======
+                The <info>%command.name%</info> command helps finding unused or missing translation
+                messages and comparing them with the fallback ones by inspecting the
+                templates and translation files of a given bundle or the default translations directory.
+
+                You can display information about bundle translations in a specific locale:
+
+                  <info>php %command.full_name% en AcmeDemoBundle</info>
+
+                You can also specify a translation domain for the search:
+
+                  <info>php %command.full_name% --domain=messages en AcmeDemoBundle</info>
+
+                You can only display missing messages:
+
+                  <info>php %command.full_name% --only-missing en AcmeDemoBundle</info>
+
+                You can only display unused messages:
+
+                  <info>php %command.full_name% --only-unused en AcmeDemoBundle</info>
+
+                You can display information about application translations in a specific locale:
+
+                  <info>php %command.full_name% en</info>
+
+                You can display information about translations in all registered bundles in a specific locale:
+
+                  <info>php %command.full_name% --all en</info>
+
+                EOF
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -155,7 +191,11 @@ EOF
                 $codePaths = [$path.'/templates'];
 
                 if (!is_dir($transPaths[0])) {
+<<<<<<< HEAD
                     throw new InvalidArgumentException(sprintf('"%s" is neither an enabled bundle nor a directory.', $transPaths[0]));
+=======
+                    throw new InvalidArgumentException(\sprintf('"%s" is neither an enabled bundle nor a directory.', $transPaths[0]));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
         } elseif ($input->getOption('all')) {
@@ -181,10 +221,17 @@ EOF
 
         // No defined or extracted messages
         if (!$allMessages || null !== $domain && empty($allMessages[$domain])) {
+<<<<<<< HEAD
             $outputMessage = sprintf('No defined or extracted messages for locale "%s"', $locale);
 
             if (null !== $domain) {
                 $outputMessage .= sprintf(' and domain "%s"', $domain);
+=======
+            $outputMessage = \sprintf('No defined or extracted messages for locale "%s"', $locale);
+
+            if (null !== $domain) {
+                $outputMessage .= \sprintf(' and domain "%s"', $domain);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $io->getErrorStyle()->warning($outputMessage);
@@ -196,9 +243,15 @@ EOF
         $fallbackCatalogues = $this->loadFallbackCatalogues($locale, $transPaths);
 
         // Display header line
+<<<<<<< HEAD
         $headers = ['State', 'Domain', 'Id', sprintf('Message Preview (%s)', $locale)];
         foreach ($fallbackCatalogues as $fallbackCatalogue) {
             $headers[] = sprintf('Fallback Message Preview (%s)', $fallbackCatalogue->getLocale());
+=======
+        $headers = ['State', 'Domain', 'Id', \sprintf('Message Preview (%s)', $locale)];
+        foreach ($fallbackCatalogues as $fallbackCatalogue) {
+            $headers[] = \sprintf('Fallback Message Preview (%s)', $fallbackCatalogue->getLocale());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         $rows = [];
         // Iterate all message ids and determine their state
@@ -320,7 +373,11 @@ EOF
 
     private function formatId(string $id): string
     {
+<<<<<<< HEAD
         return sprintf('<fg=cyan;options=bold>%s</>', $id);
+=======
+        return \sprintf('<fg=cyan;options=bold>%s</>', $id);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function sanitizeString(string $string, int $length = 40): string

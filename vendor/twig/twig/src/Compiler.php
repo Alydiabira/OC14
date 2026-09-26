@@ -22,7 +22,10 @@ class Compiler
     private $lastLine;
     private $source;
     private $indentation;
+<<<<<<< HEAD
     private $env;
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private $debugInfo = [];
     private $sourceOffset;
     private $sourceLine;
@@ -30,9 +33,15 @@ class Compiler
     private $didUseEcho = false;
     private $didUseEchoStack = [];
 
+<<<<<<< HEAD
     public function __construct(Environment $env)
     {
         $this->env = $env;
+=======
+    public function __construct(
+        private Environment $env,
+    ) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getEnvironment(): Environment
@@ -75,7 +84,11 @@ class Compiler
             $node->compile($this);
 
             if ($this->didUseEcho) {
+<<<<<<< HEAD
                 trigger_deprecation('twig/twig', '3.9', 'Using "%s" is deprecated, use "yield" instead in "%s", then flag the class with #[YieldReady].', $this->didUseEcho, \get_class($node));
+=======
+                trigger_deprecation('twig/twig', '3.9', 'Using "%s" is deprecated, use "yield" instead in "%s", then flag the class with #[\Twig\Attribute\YieldReady].', $this->didUseEcho, $node::class);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return $this;
@@ -100,7 +113,11 @@ class Compiler
             $node->compile($this);
 
             if ($this->didUseEcho) {
+<<<<<<< HEAD
                 trigger_deprecation('twig/twig', '3.9', 'Using "%s" is deprecated, use "yield" instead in "%s", then flag the class with #[YieldReady].', $this->didUseEcho, \get_class($node));
+=======
+                trigger_deprecation('twig/twig', '3.9', 'Using "%s" is deprecated, use "yield" instead in "%s", then flag the class with #[\Twig\Attribute\YieldReady].', $this->didUseEcho, $node::class);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return $this;
@@ -144,7 +161,17 @@ class Compiler
      */
     public function string(string $value)
     {
+<<<<<<< HEAD
         $this->source .= sprintf('"%s"', addcslashes($value, "\0\t\"\$\\"));
+=======
+        // Single quotes are encoded as \x27 (not \') as a defense-in-depth measure:
+        // it guarantees that the compiled output never contains a literal "'" derived
+        // from user input, which prevents breaking out of a surrounding single-quoted
+        // PHP context if a caller mistakenly concatenates the result into one.
+        // \' is not a recognized escape sequence in PHP double-quoted strings (the
+        // backslash would be kept literally), so \x27 is used instead.
+        $this->source .= \sprintf('"%s"', str_replace("'", '\\x27', addcslashes($value, "\0\t\"\$\\")));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this;
     }
@@ -171,7 +198,11 @@ class Compiler
         } elseif (\is_bool($value)) {
             $this->raw($value ? 'true' : 'false');
         } elseif (\is_array($value)) {
+<<<<<<< HEAD
             $this->raw('array(');
+=======
+            $this->raw('[');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $first = true;
             foreach ($value as $key => $v) {
                 if (!$first) {
@@ -182,7 +213,11 @@ class Compiler
                 $this->raw(' => ');
                 $this->repr($v);
             }
+<<<<<<< HEAD
             $this->raw(')');
+=======
+            $this->raw(']');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } else {
             $this->string($value);
         }
@@ -196,7 +231,11 @@ class Compiler
     public function addDebugInfo(Node $node)
     {
         if ($node->getTemplateLine() != $this->lastLine) {
+<<<<<<< HEAD
             $this->write(sprintf("// line %d\n", $node->getTemplateLine()));
+=======
+            $this->write(\sprintf("// line %d\n", $node->getTemplateLine()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             $this->sourceLine += substr_count($this->source, "\n", $this->sourceOffset);
             $this->sourceOffset = \strlen($this->source);
@@ -244,7 +283,11 @@ class Compiler
 
     public function getVarName(): string
     {
+<<<<<<< HEAD
         return sprintf('__internal_compile_%d', $this->varNameSalt++);
+=======
+        return \sprintf('_v%d', $this->varNameSalt++);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function checkForEcho(string $string): void

@@ -38,7 +38,11 @@ final class ORM extends BaseAdapterORM implements ReferencesAdapter
             if ($object instanceof GhostObjectInterface) {
                 $id = $om->getUnitOfWork()->getDocumentIdentifier($object);
             } else {
+<<<<<<< HEAD
                 $id = $meta->getReflectionProperty($meta->getIdentifier()[0])->getValue($object);
+=======
+                $id = $meta->getFieldValue($object, $meta->getIdentifier()[0]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if ($single || !$id) {
@@ -51,7 +55,11 @@ final class ORM extends BaseAdapterORM implements ReferencesAdapter
         if ($om instanceof PhpcrDocumentManager) {
             $meta = $om->getClassMetadata(get_class($object));
             assert(1 === count($meta->getIdentifier()));
+<<<<<<< HEAD
             $id = $meta->getReflectionProperty($meta->getIdentifier()[0])->getValue($object);
+=======
+            $id = $meta->getFieldValue($object, $meta->getIdentifier()[0]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             if ($single || !$id) {
                 return $id;
@@ -85,7 +93,11 @@ final class ORM extends BaseAdapterORM implements ReferencesAdapter
             $meta = $om->getClassMetadata(get_class($object));
             $id = [];
             foreach ($meta->getIdentifier() as $name) {
+<<<<<<< HEAD
                 $id[$name] = $meta->getReflectionProperty($name)->getValue($object);
+=======
+                $id[$name] = $meta->getFieldValue($object, $name);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 // return null if one of identifiers is missing
                 if (!$id[$name]) {
                     return null;

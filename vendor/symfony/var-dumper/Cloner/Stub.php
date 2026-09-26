@@ -11,8 +11,11 @@
 
 namespace Symfony\Component\VarDumper\Cloner;
 
+<<<<<<< HEAD
 use Symfony\Component\VarDumper\Cloner\Internal\NoDefault;
 
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /**
  * Represents the main properties of a PHP variable.
  *
@@ -42,6 +45,7 @@ class Stub
     public $position = 0;
     public $attr = [];
 
+<<<<<<< HEAD
     private static array $defaultProperties = [];
 
     /**
@@ -71,5 +75,39 @@ class Stub
         }
 
         return $properties;
+=======
+    /**
+     * @internal
+     */
+    protected static array $propertyDefaults = [];
+
+    public function __serialize(): array
+    {
+        static $noDefault = new \stdClass();
+
+        if (self::class === static::class) {
+            $data = [];
+            foreach ($this as $k => $v) {
+                $default = self::$propertyDefaults[$this::class][$k] ??= ($p = new \ReflectionProperty($this, $k))->hasDefaultValue() ? $p->getDefaultValue() : ($p->hasType() ? $noDefault : null);
+                if ($noDefault === $default || $default !== $v) {
+                    $data[$k] = $v;
+                }
+            }
+
+            return $data;
+        }
+
+        return \Closure::bind(function () use ($noDefault) {
+            $data = [];
+            foreach ($this as $k => $v) {
+                $default = self::$propertyDefaults[$this::class][$k] ??= ($p = new \ReflectionProperty($this, $k))->hasDefaultValue() ? $p->getDefaultValue() : ($p->hasType() ? $noDefault : null);
+                if ($noDefault === $default || $default !== $v) {
+                    $data[$k] = $v;
+                }
+            }
+
+            return $data;
+        }, $this, $this::class)();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

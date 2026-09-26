@@ -50,7 +50,11 @@ class FunctionExtension extends AbstractExtension
         try {
             [$a, $b] = Parser::parseSeries($function->getArguments());
         } catch (SyntaxErrorException $e) {
+<<<<<<< HEAD
             throw new ExpressionErrorException(sprintf('Invalid series: "%s".', implode('", "', $function->getArguments())), 0, $e);
+=======
+            throw new ExpressionErrorException(\sprintf('Invalid series: "%s".', implode('", "', $function->getArguments())), 0, $e);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $xpath->addStarPrefix();
@@ -83,10 +87,17 @@ class FunctionExtension extends AbstractExtension
             $expr .= ' - '.$b;
         }
 
+<<<<<<< HEAD
         $conditions = [sprintf('%s %s 0', $expr, $sign)];
 
         if (1 !== $a && -1 !== $a) {
             $conditions[] = sprintf('(%s) mod %d = 0', $expr, $a);
+=======
+        $conditions = [\sprintf('%s %s 0', $expr, $sign)];
+
+        if (1 !== $a && -1 !== $a) {
+            $conditions[] = \sprintf('(%s) mod %d = 0', $expr, $a);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $xpath->addCondition(implode(' and ', $conditions));
@@ -134,7 +145,11 @@ class FunctionExtension extends AbstractExtension
             }
         }
 
+<<<<<<< HEAD
         return $xpath->addCondition(sprintf(
+=======
+        return $xpath->addCondition(\sprintf(
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'contains(string(.), %s)',
             Translator::getXpathLiteral($arguments[0]->getValue())
         ));
@@ -152,7 +167,11 @@ class FunctionExtension extends AbstractExtension
             }
         }
 
+<<<<<<< HEAD
         return $xpath->addCondition(sprintf(
+=======
+        return $xpath->addCondition(\sprintf(
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'lang(%s)',
             Translator::getXpathLiteral($arguments[0]->getValue())
         ));

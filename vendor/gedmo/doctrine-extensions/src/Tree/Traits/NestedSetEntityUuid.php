@@ -14,7 +14,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
+<<<<<<< HEAD
  * NestedSet Trait with UUid, usable with PHP >= 5.4
+=======
+ * Trait for objects in a nested tree.
+ *
+ * This implementation provides a mapping configuration for the Doctrine ORM for entities using UUID-generated primary keys.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @author Benjamin Lazarecki <benjamin.lazarecki@sensiolabs.com>
  */

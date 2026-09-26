@@ -26,9 +26,15 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
  */
 class EmailValidator extends ConstraintValidator
 {
+<<<<<<< HEAD
     private const PATTERN_HTML5_ALLOW_NO_TLD = '/^[a-zA-Z0-9.!#$%&\'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/';
     private const PATTERN_HTML5 = '/^[a-zA-Z0-9.!#$%&\'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/';
     private const PATTERN_LOOSE = '/^.+\@\S+\.\S+$/';
+=======
+    private const PATTERN_HTML5_ALLOW_NO_TLD = '/^[a-zA-Z0-9.!#$%&\'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/D';
+    private const PATTERN_HTML5 = '/^[a-zA-Z0-9.!#$%&\'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/D';
+    private const PATTERN_LOOSE = '/^.+\@\S+\.\S+$/D';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     private const EMAIL_PATTERNS = [
         Email::VALIDATION_MODE_LOOSE => self::PATTERN_LOOSE,
@@ -79,14 +85,22 @@ class EmailValidator extends ConstraintValidator
 
         if (null === $constraint->mode) {
             if (Email::VALIDATION_MODE_STRICT === $this->defaultMode && !class_exists(EguliasEmailValidator::class)) {
+<<<<<<< HEAD
                 throw new LogicException(sprintf('The "egulias/email-validator" component is required to make the "%s" constraint default to strict mode. Try running "composer require egulias/email-validator".', Email::class));
+=======
+                throw new LogicException(\sprintf('The "egulias/email-validator" component is required to make the "%s" constraint default to strict mode. Try running "composer require egulias/email-validator".', Email::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $constraint->mode = $this->defaultMode;
         }
 
         if (!\in_array($constraint->mode, Email::VALIDATION_MODES, true)) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('The "%s::$mode" parameter value is not valid.', get_debug_type($constraint)));
+=======
+            throw new InvalidArgumentException(\sprintf('The "%s::$mode" parameter value is not valid.', get_debug_type($constraint)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (Email::VALIDATION_MODE_STRICT === $constraint->mode) {

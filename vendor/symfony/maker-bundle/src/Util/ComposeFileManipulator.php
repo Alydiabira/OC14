@@ -11,7 +11,10 @@
 
 namespace Symfony\Bundle\MakerBundle\Util;
 
+<<<<<<< HEAD
 use Symfony\Bundle\MakerBundle\Exception\RuntimeCommandException;
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Yaml\Dumper;
 
 /**
@@ -38,8 +41,11 @@ class ComposeFileManipulator
         } else {
             $this->manipulator = new YamlSourceManipulator($contents);
         }
+<<<<<<< HEAD
 
         $this->checkComposeFileVersion();
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getComposeData(): array
@@ -84,10 +90,17 @@ class ComposeFileManipulator
     public function exposePorts(string $service, array $ports): void
     {
         $portData = [];
+<<<<<<< HEAD
         $portData[] = sprintf('%s To allow the host machine to access the ports below, modify the lines below.', YamlSourceManipulator::COMMENT_PLACEHOLDER_VALUE);
         $portData[] = sprintf('%s For example, to allow the host to connect to port 3306 on the container, you would change', YamlSourceManipulator::COMMENT_PLACEHOLDER_VALUE);
         $portData[] = sprintf('%s "3306" to "3306:3306". Where the first port is exposed to the host and the second is the container port.', YamlSourceManipulator::COMMENT_PLACEHOLDER_VALUE);
         $portData[] = sprintf('%s See https://docs.docker.com/compose/compose-file/compose-file-v3/#ports for more information.', YamlSourceManipulator::COMMENT_PLACEHOLDER_VALUE);
+=======
+        $portData[] = \sprintf('%s To allow the host machine to access the ports below, modify the lines below.', YamlSourceManipulator::COMMENT_PLACEHOLDER_VALUE);
+        $portData[] = \sprintf('%s For example, to allow the host to connect to port 3306 on the container, you would change', YamlSourceManipulator::COMMENT_PLACEHOLDER_VALUE);
+        $portData[] = \sprintf('%s "3306" to "3306:3306". Where the first port is exposed to the host and the second is the container port.', YamlSourceManipulator::COMMENT_PLACEHOLDER_VALUE);
+        $portData[] = \sprintf('%s See https://docs.docker.com/compose/compose-file/compose-file-v3/#ports for more information.', YamlSourceManipulator::COMMENT_PLACEHOLDER_VALUE);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         foreach ($ports as $port) {
             $portData[] = $port;
@@ -104,7 +117,11 @@ class ComposeFileManipulator
     {
         $data = $this->manipulator->getData();
 
+<<<<<<< HEAD
         $data['services'][$service]['volumes'][] = sprintf('%s:%s', $hostPath, $containerPath);
+=======
+        $data['services'][$service]['volumes'][] = \sprintf('%s:%s', $hostPath, $containerPath);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $this->manipulator->setData($data);
     }
@@ -116,6 +133,7 @@ class ComposeFileManipulator
             'services' => [],
         ];
     }
+<<<<<<< HEAD
 
     private function checkComposeFileVersion(): void
     {
@@ -129,4 +147,6 @@ class ComposeFileManipulator
             throw new RuntimeCommandException(sprintf('compose.yaml version %s is not supported. Please update your compose.yaml file to the latest version.', $data['version']));
         }
     }
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

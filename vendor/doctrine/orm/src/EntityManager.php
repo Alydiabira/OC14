@@ -7,8 +7,15 @@ namespace Doctrine\ORM;
 use BackedEnum;
 use DateTimeInterface;
 use Doctrine\Common\EventManager;
+<<<<<<< HEAD
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\LockMode;
+=======
+use Doctrine\Common\EventManagerInterface;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\LockMode;
+use Doctrine\Deprecations\Deprecation;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\Exception\EntityManagerClosed;
 use Doctrine\ORM\Exception\InvalidHydrationMode;
 use Doctrine\ORM\Exception\MissingIdentifierField;
@@ -24,7 +31,10 @@ use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\Query\FilterCollection;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\Repository\RepositoryFactory;
+<<<<<<< HEAD
 use Throwable;
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 use function array_keys;
 use function is_array;
@@ -44,7 +54,11 @@ use function method_exists;
  *
  *     $paths = ['/path/to/entity/mapping/files'];
  *
+<<<<<<< HEAD
  *     $config = ORMSetup::createAttributeMetadataConfiguration($paths);
+=======
+ *     $config = ORMSetup::createAttributeMetadataConfig($paths);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *     $connection = DriverManager::getConnection(['driver' => 'pdo_sqlite', 'memory' => true], $config);
  *     $entityManager = new EntityManager($connection, $config);
  *
@@ -63,27 +77,47 @@ class EntityManager implements EntityManagerInterface
     /**
      * The metadata factory, used to retrieve the ORM metadata of entity classes.
      */
+<<<<<<< HEAD
     private readonly ClassMetadataFactory $metadataFactory;
+=======
+    private ClassMetadataFactory $metadataFactory;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * The UnitOfWork used to coordinate object-level transactions.
      */
+<<<<<<< HEAD
     private readonly UnitOfWork $unitOfWork;
+=======
+    private UnitOfWork $unitOfWork;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * The event manager that is the central point of the event system.
      */
+<<<<<<< HEAD
     private readonly EventManager $eventManager;
+=======
+    private EventManager $eventManager;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * The proxy factory used to create dynamic proxies.
      */
+<<<<<<< HEAD
     private readonly ProxyFactory $proxyFactory;
+=======
+    private ProxyFactory $proxyFactory;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * The repository factory used to create dynamic repositories.
      */
+<<<<<<< HEAD
     private readonly RepositoryFactory $repositoryFactory;
+=======
+    private RepositoryFactory $repositoryFactory;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * The expression builder instance used to generate query expressions.
@@ -112,8 +146,13 @@ class EntityManager implements EntityManagerInterface
      * @param Connection $conn The database connection used by the EntityManager.
      */
     public function __construct(
+<<<<<<< HEAD
         private readonly Connection $conn,
         private readonly Configuration $config,
+=======
+        private Connection $conn,
+        private Configuration $config,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         EventManager|null $eventManager = null,
     ) {
         if (! $config->getMetadataDriverImpl()) {
@@ -135,12 +174,25 @@ class EntityManager implements EntityManagerInterface
 
         $this->repositoryFactory = $config->getRepositoryFactory();
         $this->unitOfWork        = new UnitOfWork($this);
+<<<<<<< HEAD
         $this->proxyFactory      = new ProxyFactory(
             $this,
             $config->getProxyDir(),
             $config->getProxyNamespace(),
             $config->getAutoGenerateProxyClasses(),
         );
+=======
+        if ($config->isNativeLazyObjectsEnabled()) {
+            $this->proxyFactory = new ProxyFactory($this);
+        } else {
+            $this->proxyFactory = new ProxyFactory(
+                $this,
+                $config->getProxyDir(),
+                $config->getProxyNamespace(),
+                $config->getAutoGenerateProxyClasses(),
+            );
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($config->isSecondLevelCacheEnabled()) {
             $cacheConfig  = $config->getSecondLevelCacheConfiguration();
@@ -178,18 +230,36 @@ class EntityManager implements EntityManagerInterface
     {
         $this->conn->beginTransaction();
 
+<<<<<<< HEAD
+=======
+        $successful = false;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         try {
             $return = $func($this);
 
             $this->flush();
             $this->conn->commit();
 
+<<<<<<< HEAD
             return $return;
         } catch (Throwable $e) {
             $this->close();
             $this->conn->rollBack();
 
             throw $e;
+=======
+            $successful = true;
+
+            return $return;
+        } finally {
+            if (! $successful) {
+                $this->close();
+                if ($this->conn->isTransactionActive()) {
+                    $this->conn->rollBack();
+                }
+            }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -262,6 +332,7 @@ class EntityManager implements EntityManagerInterface
     /**
      * {@inheritDoc}
      */
+<<<<<<< HEAD
     public function find($className, mixed $id, LockMode|int|null $lockMode = null, int|null $lockVersion = null): object|null
     {
         $class = $this->metadataFactory->getMetadataFor(ltrim($className, '\\'));
@@ -269,6 +340,24 @@ class EntityManager implements EntityManagerInterface
         if ($lockMode !== null) {
             $this->checkLockRequirements($lockMode, $class);
         }
+=======
+    public function find($className, mixed $id, LockMode|int|null $lockMode = LockMode::NONE, int|null $lockVersion = null): object|null
+    {
+        if ($lockMode === null) {
+            Deprecation::trigger(
+                'doctrine/orm',
+                'https://github.com/doctrine/orm/pull/12548',
+                'Passing null as lock mode to %s() is deprecated and will not be possible in Doctrine ORM 4.0, pass LockMode::NONE instead.',
+                __METHOD__,
+            );
+
+            $lockMode = LockMode::NONE;
+        }
+
+        $class = $this->metadataFactory->getMetadataFor(ltrim($className, '\\'));
+
+        $this->checkLockRequirements($lockMode, $class);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (! is_array($id)) {
             if ($class->isIdentifierComposite) {
@@ -326,7 +415,10 @@ class EntityManager implements EntityManagerInterface
                     $this->lock($entity, $lockMode, $lockVersion);
                     break;
 
+<<<<<<< HEAD
                 case $lockMode === LockMode::NONE:
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 case $lockMode === LockMode::PESSIMISTIC_READ:
                 case $lockMode === LockMode::PESSIMISTIC_WRITE:
                     $persister = $unitOfWork->getEntityPersister($class->name);
@@ -394,7 +486,11 @@ class EntityManager implements EntityManagerInterface
 
         $entity = $this->proxyFactory->getProxy($class->name, $sortedId);
 
+<<<<<<< HEAD
         $this->unitOfWork->registerManaged($entity, $sortedId, []);
+=======
+        $this->unitOfWork->registerManagedProxy($entity, $sortedId);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $entity;
     }
@@ -450,8 +546,24 @@ class EntityManager implements EntityManagerInterface
         $this->unitOfWork->remove($object);
     }
 
+<<<<<<< HEAD
     public function refresh(object $object, LockMode|int|null $lockMode = null): void
     {
+=======
+    public function refresh(object $object, LockMode|int|null $lockMode = LockMode::NONE): void
+    {
+        if ($lockMode === null) {
+            Deprecation::trigger(
+                'doctrine/orm',
+                'https://github.com/doctrine/orm/pull/12548',
+                'Passing null as lock mode to %s() is deprecated and will not be possible in Doctrine ORM 4.0, pass LockMode::NONE instead.',
+                __METHOD__,
+            );
+
+            $lockMode = LockMode::NONE;
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->errorIfClosed();
 
         $this->unitOfWork->refresh($object, $lockMode);
@@ -479,9 +591,15 @@ class EntityManager implements EntityManagerInterface
     /**
      * Gets the repository for an entity class.
      *
+<<<<<<< HEAD
      * @psalm-param class-string<T> $className
      *
      * @psalm-return EntityRepository<T>
+=======
+     * @param class-string<T> $className The name of the entity.
+     *
+     * @return EntityRepository<T> The repository class.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @template T of object
      */
@@ -502,7 +620,11 @@ class EntityManager implements EntityManagerInterface
             && ! $this->unitOfWork->isScheduledForDelete($object);
     }
 
+<<<<<<< HEAD
     public function getEventManager(): EventManager
+=======
+    public function getEventManager(): EventManagerInterface
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return $this->eventManager;
     }
@@ -560,9 +682,15 @@ class EntityManager implements EntityManagerInterface
     /**
      * {@inheritDoc}
      */
+<<<<<<< HEAD
     public function isUninitializedObject($obj): bool
     {
         return $this->unitOfWork->isUninitializedObject($obj);
+=======
+    public function isUninitializedObject($value): bool
+    {
+        return $this->unitOfWork->isUninitializedObject($value);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getFilters(): FilterCollection
@@ -581,7 +709,11 @@ class EntityManager implements EntityManagerInterface
     }
 
     /**
+<<<<<<< HEAD
      * @psalm-param LockMode::* $lockMode
+=======
+     * @phpstan-param LockMode::* $lockMode
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws OptimisticLockException
      * @throws TransactionRequiredException

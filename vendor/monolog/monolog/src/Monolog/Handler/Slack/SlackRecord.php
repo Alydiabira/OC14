@@ -206,7 +206,11 @@ class SlackRecord
      */
     public function stringify(array $fields): string
     {
+<<<<<<< HEAD
         /** @var array<mixed> $normalized */
+=======
+        /** @var array<array<mixed>|bool|float|int|string|null> $normalized */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $normalized = $this->normalizerFormatter->normalizeValue($fields);
 
         $hasSecondDimension = \count(array_filter($normalized, 'is_array')) > 0;
@@ -220,7 +224,11 @@ class SlackRecord
     /**
      * Channel used by the bot when posting
      *
+<<<<<<< HEAD
      * @param ?string $channel
+=======
+     * @param  ?string $channel
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return $this
      */
     public function setChannel(?string $channel = null): self
@@ -233,7 +241,11 @@ class SlackRecord
     /**
      * Username used by the bot when posting
      *
+<<<<<<< HEAD
      * @param ?string $username
+=======
+     * @param  ?string $username
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return $this
      */
     public function setUsername(?string $username = null): self
@@ -292,7 +304,11 @@ class SlackRecord
     }
 
     /**
+<<<<<<< HEAD
      * @param string[] $excludeFields
+=======
+     * @param  string[] $excludeFields
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return $this
      */
     public function excludeFields(array $excludeFields = []): self
@@ -321,7 +337,11 @@ class SlackRecord
      */
     private function generateAttachmentField(string $title, $value): array
     {
+<<<<<<< HEAD
         $value = is_array($value)
+=======
+        $value = \is_array($value)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ? sprintf('```%s```', substr($this->stringify($value), 0, 1990))
             : $value;
 
@@ -341,7 +361,11 @@ class SlackRecord
      */
     private function generateAttachmentFields(array $data): array
     {
+<<<<<<< HEAD
         /** @var array<mixed> $normalized */
+=======
+        /** @var array<array<mixed>|string> $normalized */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $normalized = $this->normalizerFormatter->normalizeValue($data);
 
         $fields = [];

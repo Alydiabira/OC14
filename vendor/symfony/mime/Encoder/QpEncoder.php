@@ -183,9 +183,15 @@ class QpEncoder implements EncoderInterface
     {
         $string = str_replace(["\t=0D=0A", ' =0D=0A', '=0D=0A'], ["=09\r\n", "=20\r\n", "\r\n"], $string);
 
+<<<<<<< HEAD
         return match ($end = \ord(substr($string, -1))) {
             0x09,
             0x20 => substr_replace($string, self::QP_MAP[$end], -1),
+=======
+        return match ($end = ($string[-1] ?? '')) {
+            "\x09",
+            "\x20" => substr_replace($string, self::QP_MAP[\ord($end)], -1),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             default => $string,
         };
     }

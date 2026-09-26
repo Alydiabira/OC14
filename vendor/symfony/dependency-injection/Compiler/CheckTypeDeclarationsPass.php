@@ -79,7 +79,11 @@ final class CheckTypeDeclarationsPass extends AbstractRecursivePass
 
     protected function processValue(mixed $value, bool $isRoot = false): mixed
     {
+<<<<<<< HEAD
         if (isset($this->skippedIds[$this->currentId])) {
+=======
+        if (isset($this->skippedIds[$this->currentId ?? ''])) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return $value;
         }
 
@@ -129,7 +133,11 @@ final class CheckTypeDeclarationsPass extends AbstractRecursivePass
         $numberOfRequiredParameters = $reflectionFunction->getNumberOfRequiredParameters();
 
         if (\count($values) < $numberOfRequiredParameters) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Invalid definition for service "%s": "%s::%s()" requires %d arguments, %d passed.', $this->currentId, $reflectionFunction->class, $reflectionFunction->name, $numberOfRequiredParameters, \count($values)));
+=======
+            throw new InvalidArgumentException(\sprintf('Invalid definition for service "%s": "%s::%s()" requires %d arguments, %d passed.', $this->currentId, $reflectionFunction->class, $reflectionFunction->name, $numberOfRequiredParameters, \count($values)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $reflectionParameters = $reflectionFunction->getParameters();
@@ -142,13 +150,23 @@ final class CheckTypeDeclarationsPass extends AbstractRecursivePass
             if (!$p->hasType() || $p->isVariadic()) {
                 continue;
             }
+<<<<<<< HEAD
             if (\array_key_exists($p->name, $values)) {
                 $i = $p->name;
+=======
+            $key = $i;
+            if (\array_key_exists($p->name, $values)) {
+                $key = $p->name;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } elseif (!\array_key_exists($i, $values)) {
                 continue;
             }
 
+<<<<<<< HEAD
             $this->checkType($checkedDefinition, $values[$i], $p, $envPlaceholderUniquePrefix);
+=======
+            $this->checkType($checkedDefinition, $values[$key], $p, $envPlaceholderUniquePrefix);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($reflectionFunction->isVariadic() && ($lastParameter = end($reflectionParameters))->hasType()) {
@@ -318,7 +336,11 @@ final class CheckTypeDeclarationsPass extends AbstractRecursivePass
                 return;
             }
         } elseif ($reflectionType->isBuiltin()) {
+<<<<<<< HEAD
             $checkFunction = sprintf('is_%s', $type);
+=======
+            $checkFunction = \sprintf('is_%s', $type);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if ($checkFunction($value)) {
                 return;
             }

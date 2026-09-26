@@ -180,7 +180,11 @@ class File extends Constraint
             $this->maxSize = $matches[1] * $factors[$unit = strtolower($matches[2])];
             $this->binaryFormat ??= 2 === \strlen($unit);
         } else {
+<<<<<<< HEAD
             throw new ConstraintDefinitionException(sprintf('"%s" is not a valid maximum size.', $maxSize));
+=======
+            throw new ConstraintDefinitionException(\sprintf('"%s" is not a valid maximum size.', $maxSize));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

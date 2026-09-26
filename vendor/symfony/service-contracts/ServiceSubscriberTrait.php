@@ -37,7 +37,11 @@ trait ServiceSubscriberTrait
         $services = method_exists(get_parent_class(self::class) ?: '', __FUNCTION__) ? parent::getSubscribedServices() : [];
 
         foreach ((new \ReflectionClass(self::class))->getMethods() as $method) {
+<<<<<<< HEAD
             if (self::class !== $method->getDeclaringClass()->name) {
+=======
+            if (self::class !== $method->class) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 continue;
             }
 
@@ -46,6 +50,7 @@ trait ServiceSubscriberTrait
             }
 
             if ($method->isStatic() || $method->isAbstract() || $method->isGenerator() || $method->isInternal() || $method->getNumberOfRequiredParameters()) {
+<<<<<<< HEAD
                 throw new \LogicException(sprintf('Cannot use "%s" on method "%s::%s()" (can only be used on non-static, non-abstract methods with no parameters).', SubscribedService::class, self::class, $method->name));
             }
 
@@ -58,6 +63,20 @@ trait ServiceSubscriberTrait
             $attribute->key ??= self::class.'::'.$method->name;
             $attribute->type ??= $returnType instanceof \ReflectionNamedType ? $returnType->getName() : (string) $returnType;
             $attribute->nullable = $returnType->allowsNull();
+=======
+                throw new \LogicException(\sprintf('Cannot use "%s" on method "%s::%s()" (can only be used on non-static, non-abstract methods with no parameters).', SubscribedService::class, self::class, $method->name));
+            }
+
+            if (!$returnType = $method->getReturnType()) {
+                throw new \LogicException(\sprintf('Cannot use "%s" on methods without a return type in "%s::%s()".', SubscribedService::class, $method->name, self::class));
+            }
+
+            /** @var SubscribedService $attribute */
+            $attribute = $attribute->newInstance();
+            $attribute->key ??= self::class.'::'.$method->name;
+            $attribute->type ??= $returnType instanceof \ReflectionNamedType ? $returnType->getName() : (string) $returnType;
+            $attribute->nullable = $attribute->nullable ?: $returnType->allowsNull();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             if ($attribute->attributes) {
                 $services[] = $attribute;

@@ -13,16 +13,30 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\QuoteStrategy;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\Query;
+<<<<<<< HEAD
+=======
+use Doctrine\ORM\Query\AST;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\Query\AST\OrderByClause;
 use Doctrine\ORM\Query\AST\PathExpression;
 use Doctrine\ORM\Query\AST\SelectExpression;
 use Doctrine\ORM\Query\AST\SelectStatement;
 use Doctrine\ORM\Query\AST\Subselect;
+<<<<<<< HEAD
+=======
+use Doctrine\ORM\Query\Exec\SingleSelectSqlFinalizer;
+use Doctrine\ORM\Query\Exec\SqlFinalizer;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\Query\Parser;
 use Doctrine\ORM\Query\ParserResult;
 use Doctrine\ORM\Query\QueryException;
 use Doctrine\ORM\Query\ResultSetMapping;
+<<<<<<< HEAD
 use Doctrine\ORM\Query\SqlWalker;
+=======
+use Doctrine\ORM\Query\SqlOutputWalker;
+use LogicException;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use RuntimeException;
 
 use function array_diff;
@@ -48,9 +62,15 @@ use function substr;
  * Works with composite keys but cannot deal with queries that have multiple
  * root entities (e.g. `SELECT f, b from Foo, Bar`)
  *
+<<<<<<< HEAD
  * @psalm-import-type QueryComponent from Parser
  */
 class LimitSubqueryOutputWalker extends SqlWalker
+=======
+ * @phpstan-import-type QueryComponent from Parser
+ */
+class LimitSubqueryOutputWalker extends SqlOutputWalker
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 {
     private const ORDER_BY_PATH_EXPRESSION = '/(?<![a-z0-9_])%s\.%s(?![a-z0-9_])/i';
 
@@ -85,6 +105,7 @@ class LimitSubqueryOutputWalker extends SqlWalker
         $this->platform = $query->getEntityManager()->getConnection()->getDatabasePlatform();
         $this->rsm      = $parserResult->getResultSetMapping();
 
+<<<<<<< HEAD
         // Reset limit and offset
         $this->firstResult = $query->getFirstResult();
         $this->maxResults  = $query->getMaxResults();
@@ -94,6 +115,26 @@ class LimitSubqueryOutputWalker extends SqlWalker
         $this->quoteStrategy = $this->em->getConfiguration()->getQuoteStrategy();
 
         parent::__construct($query, $parserResult, $queryComponents);
+=======
+        $cloneQuery = clone $query;
+
+        $cloneQuery->setParameters(clone $query->getParameters());
+        $cloneQuery->setCacheable(false);
+
+        foreach ($query->getHints() as $name => $value) {
+            $cloneQuery->setHint($name, $value);
+        }
+
+        // Reset limit and offset
+        $this->firstResult = $cloneQuery->getFirstResult();
+        $this->maxResults  = $cloneQuery->getMaxResults();
+        $cloneQuery->setFirstResult(0)->setMaxResults(null);
+
+        $this->em            = $cloneQuery->getEntityManager();
+        $this->quoteStrategy = $this->em->getConfiguration()->getQuoteStrategy();
+
+        parent::__construct($cloneQuery, $parserResult, $queryComponents);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -119,7 +160,13 @@ class LimitSubqueryOutputWalker extends SqlWalker
         $selectAliasToExpressionMap = [];
         // Get any aliases that are available for select expressions.
         foreach ($AST->selectClause->selectExpressions as $selectExpression) {
+<<<<<<< HEAD
             $selectAliasToExpressionMap[$selectExpression->fieldIdentificationVariable] = $selectExpression->expression;
+=======
+            if ($selectExpression->fieldIdentificationVariable !== null) {
+                $selectAliasToExpressionMap[$selectExpression->fieldIdentificationVariable] = $selectExpression->expression;
+            }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         // Rebuild string orderby expressions to use the select expression they're referencing
@@ -139,11 +186,36 @@ class LimitSubqueryOutputWalker extends SqlWalker
 
     public function walkSelectStatement(SelectStatement $selectStatement): string
     {
+<<<<<<< HEAD
         if ($this->platformSupportsRowNumber()) {
             return $this->walkSelectStatementWithRowNumber($selectStatement);
         }
 
         return $this->walkSelectStatementWithoutRowNumber($selectStatement);
+=======
+        $sqlFinalizer = $this->getFinalizer($selectStatement);
+
+        $query = $this->getQuery();
+
+        $abstractSqlExecutor = $sqlFinalizer->createExecutor($query);
+
+        return $abstractSqlExecutor->getSqlStatements();
+    }
+
+    public function getFinalizer(AST\DeleteStatement|AST\UpdateStatement|AST\SelectStatement $AST): SqlFinalizer
+    {
+        if (! $AST instanceof SelectStatement) {
+            throw new LogicException(self::class . ' is to be used on SelectStatements only');
+        }
+
+        if ($this->platformSupportsRowNumber()) {
+            $sql = $this->createSqlWithRowNumber($AST);
+        } else {
+            $sql = $this->createSqlWithoutRowNumber($AST);
+        }
+
+        return new SingleSelectSqlFinalizer($sql);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -154,6 +226,19 @@ class LimitSubqueryOutputWalker extends SqlWalker
      */
     public function walkSelectStatementWithRowNumber(SelectStatement $AST): string
     {
+<<<<<<< HEAD
+=======
+        // Apply the limit and offset.
+        return $this->platform->modifyLimitQuery(
+            $this->createSqlWithRowNumber($AST),
+            $this->maxResults,
+            $this->firstResult,
+        );
+    }
+
+    private function createSqlWithRowNumber(SelectStatement $AST): string
+    {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $hasOrderBy   = false;
         $outerOrderBy = ' ORDER BY dctrn_minrownum ASC';
         $orderGroupBy = '';
@@ -182,6 +267,7 @@ class LimitSubqueryOutputWalker extends SqlWalker
             $sql .= $orderGroupBy . $outerOrderBy;
         }
 
+<<<<<<< HEAD
         // Apply the limit and offset.
         $sql = $this->platform->modifyLimitQuery(
             $sql,
@@ -189,6 +275,8 @@ class LimitSubqueryOutputWalker extends SqlWalker
             $this->firstResult,
         );
 
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         // Add the columns to the ResultSetMapping. It's not really nice but
         // it works. Preferably I'd clear the RSM or simply create a new one
         // but that is not possible from inside the output walker, so we dirty
@@ -208,6 +296,19 @@ class LimitSubqueryOutputWalker extends SqlWalker
      */
     public function walkSelectStatementWithoutRowNumber(SelectStatement $AST, bool $addMissingItemsFromOrderByToSelect = true): string
     {
+<<<<<<< HEAD
+=======
+        // Apply the limit and offset.
+        return $this->platform->modifyLimitQuery(
+            $this->createSqlWithoutRowNumber($AST, $addMissingItemsFromOrderByToSelect),
+            $this->maxResults,
+            $this->firstResult,
+        );
+    }
+
+    private function createSqlWithoutRowNumber(SelectStatement $AST, bool $addMissingItemsFromOrderByToSelect = true): string
+    {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         // We don't want to call this recursively!
         if ($AST->orderByClause instanceof OrderByClause && $addMissingItemsFromOrderByToSelect) {
             // In the case of ordering a query by columns from joined tables, we
@@ -235,6 +336,7 @@ class LimitSubqueryOutputWalker extends SqlWalker
         // https://github.com/doctrine/orm/issues/2630
         $sql = $this->preserveSqlOrdering($sqlIdentifier, $innerSql, $sql, $orderByClause);
 
+<<<<<<< HEAD
         // Apply the limit and offset.
         $sql = $this->platform->modifyLimitQuery(
             $sql,
@@ -242,6 +344,8 @@ class LimitSubqueryOutputWalker extends SqlWalker
             $this->firstResult,
         );
 
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         // Add the columns to the ResultSetMapping. It's not really nice but
         // it works. Preferably I'd clear the RSM or simply create a new one
         // but that is not possible from inside the output walker, so we dirty
@@ -377,7 +481,11 @@ class LimitSubqueryOutputWalker extends SqlWalker
 
     /**
      * @return string[][]
+<<<<<<< HEAD
      * @psalm-return array{0: list<non-empty-string>, 1: list<string>}
+=======
+     * @phpstan-return array{0: list<non-empty-string>, 1: list<string>}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private function generateSqlAliasReplacements(): array
     {
@@ -509,7 +617,11 @@ class LimitSubqueryOutputWalker extends SqlWalker
         }
 
         if (count($sqlIdentifier) === 0) {
+<<<<<<< HEAD
             throw new RuntimeException('The Paginator does not support Queries which only yield ScalarResults.');
+=======
+            throw new RuntimeException('Paginators do not support Queries which only yield ScalarResults.');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (count($rootIdentifier) !== count($sqlIdentifier)) {

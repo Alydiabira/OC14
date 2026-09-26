@@ -12,7 +12,12 @@ namespace Gedmo\Translatable\Mapping\Event\Adapter;
 use Doctrine\Common\Proxy\Proxy;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Types\Types;
+<<<<<<< HEAD
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
+=======
+use Doctrine\ORM\Mapping\ClassMetadata as EntityClassMetadata;
+use Doctrine\ORM\Mapping\ClassMetadataInfo as LegacyEntityClassMetadata;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Gedmo\Exception\RuntimeException;
 use Gedmo\Mapping\Event\Adapter\ORM as BaseAdapterORM;
 use Gedmo\Tool\Wrapper\AbstractWrapper;
@@ -52,11 +57,19 @@ final class ORM extends BaseAdapterORM implements TranslatableAdapter
             // first try to load it using collection
             $found = false;
             $metadata = $wrapped->getMetadata();
+<<<<<<< HEAD
             assert($metadata instanceof ClassMetadataInfo);
             foreach ($metadata->getAssociationMappings() as $assoc) {
                 $isRightCollection = $assoc['targetEntity'] === $translationClass
                     && 'object' === $assoc['mappedBy']
                     && ClassMetadataInfo::ONE_TO_MANY === $assoc['type']
+=======
+            assert($metadata instanceof EntityClassMetadata || $metadata instanceof LegacyEntityClassMetadata);
+            foreach ($metadata->getAssociationMappings() as $assoc) {
+                $isRightCollection = $assoc['targetEntity'] === $translationClass
+                    && 'object' === $assoc['mappedBy']
+                    && EntityClassMetadata::ONE_TO_MANY === $assoc['type']
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ;
                 if ($isRightCollection) {
                     $collection = $wrapped->getPropertyValue($assoc['fieldName']);
@@ -210,12 +223,20 @@ final class ORM extends BaseAdapterORM implements TranslatableAdapter
         $em = $this->getObjectManager();
         $wrapped = AbstractWrapper::wrap($object, $em);
         $meta = $wrapped->getMetadata();
+<<<<<<< HEAD
         $type = Type::getType($meta->getTypeOfField($field));
+=======
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (false === $value) {
             $value = $wrapped->getPropertyValue($field);
         }
 
+<<<<<<< HEAD
         return $type->convertToDatabaseValue($value, $em->getConnection()->getDatabasePlatform());
+=======
+        return $em->getConnection()->convertToDatabaseValue($value, $meta->getTypeOfField($field));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function setTranslationValue($object, $field, $value)
@@ -223,13 +244,21 @@ final class ORM extends BaseAdapterORM implements TranslatableAdapter
         $em = $this->getObjectManager();
         $wrapped = AbstractWrapper::wrap($object, $em);
         $meta = $wrapped->getMetadata();
+<<<<<<< HEAD
         $type = Type::getType($meta->getTypeOfField($field));
         $value = $type->convertToPHPValue($value, $em->getConnection()->getDatabasePlatform());
+=======
+        $value = $em->getConnection()->convertToPHPValue($value, $meta->getTypeOfField($field));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $wrapped->setPropertyValue($field, $value);
     }
 
     /**
+<<<<<<< HEAD
      * Transforms foreing key of translation to appropriate PHP value
+=======
+     * Transforms foreign key of translation to appropriate PHP value
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * to prevent database level cast
      *
      * @param mixed  $key       foreign key value
@@ -244,7 +273,12 @@ final class ORM extends BaseAdapterORM implements TranslatableAdapter
         $em = $this->getObjectManager();
         $meta = $em->getClassMetadata($className);
         $type = Type::getType($meta->getTypeOfField('foreignKey'));
+<<<<<<< HEAD
         switch ($type->getName()) {
+=======
+
+        switch (Type::lookupName($type)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             case Types::BIGINT:
             case Types::INTEGER:
             case Types::SMALLINT:

@@ -37,7 +37,11 @@ class PropertyMetadata extends MemberMetadata
     public function __construct(string $class, string $name)
     {
         if (!property_exists($class, $name)) {
+<<<<<<< HEAD
             throw new ValidatorException(sprintf('Property "%s" does not exist in class "%s".', $name, $class));
+=======
+            throw new ValidatorException(\sprintf('Property "%s" does not exist in class "%s".', $name, $class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         parent::__construct($class, $name, $name);
@@ -51,9 +55,15 @@ class PropertyMetadata extends MemberMetadata
             // There is no way to check if a property has been unset or if it is uninitialized.
             // When trying to access an uninitialized property, __get method is triggered.
 
+<<<<<<< HEAD
             // If __get method is not present, no fallback is possible
             // Otherwise we need to catch an Error in case we are trying to access an uninitialized but set property.
             if (!method_exists($object, '__get')) {
+=======
+            // If there is neither __get method nor get hook, no fallback is possible
+            // Otherwise we need to catch an Error in case we are trying to access an uninitialized but set property.
+            if (!method_exists($object, '__get') && (\PHP_VERSION_ID < 80400 || !$reflProperty->hasHook(\PropertyHookType::Get))) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 return null;
             }
 
@@ -75,7 +85,11 @@ class PropertyMetadata extends MemberMetadata
             $objectOrClassName = get_parent_class($objectOrClassName);
 
             if (false === $objectOrClassName) {
+<<<<<<< HEAD
                 throw new ValidatorException(sprintf('Property "%s" does not exist in class "%s".', $this->getName(), $originalClass));
+=======
+                throw new ValidatorException(\sprintf('Property "%s" does not exist in class "%s".', $this->getName(), $originalClass));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 

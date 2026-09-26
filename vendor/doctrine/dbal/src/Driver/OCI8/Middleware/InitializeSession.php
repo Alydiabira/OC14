@@ -26,7 +26,10 @@ class InitializeSession implements Middleware
                     'ALTER SESSION SET'
                         . " NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS'"
                         . " NLS_TIME_FORMAT = 'HH24:MI:SS'"
+<<<<<<< HEAD
                         . " NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS'"
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         . " NLS_TIMESTAMP_FORMAT = 'YYYY-MM-DD HH24:MI:SS'"
                         . " NLS_TIMESTAMP_TZ_FORMAT = 'YYYY-MM-DD HH24:MI:SS TZH:TZM'"
                         . " NLS_NUMERIC_CHARACTERS = '.,'",

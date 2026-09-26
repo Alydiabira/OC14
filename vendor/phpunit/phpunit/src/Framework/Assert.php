@@ -1389,13 +1389,22 @@ abstract class Assert
      * Used on objects, it asserts that two variables reference
      * the same object.
      *
+<<<<<<< HEAD
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      * @throws ExpectationFailedException
      *
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @psalm-template ExpectedType
      *
      * @psalm-param ExpectedType $expected
      *
+<<<<<<< HEAD
+=======
+     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws ExpectationFailedException
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @psalm-assert =ExpectedType $actual
      */
     public static function assertSame($expected, $actual, string $message = ''): void
@@ -1433,14 +1442,24 @@ abstract class Assert
     /**
      * Asserts that a variable is of a given type.
      *
+<<<<<<< HEAD
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      * @throws Exception
      * @throws ExpectationFailedException
      *
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @psalm-template ExpectedType of object
      *
      * @psalm-param class-string<ExpectedType> $expected
      *
+<<<<<<< HEAD
+=======
+     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws Exception
+     * @throws ExpectationFailedException
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @psalm-assert =ExpectedType $actual
      */
     public static function assertInstanceOf(string $expected, $actual, string $message = ''): void
@@ -1459,14 +1478,24 @@ abstract class Assert
     /**
      * Asserts that a variable is not of a given type.
      *
+<<<<<<< HEAD
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      * @throws Exception
      * @throws ExpectationFailedException
      *
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @psalm-template ExpectedType of object
      *
      * @psalm-param class-string<ExpectedType> $expected
      *
+<<<<<<< HEAD
+=======
+     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws Exception
+     * @throws ExpectationFailedException
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @psalm-assert !ExpectedType $actual
      */
     public static function assertNotInstanceOf(string $expected, $actual, string $message = ''): void

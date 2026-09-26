@@ -55,7 +55,11 @@ class TimezoneTransformer extends Transformer
             return $dateTime->format('\G\M\TP');
         }
 
+<<<<<<< HEAD
         return sprintf('GMT%s%d', $offset >= 0 ? '+' : '', $offset / 100);
+=======
+        return \sprintf('GMT%s%d', $offset >= 0 ? '+' : '', $offset / 100);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getReverseMatchingRegExp(int $length): string
@@ -97,12 +101,20 @@ class TimezoneTransformer extends Transformer
             $signal = '-' === $matches['signal'] ? '+' : '-';
 
             if (0 < $minutes) {
+<<<<<<< HEAD
                 throw new NotImplementedException(sprintf('It is not possible to use a GMT time zone with minutes offset different than zero (0). GMT time zone tried: "%s".', $formattedTimeZone));
+=======
+                throw new NotImplementedException(\sprintf('It is not possible to use a GMT time zone with minutes offset different than zero (0). GMT time zone tried: "%s".', $formattedTimeZone));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return 'Etc/GMT'.(0 !== $hours ? $signal.$hours : '');
         }
 
+<<<<<<< HEAD
         throw new \InvalidArgumentException(sprintf('The GMT time zone "%s" does not match with the supported formats GMT[+-]HH:MM or GMT[+-]HHMM.', $formattedTimeZone));
+=======
+        throw new \InvalidArgumentException(\sprintf('The GMT time zone "%s" does not match with the supported formats GMT[+-]HH:MM or GMT[+-]HHMM.', $formattedTimeZone));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

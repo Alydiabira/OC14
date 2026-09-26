@@ -24,7 +24,11 @@ final class BlackfireDumper
         $this->dumpProfile('main()', $profile, $data);
         $this->dumpChildren('main()', $profile, $data);
 
+<<<<<<< HEAD
         $start = sprintf('%f', microtime(true));
+=======
+        $start = \sprintf('%f', microtime(true));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $str = <<<EOF
 file-format: BlackfireProbe
 cost-dimensions: wt mu pmu
@@ -40,20 +44,34 @@ EOF;
         return $str;
     }
 
+<<<<<<< HEAD
     private function dumpChildren(string $parent, Profile $profile, &$data)
+=======
+    private function dumpChildren(string $parent, Profile $profile, &$data): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         foreach ($profile as $p) {
             if ($p->isTemplate()) {
                 $name = $p->getTemplate();
             } else {
+<<<<<<< HEAD
                 $name = sprintf('%s::%s(%s)', $p->getTemplate(), $p->getType(), $p->getName());
             }
             $this->dumpProfile(sprintf('%s==>%s', $parent, $name), $p, $data);
+=======
+                $name = \sprintf('%s::%s(%s)', $p->getTemplate(), $p->getType(), $p->getName());
+            }
+            $this->dumpProfile(\sprintf('%s==>%s', $parent, $name), $p, $data);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->dumpChildren($name, $p, $data);
         }
     }
 
+<<<<<<< HEAD
     private function dumpProfile(string $edge, Profile $profile, &$data)
+=======
+    private function dumpProfile(string $edge, Profile $profile, &$data): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if (isset($data[$edge])) {
             ++$data[$edge]['ct'];

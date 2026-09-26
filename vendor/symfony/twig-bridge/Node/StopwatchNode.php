@@ -11,9 +11,17 @@
 
 namespace Symfony\Bridge\Twig\Node;
 
+<<<<<<< HEAD
 use Twig\Attribute\YieldReady;
 use Twig\Compiler;
 use Twig\Node\Expression\AssignNameExpression;
+=======
+use Twig\Attribute\FirstClassTwigCallableReady;
+use Twig\Attribute\YieldReady;
+use Twig\Compiler;
+use Twig\Node\Expression\AssignNameExpression;
+use Twig\Node\Expression\Variable\LocalVariable;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Twig\Node\Node;
 
 /**
@@ -24,9 +32,26 @@ use Twig\Node\Node;
 #[YieldReady]
 final class StopwatchNode extends Node
 {
+<<<<<<< HEAD
     public function __construct(Node $name, Node $body, AssignNameExpression $var, int $lineno = 0, ?string $tag = null)
     {
         parent::__construct(['body' => $body, 'name' => $name, 'var' => $var], [], $lineno, $tag);
+=======
+    /**
+     * @param AssignNameExpression|LocalVariable $var
+     */
+    public function __construct(Node $name, Node $body, $var, int $lineno = 0, ?string $tag = null)
+    {
+        if (!$var instanceof AssignNameExpression && !$var instanceof LocalVariable) {
+            throw new \TypeError(\sprintf('Expected an instance of "%s" or "%s", but got "%s".', AssignNameExpression::class, LocalVariable::class, get_debug_type($var)));
+        }
+
+        if (class_exists(FirstClassTwigCallableReady::class)) {
+            parent::__construct(['body' => $body, 'name' => $name, 'var' => $var], [], $lineno);
+        } else {
+            parent::__construct(['body' => $body, 'name' => $name, 'var' => $var], [], $lineno, $tag);
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function compile(Compiler $compiler): void

@@ -72,7 +72,11 @@ class ClockMock
             return self::$now;
         }
 
+<<<<<<< HEAD
         return sprintf('%0.6f00 %d', self::$now - (int) self::$now, (int) self::$now);
+=======
+        return \sprintf('%0.6f00 %d', self::$now - (int) self::$now, (int) self::$now);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public static function date($format, $timestamp = null): string
@@ -98,10 +102,21 @@ class ClockMock
      */
     public static function hrtime($asNumber = false)
     {
+<<<<<<< HEAD
         $ns = (self::$now - (int) self::$now) * 1000000000;
 
         if ($asNumber) {
             $number = sprintf('%d%d', (int) self::$now, $ns);
+=======
+        if (null === self::$now) {
+            return \hrtime($asNumber);
+        }
+
+        $ns = (self::$now - (int) self::$now) * 1000000000;
+
+        if ($asNumber) {
+            $number = \sprintf('%d%09d', (int) self::$now, $ns);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             return \PHP_INT_SIZE === 8 ? (int) $number : (float) $number;
         }
@@ -109,6 +124,21 @@ class ClockMock
         return [(int) self::$now, (int) $ns];
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return false|int
+     */
+    public static function strtotime(string $datetime, ?int $timestamp = null)
+    {
+        if (null === $timestamp) {
+            $timestamp = self::time();
+        }
+
+        return \strtotime($datetime, $timestamp);
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public static function register($class): void
     {
         $self = static::class;
@@ -117,7 +147,11 @@ class ClockMock
         if (0 < strpos($class, '\\Tests\\')) {
             $ns = str_replace('\\Tests\\', '\\', $class);
             $mockedNs[] = substr($ns, 0, strrpos($ns, '\\'));
+<<<<<<< HEAD
         } elseif (0 === strpos($class, 'Tests\\')) {
+=======
+        } elseif (str_starts_with($class, 'Tests\\')) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $mockedNs[] = substr($class, 6, strrpos($class, '\\') - 6);
         }
         foreach ($mockedNs as $ns) {
@@ -161,6 +195,14 @@ function hrtime(\$asNumber = false)
 {
     return \\$self::hrtime(\$asNumber);
 }
+<<<<<<< HEAD
+=======
+
+function strtotime(\$datetime, \$timestamp = null)
+{
+    return \\$self::strtotime(\$datetime, \$timestamp);
+}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 EOPHP
             );
         }

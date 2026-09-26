@@ -45,7 +45,11 @@ class OidcUser implements UserInterface
         private ?\DateTimeInterface $updatedAt = null,
 
         // Additional Claims (https://openid.net/specs/openid-connect-core-1_0.html#AdditionalClaims)
+<<<<<<< HEAD
         ...$additionalClaims
+=======
+        ...$additionalClaims,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ) {
         if (null === $sub || '' === $sub) {
             throw new \InvalidArgumentException('The "sub" claim cannot be empty.');

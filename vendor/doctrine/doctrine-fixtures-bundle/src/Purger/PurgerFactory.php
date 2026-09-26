@@ -9,7 +9,11 @@ use Doctrine\ORM\EntityManagerInterface;
 
 interface PurgerFactory
 {
+<<<<<<< HEAD
     /** @psalm-param list<string> $excluded */
+=======
+    /** @phpstan-param list<string> $excluded */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function createForEntityManager(
         ?string $emName,
         EntityManagerInterface $em,

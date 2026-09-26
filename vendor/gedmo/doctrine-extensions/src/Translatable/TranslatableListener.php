@@ -12,7 +12,13 @@ namespace Gedmo\Translatable;
 use Doctrine\Common\EventArgs;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\ORMInvalidArgumentException;
+<<<<<<< HEAD
 use Doctrine\Persistence\Event\LoadClassMetadataEventArgs;
+=======
+use Doctrine\Persistence\Event\LifecycleEventArgs;
+use Doctrine\Persistence\Event\LoadClassMetadataEventArgs;
+use Doctrine\Persistence\Event\ManagerEventArgs;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\ObjectManager;
 use Gedmo\Exception\InvalidArgumentException;
@@ -43,9 +49,13 @@ use Gedmo\Translatable\Mapping\Event\TranslatableAdapter;
  *   useObjectClass?: class-string,
  * }
  *
+<<<<<<< HEAD
  * @phpstan-method TranslatableConfiguration getConfiguration(ObjectManager $objectManager, $class)
  *
  * @method TranslatableAdapter getEventAdapter(EventArgs $args)
+=======
+ * @phpstan-extends MappedEventSubscriber<TranslatableConfiguration, TranslatableAdapter>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @final since gedmo/doctrine-extensions 3.11
  */
@@ -329,9 +339,15 @@ class TranslatableListener extends MappedEventSubscriber
      * Gets the locale to use for translation. Loads object
      * defined locale first.
      *
+<<<<<<< HEAD
      * @param object        $object
      * @param ClassMetadata $meta
      * @param object        $om
+=======
+     * @param object                $object
+     * @param ClassMetadata<object> $meta
+     * @param object                $om
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws RuntimeException if language or locale property is not found in entity
      *
@@ -347,7 +363,15 @@ class TranslatableListener extends MappedEventSubscriber
                 throw new RuntimeException("There is no locale or language property ({$configurationLocale}) found on object: {$meta->getName()}");
             }
             $reflectionProperty = $class->getProperty($configurationLocale);
+<<<<<<< HEAD
             $reflectionProperty->setAccessible(true);
+=======
+
+            if (PHP_VERSION_ID < 80100) {
+                $reflectionProperty->setAccessible(true);
+            }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $value = $reflectionProperty->getValue($object);
             if (is_object($value) && method_exists($value, '__toString')) {
                 $value = $value->__toString();
@@ -372,6 +396,13 @@ class TranslatableListener extends MappedEventSubscriber
      * This has to be done in the preFlush because, when an entity has been loaded
      * in a different locale, no changes will be detected.
      *
+<<<<<<< HEAD
+=======
+     * @param ManagerEventArgs $args
+     *
+     * @phpstan-param ManagerEventArgs<ObjectManager> $args
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function preFlush(EventArgs $args)
@@ -409,6 +440,13 @@ class TranslatableListener extends MappedEventSubscriber
      * Looks for translatable objects being inserted or updated
      * for further processing
      *
+<<<<<<< HEAD
+=======
+     * @param ManagerEventArgs $args
+     *
+     * @phpstan-param ManagerEventArgs<ObjectManager> $args
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function onFlush(EventArgs $args)
@@ -449,6 +487,13 @@ class TranslatableListener extends MappedEventSubscriber
      * Checks for inserted object to update their translation
      * foreign keys
      *
+<<<<<<< HEAD
+=======
+     * @param LifecycleEventArgs $args
+     *
+     * @phpstan-param LifecycleEventArgs<ObjectManager> $args
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function postPersist(EventArgs $args)
@@ -482,6 +527,13 @@ class TranslatableListener extends MappedEventSubscriber
      * After object is loaded, listener updates the translations
      * by currently used locale
      *
+<<<<<<< HEAD
+=======
+     * @param ManagerEventArgs $args
+     *
+     * @phpstan-param ManagerEventArgs<ObjectManager> $args
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function postLoad(EventArgs $args)
@@ -535,7 +587,11 @@ class TranslatableListener extends MappedEventSubscriber
                         $om->getUnitOfWork(),
                         $object,
                         $field,
+<<<<<<< HEAD
                         $meta->getReflectionProperty($field)->getValue($object)
+=======
+                        $meta->getFieldValue($object, $field)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     );
                 }
             }

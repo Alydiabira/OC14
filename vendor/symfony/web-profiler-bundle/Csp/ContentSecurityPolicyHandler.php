@@ -124,10 +124,17 @@ class ContentSecurityPolicyHandler
         $headers = $this->getCspHeaders($response);
 
         $types = [
+<<<<<<< HEAD
           'script-src' => 'csp_script_nonce',
           'script-src-elem' => 'csp_script_nonce',
           'style-src' => 'csp_style_nonce',
           'style-src-elem' => 'csp_style_nonce',
+=======
+            'script-src' => 'csp_script_nonce',
+            'script-src-elem' => 'csp_script_nonce',
+            'style-src' => 'csp_style_nonce',
+            'style-src-elem' => 'csp_style_nonce',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ];
 
         foreach ($headers as $header => $directives) {
@@ -152,7 +159,11 @@ class ContentSecurityPolicyHandler
                 if (!\in_array('\'unsafe-inline\'', $headers[$header][$type], true)) {
                     $headers[$header][$type][] = '\'unsafe-inline\'';
                 }
+<<<<<<< HEAD
                 $headers[$header][$type][] = sprintf('\'nonce-%s\'', $nonces[$tokenName]);
+=======
+                $headers[$header][$type][] = \sprintf('\'nonce-%s\'', $nonces[$tokenName]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -180,7 +191,11 @@ class ContentSecurityPolicyHandler
      */
     private function generateCspHeader(array $directives): string
     {
+<<<<<<< HEAD
         return array_reduce(array_keys($directives), fn ($res, $name) => ('' !== $res ? $res.'; ' : '').sprintf('%s %s', $name, implode(' ', $directives[$name])), '');
+=======
+        return array_reduce(array_keys($directives), static fn ($res, $name) => ('' !== $res ? $res.'; ' : '').\sprintf('%s %s', $name, implode(' ', $directives[$name])), '');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

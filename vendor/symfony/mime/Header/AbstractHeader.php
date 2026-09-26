@@ -188,6 +188,24 @@ abstract class AbstractHeader implements HeaderInterface
             $tokens[] = $encodedToken;
         }
 
+<<<<<<< HEAD
+=======
+        $i = 1;
+        while (isset($tokens[$i + 1])) {
+            // whitespace-only token(s) between 2 encoded tokens; a gap of N spaces yields N - 1 of them
+            $j = $i;
+            while (preg_match('~^[\t ]+$~', $tokens[$j] ?? '')) {
+                ++$j;
+            }
+            if ($j > $i && isset($tokens[$j]) && $this->tokenNeedsEncoding($tokens[$i - 1]) && $this->tokenNeedsEncoding($tokens[$j])) {
+                $tokens[$i - 1] .= implode('', \array_slice($tokens, $i, 1 + $j - $i));
+                array_splice($tokens, $i, 1 + $j - $i);
+            } else {
+                ++$i;
+            }
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return $tokens;
     }
 

@@ -58,7 +58,11 @@ class CardScheme extends Constraint
     {
         if (\is_array($schemes) && \is_string(key($schemes))) {
             $options = array_merge($schemes, $options);
+<<<<<<< HEAD
         } else {
+=======
+        } elseif (null !== $schemes) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $options['value'] = $schemes;
         }
 

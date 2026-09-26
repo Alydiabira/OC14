@@ -56,10 +56,17 @@ class DebugCommand extends Command
             ->addArgument('class', InputArgument::REQUIRED, 'A fully qualified class name or a path')
             ->addOption('show-all', null, InputOption::VALUE_NONE, 'Show all classes even if they have no validation constraints')
             ->setHelp(<<<'EOF'
+<<<<<<< HEAD
 The <info>%command.name% 'App\Entity\Dummy'</info> command dumps the validators for the dummy class.
 
 The <info>%command.name% src/</info> command dumps the validators for the `src` directory.
 EOF
+=======
+                The <info>%command.name% 'App\Entity\Dummy'</info> command dumps the validators for the dummy class.
+
+                The <info>%command.name% src/</info> command dumps the validators for the `src` directory.
+                EOF
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -80,7 +87,11 @@ EOF
             }
         } catch (DirectoryNotFoundException) {
             $io = new SymfonyStyle($input, $output);
+<<<<<<< HEAD
             $io->error(sprintf('Neither class nor path were found with "%s" argument.', $input->getArgument('class')));
+=======
+            $io->error(\sprintf('Neither class nor path were found with "%s" argument.', $input->getArgument('class')));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             return 1;
         }
@@ -91,7 +102,11 @@ EOF
     private function dumpValidatorsForClass(InputInterface $input, OutputInterface $output, string $class): void
     {
         $io = new SymfonyStyle($input, $output);
+<<<<<<< HEAD
         $title = sprintf('<info>%s</info>', $class);
+=======
+        $title = \sprintf('<info>%s</info>', $class);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $rows = [];
         $dump = new Dumper($output);
 

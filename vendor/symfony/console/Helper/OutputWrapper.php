@@ -49,7 +49,11 @@ final class OutputWrapper
     private const URL_PATTERN = 'https?://\S+';
 
     public function __construct(
+<<<<<<< HEAD
         private bool $allowCutUrls = false
+=======
+        private bool $allowCutUrls = false,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ) {
     }
 
@@ -59,7 +63,11 @@ final class OutputWrapper
             return $text;
         }
 
+<<<<<<< HEAD
         $tagPattern = sprintf('<(?:(?:%s)|/(?:%s)?)>', self::TAG_OPEN_REGEX_SEGMENT, self::TAG_CLOSE_REGEX_SEGMENT);
+=======
+        $tagPattern = \sprintf('<(?:(?:%s)|/(?:%s)?)>', self::TAG_OPEN_REGEX_SEGMENT, self::TAG_CLOSE_REGEX_SEGMENT);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $limitPattern = "{1,$width}";
         $patternBlocks = [$tagPattern];
         if (!$this->allowCutUrls) {
@@ -68,7 +76,11 @@ final class OutputWrapper
         $patternBlocks[] = '.';
         $blocks = implode('|', $patternBlocks);
         $rowPattern = "(?:$blocks)$limitPattern";
+<<<<<<< HEAD
         $pattern = sprintf('#(?:((?>(%1$s)((?<=[^\S\r\n])[^\S\r\n]?|(?=\r?\n)|$|[^\S\r\n]))|(%1$s))(?:\r?\n)?|(?:\r?\n|$))#imux', $rowPattern);
+=======
+        $pattern = \sprintf('#(?:((?>(%1$s)((?<=[^\S\r\n])[^\S\r\n]?|(?=\r?\n)|$|[^\S\r\n]))|(%1$s))(?:\r?\n)?|(?:\r?\n|$))#imux', $rowPattern);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $output = rtrim(preg_replace($pattern, '\\1'.$break, $text), $break);
 
         return str_replace(' '.$break, $break, $output);

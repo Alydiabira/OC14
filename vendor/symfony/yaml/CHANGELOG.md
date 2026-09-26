@@ -20,6 +20,12 @@ CHANGELOG
 5.4
 ---
 
+<<<<<<< HEAD
+=======
+ * Add a `$maxNestingLevel` argument to `Parser::__construct()`, `Yaml::parse()` and `Yaml::parseFile()` to bound recursion depth (default 128)
+ * Add a `$maxAliasesForCollections` argument to `Parser::__construct()`, `Yaml::parse()` and `Yaml::parseFile()` to bound alias expansion of collection values (default 128)
+ * Add `Yaml::PARSE_EXCEPTION_ON_ALIAS` to reject YAML aliases while parsing untrusted input
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  * Add new `lint:yaml dirname --exclude=/dirname/foo.yaml --exclude=/dirname/bar.yaml`
    option to exclude one or more specific files from multiple file list
  * Allow negatable for the parse tags option with `--no-parse-tags`

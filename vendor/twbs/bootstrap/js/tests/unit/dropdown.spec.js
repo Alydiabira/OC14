@@ -172,7 +172,14 @@ describe('Dropdown', () => {
 
       const popperConfig = dropdown._getPopperConfig()
 
+<<<<<<< HEAD
       expect(getPopperConfig).toHaveBeenCalled()
+=======
+      // Ensure that the function was called with the default config.
+      expect(getPopperConfig).toHaveBeenCalledWith(jasmine.objectContaining({
+        placement: jasmine.any(String)
+      }))
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
       expect(popperConfig.placement).toEqual('left')
     })
   })

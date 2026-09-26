@@ -19,6 +19,7 @@ class ExpressionLanguageProvider implements ExpressionFunctionProviderInterface
     public function getFunctions(): array
     {
         return [
+<<<<<<< HEAD
             new ExpressionFunction('is_valid', function (...$arguments) {
                 return sprintf(
                     '0 === $context->getValidator()->inContext($context)->validate(%s)->getViolations()->count()',
@@ -27,6 +28,12 @@ class ExpressionLanguageProvider implements ExpressionFunctionProviderInterface
             }, function (array $variables, ...$arguments): bool {
                 return 0 === $variables['context']->getValidator()->inContext($variables['context'])->validate(...$arguments)->getViolations()->count();
             }),
+=======
+            new ExpressionFunction('is_valid', static fn (...$arguments) => \sprintf(
+                '0 === $context->getValidator()->inContext($context)->validate(%s)->getViolations()->count()',
+                implode(', ', $arguments)
+            ), static fn (array $variables, ...$arguments) => 0 === $variables['context']->getValidator()->inContext($variables['context'])->validate(...$arguments)->getViolations()->count()),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ];
     }
 }

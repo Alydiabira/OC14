@@ -33,12 +33,20 @@ class MakefileConfigurator extends AbstractConfigurator
             return;
         }
 
+<<<<<<< HEAD
         $contents = preg_replace(sprintf('{%s*###> %s ###.*###< %s ###%s+}s', "\n", $recipe->getName(), $recipe->getName(), "\n"), "\n", file_get_contents($makefile), -1, $count);
+=======
+        $contents = preg_replace(\sprintf('{%s*###> %s ###.*###< %s ###%s+}s', "\n", $recipe->getName(), $recipe->getName(), "\n"), "\n", file_get_contents($makefile), -1, $count);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (!$count) {
             return;
         }
 
+<<<<<<< HEAD
         $this->write(sprintf('Removing Makefile entries from %s', $makefile));
+=======
+        $this->write(\sprintf('Removing Makefile entries from %s', $makefile));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (!trim($contents)) {
             @unlink($makefile);
         } else {
@@ -73,6 +81,7 @@ class MakefileConfigurator extends AbstractConfigurator
         if (!file_exists($makefile)) {
             $envKey = $this->options->get('runtime')['env_var_name'] ?? 'APP_ENV';
             $dotenvPath = $this->options->get('runtime')['dotenv_path'] ?? '.env';
+<<<<<<< HEAD
             file_put_contents(
                 $this->options->get('root-dir').'/Makefile',
                 <<<EOF
@@ -86,6 +95,22 @@ help:
 	@awk 'BEGIN {FS = ":.*?## "}; /^[a-zA-Z-]+:.*?## .*$$/ {printf "\033[32m%-15s\033[0m %s\\n", $$1, $$2}' Makefile | sort
 
 EOF
+=======
+            $tab = "\t";
+            file_put_contents(
+                $this->options->get('root-dir').'/Makefile',
+                <<<EOF
+                    ifndef {$envKey}
+                        include {$dotenvPath}
+                    endif
+
+                    .DEFAULT_GOAL := help
+                    .PHONY: help
+                    help:
+                    {$tab}@awk 'BEGIN {FS = ":.*?## "}; /^[a-zA-Z-]+:.*?## .*$$/ {printf "\033[32m%-15s\033[0m %s\\n", $$1, $$2}' Makefile | sort
+
+                    EOF
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
         }
 

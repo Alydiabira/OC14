@@ -38,6 +38,7 @@ class InversedRelativeSlugHandler implements SlugHandlerInterface
      */
     protected $sluggable;
 
+<<<<<<< HEAD
     /**
      * $options = array(
      *     'relationClass' => 'objectclass',
@@ -46,6 +47,8 @@ class InversedRelativeSlugHandler implements SlugHandlerInterface
      * )
      * {@inheritdoc}
      */
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function __construct(SluggableListener $sluggable)
     {
         $this->sluggable = $sluggable;
@@ -59,6 +62,12 @@ class InversedRelativeSlugHandler implements SlugHandlerInterface
     {
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @param ClassMetadata<object> $meta
+     */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public static function validate(array $options, ClassMetadata $meta)
     {
         if (!isset($options['relationClass']) || !strlen($options['relationClass'])) {
@@ -110,10 +119,17 @@ class InversedRelativeSlugHandler implements SlugHandlerInterface
                             continue;
                         }
 
+<<<<<<< HEAD
                         $objectSlug = (string) $meta->getReflectionProperty($mappedByConfig['slug'])->getValue($object);
                         if (preg_match("@^{$oldSlug}@smi", $objectSlug)) {
                             $objectSlug = str_replace($oldSlug, $slug, $objectSlug);
                             $meta->getReflectionProperty($mappedByConfig['slug'])->setValue($object, $objectSlug);
+=======
+                        $objectSlug = (string) $meta->getFieldValue($object, $mappedByConfig['slug']);
+                        if (preg_match("@^{$oldSlug}@smi", $objectSlug)) {
+                            $objectSlug = str_replace($oldSlug, $slug, $objectSlug);
+                            $meta->setFieldValue($object, $mappedByConfig['slug'], $objectSlug);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                             $ea->setOriginalObjectProperty($uow, $object, $mappedByConfig['slug'], $objectSlug);
                         }
                     }

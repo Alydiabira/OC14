@@ -37,6 +37,7 @@ class CountWalker extends TreeWalkerAdapter
             throw new RuntimeException('Cannot count query which selects two FROM components, cannot make distinction');
         }
 
+<<<<<<< HEAD
         $fromRoot            = reset($from);
         $rootAlias           = $fromRoot->rangeVariableDeclaration->aliasIdentificationVariable;
         $rootClass           = $this->getMetadataForDqlAlias($rootAlias);
@@ -58,6 +59,33 @@ class CountWalker extends TreeWalkerAdapter
         $selectStatement->selectClause->selectExpressions = [
             new SelectExpression(
                 new AggregateExpression('count', $pathExpression, $distinct),
+=======
+        $distinct = $this->_getQuery()->getHint(self::HINT_DISTINCT);
+
+        $countPathExpressionOrLiteral = '*';
+        if ($distinct) {
+            $fromRoot            = reset($from);
+            $rootAlias           = $fromRoot->rangeVariableDeclaration->aliasIdentificationVariable;
+            $rootClass           = $this->getMetadataForDqlAlias($rootAlias);
+            $identifierFieldName = $rootClass->getSingleIdentifierFieldName();
+
+            $pathType = PathExpression::TYPE_STATE_FIELD;
+            if (isset($rootClass->associationMappings[$identifierFieldName])) {
+                $pathType = PathExpression::TYPE_SINGLE_VALUED_ASSOCIATION;
+            }
+
+            $countPathExpressionOrLiteral       = new PathExpression(
+                PathExpression::TYPE_STATE_FIELD | PathExpression::TYPE_SINGLE_VALUED_ASSOCIATION,
+                $rootAlias,
+                $identifierFieldName,
+            );
+            $countPathExpressionOrLiteral->type = $pathType;
+        }
+
+        $selectStatement->selectClause->selectExpressions = [
+            new SelectExpression(
+                new AggregateExpression('count', $countPathExpressionOrLiteral, $distinct),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 null,
             ),
         ];

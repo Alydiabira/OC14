@@ -39,6 +39,10 @@ return static function (ContainerConfigurator $container) {
             ->factory('current')
             ->args([[service('http_client.transport')]])
             ->tag('http_client.client')
+<<<<<<< HEAD
+=======
+            ->tag('kernel.reset', ['method' => 'reset', 'on_invalid' => 'ignore'])
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         ->alias(HttpClientInterface::class, 'http_client')
 

@@ -84,7 +84,15 @@ class Restorer
         foreach ($snapshot->staticAttributes() as $className => $staticAttributes) {
             foreach ($staticAttributes as $name => $value) {
                 $reflector = new ReflectionProperty($className, $name);
+<<<<<<< HEAD
                 $reflector->setAccessible(true);
+=======
+
+                if (version_compare(PHP_VERSION, '8.1.0', '<')) {
+                    $reflector->setAccessible(true);
+                }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $reflector->setValue(null, $value);
             }
         }
@@ -108,7 +116,14 @@ class Restorer
                     continue;
                 }
 
+<<<<<<< HEAD
                 $attribute->setAccessible(true);
+=======
+                if (version_compare(PHP_VERSION, '8.1.0', '<')) {
+                    $attribute->setAccessible(true);
+                }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $attribute->setValue(null, $defaults[$name]);
             }
         }

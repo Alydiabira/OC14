@@ -24,7 +24,11 @@ final class CrawlerSelectorCount extends Constraint
 
     public function toString(): string
     {
+<<<<<<< HEAD
         return sprintf('selector "%s" count is "%d"', $this->selector, $this->count);
+=======
+        return \sprintf('selector "%s" count is "%d"', $this->selector, $this->count);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -40,6 +44,10 @@ final class CrawlerSelectorCount extends Constraint
      */
     protected function failureDescription($crawler): string
     {
+<<<<<<< HEAD
         return sprintf('the Crawler selector "%s" was expected to be found %d time(s) but was found %d time(s)', $this->selector, $this->count, \count($crawler->filter($this->selector)));
+=======
+        return \sprintf('the Crawler selector "%s" was expected to be found %d time(s) but was found %d time(s)', $this->selector, $this->count, \count($crawler->filter($this->selector)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

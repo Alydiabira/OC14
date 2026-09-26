@@ -79,8 +79,13 @@ class SymfonyStyle extends OutputStyle
     {
         $this->autoPrependBlock();
         $this->writeln([
+<<<<<<< HEAD
             sprintf('<comment>%s</>', OutputFormatter::escapeTrailingBackslash($message)),
             sprintf('<comment>%s</>', str_repeat('=', Helper::width(Helper::removeDecoration($this->getFormatter(), $message)))),
+=======
+            \sprintf('<comment>%s</>', OutputFormatter::escapeTrailingBackslash($message)),
+            \sprintf('<comment>%s</>', str_repeat('=', Helper::width(Helper::removeDecoration($this->getFormatter(), $message)))),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ]);
         $this->newLine();
     }
@@ -92,8 +97,13 @@ class SymfonyStyle extends OutputStyle
     {
         $this->autoPrependBlock();
         $this->writeln([
+<<<<<<< HEAD
             sprintf('<comment>%s</>', OutputFormatter::escapeTrailingBackslash($message)),
             sprintf('<comment>%s</>', str_repeat('-', Helper::width(Helper::removeDecoration($this->getFormatter(), $message)))),
+=======
+            \sprintf('<comment>%s</>', OutputFormatter::escapeTrailingBackslash($message)),
+            \sprintf('<comment>%s</>', str_repeat('-', Helper::width(Helper::removeDecoration($this->getFormatter(), $message)))),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ]);
         $this->newLine();
     }
@@ -104,7 +114,11 @@ class SymfonyStyle extends OutputStyle
     public function listing(array $elements)
     {
         $this->autoPrependText();
+<<<<<<< HEAD
         $elements = array_map(fn ($element) => sprintf(' * %s', $element), $elements);
+=======
+        $elements = array_map(static fn ($element) => \sprintf(' * %s', $element), $elements);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $this->writeln($elements);
         $this->newLine();
@@ -119,7 +133,11 @@ class SymfonyStyle extends OutputStyle
 
         $messages = \is_array($message) ? array_values($message) : [$message];
         foreach ($messages as $message) {
+<<<<<<< HEAD
             $this->writeln(sprintf(' %s', $message));
+=======
+            $this->writeln(\sprintf(' %s', $message));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -357,10 +375,22 @@ class SymfonyStyle extends OutputStyle
             if ($this->output instanceof ConsoleSectionOutput) {
                 // add the new line of the `return` to submit the input to ConsoleSectionOutput, because ConsoleSectionOutput is holding all it's lines.
                 // this is relevant when a `ConsoleSectionOutput::clear` is called.
+<<<<<<< HEAD
                 $this->output->addNewLineOfInputSubmit();
             }
             $this->newLine();
             $this->bufferedOutput->write("\n");
+=======
+                // the section already renders the prompt as a whole line, so an extra
+                // newLine() here would leave a doubled blank line below the answer; only
+                // keep the buffer in sync so autoPrependBlock() spaces the next block.
+                $this->output->addNewLineOfInputSubmit();
+                $this->bufferedOutput->write("\n\n");
+            } else {
+                $this->newLine();
+                $this->bufferedOutput->write("\n");
+            }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $answer;
@@ -463,7 +493,11 @@ class SymfonyStyle extends OutputStyle
         $lines = [];
 
         if (null !== $type) {
+<<<<<<< HEAD
             $type = sprintf('[%s] ', $type);
+=======
+            $type = \sprintf('[%s] ', $type);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $indentLength = Helper::width($type);
             $lineIndentation = str_repeat(' ', $indentLength);
         }
@@ -475,12 +509,23 @@ class SymfonyStyle extends OutputStyle
                 $message = OutputFormatter::escape($message);
             }
 
+<<<<<<< HEAD
             $lines = array_merge(
                 $lines,
                 explode(\PHP_EOL, $outputWrapper->wrap(
                     $message,
                     $this->lineLength - $prefixLength - $indentLength,
                     \PHP_EOL
+=======
+            $message = str_replace("\r\n", "\n", $message);
+
+            $lines = array_merge(
+                $lines,
+                explode("\n", $outputWrapper->wrap(
+                    $message,
+                    $this->lineLength - $prefixLength - $indentLength,
+                    "\n"
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ))
             );
 
@@ -505,7 +550,11 @@ class SymfonyStyle extends OutputStyle
             $line .= str_repeat(' ', max($this->lineLength - Helper::width(Helper::removeDecoration($this->getFormatter(), $line)), 0));
 
             if ($style) {
+<<<<<<< HEAD
                 $line = sprintf('<%s>%s</>', $style, $line);
+=======
+                $line = \sprintf('<%s>%s</>', $style, $line);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 

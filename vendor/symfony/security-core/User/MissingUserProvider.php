@@ -28,7 +28,11 @@ class MissingUserProvider implements UserProviderInterface
      */
     public function __construct(string $firewall)
     {
+<<<<<<< HEAD
         throw new InvalidConfigurationException(sprintf('"%s" firewall requires a user provider but none was defined.', $firewall));
+=======
+        throw new InvalidConfigurationException(\sprintf('"%s" firewall requires a user provider but none was defined.', $firewall));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function loadUserByUsername(string $username): UserInterface

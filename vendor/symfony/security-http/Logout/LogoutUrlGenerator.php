@@ -15,6 +15,10 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+<<<<<<< HEAD
+=======
+use Symfony\Contracts\Service\ResetInterface;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Provides generator functions for the logout URL.
@@ -22,7 +26,11 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Jeremy Mikola <jmikola@gmail.com>
  */
+<<<<<<< HEAD
 class LogoutUrlGenerator
+=======
+class LogoutUrlGenerator implements ResetInterface
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 {
     private ?RequestStack $requestStack;
     private ?UrlGeneratorInterface $router;
@@ -129,7 +137,11 @@ class LogoutUrlGenerator
                 return $this->listeners[$key];
             }
 
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('No LogoutListener found for firewall key "%s".', $key));
+=======
+            throw new \InvalidArgumentException(\sprintf('No LogoutListener found for firewall key "%s".', $key));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         // Fetch the current provider key from token, if possible
@@ -146,8 +158,13 @@ class LogoutUrlGenerator
         }
 
         // Fetch from injected current firewall information, if possible
+<<<<<<< HEAD
         if (isset($this->listeners[$this->currentFirewallName])) {
             return $this->listeners[$this->currentFirewallName];
+=======
+        if (isset($this->listeners[$this->currentFirewallName ?? ''])) {
+            return $this->listeners[$this->currentFirewallName ?? ''];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         foreach ($this->listeners as $listener) {
@@ -162,4 +179,13 @@ class LogoutUrlGenerator
 
         throw new \InvalidArgumentException('Unable to find logout in the current firewall, pass the firewall name manually to generate a logout URL.');
     }
+<<<<<<< HEAD
+=======
+
+    public function reset(): void
+    {
+        $this->currentFirewallName = null;
+        $this->currentFirewallContext = null;
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

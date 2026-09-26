@@ -75,14 +75,24 @@ final class MakeTest extends AbstractMaker implements InputAwareMakerInterface
         $typesDesc = [];
         $typesHelp = [];
         foreach (self::DESCRIPTIONS as $type => $desc) {
+<<<<<<< HEAD
             $typesDesc[] = sprintf('<fg=yellow>%s</> (%s)', $type, $desc);
             $typesHelp[] = sprintf('* <info>%s</info>: %s', $type, $desc);
+=======
+            $typesDesc[] = \sprintf('<fg=yellow>%s</> (%s)', $type, $desc);
+            $typesHelp[] = \sprintf('* <info>%s</info>: %s', $type, $desc);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $command
             ->addArgument('type', InputArgument::OPTIONAL, 'The type of test: '.implode(', ', $typesDesc))
             ->addArgument('name', InputArgument::OPTIONAL, 'The name of the test class (e.g. <fg=yellow>BlogPostTest</>)')
+<<<<<<< HEAD
             ->setHelp(file_get_contents(__DIR__.'/../Resources/help/MakeTest.txt').implode("\n", $typesHelp));
+=======
+            ->setHelp($this->getHelpFileContents('MakeTest.txt').implode("\n", $typesHelp))
+        ;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $inputConfig->setArgumentAsNonInteractive('name');
         $inputConfig->setArgumentAsNonInteractive('type');
@@ -95,7 +105,11 @@ final class MakeTest extends AbstractMaker implements InputAwareMakerInterface
 
         if (null !== $type = $input->getArgument('type')) {
             if (!isset(self::DESCRIPTIONS[$type])) {
+<<<<<<< HEAD
                 throw new RuntimeCommandException(sprintf('The test type must be one of "%s", "%s" given.', implode('", "', array_keys(self::DESCRIPTIONS)), $type));
+=======
+                throw new RuntimeCommandException(\sprintf('The test type must be one of "%s", "%s" given.', implode('", "', array_keys(self::DESCRIPTIONS)), $type));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         } else {
             $input->setArgument(
@@ -158,7 +172,11 @@ final class MakeTest extends AbstractMaker implements InputAwareMakerInterface
 
         $io->text([
             'Next: Open your new test class and start customizing it.',
+<<<<<<< HEAD
             sprintf('Find the documentation at <fg=yellow>%s</>', self::DOCS[$type]),
+=======
+            \sprintf('Find the documentation at <fg=yellow>%s</>', self::DOCS[$type]),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ]);
     }
 

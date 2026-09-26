@@ -18,6 +18,7 @@ use Gedmo\Translatable\Document\Repository\TranslationRepository;
  *
  * @ODM\Document(repositoryClass="Gedmo\Translatable\Document\Repository\TranslationRepository")
  * @ODM\UniqueIndex(name="lookup_unique_idx", keys={
+<<<<<<< HEAD
  *     "locale": "asc",
  *     "object_class": "asc",
  *     "foreign_key": "asc",
@@ -32,6 +33,16 @@ use Gedmo\Translatable\Document\Repository\TranslationRepository;
 #[ODM\Document(repositoryClass: TranslationRepository::class)]
 #[ODM\UniqueIndex(name: 'lookup_unique_idx', keys: ['locale' => 'asc', 'object_class' => 'asc', 'foreign_key' => 'asc', 'field' => 'asc'])]
 #[ODM\Index(name: 'translations_lookup_idx', keys: ['locale' => 'asc', 'object_class' => 'asc', 'foreign_key' => 'asc'])]
+=======
+ *     "foreign_key": "asc",
+ *     "locale": "asc",
+ *     "object_class": "asc",
+ *     "field": "asc"
+ * })
+ */
+#[ODM\Document(repositoryClass: TranslationRepository::class)]
+#[ODM\UniqueIndex(name: 'lookup_unique_idx', keys: ['foreign_key' => 'asc', 'locale' => 'asc', 'object_class' => 'asc', 'field' => 'asc'])]
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 class Translation extends AbstractTranslation
 {
     /*

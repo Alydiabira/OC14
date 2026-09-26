@@ -12,6 +12,10 @@
 namespace Symfony\Component\AssetMapper;
 
 use Symfony\Component\Asset\PackageInterface;
+<<<<<<< HEAD
+=======
+use Symfony\Component\HttpFoundation\RequestStack;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Decorates asset packages to support resolving assets from the asset mapper.
@@ -20,10 +24,25 @@ use Symfony\Component\Asset\PackageInterface;
  */
 final class MapperAwareAssetPackage implements PackageInterface
 {
+<<<<<<< HEAD
     public function __construct(
         private readonly PackageInterface $innerPackage,
         private readonly AssetMapperInterface $assetMapper,
     ) {
+=======
+    private readonly ?string $devServerPrefix;
+
+    /**
+     * @param string|null $devServerPublicPrefix The public prefix served by AssetMapperDevServerSubscriber, null when it is disabled
+     */
+    public function __construct(
+        private readonly PackageInterface $innerPackage,
+        private readonly AssetMapperInterface $assetMapper,
+        private readonly ?RequestStack $requestStack = null,
+        ?string $devServerPublicPrefix = null,
+    ) {
+        $this->devServerPrefix = null === $devServerPublicPrefix ? null : '/'.trim($devServerPublicPrefix, '/').'/';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getVersion(string $path): string
@@ -38,6 +57,19 @@ final class MapperAwareAssetPackage implements PackageInterface
             $path = ltrim($publicPath, '/');
         }
 
+<<<<<<< HEAD
+=======
+        if (null !== $this->devServerPrefix && str_starts_with('/'.$path, $this->devServerPrefix)) {
+            // the dev server serves those assets through the kernel, so the front controller must be part of the URL
+            $request = $this->requestStack?->getMainRequest();
+            $frontController = $request ? trim(substr($request->getBaseUrl(), \strlen($request->getBasePath())), '/') : '';
+
+            if ('' !== $frontController) {
+                $path = $frontController.'/'.$path;
+            }
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return $this->innerPackage->getUrl($path);
     }
 }

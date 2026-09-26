@@ -10,6 +10,11 @@
 namespace Gedmo\Tree\Strategy\ORM;
 
 use Doctrine\Common\Collections\Criteria;
+<<<<<<< HEAD
+=======
+use Doctrine\Common\Collections\Order;
+use Doctrine\Deprecations\Deprecation;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\Persistence\Proxy;
@@ -74,7 +79,11 @@ class Nested implements Strategy
      *
      * @var array<string, int>
      */
+<<<<<<< HEAD
     private $treeEdges = [];
+=======
+    private array $treeEdges = [];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Stores a list of node position strategies
@@ -123,6 +132,7 @@ class Nested implements Strategy
 
     public function processScheduledInsertion($em, $node, AdapterInterface $ea)
     {
+<<<<<<< HEAD
         /** @var ClassMetadata $meta */
         $meta = $em->getClassMetadata(get_class($node));
         $config = $this->listener->getConfiguration($em, $meta->getName());
@@ -136,6 +146,21 @@ class Nested implements Strategy
             $meta->getReflectionProperty($config['root'])->setValue($node, 0);
         } elseif (isset($config['rootIdentifierMethod']) && null === $meta->getReflectionProperty($config['root'])->getValue($node)) {
             $meta->getReflectionProperty($config['root'])->setValue($node, 0);
+=======
+        /** @var ClassMetadata<object> $meta */
+        $meta = $em->getClassMetadata(get_class($node));
+        $config = $this->listener->getConfiguration($em, $meta->getName());
+
+        $meta->setFieldValue($node, $config['left'], 0);
+        $meta->setFieldValue($node, $config['right'], 0);
+        if (isset($config['level'])) {
+            $meta->setFieldValue($node, $config['level'], 0);
+        }
+        if (isset($config['root']) && !$meta->hasAssociation($config['root']) && !isset($config['rootIdentifierMethod'])) {
+            $meta->setFieldValue($node, $config['root'], 0);
+        } elseif (isset($config['rootIdentifierMethod']) && null === $meta->getFieldValue($node, $config['root'])) {
+            $meta->setFieldValue($node, $config['root'], 0);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -158,7 +183,11 @@ class Nested implements Strategy
             $wrapped = AbstractWrapper::wrap($node, $em);
             $parent = $wrapped->getPropertyValue($config['parent']);
             // revert simulated changeset
+<<<<<<< HEAD
             $uow->clearEntityChangeSet($oid);
+=======
+            $ea->clearObjectChangeSet($uow, $node);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $wrapped->setPropertyValue($config['left'], $changeSet[$config['left']][0]);
             $uow->setOriginalEntityProperty($oid, $config['left'], $changeSet[$config['left']][0]);
             // set back all other changes
@@ -188,7 +217,11 @@ class Nested implements Strategy
         $meta = $em->getClassMetadata(get_class($node));
 
         $config = $this->listener->getConfiguration($em, $meta->getName());
+<<<<<<< HEAD
         $parent = $meta->getReflectionProperty($config['parent'])->getValue($node);
+=======
+        $parent = $meta->getFieldValue($node, $config['parent']);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->updateNode($em, $node, $parent, self::LAST_CHILD);
     }
 
@@ -278,7 +311,11 @@ class Nested implements Strategy
     {
         $wrapped = AbstractWrapper::wrap($node, $em);
 
+<<<<<<< HEAD
         /** @var ClassMetadata $meta */
+=======
+        /** @var ClassMetadata<object> $meta */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $meta = $wrapped->getMetadata();
         $config = $this->listener->getConfiguration($em, $meta->getName());
 
@@ -471,12 +508,20 @@ class Nested implements Strategy
                 $newRoot = $node->$method();
                 $repo = $em->getRepository($config['useObjectClass']);
 
+<<<<<<< HEAD
                 $criteria = new Criteria();
+=======
+                $criteria = Criteria::create(true);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $criteria->andWhere(Criteria::expr()->notIn($wrapped->getMetadata()->getIdentifier()[0], [$wrapped->getIdentifier()]));
                 $criteria->andWhere(Criteria::expr()->eq($config['root'], $node->$method()));
                 $criteria->andWhere(Criteria::expr()->isNull($config['parent']));
                 $criteria->andWhere(Criteria::expr()->eq($config['level'], 0));
+<<<<<<< HEAD
                 $criteria->orderBy([$config['right'] => Criteria::ASC]);
+=======
+                $criteria->orderBy([$config['right'] => function_exists('enum_exists') && enum_exists(Order::class) ? Order::Ascending : Criteria::ASC]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $roots = $repo->matching($criteria)->toArray();
                 $last = array_pop($roots);
 
@@ -625,6 +670,7 @@ class Nested implements Strategy
 
                 $nodeMeta = $em->getClassMetadata(get_class($node));
 
+<<<<<<< HEAD
                 if (!array_key_exists($config['left'], $nodeMeta->getReflectionProperties())) {
                     continue;
                 }
@@ -639,6 +685,31 @@ class Nested implements Strategy
                 $right = $meta->getReflectionProperty($config['right'])->getValue($node);
                 if ($currentRoot === $root && $right >= $first) {
                     $meta->getReflectionProperty($config['right'])->setValue($node, $right + $delta);
+=======
+                /** @phpstan-ignore-next-line function.alreadyNarrowedType Property introduced in ORM 3.4 */
+                if (property_exists($nodeMeta, 'propertyAccessors')) {
+                    // ORM 3.4+
+                    if (!array_key_exists($config['left'], $nodeMeta->getPropertyAccessors())) {
+                        continue;
+                    }
+                } else {
+                    // ORM 3.3-
+                    if (!array_key_exists($config['left'], $nodeMeta->getReflectionProperties())) {
+                        continue;
+                    }
+                }
+
+                $oid = spl_object_id($node);
+                $left = $meta->getFieldValue($node, $config['left']);
+                $currentRoot = isset($config['root']) ? $meta->getFieldValue($node, $config['root']) : null;
+                if ($currentRoot === $root && $left >= $first) {
+                    $meta->setFieldValue($node, $config['left'], $left + $delta);
+                    $em->getUnitOfWork()->setOriginalEntityProperty($oid, $config['left'], $left + $delta);
+                }
+                $right = $meta->getFieldValue($node, $config['right']);
+                if ($currentRoot === $root && $right >= $first) {
+                    $meta->setFieldValue($node, $config['right'], $right + $delta);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $em->getUnitOfWork()->setOriginalEntityProperty($oid, $config['right'], $right + $delta);
                 }
             }
@@ -666,12 +737,22 @@ class Nested implements Strategy
         // @todo: Remove the following condition and assignment in the next major release and use 0 as default value for
         // the `$levelDelta` parameter.
         if (null === $levelDelta && func_num_args() >= 8) {
+<<<<<<< HEAD
             @trigger_error(sprintf(
+=======
+            Deprecation::trigger(
+                'gedmo/doctrine-extensions',
+                'https://github.com/doctrine-extensions/DoctrineExtensions/pull/2495',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'Passing a type different than "int" as argument 8 to "%s()" is deprecated since gedmo/doctrine-extensions'.
                 ' 3.9 and will throw a "%s" error in version 4.0.',
                 __METHOD__,
                 \TypeError::class
+<<<<<<< HEAD
             ), E_USER_DEPRECATED);
+=======
+            );
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         $levelDelta ??= 0;
 
@@ -714,6 +795,7 @@ class Nested implements Strategy
 
                 $nodeMeta = $em->getClassMetadata(get_class($node));
 
+<<<<<<< HEAD
                 if (!array_key_exists($config['left'], $nodeMeta->getReflectionProperties())) {
                     continue;
                 }
@@ -721,10 +803,29 @@ class Nested implements Strategy
                 $left = $meta->getReflectionProperty($config['left'])->getValue($node);
                 $right = $meta->getReflectionProperty($config['right'])->getValue($node);
                 $currentRoot = isset($config['root']) ? $meta->getReflectionProperty($config['root'])->getValue($node) : null;
+=======
+                /** @phpstan-ignore-next-line function.alreadyNarrowedType Property introduced in ORM 3.4 */
+                if (property_exists($nodeMeta, 'propertyAccessors')) {
+                    // ORM 3.4+
+                    if (!array_key_exists($config['left'], $nodeMeta->getPropertyAccessors())) {
+                        continue;
+                    }
+                } else {
+                    // ORM 3.3-
+                    if (!array_key_exists($config['left'], $nodeMeta->getReflectionProperties())) {
+                        continue;
+                    }
+                }
+
+                $left = $meta->getFieldValue($node, $config['left']);
+                $right = $meta->getFieldValue($node, $config['right']);
+                $currentRoot = isset($config['root']) ? $meta->getFieldValue($node, $config['root']) : null;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if ($currentRoot === $root && $left >= $first && $right <= $last) {
                     $oid = spl_object_id($node);
                     $uow = $em->getUnitOfWork();
 
+<<<<<<< HEAD
                     $meta->getReflectionProperty($config['left'])->setValue($node, $left + $delta);
                     $uow->setOriginalEntityProperty($oid, $config['left'], $left + $delta);
                     $meta->getReflectionProperty($config['right'])->setValue($node, $right + $delta);
@@ -736,6 +837,19 @@ class Nested implements Strategy
                     if (isset($config['level'])) {
                         $level = $meta->getReflectionProperty($config['level'])->getValue($node);
                         $meta->getReflectionProperty($config['level'])->setValue($node, $level + $levelDelta);
+=======
+                    $meta->setFieldValue($node, $config['left'], $left + $delta);
+                    $uow->setOriginalEntityProperty($oid, $config['left'], $left + $delta);
+                    $meta->setFieldValue($node, $config['right'], $right + $delta);
+                    $uow->setOriginalEntityProperty($oid, $config['right'], $right + $delta);
+                    if (isset($config['root'])) {
+                        $meta->setFieldValue($node, $config['root'], $destRoot);
+                        $uow->setOriginalEntityProperty($oid, $config['root'], $destRoot);
+                    }
+                    if (isset($config['level'])) {
+                        $level = $meta->getFieldValue($node, $config['level']);
+                        $meta->setFieldValue($node, $config['level'], $level + $levelDelta);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $uow->setOriginalEntityProperty($oid, $config['level'], $level + $levelDelta);
                     }
                 }

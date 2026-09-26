@@ -43,7 +43,10 @@ class HtmlFormatter extends NormalizerFormatter
 
     /**
      * @param string|null $dateFormat The format of the timestamp: one supported by DateTime::format
+<<<<<<< HEAD
      * @throws \RuntimeException If the function json_encode does not exist
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct(?string $dateFormat = null)
     {
@@ -132,7 +135,11 @@ class HtmlFormatter extends NormalizerFormatter
      */
     protected function convertToString($data): string
     {
+<<<<<<< HEAD
         if (null === $data || is_scalar($data)) {
+=======
+        if (null === $data || \is_scalar($data)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return (string) $data;
         }
 

@@ -36,7 +36,11 @@ abstract class AbstractVault
     protected function validateName(string $name): void
     {
         if (!preg_match('/^\w++$/D', $name)) {
+<<<<<<< HEAD
             throw new \LogicException(sprintf('Invalid secret name "%s": only "word" characters are allowed.', $name));
+=======
+            throw new \LogicException(\sprintf('Invalid secret name "%s": only "word" characters are allowed.', $name));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 

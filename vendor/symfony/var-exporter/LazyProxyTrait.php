@@ -88,14 +88,28 @@ trait LazyProxyTrait
         $propertyScopes = Hydrator::$propertyScopes[$this::class] ??= Hydrator::getPropertyScopes($this::class);
         $scope = null;
         $instance = $this;
+<<<<<<< HEAD
 
         if ([$class, , $readonlyScope] = $propertyScopes[$name] ?? null) {
             $scope = Registry::getScope($propertyScopes, $class, $name);
+=======
+        $notByRef = 0;
+
+        if ([$class, , $writeScope, $access] = $propertyScopes[$name] ?? null) {
+            $notByRef = $access & Hydrator::PROPERTY_NOT_BY_REF;
+            $scope = Registry::getScopeForRead($propertyScopes, $class, $name);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             if (null === $scope || isset($propertyScopes["\0$scope\0$name"])) {
                 if ($state = $this->lazyObjectState ?? null) {
                     $instance = $state->realInstance ??= ($state->initializer)();
                 }
+<<<<<<< HEAD
+=======
+                if (\PHP_VERSION_ID >= 80400 && !$notByRef && ($access >> 2) & \ReflectionProperty::IS_PRIVATE_SET) {
+                    $scope ??= $writeScope;
+                }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $parent = 2;
                 goto get_in_scope;
             }
@@ -115,6 +129,7 @@ trait LazyProxyTrait
 
         if (!$parent && null === $class && !\array_key_exists($name, (array) $instance)) {
             $frame = debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, 1)[0];
+<<<<<<< HEAD
             trigger_error(sprintf('Undefined property: %s::$%s in %s on line %s', $instance::class, $name, $frame['file'], $frame['line']), \E_USER_NOTICE);
         }
 
@@ -123,6 +138,17 @@ trait LazyProxyTrait
         try {
             if (null === $scope) {
                 if (null === $readonlyScope && 1 !== $parent) {
+=======
+            trigger_error(\sprintf('Undefined property: %s::$%s in %s on line %s', $instance::class, $name, $frame['file'], $frame['line']), \E_USER_NOTICE);
+        }
+
+        get_in_scope:
+        $notByRef = $notByRef || 1 === $parent;
+
+        try {
+            if (null === $scope) {
+                if (!$notByRef) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     return $instance->$name;
                 }
                 $value = $instance->$name;
@@ -131,7 +157,11 @@ trait LazyProxyTrait
             }
             $accessor = Registry::$classAccessors[$scope] ??= Registry::getClassAccessors($scope);
 
+<<<<<<< HEAD
             return $accessor['get']($instance, $name, null !== $readonlyScope || 1 === $parent);
+=======
+            return $accessor['get']($instance, $name, $notByRef);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } catch (\Error $e) {
             if (\Error::class !== $e::class || !str_starts_with($e->getMessage(), 'Cannot access uninitialized non-nullable property')) {
                 throw $e;
@@ -146,7 +176,11 @@ trait LazyProxyTrait
 
                 $accessor['set']($instance, $name, []);
 
+<<<<<<< HEAD
                 return $accessor['get']($instance, $name, null !== $readonlyScope || 1 === $parent);
+=======
+                return $accessor['get']($instance, $name, $notByRef);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } catch (\Error) {
                 throw $e;
             }
@@ -159,10 +193,17 @@ trait LazyProxyTrait
         $scope = null;
         $instance = $this;
 
+<<<<<<< HEAD
         if ([$class, , $readonlyScope] = $propertyScopes[$name] ?? null) {
             $scope = Registry::getScope($propertyScopes, $class, $name, $readonlyScope);
 
             if ($readonlyScope === $scope || isset($propertyScopes["\0$scope\0$name"])) {
+=======
+        if ([$class, , $writeScope, $access] = $propertyScopes[$name] ?? null) {
+            $scope = Registry::getScopeForWrite($propertyScopes, $class, $name, $access >> 2);
+
+            if ($writeScope === $scope || isset($propertyScopes["\0$scope\0$name"])) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if ($state = $this->lazyObjectState ?? null) {
                     $instance = $state->realInstance ??= ($state->initializer)();
                 }
@@ -195,7 +236,11 @@ trait LazyProxyTrait
         $instance = $this;
 
         if ([$class] = $propertyScopes[$name] ?? null) {
+<<<<<<< HEAD
             $scope = Registry::getScope($propertyScopes, $class, $name);
+=======
+            $scope = Registry::getScopeForRead($propertyScopes, $class, $name);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             if (null === $scope || isset($propertyScopes["\0$scope\0$name"])) {
                 if ($state = $this->lazyObjectState ?? null) {
@@ -227,10 +272,17 @@ trait LazyProxyTrait
         $scope = null;
         $instance = $this;
 
+<<<<<<< HEAD
         if ([$class, , $readonlyScope] = $propertyScopes[$name] ?? null) {
             $scope = Registry::getScope($propertyScopes, $class, $name, $readonlyScope);
 
             if ($readonlyScope === $scope || isset($propertyScopes["\0$scope\0$name"])) {
+=======
+        if ([$class, , $writeScope, $access] = $propertyScopes[$name] ?? null) {
+            $scope = Registry::getScopeForWrite($propertyScopes, $class, $name, $access >> 2);
+
+            if ($writeScope === $scope || isset($propertyScopes["\0$scope\0$name"])) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if ($state = $this->lazyObjectState ?? null) {
                     $instance = $state->realInstance ??= ($state->initializer)();
                 }
@@ -300,7 +352,11 @@ trait LazyProxyTrait
             $value = $properties[$k = $name] ?? $properties[$k = "\0*\0$name"] ?? $properties[$k = "\0$class\0$name"] ?? $properties[$k = "\0$scope\0$name"] ?? $k = null;
 
             if (null === $k) {
+<<<<<<< HEAD
                 trigger_error(sprintf('serialize(): "%s" returned as member variable from __sleep() but does not exist', $name), \E_USER_NOTICE);
+=======
+                trigger_error(\sprintf('serialize(): "%s" returned as member variable from __sleep() but does not exist', $name), \E_USER_NOTICE);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } else {
                 $data[$k] = $value;
             }

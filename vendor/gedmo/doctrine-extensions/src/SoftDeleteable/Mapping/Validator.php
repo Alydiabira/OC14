@@ -40,7 +40,12 @@ class Validator
     ];
 
     /**
+<<<<<<< HEAD
      * @param mixed $field
+=======
+     * @param ClassMetadata<object> $meta
+     * @param mixed                 $field
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return void
      */
@@ -52,8 +57,13 @@ class Validator
 
         $fieldMapping = $meta->getFieldMapping($field);
 
+<<<<<<< HEAD
         if (!in_array($fieldMapping['type'], self::$validTypes, true)) {
             throw new InvalidMappingException(sprintf('Field "%s" (type "%s") must be of one of the following types: "%s" in entity %s', $field, $fieldMapping['type'], implode(', ', self::$validTypes), $meta->getName()));
+=======
+        if (!in_array($fieldMapping->type ?? $fieldMapping['type'], self::$validTypes, true)) {
+            throw new InvalidMappingException(sprintf('Field "%s" (type "%s") must be of one of the following types: "%s" in entity %s', $field, $fieldMapping->type ?? $fieldMapping['type'], implode(', ', self::$validTypes), $meta->getName()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

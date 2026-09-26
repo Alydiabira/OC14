@@ -19,17 +19,29 @@ use Gedmo\Sluggable\SluggableListener;
  * @author Gediminas Morkevicius <gediminas.morkevicius@gmail.com>
  *
  * @phpstan-import-type SluggableConfiguration from SluggableListener
+<<<<<<< HEAD
+=======
+ * @phpstan-import-type SlugConfiguration from SluggableListener
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 interface SluggableAdapter extends AdapterInterface
 {
     /**
      * Loads the similar slugs for a managed object.
      *
+<<<<<<< HEAD
      * @param object        $object
      * @param ClassMetadata $meta
      * @param string        $slug
      *
      * @phpstan-param SluggableConfiguration $config
+=======
+     * @param object                $object
+     * @param ClassMetadata<object> $meta
+     * @param string                $slug
+     *
+     * @phpstan-param SlugConfiguration $config
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return array<int, array<string, mixed>>
      */
@@ -42,7 +54,11 @@ interface SluggableAdapter extends AdapterInterface
      * @param string $target
      * @param string $replacement
      *
+<<<<<<< HEAD
      * @phpstan-param SluggableConfiguration $config
+=======
+     * @phpstan-param SlugConfiguration $config
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return int the number of updated records
      */

@@ -11,7 +11,11 @@
 
 namespace Symfony\Component\Serializer\Normalizer;
 
+<<<<<<< HEAD
 use Symfony\Component\PropertyAccess\Exception\InvalidArgumentException as PropertyAccessInvalidArgumentException;
+=======
+use Symfony\Component\PropertyAccess\Exception\NoSuchIndexException;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
 use Symfony\Component\PropertyAccess\Exception\UninitializedPropertyException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
@@ -25,6 +29,10 @@ use Symfony\Component\Serializer\Exception\InvalidArgumentException;
 use Symfony\Component\Serializer\Exception\LogicException;
 use Symfony\Component\Serializer\Exception\MissingConstructorArgumentsException;
 use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
+<<<<<<< HEAD
+=======
+use Symfony\Component\Serializer\Mapping\AttributeMetadata;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Serializer\Mapping\AttributeMetadataInterface;
 use Symfony\Component\Serializer\Mapping\ClassDiscriminatorFromClassMetadata;
 use Symfony\Component\Serializer\Mapping\ClassDiscriminatorResolverInterface;
@@ -108,6 +116,10 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
 
     private array $typesCache = [];
     private array $attributesCache = [];
+<<<<<<< HEAD
+=======
+    private array $typePropertiesCache = [];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private readonly \Closure $objectClassResolver;
 
     /**
@@ -126,7 +138,11 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
         parent::__construct($classMetadataFactory, $nameConverter, $defaultContext);
 
         if (isset($this->defaultContext[self::MAX_DEPTH_HANDLER]) && !\is_callable($this->defaultContext[self::MAX_DEPTH_HANDLER])) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('The "%s" given in the default context is not callable.', self::MAX_DEPTH_HANDLER));
+=======
+            throw new InvalidArgumentException(\sprintf('The "%s" given in the default context is not callable.', self::MAX_DEPTH_HANDLER));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->defaultContext[self::EXCLUDE_FROM_CACHE_KEY] = array_merge($this->defaultContext[self::EXCLUDE_FROM_CACHE_KEY] ?? [], [self::CIRCULAR_REFERENCE_LIMIT_COUNTERS]);
@@ -174,7 +190,11 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
         if (isset($context[self::MAX_DEPTH_HANDLER])) {
             $maxDepthHandler = $context[self::MAX_DEPTH_HANDLER];
             if (!\is_callable($maxDepthHandler)) {
+<<<<<<< HEAD
                 throw new InvalidArgumentException(sprintf('The "%s" given in the context is not callable.', self::MAX_DEPTH_HANDLER));
+=======
+                throw new InvalidArgumentException(\sprintf('The "%s" given in the context is not callable.', self::MAX_DEPTH_HANDLER));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         } else {
             $maxDepthHandler = null;
@@ -192,8 +212,13 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
                 $attributeValue = $attribute === $this->classDiscriminatorResolver?->getMappingForMappedObject($object)?->getTypeProperty()
                     ? $this->classDiscriminatorResolver?->getTypeForMappedObject($object)
                     : $this->getAttributeValue($object, $attribute, $format, $attributeContext);
+<<<<<<< HEAD
             } catch (UninitializedPropertyException|\Error $e) {
                 if (($context[self::SKIP_UNINITIALIZED_VALUES] ?? $this->defaultContext[self::SKIP_UNINITIALIZED_VALUES] ?? true) && $this->isUninitializedValueError($e)) {
+=======
+            } catch (UninitializedPropertyException $e) {
+                if ($context[self::SKIP_UNINITIALIZED_VALUES] ?? $this->defaultContext[self::SKIP_UNINITIALIZED_VALUES] ?? true) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     continue;
                 }
                 throw $e;
@@ -209,6 +234,7 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
         foreach ($stack as $attribute => $attributeValue) {
             $attributeContext = $this->getAttributeNormalizationContext($object, $attribute, $context);
 
+<<<<<<< HEAD
             if (null === $attributeValue || \is_scalar($attributeValue)) {
                 $data = $this->updateData($data, $attribute, $attributeValue, $class, $format, $attributeContext, $attributesMetadata, $classMetadata);
                 continue;
@@ -216,6 +242,14 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
 
             if (!$this->serializer instanceof NormalizerInterface) {
                 throw new LogicException(sprintf('Cannot normalize attribute "%s" because the injected serializer is not a normalizer.', $attribute));
+=======
+            if (!$this->serializer instanceof NormalizerInterface) {
+                if (null === $attributeValue || \is_scalar($attributeValue)) {
+                    $data = $this->updateData($data, $attribute, $attributeValue, $class, $format, $attributeContext, $attributesMetadata, $classMetadata);
+                    continue;
+                }
+                throw new LogicException(\sprintf('Cannot normalize attribute "%s" because the injected serializer is not a normalizer.', $attribute));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $childContext = $this->createChildContext($attributeContext, $attribute, $format);
@@ -291,6 +325,11 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
      * Gets the attribute value.
      *
      * @return mixed
+<<<<<<< HEAD
+=======
+     *
+     * @throws UninitializedPropertyException When the attribute exists but is not initialized on the object
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     abstract protected function getAttributeValue(object $object, string $attribute, ?string $format = null, array $context = []);
 
@@ -309,6 +348,13 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
      */
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = [])
     {
+<<<<<<< HEAD
+=======
+        if ($data instanceof $type) {
+            return $data;
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $context['_read_attributes'] = false;
 
         if (!isset($context['cache_key'])) {
@@ -333,6 +379,7 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
 
         $nestedAttributes = $this->getNestedAttributes($mappedClass);
         $nestedData = $originalNestedData = [];
+<<<<<<< HEAD
         $propertyAccessor = PropertyAccess::createPropertyAccessor();
         foreach ($nestedAttributes as $property => $serializedPath) {
             if (null === $value = $propertyAccessor->getValue($normalizedData, $serializedPath)) {
@@ -342,10 +389,26 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
             $nestedData[$convertedProperty] = $value;
             $originalNestedData[$property] = $value;
             $normalizedData = $this->removeNestedValue($serializedPath->getElements(), $normalizedData);
+=======
+        $propertyAccessor = PropertyAccess::createPropertyAccessorBuilder()->enableExceptionOnInvalidIndex()->getPropertyAccessor();
+        foreach ($nestedAttributes as $property => $serializedPath) {
+            try {
+                $value = $propertyAccessor->getValue($normalizedData, $serializedPath);
+                $convertedProperty = $this->nameConverter ? $this->nameConverter->normalize($property, $mappedClass, $format, $context) : $property;
+                $nestedData[$convertedProperty] = $value;
+                $originalNestedData[$property] = $value;
+                $normalizedData = $this->removeNestedValue($serializedPath->getElements(), $normalizedData);
+            } catch (NoSuchIndexException) {
+            }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $normalizedData = $nestedData + $normalizedData;
 
+<<<<<<< HEAD
+=======
+        $originalNormalizedData = $normalizedData;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $object = $this->instantiateObject($normalizedData, $mappedClass, $context, new \ReflectionClass($mappedClass), $allowedAttributes, $format);
         $resolvedClass = ($this->objectClassResolver)($object);
 
@@ -354,7 +417,29 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
                 $notConverted = $attribute;
                 $attribute = $this->nameConverter->denormalize($attribute, $resolvedClass, $format, $context);
                 if (isset($nestedData[$notConverted]) && !isset($originalNestedData[$attribute])) {
+<<<<<<< HEAD
                     throw new LogicException(sprintf('Duplicate values for key "%s" found. One value is set via the SerializedPath attribute: "%s", the other one is set via the SerializedName attribute: "%s".', $notConverted, implode('->', $nestedAttributes[$notConverted]->getElements()), $attribute));
+=======
+                    throw new LogicException(\sprintf('Duplicate values for key "%s" found. One value is set via the SerializedPath attribute: "%s", the other one is set via the SerializedName attribute: "%s".', $notConverted, implode('->', $nestedAttributes[$notConverted]->getElements()), $attribute));
+                }
+
+                if ($attribute === $notConverted
+                    && ($normalizedAttribute = $this->nameConverter->normalize($attribute, $resolvedClass, $format, $context)) !== $attribute
+                ) {
+                    if (!($context[self::ALLOW_EXTRA_ATTRIBUTES] ?? $this->defaultContext[self::ALLOW_EXTRA_ATTRIBUTES])
+                        && (false === $allowedAttributes || \in_array($attribute, $allowedAttributes, true))
+                    ) {
+                        // Input was in wrong format (e.g., camelCase when snake_case expected)
+                        $extraAttributes[] = $notConverted;
+
+                        continue;
+                    }
+
+                    if (\array_key_exists($normalizedAttribute, $originalNormalizedData)) {
+                        // The key matching the serialized name is more specific, it wins over the one matching the property name
+                        continue;
+                    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
 
@@ -376,8 +461,13 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
                         ? $discriminatorMapping
                         : $this->getAttributeValue($object, $attribute, $format, $attributeContext);
                 } catch (NoSuchPropertyException) {
+<<<<<<< HEAD
                 } catch (UninitializedPropertyException|\Error $e) {
                     if (!(($context[self::SKIP_UNINITIALIZED_VALUES] ?? $this->defaultContext[self::SKIP_UNINITIALIZED_VALUES] ?? true) && $this->isUninitializedValueError($e))) {
+=======
+                } catch (UninitializedPropertyException $e) {
+                    if (!($context[self::SKIP_UNINITIALIZED_VALUES] ?? $this->defaultContext[self::SKIP_UNINITIALIZED_VALUES] ?? true)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         throw $e;
                     }
                 }
@@ -401,6 +491,7 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
 
             try {
                 $this->setAttributeValue($object, $attribute, $value, $format, $attributeContext);
+<<<<<<< HEAD
             } catch (PropertyAccessInvalidArgumentException $e) {
                 $exception = NotNormalizableValueException::createForUnexpectedDataType(
                     sprintf('Failed to denormalize attribute "%s" value for class "%s": '.$e->getMessage(), $attribute, $type),
@@ -411,6 +502,9 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
                     $e->getCode(),
                     $e
                 );
+=======
+            } catch (NotNormalizableValueException $exception) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if (isset($context['not_normalizable_value_exceptions'])) {
                     $context['not_normalizable_value_exceptions'][] = $exception;
                     continue;
@@ -428,6 +522,11 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
 
     /**
      * @return void
+<<<<<<< HEAD
+=======
+     *
+     * @throws NotNormalizableValueException When the value cannot be assigned to the attribute (e.g. type mismatch)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     abstract protected function setAttributeValue(object $object, string $attribute, mixed $value, ?string $format = null, array $context = []);
 
@@ -464,7 +563,11 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
 
             // This try-catch should cover all NotNormalizableValueException (and all return branches after the first
             // exception) so we could try denormalizing all types of an union type. If the target type is not an union
+<<<<<<< HEAD
             // type, we will just re-throw the catched exception.
+=======
+            // type, we will just re-throw the caught exception.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             // In the case of no denormalization succeeds with an union type, it will fall back to the default exception
             // with the acceptable types list.
             try {
@@ -494,14 +597,22 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
                             } elseif ('true' === $data || '1' === $data) {
                                 $data = true;
                             } else {
+<<<<<<< HEAD
                                 throw NotNormalizableValueException::createForUnexpectedDataType(sprintf('The type of the "%s" attribute for class "%s" must be bool ("%s" given).', $attribute, $currentClass, $data), $data, [Type::BUILTIN_TYPE_BOOL], $context['deserialization_path'] ?? null);
+=======
+                                throw NotNormalizableValueException::createForUnexpectedDataType(\sprintf('The type of the "%s" attribute for class "%s" must be bool ("%s" given).', $attribute, $currentClass, $data), $data, [Type::BUILTIN_TYPE_BOOL], $context['deserialization_path'] ?? null);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                             }
                             break;
                         case Type::BUILTIN_TYPE_INT:
                             if (ctype_digit(isset($data[0]) && '-' === $data[0] ? substr($data, 1) : $data)) {
                                 $data = (int) $data;
                             } else {
+<<<<<<< HEAD
                                 throw NotNormalizableValueException::createForUnexpectedDataType(sprintf('The type of the "%s" attribute for class "%s" must be int ("%s" given).', $attribute, $currentClass, $data), $data, [Type::BUILTIN_TYPE_INT], $context['deserialization_path'] ?? null);
+=======
+                                throw NotNormalizableValueException::createForUnexpectedDataType(\sprintf('The type of the "%s" attribute for class "%s" must be int ("%s" given).', $attribute, $currentClass, $data), $data, [Type::BUILTIN_TYPE_INT], $context['deserialization_path'] ?? null);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                             }
                             break;
                         case Type::BUILTIN_TYPE_FLOAT:
@@ -513,7 +624,11 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
                                 'NaN' => \NAN,
                                 'INF' => \INF,
                                 '-INF' => -\INF,
+<<<<<<< HEAD
                                 default => throw NotNormalizableValueException::createForUnexpectedDataType(sprintf('The type of the "%s" attribute for class "%s" must be float ("%s" given).', $attribute, $currentClass, $data), $data, [Type::BUILTIN_TYPE_FLOAT], $context['deserialization_path'] ?? null),
+=======
+                                default => throw NotNormalizableValueException::createForUnexpectedDataType(\sprintf('The type of the "%s" attribute for class "%s" must be float ("%s" given).', $attribute, $currentClass, $data), $data, [Type::BUILTIN_TYPE_FLOAT], $context['deserialization_path'] ?? null),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                             };
                     }
                 }
@@ -522,18 +637,30 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
                     $builtinType = Type::BUILTIN_TYPE_OBJECT;
                     $class = $collectionValueType->getClassName().'[]';
 
+<<<<<<< HEAD
                     if (\count($collectionKeyType = $type->getCollectionKeyTypes()) > 0) {
+=======
+                    if ($collectionKeyType = $type->getCollectionKeyTypes()) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $context['key_type'] = \count($collectionKeyType) > 1 ? $collectionKeyType : $collectionKeyType[0];
                     }
 
                     $context['value_type'] = $collectionValueType;
+<<<<<<< HEAD
                 } elseif ($type->isCollection() && \count($collectionValueType = $type->getCollectionValueTypes()) > 0 && Type::BUILTIN_TYPE_ARRAY === $collectionValueType[0]->getBuiltinType()) {
+=======
+                } elseif ($type->isCollection() && ($collectionValueType = $type->getCollectionValueTypes()) && Type::BUILTIN_TYPE_ARRAY === $collectionValueType[0]->getBuiltinType()) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     // get inner type for any nested array
                     [$innerType] = $collectionValueType;
 
                     // note that it will break for any other builtinType
                     $dimensions = '[]';
+<<<<<<< HEAD
                     while (\count($innerType->getCollectionValueTypes()) > 0 && Type::BUILTIN_TYPE_ARRAY === $innerType->getBuiltinType()) {
+=======
+                    while ($innerType->getCollectionValueTypes() && Type::BUILTIN_TYPE_ARRAY === $innerType->getBuiltinType()) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $dimensions .= '[]';
                         [$innerType] = $innerType->getCollectionValueTypes();
                     }
@@ -542,6 +669,15 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
                         // the builtinType is the inner one and the class is the class followed by []...[]
                         $builtinType = $innerType->getBuiltinType();
                         $class = $innerType->getClassName().$dimensions;
+<<<<<<< HEAD
+=======
+
+                        if ($collectionKeyType = $type->getCollectionKeyTypes()) {
+                            $context['key_type'] = \count($collectionKeyType) > 1 ? $collectionKeyType : $collectionKeyType[0];
+                        }
+
+                        $context['value_type'] = $collectionValueType[0];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     } else {
                         // default fallback (keep it as array)
                         $builtinType = $type->getBuiltinType();
@@ -555,8 +691,17 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
                 $expectedTypes[Type::BUILTIN_TYPE_OBJECT === $builtinType && $class ? $class : $builtinType] = true;
 
                 if (Type::BUILTIN_TYPE_OBJECT === $builtinType && null !== $class) {
+<<<<<<< HEAD
                     if (!$this->serializer instanceof DenormalizerInterface) {
                         throw new LogicException(sprintf('Cannot denormalize attribute "%s" for class "%s" because injected serializer is not a denormalizer.', $attribute, $class));
+=======
+                    if ($data instanceof $class) {
+                        return $data;
+                    }
+
+                    if (!$this->serializer instanceof DenormalizerInterface) {
+                        throw new LogicException(\sprintf('Cannot denormalize attribute "%s" for class "%s" because injected serializer is not a denormalizer.', $attribute, $class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
 
                     $childContext = $this->createChildContext($context, $attribute, $format);
@@ -579,13 +724,37 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
                     return $data;
                 }
 
+<<<<<<< HEAD
                 if (('is_'.$builtinType)($data)) {
                     return $data;
+=======
+                switch ($builtinType) {
+                    case Type::BUILTIN_TYPE_ARRAY:
+                    case Type::BUILTIN_TYPE_BOOL:
+                    case Type::BUILTIN_TYPE_CALLABLE:
+                    case Type::BUILTIN_TYPE_FLOAT:
+                    case Type::BUILTIN_TYPE_INT:
+                    case Type::BUILTIN_TYPE_ITERABLE:
+                    case Type::BUILTIN_TYPE_NULL:
+                    case Type::BUILTIN_TYPE_OBJECT:
+                    case Type::BUILTIN_TYPE_RESOURCE:
+                    case Type::BUILTIN_TYPE_STRING:
+                        if (('is_'.$builtinType)($data)) {
+                            return $data;
+                        }
+
+                        break;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             } catch (NotNormalizableValueException|InvalidArgumentException $e) {
                 if (!$isUnionType && !$isNullable) {
                     throw $e;
                 }
+<<<<<<< HEAD
+=======
+
+                $expectedTypes[Type::BUILTIN_TYPE_OBJECT === $builtinType && $class ? $class : $builtinType] = true;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } catch (ExtraAttributesException $e) {
                 if (!$isUnionType && !$isNullable) {
                     throw $e;
@@ -621,7 +790,11 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
             return $data;
         }
 
+<<<<<<< HEAD
         throw NotNormalizableValueException::createForUnexpectedDataType(sprintf('The type of the "%s" attribute for class "%s" must be one of "%s" ("%s" given).', $attribute, $currentClass, implode('", "', array_keys($expectedTypes)), get_debug_type($data)), $data, array_keys($expectedTypes), $context['deserialization_path'] ?? $attribute);
+=======
+        throw NotNormalizableValueException::createForUnexpectedDataType(\sprintf('The type of the "%s" attribute for class "%s" must be one of "%s" ("%s" given).', $attribute, $currentClass, implode('", "', array_keys($expectedTypes)), get_debug_type($data)), $data, array_keys($expectedTypes), $context['deserialization_path'] ?? $attribute);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -687,7 +860,11 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
         if (null !== $classMetadata && null !== $serializedPath = ($attributesMetadata[$attribute] ?? null)?->getSerializedPath()) {
             $propertyAccessor = PropertyAccess::createPropertyAccessor();
             if ($propertyAccessor->isReadable($data, $serializedPath) && null !== $propertyAccessor->getValue($data, $serializedPath)) {
+<<<<<<< HEAD
                 throw new LogicException(sprintf('The element you are trying to set is already populated: "%s".', (string) $serializedPath));
+=======
+                throw new LogicException(\sprintf('The element you are trying to set is already populated: "%s".', (string) $serializedPath));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $propertyAccessor->setValue($data, $serializedPath, $attributeValue);
 
@@ -716,7 +893,22 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
             return false;
         }
 
+<<<<<<< HEAD
         $key = sprintf(self::DEPTH_KEY_PATTERN, $class, $attribute);
+=======
+        $keyClass = $class;
+        if ($this->classMetadataFactory) {
+            while (false !== $parent = get_parent_class($keyClass)) {
+                $parentAttributes = $this->classMetadataFactory->getMetadataFor($parent)->getAttributesMetadata();
+                if (($parentAttributes[$attribute] ?? null)?->getMaxDepth() !== $maxDepth) {
+                    break;
+                }
+                $keyClass = $parent;
+            }
+        }
+
+        $key = \sprintf(self::DEPTH_KEY_PATTERN, $keyClass, $attribute);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (!isset($context[$key])) {
             $context[$key] = 1;
 
@@ -751,6 +943,86 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
         return $context;
     }
 
+<<<<<<< HEAD
+=======
+    protected function getAllowedAttributes(string|object $classOrObject, array $context, bool $attributesAsString = false)
+    {
+        if (false === $allowedAttributes = parent::getAllowedAttributes($classOrObject, $context, $attributesAsString)) {
+            return false;
+        }
+
+        if (null !== $this->classDiscriminatorResolver) {
+            if (null !== $discriminatorMapping = $this->classDiscriminatorResolver->getMappingForMappedObject($classOrObject)) {
+                $allowedAttributes[] = $attributesAsString ? $discriminatorMapping->getTypeProperty() : new AttributeMetadata($discriminatorMapping->getTypeProperty());
+            }
+
+            // A class name can be denormalized into any of the mapped classes, so their attributes
+            // are all allowed. The class of an object is known and the others cannot be read from it.
+            if (!\is_object($classOrObject) && null !== $discriminatorMapping = $this->classDiscriminatorResolver->getMappingForClass($classOrObject)) {
+                $attributes = [];
+                $mappedClasses = array_values($discriminatorMapping->getTypesMapping());
+                $visited = [$classOrObject => true];
+
+                // Forcing extra attributes off makes the mapped classes return their attributes instead of false
+                $mappedContext = [self::ALLOW_EXTRA_ATTRIBUTES => false] + $context;
+
+                while (null !== $mappedClass = array_shift($mappedClasses)) {
+                    if (isset($visited[$mappedClass])) {
+                        continue;
+                    }
+                    $visited[$mappedClass] = true;
+
+                    $attributes[] = parent::getAllowedAttributes($mappedClass, $mappedContext, $attributesAsString);
+
+                    // Mapped classes can declare a discriminator map of their own
+                    if (null !== $nestedMapping = $this->classDiscriminatorResolver->getMappingForClass($mappedClass)) {
+                        $typeProperty = $nestedMapping->getTypeProperty();
+                        $attributes[] = [$attributesAsString ? $typeProperty : new AttributeMetadata($typeProperty)];
+                        $mappedClasses = array_merge($mappedClasses, array_values($nestedMapping->getTypesMapping()));
+                    }
+                }
+
+                $allowedAttributes = array_merge($allowedAttributes, ...$attributes);
+            }
+        }
+
+        return $allowedAttributes;
+    }
+
+    /**
+     * Tells whether the attribute holds the type of a discriminator map the class takes part in.
+     *
+     * @internal
+     */
+    protected function isDiscriminatorTypeProperty(object|string $classOrObject, string $attribute): bool
+    {
+        if (null === $this->classDiscriminatorResolver) {
+            return false;
+        }
+
+        $class = \is_object($classOrObject) ? $classOrObject::class : $classOrObject;
+
+        if (!isset($this->typePropertiesCache[$class])) {
+            $typeProperties = [];
+
+            if (null !== $mapping = $this->classDiscriminatorResolver->getMappingForMappedObject($classOrObject)) {
+                $typeProperties[$mapping->getTypeProperty()] = true;
+            }
+
+            // getMappingForMappedObject() returns the innermost map only, while nested maps read one type property per level
+            foreach ([$class => $class] + class_parents($class) + class_implements($class) as $mappedClass) {
+                if (null !== $mapping = $this->classDiscriminatorResolver->getMappingForClass($mappedClass)) {
+                    $typeProperties[$mapping->getTypeProperty()] = true;
+                }
+            }
+
+            $this->typePropertiesCache[$class] = $typeProperties;
+        }
+
+        return isset($this->typePropertiesCache[$class][$attribute]);
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Builds the cache key for the attributes cache.
      *
@@ -777,6 +1049,7 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
     }
 
     /**
+<<<<<<< HEAD
      * This error may occur when specific object normalizer implementation gets attribute value
      * by accessing a public uninitialized property or by calling a method accessing such property.
      */
@@ -788,6 +1061,8 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
     }
 
     /**
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Returns all attributes with a SerializedPath attribute and the respective path.
      */
     private function getNestedAttributes(string $class): array
@@ -805,7 +1080,11 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
             }
             $pathIdentifier = implode(',', $serializedPath->getElements());
             if (isset($serializedPaths[$pathIdentifier])) {
+<<<<<<< HEAD
                 throw new LogicException(sprintf('Duplicate serialized path: "%s" used for properties "%s" and "%s".', $pathIdentifier, $serializedPaths[$pathIdentifier], $name));
+=======
+                throw new LogicException(\sprintf('Duplicate serialized path: "%s" used for properties "%s" and "%s".', $pathIdentifier, $serializedPaths[$pathIdentifier], $name));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $serializedPaths[$pathIdentifier] = $name;
             $properties[$name] = $serializedPath;
@@ -817,7 +1096,11 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
     private function removeNestedValue(array $path, array $data): array
     {
         $element = array_shift($path);
+<<<<<<< HEAD
         if (!$path || !$data[$element] = $this->removeNestedValue($path, $data[$element])) {
+=======
+        if (!$path || !$data[$element] || !$data[$element] = $this->removeNestedValue($path, $data[$element])) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             unset($data[$element]);
         }
 
@@ -838,11 +1121,19 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
         }
 
         if (null === $type = $data[$mapping->getTypeProperty()] ?? null) {
+<<<<<<< HEAD
             throw NotNormalizableValueException::createForUnexpectedDataType(sprintf('Type property "%s" not found for the abstract object "%s".', $mapping->getTypeProperty(), $class), null, ['string'], isset($context['deserialization_path']) ? $context['deserialization_path'].'.'.$mapping->getTypeProperty() : $mapping->getTypeProperty(), false);
         }
 
         if (null === $mappedClass = $mapping->getClassForType($type)) {
             throw NotNormalizableValueException::createForUnexpectedDataType(sprintf('The type "%s" is not a valid value.', $type), $type, ['string'], isset($context['deserialization_path']) ? $context['deserialization_path'].'.'.$mapping->getTypeProperty() : $mapping->getTypeProperty(), true);
+=======
+            throw NotNormalizableValueException::createForUnexpectedDataType(\sprintf('Type property "%s" not found for the abstract object "%s".', $mapping->getTypeProperty(), $class), null, ['string'], isset($context['deserialization_path']) ? $context['deserialization_path'].'.'.$mapping->getTypeProperty() : $mapping->getTypeProperty(), false);
+        }
+
+        if (null === $mappedClass = $mapping->getClassForType($type)) {
+            throw NotNormalizableValueException::createForUnexpectedDataType(\sprintf('The type "%s" is not a valid value.', $type), $type, ['string'], isset($context['deserialization_path']) ? $context['deserialization_path'].'.'.$mapping->getTypeProperty() : $mapping->getTypeProperty(), true);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $mappedClass;

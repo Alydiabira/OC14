@@ -64,7 +64,11 @@
             </trans-unit>
             <trans-unit id="17">
                 <source>Too many failed login attempts, please try again later.</source>
+<<<<<<< HEAD
                 <target>Massa intents d'inici de sessió fallits, torneu-ho a provar més tard.</target>
+=======
+                <target>Massa intents d'inici de sessió fallits, si us plau torneu-ho a provar més tard.</target>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="18">
                 <source>Invalid or expired login link.</source>
@@ -72,7 +76,15 @@
             </trans-unit>
             <trans-unit id="19">
                 <source>Too many failed login attempts, please try again in %minutes% minute.</source>
+<<<<<<< HEAD
                 <target>Massa intents d'inici de sessió fallits, torneu-ho a provar en %minutes% minut.</target>
+=======
+                <target>Massa intents d'inici de sessió fallits, si us plau torneu-ho a provar en %minutes% minut.</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>Too many failed login attempts, please try again in %minutes% minutes.</source>
+                <target>Massa intents d'inici de sessió fallits, si us plau torneu-ho a provar en %minutes% minuts.</target>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
         </body>
     </file>

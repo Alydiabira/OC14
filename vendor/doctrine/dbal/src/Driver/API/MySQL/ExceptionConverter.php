@@ -22,6 +22,11 @@ use Doctrine\DBAL\Exception\TableNotFoundException;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\DBAL\Query;
 
+<<<<<<< HEAD
+=======
+use function strpos;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /** @internal */
 final class ExceptionConverter implements ExceptionConverterInterface
 {
@@ -85,6 +90,18 @@ final class ExceptionConverter implements ExceptionConverterInterface
             case 1626:
                 return new SyntaxErrorException($exception, $query);
 
+<<<<<<< HEAD
+=======
+            case 1524:
+                if (strpos($exception->getMessage(), 'Plugin \'mysql_native_password\' is not loaded') === false) {
+                    break;
+                }
+
+                // Workaround for MySQL 8.4 if we request an unknown user.
+                // https://bugs.mysql.com/bug.php?id=114876
+                return new ConnectionException($exception, $query);
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             case 1044:
             case 1045:
             case 1046:
@@ -101,6 +118,10 @@ final class ExceptionConverter implements ExceptionConverterInterface
                 return new ConnectionException($exception, $query);
 
             case 2006:
+<<<<<<< HEAD
+=======
+            case 4031:
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 return new ConnectionLost($exception, $query);
 
             case 1048:

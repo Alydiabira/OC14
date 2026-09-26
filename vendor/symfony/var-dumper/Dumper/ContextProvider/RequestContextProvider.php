@@ -45,7 +45,11 @@ final class RequestContextProvider implements ContextProviderInterface
             'uri' => $request->getUri(),
             'method' => $request->getMethod(),
             'controller' => $controller ? $this->cloner->cloneVar($controller) : $controller,
+<<<<<<< HEAD
             'identifier' => spl_object_hash($request),
+=======
+            'identifier' => hash('xxh128', spl_object_id($request).'@'.$_SERVER['REQUEST_TIME_FLOAT']),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ];
     }
 }

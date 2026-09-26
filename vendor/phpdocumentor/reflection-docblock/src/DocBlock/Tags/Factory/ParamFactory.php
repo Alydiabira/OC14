@@ -19,6 +19,10 @@ use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\OffsetAccessTypeNode;
 use Webmozart\Assert\Assert;
 
+<<<<<<< HEAD
+=======
+use function is_string;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function sprintf;
 use function trim;
 
@@ -68,11 +72,23 @@ final class ParamFactory implements PHPStanFactory
             );
         }
 
+<<<<<<< HEAD
+=======
+        $description = $tagValue->getAttribute('description');
+        if (is_string($description) === false) {
+            $description = $tagValue->description;
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return new Param(
             trim($tagValue->parameterName, '$'),
             $this->typeResolver->createType($tagValue->type ?? new IdentifierTypeNode('mixed'), $context),
             $tagValue->isVariadic,
+<<<<<<< HEAD
             $this->descriptionFactory->create($tagValue->description, $context),
+=======
+            $this->descriptionFactory->create($description, $context),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $tagValue->isReference
         );
     }

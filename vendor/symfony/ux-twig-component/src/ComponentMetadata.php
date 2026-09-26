@@ -37,6 +37,17 @@ final class ComponentMetadata
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * @return string|null The method name to fetch the template dynamically
+     */
+    public function getTemplateFromMethod(): ?string
+    {
+        return $this->config['template_from_method'] ?? null;
+    }
+
+    /**
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return class-string The Component's FQCN
      */
     public function getClass(): string
@@ -57,11 +68,52 @@ final class ComponentMetadata
         return $this->get('expose_public_props', false);
     }
 
+<<<<<<< HEAD
+=======
+    public function isAnonymous(): bool
+    {
+        return !isset($this->config['service_id']);
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function getAttributesVar(): string
     {
         return $this->get('attributes_var', 'attributes');
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return list<string>
+     *
+     * @internal
+     */
+    public function getPreMounts(): array
+    {
+        return $this->get('pre_mount', []);
+    }
+
+    /**
+     * @return list<string>
+     *
+     * @internal
+     */
+    public function getMounts(): array
+    {
+        return $this->get('mount', []);
+    }
+
+    /**
+     * @return list<string>
+     *
+     * @internal
+     */
+    public function getPostMounts(): array
+    {
+        return $this->get('post_mount', []);
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function get(string $key, mixed $default = null): mixed
     {
         return $this->config[$key] ?? $default;

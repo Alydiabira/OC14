@@ -13,9 +13,15 @@ final class RegisterTest extends FunctionalTestCase
     public function testThatRegistrationShouldSucceeded(): void
     {
         $this->get('/auth/register');
+<<<<<<< HEAD
         self::assertResponseIsSuccessful();
 
         $this->submit('S\'inscrire', self::createFormData());
+=======
+
+        $this->client->submitForm('S\'inscrire', self::getFormData());
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         self::assertResponseRedirects('/auth/login');
 
         $user = $this->getEntityManager()->getRepository(User::class)->findOneByEmail('user@email.com');
@@ -29,12 +35,16 @@ final class RegisterTest extends FunctionalTestCase
     }
 
     /**
+<<<<<<< HEAD
      * @param array<string, string> $formData
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @dataProvider provideInvalidFormData
      */
     public function testThatRegistrationShouldFailed(array $formData): void
     {
         $this->get('/auth/register');
+<<<<<<< HEAD
         self::assertResponseIsSuccessful();
 
         $crawler = $this->submit('S\'inscrire', $formData);
@@ -65,5 +75,30 @@ final class RegisterTest extends FunctionalTestCase
             'register[email]' => 'user@email.com',
             'register[plainPassword]' => 'SuperPassword123!'
         ];
+=======
+
+        $this->client->submitForm('S\'inscrire', $formData);
+
+        self::assertResponseIsUnprocessable();
+    }
+
+    public static function provideInvalidFormData(): iterable
+    {
+        yield 'empty username' => [self::getFormData(['register[username]' => ''])];
+        yield 'non unique username' => [self::getFormData(['register[username]' => 'user+1'])];
+        yield 'too long username' => [self::getFormData(['register[username]' => 'Lorem ipsum dolor sit amet orci aliquam'])];
+        yield 'empty email' => [self::getFormData(['register[email]' => ''])];
+        yield 'non unique email' => [self::getFormData(['register[email]' => 'user+1@email.com'])];
+        yield 'invalid email' => [self::getFormData(['register[email]' => 'fail'])];
+    }
+
+    public static function getFormData(array $overrideData = []): array
+    {
+        return [
+            'register[username]' => 'username',
+            'register[email]' => 'user@email.com',
+            'register[plainPassword]' => 'SuperPassword123!'
+        ] + $overrideData;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

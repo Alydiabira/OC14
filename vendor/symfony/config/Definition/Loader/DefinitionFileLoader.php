@@ -81,7 +81,11 @@ class DefinitionFileLoader extends FileLoader
             $reflectionType = $parameter->getType();
 
             if (!$reflectionType instanceof \ReflectionNamedType) {
+<<<<<<< HEAD
                 throw new \InvalidArgumentException(sprintf('Could not resolve argument "$%s" for "%s". You must typehint it (for example with "%s").', $parameter->getName(), $path, DefinitionConfigurator::class));
+=======
+                throw new \InvalidArgumentException(\sprintf('Could not resolve argument "$%s" for "%s". You must typehint it (for example with "%s").', $parameter->getName(), $path, DefinitionConfigurator::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $arguments[] = match ($reflectionType->getName()) {

@@ -189,7 +189,11 @@ class DoctrineDataCollector extends DataCollector
                     return [Caster::PREFIX_VIRTUAL.'__toString()' => (string) $o->getObject()];
                 }
 
+<<<<<<< HEAD
                 return [Caster::PREFIX_VIRTUAL.'⚠' => sprintf('Object of class "%s" could not be converted to string.', $o->getClass())];
+=======
+                return [Caster::PREFIX_VIRTUAL.'⚠' => \sprintf('Object of class "%s" could not be converted to string.', $o->getClass())];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             },
         ];
     }
@@ -278,7 +282,11 @@ class DoctrineDataCollector extends DataCollector
         }
 
         if (\is_resource($var)) {
+<<<<<<< HEAD
             return [sprintf('/* Resource(%s) */', get_resource_type($var)), false, false];
+=======
+            return [\sprintf('/* Resource(%s) */', get_resource_type($var)), false, false];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return [$var, true, true];

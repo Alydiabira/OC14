@@ -12,6 +12,10 @@
 namespace Symfony\Component\Security\Core\Test;
 
 use PHPUnit\Framework\TestCase;
+<<<<<<< HEAD
+=======
+use Symfony\Component\Security\Core\Authentication\Token\NullToken;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManager;
 use Symfony\Component\Security\Core\Authorization\Strategy\AccessDecisionStrategyInterface;
@@ -31,10 +35,16 @@ abstract class AccessDecisionStrategyTestCase extends TestCase
      */
     final public function testDecide(AccessDecisionStrategyInterface $strategy, array $voters, bool $expected)
     {
+<<<<<<< HEAD
         $token = $this->createMock(TokenInterface::class);
         $manager = new AccessDecisionManager($voters, $strategy);
 
         $this->assertSame($expected, $manager->decide($token, ['ROLE_FOO']));
+=======
+        $manager = new AccessDecisionManager($voters, $strategy);
+
+        $this->assertSame($expected, $manager->decide(new NullToken(), ['ROLE_FOO']));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

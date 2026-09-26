@@ -13,6 +13,10 @@ namespace Twig\TokenParser;
 
 use Twig\Error\SyntaxError;
 use Twig\Node\Node;
+<<<<<<< HEAD
+=======
+use Twig\Node\Nodes;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Twig\Node\SetNode;
 use Twig\Token;
 
@@ -34,6 +38,7 @@ final class SetTokenParser extends AbstractTokenParser
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
+<<<<<<< HEAD
         $names = $this->parser->getExpressionParser()->parseAssignmentExpression();
 
         $capture = false;
@@ -41,6 +46,15 @@ final class SetTokenParser extends AbstractTokenParser
             $values = $this->parser->getExpressionParser()->parseMultitargetExpression();
 
             $stream->expect(/* Token::BLOCK_END_TYPE */ 3);
+=======
+        $names = $this->parseAssignmentExpression();
+
+        $capture = false;
+        if ($stream->nextIf(Token::OPERATOR_TYPE, '=')) {
+            $values = $this->parseMultitargetExpression();
+
+            $stream->expect(Token::BLOCK_END_TYPE);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             if (\count($names) !== \count($values)) {
                 throw new SyntaxError('When using set, you must have the same number of variables and assignments.', $stream->getCurrent()->getLine(), $stream->getSourceContext());
@@ -52,6 +66,7 @@ final class SetTokenParser extends AbstractTokenParser
                 throw new SyntaxError('When using set with a block, you cannot have a multi-target.', $stream->getCurrent()->getLine(), $stream->getSourceContext());
             }
 
+<<<<<<< HEAD
             $stream->expect(/* Token::BLOCK_END_TYPE */ 3);
 
             $values = $this->parser->subparse([$this, 'decideBlockEnd'], true);
@@ -59,6 +74,15 @@ final class SetTokenParser extends AbstractTokenParser
         }
 
         return new SetNode($capture, $names, $values, $lineno, $this->getTag());
+=======
+            $stream->expect(Token::BLOCK_END_TYPE);
+
+            $values = $this->parser->subparse([$this, 'decideBlockEnd'], true);
+            $stream->expect(Token::BLOCK_END_TYPE);
+        }
+
+        return new SetNode($capture, $names, $values, $lineno);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function decideBlockEnd(Token $token): bool
@@ -70,4 +94,20 @@ final class SetTokenParser extends AbstractTokenParser
     {
         return 'set';
     }
+<<<<<<< HEAD
+=======
+
+    private function parseMultitargetExpression(): Nodes
+    {
+        $targets = [];
+        while (true) {
+            $targets[] = $this->parser->parseExpression();
+            if (!$this->parser->getStream()->nextIf(Token::PUNCTUATION_TYPE, ',')) {
+                break;
+            }
+        }
+
+        return new Nodes($targets);
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

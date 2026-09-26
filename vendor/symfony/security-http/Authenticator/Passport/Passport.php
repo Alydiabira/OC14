@@ -78,7 +78,11 @@ class Passport
         if (2 === \func_num_args()) {
             $badgeFqcn = func_get_arg(1);
             if (!\is_string($badgeFqcn)) {
+<<<<<<< HEAD
                 throw new \LogicException(sprintf('Second argument of "%s" must be a string.', __METHOD__));
+=======
+                throw new \LogicException(\sprintf('Second argument of "%s" must be a string.', __METHOD__));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 

@@ -54,13 +54,23 @@ class SwitchUserToken extends UsernamePasswordToken
 
     public function __unserialize(array $data): void
     {
+<<<<<<< HEAD
+=======
+        if (($data[1] ?? null) instanceof \Stringable) {
+            throw new \BadMethodCallException('Cannot unserialize '.self::class);
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (3 > \count($data)) {
             // Support for tokens serialized with version 5.1 or lower of symfony/security-core.
             [$this->originalToken, $parentData] = $data;
         } else {
             [$this->originalToken, $this->originatedFromUri, $parentData] = $data;
         }
+<<<<<<< HEAD
         $parentData = \is_array($parentData) ? $parentData : unserialize($parentData);
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         parent::__unserialize($parentData);
     }
 }

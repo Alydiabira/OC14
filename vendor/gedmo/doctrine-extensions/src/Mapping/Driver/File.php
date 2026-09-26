@@ -114,9 +114,15 @@ abstract class File implements Driver
      *
      * @param string $className
      *
+<<<<<<< HEAD
      * @return array<string, mixed>|object|null
      *
      * @phpstan-param class-string $className
+=======
+     * @phpstan-param class-string $className
+     *
+     * @return array<string, mixed>|object|null
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function _getMapping($className)
     {
@@ -140,6 +146,7 @@ abstract class File implements Driver
     /**
      * Try to find out related class name out of mapping
      *
+<<<<<<< HEAD
      * @param ClassMetadata $metadata the mapped class metadata
      * @param string        $name     the related object class name
      *
@@ -147,6 +154,15 @@ abstract class File implements Driver
      *
      * @phpstan-param class-string|string $name
      *
+=======
+     * @param ClassMetadata<object> $metadata the mapped class metadata
+     * @param string                $name     the related object class name
+     *
+     * @phpstan-param class-string|string $name
+     *
+     * @return string related class name or empty string if does not exist
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @phpstan-return class-string|''
      */
     protected function getRelatedClassName($metadata, $name)

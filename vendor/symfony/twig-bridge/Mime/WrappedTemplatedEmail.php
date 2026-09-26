@@ -47,9 +47,16 @@ final class WrappedTemplatedEmail
     {
         $file = $this->twig->getLoader()->getSourceContext($image);
         $body = $file->getPath() ? new File($file->getPath()) : $file->getCode();
+<<<<<<< HEAD
         $this->message->addPart((new DataPart($body, $image, $contentType))->asInline());
 
         return 'cid:'.$image;
+=======
+        $dataPart = (new DataPart($body, $image, $contentType))->asInline();
+        $this->message->addPart($dataPart);
+
+        return 'cid:'.$dataPart->getContentId();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

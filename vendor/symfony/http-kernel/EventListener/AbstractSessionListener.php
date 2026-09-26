@@ -78,6 +78,11 @@ abstract class AbstractSessionListener implements EventSubscriberInterface, Rese
                 static $sess;
 
                 if (!$sess) {
+<<<<<<< HEAD
+=======
+                    // PHP keeps the id of the previous request when it cannot be reset, e.g. once some output has been sent
+                    $previousSessionId = session_id();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $sess = $this->getSession();
                     $request->setSession($sess);
 
@@ -88,7 +93,16 @@ abstract class AbstractSessionListener implements EventSubscriberInterface, Rese
                      * Do not set it when a native php session is active.
                      */
                     if ($sess && !$sess->isStarted() && \PHP_SESSION_ACTIVE !== session_status()) {
+<<<<<<< HEAD
                         $sessionId = $sess->getId() ?: $request->cookies->get($sess->getName(), '');
+=======
+                        $sessionId = $sess->getId();
+
+                        if ('' === $sessionId || $previousSessionId === $sessionId) {
+                            $sessionId = $request->cookies->get($sess->getName(), '');
+                        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $sess->setId($sessionId);
                     }
                 }

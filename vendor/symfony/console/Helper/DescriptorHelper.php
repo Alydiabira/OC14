@@ -62,7 +62,11 @@ class DescriptorHelper extends Helper
         ], $options);
 
         if (!isset($this->descriptors[$options['format']])) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Unsupported format "%s".', $options['format']));
+=======
+            throw new InvalidArgumentException(\sprintf('Unsupported format "%s".', $options['format']));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $descriptor = $this->descriptors[$options['format']];

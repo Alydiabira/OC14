@@ -14,6 +14,10 @@ namespace Symfony\Bundle\MakerBundle;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\MakerBundle\Exception\RuntimeCommandException;
 use Symfony\Bundle\MakerBundle\Util\ClassNameDetails;
+<<<<<<< HEAD
+=======
+use Symfony\Bundle\MakerBundle\Util\ClassSource\Model\ClassData;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Bundle\MakerBundle\Util\PhpCompatUtil;
 use Symfony\Bundle\MakerBundle\Util\TemplateComponentGenerator;
 
@@ -54,10 +58,22 @@ class Generator
      */
     public function generateClass(string $className, string $templateName, array $variables = []): string
     {
+<<<<<<< HEAD
         $targetPath = $this->fileManager->getRelativePathForFutureClass($className);
 
         if (null === $targetPath) {
             throw new \LogicException(sprintf('Could not determine where to locate the new class "%s", maybe try with a full namespace like "\\My\\Full\\Namespace\\%s"', $className, Str::getShortClassName($className)));
+=======
+        if (\array_key_exists('class_data', $variables) && $variables['class_data'] instanceof ClassData) {
+            $classData = $this->templateComponentGenerator->configureClass($variables['class_data']);
+            $className = $classData->getFullClassName();
+        }
+
+        $targetPath = $this->fileManager->getRelativePathForFutureClass($className);
+
+        if (null === $targetPath) {
+            throw new \LogicException(\sprintf('Could not determine where to locate the new class "%s", maybe try with a full namespace like "My\\Full\\Namespace\\%s"', $className, Str::getShortClassName($className)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $variables = array_merge($variables, [
@@ -71,6 +87,44 @@ class Generator
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Future replacement for generateClass().
+     *
+     * @internal
+     *
+     * @param string $templateName Template name in the templates/ dir to use
+     * @param array  $variables    Array of variables to pass to the template
+     * @param bool   $isController Set to true if generating a Controller that needs
+     *                             access to the TemplateComponentGenerator ("generator") in
+     *                             the Twig template. e.g. to create route attributes for a route method
+     *
+     * @return string The path where the file will be created
+     *
+     * @throws \Exception
+     */
+    final public function generateClassFromClassData(ClassData $classData, string $templateName, array $variables = [], bool $isController = false): string
+    {
+        $classData = $this->templateComponentGenerator->configureClass($classData);
+        $targetPath = $this->fileManager->getRelativePathForFutureClass($classData->getFullClassName());
+
+        if (null === $targetPath) {
+            throw new \LogicException(\sprintf('Could not determine where to locate the new class "%s", maybe try with a full namespace like "My\\Full\\Namespace\\%s"', $classData->getFullClassName(), $classData->getClassName()));
+        }
+
+        $globalTemplateVars = ['class_data' => $classData];
+
+        if ($isController) {
+            $globalTemplateVars['generator'] = $this->templateComponentGenerator;
+        }
+
+        $this->addOperation($targetPath, $templateName, array_merge($variables, $globalTemplateVars));
+
+        return $targetPath;
+    }
+
+    /**
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Generate a normal file from a template.
      *
      * @return void
@@ -97,7 +151,11 @@ class Generator
     public function getFileContentsForPendingOperation(string $targetPath): string
     {
         if (!isset($this->pendingOperations[$targetPath])) {
+<<<<<<< HEAD
             throw new RuntimeCommandException(sprintf('File "%s" is not in the Generator\'s pending operations', $targetPath));
+=======
+            throw new RuntimeCommandException(\sprintf('File "%s" is not in the Generator\'s pending operations', $targetPath));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $templatePath = $this->pendingOperations[$targetPath]['template'];
@@ -251,17 +309,32 @@ class Generator
     private function addOperation(string $targetPath, string $templateName, array $variables): void
     {
         if ($this->fileManager->fileExists($targetPath)) {
+<<<<<<< HEAD
             throw new RuntimeCommandException(sprintf('The file "%s" can\'t be generated because it already exists.', $this->fileManager->relativizePath($targetPath)));
+=======
+            throw new RuntimeCommandException(\sprintf('The file "%s" can\'t be generated because it already exists.', $this->fileManager->relativizePath($targetPath)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $variables['relative_path'] = $this->fileManager->relativizePath($targetPath);
 
         $templatePath = $templateName;
         if (!file_exists($templatePath)) {
+<<<<<<< HEAD
             $templatePath = __DIR__.'/Resources/skeleton/'.$templateName;
 
             if (!file_exists($templatePath)) {
                 throw new \Exception(sprintf('Cannot find template "%s"', $templateName));
+=======
+            $templatePath = \sprintf('%s/templates/%s', \dirname(__DIR__), $templateName);
+
+            if (!file_exists($templatePath)) {
+                $templatePath = $this->getTemplateFromLegacySkeletonPath($templateName);
+            }
+
+            if (!file_exists($templatePath)) {
+                throw new \Exception(\sprintf('Cannot find template "%s" in the templates/ dir.', $templateName));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -270,4 +343,30 @@ class Generator
             'variables' => $variables,
         ];
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * @legacy - Remove when public generate methods become "internal" to MakerBundle in v2
+     */
+    private function getTemplateFromLegacySkeletonPath(string $templateName): string
+    {
+        $templatePath = $templateName;
+        if (!file_exists($templatePath)) {
+            $templatePath = __DIR__.'/Resources/skeleton/'.$templateName;
+
+            if (!file_exists($templatePath)) {
+                throw new \Exception(\sprintf('Cannot find template "%s"', $templateName));
+            }
+        }
+
+        @trigger_deprecation(
+            'symfony/maker-bundle',
+            '1.62.0',
+            'Storing templates in src/Resources/skeleton is deprecated. Store MakerBundle templates in the "~/templates/" dir instead.',
+        );
+
+        return $templatePath;
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

@@ -43,7 +43,11 @@ class PhpVersion {
      * if it is still under development.
      */
     public static function getNewestSupported(): self {
+<<<<<<< HEAD
         return self::fromComponents(8, 3);
+=======
+        return self::fromComponents(8, 5);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -161,4 +165,18 @@ class PhpVersion {
     public function supportsUnicodeEscapes(): bool {
         return $this->id >= 70000;
     }
+<<<<<<< HEAD
+=======
+
+    /*
+     * Whether this version supports attributes.
+     */
+    public function supportsAttributes(): bool {
+        return $this->id >= 80000;
+    }
+
+    public function supportsNewDereferenceWithoutParentheses(): bool {
+        return $this->id >= 80400;
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

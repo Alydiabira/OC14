@@ -41,12 +41,20 @@ class LocaleListener implements EventSubscriberInterface
         $this->requestStack = $requestStack;
         $this->router = $router;
         $this->useAcceptLanguageHeader = $useAcceptLanguageHeader;
+<<<<<<< HEAD
         $this->enabledLocales = $enabledLocales;
+=======
+        $this->enabledLocales = $enabledLocales ? array_values(array_unique(array_merge([$defaultLocale], $enabledLocales))) : [];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function setDefaultLocale(KernelEvent $event): void
     {
         $event->getRequest()->setDefaultLocale($this->defaultLocale);
+<<<<<<< HEAD
+=======
+        $this->setRouterLocale($this->defaultLocale);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function onKernelRequest(RequestEvent $event): void
@@ -54,14 +62,22 @@ class LocaleListener implements EventSubscriberInterface
         $request = $event->getRequest();
 
         $this->setLocale($request);
+<<<<<<< HEAD
         $this->setRouterContext($request);
+=======
+        $this->setRouterLocale($request->getLocale());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function onKernelFinishRequest(FinishRequestEvent $event): void
     {
+<<<<<<< HEAD
         if (null !== $parentRequest = $this->requestStack->getParentRequest()) {
             $this->setRouterContext($parentRequest);
         }
+=======
+        $this->setRouterLocale($this->requestStack->getParentRequest()?->getLocale() ?? $this->defaultLocale);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function setLocale(Request $request): void
@@ -76,9 +92,15 @@ class LocaleListener implements EventSubscriberInterface
         }
     }
 
+<<<<<<< HEAD
     private function setRouterContext(Request $request): void
     {
         $this->router?->getContext()->setParameter('_locale', $request->getLocale());
+=======
+    private function setRouterLocale(string $locale): void
+    {
+        $this->router?->getContext()->setParameter('_locale', $locale);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public static function getSubscribedEvents(): array

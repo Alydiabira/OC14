@@ -151,7 +151,11 @@ final class Converter
      * @param T $value
      *
      * @return T|string
+<<<<<<< HEAD
      * @psalm-return (T is string ? string : T)
+=======
+     * @phpstan-return (T is string ? string : T)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @template T
      */
@@ -228,7 +232,11 @@ final class Converter
         return /**
                 * @param T $value
                 *
+<<<<<<< HEAD
                 * @psalm-return (T is false ? false : T)
+=======
+                * @phpstan-return (T is false ? false : T)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 *
                 * @template T
                 */

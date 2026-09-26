@@ -11,8 +11,13 @@ use Composer\Package\PackageInterface;
 class InformationOperation implements OperationInterface
 {
     private $package;
+<<<<<<< HEAD
     private $recipeRef = null;
     private $version = null;
+=======
+    private $recipeRef;
+    private $version;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     public function __construct(PackageInterface $package)
     {
@@ -56,8 +61,11 @@ class InformationOperation implements OperationInterface
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
      *
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return string
      */
     public function getOperationType()
@@ -66,8 +74,11 @@ class InformationOperation implements OperationInterface
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritdoc}
      *
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return string
      */
     public function show($lock)
@@ -77,9 +88,12 @@ class InformationOperation implements OperationInterface
         return 'Information '.$this->package->getPrettyName().' ('.$pretty.')';
     }
 
+<<<<<<< HEAD
     /**
      * {@inheritdoc}
      */
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function __toString()
     {
         return $this->show(false);

@@ -140,7 +140,11 @@ class Person extends \Faker\Provider\Person
      *
      * @return string
      */
+<<<<<<< HEAD
     public function idNumber(\DateTime $birthdate = null, $citizen = true, $gender = null)
+=======
+    public function idNumber(?\DateTime $birthdate = null, $citizen = true, $gender = null)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if (!$birthdate) {
             $birthdate = $this->generator->dateTimeThisCentury();

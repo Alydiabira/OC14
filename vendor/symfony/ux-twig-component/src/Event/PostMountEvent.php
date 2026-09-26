@@ -35,10 +35,17 @@ final class PostMountEvent extends Event
             $this->extraMetadata = $metadata;
         } else {
             if (null !== $metadata && !$metadata instanceof ComponentMetadata) {
+<<<<<<< HEAD
                 throw new \InvalidArgumentException(sprintf('Expecting "$metadata" to be null or an instance of "%s", given: "%s."', ComponentMetadata::class, get_debug_type($metadata)));
             }
             if (!\is_array($extraMetadata)) {
                 throw new \InvalidArgumentException(sprintf('Expecting "$extraMetadata" to be array, given: "%s".', get_debug_type($extraMetadata)));
+=======
+                throw new \InvalidArgumentException(\sprintf('Expecting "$metadata" to be null or an instance of "%s", given: "%s."', ComponentMetadata::class, get_debug_type($metadata)));
+            }
+            if (!\is_array($extraMetadata)) {
+                throw new \InvalidArgumentException(\sprintf('Expecting "$extraMetadata" to be array, given: "%s".', get_debug_type($extraMetadata)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $this->metadata = $metadata;

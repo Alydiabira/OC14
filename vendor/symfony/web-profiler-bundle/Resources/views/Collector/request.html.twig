@@ -271,7 +271,11 @@
             </div>
         </div>
 
+<<<<<<< HEAD
         <div class="tab {{ collector.sessionmetadata is empty ? 'disabled' }}">
+=======
+        <div class="tab {{ collector.sessionmetadata is empty and collector.sessionusages is empty ? 'disabled' }}">
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             <h3 class="tab-title">Session{% if collector.sessionusages is not empty %} <span class="badge">{{ collector.sessionusages|length }}</span>{% endif %}</h3>
 
             <div class="tab-content">
@@ -331,7 +335,11 @@
                                     {%- if link %}</a>{% else %}</span>{% endif %}
                                     <div class="text-small font-normal">
                                         {% set usage_id = 'session-usage-trace-' ~ key %}
+<<<<<<< HEAD
                                         <a class="btn btn-link text-small sf-toggle" data-toggle-selector="#{{ usage_id }}" data-toggle-alt-content="Hide trace">Show trace</a>
+=======
+                                        <button type="button" class="btn btn-link text-small sf-toggle" data-toggle-selector="#{{ usage_id }}" data-toggle-alt-content="Hide trace">Show trace</button>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                                     </div>
                                     <div id="{{ usage_id }}" class="context sf-toggle-content sf-toggle-hidden">
                                         {{ profiler_dump(usage.trace, maxDepth=2) }}
@@ -411,7 +419,11 @@
     </div>
 {% endblock %}
 
+<<<<<<< HEAD
 {% macro set_handler(controller, route, method) %}
+=======
+{% macro set_handler(controller, route = null, method = null) %}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {% if controller.class is defined -%}
         {%- if method|default(false) %}<span class="sf-toolbar-status sf-toolbar-redirection-method">{{ method }}</span>{% endif -%}
         {%- set link = controller.file|file_link(controller.line) %}

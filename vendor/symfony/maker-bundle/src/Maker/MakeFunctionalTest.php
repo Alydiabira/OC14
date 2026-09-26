@@ -50,7 +50,11 @@ class MakeFunctionalTest extends AbstractMaker
     {
         $command
             ->addArgument('name', InputArgument::OPTIONAL, 'The name of the functional test class (e.g. <fg=yellow>DefaultControllerTest</>)')
+<<<<<<< HEAD
             ->setHelp(file_get_contents(__DIR__.'/../Resources/help/MakeFunctionalTest.txt'))
+=======
+            ->setHelp($this->getHelpFileContents('MakeFunctionalTest.txt'))
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ;
     }
 

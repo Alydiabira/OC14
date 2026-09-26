@@ -37,13 +37,21 @@ final class Util
      * @param  CurlHandle  $ch curl handler
      * @return bool|string @see curl_exec
      */
+<<<<<<< HEAD
     public static function execute(CurlHandle $ch, int $retries = 5, bool $closeAfterDone = true)
     {
         while ($retries--) {
+=======
+    public static function execute(CurlHandle $ch, int $retries = 5): bool|string
+    {
+        while ($retries > 0) {
+            $retries--;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $curlResponse = curl_exec($ch);
             if ($curlResponse === false) {
                 $curlErrno = curl_errno($ch);
 
+<<<<<<< HEAD
                 if (false === in_array($curlErrno, self::$retriableErrorCodes, true) || $retries === 0) {
                     $curlError = curl_error($ch);
 
@@ -64,6 +72,18 @@ final class Util
             return $curlResponse;
         }
 
+=======
+                if (false === \in_array($curlErrno, self::$retriableErrorCodes, true) || $retries === 0) {
+                    $curlError = curl_error($ch);
+
+                    throw new \RuntimeException(sprintf('Curl error (code %d): %s', $curlErrno, $curlError));
+                }
+                continue;
+            }
+
+            return $curlResponse;
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return false;
     }
 }

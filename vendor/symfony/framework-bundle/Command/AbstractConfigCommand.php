@@ -38,7 +38,11 @@ abstract class AbstractConfigCommand extends ContainerDebugCommand
         $rows = [];
 
         $bundles = $this->getApplication()->getKernel()->getBundles();
+<<<<<<< HEAD
         usort($bundles, fn ($bundleA, $bundleB) => strcmp($bundleA->getName(), $bundleB->getName()));
+=======
+        usort($bundles, static fn ($bundleA, $bundleB) => strcmp($bundleA->getName(), $bundleB->getName()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         foreach ($bundles as $bundle) {
             $extension = $bundle->getContainerExtension();
@@ -117,7 +121,11 @@ abstract class AbstractConfigCommand extends ContainerDebugCommand
         foreach ($bundles as $bundle) {
             if ($name === $bundle->getName()) {
                 if (!$bundle->getContainerExtension()) {
+<<<<<<< HEAD
                     throw new \LogicException(sprintf('Bundle "%s" does not have a container extension.', $name));
+=======
+                    throw new \LogicException(\sprintf('Bundle "%s" does not have a container extension.', $name));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 return $bundle->getContainerExtension();
@@ -147,6 +155,7 @@ abstract class AbstractConfigCommand extends ContainerDebugCommand
         }
 
         if (!str_ends_with($name, 'Bundle')) {
+<<<<<<< HEAD
             $message = sprintf('No extensions with configuration available for "%s".', $name);
         } else {
             $message = sprintf('No extension with alias "%s" is enabled.', $name);
@@ -154,6 +163,15 @@ abstract class AbstractConfigCommand extends ContainerDebugCommand
 
         if (isset($guess) && $minScore < 3) {
             $message .= sprintf("\n\nDid you mean \"%s\"?", $guess);
+=======
+            $message = \sprintf('No extensions with configuration available for "%s".', $name);
+        } else {
+            $message = \sprintf('No extension with alias "%s" is enabled.', $name);
+        }
+
+        if (isset($guess) && $minScore < 3) {
+            $message .= \sprintf("\n\nDid you mean \"%s\"?", $guess);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         throw new LogicException($message);
@@ -165,11 +183,19 @@ abstract class AbstractConfigCommand extends ContainerDebugCommand
     public function validateConfiguration(ExtensionInterface $extension, mixed $configuration)
     {
         if (!$configuration) {
+<<<<<<< HEAD
             throw new \LogicException(sprintf('The extension with alias "%s" does not have its getConfiguration() method setup.', $extension->getAlias()));
         }
 
         if (!$configuration instanceof ConfigurationInterface) {
             throw new \LogicException(sprintf('Configuration class "%s" should implement ConfigurationInterface in order to be dumpable.', get_debug_type($configuration)));
+=======
+            throw new \LogicException(\sprintf('The extension with alias "%s" does not have its getConfiguration() method setup.', $extension->getAlias()));
+        }
+
+        if (!$configuration instanceof ConfigurationInterface) {
+            throw new \LogicException(\sprintf('Configuration class "%s" should implement ConfigurationInterface in order to be dumpable.', get_debug_type($configuration)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -180,6 +206,15 @@ abstract class AbstractConfigCommand extends ContainerDebugCommand
         $kernel = $this->getApplication()->getKernel();
         $container = $this->getContainerBuilder($kernel);
         $bundles = $kernel->getBundles();
+<<<<<<< HEAD
+=======
+
+        if ($container->isCompiled()) {
+            // the bundles have already been built while compiling the container
+            return $bundles;
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         foreach ($bundles as $bundle) {
             if ($extension = $bundle->getContainerExtension()) {
                 $container->registerExtension($extension);

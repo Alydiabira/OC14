@@ -134,6 +134,13 @@
                 <source>Please enter a valid week.</source>
                 <target>Молим упишите исправну седмицу.</target>
             </trans-unit>
+<<<<<<< HEAD
+=======
+            <trans-unit id="129">
+                <source>Please enter a valid UUID.</source>
+                <target>Молим упишите исправан UUID.</target>
+            </trans-unit>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         </body>
     </file>
 </xliff>

@@ -59,7 +59,11 @@ class CopyFromPackageConfigurator extends AbstractConfigurator
         // any remaining files are new, and we can copy them
         foreach ($this->getFilesToCopy($newConfig, $packageDir) as $source => $target) {
             if (!file_exists($source)) {
+<<<<<<< HEAD
                 throw new \LogicException(sprintf('File "%s" does not exist!', $source));
+=======
+                throw new \LogicException(\sprintf('File "%s" does not exist!', $source));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $recipeUpdate->setNewFile($target, file_get_contents($source));
@@ -72,7 +76,11 @@ class CopyFromPackageConfigurator extends AbstractConfigurator
         foreach ($manifest as $source => $target) {
             $target = $this->options->expandTargetDir($target);
             if ('/' === substr($source, -1)) {
+<<<<<<< HEAD
                 $files = array_merge($files, $this->getFilesForDir($this->path->concatenate([$from, $source]), $this->path->concatenate([$target])));
+=======
+                $files = array_merge($files, $this->getFilesForDir($this->path->concatenate([$from, $source]), $target));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 continue;
             }
@@ -93,7 +101,11 @@ class CopyFromPackageConfigurator extends AbstractConfigurator
                 $targetPath = $this->path->concatenate([$to, $target]);
                 if (file_exists($targetPath)) {
                     @unlink($targetPath);
+<<<<<<< HEAD
                     $this->write(sprintf('  Removed <fg=green>"%s"</>', $this->path->relativize($targetPath)));
+=======
+                    $this->write(\sprintf('  Removed <fg=green>"%s"</>', $this->path->relativize($targetPath)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
         }
@@ -118,29 +130,49 @@ class CopyFromPackageConfigurator extends AbstractConfigurator
      */
     public function copyFile(string $source, string $target, array $options)
     {
+<<<<<<< HEAD
         $target = $this->options->get('root-dir').'/'.$target;
+=======
+        $target = $this->options->get('root-dir').'/'.$this->options->expandTargetDir($target);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (is_dir($source)) {
             // directory will be created when a file is copied to it
             return;
         }
 
+<<<<<<< HEAD
         $overwrite = $options['force'] ?? false;
         if (!$this->options->shouldWriteFile($target, $overwrite)) {
+=======
+        if (!$this->options->shouldWriteFile($target, $options['force'] ?? false, $options['assumeYesForPrompts'] ?? false)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return;
         }
 
         if (!file_exists($source)) {
+<<<<<<< HEAD
             throw new \LogicException(sprintf('File "%s" does not exist!', $source));
+=======
+            throw new \LogicException(\sprintf('File "%s" does not exist!', $source));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (!file_exists(\dirname($target))) {
             mkdir(\dirname($target), 0777, true);
+<<<<<<< HEAD
             $this->write(sprintf('  Created <fg=green>"%s"</>', $this->path->relativize(\dirname($target))));
+=======
+            $this->write(\sprintf('  Created <fg=green>"%s"</>', $this->path->relativize(\dirname($target))));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         file_put_contents($target, $this->options->expandTargetDir(file_get_contents($source)));
         @chmod($target, fileperms($target) | (fileperms($source) & 0111));
+<<<<<<< HEAD
         $this->write(sprintf('  Created <fg=green>"%s"</>', $this->path->relativize($target)));
+=======
+        $this->write(\sprintf('  Created <fg=green>"%s"</>', $this->path->relativize($target)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function removeFilesFromDir(string $source, string $target)
@@ -154,10 +186,17 @@ class CopyFromPackageConfigurator extends AbstractConfigurator
             if ($item->isDir()) {
                 // that removes the dir only if it is empty
                 @rmdir($targetPath);
+<<<<<<< HEAD
                 $this->write(sprintf('  Removed directory <fg=green>"%s"</>', $this->path->relativize($targetPath)));
             } else {
                 @unlink($targetPath);
                 $this->write(sprintf('  Removed <fg=green>"%s"</>', $this->path->relativize($targetPath)));
+=======
+                $this->write(\sprintf('  Removed directory <fg=green>"%s"</>', $this->path->relativize($targetPath)));
+            } else {
+                @unlink($targetPath);
+                $this->write(\sprintf('  Removed <fg=green>"%s"</>', $this->path->relativize($targetPath)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
     }

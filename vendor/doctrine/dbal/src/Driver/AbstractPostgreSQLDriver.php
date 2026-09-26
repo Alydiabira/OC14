@@ -8,6 +8,10 @@ use Doctrine\DBAL\Driver\API\PostgreSQL;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Platforms\PostgreSQL100Platform;
+<<<<<<< HEAD
+=======
+use Doctrine\DBAL\Platforms\PostgreSQL120Platform;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\DBAL\Platforms\PostgreSQL94Platform;
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\DBAL\Schema\PostgreSQLSchemaManager;
@@ -28,7 +32,11 @@ abstract class AbstractPostgreSQLDriver implements VersionAwarePlatformDriver
      */
     public function createDatabasePlatformForVersion($version)
     {
+<<<<<<< HEAD
         if (preg_match('/^(?P<major>\d+)(?:\.(?P<minor>\d+)(?:\.(?P<patch>\d+))?)?/', $version, $versionParts) === 0) {
+=======
+        if (preg_match('/^(?P<major>\d+)(?:\.(?P<minor>\d+)(?:\.(?P<patch>\d+))?)?/', $version, $versionParts) !== 1) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw Exception::invalidPlatformVersionSpecified(
                 $version,
                 '<major_version>.<minor_version>.<patch_version>',
@@ -40,6 +48,13 @@ abstract class AbstractPostgreSQLDriver implements VersionAwarePlatformDriver
         $patchVersion = $versionParts['patch'] ?? 0;
         $version      = $majorVersion . '.' . $minorVersion . '.' . $patchVersion;
 
+<<<<<<< HEAD
+=======
+        if (version_compare($version, '12.0', '>=')) {
+            return new PostgreSQL120Platform();
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (version_compare($version, '10.0', '>=')) {
             return new PostgreSQL100Platform();
         }

@@ -46,7 +46,11 @@ class FlowdockHandler extends SocketHandler
         ?float $connectionTimeout = null,
         ?int $chunkSize = null
     ) {
+<<<<<<< HEAD
         if (!extension_loaded('openssl')) {
+=======
+        if (!\extension_loaded('openssl')) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new MissingExtensionException('The OpenSSL PHP extension is required to use the FlowdockHandler');
         }
 
@@ -68,7 +72,11 @@ class FlowdockHandler extends SocketHandler
      */
     public function setFormatter(FormatterInterface $formatter): HandlerInterface
     {
+<<<<<<< HEAD
         if (!$formatter instanceof FlowdockFormatter) {
+=======
+        if (!Utils::unwrapFormatter($formatter) instanceof FlowdockFormatter) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new \InvalidArgumentException('The FlowdockHandler requires an instance of Monolog\Formatter\FlowdockFormatter to function correctly');
         }
 
@@ -119,7 +127,11 @@ class FlowdockHandler extends SocketHandler
         $header = "POST /v1/messages/team_inbox/" . $this->apiToken . " HTTP/1.1\r\n";
         $header .= "Host: api.flowdock.com\r\n";
         $header .= "Content-Type: application/json\r\n";
+<<<<<<< HEAD
         $header .= "Content-Length: " . strlen($content) . "\r\n";
+=======
+        $header .= "Content-Length: " . \strlen($content) . "\r\n";
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $header .= "\r\n";
 
         return $header;

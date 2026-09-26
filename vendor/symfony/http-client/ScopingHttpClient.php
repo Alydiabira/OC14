@@ -39,7 +39,11 @@ class ScopingHttpClient implements HttpClientInterface, ResetInterface, LoggerAw
         $this->defaultRegexp = $defaultRegexp;
 
         if (null !== $defaultRegexp && !isset($defaultOptionsByRegexp[$defaultRegexp])) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('No options are mapped to the provided "%s" default regexp.', $defaultRegexp));
+=======
+            throw new InvalidArgumentException(\sprintf('No options are mapped to the provided "%s" default regexp.', $defaultRegexp));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -56,9 +60,17 @@ class ScopingHttpClient implements HttpClientInterface, ResetInterface, LoggerAw
     {
         $e = null;
         $url = self::parseUrl($url, $options['query'] ?? []);
+<<<<<<< HEAD
 
         if (\is_string($options['base_uri'] ?? null)) {
             $options['base_uri'] = self::parseUrl($options['base_uri']);
+=======
+        $resolved = false;
+
+        if (\is_string($options['base_uri'] ?? null)) {
+            $options['base_uri'] = self::parseUrl($options['base_uri']);
+            $resolved = true;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         try {
@@ -72,10 +84,21 @@ class ScopingHttpClient implements HttpClientInterface, ResetInterface, LoggerAw
             $options = self::mergeDefaultOptions($options, $defaultOptions, true);
             if (\is_string($options['base_uri'] ?? null)) {
                 $options['base_uri'] = self::parseUrl($options['base_uri']);
+<<<<<<< HEAD
+=======
+                $resolved = true;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $url = implode('', self::resolveUrl($url, $options['base_uri'] ?? null, $defaultOptions['query'] ?? []));
         }
 
+<<<<<<< HEAD
+=======
+        if ($resolved) {
+            unset($options['base_uri']);
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         foreach ($this->defaultOptionsByRegexp as $regexp => $defaultOptions) {
             if (preg_match("{{$regexp}}A", $url)) {
                 if (null === $e || $regexp !== $this->defaultRegexp) {

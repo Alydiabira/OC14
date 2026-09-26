@@ -19,6 +19,10 @@ use function dirname;
 use function explode;
 use function extension_loaded;
 use function file;
+<<<<<<< HEAD
+=======
+use function file_exists;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function file_get_contents;
 use function file_put_contents;
 use function is_array;
@@ -89,6 +93,7 @@ final class PhptTestCase implements Reorderable, SelfDescribing, Test
      */
     public function __construct(string $filename, ?AbstractPhpProcess $phpUtil = null)
     {
+<<<<<<< HEAD
         if (!is_file($filename)) {
             throw new Exception(
                 sprintf(
@@ -100,6 +105,15 @@ final class PhptTestCase implements Reorderable, SelfDescribing, Test
 
         $this->filename = $filename;
         $this->phpUtil  = $phpUtil ?: AbstractPhpProcess::factory();
+=======
+        $this->ensureFileExists($filename);
+
+        $this->filename = $filename;
+
+        $this->ensureCoverageFileDoesNotExist();
+
+        $this->phpUtil = $phpUtil ?: AbstractPhpProcess::factory();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -345,7 +359,11 @@ final class PhptTestCase implements Reorderable, SelfDescribing, Test
         foreach (explode("\n", trim($content)) as $e) {
             $e = explode('=', trim($e), 2);
 
+<<<<<<< HEAD
             if (!empty($e[0]) && isset($e[1])) {
+=======
+            if ($e[0] !== '' && isset($e[1])) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $env[$e[0]] = $e[1];
             }
         }
@@ -657,7 +675,18 @@ final class PhptTestCase implements Reorderable, SelfDescribing, Test
             $buffer = @file_get_contents($files['coverage']);
 
             if ($buffer !== false) {
+<<<<<<< HEAD
                 $coverage = @unserialize($buffer);
+=======
+                $coverage = @unserialize(
+                    $buffer,
+                    [
+                        'allowed_classes' => [
+                            RawCodeCoverageData::class,
+                        ],
+                    ],
+                );
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 if ($coverage === false) {
                     $coverage = RawCodeCoverageData::fromXdebugWithoutPathCoverage([]);
@@ -833,7 +862,10 @@ final class PhptTestCase implements Reorderable, SelfDescribing, Test
             'open_basedir=',
             'output_buffering=Off',
             'output_handler=',
+<<<<<<< HEAD
             'report_memleaks=0',
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'report_zend_debug=0',
         ];
 
@@ -863,4 +895,40 @@ final class PhptTestCase implements Reorderable, SelfDescribing, Test
 
         return $settings;
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * @throws Exception
+     */
+    private function ensureFileExists(string $filename): void
+    {
+        if (!is_file($filename)) {
+            throw new Exception(
+                sprintf(
+                    'File "%s" does not exist.',
+                    $filename,
+                ),
+            );
+        }
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function ensureCoverageFileDoesNotExist(): void
+    {
+        $files = $this->getCoverageFiles();
+
+        if (file_exists($files['coverage'])) {
+            throw new Exception(
+                sprintf(
+                    'File %s exists, PHPT test %s will not be executed',
+                    $files['coverage'],
+                    $this->filename,
+                ),
+            );
+        }
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

@@ -21,7 +21,11 @@ use Symfony\Component\VarDumper\Cloner\Data;
 /**
  * @author Mathias Arlaud <mathias.arlaud@gmail.com>
  *
+<<<<<<< HEAD
  * @internal
+=======
+ * @final
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 class SerializerDataCollector extends DataCollector implements LateDataCollectorInterface
 {
@@ -58,7 +62,11 @@ class SerializerDataCollector extends DataCollector implements LateDataCollector
         $totalTime = 0;
 
         foreach ($this->data as $handled) {
+<<<<<<< HEAD
             $totalTime += array_sum(array_map(fn (array $el): float => $el['time'], $handled));
+=======
+            $totalTime += array_sum(array_map(static fn (array $el): float => $el['time'], $handled));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $totalTime;

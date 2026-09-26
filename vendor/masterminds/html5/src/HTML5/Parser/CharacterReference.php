@@ -48,7 +48,11 @@ class CharacterReference
     }
 
     /**
+<<<<<<< HEAD
      * Given a hexidecimal number, return the UTF-8 character.
+=======
+     * Given a hexadecimal number, return the UTF-8 character.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @param $hexdec
      *

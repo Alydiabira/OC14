@@ -15,6 +15,7 @@ final class ShowTest extends FunctionalTestCase
         self::assertResponseIsSuccessful();
         self::assertSelectorTextContains('h1', 'Jeu vidéo 0');
     }
+<<<<<<< HEAD
 
     public function testShouldPostReview(): void
     {
@@ -34,4 +35,6 @@ final class ShowTest extends FunctionalTestCase
         self::assertSelectorTextContains('div.list-group-item:last-child p', 'Mon commentaire');
         self::assertSelectorTextContains('div.list-group-item:last-child span.value', '4');
     }
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

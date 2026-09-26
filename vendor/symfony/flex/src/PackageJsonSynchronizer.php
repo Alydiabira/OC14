@@ -104,7 +104,11 @@ class PackageJsonSynchronizer
 
         foreach (['dependencies' => $jsDependencies, 'devDependencies' => $jsDevDependencies] as $key => $packages) {
             foreach ($packages as $name => $version) {
+<<<<<<< HEAD
                 if ('@' !== $name[0] || 0 !== strpos($version, 'file:'.$this->vendorDir.'/') || false === strpos($version, '/assets')) {
+=======
+                if ('@' !== $name[0] || !str_starts_with($version, 'file:'.$this->vendorDir.'/') || !str_contains($version, '/assets')) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     continue;
                 }
                 if (file_exists($this->rootDir.'/'.substr($version, 5).'/package.json')) {
@@ -149,6 +153,7 @@ class PackageJsonSynchronizer
         $dependencies = [];
 
         foreach ($packageJson->read()['symfony']['importmap'] ?? [] as $importMapName => $constraintConfig) {
+<<<<<<< HEAD
             if (\is_array($constraintConfig)) {
                 $constraint = $constraintConfig['version'] ?? [];
                 $package = $constraintConfig['package'] ?? $importMapName;
@@ -158,11 +163,41 @@ class PackageJsonSynchronizer
             }
 
             if (0 === strpos($constraint, 'path:')) {
+=======
+            if (\is_string($constraintConfig)) {
+                // Matches string constraint, like "^3.0" or "path:%PACKAGE%/script.js"
+                $constraint = $constraintConfig;
+                $package = $importMapName;
+                $entrypoint = false;
+            } elseif (\is_array($constraintConfig)) {
+                // Matches array constraint, like {"version":"^3.0"} or {"version":"path:%PACKAGE%/script.js","entrypoint":true}
+                // Note that non-path assets can't be entrypoint
+                $constraint = $constraintConfig['version'] ?? '';
+                $package = $constraintConfig['package'] ?? $importMapName;
+                $entrypoint = $constraintConfig['entrypoint'] ?? false;
+            } else {
+                throw new \InvalidArgumentException(\sprintf('Invalid constraint config for key "%s": "%s" given, array or string expected.', $importMapName, var_export($constraintConfig, true)));
+            }
+
+            // When "$constraintConfig" matches one of the following cases:
+            // - "entrypoint:%PACKAGE%/script.js"
+            // - {"version": "entrypoint:%PACKAGE%/script.js"}
+            if (str_starts_with($constraint, 'entrypoint:')) {
+                $entrypoint = true;
+                $constraint = substr_replace($constraint, 'path:', 0, \strlen('entrypoint:'));
+            }
+
+            if (str_starts_with($constraint, 'path:')) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $path = substr($constraint, 5);
                 $path = str_replace('%PACKAGE%', \dirname($packageJson->getPath()), $path);
 
                 $dependencies[$importMapName] = [
                     'path' => $path,
+<<<<<<< HEAD
+=======
+                    'entrypoint' => $entrypoint,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ];
 
                 continue;
@@ -239,7 +274,11 @@ class PackageJsonSynchronizer
     }
 
     /**
+<<<<<<< HEAD
      * @param array<string, array{path?: string, package?: string, version?: string}> $importMapEntries
+=======
+     * @param array<string, array{path?: string, package?: string, version?: string, entrypoint?: bool}> $importMapEntries
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private function updateImportMap(array $importMapEntries): void
     {
@@ -264,11 +303,22 @@ class PackageJsonSynchronizer
                     continue;
                 }
 
+<<<<<<< HEAD
                 $this->io->writeError(sprintf('Updating package <comment>%s</> from <info>%s</> to <info>%s</>.', $name, $version, $versionConstraint));
+=======
+                $this->io->writeError(\sprintf('Updating package <comment>%s</> from <info>%s</> to <info>%s</>.', $name, $version, $versionConstraint));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if (isset($importMapEntry['path'])) {
                 $arguments = [$name, '--path='.$importMapEntry['path']];
+<<<<<<< HEAD
+=======
+                if (isset($importMapEntry['entrypoint']) && true === $importMapEntry['entrypoint']) {
+                    $arguments[] = '--entrypoint';
+                }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $this->scriptExecutor->execute(
                     'symfony-cmd',
                     'importmap:require',
@@ -293,7 +343,11 @@ class PackageJsonSynchronizer
                 continue;
             }
 
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('Invalid importmap entry: "%s".', var_export($importMapEntry, true)));
+=======
+            throw new \InvalidArgumentException(\sprintf('Invalid importmap entry: "%s".', var_export($importMapEntry, true)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 

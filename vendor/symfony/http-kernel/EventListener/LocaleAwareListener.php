@@ -27,6 +27,11 @@ class LocaleAwareListener implements EventSubscriberInterface
 {
     private iterable $localeAwareServices;
     private RequestStack $requestStack;
+<<<<<<< HEAD
+=======
+    private array $storedLocales = [];
+    private array $initializedServices = [];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * @param iterable<mixed, LocaleAwareInterface> $localeAwareServices
@@ -39,11 +44,33 @@ class LocaleAwareListener implements EventSubscriberInterface
 
     public function onKernelRequest(RequestEvent $event): void
     {
+<<<<<<< HEAD
+=======
+        if (!$event->isMainRequest()) {
+            $locales = [];
+
+            foreach ($this->localeAwareServices as $key => $service) {
+                // a service the listener never set can hold no locale to restore
+                if (isset($this->initializedServices[$key])) {
+                    $locales[$key] = $service->getLocale();
+                }
+            }
+
+            $this->storedLocales[spl_object_id($event->getRequest())] = $locales;
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->setLocale($event->getRequest()->getLocale(), $event->getRequest()->getDefaultLocale());
     }
 
     public function onKernelFinishRequest(FinishRequestEvent $event): void
     {
+<<<<<<< HEAD
+=======
+        $storedLocales = $this->storedLocales[$id = spl_object_id($event->getRequest())] ?? [];
+        unset($this->storedLocales[$id]);
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (null === $parentRequest = $this->requestStack->getParentRequest()) {
             foreach ($this->localeAwareServices as $service) {
                 $service->setLocale($event->getRequest()->getDefaultLocale());
@@ -52,7 +79,11 @@ class LocaleAwareListener implements EventSubscriberInterface
             return;
         }
 
+<<<<<<< HEAD
         $this->setLocale($parentRequest->getLocale(), $parentRequest->getDefaultLocale());
+=======
+        $this->setLocale($parentRequest->getLocale(), $parentRequest->getDefaultLocale(), $storedLocales);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public static function getSubscribedEvents(): array
@@ -64,6 +95,7 @@ class LocaleAwareListener implements EventSubscriberInterface
         ];
     }
 
+<<<<<<< HEAD
     private function setLocale(string $locale, string $defaultLocale): void
     {
         foreach ($this->localeAwareServices as $service) {
@@ -72,6 +104,18 @@ class LocaleAwareListener implements EventSubscriberInterface
             } catch (\InvalidArgumentException) {
                 $service->setLocale($defaultLocale);
             }
+=======
+    private function setLocale(string $locale, string $defaultLocale, array $storedLocales = []): void
+    {
+        foreach ($this->localeAwareServices as $key => $service) {
+            try {
+                $service->setLocale($storedLocales[$key] ?? $locale);
+            } catch (\InvalidArgumentException) {
+                $service->setLocale($defaultLocale);
+            }
+
+            $this->initializedServices[$key] = true;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

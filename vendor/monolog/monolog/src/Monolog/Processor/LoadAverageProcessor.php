@@ -40,7 +40,11 @@ class LoadAverageProcessor implements ProcessorInterface
      */
     public function __construct(int $avgSystemLoad = self::LOAD_1_MINUTE)
     {
+<<<<<<< HEAD
         if (!in_array($avgSystemLoad, self::AVAILABLE_LOAD, true)) {
+=======
+        if (!\in_array($avgSystemLoad, self::AVAILABLE_LOAD, true)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new \InvalidArgumentException(sprintf('Invalid average system load: `%s`', $avgSystemLoad));
         }
         $this->avgSystemLoad = $avgSystemLoad;
@@ -51,7 +55,11 @@ class LoadAverageProcessor implements ProcessorInterface
      */
     public function __invoke(LogRecord $record): LogRecord
     {
+<<<<<<< HEAD
         if (!function_exists('sys_getloadavg')) {
+=======
+        if (!\function_exists('sys_getloadavg')) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return $record;
         }
         $usage = sys_getloadavg();

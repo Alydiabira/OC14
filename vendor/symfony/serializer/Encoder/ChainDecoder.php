@@ -33,7 +33,11 @@ class ChainDecoder implements ContextAwareDecoderInterface
      * @param array<DecoderInterface> $decoders
      */
     public function __construct(
+<<<<<<< HEAD
         private readonly array $decoders = []
+=======
+        private readonly array $decoders = [],
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ) {
     }
 
@@ -78,6 +82,10 @@ class ChainDecoder implements ContextAwareDecoderInterface
             }
         }
 
+<<<<<<< HEAD
         throw new RuntimeException(sprintf('No decoder found for format "%s".', $format));
+=======
+        throw new RuntimeException(\sprintf('No decoder found for format "%s".', $format));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

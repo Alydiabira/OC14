@@ -151,6 +151,13 @@ trait ServerLogHandlerTrait
             }
         }
 
+<<<<<<< HEAD
+=======
+        if (isset($recordFormatted['datetime']) && $recordFormatted['datetime'] instanceof \DateTimeInterface) {
+            $recordFormatted['datetime'] = $recordFormatted['datetime']->format('Y-m-d\TH:i:s.uP');
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return base64_encode(serialize($recordFormatted))."\n";
     }
 }

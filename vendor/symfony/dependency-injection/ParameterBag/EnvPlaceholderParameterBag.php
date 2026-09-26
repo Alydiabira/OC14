@@ -42,6 +42,7 @@ class EnvPlaceholderParameterBag extends ParameterBag
                 }
             }
             if (!preg_match('/^(?:[-.\w\\\\]*+:)*+\w*+$/', $env)) {
+<<<<<<< HEAD
                 throw new InvalidArgumentException(sprintf('Invalid %s name: only "word" characters are allowed.', $name));
             }
             if ($this->has($name) && null !== ($defaultValue = parent::get($name)) && !\is_string($defaultValue)) {
@@ -50,6 +51,16 @@ class EnvPlaceholderParameterBag extends ParameterBag
 
             $uniqueName = hash('xxh128', $name.'_'.self::$counter++);
             $placeholder = sprintf('%s_%s_%s', $this->getEnvPlaceholderUniquePrefix(), strtr($env, ':-.\\', '____'), $uniqueName);
+=======
+                throw new InvalidArgumentException(\sprintf('Invalid %s name: only "word" characters are allowed.', $name));
+            }
+            if ($this->has($name) && null !== ($defaultValue = parent::get($name)) && !\is_string($defaultValue)) {
+                throw new RuntimeException(\sprintf('The default value of an env() parameter must be a string or null, but "%s" given to "%s".', get_debug_type($defaultValue), $name));
+            }
+
+            $uniqueName = hash('xxh128', $name.'_'.self::$counter++);
+            $placeholder = \sprintf('%s_%s_%s', $this->getEnvPlaceholderUniquePrefix(), strtr($env, ':-.\\', '____'), $uniqueName);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->envPlaceholders[$env][$placeholder] = $placeholder;
 
             return $placeholder;
@@ -64,8 +75,13 @@ class EnvPlaceholderParameterBag extends ParameterBag
     public function getEnvPlaceholderUniquePrefix(): string
     {
         if (!isset($this->envPlaceholderUniquePrefix)) {
+<<<<<<< HEAD
             $reproducibleEntropy = unserialize(serialize($this->parameters));
             array_walk_recursive($reproducibleEntropy, function (&$v) { $v = null; });
+=======
+            $reproducibleEntropy = unserialize(serialize($this->parameters), ['allowed_classes' => true]);
+            array_walk_recursive($reproducibleEntropy, static function (&$v) { $v = null; });
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->envPlaceholderUniquePrefix = 'env_'.substr(hash('xxh128', serialize($reproducibleEntropy)), -16);
         }
 
@@ -151,7 +167,11 @@ class EnvPlaceholderParameterBag extends ParameterBag
 
         foreach ($this->envPlaceholders as $env => $placeholders) {
             if ($this->has($name = "env($env)") && null !== ($default = $this->parameters[$name]) && !\is_string($default)) {
+<<<<<<< HEAD
                 throw new RuntimeException(sprintf('The default value of env parameter "%s" must be a string or null, "%s" given.', $env, get_debug_type($default)));
+=======
+                throw new RuntimeException(\sprintf('The default value of env parameter "%s" must be a string or null, "%s" given.', $env, get_debug_type($default)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
     }

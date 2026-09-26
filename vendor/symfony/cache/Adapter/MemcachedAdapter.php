@@ -25,7 +25,11 @@ class MemcachedAdapter extends AbstractAdapter
     /**
      * We are replacing characters that are illegal in Memcached keys with reserved characters from
      * {@see \Symfony\Contracts\Cache\ItemInterface::RESERVED_CHARACTERS} that are legal in Memcached.
+<<<<<<< HEAD
      * Note: don’t use {@see \Symfony\Component\Cache\Adapter\AbstractAdapter::NS_SEPARATOR}.
+=======
+     * Note: don’t use {@see AbstractAdapter::NS_SEPARATOR}.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private const RESERVED_MEMCACHED = " \n\r\t\v\f\0";
     private const RESERVED_PSR6 = '@()\{}/';
@@ -111,7 +115,11 @@ class MemcachedAdapter extends AbstractAdapter
                 if (!str_starts_with($dsn, 'memcached:')) {
                     throw new InvalidArgumentException('Invalid Memcached DSN: it does not start with "memcached:".');
                 }
+<<<<<<< HEAD
                 $params = preg_replace_callback('#^memcached:(//)?(?:([^@]*+)@)?#', function ($m) use (&$username, &$password) {
+=======
+                $params = preg_replace_callback('#^memcached:(//)?(?:([^@]*+)@)?#', static function ($m) use (&$username, &$password) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     if (!empty($m[2])) {
                         [$username, $password] = explode(':', $m[2], 2) + [1 => null];
                         $username = rawurldecode($username);
@@ -314,7 +322,11 @@ class MemcachedAdapter extends AbstractAdapter
             throw new CacheException('MemcachedAdapter: "serializer" option must be "php" or "igbinary".');
         }
         if ('' !== $prefix = (string) $this->lazyClient->getOption(\Memcached::OPT_PREFIX_KEY)) {
+<<<<<<< HEAD
             throw new CacheException(sprintf('MemcachedAdapter: "prefix_key" option must be empty when using proxified connections, "%s" given.', $prefix));
+=======
+            throw new CacheException(\sprintf('MemcachedAdapter: "prefix_key" option must be empty when using proxified connections, "%s" given.', $prefix));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->client = $this->lazyClient;

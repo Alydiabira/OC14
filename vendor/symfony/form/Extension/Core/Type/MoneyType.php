@@ -51,6 +51,15 @@ class MoneyType extends AbstractType
 
         if ($options['html5']) {
             $view->vars['type'] = 'number';
+<<<<<<< HEAD
+=======
+
+            if (!isset($view->vars['attr']['step'])) {
+                $view->vars['attr']['step'] = 'any';
+            }
+        } else {
+            $view->vars['attr']['inputmode'] = 0 === $options['scale'] ? 'numeric' : 'decimal';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -126,9 +135,19 @@ class MoneyType extends AbstractType
             // a single space leads to better readability in combination with input
             // fields
 
+<<<<<<< HEAD
             // the regex also considers non-break spaces (0xC2 or 0xA0 in UTF-8)
 
             preg_match('/^([^\s\xc2\xa0]*)[\s\xc2\xa0]*123(?:[,.]0+)?[\s\xc2\xa0]*([^\s\xc2\xa0]*)$/u', $pattern, $matches);
+=======
+            // directional marks are not part of the currency symbol
+            $pattern = preg_replace('/[\x{061C}\x{200E}\x{200F}]/u', '', $pattern);
+
+            // the regex also considers non-break spaces (0xC2 or 0xA0 in UTF-8)
+            // and digits of any script, as used by Persian or Bengali locales
+
+            preg_match('/^([^\s\xc2\xa0\p{Nd}]*)[\s\xc2\xa0]*\p{Nd}(?:[^\s\xc2\xa0]*\p{Nd})?[\s\xc2\xa0]*([^\s\xc2\xa0\p{Nd}]*)$/u', $pattern, $matches);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             if (!empty($matches[1])) {
                 self::$patterns[$locale][$currency] = $matches[1].' {{ widget }}';

@@ -28,7 +28,11 @@ class Hour2401Transformer extends HourTransformer
         return $this->padLeft($hourOfDay, $length);
     }
 
+<<<<<<< HEAD
     public function normalizeHour(int $hour, string $marker = null): int
+=======
+    public function normalizeHour(int $hour, ?string $marker = null): int
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if ((null === $marker && 24 === $hour) || 'AM' === $marker) {
             $hour = 0;

@@ -39,7 +39,11 @@ class IFTTTHandler extends AbstractProcessingHandler
      */
     public function __construct(string $eventName, string $secretKey, int|string|Level $level = Level::Error, bool $bubble = true)
     {
+<<<<<<< HEAD
         if (!extension_loaded('curl')) {
+=======
+        if (!\extension_loaded('curl')) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new MissingExtensionException('The curl extension is needed to use the IFTTTHandler');
         }
 

@@ -84,7 +84,11 @@ class Unescaper
             'x' => self::utf8chr(hexdec(substr($value, 2, 2))),
             'u' => self::utf8chr(hexdec(substr($value, 2, 4))),
             'U' => self::utf8chr(hexdec(substr($value, 2, 8))),
+<<<<<<< HEAD
             default => throw new ParseException(sprintf('Found unknown escape character "%s".', $value)),
+=======
+            default => throw new ParseException(\sprintf('Found unknown escape character "%s".', $value)),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         };
     }
 

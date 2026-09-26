@@ -237,7 +237,11 @@ class PhpDocParser
 			$text .= $tmpText;
 
 			// stop if we're not at EOL - meaning it's the end of PHPDoc
+<<<<<<< HEAD
 			if (!$tokens->isCurrentTokenType(Lexer::TOKEN_PHPDOC_EOL)) {
+=======
+			if (!$tokens->isCurrentTokenType(Lexer::TOKEN_PHPDOC_EOL, Lexer::TOKEN_CLOSE_PHPDOC)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 				break;
 			}
 
@@ -293,7 +297,11 @@ class PhpDocParser
 			$text .= $tmpText;
 
 			// stop if we're not at EOL - meaning it's the end of PHPDoc
+<<<<<<< HEAD
 			if (!$tokens->isCurrentTokenType(Lexer::TOKEN_PHPDOC_EOL)) {
+=======
+			if (!$tokens->isCurrentTokenType(Lexer::TOKEN_PHPDOC_EOL, Lexer::TOKEN_CLOSE_PHPDOC)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 				if (!$tokens->isPrecededByHorizontalWhitespace()) {
 					return trim($text . $this->parseText($tokens)->text, " \t");
 				}
@@ -403,6 +411,14 @@ class PhpDocParser
 					$tagValue = $this->parseParamClosureThisTagValue($tokens);
 					break;
 
+<<<<<<< HEAD
+=======
+				case '@pure-unless-callable-is-impure':
+				case '@phpstan-pure-unless-callable-is-impure':
+					$tagValue = $this->parsePureUnlessCallableIsImpureTagValue($tokens);
+					break;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 				case '@var':
 				case '@phpstan-var':
 				case '@psalm-var':
@@ -919,6 +935,16 @@ class PhpDocParser
 		return new Ast\PhpDoc\ParamClosureThisTagValueNode($type, $parameterName, $description);
 	}
 
+<<<<<<< HEAD
+=======
+	private function parsePureUnlessCallableIsImpureTagValue(TokenIterator $tokens): Ast\PhpDoc\PureUnlessCallableIsImpureTagValueNode
+	{
+		$parameterName = $this->parseRequiredVariableName($tokens);
+		$description = $this->parseOptionalDescription($tokens);
+
+		return new Ast\PhpDoc\PureUnlessCallableIsImpureTagValueNode($parameterName, $description);
+	}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 	private function parseVarTagValue(TokenIterator $tokens): Ast\PhpDoc\VarTagValueNode
 	{

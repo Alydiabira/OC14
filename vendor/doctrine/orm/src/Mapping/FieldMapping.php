@@ -22,11 +22,19 @@ final class FieldMapping implements ArrayAccess
      * fields of an entity can have the id attribute, forming a composite key.
      */
     public bool|null $id                 = null;
+<<<<<<< HEAD
+=======
+    public int|null $idPosition          = null;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public bool|null $nullable           = null;
     public bool|null $notInsertable      = null;
     public bool|null $notUpdatable       = null;
     public string|null $columnDefinition = null;
+<<<<<<< HEAD
     /** @psalm-var ClassMetadata::GENERATED_*|null */
+=======
+    /** @phpstan-var ClassMetadata::GENERATED_*|null */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public int|null $generated = null;
     /** @var class-string<BackedEnum>|null */
     public string|null $enumType = null;
@@ -42,6 +50,11 @@ final class FieldMapping implements ArrayAccess
     public int|null $scale = null;
     /** Whether a unique constraint should be generated for the column. */
     public bool|null $unique = null;
+<<<<<<< HEAD
+=======
+    /** Whether an index should be generated for the column. */
+    public bool|null $index = null;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * @var class-string|null This is set when the field is inherited by this
      * class from another (inheritance) parent <em>entity</em> class. The value
@@ -54,6 +67,10 @@ final class FieldMapping implements ArrayAccess
      */
     public string|null $inherited = null;
 
+<<<<<<< HEAD
+=======
+    /** @var class-string|null */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public string|null $originalClass = null;
     public string|null $originalField = null;
     public bool|null $quoted          = null;
@@ -68,7 +85,13 @@ final class FieldMapping implements ArrayAccess
     public string|null $declaredField = null;
     public array|null $options        = null;
     public bool|null $version         = null;
+<<<<<<< HEAD
     public string|int|null $default   = null;
+=======
+
+    /** @deprecated Use options with 'default' key instead */
+    public string|int|null $default = null;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * @param string $type       The type name of the mapped field. Can be one of
@@ -85,13 +108,23 @@ final class FieldMapping implements ArrayAccess
 
     /**
      * @param array<string, mixed> $mappingArray
+<<<<<<< HEAD
      * @psalm-param array{
+=======
+     * @phpstan-param array{
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *     type: string,
      *     fieldName: string,
      *     columnName: string,
      *     length?: int|null,
      *     id?: bool|null,
+<<<<<<< HEAD
      *     nullable?: bool|null,
+=======
+     *     idPosition?: int|null,
+     *     nullable?: bool|null,
+     *     index?: bool|null,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *     notInsertable?: bool|null,
      *     notUpdatable?: bool|null,
      *     columnDefinition?: string|null,
@@ -101,7 +134,11 @@ final class FieldMapping implements ArrayAccess
      *     scale?: int|null,
      *     unique?: bool|null,
      *     inherited?: string|null,
+<<<<<<< HEAD
      *     originalClass?: string|null,
+=======
+     *     originalClass?: class-string|null,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *     originalField?: string|null,
      *     quoted?: bool|null,
      *     declared?: string|null,
@@ -136,7 +173,11 @@ final class FieldMapping implements ArrayAccess
     {
         $serialized = ['type', 'fieldName', 'columnName'];
 
+<<<<<<< HEAD
         foreach (['nullable', 'notInsertable', 'notUpdatable', 'id', 'unique', 'version', 'quoted'] as $boolKey) {
+=======
+        foreach (['nullable', 'notInsertable', 'notUpdatable', 'id', 'unique', 'version', 'quoted', 'index'] as $boolKey) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if ($this->$boolKey) {
                 $serialized[] = $boolKey;
             }
@@ -144,6 +185,10 @@ final class FieldMapping implements ArrayAccess
 
         foreach (
             [
+<<<<<<< HEAD
+=======
+                'idPosition',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'length',
                 'columnDefinition',
                 'generated',

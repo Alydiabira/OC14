@@ -11,9 +11,14 @@
 
 namespace Symfony\UX\TwigComponent;
 
+<<<<<<< HEAD
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\UX\TwigComponent\Attribute\ExposeInTemplate;
+=======
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\Service\ResetInterface;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\UX\TwigComponent\Event\PostRenderEvent;
 use Symfony\UX\TwigComponent\Event\PreCreateForRenderEvent;
 use Symfony\UX\TwigComponent\Event\PreRenderEvent;
@@ -24,13 +29,24 @@ use Twig\Environment;
  *
  * @internal
  */
+<<<<<<< HEAD
 final class ComponentRenderer implements ComponentRendererInterface
 {
+=======
+final class ComponentRenderer implements ComponentRendererInterface, ResetInterface
+{
+    private array $templateClasses = [];
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function __construct(
         private Environment $twig,
         private EventDispatcherInterface $dispatcher,
         private ComponentFactory $factory,
+<<<<<<< HEAD
         private PropertyAccessorInterface $propertyAccessor,
+=======
+        private ComponentProperties $componentProperties,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         private ComponentStack $componentStack,
     ) {
     }
@@ -64,15 +80,25 @@ final class ComponentRenderer implements ComponentRendererInterface
         $variables = $event->getVariables();
         // see ComponentNode. When rendering an individual embedded component,
         // *not* through its parent, we need to set the parent template.
+<<<<<<< HEAD
         if ($event->getTemplateIndex()) {
+=======
+        if ($templateIndex = $event->getTemplateIndex()) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $variables['__parent__'] = $event->getParentTemplateForEmbedded();
         }
 
         try {
             return $this->twig->loadTemplate(
+<<<<<<< HEAD
                 $this->twig->getTemplateClass($event->getTemplate()),
                 $event->getTemplate(),
                 $event->getTemplateIndex(),
+=======
+                $this->templateClasses[$template = $event->getTemplate()] ??= $this->twig->getTemplateClass($template),
+                $template,
+                $templateIndex,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )->render($variables);
         } finally {
             $mounted = $this->componentStack->pop();
@@ -107,6 +133,7 @@ final class ComponentRenderer implements ComponentRendererInterface
     {
         $component = $mounted->getComponent();
         $metadata = $this->factory->metadataFor($mounted->getName());
+<<<<<<< HEAD
         $isAnonymous = $mounted->getComponent() instanceof AnonymousComponent;
 
         $classProps = $isAnonymous ? [] : iterator_to_array($this->exposedVariables($component, $metadata->isPublicPropsExposed()));
@@ -189,5 +216,43 @@ final class ComponentRenderer implements ComponentRendererInterface
 
             yield $name => $component->{$method->name}();
         }
+=======
+
+        $classProps = [];
+        if (!$metadata->isAnonymous()) {
+            $classProps = $this->componentProperties->getProperties($component, $metadata->isPublicPropsExposed());
+        }
+
+        // expose public properties and properties marked with ExposeInTemplate attribute
+        $props = [...$mounted->getInputProps(), ...$classProps];
+        $event = new PreRenderEvent($mounted, $metadata, [
+            ...$context,
+            ...$props,
+            $metadata->getAttributesVar() => $mounted->getAttributes(),
+        ]);
+
+        $this->dispatcher->dispatch($event);
+
+        $event->setVariables([
+            ...$event->getVariables(),
+            // add the component as "this"
+            'this' => $component,
+            'computed' => new ComputedPropertiesProxy($component),
+            'outerScope' => $context,
+            // keep this line for BC break reasons
+            '__props' => $classProps,
+            // add the context in a separate variable to keep track
+            // of what is coming from outside the component, excluding props
+            // as they override initial context values
+            '__context' => array_diff_key($context, $props),
+        ]);
+
+        return $event;
+    }
+
+    public function reset(): void
+    {
+        $this->templateClasses = [];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

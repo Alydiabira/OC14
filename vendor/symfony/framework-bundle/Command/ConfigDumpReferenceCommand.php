@@ -39,13 +39,18 @@ class ConfigDumpReferenceCommand extends AbstractConfigCommand
 {
     protected function configure(): void
     {
+<<<<<<< HEAD
         $commentedHelpFormats = array_map(fn ($format) => sprintf('<comment>%s</comment>', $format), $this->getAvailableFormatOptions());
+=======
+        $commentedHelpFormats = array_map(static fn ($format) => \sprintf('<comment>%s</comment>', $format), $this->getAvailableFormatOptions());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $helpFormats = implode('", "', $commentedHelpFormats);
 
         $this
             ->setDefinition([
                 new InputArgument('name', InputArgument::OPTIONAL, 'The Bundle name or the extension alias'),
                 new InputArgument('path', InputArgument::OPTIONAL, 'The configuration option path'),
+<<<<<<< HEAD
                 new InputOption('format', null, InputOption::VALUE_REQUIRED, sprintf('The output format ("%s")', implode('", "', $this->getAvailableFormatOptions())), 'yaml'),
             ])
             ->setHelp(<<<EOF
@@ -67,6 +72,29 @@ For dumping a specific option, add its path as second argument (only available f
   <info>php %command.full_name% framework http_client.default_options</info>
 
 EOF
+=======
+                new InputOption('format', null, InputOption::VALUE_REQUIRED, \sprintf('The output format ("%s")', implode('", "', $this->getAvailableFormatOptions())), 'yaml'),
+            ])
+            ->setHelp(<<<EOF
+                The <info>%command.name%</info> command dumps the default configuration for an
+                extension/bundle.
+
+                Either the extension alias or bundle name can be used:
+
+                  <info>php %command.full_name% framework</info>
+                  <info>php %command.full_name% FrameworkBundle</info>
+
+                The <info>--format</info> option specifies the format of the configuration,
+                these are "{$helpFormats}".
+
+                  <info>php %command.full_name% FrameworkBundle --format=xml</info>
+
+                For dumping a specific option, add its path as second argument (only available for the yaml format):
+
+                  <info>php %command.full_name% framework http_client.default_options</info>
+
+                EOF
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -118,6 +146,7 @@ EOF
         }
 
         if ($name === $extension->getAlias()) {
+<<<<<<< HEAD
             $message = sprintf('Default configuration for extension with alias: "%s"', $name);
         } else {
             $message = sprintf('Default configuration for "%s"', $name);
@@ -125,20 +154,41 @@ EOF
 
         if (null !== $path) {
             $message .= sprintf(' at path "%s"', $path);
+=======
+            $message = \sprintf('Default configuration for extension with alias: "%s"', $name);
+        } else {
+            $message = \sprintf('Default configuration for "%s"', $name);
+        }
+
+        if (null !== $path) {
+            $message .= \sprintf(' at path "%s"', $path);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         switch ($format) {
             case 'yaml':
+<<<<<<< HEAD
                 $io->writeln(sprintf('# %s', $message));
                 $dumper = new YamlReferenceDumper();
                 break;
             case 'xml':
                 $io->writeln(sprintf('<!-- %s -->', $message));
+=======
+                $io->writeln(\sprintf('# %s', $message));
+                $dumper = new YamlReferenceDumper();
+                break;
+            case 'xml':
+                $io->writeln(\sprintf('<!-- %s -->', $message));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $dumper = new XmlReferenceDumper();
                 break;
             default:
                 $io->writeln($message);
+<<<<<<< HEAD
                 throw new InvalidArgumentException(sprintf('Supported formats are "%s".', implode('", "', $this->getAvailableFormatOptions())));
+=======
+                throw new InvalidArgumentException(\sprintf('Supported formats are "%s".', implode('", "', $this->getAvailableFormatOptions())));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $io->writeln(null === $path ? $dumper->dump($configuration, $extension->getNamespace()) : $dumper->dumpAtPath($configuration, $path));

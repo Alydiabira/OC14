@@ -43,38 +43,53 @@ class TopologicalSorter
      */
     private bool $allowCyclicDependencies;
 
+<<<<<<< HEAD
     /** @param bool $allowCyclicDependencies */
     public function __construct($allowCyclicDependencies = true)
+=======
+    public function __construct(bool $allowCyclicDependencies = true)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->allowCyclicDependencies = (bool) $allowCyclicDependencies;
     }
 
     /**
      * Adds a new node (vertex) to the graph, assigning its hash and value.
+<<<<<<< HEAD
      *
      * @param string $hash
      *
      * @return void
      */
     public function addNode($hash, ClassMetadata $node)
+=======
+     */
+    public function addNode(string $hash, ClassMetadata $node): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->nodeList[$hash] = new Vertex($node);
     }
 
     /**
      * Checks the existence of a node in the graph.
+<<<<<<< HEAD
      *
      * @param string $hash
      *
      * @return bool
      */
     public function hasNode($hash)
+=======
+     */
+    public function hasNode(string $hash): bool
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return isset($this->nodeList[$hash]);
     }
 
     /**
      * Adds a new dependency (edge) to the graph using their hashes.
+<<<<<<< HEAD
      *
      * @param string $fromHash
      * @param string $toHash
@@ -82,6 +97,10 @@ class TopologicalSorter
      * @return void
      */
     public function addDependency($fromHash, $toHash)
+=======
+     */
+    public function addDependency(string $fromHash, string $toHash): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $definition = $this->nodeList[$fromHash];
 
@@ -99,7 +118,11 @@ class TopologicalSorter
      * @throws RuntimeException
      * @throws CircularReferenceException
      */
+<<<<<<< HEAD
     public function sort()
+=======
+    public function sort(): array
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         foreach ($this->nodeList as $definition) {
             if ($definition->state !== Vertex::NOT_VISITED) {
@@ -122,12 +145,19 @@ class TopologicalSorter
      *
      * Note: Highly performance-sensitive method.
      *
+<<<<<<< HEAD
      * @return void
      *
      * @throws RuntimeException
      * @throws CircularReferenceException
      */
     private function visit(Vertex $definition)
+=======
+     * @throws RuntimeException
+     * @throws CircularReferenceException
+     */
+    private function visit(Vertex $definition): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $definition->state = Vertex::IN_PROGRESS;
 

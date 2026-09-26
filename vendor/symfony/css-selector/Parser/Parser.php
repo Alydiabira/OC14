@@ -57,9 +57,15 @@ class Parser implements ParserInterface
             }
         }
 
+<<<<<<< HEAD
         $joined = trim(implode('', array_map(fn (Token $token) => $token->getValue(), $tokens)));
 
         $int = function ($string) {
+=======
+        $joined = trim(implode('', array_map(static fn (Token $token) => $token->getValue(), $tokens)));
+
+        $int = static function ($string) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (!is_numeric($string)) {
                 throw SyntaxErrorException::stringAsFunctionArgument();
             }

@@ -86,7 +86,11 @@ class FlowdockFormatter implements FormatterInterface
         static $hasMbString;
 
         if (null === $hasMbString) {
+<<<<<<< HEAD
             $hasMbString = function_exists('mb_strlen');
+=======
+            $hasMbString = \function_exists('mb_strlen');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $maxLength = 45;
@@ -96,7 +100,11 @@ class FlowdockFormatter implements FormatterInterface
                 $message = mb_substr($message, 0, $maxLength - 4, 'UTF-8') . ' ...';
             }
         } else {
+<<<<<<< HEAD
             if (strlen($message) > $maxLength) {
+=======
+            if (\strlen($message) > $maxLength) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $message = substr($message, 0, $maxLength - 4) . ' ...';
             }
         }

@@ -11,6 +11,10 @@
 
 namespace Symfony\Component\VarDumper\Command\Descriptor;
 
+<<<<<<< HEAD
+=======
+use Symfony\Component\Console\Formatter\OutputFormatter;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -47,6 +51,7 @@ class CliDescriptor implements DumpDescriptorInterface
         if (isset($context['request'])) {
             $request = $context['request'];
             $this->lastIdentifier = $request['identifier'];
+<<<<<<< HEAD
             $section = sprintf('%s %s', $request['method'], $request['uri']);
             if ($controller = $request['controller']) {
                 $rows[] = ['controller', rtrim($this->dumper->dump($controller, true), "\n")];
@@ -54,6 +59,15 @@ class CliDescriptor implements DumpDescriptorInterface
         } elseif (isset($context['cli'])) {
             $this->lastIdentifier = $context['cli']['identifier'];
             $section = '$ '.$context['cli']['command_line'];
+=======
+            $section = \sprintf('%s %s', self::escape($request['method']), self::escape($request['uri']));
+            if ($controller = $request['controller']) {
+                $rows[] = ['controller', OutputFormatter::escape(rtrim($this->dumper->dump($controller, true), "\n"))];
+            }
+        } elseif (isset($context['cli'])) {
+            $this->lastIdentifier = $context['cli']['identifier'];
+            $section = '$ '.self::escape($context['cli']['command_line']);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($this->lastIdentifier !== $lastIdentifier) {
@@ -62,6 +76,7 @@ class CliDescriptor implements DumpDescriptorInterface
 
         if (isset($context['source'])) {
             $source = $context['source'];
+<<<<<<< HEAD
             $sourceInfo = sprintf('%s on line %d', $source['name'], $source['line']);
             if ($fileLink = $source['file_link'] ?? null) {
                 $sourceInfo = sprintf('<href=%s>%s</>', $fileLink, $sourceInfo);
@@ -69,6 +84,15 @@ class CliDescriptor implements DumpDescriptorInterface
             $rows[] = ['source', $sourceInfo];
             $file = $source['file_relative'] ?? $source['file'];
             $rows[] = ['file', $file];
+=======
+            $sourceInfo = \sprintf('%s on line %d', self::escape($source['name']), $source['line']);
+            if ($fileLink = $source['file_link'] ?? null) {
+                $sourceInfo = \sprintf('<href=%s>%s</>', self::escape($fileLink), $sourceInfo);
+            }
+            $rows[] = ['source', $sourceInfo];
+            $file = $source['file_relative'] ?? $source['file'];
+            $rows[] = ['file', self::escape($file)];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $io->table([], $rows);
@@ -76,4 +100,12 @@ class CliDescriptor implements DumpDescriptorInterface
         $this->dumper->dump($data);
         $io->newLine();
     }
+<<<<<<< HEAD
+=======
+
+    private static function escape(string $value): string
+    {
+        return OutputFormatter::escape(preg_replace('/[\x00-\x08\x0B-\x1F\x7F]|\xC2[\x80-\x9F]/', '', $value));
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

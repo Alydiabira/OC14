@@ -39,9 +39,17 @@ class Configurator
             'copy-from-recipe' => Configurator\CopyFromRecipeConfigurator::class,
             'copy-from-package' => Configurator\CopyFromPackageConfigurator::class,
             'env' => Configurator\EnvConfigurator::class,
+<<<<<<< HEAD
             'container' => Configurator\ContainerConfigurator::class,
             'makefile' => Configurator\MakefileConfigurator::class,
             'composer-scripts' => Configurator\ComposerScriptsConfigurator::class,
+=======
+            'dotenv' => Configurator\DotenvConfigurator::class,
+            'container' => Configurator\ContainerConfigurator::class,
+            'makefile' => Configurator\MakefileConfigurator::class,
+            'composer-scripts' => Configurator\ComposerScriptsConfigurator::class,
+            'composer-commands' => Configurator\ComposerCommandsConfigurator::class,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'gitignore' => Configurator\GitignoreConfigurator::class,
             'dockerfile' => Configurator\DockerfileConfigurator::class,
             'docker-compose' => Configurator\DockerComposeConfigurator::class,
@@ -104,7 +112,11 @@ class Configurator
     private function get($key): AbstractConfigurator
     {
         if (!isset($this->configurators[$key]) && !isset($this->postInstallConfigurators[$key])) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('Unknown configurator "%s".', $key));
+=======
+            throw new \InvalidArgumentException(\sprintf('Unknown configurator "%s".', $key));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (isset($this->cache[$key])) {

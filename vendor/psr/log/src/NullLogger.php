@@ -15,11 +15,15 @@ class NullLogger extends AbstractLogger
     /**
      * Logs with an arbitrary level.
      *
+<<<<<<< HEAD
      * @param mixed  $level
      * @param string|\Stringable $message
      * @param array $context
      *
      * @return void
+=======
+     * @param mixed[] $context
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws \Psr\Log\InvalidArgumentException
      */

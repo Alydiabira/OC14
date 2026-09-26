@@ -45,6 +45,7 @@ class RelativeSlugHandler implements SlugHandlerInterface
      *
      * @var array<string, mixed>
      */
+<<<<<<< HEAD
     private $usedOptions;
 
     /**
@@ -63,6 +64,17 @@ class RelativeSlugHandler implements SlugHandlerInterface
      * )
      * {@inheritdoc}
      */
+=======
+    private array $usedOptions = [];
+
+    /**
+     * Callable of original transliterator which is used by the sluggable listener.
+     *
+     * @var callable(string, string, object): string
+     */
+    private $originalTransliterator;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function __construct(SluggableListener $sluggable)
     {
         $this->sluggable = $sluggable;
@@ -90,6 +102,12 @@ class RelativeSlugHandler implements SlugHandlerInterface
         $this->sluggable->setTransliterator([$this, 'transliterate']);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @param ClassMetadata<object> $meta
+     */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public static function validate(array $options, ClassMetadata $meta)
     {
         if (!$meta->isSingleValuedAssociation($options['relationField'])) {
@@ -117,6 +135,13 @@ class RelativeSlugHandler implements SlugHandlerInterface
             $this->originalTransliterator,
             [$text, $separator, $object]
         );
+<<<<<<< HEAD
+=======
+        $result = call_user_func_array(
+            $this->sluggable->getUrlizer(),
+            [$result, $separator, $object]
+        );
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $wrapped = AbstractWrapper::wrap($object, $this->om);
         $relation = $wrapped->getPropertyValue($this->usedOptions['relationField']);
         if ($relation) {
@@ -132,6 +157,10 @@ class RelativeSlugHandler implements SlugHandlerInterface
 
             $result = $slug.$this->usedOptions['separator'].$result;
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->sluggable->setTransliterator($this->originalTransliterator);
 
         return $result;

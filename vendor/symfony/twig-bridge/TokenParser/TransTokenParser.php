@@ -36,29 +36,52 @@ final class TransTokenParser extends AbstractTokenParser
         $vars = new ArrayExpression([], $lineno);
         $domain = null;
         $locale = null;
+<<<<<<< HEAD
+=======
+        $parseExpression = method_exists($this->parser, 'parseExpression')
+            ? $this->parser->parseExpression(...)
+            : $this->parser->getExpressionParser()->parseExpression(...);
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (!$stream->test(Token::BLOCK_END_TYPE)) {
             if ($stream->test('count')) {
                 // {% trans count 5 %}
                 $stream->next();
+<<<<<<< HEAD
                 $count = $this->parser->getExpressionParser()->parseExpression();
+=======
+                $count = $parseExpression();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if ($stream->test('with')) {
                 // {% trans with vars %}
                 $stream->next();
+<<<<<<< HEAD
                 $vars = $this->parser->getExpressionParser()->parseExpression();
+=======
+                $vars = $parseExpression();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if ($stream->test('from')) {
                 // {% trans from "messages" %}
                 $stream->next();
+<<<<<<< HEAD
                 $domain = $this->parser->getExpressionParser()->parseExpression();
+=======
+                $domain = $parseExpression();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if ($stream->test('into')) {
                 // {% trans into "fr" %}
                 $stream->next();
+<<<<<<< HEAD
                 $locale = $this->parser->getExpressionParser()->parseExpression();
+=======
+                $locale = $parseExpression();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } elseif (!$stream->test(Token::BLOCK_END_TYPE)) {
                 throw new SyntaxError('Unexpected token. Twig was looking for the "with", "from", or "into" keyword.', $stream->getCurrent()->getLine(), $stream->getSourceContext());
             }

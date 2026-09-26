@@ -34,11 +34,19 @@ class EnumNode extends ScalarNode
             }
 
             if (!$value instanceof \UnitEnum) {
+<<<<<<< HEAD
                 throw new \InvalidArgumentException(sprintf('"%s" only supports scalar, enum, or null values, "%s" given.', __CLASS__, get_debug_type($value)));
             }
 
             if ($value::class !== ($enumClass ??= $value::class)) {
                 throw new \InvalidArgumentException(sprintf('"%s" only supports one type of enum, "%s" and "%s" passed.', __CLASS__, $enumClass, $value::class));
+=======
+                throw new \InvalidArgumentException(\sprintf('"%s" only supports scalar, enum, or null values, "%s" given.', __CLASS__, get_debug_type($value)));
+            }
+
+            if ($value::class !== ($enumClass ??= $value::class)) {
+                throw new \InvalidArgumentException(\sprintf('"%s" only supports one type of enum, "%s" and "%s" passed.', __CLASS__, $enumClass, $value::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -85,7 +93,11 @@ class EnumNode extends ScalarNode
         $value = parent::finalizeValue($value);
 
         if (!\in_array($value, $this->values, true)) {
+<<<<<<< HEAD
             $ex = new InvalidConfigurationException(sprintf('The value %s is not allowed for path "%s". Permissible values: %s', json_encode($value), $this->getPath(), $this->getPermissibleValues(', ')));
+=======
+            $ex = new InvalidConfigurationException(\sprintf('The value %s is not allowed for path "%s". Permissible values: %s', json_encode($value), $this->getPath(), $this->getPermissibleValues(', ')));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $ex->setPath($this->getPath());
 
             throw $ex;

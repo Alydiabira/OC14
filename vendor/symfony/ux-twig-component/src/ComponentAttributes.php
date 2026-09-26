@@ -13,6 +13,11 @@ namespace Symfony\UX\TwigComponent;
 
 use Symfony\UX\StimulusBundle\Dto\StimulusAttributes;
 use Symfony\WebpackEncoreBundle\Dto\AbstractStimulusDto;
+<<<<<<< HEAD
+=======
+use Twig\Extra\Html\HtmlAttr\AttributeValueInterface;
+use Twig\Runtime\EscaperRuntime;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * @author Kevin Bond <kevinbond@gmail.com>
@@ -22,6 +27,11 @@ use Symfony\WebpackEncoreBundle\Dto\AbstractStimulusDto;
 final class ComponentAttributes implements \Stringable, \IteratorAggregate, \Countable
 {
     private const NESTED_REGEX = '#^([\w-]+):(.+)$#';
+<<<<<<< HEAD
+=======
+    private const ALPINE_REGEX = '#^x-([a-z]+):[^:]+$#';
+    private const VUE_REGEX = '#^v-([a-z]+):[^:]+$#';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /** @var array<string,true> */
     private array $rendered = [];
@@ -29,12 +39,20 @@ final class ComponentAttributes implements \Stringable, \IteratorAggregate, \Cou
     /**
      * @param array<string, string|bool> $attributes
      */
+<<<<<<< HEAD
     public function __construct(private array $attributes)
     {
+=======
+    public function __construct(
+        private array $attributes,
+        private readonly EscaperRuntime $escaper,
+    ) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function __toString(): string
     {
+<<<<<<< HEAD
         return array_reduce(
             array_filter(
                 array_keys($this->attributes),
@@ -72,6 +90,68 @@ final class ComponentAttributes implements \Stringable, \IteratorAggregate, \Cou
             },
             ''
         );
+=======
+        $attributes = '';
+
+        foreach ($this->attributes as $key => $value) {
+            if (isset($this->rendered[$key])) {
+                continue;
+            }
+
+            if (false === $value) {
+                continue;
+            }
+
+            if (
+                str_contains($key, ':')
+                && preg_match(self::NESTED_REGEX, $key)
+                && !preg_match(self::ALPINE_REGEX, $key)
+                && !preg_match(self::VUE_REGEX, $key)
+            ) {
+                continue;
+            }
+
+            if (null === $value) {
+                trigger_deprecation('symfony/ux-twig-component', '2.8.0', 'Passing "null" as an attribute value is deprecated and will throw an exception in 3.0.');
+                $value = true;
+            }
+
+            if ($value instanceof AttributeValueInterface) {
+                $value = $value->getValue();
+            }
+
+            if (!\is_scalar($value) && !($value instanceof \Stringable)) {
+                throw new \LogicException(\sprintf('A "%s" prop was passed when creating the component. No matching "%s" property or mount() argument was found, so we attempted to use this as an HTML attribute. But, the value is not a scalar (it\'s a "%s"). Did you mean to pass this to your component or is there a typo on its name?', $key, $key, get_debug_type($value)));
+            }
+
+            if (true === $value && str_starts_with($key, 'aria-')) {
+                $value = 'true';
+            }
+
+            // Allowed characters in attribute names:
+            // - common attribute names (HTML 5):
+            //      id, class, style, title, lang, dir, role,...
+            //      data-*, aria-*,
+            //      xml:*, xmlns:*,
+            // - special syntax names (Vue.js, Svelte, Alpine.js, ...)
+            //      v-*, x-*, @*, :*
+            if (!ctype_alnum(str_replace(['-', '_', ':', '@', '.'], '', $key))) {
+                $key = (string) $this->escaper->escape($key, 'html_attr');
+            }
+
+            if (true === $value) {
+                $attributes .= ' '.$key;
+            } else {
+                if (!ctype_alnum(str_replace(['-', '_'], '', $value))) {
+                    $value = $this->escaper->escape($value, 'html');
+                }
+
+                $attributes .= ' '.\sprintf('%s="%s"', $key, $value);
+            }
+        }
+
+        return $attributes;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function __clone(): void
@@ -89,12 +169,21 @@ final class ComponentAttributes implements \Stringable, \IteratorAggregate, \Cou
             $value = (string) $value;
         }
 
+<<<<<<< HEAD
         if (\is_bool($value) && str_starts_with($attribute, 'aria-')) {
             $value = $value ? 'true' : 'false';
         }
 
         if (!\is_string($value)) {
             throw new \LogicException(sprintf('Can only get string attributes (%s is a %s).', $attribute, get_debug_type($value)));
+=======
+        if (true === $value && str_starts_with($attribute, 'aria-')) {
+            $value = 'true';
+        }
+
+        if (!\is_string($value)) {
+            throw new \LogicException(\sprintf('Can only get string attributes (%s is a "%s").', $attribute, get_debug_type($value)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->rendered[$attribute] = true;
@@ -120,7 +209,11 @@ final class ComponentAttributes implements \Stringable, \IteratorAggregate, \Cou
     public function defaults(iterable $attributes): self
     {
         if ($attributes instanceof StimulusAttributes) {
+<<<<<<< HEAD
             $attributes = $attributes->toEscapedArray();
+=======
+            $attributes = $attributes->toArray();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($attributes instanceof \Traversable) {
@@ -141,7 +234,11 @@ final class ComponentAttributes implements \Stringable, \IteratorAggregate, \Cou
             unset($attributes[$attribute]);
         }
 
+<<<<<<< HEAD
         return new self($attributes);
+=======
+        return new self($attributes, $this->escaper);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -157,7 +254,11 @@ final class ComponentAttributes implements \Stringable, \IteratorAggregate, \Cou
             }
         }
 
+<<<<<<< HEAD
         return new self($attributes);
+=======
+        return new self($attributes, $this->escaper);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -183,7 +284,11 @@ final class ComponentAttributes implements \Stringable, \IteratorAggregate, \Cou
 
             return $this->defaults($stimulusDto);
         } else {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('Argument 1 passed to "%s()" must be an instance of "%s" or "%s", "%s" given.', __METHOD__, AbstractStimulusDto::class, StimulusAttributes::class, get_debug_type($stimulusDto)));
+=======
+            throw new \InvalidArgumentException(\sprintf('Argument 1 passed to "%s()" must be an instance of "%s" or "%s", "%s" given.', __METHOD__, AbstractStimulusDto::class, StimulusAttributes::class, get_debug_type($stimulusDto)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $controllersAttributes = $stimulusDto->toArray();
@@ -195,7 +300,11 @@ final class ComponentAttributes implements \Stringable, \IteratorAggregate, \Cou
         )));
         unset($controllersAttributes['data-controller']);
 
+<<<<<<< HEAD
         $clone = new self($attributes);
+=======
+        $clone = new self($attributes, $this->escaper);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         // add the remaining attributes for values/classes
         return $clone->defaults($controllersAttributes);
@@ -207,7 +316,11 @@ final class ComponentAttributes implements \Stringable, \IteratorAggregate, \Cou
 
         unset($attributes[$key]);
 
+<<<<<<< HEAD
         return new self($attributes);
+=======
+        return new self($attributes, $this->escaper);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function nested(string $namespace): self
@@ -215,12 +328,23 @@ final class ComponentAttributes implements \Stringable, \IteratorAggregate, \Cou
         $attributes = [];
 
         foreach ($this->attributes as $key => $value) {
+<<<<<<< HEAD
             if (preg_match(self::NESTED_REGEX, $key, $matches) && $namespace === $matches[1]) {
+=======
+            if (
+                str_contains($key, ':')
+                && preg_match(self::NESTED_REGEX, $key, $matches) && $namespace === $matches[1]
+            ) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $attributes[$matches[2]] = $value;
             }
         }
 
+<<<<<<< HEAD
         return new self($attributes);
+=======
+        return new self($attributes, $this->escaper);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getIterator(): \Traversable

@@ -56,7 +56,12 @@ class EnvironmentConfigurator
         $environment->getExtension(CoreExtension::class)->setNumberFormat($this->decimals, $this->decimalPoint, $this->thousandsSeparator);
 
         // wrap UndefinedCallableHandler in closures for lazy-autoloading
+<<<<<<< HEAD
         $environment->registerUndefinedFilterCallback(fn ($name) => UndefinedCallableHandler::onUndefinedFilter($name));
         $environment->registerUndefinedFunctionCallback(fn ($name) => UndefinedCallableHandler::onUndefinedFunction($name));
+=======
+        $environment->registerUndefinedFilterCallback(static fn ($name) => UndefinedCallableHandler::onUndefinedFilter($name));
+        $environment->registerUndefinedFunctionCallback(static fn ($name) => UndefinedCallableHandler::onUndefinedFunction($name));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

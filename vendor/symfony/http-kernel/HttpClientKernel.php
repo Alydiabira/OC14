@@ -36,7 +36,11 @@ final class HttpClientKernel implements HttpKernelInterface
     public function __construct(?HttpClientInterface $client = null)
     {
         if (null === $client && !class_exists(HttpClient::class)) {
+<<<<<<< HEAD
             throw new \LogicException(sprintf('You cannot use "%s" as the HttpClient component is not installed. Try running "composer require symfony/http-client".', __CLASS__));
+=======
+            throw new \LogicException(\sprintf('You cannot use "%s" as the HttpClient component is not installed. Try running "composer require symfony/http-client".', __CLASS__));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->client = $client ?? HttpClient::create();

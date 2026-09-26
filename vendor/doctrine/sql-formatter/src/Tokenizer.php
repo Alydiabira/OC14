@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Doctrine\SqlFormatter;
 
+<<<<<<< HEAD
 use function array_combine;
 use function array_keys;
 use function array_map;
@@ -17,6 +18,24 @@ use function strlen;
 use function strpos;
 use function strtoupper;
 use function substr;
+=======
+use function array_key_last;
+use function array_map;
+use function array_pop;
+use function assert;
+use function count;
+use function implode;
+use function is_int;
+use function preg_match;
+use function preg_quote;
+use function reset;
+use function str_replace;
+use function str_starts_with;
+use function strlen;
+use function strtoupper;
+use function substr;
+use function usort;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /** @internal */
 final class Tokenizer
@@ -29,6 +48,10 @@ final class Tokenizer
     private array $reserved = [
         'ACCESSIBLE',
         'ACTION',
+<<<<<<< HEAD
+=======
+        'ADD',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'AFTER',
         'AGAINST',
         'AGGREGATE',
@@ -37,6 +60,10 @@ final class Tokenizer
         'ALTER',
         'ANALYSE',
         'ANALYZE',
+<<<<<<< HEAD
+=======
+        'AND',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'AS',
         'ASC',
         'AUTOCOMMIT',
@@ -44,13 +71,27 @@ final class Tokenizer
         'BACKUP',
         'BEGIN',
         'BETWEEN',
+<<<<<<< HEAD
         'BINLOG',
         'BOTH',
+=======
+        'BIGINT',
+        'BINARY',
+        'BINLOG',
+        'BLOB',
+        'BOTH',
+        'BY',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'CASCADE',
         'CASE',
         'CHANGE',
         'CHANGED',
+<<<<<<< HEAD
         'CHARACTER SET',
+=======
+        'CHAR',
+        'CHARACTER',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'CHARSET',
         'CHECK',
         'CHECKSUM',
@@ -68,7 +109,11 @@ final class Tokenizer
         'CONVERT',
         'CREATE',
         'CROSS',
+<<<<<<< HEAD
         'CURRENT ROW',
+=======
+        'CURRENT',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'CURRENT_TIMESTAMP',
         'DATABASE',
         'DATABASES',
@@ -76,6 +121,10 @@ final class Tokenizer
         'DAY_HOUR',
         'DAY_MINUTE',
         'DAY_SECOND',
+<<<<<<< HEAD
+=======
+        'DECIMAL',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'DEFAULT',
         'DEFINER',
         'DELAYED',
@@ -87,6 +136,11 @@ final class Tokenizer
         'DISTINCTROW',
         'DIV',
         'DO',
+<<<<<<< HEAD
+=======
+        'DOUBLE',
+        'DROP',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'DUMPFILE',
         'DUPLICATE',
         'DYNAMIC',
@@ -94,27 +148,55 @@ final class Tokenizer
         'ENCLOSED',
         'END',
         'ENGINE',
+<<<<<<< HEAD
         'ENGINE_TYPE',
         'ENGINES',
         'ESCAPE',
         'ESCAPED',
         'EVENTS',
+=======
+        'ENGINES',
+        'ENGINE_TYPE',
+        'ESCAPE',
+        'ESCAPED',
+        'EVENTS',
+        'EXCEPT',
+        'EXCLUDE',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'EXEC',
         'EXECUTE',
         'EXISTS',
         'EXPLAIN',
         'EXTENDED',
+<<<<<<< HEAD
         'FAST',
+=======
+        'FALSE',
+        'FAST',
+        'FETCH',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'FIELDS',
         'FILE',
         'FILTER',
         'FIRST',
         'FIXED',
+<<<<<<< HEAD
         'FLUSH',
         'FOR',
         'FORCE',
         'FOLLOWING',
         'FOREIGN',
+=======
+        'FLOAT',
+        'FLOAT4',
+        'FLOAT8',
+        'FLUSH',
+        'FOLLOWING',
+        'FOR',
+        'FORCE',
+        'FOREIGN',
+        'FROM',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'FULL',
         'FULLTEXT',
         'FUNCTION',
@@ -123,6 +205,10 @@ final class Tokenizer
         'GRANTS',
         'GROUP',
         'GROUPS',
+<<<<<<< HEAD
+=======
+        'HAVING',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'HEAP',
         'HIGH_PRIORITY',
         'HOSTS',
@@ -137,21 +223,47 @@ final class Tokenizer
         'INDEX',
         'INDEXES',
         'INFILE',
+<<<<<<< HEAD
         'INSERT',
         'INSERT_ID',
         'INSERT_METHOD',
+=======
+        'INNER',
+        'INSERT',
+        'INSERT_ID',
+        'INSERT_METHOD',
+        'INT',
+        'INT1',
+        'INT2',
+        'INT3',
+        'INT4',
+        'INT8',
+        'INTEGER',
+        'INTERSECT',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'INTERVAL',
         'INTO',
         'INVOKER',
         'IS',
         'ISOLATION',
+<<<<<<< HEAD
+=======
+        'JOIN',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'KEY',
         'KEYS',
         'KILL',
         'LAST_INSERT_ID',
         'LEADING',
+<<<<<<< HEAD
         'LEVEL',
         'LIKE',
+=======
+        'LEFT',
+        'LEVEL',
+        'LIKE',
+        'LIMIT',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'LINEAR',
         'LINES',
         'LOAD',
@@ -159,6 +271,12 @@ final class Tokenizer
         'LOCK',
         'LOCKS',
         'LOGS',
+<<<<<<< HEAD
+=======
+        'LONG',
+        'LONGBLOB',
+        'LONGTEXT',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'LOW_PRIORITY',
         'MARIA',
         'MASTER',
@@ -172,28 +290,50 @@ final class Tokenizer
         'MAX_UPDATES_PER_HOUR',
         'MAX_USER_CONNECTIONS',
         'MEDIUM',
+<<<<<<< HEAD
+=======
+        'MEDIUMBLOB',
+        'MEDIUMINT',
+        'MEDIUMTEXT',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'MERGE',
         'MINUTE',
         'MINUTE_SECOND',
         'MIN_ROWS',
         'MODE',
+<<<<<<< HEAD
+=======
+        'MODIFY',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'MONTH',
         'MRG_MYISAM',
         'MYISAM',
         'NAMES',
         'NATURAL',
+<<<<<<< HEAD
         'NO OTHERS',
         'NOT',
         'NOW()',
         'NULL',
+=======
+        'NOT',
+        'NULL',
+        'NUMERIC',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'OFFSET',
         'ON',
         'OPEN',
         'OPTIMIZE',
         'OPTION',
         'OPTIONALLY',
+<<<<<<< HEAD
         'ON UPDATE',
         'ON DELETE',
+=======
+        'OR',
+        'ORDER',
+        'OUTER',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'OUTFILE',
         'OVER',
         'PACK_KEYS',
@@ -210,14 +350,25 @@ final class Tokenizer
         'PROCESSLIST',
         'PURGE',
         'QUICK',
+<<<<<<< HEAD
         'RANGE',
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'RAID0',
         'RAID_CHUNKS',
         'RAID_CHUNKSIZE',
         'RAID_TYPE',
+<<<<<<< HEAD
         'READ',
         'READ_ONLY',
         'READ_WRITE',
+=======
+        'RANGE',
+        'READ',
+        'READ_ONLY',
+        'READ_WRITE',
+        'REAL',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'RECURSIVE',
         'REFERENCES',
         'REGEXP',
@@ -233,6 +384,10 @@ final class Tokenizer
         'RETURN',
         'RETURNS',
         'REVOKE',
+<<<<<<< HEAD
+=======
+        'RIGHT',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'RLIKE',
         'ROLLBACK',
         'ROW',
@@ -240,13 +395,25 @@ final class Tokenizer
         'ROW_FORMAT',
         'SECOND',
         'SECURITY',
+<<<<<<< HEAD
         'SEPARATOR',
         'SERIALIZABLE',
         'SESSION',
+=======
+        'SELECT',
+        'SEPARATOR',
+        'SERIALIZABLE',
+        'SESSION',
+        'SET',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'SHARE',
         'SHOW',
         'SHUTDOWN',
         'SLAVE',
+<<<<<<< HEAD
+=======
+        'SMALLINT',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'SONAME',
         'SOUNDS',
         'SQL',
@@ -255,20 +422,31 @@ final class Tokenizer
         'SQL_BIG_SELECTS',
         'SQL_BIG_TABLES',
         'SQL_BUFFER_RESULT',
+<<<<<<< HEAD
+=======
+        'SQL_CACHE',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'SQL_CALC_FOUND_ROWS',
         'SQL_LOG_BIN',
         'SQL_LOG_OFF',
         'SQL_LOG_UPDATE',
         'SQL_LOW_PRIORITY_UPDATES',
         'SQL_MAX_JOIN_SIZE',
+<<<<<<< HEAD
+=======
+        'SQL_NO_CACHE',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'SQL_QUOTE_SHOW_CREATE',
         'SQL_SAFE_UPDATES',
         'SQL_SELECT_LIMIT',
         'SQL_SLAVE_SKIP_COUNTER',
         'SQL_SMALL_RESULT',
         'SQL_WARNINGS',
+<<<<<<< HEAD
         'SQL_CACHE',
         'SQL_NO_CACHE',
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'START',
         'STARTING',
         'STATUS',
@@ -284,6 +462,12 @@ final class Tokenizer
         'TERMINATED',
         'THEN',
         'TIES',
+<<<<<<< HEAD
+=======
+        'TINYBLOB',
+        'TINYINT',
+        'TINYTEXT',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'TO',
         'TRAILING',
         'TRANSACTIONAL',
@@ -293,6 +477,7 @@ final class Tokenizer
         'TYPES',
         'UNBOUNDED',
         'UNCOMMITTED',
+<<<<<<< HEAD
         'UNIQUE',
         'UNLOCK',
         'UNSIGNED',
@@ -305,6 +490,29 @@ final class Tokenizer
         'WITH',
         'WORK',
         'WRITE',
+=======
+        'UNION',
+        'UNIQUE',
+        'UNLOCK',
+        'UNSIGNED',
+        'UPDATE',
+        'USAGE',
+        'USE',
+        'USING',
+        'VALUES',
+        'VARBINARY',
+        'VARCHAR',
+        'VARCHARACTER',
+        'VARIABLES',
+        'VIEW',
+        'WHEN',
+        'WHERE',
+        'WINDOW',
+        'WITH',
+        'WORK',
+        'WRITE',
+        'XOR',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'YEAR_MONTH',
     ];
 
@@ -315,6 +523,7 @@ final class Tokenizer
      * @var list<string>
      */
     private array $reservedToplevel = [
+<<<<<<< HEAD
         'WITH',
         'SELECT',
         'FROM',
@@ -341,10 +550,41 @@ final class Tokenizer
         'RANGE',
         'GROUPS',
         'WINDOW',
+=======
+        'ADD',
+        'ALTER TABLE',
+        'CHANGE',
+        'DELETE FROM',
+        'DROP',
+        'EXCEPT',
+        'FETCH',
+        'FROM',
+        'GROUP BY',
+        'GROUPS',
+        'HAVING',
+        'INTERSECT',
+        'LIMIT',
+        'MODIFY',
+        'OFFSET',
+        'ORDER BY',
+        'PARTITION BY',
+        'RANGE',
+        'ROWS',
+        'SELECT',
+        'SET',
+        'UNION',
+        'UNION ALL',
+        'UPDATE',
+        'VALUES',
+        'WHERE',
+        'WINDOW',
+        'WITH',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ];
 
     /** @var list<string> */
     private array $reservedNewline = [
+<<<<<<< HEAD
         'LEFT OUTER JOIN',
         'RIGHT OUTER JOIN',
         'LEFT JOIN',
@@ -356,6 +596,20 @@ final class Tokenizer
         'OR',
         'AND',
         'EXCLUDE',
+=======
+        'AND',
+        'EXCLUDE',
+        'INNER JOIN',
+        'JOIN',
+        'LEFT JOIN',
+        'LEFT OUTER JOIN',
+        'OR',
+        'OUTER JOIN',
+        'RIGHT JOIN',
+        'RIGHT OUTER JOIN',
+        'STRAIGHT_JOIN',
+        'XOR',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ];
 
     /** @var list<string> */
@@ -392,21 +646,32 @@ final class Tokenizer
         'CEIL',
         'CEILING',
         'CENTROID',
+<<<<<<< HEAD
         'CHAR',
         'CHARACTER_LENGTH',
         'CHARSET',
+=======
+        'CHARACTER_LENGTH',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'CHAR_LENGTH',
         'CHECKSUM_AGG',
         'COALESCE',
         'COERCIBILITY',
+<<<<<<< HEAD
         'COLLATION',
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'COMPRESS',
         'CONCAT',
         'CONCAT_WS',
         'CONNECTION_ID',
+<<<<<<< HEAD
         'CONTAINS',
         'CONV',
         'CONVERT',
+=======
+        'CONV',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'CONVERT_TZ',
         'CONVEXHULL',
         'COS',
@@ -419,23 +684,34 @@ final class Tokenizer
         'CURDATE',
         'CURRENT_DATE',
         'CURRENT_TIME',
+<<<<<<< HEAD
         'CURRENT_TIMESTAMP',
         'CURRENT_USER',
         'CURTIME',
         'DATABASE',
+=======
+        'CURRENT_USER',
+        'CURTIME',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'DATE',
         'DATEDIFF',
         'DATE_ADD',
         'DATE_DIFF',
         'DATE_FORMAT',
         'DATE_SUB',
+<<<<<<< HEAD
         'DAY',
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'DAYNAME',
         'DAYOFMONTH',
         'DAYOFWEEK',
         'DAYOFYEAR',
         'DECODE',
+<<<<<<< HEAD
         'DEFAULT',
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'DEGREES',
         'DENSE_RANK',
         'DES_DECRYPT',
@@ -483,17 +759,25 @@ final class Tokenizer
         'GROUP_CONCAT',
         'GROUP_UNIQUE_USERS',
         'HEX',
+<<<<<<< HEAD
         'HOUR',
         'IF',
         'IFNULL',
         'INET_ATON',
         'INET_NTOA',
         'INSERT',
+=======
+        'INET_ATON',
+        'INET_NTOA',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'INSTR',
         'INTERIORRINGN',
         'INTERSECTION',
         'INTERSECTS',
+<<<<<<< HEAD
         'INTERVAL',
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'ISCLOSED',
         'ISEMPTY',
         'ISNULL',
@@ -503,12 +787,18 @@ final class Tokenizer
         'IS_USED_LOCK',
         'LAG',
         'LAST_DAY',
+<<<<<<< HEAD
         'LAST_INSERT_ID',
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'LAST_VALUE',
         'LCASE',
         'LEAD',
         'LEAST',
+<<<<<<< HEAD
         'LEFT',
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'LENGTH',
         'LINEFROMTEXT',
         'LINEFROMWKB',
@@ -543,11 +833,17 @@ final class Tokenizer
         'MICROSECOND',
         'MID',
         'MIN',
+<<<<<<< HEAD
         'MINUTE',
         'MLINEFROMTEXT',
         'MLINEFROMWKB',
         'MOD',
         'MONTH',
+=======
+        'MLINEFROMTEXT',
+        'MLINEFROMWKB',
+        'MOD',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'MONTHNAME',
         'MPOINTFROMTEXT',
         'MPOINTFROMWKB',
@@ -563,6 +859,10 @@ final class Tokenizer
         'MULTIPOLYGONFROMTEXT',
         'MULTIPOLYGONFROMWKB',
         'NAME_CONST',
+<<<<<<< HEAD
+=======
+        'NOW',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'NTH_VALUE',
         'NTILE',
         'NULLIF',
@@ -574,10 +874,16 @@ final class Tokenizer
         'OLD_PASSWORD',
         'ORD',
         'OVERLAPS',
+<<<<<<< HEAD
         'PASSWORD',
         'PERCENT_RANK',
         'PERCENTILE_CONT',
         'PERCENTILE_DISC',
+=======
+        'PERCENTILE_CONT',
+        'PERCENTILE_DISC',
+        'PERCENT_RANK',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'PERIOD_ADD',
         'PERIOD_DIFF',
         'PI',
@@ -602,16 +908,23 @@ final class Tokenizer
         'RELATED',
         'RELEASE_LOCK',
         'REPEAT',
+<<<<<<< HEAD
         'REPLACE',
         'REVERSE',
         'RIGHT',
+=======
+        'REVERSE',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'ROUND',
         'ROW_COUNT',
         'ROW_NUMBER',
         'RPAD',
         'RTRIM',
         'SCHEMA',
+<<<<<<< HEAD
         'SECOND',
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'SEC_TO_TIME',
         'SESSION_USER',
         'SHA',
@@ -625,6 +938,7 @@ final class Tokenizer
         'SRID',
         'STARTPOINT',
         'STD',
+<<<<<<< HEAD
         'STDEV',
         'STDEVP',
         'STDDEV',
@@ -632,6 +946,15 @@ final class Tokenizer
         'STDDEV_SAMP',
         'STRING_AGG',
         'STRCMP',
+=======
+        'STDDEV',
+        'STDDEV_POP',
+        'STDDEV_SAMP',
+        'STDEV',
+        'STDEVP',
+        'STRCMP',
+        'STRING_AGG',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'STR_TO_DATE',
         'SUBDATE',
         'SUBSTR',
@@ -653,7 +976,10 @@ final class Tokenizer
         'TOUCHES',
         'TO_DAYS',
         'TRIM',
+<<<<<<< HEAD
         'TRUNCATE',
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'UCASE',
         'UNCOMPRESS',
         'UNCOMPRESSED_LENGTH',
@@ -683,6 +1009,7 @@ final class Tokenizer
         'YEARWEEK',
     ];
 
+<<<<<<< HEAD
     // Regular expressions for tokenizing
 
     private readonly string $regexBoundaries;
@@ -690,6 +1017,10 @@ final class Tokenizer
     private readonly string $regexReservedNewline;
     private readonly string $regexReservedToplevel;
     private readonly string $regexFunction;
+=======
+    /** Regular expression for tokenizing. */
+    private readonly string $tokenizeRegex;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Punctuation that can be used as a boundary between other tokens
@@ -709,6 +1040,10 @@ final class Tokenizer
         '>',
         '+',
         '-',
+<<<<<<< HEAD
+=======
+        '~*', // https://www.postgresql.org/docs/current/functions-matching.html#FUNCTIONS-POSIX-REGEXP
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         '*',
         '/',
         '!',
@@ -720,6 +1055,7 @@ final class Tokenizer
     ];
 
     /**
+<<<<<<< HEAD
      * Stuff that only needs to be done once. Builds regular expressions and
      * sorts the reserved words.
      */
@@ -750,6 +1086,142 @@ final class Tokenizer
         ) . ')');
 
         $this->regexFunction = '(' . implode('|', $this->quoteRegex($this->functions)) . ')';
+=======
+     * Stuff that only needs to be done once. Builds tokenizing regular expression.
+     */
+    public function __construct()
+    {
+        $this->tokenizeRegex = $this->makeTokenizeRegex($this->makeTokenizeRegexes());
+    }
+
+    /**
+     * Make regex from a list of values matching longest value first.
+     *
+     * Optimized for speed by matching alternative branch only once
+     * https://github.com/PCRE2Project/pcre2/issues/411 .
+     *
+     * @param list<string> $values
+     */
+    private function makeRegexFromList(array $values, bool $sorted = false): string
+    {
+        // sort list alphabetically and from longest word to shortest
+        if (! $sorted) {
+            usort($values, static function (string $a, string $b) {
+                return str_starts_with($a, $b) || str_starts_with($b, $a)
+                    ? strlen($b) <=> strlen($a)
+                    : $a <=> $b;
+            });
+        }
+
+        /** @var array<int|string, list<string>> $valuesBySharedPrefix */
+        $valuesBySharedPrefix = [];
+        $items                = [];
+        $prefix               = null;
+
+        foreach ($values as $v) {
+            if ($prefix !== null && ! str_starts_with($v, substr($prefix, 0, 1))) {
+                $valuesBySharedPrefix[$prefix] = $items;
+                $items                         = [];
+                $prefix                        = null;
+            }
+
+            $items[] = $v;
+
+            if ($prefix === null) {
+                $prefix = $v;
+            } else {
+                while (! str_starts_with($v, $prefix)) {
+                    $prefix = substr($prefix, 0, -1);
+                }
+            }
+        }
+
+        if ($items !== []) {
+            $valuesBySharedPrefix[(string) $prefix] = $items;
+            $items                                  = [];
+            $prefix                                 = null;
+        }
+
+        $regex = '(?>';
+
+        foreach ($valuesBySharedPrefix as $prefix => $items) {
+            if ($regex !== '(?>') {
+                $regex .= '|';
+            }
+
+            if (is_int($prefix)) {
+                $prefix = (string) $prefix;
+            }
+
+            $regex .= preg_quote($prefix);
+
+            $regex .= count($items) === 1
+                ? preg_quote(substr(reset($items), strlen($prefix)))
+                : $this->makeRegexFromList(array_map(static fn ($v) => substr($v, strlen($prefix)), $items), true);
+        }
+
+        return $regex . ')';
+    }
+
+    /** @return array<Token::TOKEN_TYPE_*, string> */
+    private function makeTokenizeRegexes(): array
+    {
+        // Set up regular expressions
+        $regexBoundaries       = $this->makeRegexFromList($this->boundaries);
+        $regexReserved         = $this->makeRegexFromList($this->reserved);
+        $regexReservedToplevel = str_replace(' ', '\s+', $this->makeRegexFromList($this->reservedToplevel));
+        $regexReservedNewline  = str_replace(' ', '\s+', $this->makeRegexFromList($this->reservedNewline));
+        $regexFunction         = $this->makeRegexFromList($this->functions);
+
+        return [
+            Token::TOKEN_TYPE_WHITESPACE => '\s+',
+            Token::TOKEN_TYPE_COMMENT => '(?:--|#(?!>))[^\n]*+', // #>, #>> and <#> are PostgreSQL operators
+            Token::TOKEN_TYPE_BLOCK_COMMENT => '/\*(?:[^*]+|\*(?!/))*+(?:\*|$)(?:/|$)',
+            // 1. backtick quoted string using `` to escape
+            // 2. square bracket quoted string (SQL Server) using ]] to escape
+            Token::TOKEN_TYPE_BACKTICK_QUOTE => <<<'EOD'
+                (?>(?x)
+                    `(?:[^`]+|`(?:`|$))*+(?:`|$)
+                    |\[(?:[^\]]+|\](?:\]|$))*+(?:\]|$)
+                )
+                EOD,
+            // 3. double quoted string using "" or \" to escape
+            // 4. single quoted string using '' or \' to escape
+            Token::TOKEN_TYPE_QUOTE => <<<'EOD'
+                (?>(?sx)
+                    '(?:[^'\\]+|\\(?:.|$)|'(?:'|$))*+(?:'|$)
+                    |"(?:[^"\\]+|\\(?:.|$)|"(?:"|$))*+(?:"|$)
+                )
+                EOD,
+            // User-defined variable, possibly with quoted name
+            Token::TOKEN_TYPE_VARIABLE => '[@:](?:[\w.$]++|(?&t_' . Token::TOKEN_TYPE_BACKTICK_QUOTE . ')|(?&t_' . Token::TOKEN_TYPE_QUOTE . '))',
+            // decimal, binary, or hex
+            Token::TOKEN_TYPE_NUMBER => '(?:\d+(?:\.\d+)?|0x[\da-fA-F]+|0b[01]+)(?=$|\s|"\'`|' . $regexBoundaries . ')',
+            // punctuation and symbols
+            Token::TOKEN_TYPE_BOUNDARY => $regexBoundaries,
+            // A reserved word cannot be preceded by a '.'
+            // this makes it so in "mytable.from", "from" is not considered a reserved word
+            Token::TOKEN_TYPE_RESERVED_TOPLEVEL => '(?<!\.|\sCHARACTER\s(?=SET\s))' . $regexReservedToplevel . '(?=$|\s|' . $regexBoundaries . ')',
+            Token::TOKEN_TYPE_RESERVED_NEWLINE => '(?<!\.)' . $regexReservedNewline . '(?=$|\s|' . $regexBoundaries . ')',
+            Token::TOKEN_TYPE_RESERVED => '(?<!\.)' . $regexReserved . '(?=$|\s|' . $regexBoundaries . ')'
+                // A function must be succeeded by '('
+                // this makes it so "count(" is considered a function, but "count" alone is not function
+                . '|' . $regexFunction . '(?=\s*\()',
+            Token::TOKEN_TYPE_WORD => '.*?(?=$|\s|["\'`]|' . $regexBoundaries . ')',
+        ];
+    }
+
+    /** @param array<Token::TOKEN_TYPE_*, string> $regexes */
+    private function makeTokenizeRegex(array $regexes): string
+    {
+        $parts = [];
+
+        foreach ($regexes as $type => $regex) {
+            $parts[] = '(?<t_' . $type . '>' . $regex . ')';
+        }
+
+        return '(\G(?:' . implode('|', $parts) . '))';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -760,6 +1232,7 @@ final class Tokenizer
      */
     public function tokenize(string $string): Cursor
     {
+<<<<<<< HEAD
         $tokens = [];
 
         // Used to make sure the string keeps shrinking on each iteration
@@ -790,10 +1263,38 @@ final class Tokenizer
             $string = substr($string, $tokenLength);
 
             $currentLength -= $tokenLength;
+=======
+        $tokenizeRegex = $this->tokenizeRegex;
+        $upper         = strtoupper($string);
+
+        $tokens = [];
+        $offset = 0;
+
+        while ($offset < strlen($string)) {
+            // Get the next token and the token type
+            preg_match($tokenizeRegex, $upper, $matches, 0, $offset);
+            assert(($matches[0] ?? '') !== '');
+
+            while (is_int($lastMatchesKey = array_key_last($matches))) {
+                array_pop($matches);
+            }
+
+            assert(str_starts_with($lastMatchesKey, 't_'));
+
+            /** @var Token::TOKEN_TYPE_* $tokenType */
+            $tokenType = (int) substr($lastMatchesKey, 2);
+
+            $token = new Token($tokenType, substr($string, $offset, strlen($matches[0])));
+
+            $offset += strlen($token->value());
+
+            $tokens[] = $token;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return new Cursor($tokens);
     }
+<<<<<<< HEAD
 
     /**
      * Return the next token and token type in a SQL string.
@@ -987,4 +1488,6 @@ final class Tokenizer
 
         return $ret;
     }
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

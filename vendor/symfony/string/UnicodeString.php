@@ -180,7 +180,15 @@ class UnicodeString extends AbstractUnicodeString
             $offset = 0;
         }
 
+<<<<<<< HEAD
         $i = $this->ignoreCase ? grapheme_strripos($string, $needle, $offset) : grapheme_strrpos($string, $needle, $offset);
+=======
+        try {
+            $i = $this->ignoreCase ? grapheme_strripos($string, $needle, $offset) : grapheme_strrpos($string, $needle, $offset);
+        } catch (\ValueError) {
+            return null;
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return false === $i ? null : $i;
     }
@@ -286,7 +294,11 @@ class UnicodeString extends AbstractUnicodeString
         $str = clone $this;
 
         $start = $start ? \strlen(grapheme_substr($this->string, 0, $start)) : 0;
+<<<<<<< HEAD
         $length = $length ? \strlen(grapheme_substr($this->string, $start, $length ?? 2147483647)) : $length;
+=======
+        $length = $length ? \strlen(grapheme_substr(substr($this->string, $start), 0, $length)) : $length;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $str->string = substr_replace($this->string, $replacement, $start, $length ?? 2147483647);
 
         if (normalizer_is_normalized($str->string)) {
@@ -362,6 +374,47 @@ class UnicodeString extends AbstractUnicodeString
         return $prefix === grapheme_extract($this->string, \strlen($prefix), \GRAPHEME_EXTR_MAXBYTES);
     }
 
+<<<<<<< HEAD
+=======
+    public function trimPrefix($prefix): static
+    {
+        if (\is_array($prefix) || $prefix instanceof \Traversable) {
+            return parent::trimPrefix($prefix);
+        }
+
+        if ($prefix instanceof AbstractString) {
+            $prefix = $prefix->string;
+        } else {
+            $prefix = (string) $prefix;
+        }
+
+        if (!normalizer_is_normalized($prefix, \Normalizer::NFC)) {
+            $prefix = normalizer_normalize($prefix, \Normalizer::NFC);
+        }
+
+        return parent::trimPrefix($prefix);
+    }
+
+    public function trimSuffix($suffix): static
+    {
+        if (\is_array($suffix) || $suffix instanceof \Traversable) {
+            return parent::trimSuffix($suffix);
+        }
+
+        if ($suffix instanceof AbstractString) {
+            $suffix = $suffix->string;
+        } else {
+            $suffix = (string) $suffix;
+        }
+
+        if (!normalizer_is_normalized($suffix, \Normalizer::NFC)) {
+            $suffix = normalizer_normalize($suffix, \Normalizer::NFC);
+        }
+
+        return parent::trimSuffix($suffix);
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * @return void
      */

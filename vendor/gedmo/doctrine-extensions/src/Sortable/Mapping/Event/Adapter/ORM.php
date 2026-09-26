@@ -21,15 +21,27 @@ use Gedmo\Sortable\SortableListener;
  *
  * @author Lukas Botsch <lukas.botsch@gmail.com>
  *
+<<<<<<< HEAD
+=======
+ * @phpstan-import-type SortableConfiguration from SortableListener
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  * @phpstan-import-type SortableRelocation from SortableListener
  */
 final class ORM extends BaseAdapterORM implements SortableAdapter
 {
     /**
      * @param array<string, mixed>    $config
+<<<<<<< HEAD
      * @param ClassMetadata           $meta
      * @param iterable<string, mixed> $groups
      *
+=======
+     * @param ClassMetadata<object>   $meta
+     * @param iterable<string, mixed> $groups
+     *
+     * @phpstan-param SortableConfiguration $config
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return int|null
      */
     public function getMaxPosition(array $config, $meta, $groups)
@@ -53,7 +65,12 @@ final class ORM extends BaseAdapterORM implements SortableAdapter
      * @param array<string, mixed> $delta
      * @param array<string, mixed> $config
      *
+<<<<<<< HEAD
      * @phpstan-param SortableRelocation $relocation
+=======
+     * @phpstan-param SortableRelocation    $relocation
+     * @phpstan-param SortableConfiguration $config
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return void
      */
@@ -115,6 +132,10 @@ final class ORM extends BaseAdapterORM implements SortableAdapter
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * @param ClassMetadata<object>   $metadata
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @param iterable<string, mixed> $groups
      */
     private function addGroupWhere(QueryBuilder $qb, ClassMetadata $metadata, iterable $groups): void

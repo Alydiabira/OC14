@@ -30,7 +30,11 @@ class StreamWrapper
     private ResponseInterface $response;
 
     /** @var resource|string|null */
+<<<<<<< HEAD
     private $content = null;
+=======
+    private $content;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /** @var resource|callable|null */
     private $handle;
@@ -56,7 +60,11 @@ class StreamWrapper
         }
 
         if (null === $client && !method_exists($response, 'stream')) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('Providing a client to "%s()" is required when the response doesn\'t have any "stream()" method.', __CLASS__));
+=======
+            throw new \InvalidArgumentException(\sprintf('Providing a client to "%s()" is required when the response doesn\'t have any "stream()" method.', __CLASS__));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         static $registered = false;
@@ -94,7 +102,11 @@ class StreamWrapper
     {
         if ('r' !== $mode) {
             if ($options & \STREAM_REPORT_ERRORS) {
+<<<<<<< HEAD
                 trigger_error(sprintf('Invalid mode "%s": only "r" is supported.', $mode), \E_USER_WARNING);
+=======
+                trigger_error(\sprintf('Invalid mode "%s": only "r" is supported.', $mode), \E_USER_WARNING);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return false;

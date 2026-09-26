@@ -50,7 +50,10 @@ class CollectionValidator extends ConstraintValidator
         $context = $this->context;
 
         foreach ($constraint->fields as $field => $fieldConstraint) {
+<<<<<<< HEAD
             // bug fix issue #2779
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $existsInArray = \is_array($value) && \array_key_exists($field, $value);
             $existsInArrayAccess = $value instanceof \ArrayAccess && $value->offsetExists($field);
 

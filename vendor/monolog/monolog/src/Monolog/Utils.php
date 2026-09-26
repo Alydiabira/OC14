@@ -11,10 +11,17 @@
 
 namespace Monolog;
 
+<<<<<<< HEAD
+=======
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\WrappingFormatterInterface;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 final class Utils
 {
     const DEFAULT_JSON_FLAGS = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION | JSON_INVALID_UTF8_SUBSTITUTE | JSON_PARTIAL_OUTPUT_ON_ERROR;
 
+<<<<<<< HEAD
     public static function getClass(object $object): string
     {
         $class = \get_class($object);
@@ -25,11 +32,37 @@ final class Utils
 
         if (false === ($parent = \get_parent_class($class))) {
             return \substr($class, 0, $pos + 10);
+=======
+    /** @var array<class-string, array<string, true>> */
+    private static array $sensitiveParameterNames = [];
+
+    public static function getClass(object $object): string
+    {
+        return self::getClassName(\get_class($object));
+    }
+
+    /**
+     * Strips the declaration site PHP appends to anonymous class names after a NUL byte
+     *
+     * Takes the name rather than the object because stack trace frames only carry the string.
+     *
+     * @param class-string $class
+     */
+    public static function getClassName(string $class): string
+    {
+        if (false === ($pos = strpos($class, "@anonymous\0"))) {
+            return $class;
+        }
+
+        if (false === ($parent = get_parent_class($class))) {
+            return substr($class, 0, $pos + 10);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $parent . '@anonymous';
     }
 
+<<<<<<< HEAD
     public static function substr(string $string, int $start, ?int $length = null): string
     {
         if (extension_loaded('mbstring')) {
@@ -37,6 +70,69 @@ final class Utils
         }
 
         return substr($string, $start, (null === $length) ? strlen($string) : $length);
+=======
+    /**
+     * Returns the names of the constructor parameters of a class which are marked #[SensitiveParameter]
+     *
+     * The attribute can only target parameters, and PHP does not copy it over to the promoted
+     * property, so the constructor signature is the only place it can be found. Non-promoted
+     * parameters are included too, to be matched by name against the object's properties, as
+     * assigning a sensitive parameter to a same-named property is just as common.
+     *
+     * Results are cached per class as the reflection cost is otherwise prohibitive.
+     *
+     * @param  class-string        $class
+     * @return array<string, true> Set of parameter names, to be used with isset()
+     */
+    public static function getSensitiveParameterNames(string $class): array
+    {
+        if (isset(self::$sensitiveParameterNames[$class])) {
+            return self::$sensitiveParameterNames[$class];
+        }
+
+        $names = [];
+        try {
+            $constructor = (new \ReflectionClass($class))->getConstructor();
+            if (null !== $constructor) {
+                foreach ($constructor->getParameters() as $parameter) {
+                    // filtering by name and not IS_INSTANCEOF on purpose, so this keeps working
+                    // on PHP < 8.2 where the attribute class does not exist yet
+                    if (\count($parameter->getAttributes(\SensitiveParameter::class)) > 0) {
+                        $names[$parameter->getName()] = true;
+                    }
+                }
+            }
+        } catch (\ReflectionException) {
+            // class is not loadable, nothing we can do
+        }
+
+        return self::$sensitiveParameterNames[$class] = $names;
+    }
+
+    /**
+     * Resolves a chain of formatter decorators down to the formatter doing the actual work
+     *
+     * Useful for handlers which only accept one specific formatter, to let them accept it
+     * wrapped in a decorator like the RedactingFormatter.
+     */
+    public static function unwrapFormatter(FormatterInterface $formatter): FormatterInterface
+    {
+        // bounded in case a decorator ends up wrapping itself
+        for ($i = 0; $i < 10 && $formatter instanceof WrappingFormatterInterface; $i++) {
+            $formatter = $formatter->getWrappedFormatter();
+        }
+
+        return $formatter;
+    }
+
+    public static function substr(string $string, int $start, ?int $length = null): string
+    {
+        if (\extension_loaded('mbstring')) {
+            return mb_strcut($string, $start, $length);
+        }
+
+        return substr($string, $start, (null === $length) ? \strlen($string) : $length);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -119,9 +215,15 @@ final class Utils
             self::throwEncodeError($code, $data);
         }
 
+<<<<<<< HEAD
         if (is_string($data)) {
             self::detectAndCleanUtf8($data);
         } elseif (is_array($data)) {
+=======
+        if (\is_string($data)) {
+            self::detectAndCleanUtf8($data);
+        } elseif (\is_array($data)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             array_walk_recursive($data, ['Monolog\Utils', 'detectAndCleanUtf8']);
         } else {
             self::throwEncodeError($code, $data);
@@ -141,6 +243,7 @@ final class Utils
     }
 
     /**
+<<<<<<< HEAD
      * @internal
      */
     public static function pcreLastErrorMessage(int $code): string
@@ -160,6 +263,8 @@ final class Utils
     }
 
     /**
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Throws an exception according to a given code with a customized message
      *
      * @param  int               $code return code of json_last_error function
@@ -196,6 +301,7 @@ final class Utils
      */
     private static function detectAndCleanUtf8(&$data): void
     {
+<<<<<<< HEAD
         if (is_string($data) && preg_match('//u', $data) !== 1) {
             $data = preg_replace_callback(
                 '/[\x80-\xFF]+/',
@@ -208,6 +314,22 @@ final class Utils
                 $pcreErrorCode = preg_last_error();
 
                 throw new \RuntimeException('Failed to preg_replace_callback: ' . $pcreErrorCode . ' / ' . self::pcreLastErrorMessage($pcreErrorCode));
+=======
+        if (\is_string($data) && preg_match('//u', $data) !== 1) {
+            $data = preg_replace_callback(
+                '/[\x80-\xFF]+/',
+                function (array $m): string {
+                    return \function_exists('mb_convert_encoding')
+                        ? mb_convert_encoding($m[0], 'UTF-8', 'ISO-8859-1')
+                        : (\function_exists('utf8_encode') ? utf8_encode($m[0]) : '');
+                },
+                $data
+            );
+            if (!\is_string($data)) {
+                $pcreErrorCode = preg_last_error();
+
+                throw new \RuntimeException('Failed to preg_replace_callback: ' . $pcreErrorCode . ' / ' . preg_last_error_msg());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $data = str_replace(
                 ['¤', '¦', '¨', '´', '¸', '¼', '½', '¾'],
@@ -225,7 +347,11 @@ final class Utils
      */
     public static function expandIniShorthandBytes($val)
     {
+<<<<<<< HEAD
         if (!is_string($val)) {
+=======
+        if (!\is_string($val)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return false;
         }
 
@@ -234,12 +360,20 @@ final class Utils
             return (int) $val;
         }
 
+<<<<<<< HEAD
         if (preg_match('/^\s*(?<val>\d+)(?:\.\d+)?\s*(?<unit>[gmk]?)\s*$/i', $val, $match) !== 1) {
+=======
+        if (!(bool) preg_match('/^\s*(?<val>\d+)(?:\.\d+)?\s*(?<unit>[gmk]?)\s*$/i', $val, $match)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return false;
         }
 
         $val = (int) $match['val'];
+<<<<<<< HEAD
         switch (strtolower($match['unit'] ?? '')) {
+=======
+        switch (strtolower($match['unit'])) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             case 'g':
                 $val *= 1024;
                 // no break

@@ -204,11 +204,18 @@ class Collapse extends BaseComponent {
     this._queueCallback(complete, this._element, true)
   }
 
+<<<<<<< HEAD
+=======
+  // Private
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
   _isShown(element = this._element) {
     return element.classList.contains(CLASS_NAME_SHOW)
   }
 
+<<<<<<< HEAD
   // Private
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
   _configAfterMerge(config) {
     config.toggle = Boolean(config.toggle) // Coerce string values
     config.parent = getElement(config.parent)

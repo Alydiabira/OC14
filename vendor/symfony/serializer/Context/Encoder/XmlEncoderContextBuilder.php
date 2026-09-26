@@ -36,7 +36,11 @@ final class XmlEncoderContextBuilder implements ContextBuilderInterface
     /**
      * Configures node types to ignore while decoding.
      *
+<<<<<<< HEAD
      * @see https://www.php.net/manual/en/dom.constants.php
+=======
+     * @see https://php.net/dom.constants
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @param list<int>|null $decoderIgnoredNodeTypes
      */
@@ -48,7 +52,11 @@ final class XmlEncoderContextBuilder implements ContextBuilderInterface
     /**
      * Configures node types to ignore while encoding.
      *
+<<<<<<< HEAD
      * @see https://www.php.net/manual/en/dom.constants.php
+=======
+     * @see https://php.net/dom.constants
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @param list<int>|null $encoderIgnoredNodeTypes
      */
@@ -60,7 +68,11 @@ final class XmlEncoderContextBuilder implements ContextBuilderInterface
     /**
      * Configures the DOMDocument encoding.
      *
+<<<<<<< HEAD
      * @see https://www.php.net/manual/en/class.domdocument.php#domdocument.props.encoding
+=======
+     * @see https://php.net/class.domdocument#domdocument.props.encoding
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function withEncoding(?string $encoding): static
     {
@@ -70,7 +82,11 @@ final class XmlEncoderContextBuilder implements ContextBuilderInterface
     /**
      * Configures whether to encode with indentation and extra space.
      *
+<<<<<<< HEAD
      * @see https://php.net/manual/en/class.domdocument.php#domdocument.props.formatoutput
+=======
+     * @see https://php.net/class.domdocument#domdocument.props.formatoutput
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function withFormatOutput(?bool $formatOutput): static
     {
@@ -80,7 +96,11 @@ final class XmlEncoderContextBuilder implements ContextBuilderInterface
     /**
      * Configures the DOMDocument::loadXml options bitmask.
      *
+<<<<<<< HEAD
      * @see https://www.php.net/manual/en/libxml.constants.php
+=======
+     * @see https://php.net/libxml.constants
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @param positive-int|null $loadOptions
      */
@@ -92,7 +112,11 @@ final class XmlEncoderContextBuilder implements ContextBuilderInterface
     /**
      * Configures the DOMDocument::saveXml options bitmask.
      *
+<<<<<<< HEAD
      * @see https://www.php.net/manual/en/libxml.constants.php
+=======
+     * @see https://php.net/libxml.constants
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @param positive-int|null $saveOptions
      */
@@ -120,7 +144,11 @@ final class XmlEncoderContextBuilder implements ContextBuilderInterface
     /**
      * Configures whether the document will be standalone.
      *
+<<<<<<< HEAD
      * @see https://php.net/manual/en/class.domdocument.php#domdocument.props.xmlstandalone
+=======
+     * @see https://php.net/class.domdocument#domdocument.props.xmlstandalone
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function withStandalone(?bool $standalone): static
     {
@@ -138,7 +166,11 @@ final class XmlEncoderContextBuilder implements ContextBuilderInterface
     /**
      * Configures the version number of the document.
      *
+<<<<<<< HEAD
      * @see https://php.net/manual/en/class.domdocument.php#domdocument.props.xmlversion
+=======
+     * @see https://php.net/class.domdocument#domdocument.props.xmlversion
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function withVersion(?string $version): static
     {

@@ -29,8 +29,18 @@ final class RegisterMappingDriversPass implements CompilerPassInterface
             $managers[] = new Reference('doctrine_phpcr');
         }
 
+<<<<<<< HEAD
         if (count($managers) > 0) {
             $drivers[] = $container->getDefinition('vich_uploader.metadata_driver.annotation')
+=======
+        if (\count($managers) > 0) {
+            // Support both new 'attribute' service and deprecated 'annotation' service
+            $driverServiceId = $container->hasDefinition('vich_uploader.metadata_driver.attribute')
+                ? 'vich_uploader.metadata_driver.attribute'
+                : 'vich_uploader.metadata_driver.annotation';
+
+            $drivers[] = $container->getDefinition($driverServiceId)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ->replaceArgument('$managerRegistryList', $managers);
         }
 

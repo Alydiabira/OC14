@@ -41,7 +41,11 @@ class JsonResponse extends Response
         parent::__construct('', $status, $headers);
 
         if ($json && !\is_string($data) && !is_numeric($data) && !\is_callable([$data, '__toString'])) {
+<<<<<<< HEAD
             throw new \TypeError(sprintf('"%s": If $json is set to true, argument $data must be a string or object implementing __toString(), "%s" given.', __METHOD__, get_debug_type($data)));
+=======
+            throw new \TypeError(\sprintf('"%s": If $json is set to true, argument $data must be a string or object implementing __toString(), "%s" given.', __METHOD__, get_debug_type($data)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $data ??= new \ArrayObject();
@@ -176,7 +180,11 @@ class JsonResponse extends Response
             // Not using application/javascript for compatibility reasons with older browsers.
             $this->headers->set('Content-Type', 'text/javascript');
 
+<<<<<<< HEAD
             return $this->setContent(sprintf('/**/%s(%s);', $this->callback, $this->data));
+=======
+            return $this->setContent(\sprintf('/**/%s(%s);', $this->callback, $this->data));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         // Only set the header when there is none or when it equals 'text/javascript' (from a previous update with callback)

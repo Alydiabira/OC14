@@ -9,11 +9,18 @@
  */
 namespace PHPUnit\Framework\MockObject;
 
+<<<<<<< HEAD
 use Throwable;
 
 /**
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
 interface Exception extends Throwable
+=======
+/**
+ * @internal This interface is not covered by the backward compatibility promise for PHPUnit
+ */
+interface Exception extends \PHPUnit\Exception
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 {
 }

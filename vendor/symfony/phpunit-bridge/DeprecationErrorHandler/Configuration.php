@@ -76,10 +76,17 @@ class Configuration
 
         foreach ($thresholds as $group => $threshold) {
             if (!\in_array($group, $groups, true)) {
+<<<<<<< HEAD
                 throw new \InvalidArgumentException(sprintf('Unrecognized threshold "%s", expected one of "%s".', $group, implode('", "', $groups)));
             }
             if (!is_numeric($threshold)) {
                 throw new \InvalidArgumentException(sprintf('Threshold for group "%s" has invalid value "%s".', $group, $threshold));
+=======
+                throw new \InvalidArgumentException(\sprintf('Unrecognized threshold "%s", expected one of "%s".', $group, implode('", "', $groups)));
+            }
+            if (!is_numeric($threshold)) {
+                throw new \InvalidArgumentException(\sprintf('Threshold for group "%s" has invalid value "%s".', $group, $threshold));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $this->thresholds[$group] = (int) $threshold;
         }
@@ -96,7 +103,11 @@ class Configuration
         }
         foreach ($groups as $group) {
             if (!isset($this->thresholds[$group])) {
+<<<<<<< HEAD
                 $this->thresholds[$group] = 999999;
+=======
+                $this->thresholds[$group] = $this->thresholds['total'] ?? 999999;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
         $this->regex = $regex;
@@ -111,17 +122,28 @@ class Configuration
 
         foreach ($verboseOutput as $group => $status) {
             if (!isset($this->verboseOutput[$group])) {
+<<<<<<< HEAD
                 throw new \InvalidArgumentException(sprintf('Unsupported verbosity group "%s", expected one of "%s".', $group, implode('", "', array_keys($this->verboseOutput))));
+=======
+                throw new \InvalidArgumentException(\sprintf('Unsupported verbosity group "%s", expected one of "%s".', $group, implode('", "', array_keys($this->verboseOutput))));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $this->verboseOutput[$group] = $status;
         }
 
         if ($ignoreFile) {
             if (!is_file($ignoreFile)) {
+<<<<<<< HEAD
                 throw new \InvalidArgumentException(sprintf('The ignoreFile "%s" does not exist.', $ignoreFile));
             }
             set_error_handler(static function ($t, $m) use ($ignoreFile, &$line) {
                 throw new \RuntimeException(sprintf('Invalid pattern found in "%s" on line "%d"', $ignoreFile, 1 + $line).substr($m, 12));
+=======
+                throw new \InvalidArgumentException(\sprintf('The ignoreFile "%s" does not exist.', $ignoreFile));
+            }
+            set_error_handler(static function ($t, $m) use ($ignoreFile, &$line) {
+                throw new \RuntimeException(\sprintf('Invalid pattern found in "%s" on line "%d"', $ignoreFile, 1 + $line).substr($m, 12));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             });
             try {
                 foreach (file($ignoreFile) as $line => $pattern) {
@@ -147,7 +169,11 @@ class Configuration
                     $this->baselineDeprecations[$baseline_deprecation->location][$baseline_deprecation->message] = $baseline_deprecation->count;
                 }
             } else {
+<<<<<<< HEAD
                 throw new \InvalidArgumentException(sprintf('The baselineFile "%s" does not exist.', $this->baselineFile));
+=======
+                throw new \InvalidArgumentException(\sprintf('The baselineFile "%s" does not exist.', $this->baselineFile));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -312,7 +338,11 @@ class Configuration
         parse_str($serializedConfiguration, $normalizedConfiguration);
         foreach (array_keys($normalizedConfiguration) as $key) {
             if (!\in_array($key, ['max', 'disabled', 'verbose', 'quiet', 'ignoreFile', 'generateBaseline', 'baselineFile', 'logFile'], true)) {
+<<<<<<< HEAD
                 throw new \InvalidArgumentException(sprintf('Unknown configuration option "%s".', $key));
+=======
+                throw new \InvalidArgumentException(\sprintf('Unknown configuration option "%s".', $key));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 

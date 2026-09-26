@@ -25,7 +25,11 @@ final class EmailHasHeader extends Constraint
 
     public function toString(): string
     {
+<<<<<<< HEAD
         return sprintf('has header "%s"', $this->headerName);
+=======
+        return \sprintf('has header "%s"', $this->headerName);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

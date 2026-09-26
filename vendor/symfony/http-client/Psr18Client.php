@@ -90,7 +90,15 @@ final class Psr18Client implements ClientInterface, RequestFactoryInterface, Str
             $body = $request->getBody();
 
             if ($body->isSeekable()) {
+<<<<<<< HEAD
                 $body->seek(0);
+=======
+                try {
+                    $body->seek(0);
+                } catch (\RuntimeException) {
+                    // ignore
+                }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $options = [
@@ -128,7 +136,11 @@ final class Psr18Client implements ClientInterface, RequestFactoryInterface, Str
             return new Request($method, $uri);
         }
 
+<<<<<<< HEAD
         throw new \LogicException(sprintf('You cannot use "%s()" as no PSR-17 factories have been found. Try running "composer require php-http/discovery psr/http-factory-implementation:*".', __METHOD__));
+=======
+        throw new \LogicException(\sprintf('You cannot use "%s()" as no PSR-17 factories have been found. Try running "composer require php-http/discovery psr/http-factory-implementation:*".', __METHOD__));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function createStream(string $content = ''): StreamInterface
@@ -136,7 +148,15 @@ final class Psr18Client implements ClientInterface, RequestFactoryInterface, Str
         $stream = $this->streamFactory->createStream($content);
 
         if ($stream->isSeekable()) {
+<<<<<<< HEAD
             $stream->seek(0);
+=======
+            try {
+                $stream->seek(0);
+            } catch (\RuntimeException) {
+                // ignore
+            }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $stream;
@@ -166,7 +186,11 @@ final class Psr18Client implements ClientInterface, RequestFactoryInterface, Str
             return new Uri($uri);
         }
 
+<<<<<<< HEAD
         throw new \LogicException(sprintf('You cannot use "%s()" as no PSR-17 factories have been found. Try running "composer require php-http/discovery psr/http-factory-implementation:*".', __METHOD__));
+=======
+        throw new \LogicException(\sprintf('You cannot use "%s()" as no PSR-17 factories have been found. Try running "composer require php-http/discovery psr/http-factory-implementation:*".', __METHOD__));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function reset(): void

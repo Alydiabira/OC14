@@ -619,7 +619,11 @@ class Form implements \IteratorAggregate, FormInterface, ClearableErrorsInterfac
         return null === $this->transformationFailure;
     }
 
+<<<<<<< HEAD
     public function getTransformationFailure(): ?Exception\TransformationFailedException
+=======
+    public function getTransformationFailure(): ?TransformationFailedException
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return $this->transformationFailure;
     }
@@ -750,7 +754,11 @@ class Form implements \IteratorAggregate, FormInterface, ClearableErrorsInterfac
                 $child = $this->config->getFormFactory()->createNamed($child, $type, null, $options);
             }
         } elseif ($child->getConfig()->getAutoInitialize()) {
+<<<<<<< HEAD
             throw new RuntimeException(sprintf('Automatic initialization is only supported on root forms. You should set the "auto_initialize" option to false on the field "%s".', $child->getName()));
+=======
+            throw new RuntimeException(\sprintf('Automatic initialization is only supported on root forms. You should set the "auto_initialize" option to false on the field "%s".', $child->getName()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->children[$child->getName()] = $child;
@@ -812,7 +820,11 @@ class Form implements \IteratorAggregate, FormInterface, ClearableErrorsInterfac
             return $this->children[$name];
         }
 
+<<<<<<< HEAD
         throw new OutOfBoundsException(sprintf('Child "%s" does not exist.', $name));
+=======
+        throw new OutOfBoundsException(\sprintf('Child "%s" does not exist.', $name));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -945,7 +957,11 @@ class Form implements \IteratorAggregate, FormInterface, ClearableErrorsInterfac
                 $value = $transformer->transform($value);
             }
         } catch (TransformationFailedException $exception) {
+<<<<<<< HEAD
             throw new TransformationFailedException(sprintf('Unable to transform data for property path "%s": ', $this->getPropertyPath()).$exception->getMessage(), $exception->getCode(), $exception, $exception->getInvalidMessage(), $exception->getInvalidMessageParameters());
+=======
+            throw new TransformationFailedException(\sprintf('Unable to transform data for property path "%s": ', $this->getPropertyPath()).$exception->getMessage(), $exception->getCode(), $exception, $exception->getInvalidMessage(), $exception->getInvalidMessageParameters());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $value;
@@ -965,7 +981,11 @@ class Form implements \IteratorAggregate, FormInterface, ClearableErrorsInterfac
                 $value = $transformers[$i]->reverseTransform($value);
             }
         } catch (TransformationFailedException $exception) {
+<<<<<<< HEAD
             throw new TransformationFailedException(sprintf('Unable to reverse value for property path "%s": ', $this->getPropertyPath()).$exception->getMessage(), $exception->getCode(), $exception, $exception->getInvalidMessage(), $exception->getInvalidMessageParameters());
+=======
+            throw new TransformationFailedException(\sprintf('Unable to reverse value for property path "%s": ', $this->getPropertyPath()).$exception->getMessage(), $exception->getCode(), $exception, $exception->getInvalidMessage(), $exception->getInvalidMessageParameters());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $value;
@@ -992,7 +1012,11 @@ class Form implements \IteratorAggregate, FormInterface, ClearableErrorsInterfac
                 $value = $transformer->transform($value);
             }
         } catch (TransformationFailedException $exception) {
+<<<<<<< HEAD
             throw new TransformationFailedException(sprintf('Unable to transform value for property path "%s": ', $this->getPropertyPath()).$exception->getMessage(), $exception->getCode(), $exception, $exception->getInvalidMessage(), $exception->getInvalidMessageParameters());
+=======
+            throw new TransformationFailedException(\sprintf('Unable to transform value for property path "%s": ', $this->getPropertyPath()).$exception->getMessage(), $exception->getCode(), $exception, $exception->getInvalidMessage(), $exception->getInvalidMessageParameters());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $value;
@@ -1014,7 +1038,11 @@ class Form implements \IteratorAggregate, FormInterface, ClearableErrorsInterfac
                 $value = $transformers[$i]->reverseTransform($value);
             }
         } catch (TransformationFailedException $exception) {
+<<<<<<< HEAD
             throw new TransformationFailedException(sprintf('Unable to reverse value for property path "%s": ', $this->getPropertyPath()).$exception->getMessage(), $exception->getCode(), $exception, $exception->getInvalidMessage(), $exception->getInvalidMessageParameters());
+=======
+            throw new TransformationFailedException(\sprintf('Unable to reverse value for property path "%s": ', $this->getPropertyPath()).$exception->getMessage(), $exception->getCode(), $exception, $exception->getInvalidMessage(), $exception->getInvalidMessageParameters());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $value;

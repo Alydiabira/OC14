@@ -64,7 +64,11 @@ class FormRenderer implements FormRendererInterface
         $resource = $this->engine->getResourceForBlockName($view, $blockName);
 
         if (!$resource) {
+<<<<<<< HEAD
             throw new LogicException(sprintf('No block "%s" found while rendering the form.', $blockName));
+=======
+            throw new LogicException(\sprintf('No block "%s" found while rendering the form.', $blockName));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $viewCacheKey = $view->vars[self::CACHE_KEY_VAR];
@@ -121,7 +125,11 @@ class FormRenderer implements FormRendererInterface
 
         if ($renderOnlyOnce && $view->isRendered()) {
             // This is not allowed, because it would result in rendering same IDs multiple times, which is not valid.
+<<<<<<< HEAD
             throw new BadMethodCallException(sprintf('Field "%s" has already been rendered, save the result of previous render call to a variable and output that instead.', $view->vars['name']));
+=======
+            throw new BadMethodCallException(\sprintf('Field "%s" has already been rendered, save the result of previous render call to a variable and output that instead.', $view->vars['name']));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         // The cache key for storing the variables and types
@@ -208,10 +216,17 @@ class FormRenderer implements FormRendererInterface
         // Escape if no resource exists for this block
         if (!$resource) {
             if (\count($blockNameHierarchy) !== \count(array_unique($blockNameHierarchy))) {
+<<<<<<< HEAD
                 throw new LogicException(sprintf('Unable to render the form because the block names array contains duplicates: "%s".', implode('", "', array_reverse($blockNameHierarchy))));
             }
 
             throw new LogicException(sprintf('Unable to render the form as none of the following blocks exist: "%s".', implode('", "', array_reverse($blockNameHierarchy))));
+=======
+                throw new LogicException(\sprintf('Unable to render the form because the block names array contains duplicates: "%s".', implode('", "', array_reverse($blockNameHierarchy))));
+            }
+
+            throw new LogicException(\sprintf('Unable to render the form as none of the following blocks exist: "%s".', implode('", "', array_reverse($blockNameHierarchy))));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         // Merge the passed with the existing attributes

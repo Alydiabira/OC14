@@ -41,7 +41,19 @@ class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass
         $seenAliasTargets = [];
         $replacements = [];
 
+<<<<<<< HEAD
         foreach ($container->getAliases() as $definitionId => $target) {
+=======
+        // Sort aliases so non-deprecated ones come first. This ensures that when
+        // multiple aliases point to the same private definition, non-deprecated
+        // aliases get priority for renaming. Otherwise, the definition might be
+        // renamed to a deprecated alias ID, causing the original service ID to
+        // become an alias to the deprecated one (inverting the alias chain).
+        $aliases = $container->getAliases();
+        uasort($aliases, static fn ($a, $b) => $a->isDeprecated() <=> $b->isDeprecated());
+
+        foreach ($aliases as $definitionId => $target) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $targetId = (string) $target;
             // Special case: leave this target alone
             if ('service_container' === $targetId) {
@@ -95,7 +107,11 @@ class ReplaceAliasByActualDefinitionPass extends AbstractRecursivePass
             // Perform the replacement
             $newId = $this->replacements[$referenceId];
             $value = new Reference($newId, $value->getInvalidBehavior());
+<<<<<<< HEAD
             $this->container->log($this, sprintf('Changed reference of service "%s" previously pointing to "%s" to "%s".', $this->currentId, $referenceId, $newId));
+=======
+            $this->container->log($this, \sprintf('Changed reference of service "%s" previously pointing to "%s" to "%s".', $this->currentId, $referenceId, $newId));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return parent::processValue($value, $isRoot);

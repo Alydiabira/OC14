@@ -1,6 +1,11 @@
 /*!
+<<<<<<< HEAD
   * Bootstrap collapse.js v5.3.3 (https://getbootstrap.com/)
   * Copyright 2011-2024 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+=======
+  * Bootstrap collapse.js v5.3.8 (https://getbootstrap.com/)
+  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
@@ -163,11 +168,19 @@
       this._element.style[dimension] = '';
       this._queueCallback(complete, this._element, true);
     }
+<<<<<<< HEAD
     _isShown(element = this._element) {
       return element.classList.contains(CLASS_NAME_SHOW);
     }
 
     // Private
+=======
+
+    // Private
+    _isShown(element = this._element) {
+      return element.classList.contains(CLASS_NAME_SHOW);
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     _configAfterMerge(config) {
       config.toggle = Boolean(config.toggle); // Coerce string values
       config.parent = index_js.getElement(config.parent);

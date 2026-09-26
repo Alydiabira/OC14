@@ -30,7 +30,11 @@ class JsonSerializableNormalizer extends AbstractNormalizer
         }
 
         if (!$object instanceof \JsonSerializable) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('The object must implement "%s".', \JsonSerializable::class));
+=======
+            throw new InvalidArgumentException(\sprintf('The object must implement "%s".', \JsonSerializable::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (!$this->serializer instanceof NormalizerInterface) {
@@ -65,7 +69,11 @@ class JsonSerializableNormalizer extends AbstractNormalizer
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
+<<<<<<< HEAD
         throw new LogicException(sprintf('Cannot denormalize with "%s".', \JsonSerializable::class));
+=======
+        throw new LogicException(\sprintf('Cannot denormalize with "%s".', \JsonSerializable::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

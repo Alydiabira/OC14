@@ -63,13 +63,21 @@ class UuidToStringTransformer implements DataTransformerInterface
         }
 
         if (!Uuid::isValid($value)) {
+<<<<<<< HEAD
             throw new TransformationFailedException(sprintf('The value "%s" is not a valid UUID.', $value));
+=======
+            throw new TransformationFailedException(\sprintf('The value "%s" is not a valid UUID.', $value));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         try {
             return Uuid::fromString($value);
         } catch (\InvalidArgumentException $e) {
+<<<<<<< HEAD
             throw new TransformationFailedException(sprintf('The value "%s" is not a valid UUID.', $value), $e->getCode(), $e);
+=======
+            throw new TransformationFailedException(\sprintf('The value "%s" is not a valid UUID.', $value), $e->getCode(), $e);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

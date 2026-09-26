@@ -27,7 +27,11 @@ final class AssociationOverride implements MappingAttribute
      * @param JoinColumn|array<JoinColumn> $inverseJoinColumns
      * @param JoinTable|null               $joinTable          The join table that maps the relationship.
      * @param string|null                  $inversedBy         The name of the association-field on the inverse-side.
+<<<<<<< HEAD
      * @psalm-param 'LAZY'|'EAGER'|'EXTRA_LAZY'|null $fetch
+=======
+     * @phpstan-param 'LAZY'|'EAGER'|'EXTRA_LAZY'|null $fetch
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct(
         public readonly string $name,

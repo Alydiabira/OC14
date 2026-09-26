@@ -67,7 +67,11 @@ class SplFileInfo extends \SplFileInfo
      */
     public function getContents(): string
     {
+<<<<<<< HEAD
         set_error_handler(function ($type, $msg) use (&$error) { $error = $msg; });
+=======
+        set_error_handler(static function ($type, $msg) use (&$error) { $error = $msg; });
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         try {
             $content = file_get_contents($this->getPathname());
         } finally {

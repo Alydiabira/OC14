@@ -10,7 +10,11 @@ use Vich\UploaderBundle\Mapping\PropertyMapping;
 use Vich\UploaderBundle\Util\Transliterator;
 
 /**
+<<<<<<< HEAD
  * Directory namer which can create subfolder depends on property.
+=======
+ * Directory namer that can create subfolder depends on property.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @author Raynald Coupé <raynald@easi-services.fr>
  */
@@ -56,7 +60,11 @@ final class PropertyDirectoryNamer implements DirectoryNamerInterface, Configura
             throw new NameGenerationException(\sprintf('Directory name could not be generated: property %s does not exist.', $this->propertyPath), $e->getCode(), $e);
         }
 
+<<<<<<< HEAD
         if (empty($name)) {
+=======
+        if (null === $name || '' === $name) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new NameGenerationException(\sprintf('Directory name could not be generated: property %s is empty.', $this->propertyPath));
         }
 

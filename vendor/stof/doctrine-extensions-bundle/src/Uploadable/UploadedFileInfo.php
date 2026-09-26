@@ -7,7 +7,11 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class UploadedFileInfo implements FileInfoInterface
 {
+<<<<<<< HEAD
     private $uploadedFile;
+=======
+    private UploadedFile $uploadedFile;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     public function __construct(UploadedFile $uploadedFile)
     {
@@ -31,11 +35,21 @@ class UploadedFileInfo implements FileInfoInterface
     }
 
     /**
+<<<<<<< HEAD
      * @return ?string
      */
     public function getSize()
     {
         return $this->uploadedFile->getSize();
+=======
+     * @return int|null
+     */
+    public function getSize()
+    {
+        $size = $this->uploadedFile->getSize();
+
+        return $size !== false ? $size : null;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

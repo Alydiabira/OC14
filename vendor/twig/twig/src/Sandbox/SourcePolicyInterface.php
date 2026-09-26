@@ -17,6 +17,11 @@ use Twig\Source;
  * Interface for a class that can optionally enable the sandbox mode based on a template's Twig\Source.
  *
  * @author Yaakov Saxon
+<<<<<<< HEAD
+=======
+ *
+ * @deprecated since Twig 3.27.0 with no replacement
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 interface SourcePolicyInterface
 {

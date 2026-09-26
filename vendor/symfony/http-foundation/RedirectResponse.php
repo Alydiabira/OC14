@@ -39,7 +39,11 @@ class RedirectResponse extends Response
         $this->setTargetUrl($url);
 
         if (!$this->isRedirect()) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('The HTTP status code is not a redirect ("%s" given).', $status));
+=======
+            throw new \InvalidArgumentException(\sprintf('The HTTP status code is not a redirect ("%s" given).', $status));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (301 == $status && !\array_key_exists('cache-control', array_change_key_case($headers, \CASE_LOWER))) {
@@ -71,7 +75,11 @@ class RedirectResponse extends Response
         $this->targetUrl = $url;
 
         $this->setContent(
+<<<<<<< HEAD
             sprintf('<!DOCTYPE html>
+=======
+            \sprintf('<!DOCTYPE html>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 <html>
     <head>
         <meta charset="UTF-8" />

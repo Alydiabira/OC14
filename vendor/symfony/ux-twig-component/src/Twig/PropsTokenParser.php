@@ -33,7 +33,16 @@ class PropsTokenParser extends AbstractTokenParser
             $name = $stream->expect(Token::NAME_TYPE)->getValue();
 
             if ($stream->nextIf(Token::OPERATOR_TYPE, '=')) {
+<<<<<<< HEAD
                 $values[$name] = $parser->getExpressionParser()->parseExpression();
+=======
+                if (method_exists($parser, 'parseExpression')) {
+                    // Since Twig 3.21
+                    $values[$name] = $parser->parseExpression();
+                } else {
+                    $values[$name] = $parser->getExpressionParser()->parseExpression();
+                }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $names[] = $name;
@@ -44,7 +53,11 @@ class PropsTokenParser extends AbstractTokenParser
             }
         }
 
+<<<<<<< HEAD
         return new PropsNode($names, $values, $token->getLine(), $token->getValue());
+=======
+        return new PropsNode($names, $values, $token->getLine());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getTag(): string

@@ -12,6 +12,10 @@ declare(strict_types=1);
 
 namespace phpDocumentor\Reflection\DocBlock\Tags;
 
+<<<<<<< HEAD
+=======
+use phpDocumentor\Reflection\DocBlock\Tags\Factory\MethodParameterFactory;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use phpDocumentor\Reflection\Type;
 
 final class MethodParameter
@@ -24,14 +28,29 @@ final class MethodParameter
 
     private string $name;
 
+<<<<<<< HEAD
     private ?string $defaultValue = null;
 
+=======
+    /** @var mixed */
+    private $defaultValue;
+
+    public const NO_DEFAULT_VALUE = '__NO_VALUE__';
+
+    /**
+     * @param mixed $defaultValue
+     */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function __construct(
         string $name,
         Type $type,
         bool $isReference = false,
         bool $isVariadic = false,
+<<<<<<< HEAD
         ?string $defaultValue = null
+=======
+        $defaultValue = self::NO_DEFAULT_VALUE
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ) {
         $this->type = $type;
         $this->isReference = $isReference;
@@ -62,6 +81,27 @@ final class MethodParameter
 
     public function getDefaultValue(): ?string
     {
+<<<<<<< HEAD
         return $this->defaultValue;
+=======
+        if ($this->defaultValue === self::NO_DEFAULT_VALUE) {
+            return null;
+        }
+
+        return (new MethodParameterFactory())->format($this->defaultValue);
+    }
+
+    public function __toString(): string
+    {
+        return $this->getType() . ' ' .
+            ($this->isReference() ? '&' : '') .
+            ($this->isVariadic() ? '...' : '') .
+            '$' . $this->getName() .
+            (
+                $this->defaultValue !== self::NO_DEFAULT_VALUE ?
+                (new MethodParameterFactory())->format($this->defaultValue) :
+                ''
+            );
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

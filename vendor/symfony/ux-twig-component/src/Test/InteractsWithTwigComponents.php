@@ -21,7 +21,11 @@ trait InteractsWithTwigComponents
     protected function mountTwigComponent(string $name, array $data = []): object
     {
         if (!$this instanceof KernelTestCase) {
+<<<<<<< HEAD
             throw new \LogicException(sprintf('The "%s" trait can only be used on "%s" classes.', __TRAIT__, KernelTestCase::class));
+=======
+            throw new \LogicException(\sprintf('The "%s" trait can only be used on "%s" classes.', __TRAIT__, KernelTestCase::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return static::getContainer()->get('ux.twig_component.component_factory')->create($name, $data)->getComponent();
@@ -33,7 +37,11 @@ trait InteractsWithTwigComponents
     protected function renderTwigComponent(string $name, array $data = [], ?string $content = null, array $blocks = []): RenderedComponent
     {
         if (!$this instanceof KernelTestCase) {
+<<<<<<< HEAD
             throw new \LogicException(sprintf('The "%s" trait can only be used on "%s" classes.', __TRAIT__, KernelTestCase::class));
+=======
+            throw new \LogicException(\sprintf('The "%s" trait can only be used on "%s" classes.', __TRAIT__, KernelTestCase::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $blocks = array_filter(array_merge($blocks, ['content' => $content]));
@@ -49,10 +57,17 @@ trait InteractsWithTwigComponents
             );
         }
 
+<<<<<<< HEAD
         $template = sprintf('{%% component "%s" with data %%}', addslashes($name));
 
         foreach (array_keys($blocks) as $blockName) {
             $template .= sprintf('{%% block %1$s %%}{{ blocks.%1$s|raw }}{%% endblock %%}', $blockName);
+=======
+        $template = \sprintf('{%% component "%s" with data %%}', addslashes($name));
+
+        foreach (array_keys($blocks) as $blockName) {
+            $template .= \sprintf('{%% block %1$s %%}{{ blocks.%1$s|raw }}{%% endblock %%}', $blockName);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $template .= '{% endcomponent %}';

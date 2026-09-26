@@ -181,7 +181,11 @@ abstract class DoctrineType extends AbstractType implements ResetInterface
             $em = $this->registry->getManagerForClass($options['class']);
 
             if (null === $em) {
+<<<<<<< HEAD
                 throw new RuntimeException(sprintf('Class "%s" seems not to be a managed Doctrine entity. Did you forget to map it?', $options['class']));
+=======
+                throw new RuntimeException(\sprintf('Class "%s" seems not to be a managed Doctrine entity. Did you forget to map it?', $options['class']));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return $em;
@@ -189,7 +193,11 @@ abstract class DoctrineType extends AbstractType implements ResetInterface
 
         // Invoke the query builder closure so that we can cache choice lists
         // for equal query builders
+<<<<<<< HEAD
         $queryBuilderNormalizer = function (Options $options, $queryBuilder) {
+=======
+        $queryBuilderNormalizer = static function (Options $options, $queryBuilder) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (\is_callable($queryBuilder)) {
                 $queryBuilder = $queryBuilder($options['em']->getRepository($options['class']));
             }

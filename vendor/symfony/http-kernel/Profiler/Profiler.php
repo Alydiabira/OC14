@@ -140,7 +140,11 @@ class Profiler implements ResetInterface
      */
     public function collect(Request $request, Response $response, ?\Throwable $exception = null): ?Profile
     {
+<<<<<<< HEAD
         if (false === $this->enabled) {
+=======
+        if (!$this->enabled) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return null;
         }
 
@@ -239,7 +243,11 @@ class Profiler implements ResetInterface
     public function get(string $name): DataCollectorInterface
     {
         if (!isset($this->collectors[$name])) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('Collector "%s" does not exist.', $name));
+=======
+            throw new \InvalidArgumentException(\sprintf('Collector "%s" does not exist.', $name));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->collectors[$name];

@@ -2,6 +2,21 @@
 
 All notable changes are documented in this file using the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
+<<<<<<< HEAD
+=======
+## [4.0.7] - 2026-08-11
+
+### Changed
+
+* Suppress the PHP 8.6 deprecation of `spl_object_hash()` for now; migrating the code to `spl_object_id()` would be a break of backward compatibility
+
+## [4.0.6] - 2025-08-10
+
+### Changed
+
+* Do not use `SplObjectStorage` methods that will be deprecated in PHP 8.5
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 ## [4.0.5] - 2023-02-03
 
 ### Fixed
@@ -33,6 +48,11 @@ All notable changes are documented in this file using the [Keep a CHANGELOG](htt
 
 * Tests etc. are now ignored for archive exports
 
+<<<<<<< HEAD
+=======
+[4.0.7]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.6...4.0.7
+[4.0.6]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.5...4.0.6
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 [4.0.5]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.4...4.0.5
 [4.0.4]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.3...4.0.4
 [4.0.3]: https://github.com/sebastianbergmann/recursion-context/compare/4.0.2...4.0.3

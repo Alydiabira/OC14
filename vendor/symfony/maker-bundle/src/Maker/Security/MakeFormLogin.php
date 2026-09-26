@@ -77,7 +77,13 @@ final class MakeFormLogin extends AbstractMaker
 
     public function configureCommand(Command $command, InputConfiguration $inputConfig): void
     {
+<<<<<<< HEAD
         $command->setHelp(file_get_contents(\dirname(__DIR__, 2).'/Resources/help/security/MakeFormLogin.txt'));
+=======
+        $command
+            ->setHelp($this->getHelpFileContents('security/MakeFormLogin.txt'))
+        ;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $this->configureCommandWithTestsOption($command);
     }
@@ -108,7 +114,11 @@ final class MakeFormLogin extends AbstractMaker
     public function interact(InputInterface $input, ConsoleStyle $io, Command $command): void
     {
         if (!$this->fileManager->fileExists(self::SECURITY_CONFIG_PATH)) {
+<<<<<<< HEAD
             throw new RuntimeCommandException(sprintf('The file "%s" does not exist. PHP & XML configuration formats are currently not supported.', self::SECURITY_CONFIG_PATH));
+=======
+            throw new RuntimeCommandException(\sprintf('The file "%s" does not exist. PHP & XML configuration formats are currently not supported.', self::SECURITY_CONFIG_PATH));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->ysm = new YamlSourceManipulator($this->fileManager->getFileContents(self::SECURITY_CONFIG_PATH));
@@ -164,7 +174,11 @@ final class MakeFormLogin extends AbstractMaker
         }
 
         $generator->generateTemplate(
+<<<<<<< HEAD
             sprintf('%s/login.html.twig', $templatePath),
+=======
+            \sprintf('%s/login.html.twig', $templatePath),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'security/formLogin/login_form.tpl.php',
             [
                 'logout_setup' => $this->willLogout,
@@ -199,7 +213,11 @@ final class MakeFormLogin extends AbstractMaker
             ]);
 
             $generator->generateFile(
+<<<<<<< HEAD
                 targetPath: sprintf('tests/%s.php', $testClassDetails->getShortName()),
+=======
+                targetPath: \sprintf('tests/%s.php', $testClassDetails->getShortName()),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 templateName: 'security/formLogin/Test.LoginController.tpl.php',
                 variables: [
                     'use_statements' => $useStatements,
@@ -220,7 +238,11 @@ final class MakeFormLogin extends AbstractMaker
         $this->writeSuccessMessage($io);
 
         $io->text([
+<<<<<<< HEAD
             sprintf('Next: Review and adapt the login template: <info>%s/login.html.twig</info> to suit your needs.', $templatePath),
+=======
+            \sprintf('Next: Review and adapt the login template: <info>%s/login.html.twig</info> to suit your needs.', $templatePath),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ]);
     }
 }

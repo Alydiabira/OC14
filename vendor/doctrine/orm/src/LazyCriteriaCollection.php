@@ -11,8 +11,11 @@ use Doctrine\Common\Collections\ReadableCollection;
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\ORM\Persisters\Entity\EntityPersister;
 
+<<<<<<< HEAD
 use function assert;
 
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /**
  * A lazy collection that allows a fast count when using criteria object
  * Once count gets executed once without collection being initialized, result
@@ -26,6 +29,10 @@ use function assert;
  */
 class LazyCriteriaCollection extends AbstractLazyCollection implements Selectable
 {
+<<<<<<< HEAD
+=======
+    /** @var non-negative-int|null */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private int|null $count = null;
 
     public function __construct(
@@ -83,7 +90,10 @@ class LazyCriteriaCollection extends AbstractLazyCollection implements Selectabl
     public function matching(Criteria $criteria): ReadableCollection&Selectable
     {
         $this->initialize();
+<<<<<<< HEAD
         assert($this->collection instanceof Selectable);
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this->collection->matching($criteria);
     }

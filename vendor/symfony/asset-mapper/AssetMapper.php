@@ -46,7 +46,11 @@ class AssetMapper implements AssetMapperInterface
         foreach ($this->mapperRepository->all() as $logicalPath => $filePath) {
             $asset = $this->getAsset($logicalPath);
             if (null === $asset) {
+<<<<<<< HEAD
                 throw new \LogicException(sprintf('Asset "%s" could not be found.', $logicalPath));
+=======
+                throw new \LogicException(\sprintf('Asset "%s" could not be found.', $logicalPath));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             yield $asset;
         }

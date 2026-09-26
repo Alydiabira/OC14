@@ -64,7 +64,11 @@ class Image extends File
      */
     protected static $errorNames = self::ERROR_NAMES;
 
+<<<<<<< HEAD
     public $mimeTypes = 'image/*';
+=======
+    public $mimeTypes;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public $minWidth;
     public $maxWidth;
     public $maxHeight;
@@ -140,7 +144,13 @@ class Image extends File
         ?string $allowPortraitMessage = null,
         ?string $corruptedMessage = null,
         ?array $groups = null,
+<<<<<<< HEAD
         mixed $payload = null
+=======
+        mixed $payload = null,
+        array|string|null $extensions = null,
+        ?string $extensionsMessage = null,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ) {
         parent::__construct(
             $options,
@@ -163,7 +173,13 @@ class Image extends File
             $uploadExtensionErrorMessage,
             $uploadErrorMessage,
             $groups,
+<<<<<<< HEAD
             $payload
+=======
+            $payload,
+            $extensions,
+            $extensionsMessage,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         );
 
         $this->minWidth = $minWidth ?? $this->minWidth;
@@ -192,6 +208,13 @@ class Image extends File
         $this->allowPortraitMessage = $allowPortraitMessage ?? $this->allowPortraitMessage;
         $this->corruptedMessage = $corruptedMessage ?? $this->corruptedMessage;
 
+<<<<<<< HEAD
+=======
+        if (null === $this->mimeTypes && [] === $this->extensions) {
+            $this->mimeTypes = 'image/*';
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (!\in_array('image/*', (array) $this->mimeTypes, true) && !\array_key_exists('mimeTypesMessage', $options ?? []) && null === $mimeTypesMessage) {
             $this->mimeTypesMessage = 'The mime type of the file is invalid ({{ type }}). Allowed mime types are {{ types }}.';
         }

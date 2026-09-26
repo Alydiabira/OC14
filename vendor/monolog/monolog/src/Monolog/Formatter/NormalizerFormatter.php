@@ -11,7 +11,11 @@
 
 namespace Monolog\Formatter;
 
+<<<<<<< HEAD
 use Monolog\DateTimeImmutable;
+=======
+use Monolog\JsonSerializableDateTimeImmutable;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Monolog\Utils;
 use Throwable;
 use Monolog\LogRecord;
@@ -28,19 +32,33 @@ class NormalizerFormatter implements FormatterInterface
     protected string $dateFormat;
     protected int $maxNormalizeDepth = 9;
     protected int $maxNormalizeItemCount = 1000;
+<<<<<<< HEAD
 
     private int $jsonEncodeOptions = Utils::DEFAULT_JSON_FLAGS;
 
     /**
      * @param string|null $dateFormat The format of the timestamp: one supported by DateTime::format
      * @throws \RuntimeException If the function json_encode does not exist
+=======
+    protected ?int $maxTraceLength = null;
+
+    private int $jsonEncodeOptions = Utils::DEFAULT_JSON_FLAGS;
+
+    protected string $basePath = '';
+
+    /**
+     * @param string|null $dateFormat The format of the timestamp: one supported by DateTime::format
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct(?string $dateFormat = null)
     {
         $this->dateFormat = null === $dateFormat ? static::SIMPLE_DATE : $dateFormat;
+<<<<<<< HEAD
         if (!function_exists('json_encode')) {
             throw new \RuntimeException('PHP\'s json extension is required to use Monolog\'s NormalizerFormatter');
         }
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -125,6 +143,27 @@ class NormalizerFormatter implements FormatterInterface
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * The maximum number of stack trace frames to include
+     */
+    public function getMaxTraceLength(): ?int
+    {
+        return $this->maxTraceLength;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setMaxTraceLength(?int $maxTraceLength): self
+    {
+        $this->maxTraceLength = $maxTraceLength;
+
+        return $this;
+    }
+
+    /**
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Enables `json_encode` pretty print.
      *
      * @return $this
@@ -141,6 +180,24 @@ class NormalizerFormatter implements FormatterInterface
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Setting a base path will hide the base path from exception and stack trace file names to shorten them
+     * @return $this
+     */
+    public function setBasePath(string $path = ''): self
+    {
+        if ($path !== '') {
+            $path = rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        }
+
+        $this->basePath = $path;
+
+        return $this;
+    }
+
+    /**
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Provided as extension point
      *
      * Because normalize is called with sub-values of context data etc, normalizeRecord can be
@@ -150,7 +207,11 @@ class NormalizerFormatter implements FormatterInterface
      */
     protected function normalizeRecord(LogRecord $record): array
     {
+<<<<<<< HEAD
         /** @var array<mixed> $normalized */
+=======
+        /** @var array<mixed[]|scalar|null> $normalized */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $normalized = $this->normalize($record->toArray());
 
         return $normalized;
@@ -161,12 +222,17 @@ class NormalizerFormatter implements FormatterInterface
      */
     protected function normalize(mixed $data, int $depth = 0): mixed
     {
+<<<<<<< HEAD
         if ($depth > $this->maxNormalizeDepth) {
             return 'Over ' . $this->maxNormalizeDepth . ' levels deep, aborting normalization';
         }
 
         if (null === $data || is_scalar($data)) {
             if (is_float($data)) {
+=======
+        if (null === $data || \is_scalar($data)) {
+            if (\is_float($data)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if (is_infinite($data)) {
                     return ($data > 0 ? '' : '-') . 'INF';
                 }
@@ -178,13 +244,25 @@ class NormalizerFormatter implements FormatterInterface
             return $data;
         }
 
+<<<<<<< HEAD
         if (is_array($data)) {
+=======
+        if ($depth > $this->maxNormalizeDepth) {
+            return 'Over ' . $this->maxNormalizeDepth . ' levels deep, aborting normalization';
+        }
+
+        if (\is_array($data)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $normalized = [];
 
             $count = 1;
             foreach ($data as $key => $value) {
                 if ($count++ > $this->maxNormalizeItemCount) {
+<<<<<<< HEAD
                     $normalized['...'] = 'Over ' . $this->maxNormalizeItemCount . ' items ('.count($data).' total), aborting normalization';
+=======
+                    $normalized['...'] = 'Over ' . $this->maxNormalizeItemCount . ' items ('.\count($data).' total), aborting normalization';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     break;
                 }
 
@@ -198,7 +276,11 @@ class NormalizerFormatter implements FormatterInterface
             return $this->formatDate($data);
         }
 
+<<<<<<< HEAD
         if (is_object($data)) {
+=======
+        if (\is_object($data)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if ($data instanceof Throwable) {
                 return $this->normalizeException($data, $depth);
             }
@@ -227,6 +309,7 @@ class NormalizerFormatter implements FormatterInterface
             return [Utils::getClass($data) => $value];
         }
 
+<<<<<<< HEAD
         if (is_resource($data)) {
             return sprintf('[resource(%s)]', get_resource_type($data));
         }
@@ -236,6 +319,17 @@ class NormalizerFormatter implements FormatterInterface
 
     /**
      * @return mixed[]
+=======
+        if (\is_resource($data)) {
+            return sprintf('[resource(%s)]', get_resource_type($data));
+        }
+
+        return '[unknown('.\gettype($data).')]';
+    }
+
+    /**
+     * @return array<array-key, string|int|array<string|int|array<string>>>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function normalizeException(Throwable $e, int $depth = 0)
     {
@@ -247,11 +341,23 @@ class NormalizerFormatter implements FormatterInterface
             return (array) $e->jsonSerialize();
         }
 
+<<<<<<< HEAD
+=======
+        $file = $e->getFile();
+        if ($this->basePath !== '') {
+            $file = preg_replace('{^'.preg_quote($this->basePath).'}', '', $file);
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $data = [
             'class' => Utils::getClass($e),
             'message' => $e->getMessage(),
             'code' => (int) $e->getCode(),
+<<<<<<< HEAD
             'file' => $e->getFile().':'.$e->getLine(),
+=======
+            'file' => $file.':'.$e->getLine(),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ];
 
         if ($e instanceof \SoapFault) {
@@ -264,18 +370,57 @@ class NormalizerFormatter implements FormatterInterface
             }
 
             if (isset($e->detail)) {
+<<<<<<< HEAD
                 if (is_string($e->detail)) {
                     $data['detail'] = $e->detail;
                 } elseif (is_object($e->detail) || is_array($e->detail)) {
+=======
+                if (\is_string($e->detail)) {
+                    $data['detail'] = $e->detail;
+                } elseif (\is_object($e->detail) || \is_array($e->detail)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $data['detail'] = $this->toJson($e->detail, true);
                 }
             }
         }
 
+<<<<<<< HEAD
         $trace = $e->getTrace();
         foreach ($trace as $frame) {
             if (isset($frame['file'], $frame['line'])) {
                 $data['trace'][] = $frame['file'].':'.$frame['line'];
+=======
+        $trace = array_slice($e->getTrace(), 0, $this->maxTraceLength);
+        foreach ($trace as $frame) {
+            if (isset($frame['file'])) {
+                $file = $frame['file'];
+                if ($this->basePath !== '') {
+                    $file = preg_replace('{^'.preg_quote($this->basePath).'}', '', $file) ?? $file;
+                }
+                $data['trace'][] = $file.':'.($frame['line'] ?? 0);
+            } else {
+                // Frames called by the engine itself have no file/line: shutdown functions,
+                // callbacks run by internal functions, destructors. Skipping them made traces
+                // look shorter than they were, and entirely empty for fatal errors caught in a
+                // shutdown function, so they are reported by name instead.
+                $call = $frame['function'];
+                // since PHP 8.4 a closure is named after its declaring scope, which already
+                // includes the class, so prefixing it again would just repeat it
+                if (isset($frame['class']) && !str_starts_with($call, '{closure:')) {
+                    // before 8.4 the name is <namespace>\{closure}, and the class has the namespace
+                    $call = str_ends_with($call, '\{closure}') ? '{closure}' : $call;
+                    $call = Utils::getClassName($frame['class']).($frame['type'] ?? '::').$call;
+                }
+                // anonymous classes carry their declaration site after a NUL byte, which truncates
+                // syslog lines and is not valid JSON; PHP 8.4 embeds it in closure names too
+                $call = preg_replace('{@anonymous\x00.*?\$[0-9a-f]++(?=::|$)}s', '@anonymous', $call) ?? $call;
+                if ($this->basePath !== '') {
+                    // closure names embed the file they were declared in since PHP 8.4, so the
+                    // pattern cannot be anchored; limit it or a recurring base path is stripped twice
+                    $call = preg_replace('{'.preg_quote($this->basePath).'}', '', $call, 1) ?? $call;
+                }
+                $data['trace'][] = 'internal['.$call.']:0';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -300,9 +445,15 @@ class NormalizerFormatter implements FormatterInterface
 
     protected function formatDate(\DateTimeInterface $date): string
     {
+<<<<<<< HEAD
         // in case the date format isn't custom then we defer to the custom DateTimeImmutable
         // formatting logic, which will pick the right format based on whether useMicroseconds is on
         if ($this->dateFormat === self::SIMPLE_DATE && $date instanceof DateTimeImmutable) {
+=======
+        // in case the date format isn't custom then we defer to the custom JsonSerializableDateTimeImmutable
+        // formatting logic, which will pick the right format based on whether useMicroseconds is on
+        if ($this->dateFormat === self::SIMPLE_DATE && $date instanceof JsonSerializableDateTimeImmutable) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return (string) $date;
         }
 

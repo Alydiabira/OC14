@@ -31,7 +31,11 @@ class MissingMandatoryParametersException extends \InvalidArgumentException impl
         if (\is_array($missingParameters)) {
             $this->routeName = $routeName;
             $this->missingParameters = $missingParameters;
+<<<<<<< HEAD
             $message = sprintf('Some mandatory parameters are missing ("%s") to generate a URL for route "%s".', implode('", "', $missingParameters), $routeName);
+=======
+            $message = \sprintf('Some mandatory parameters are missing ("%s") to generate a URL for route "%s".', implode('", "', $missingParameters), $routeName);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } else {
             trigger_deprecation('symfony/routing', '6.1', 'Construction of "%s" with an exception message is deprecated, provide the route name and an array of missing parameters instead.', __CLASS__);
             $message = $routeName;

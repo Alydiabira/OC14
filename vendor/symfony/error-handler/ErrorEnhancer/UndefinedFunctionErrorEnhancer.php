@@ -47,10 +47,17 @@ class UndefinedFunctionErrorEnhancer implements ErrorEnhancerInterface
         if (false !== $namespaceSeparatorIndex = strrpos($fullyQualifiedFunctionName, '\\')) {
             $functionName = substr($fullyQualifiedFunctionName, $namespaceSeparatorIndex + 1);
             $namespacePrefix = substr($fullyQualifiedFunctionName, 0, $namespaceSeparatorIndex);
+<<<<<<< HEAD
             $message = sprintf('Attempted to call function "%s" from namespace "%s".', $functionName, $namespacePrefix);
         } else {
             $functionName = $fullyQualifiedFunctionName;
             $message = sprintf('Attempted to call function "%s" from the global namespace.', $functionName);
+=======
+            $message = \sprintf('Attempted to call function "%s" from namespace "%s".', $functionName, $namespacePrefix);
+        } else {
+            $functionName = $fullyQualifiedFunctionName;
+            $message = \sprintf('Attempted to call function "%s" from the global namespace.', $functionName);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $candidates = [];

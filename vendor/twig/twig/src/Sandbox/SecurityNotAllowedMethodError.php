@@ -18,8 +18,13 @@ namespace Twig\Sandbox;
  */
 final class SecurityNotAllowedMethodError extends SecurityError
 {
+<<<<<<< HEAD
     private $className;
     private $methodName;
+=======
+    private string $className;
+    private string $methodName;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     public function __construct(string $message, string $className, string $methodName)
     {
@@ -33,7 +38,11 @@ final class SecurityNotAllowedMethodError extends SecurityError
         return $this->className;
     }
 
+<<<<<<< HEAD
     public function getMethodName()
+=======
+    public function getMethodName(): string
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return $this->methodName;
     }

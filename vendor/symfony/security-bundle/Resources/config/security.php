@@ -19,6 +19,10 @@ use Symfony\Bundle\SecurityBundle\Security\FirewallConfig;
 use Symfony\Bundle\SecurityBundle\Security\FirewallContext;
 use Symfony\Bundle\SecurityBundle\Security\FirewallMap;
 use Symfony\Bundle\SecurityBundle\Security\LazyFirewallContext;
+<<<<<<< HEAD
+=======
+use Symfony\Component\DependencyInjection\ServiceLocator;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage as BaseExpressionLanguage;
 use Symfony\Component\Ldap\Security\LdapUserProvider;
 use Symfony\Component\Security\Core\Authentication\AuthenticationTrustResolver;
@@ -88,9 +92,16 @@ return static function (ContainerConfigurator $container) {
                     'security.authenticator.managers_locator' => service('security.authenticator.managers_locator')->ignoreOnInvalid(),
                     'request_stack' => service('request_stack'),
                     'security.firewall.map' => service('security.firewall.map'),
+<<<<<<< HEAD
                     'security.user_checker' => service('security.user_checker'),
                     'security.firewall.event_dispatcher_locator' => service('security.firewall.event_dispatcher_locator'),
                     'security.csrf.token_manager' => service('security.csrf.token_manager')->ignoreOnInvalid(),
+=======
+                    'security.user_checker_locator' => service('security.user_checker_locator'),
+                    'security.firewall.event_dispatcher_locator' => service('security.firewall.event_dispatcher_locator'),
+                    'security.csrf.token_manager' => service('security.csrf.token_manager')->ignoreOnInvalid(),
+                    'security.firewall_config_locator' => service('security.firewall_config_locator')->ignoreOnInvalid(),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ]),
                 abstract_arg('authenticators'),
             ])
@@ -124,6 +135,11 @@ return static function (ContainerConfigurator $container) {
             ->args(['none'])
 
         ->set('security.user_checker', InMemoryUserChecker::class)
+<<<<<<< HEAD
+=======
+        ->set('security.user_checker_locator', ServiceLocator::class)
+            ->args([[]])
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         ->set('security.expression_language', ExpressionLanguage::class)
             ->args([service('cache.security_expression_language')->nullOnInvalid()])
@@ -229,6 +245,10 @@ return static function (ContainerConfigurator $container) {
                 service('router')->nullOnInvalid(),
                 service('security.token_storage')->nullOnInvalid(),
             ])
+<<<<<<< HEAD
+=======
+            ->tag('kernel.reset', ['method' => 'reset', 'on_invalid' => 'ignore'])
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         ->set('security.route_loader.logout', LogoutRouteLoader::class)
             ->args([

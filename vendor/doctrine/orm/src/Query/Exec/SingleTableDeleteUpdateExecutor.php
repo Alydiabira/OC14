@@ -14,8 +14,11 @@ use Doctrine\ORM\Query\SqlWalker;
  * that are mapped to a single table.
  *
  * @link        www.doctrine-project.org
+<<<<<<< HEAD
  *
  * @todo This is exactly the same as SingleSelectExecutor. Unify in SingleStatementExecutor.
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 class SingleTableDeleteUpdateExecutor extends AbstractSqlExecutor
 {

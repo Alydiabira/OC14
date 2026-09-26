@@ -65,7 +65,11 @@ final class UserValueResolver implements ValueResolverInterface
             }
 
             if (!$argument->isNullable()) {
+<<<<<<< HEAD
                 throw new AccessDeniedException(sprintf('There is no logged-in user to pass to $%s, make the argument nullable if you want to allow anonymous access to the action.', $argument->getName()));
+=======
+                throw new AccessDeniedException(\sprintf('There is no logged-in user to pass to $%s, make the argument nullable if you want to allow anonymous access to the action.', $argument->getName()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return [null];
@@ -75,6 +79,10 @@ final class UserValueResolver implements ValueResolverInterface
             return [$user];
         }
 
+<<<<<<< HEAD
         throw new AccessDeniedException(sprintf('The logged-in user is an instance of "%s" but a user of type "%s" is expected.', $user::class, $argument->getType()));
+=======
+        throw new AccessDeniedException(\sprintf('The logged-in user is an instance of "%s" but a user of type "%s" is expected.', $user::class, $argument->getType()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

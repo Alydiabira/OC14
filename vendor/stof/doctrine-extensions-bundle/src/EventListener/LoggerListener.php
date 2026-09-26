@@ -2,6 +2,10 @@
 
 namespace Stof\DoctrineExtensionsBundle\EventListener;
 
+<<<<<<< HEAD
+=======
+use Gedmo\Loggable\Loggable;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Gedmo\Loggable\LoggableListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -14,6 +18,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  * Sets the username from the security context by listening on kernel.request
  *
  * @author Christophe Coevoet <stof@notk.org>
+<<<<<<< HEAD
  */
 class LoggerListener implements EventSubscriberInterface
 {
@@ -22,6 +27,24 @@ class LoggerListener implements EventSubscriberInterface
     private $loggableListener;
 
     public function __construct(LoggableListener $loggableListener, TokenStorageInterface $tokenStorage = null, AuthorizationCheckerInterface $authorizationChecker = null)
+=======
+ *
+ * @deprecated to be removed in 2.0, use the actor provider instead
+ *
+ * @phpstan-template T of Loggable|object
+ */
+class LoggerListener implements EventSubscriberInterface
+{
+    private ?AuthorizationCheckerInterface $authorizationChecker;
+    private ?TokenStorageInterface  $tokenStorage;
+    /** @var LoggableListener<T> */
+    private LoggableListener $loggableListener;
+
+    /**
+     * @param LoggableListener<T> $loggableListener
+     */
+    public function __construct(LoggableListener $loggableListener, ?TokenStorageInterface $tokenStorage = null, ?AuthorizationCheckerInterface $authorizationChecker = null)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->loggableListener = $loggableListener;
         $this->tokenStorage = $tokenStorage;
@@ -31,7 +54,11 @@ class LoggerListener implements EventSubscriberInterface
     /**
      * @internal
      */
+<<<<<<< HEAD
     public function onKernelRequest(RequestEvent $event)
+=======
+    public function onKernelRequest(RequestEvent $event): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if (!$event->isMainRequest()) {
             return;
@@ -49,9 +76,15 @@ class LoggerListener implements EventSubscriberInterface
     }
 
     /**
+<<<<<<< HEAD
      * @return string[]
      */
     public static function getSubscribedEvents()
+=======
+     * @return array<string, string>
+     */
+    public static function getSubscribedEvents(): array
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return array(
             KernelEvents::REQUEST => 'onKernelRequest',

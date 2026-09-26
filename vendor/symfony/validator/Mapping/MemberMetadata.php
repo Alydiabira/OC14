@@ -151,7 +151,11 @@ abstract class MemberMetadata extends GenericMetadata implements PropertyMetadat
     private function checkConstraint(Constraint $constraint): void
     {
         if (!\in_array(Constraint::PROPERTY_CONSTRAINT, (array) $constraint->getTargets(), true)) {
+<<<<<<< HEAD
             throw new ConstraintDefinitionException(sprintf('The constraint "%s" cannot be put on properties or getters.', get_debug_type($constraint)));
+=======
+            throw new ConstraintDefinitionException(\sprintf('The constraint "%s" cannot be put on properties or getters.', get_debug_type($constraint)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($constraint instanceof Composite) {

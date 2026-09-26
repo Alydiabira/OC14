@@ -9,6 +9,7 @@
 
 namespace Gedmo\Uploadable\Mapping\Driver;
 
+<<<<<<< HEAD
 use Gedmo\Mapping\Annotation\Uploadable;
 use Gedmo\Mapping\Annotation\UploadableFileMimeType;
 use Gedmo\Mapping\Annotation\UploadableFileName;
@@ -22,10 +23,17 @@ use Gedmo\Uploadable\Mapping\Validator;
  * behavioral extension. Used for extraction of extended
  * metadata from Annotations specifically for Uploadable
  * extension.
+=======
+use Gedmo\Mapping\Driver\AnnotationDriverInterface;
+
+/**
+ * Mapping driver for the uploaded extension which reads extended metadata from annotations on an uploadable class.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @author Gustavo Falco <comfortablynumb84@gmail.com>
  * @author Gediminas Morkevicius <gediminas.morkevicius@gmail.com>
  *
+<<<<<<< HEAD
  * @internal
  */
 class Annotation extends AbstractAnnotationDriver
@@ -111,4 +119,12 @@ class Annotation extends AbstractAnnotationDriver
 
         return $config;
     }
+=======
+ * @deprecated since gedmo/doctrine-extensions 3.16, will be removed in version 4.0.
+ *
+ * @internal
+ */
+class Annotation extends Attribute implements AnnotationDriverInterface
+{
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

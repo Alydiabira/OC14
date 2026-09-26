@@ -35,7 +35,11 @@ class_exists(ArgumentServiceLocator::class);
  *
  * It gives access to object instances (services).
  * Services and parameters are simple key/pair stores.
+<<<<<<< HEAD
  * The container can have four possible behaviors when a service
+=======
+ * The container can have five possible behaviors when a service
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  * does not exist (or is not initialized for the last case):
  *
  *  * EXCEPTION_ON_INVALID_REFERENCE: Throws an exception at compilation time (the default)
@@ -160,12 +164,21 @@ class Container implements ContainerInterface, ResetInterface
             if (isset($this->syntheticIds[$id]) || !isset($this->getRemovedIds()[$id])) {
                 // no-op
             } elseif (null === $service) {
+<<<<<<< HEAD
                 throw new InvalidArgumentException(sprintf('The "%s" service is private, you cannot unset it.', $id));
             } else {
                 throw new InvalidArgumentException(sprintf('The "%s" service is private, you cannot replace it.', $id));
             }
         } elseif (isset($this->services[$id])) {
             throw new InvalidArgumentException(sprintf('The "%s" service is already initialized, you cannot replace it.', $id));
+=======
+                throw new InvalidArgumentException(\sprintf('The "%s" service is private, you cannot unset it.', $id));
+            } else {
+                throw new InvalidArgumentException(\sprintf('The "%s" service is private, you cannot replace it.', $id));
+            }
+        } elseif (isset($this->services[$id])) {
+            throw new InvalidArgumentException(\sprintf('The "%s" service is already initialized, you cannot replace it.', $id));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (isset($this->aliases[$id])) {
@@ -230,8 +243,13 @@ class Container implements ContainerInterface, ResetInterface
             } elseif (isset($container->methodMap[$id])) {
                 return /* self::IGNORE_ON_UNINITIALIZED_REFERENCE */ 4 === $invalidBehavior ? null : $container->{$container->methodMap[$id]}($container);
             }
+<<<<<<< HEAD
         } catch (\Exception $e) {
             unset($container->services[$id]);
+=======
+        } catch (\Throwable $e) {
+            unset($container->services[$id], $container->privates[$id]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             throw $e;
         } finally {
@@ -243,10 +261,17 @@ class Container implements ContainerInterface, ResetInterface
                 throw new ServiceNotFoundException($id);
             }
             if (isset($container->syntheticIds[$id])) {
+<<<<<<< HEAD
                 throw new ServiceNotFoundException($id, null, null, [], sprintf('The "%s" service is synthetic, it needs to be set at boot time before it can be used.', $id));
             }
             if (isset($container->getRemovedIds()[$id])) {
                 throw new ServiceNotFoundException($id, null, null, [], sprintf('The "%s" service or alias has been removed or inlined when the container was compiled. You should either make it public, or stop using the container directly and use dependency injection instead.', $id));
+=======
+                throw new ServiceNotFoundException($id, null, null, [], \sprintf('The "%s" service is synthetic, it needs to be set at boot time before it can be used.', $id));
+            }
+            if (isset($container->getRemovedIds()[$id])) {
+                throw new ServiceNotFoundException($id, null, null, [], \sprintf('The "%s" service or alias has been removed or inlined when the container was compiled. You should either make it public, or stop using the container directly and use dependency injection instead.', $id));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $alternatives = [];
@@ -288,7 +313,10 @@ class Container implements ContainerInterface, ResetInterface
     public function reset()
     {
         $services = $this->services + $this->privates;
+<<<<<<< HEAD
         $this->services = $this->factories = $this->privates = [];
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         foreach ($services as $service) {
             try {
@@ -299,6 +327,11 @@ class Container implements ContainerInterface, ResetInterface
                 continue;
             }
         }
+<<<<<<< HEAD
+=======
+
+        $this->services = $this->factories = $this->privates = [];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

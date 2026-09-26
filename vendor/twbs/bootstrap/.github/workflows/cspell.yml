@@ -23,14 +23,25 @@ jobs:
 
     steps:
       - name: Clone repository
+<<<<<<< HEAD
         uses: actions/checkout@v4
+=======
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         with:
           persist-credentials: false
 
       - name: Run cspell
+<<<<<<< HEAD
         uses: streetsidesoftware/cspell-action@v5
         with:
           config: ".cspell.json"
           files: "**/*.md"
+=======
+        uses: streetsidesoftware/cspell-action@dcd03dc3e8a59ec2e360d0c62db517baa0b4bb6d # v7.2.0
+        with:
+          config: ".cspell.json"
+          files: "**/*.{md,mdx}"
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
           inline: error
           incremental_files_only: false

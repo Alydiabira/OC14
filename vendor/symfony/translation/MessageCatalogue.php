@@ -155,7 +155,11 @@ class MessageCatalogue implements MessageCatalogueInterface, MetadataAwareInterf
     public function addCatalogue(MessageCatalogueInterface $catalogue)
     {
         if ($catalogue->getLocale() !== $this->locale) {
+<<<<<<< HEAD
             throw new LogicException(sprintf('Cannot add a catalogue for locale "%s" as the current locale for this catalogue is "%s".', $catalogue->getLocale(), $this->locale));
+=======
+            throw new LogicException(\sprintf('Cannot add a catalogue for locale "%s" as the current locale for this catalogue is "%s".', $catalogue->getLocale(), $this->locale));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         foreach ($catalogue->all() as $domain => $messages) {
@@ -190,14 +194,22 @@ class MessageCatalogue implements MessageCatalogueInterface, MetadataAwareInterf
         $c = $catalogue;
         while ($c = $c->getFallbackCatalogue()) {
             if ($c->getLocale() === $this->getLocale()) {
+<<<<<<< HEAD
                 throw new LogicException(sprintf('Circular reference detected when adding a fallback catalogue for locale "%s".', $catalogue->getLocale()));
+=======
+                throw new LogicException(\sprintf('Circular reference detected when adding a fallback catalogue for locale "%s".', $catalogue->getLocale()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
         $c = $this;
         do {
             if ($c->getLocale() === $catalogue->getLocale()) {
+<<<<<<< HEAD
                 throw new LogicException(sprintf('Circular reference detected when adding a fallback catalogue for locale "%s".', $catalogue->getLocale()));
+=======
+                throw new LogicException(\sprintf('Circular reference detected when adding a fallback catalogue for locale "%s".', $catalogue->getLocale()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             foreach ($catalogue->getResources() as $resource) {
@@ -237,6 +249,19 @@ class MessageCatalogue implements MessageCatalogueInterface, MetadataAwareInterf
             return $this->metadata;
         }
 
+<<<<<<< HEAD
+=======
+        if (isset($this->metadata[$domain.self::INTL_DOMAIN_SUFFIX])) {
+            if ('' === $key) {
+                return $this->metadata[$domain.self::INTL_DOMAIN_SUFFIX];
+            }
+
+            if (isset($this->metadata[$domain.self::INTL_DOMAIN_SUFFIX][$key])) {
+                return $this->metadata[$domain.self::INTL_DOMAIN_SUFFIX][$key];
+            }
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (isset($this->metadata[$domain])) {
             if ('' == $key) {
                 return $this->metadata[$domain];

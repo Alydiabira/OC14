@@ -9,14 +9,27 @@ use Doctrine\DBAL\Cache\CacheException;
 use Doctrine\DBAL\Cache\QueryCacheProfile;
 use Doctrine\DBAL\Driver\API\ExceptionConverter;
 use Doctrine\DBAL\Driver\Connection as DriverConnection;
+<<<<<<< HEAD
+=======
+use Doctrine\DBAL\Driver\Exception as TheDriverException;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\DBAL\Driver\ServerInfoAwareConnection;
 use Doctrine\DBAL\Driver\Statement as DriverStatement;
 use Doctrine\DBAL\Event\TransactionBeginEventArgs;
 use Doctrine\DBAL\Event\TransactionCommitEventArgs;
 use Doctrine\DBAL\Event\TransactionRollBackEventArgs;
 use Doctrine\DBAL\Exception\ConnectionLost;
+<<<<<<< HEAD
 use Doctrine\DBAL\Exception\DriverException;
 use Doctrine\DBAL\Exception\InvalidArgumentException;
+=======
+use Doctrine\DBAL\Exception\DeadlockException;
+use Doctrine\DBAL\Exception\DriverException;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
+use Doctrine\DBAL\Exception\InvalidArgumentException;
+use Doctrine\DBAL\Exception\TransactionRolledBack;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -48,8 +61,13 @@ use function sprintf;
  * A database abstraction-level connection that implements features like events, transaction isolation levels,
  * configuration, emulated transaction nesting, lazy connecting and more.
  *
+<<<<<<< HEAD
  * @psalm-import-type Params from DriverManager
  * @psalm-consistent-constructor
+=======
+ * @phpstan-import-type Params from DriverManager
+ * @phpstan-consistent-constructor
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 class Connection
 {
@@ -131,7 +149,11 @@ class Connection
      * The parameters used during creation of the Connection instance.
      *
      * @var array<string,mixed>
+<<<<<<< HEAD
      * @psalm-var Params
+=======
+     * @phpstan-var Params
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private array $params;
 
@@ -175,7 +197,11 @@ class Connection
      * @param Driver              $driver       The driver to use.
      * @param Configuration|null  $config       The configuration, optional.
      * @param EventManager|null   $eventManager The event manager, optional.
+<<<<<<< HEAD
      * @psalm-param Params $params
+=======
+     * @phpstan-param Params $params
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws Exception
      */
@@ -239,7 +265,11 @@ class Connection
      * @internal
      *
      * @return array<string,mixed>
+<<<<<<< HEAD
      * @psalm-return Params
+=======
+     * @phpstan-return Params
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getParams()
     {
@@ -360,7 +390,11 @@ class Connection
      *
      * @throws Exception
      *
+<<<<<<< HEAD
      * @psalm-assert !null $this->_conn
+=======
+     * @phpstan-assert !null $this->_conn
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function connect()
     {
@@ -1278,6 +1312,7 @@ class Connection
     public function transactional(Closure $func)
     {
         $this->beginTransaction();
+<<<<<<< HEAD
         try {
             $res = $func($this);
             $this->commit();
@@ -1288,6 +1323,43 @@ class Connection
 
             throw $e;
         }
+=======
+
+        $successful = false;
+
+        try {
+            $res = $func($this);
+
+            $successful = true;
+        } finally {
+            if (! $successful) {
+                $this->rollBack();
+            }
+        }
+
+        $shouldRollback = true;
+        try {
+            $this->commit();
+
+            $shouldRollback = false;
+        } catch (TheDriverException $t) {
+            $convertedException = $this->handleDriverException($t, null);
+            $shouldRollback     = ! (
+                $convertedException instanceof TransactionRolledBack
+                || $convertedException instanceof UniqueConstraintViolationException
+                || $convertedException instanceof ForeignKeyConstraintViolationException
+                || $convertedException instanceof DeadlockException
+            );
+
+            throw $t;
+        } finally {
+            if ($shouldRollback) {
+                $this->rollBack();
+            }
+        }
+
+        return $res;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -1419,12 +1491,30 @@ class Connection
 
         $connection = $this->getWrappedConnection();
 
+<<<<<<< HEAD
         if ($this->transactionNestingLevel === 1) {
             $result = $this->doCommit($connection);
         } elseif ($this->nestTransactionsWithSavepoints) {
             $this->releaseSavepoint($this->_getNestedTransactionSavePointName());
         }
 
+=======
+        try {
+            if ($this->transactionNestingLevel === 1) {
+                $result = $this->doCommit($connection);
+            } elseif ($this->nestTransactionsWithSavepoints) {
+                $this->releaseSavepoint($this->_getNestedTransactionSavePointName());
+            }
+        } finally {
+            $this->updateTransactionStateAfterCommit();
+        }
+
+        return $result;
+    }
+
+    private function updateTransactionStateAfterCommit(): void
+    {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         --$this->transactionNestingLevel;
 
         $eventManager = $this->getEventManager();
@@ -1441,12 +1531,19 @@ class Connection
         }
 
         if ($this->autoCommit !== false || $this->transactionNestingLevel !== 0) {
+<<<<<<< HEAD
             return $result;
         }
 
         $this->beginTransaction();
 
         return $result;
+=======
+            return;
+        }
+
+        $this->beginTransaction();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

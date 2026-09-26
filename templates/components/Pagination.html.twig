@@ -2,11 +2,19 @@
     <ul class="pagination">
         {% for page in pagination %}
             {% if page.active %}
+<<<<<<< HEAD
                 <li class="page-item active" aria-current="true" aria-label="{{ page.label }}">
                     <span class="page-link">{{ page.label }}</span>
                 </li>
             {% else %}
                 <li class="page-item" aria-label="{{ page.label }}">
+=======
+                <li class="page-item active" aria-current="true">
+                    <span class="page-link">{{ page.label }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     <a class="page-link" href="{{ page.url }}">{{ page.label }}</a>
                 </li>
             {% endif %}

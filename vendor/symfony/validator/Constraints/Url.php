@@ -47,7 +47,11 @@ class Url extends Constraint
         ?bool $relativeProtocol = null,
         ?callable $normalizer = null,
         ?array $groups = null,
+<<<<<<< HEAD
         mixed $payload = null
+=======
+        mixed $payload = null,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ) {
         parent::__construct($options, $groups, $payload);
 
@@ -57,7 +61,11 @@ class Url extends Constraint
         $this->normalizer = $normalizer ?? $this->normalizer;
 
         if (null !== $this->normalizer && !\is_callable($this->normalizer)) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('The "normalizer" option must be a valid callable ("%s" given).', get_debug_type($this->normalizer)));
+=======
+            throw new InvalidArgumentException(\sprintf('The "normalizer" option must be a valid callable ("%s" given).', get_debug_type($this->normalizer)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

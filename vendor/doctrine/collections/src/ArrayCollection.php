@@ -11,7 +11,14 @@ use ReturnTypeWillChange;
 use Stringable;
 use Traversable;
 
+<<<<<<< HEAD
 use function array_filter;
+=======
+use function array_all;
+use function array_any;
+use function array_filter;
+use function array_find;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function array_key_exists;
 use function array_keys;
 use function array_map;
@@ -40,18 +47,30 @@ use const ARRAY_FILTER_USE_BOTH;
  * serialize a collection use {@link toArray()} and reconstruct the collection
  * manually.
  *
+<<<<<<< HEAD
  * @psalm-template TKey of array-key
  * @psalm-template T
  * @template-implements Collection<TKey,T>
  * @template-implements Selectable<TKey,T>
  * @psalm-consistent-constructor
+=======
+ * @phpstan-template TKey of array-key
+ * @phpstan-template T
+ * @template-implements Collection<TKey,T>
+ * @template-implements Selectable<TKey,T>
+ * @phpstan-consistent-constructor
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 class ArrayCollection implements Collection, Selectable, Stringable
 {
     /**
      * An array containing the entries of this collection.
      *
+<<<<<<< HEAD
      * @psalm-var array<TKey,T>
+=======
+     * @phpstan-var array<TKey,T>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @var mixed[]
      */
     private array $elements = [];
@@ -59,7 +78,11 @@ class ArrayCollection implements Collection, Selectable, Stringable
     /**
      * Initializes a new ArrayCollection.
      *
+<<<<<<< HEAD
      * @psalm-param array<TKey,T> $elements
+=======
+     * @phpstan-param array<TKey,T> $elements
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct(array $elements = [])
     {
@@ -89,6 +112,7 @@ class ArrayCollection implements Collection, Selectable, Stringable
      * instance should be created when constructor semantics have changed.
      *
      * @param array $elements Elements.
+<<<<<<< HEAD
      * @psalm-param array<K,V> $elements
      *
      * @return static
@@ -96,6 +120,15 @@ class ArrayCollection implements Collection, Selectable, Stringable
      *
      * @psalm-template K of array-key
      * @psalm-template V
+=======
+     * @phpstan-param array<K,V> $elements
+     *
+     * @return static
+     * @phpstan-return static<K,V>
+     *
+     * @phpstan-template K of array-key
+     * @phpstan-template V
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function createFrom(array $elements)
     {
@@ -208,6 +241,10 @@ class ArrayCollection implements Collection, Selectable, Stringable
             return;
         }
 
+<<<<<<< HEAD
+=======
+        /** @phpstan-var TKey $offset */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->set($offset, $value);
     }
 
@@ -245,6 +282,7 @@ class ArrayCollection implements Collection, Selectable, Stringable
      */
     public function exists(Closure $p)
     {
+<<<<<<< HEAD
         foreach ($this->elements as $key => $element) {
             if ($p($key, $element)) {
                 return true;
@@ -252,15 +290,28 @@ class ArrayCollection implements Collection, Selectable, Stringable
         }
 
         return false;
+=======
+        return array_any(
+            $this->elements,
+            static fn (mixed $element, mixed $key): bool => (bool) $p($key, $element),
+        );
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
      * {@inheritDoc}
      *
+<<<<<<< HEAD
      * @psalm-param TMaybeContained $element
      *
      * @return int|string|false
      * @psalm-return (TMaybeContained is T ? TKey|false : false)
+=======
+     * @phpstan-param TMaybeContained $element
+     *
+     * @return int|string|false
+     * @phpstan-return (TMaybeContained is T ? TKey|false : false)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @template TMaybeContained
      */
@@ -315,8 +366,11 @@ class ArrayCollection implements Collection, Selectable, Stringable
     /**
      * {@inheritDoc}
      *
+<<<<<<< HEAD
      * @psalm-suppress InvalidPropertyAssignmentValue
      *
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * This breaks assumptions about the template type, but it would
      * be a backwards-incompatible change to remove this method
      */
@@ -337,7 +391,11 @@ class ArrayCollection implements Collection, Selectable, Stringable
      * {@inheritDoc}
      *
      * @return Traversable<int|string, mixed>
+<<<<<<< HEAD
      * @psalm-return Traversable<TKey, T>
+=======
+     * @phpstan-return Traversable<TKey, T>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     #[ReturnTypeWillChange]
     public function getIterator()
@@ -348,12 +406,21 @@ class ArrayCollection implements Collection, Selectable, Stringable
     /**
      * {@inheritDoc}
      *
+<<<<<<< HEAD
      * @psalm-param Closure(T):U $func
      *
      * @return static
      * @psalm-return static<TKey, U>
      *
      * @psalm-template U
+=======
+     * @phpstan-param Closure(T):U $func
+     *
+     * @return static
+     * @phpstan-return static<TKey, U>
+     *
+     * @phpstan-template U
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function map(Closure $func)
     {
@@ -371,10 +438,17 @@ class ArrayCollection implements Collection, Selectable, Stringable
     /**
      * {@inheritDoc}
      *
+<<<<<<< HEAD
      * @psalm-param Closure(T, TKey):bool $p
      *
      * @return static
      * @psalm-return static<TKey,T>
+=======
+     * @phpstan-param Closure(T, TKey):bool $p
+     *
+     * @return static
+     * @phpstan-return static<TKey,T>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function filter(Closure $p)
     {
@@ -386,6 +460,7 @@ class ArrayCollection implements Collection, Selectable, Stringable
      */
     public function findFirst(Closure $p)
     {
+<<<<<<< HEAD
         foreach ($this->elements as $key => $element) {
             if ($p($key, $element)) {
                 return $element;
@@ -393,6 +468,12 @@ class ArrayCollection implements Collection, Selectable, Stringable
         }
 
         return null;
+=======
+        return array_find(
+            $this->elements,
+            static fn (mixed $element, mixed $key): bool => (bool) $p($key, $element),
+        );
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -400,6 +481,7 @@ class ArrayCollection implements Collection, Selectable, Stringable
      */
     public function forAll(Closure $p)
     {
+<<<<<<< HEAD
         foreach ($this->elements as $key => $element) {
             if (! $p($key, $element)) {
                 return false;
@@ -407,6 +489,12 @@ class ArrayCollection implements Collection, Selectable, Stringable
         }
 
         return true;
+=======
+        return array_all(
+            $this->elements,
+            static fn (mixed $element, mixed $key): bool => (bool) $p($key, $element),
+        );
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -455,14 +543,26 @@ class ArrayCollection implements Collection, Selectable, Stringable
         return array_slice($this->elements, $offset, $length, true);
     }
 
+<<<<<<< HEAD
     /** @psalm-return Collection<TKey, T>&Selectable<TKey,T> */
     public function matching(Criteria $criteria)
     {
+=======
+    /** @phpstan-return Collection<TKey, T>&Selectable<TKey,T> */
+    public function matching(Criteria $criteria)
+    {
+        $accessRawFieldValues = $criteria->isRawFieldValueAccessEnabled();
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $expr     = $criteria->getWhereExpression();
         $filtered = $this->elements;
 
         if ($expr) {
+<<<<<<< HEAD
             $visitor  = new ClosureExpressionVisitor();
+=======
+            $visitor  = new ClosureExpressionVisitor($accessRawFieldValues);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $filter   = $visitor->dispatch($expr);
             $filtered = array_filter($filtered, $filter);
         }
@@ -472,7 +572,11 @@ class ArrayCollection implements Collection, Selectable, Stringable
         if ($orderings) {
             $next = null;
             foreach (array_reverse($orderings) as $field => $ordering) {
+<<<<<<< HEAD
                 $next = ClosureExpressionVisitor::sortByField($field, $ordering === Order::Descending ? -1 : 1, $next);
+=======
+                $next = ClosureExpressionVisitor::sortByField($field, $ordering === Order::Descending ? -1 : 1, $next, $accessRawFieldValues);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             uasort($filtered, $next);

@@ -18,6 +18,11 @@ class Property extends Node\Stmt {
     public ?Node $type;
     /** @var Node\AttributeGroup[] PHP attribute groups */
     public array $attrGroups;
+<<<<<<< HEAD
+=======
+    /** @var Node\PropertyHook[] Property hooks */
+    public array $hooks;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Constructs a class property list node.
@@ -27,17 +32,31 @@ class Property extends Node\Stmt {
      * @param array<string, mixed> $attributes Additional attributes
      * @param null|Identifier|Name|ComplexType $type Type declaration
      * @param Node\AttributeGroup[] $attrGroups PHP attribute groups
+<<<<<<< HEAD
      */
     public function __construct(int $flags, array $props, array $attributes = [], ?Node $type = null, array $attrGroups = []) {
+=======
+     * @param Node\PropertyHook[] $hooks Property hooks
+     */
+    public function __construct(int $flags, array $props, array $attributes = [], ?Node $type = null, array $attrGroups = [], array $hooks = []) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->attributes = $attributes;
         $this->flags = $flags;
         $this->props = $props;
         $this->type = $type;
         $this->attrGroups = $attrGroups;
+<<<<<<< HEAD
     }
 
     public function getSubNodeNames(): array {
         return ['attrGroups', 'flags', 'type', 'props'];
+=======
+        $this->hooks = $hooks;
+    }
+
+    public function getSubNodeNames(): array {
+        return ['attrGroups', 'flags', 'type', 'props', 'hooks'];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -76,6 +95,44 @@ class Property extends Node\Stmt {
         return (bool) ($this->flags & Modifiers::READONLY);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * Whether the property is abstract.
+     */
+    public function isAbstract(): bool {
+        return (bool) ($this->flags & Modifiers::ABSTRACT);
+    }
+
+    /**
+     * Whether the property is final.
+     */
+    public function isFinal(): bool {
+        return (bool) ($this->flags & Modifiers::FINAL);
+    }
+
+    /**
+     * Whether the property has explicit public(set) visibility.
+     */
+    public function isPublicSet(): bool {
+        return (bool) ($this->flags & Modifiers::PUBLIC_SET);
+    }
+
+    /**
+     * Whether the property has explicit protected(set) visibility.
+     */
+    public function isProtectedSet(): bool {
+        return (bool) ($this->flags & Modifiers::PROTECTED_SET);
+    }
+
+    /**
+     * Whether the property has explicit private(set) visibility.
+     */
+    public function isPrivateSet(): bool {
+        return (bool) ($this->flags & Modifiers::PRIVATE_SET);
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function getType(): string {
         return 'Stmt_Property';
     }

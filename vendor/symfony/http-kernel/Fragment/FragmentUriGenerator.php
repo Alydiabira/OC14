@@ -83,7 +83,11 @@ final class FragmentUriGenerator implements FragmentUriGeneratorInterface
             if (\is_array($value)) {
                 $this->checkNonScalar($value);
             } elseif (!\is_scalar($value) && null !== $value) {
+<<<<<<< HEAD
                 throw new \LogicException(sprintf('Controller attributes cannot contain non-scalar/non-null values (value for key "%s" is not a scalar or null).', $key));
+=======
+                throw new \LogicException(\sprintf('Controller attributes cannot contain non-scalar/non-null values (value for key "%s" is not a scalar or null).', $key));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
     }

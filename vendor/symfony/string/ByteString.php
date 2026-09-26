@@ -45,7 +45,11 @@ class ByteString extends AbstractString
     public static function fromRandom(int $length = 16, ?string $alphabet = null): self
     {
         if ($length <= 0) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('A strictly positive length is expected, "%d" given.', $length));
+=======
+            throw new InvalidArgumentException(\sprintf('A strictly positive length is expected, "%d" given.', $length));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $alphabet ??= self::ALPHABET_ALPHANUMERIC;
@@ -178,7 +182,15 @@ class ByteString extends AbstractString
             return null;
         }
 
+<<<<<<< HEAD
         $i = $this->ignoreCase ? stripos($this->string, $needle, $offset) : strpos($this->string, $needle, $offset);
+=======
+        try {
+            $i = $this->ignoreCase ? stripos($this->string, $needle, $offset) : strpos($this->string, $needle, $offset);
+        } catch (\ValueError) {
+            return null;
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return false === $i ? null : $i;
     }
@@ -195,7 +207,15 @@ class ByteString extends AbstractString
             return null;
         }
 
+<<<<<<< HEAD
         $i = $this->ignoreCase ? strripos($this->string, $needle, $offset) : strrpos($this->string, $needle, $offset);
+=======
+        try {
+            $i = $this->ignoreCase ? strripos($this->string, $needle, $offset) : strrpos($this->string, $needle, $offset);
+        } catch (\ValueError) {
+            return null;
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return false === $i ? null : $i;
     }
@@ -436,7 +456,11 @@ class ByteString extends AbstractString
         }
 
         if (!$validEncoding) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Invalid "%s" string.', $fromEncoding ?? 'Windows-1252'));
+=======
+            throw new InvalidArgumentException(\sprintf('Invalid "%s" string.', $fromEncoding ?? 'Windows-1252'));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $u->string = mb_convert_encoding($this->string, 'UTF-8', $fromEncoding ?? 'Windows-1252');

@@ -43,7 +43,11 @@ class FileLocator implements FileLocatorInterface
 
         if ($this->isAbsolutePath($name)) {
             if (!file_exists($name)) {
+<<<<<<< HEAD
                 throw new FileLocatorFileNotFoundException(sprintf('The file "%s" does not exist.', $name), 0, null, [$name]);
+=======
+                throw new FileLocatorFileNotFoundException(\sprintf('The file "%s" does not exist.', $name), 0, null, [$name]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return $name;
@@ -60,7 +64,11 @@ class FileLocator implements FileLocatorInterface
 
         foreach ($paths as $path) {
             if (@file_exists($file = $path.\DIRECTORY_SEPARATOR.$name)) {
+<<<<<<< HEAD
                 if (true === $first) {
+=======
+                if ($first) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     return $file;
                 }
                 $filepaths[] = $file;
@@ -70,7 +78,11 @@ class FileLocator implements FileLocatorInterface
         }
 
         if (!$filepaths) {
+<<<<<<< HEAD
             throw new FileLocatorFileNotFoundException(sprintf('The file "%s" does not exist (in: "%s").', $name, implode('", "', $paths)), 0, null, $notfound);
+=======
+            throw new FileLocatorFileNotFoundException(\sprintf('The file "%s" does not exist (in: "%s").', $name, implode('", "', $paths)), 0, null, $notfound);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $filepaths;
@@ -86,7 +98,12 @@ class FileLocator implements FileLocatorInterface
                 && ':' === $file[1]
                 && ('\\' === $file[2] || '/' === $file[2])
             )
+<<<<<<< HEAD
             || null !== parse_url($file, \PHP_URL_SCHEME)
+=======
+            || parse_url($file, \PHP_URL_SCHEME)
+            || str_starts_with($file, 'phar:///') // "parse_url()" doesn't handle absolute phar path, despite being valid
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ) {
             return true;
         }

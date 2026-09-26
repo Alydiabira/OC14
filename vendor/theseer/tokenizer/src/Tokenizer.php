@@ -8,7 +8,11 @@ class Tokenizer {
      *
      * @var array
      */
+<<<<<<< HEAD
     private $map = [
+=======
+    private const MAP = [
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         '(' => 'T_OPEN_BRACKET',
         ')' => 'T_CLOSE_BRACKET',
         '[' => 'T_OPEN_SQUARE',
@@ -58,7 +62,11 @@ class Tokenizer {
             if (\is_string($tok)) {
                 $token = new Token(
                     $lastToken->getLine(),
+<<<<<<< HEAD
                     $this->map[$tok],
+=======
+                    self::MAP[$tok],
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $tok
                 );
                 $result->addToken($token);
@@ -110,6 +118,7 @@ class Tokenizer {
         );
 
         $final = new TokenCollection();
+<<<<<<< HEAD
 
         foreach ($tokens as $token) {
             $gap = $token->getLine() - $prev->getLine();
@@ -117,15 +126,31 @@ class Tokenizer {
             while ($gap > 1) {
                 $linebreak = new Token(
                     $prev->getLine() + 1,
+=======
+        $prevLine = $prev->getLine();
+
+        foreach ($tokens as $token) {
+            $line = $token->getLine();
+            $gap = $line - $prevLine;
+
+            while ($gap > 1) {
+                $linebreak = new Token(
+                    $prevLine + 1,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     'T_WHITESPACE',
                     ''
                 );
                 $final->addToken($linebreak);
+<<<<<<< HEAD
                 $prev = $linebreak;
+=======
+                $prevLine = $linebreak->getLine();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $gap--;
             }
 
             $final->addToken($token);
+<<<<<<< HEAD
             $prev = $token;
         }
 
@@ -134,14 +159,32 @@ class Tokenizer {
         while ($gap > 0) {
             $linebreak = new Token(
                 $prev->getLine() + 1,
+=======
+            $prevLine = $line;
+        }
+
+        $gap = $maxLine - $prevLine;
+
+        while ($gap > 0) {
+            $linebreak = new Token(
+                $prevLine + 1,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'T_WHITESPACE',
                 ''
             );
             $final->addToken($linebreak);
+<<<<<<< HEAD
             $prev = $linebreak;
+=======
+            $prevLine = $linebreak->getLine();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $gap--;
         }
 
         return $final;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96

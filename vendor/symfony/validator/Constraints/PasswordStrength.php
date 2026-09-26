@@ -49,7 +49,11 @@ final class PasswordStrength extends Constraint
         $this->message = $message ?? $this->message;
 
         if ($this->minScore < 1 || 4 < $this->minScore) {
+<<<<<<< HEAD
             throw new ConstraintDefinitionException(sprintf('The parameter "minScore" of the "%s" constraint must be an integer between 1 and 4.', self::class));
+=======
+            throw new ConstraintDefinitionException(\sprintf('The parameter "minScore" of the "%s" constraint must be an integer between 1 and 4.', self::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

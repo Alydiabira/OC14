@@ -1,5 +1,10 @@
 <?php
 
+<<<<<<< HEAD
+=======
+declare(strict_types=1);
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 namespace Doctrine\Bundle\DoctrineBundle\Controller;
 
 use Doctrine\DBAL\Connection;
@@ -20,6 +25,7 @@ use function assert;
 /** @internal */
 class ProfilerController
 {
+<<<<<<< HEAD
     private Environment $twig;
     private ConnectionRegistry $registry;
     private Profiler $profiler;
@@ -29,6 +35,13 @@ class ProfilerController
         $this->twig     = $twig;
         $this->registry = $registry;
         $this->profiler = $profiler;
+=======
+    public function __construct(
+        private readonly Environment $twig,
+        private readonly ConnectionRegistry $registry,
+        private readonly Profiler $profiler,
+    ) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -73,7 +86,11 @@ class ProfilerController
             } else {
                 $results = $this->explainOtherPlatform($connection, $query);
             }
+<<<<<<< HEAD
         } catch (Throwable $e) {
+=======
+        } catch (Throwable) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return new Response('This query cannot be explained.');
         }
 

@@ -6,6 +6,10 @@ interface Node {
     /**
      * Gets the type of the node.
      *
+<<<<<<< HEAD
+=======
+     * @psalm-return non-empty-string
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return string Type of the node
      */
     public function getType(): string;
@@ -21,6 +25,10 @@ interface Node {
      * Gets line the node started in (alias of getStartLine).
      *
      * @return int Start line (or -1 if not available)
+<<<<<<< HEAD
+=======
+     * @phpstan-return -1|positive-int
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @deprecated Use getStartLine() instead
      */
@@ -32,6 +40,10 @@ interface Node {
      * Requires the 'startLine' attribute to be enabled in the lexer (enabled by default).
      *
      * @return int Start line (or -1 if not available)
+<<<<<<< HEAD
+=======
+     * @phpstan-return -1|positive-int
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getStartLine(): int;
 
@@ -41,6 +53,10 @@ interface Node {
      * Requires the 'endLine' attribute to be enabled in the lexer (enabled by default).
      *
      * @return int End line (or -1 if not available)
+<<<<<<< HEAD
+=======
+     * @phpstan-return -1|positive-int
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getEndLine(): int;
 

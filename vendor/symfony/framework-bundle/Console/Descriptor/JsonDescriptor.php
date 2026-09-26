@@ -156,7 +156,11 @@ class JsonDescriptor extends Descriptor
         $data = [$key => $parameter];
 
         if ($deprecation) {
+<<<<<<< HEAD
             $data['_deprecation'] = sprintf('Since %s %s: %s', $deprecation[0], $deprecation[1], sprintf(...\array_slice($deprecation, 2)));
+=======
+            $data['_deprecation'] = \sprintf('Since %s %s: %s', $deprecation[0], $deprecation[1], \sprintf(...\array_slice($deprecation, 2)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->writeData($data, $options);
@@ -169,12 +173,20 @@ class JsonDescriptor extends Descriptor
 
     protected function describeContainerDeprecations(ContainerBuilder $container, array $options = []): void
     {
+<<<<<<< HEAD
         $containerDeprecationFilePath = sprintf('%s/%sDeprecations.log', $container->getParameter('kernel.build_dir'), $container->getParameter('kernel.container_class'));
+=======
+        $containerDeprecationFilePath = \sprintf('%s/%sDeprecations.log', $container->getParameter('kernel.build_dir'), $container->getParameter('kernel.container_class'));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (!file_exists($containerDeprecationFilePath)) {
             throw new RuntimeException('The deprecation file does not exist, please try warming the cache first.');
         }
 
+<<<<<<< HEAD
         $logs = unserialize(file_get_contents($containerDeprecationFilePath));
+=======
+        $logs = unserialize(file_get_contents($containerDeprecationFilePath), ['allowed_classes' => false]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $formattedLogs = [];
         $remainingCount = 0;
@@ -236,7 +248,11 @@ class JsonDescriptor extends Descriptor
             $deprecations = [];
 
             foreach ($deprecated as $parameter => $deprecation) {
+<<<<<<< HEAD
                 $deprecations[$parameter] = sprintf('Since %s %s: %s', $deprecation[0], $deprecation[1], sprintf(...\array_slice($deprecation, 2)));
+=======
+                $deprecations[$parameter] = \sprintf('Since %s %s: %s', $deprecation[0], $deprecation[1], \sprintf(...\array_slice($deprecation, 2)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $sortedParameters['_deprecations'] = $deprecations;
@@ -280,7 +296,11 @@ class JsonDescriptor extends Descriptor
                 if ($factory[0] instanceof Reference) {
                     $data['factory_service'] = (string) $factory[0];
                 } elseif ($factory[0] instanceof Definition) {
+<<<<<<< HEAD
                     $data['factory_service'] = sprintf('inline factory service (%s)', $factory[0]->getClass() ?? 'class not configured');
+=======
+                    $data['factory_service'] = \sprintf('inline factory service (%s)', $factory[0]->getClass() ?? 'class not configured');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 } else {
                     $data['factory_class'] = $factory[0];
                 }
@@ -291,7 +311,11 @@ class JsonDescriptor extends Descriptor
         }
 
         $calls = $definition->getMethodCalls();
+<<<<<<< HEAD
         if (\count($calls) > 0) {
+=======
+        if ($calls) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $data['calls'] = [];
             foreach ($calls as $callData) {
                 $data['calls'][] = $callData[0];
@@ -300,7 +324,11 @@ class JsonDescriptor extends Descriptor
 
         if (!$omitTags) {
             $data['tags'] = [];
+<<<<<<< HEAD
             foreach ($this->sortTagsByPriority($definition->getTags()) as $tagName => $tagData) {
+=======
+            foreach ($this->sortTagsByPriority($container ? $this->resolvePriorityServiceTags($container, $definition) : $definition->getTags()) as $tagName => $tagData) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 foreach ($tagData as $parameters) {
                     $data['tags'][] = ['name' => $tagName, 'parameters' => $parameters];
                 }
@@ -332,7 +360,11 @@ class JsonDescriptor extends Descriptor
                 $data[] = $l;
             }
         } else {
+<<<<<<< HEAD
             $registeredListeners = \array_key_exists('events', $options) ? array_combine($options['events'], array_map(fn ($event) => $eventDispatcher->getListeners($event), $options['events'])) : $eventDispatcher->getListeners();
+=======
+            $registeredListeners = \array_key_exists('events', $options) ? array_combine($options['events'], array_map(static fn ($event) => $eventDispatcher->getListeners($event), $options['events'])) : $eventDispatcher->getListeners();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ksort($registeredListeners);
 
             foreach ($registeredListeners as $eventListened => $eventListeners) {

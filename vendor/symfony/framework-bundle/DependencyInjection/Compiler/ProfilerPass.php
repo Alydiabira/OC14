@@ -45,7 +45,11 @@ class ProfilerPass implements CompilerPassInterface
             if (isset($attributes[0]['template']) || is_subclass_of($collectorClass, TemplateAwareDataCollectorInterface::class)) {
                 $idForTemplate = $attributes[0]['id'] ?? $collectorClass;
                 if (!$idForTemplate) {
+<<<<<<< HEAD
                     throw new InvalidArgumentException(sprintf('Data collector service "%s" must have an id attribute in order to specify a template.', $id));
+=======
+                    throw new InvalidArgumentException(\sprintf('Data collector service "%s" must have an id attribute in order to specify a template.', $id));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
                 $template = [$idForTemplate, $attributes[0]['template'] ?? $collectorClass::getTemplate()];
             }

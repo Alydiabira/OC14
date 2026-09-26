@@ -18,6 +18,11 @@ use Symfony\Bundle\MakerBundle\MakerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+<<<<<<< HEAD
+=======
+use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\ServiceLocator;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
@@ -75,6 +80,7 @@ class MakerTestKernel extends Kernel implements CompilerPassInterface
         return $this->testRootDir;
     }
 
+<<<<<<< HEAD
     /**
      * @return void
      */
@@ -85,5 +91,19 @@ class MakerTestKernel extends Kernel implements CompilerPassInterface
             $defn = $container->getDefinition($id);
             $defn->setPublic(true);
         }
+=======
+    public function process(ContainerBuilder $container): void
+    {
+        // Add a service locator to find makers by class name
+        $makers = [];
+        foreach ($container->findTaggedServiceIds(MakeCommandRegistrationPass::MAKER_TAG) as $id => $tags) {
+            $makers[$container->getDefinition($id)->getClass()] = new Reference($id);
+        }
+
+        $container->register('maker_locator_for_tests', ServiceLocator::class)
+            ->setPublic(true)
+            ->addArgument($makers)
+            ->addTag('container.service_locator');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

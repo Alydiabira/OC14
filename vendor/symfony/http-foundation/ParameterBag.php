@@ -45,7 +45,11 @@ class ParameterBag implements \IteratorAggregate, \Countable
         }
 
         if (!\is_array($value = $this->parameters[$key] ?? [])) {
+<<<<<<< HEAD
             throw new BadRequestException(sprintf('Unexpected value for parameter "%s": expecting "array", got "%s".', $key, get_debug_type($value)));
+=======
+            throw new BadRequestException(\sprintf('Unexpected value for parameter "%s": expecting "array", got "%s".', $key, get_debug_type($value)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $value;
@@ -141,7 +145,11 @@ class ParameterBag implements \IteratorAggregate, \Countable
     {
         $value = $this->get($key, $default);
         if (!\is_scalar($value) && !$value instanceof \Stringable) {
+<<<<<<< HEAD
             throw new UnexpectedValueException(sprintf('Parameter value "%s" cannot be converted to "string".', $key));
+=======
+            throw new UnexpectedValueException(\sprintf('Parameter value "%s" cannot be converted to "string".', $key));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return (string) $value;
@@ -185,7 +193,11 @@ class ParameterBag implements \IteratorAggregate, \Countable
         try {
             return $class::from($value);
         } catch (\ValueError|\TypeError $e) {
+<<<<<<< HEAD
             throw new UnexpectedValueException(sprintf('Parameter "%s" cannot be converted to enum: %s.', $key, $e->getMessage()), $e->getCode(), $e);
+=======
+            throw new UnexpectedValueException(\sprintf('Parameter "%s" cannot be converted to enum: %s.', $key, $e->getMessage()), $e->getCode(), $e);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -212,11 +224,19 @@ class ParameterBag implements \IteratorAggregate, \Countable
         }
 
         if (\is_object($value) && !$value instanceof \Stringable) {
+<<<<<<< HEAD
             throw new UnexpectedValueException(sprintf('Parameter value "%s" cannot be filtered.', $key));
         }
 
         if ((\FILTER_CALLBACK & $filter) && !(($options['options'] ?? null) instanceof \Closure)) {
             throw new \InvalidArgumentException(sprintf('A Closure must be passed to "%s()" when FILTER_CALLBACK is used, "%s" given.', __METHOD__, get_debug_type($options['options'] ?? null)));
+=======
+            throw new UnexpectedValueException(\sprintf('Parameter value "%s" cannot be filtered.', $key));
+        }
+
+        if ((\FILTER_CALLBACK & $filter) && !(($options['options'] ?? null) instanceof \Closure)) {
+            throw new \InvalidArgumentException(\sprintf('A Closure must be passed to "%s()" when FILTER_CALLBACK is used, "%s" given.', __METHOD__, get_debug_type($options['options'] ?? null)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $options['flags'] ??= 0;

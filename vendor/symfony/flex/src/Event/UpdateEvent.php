@@ -18,12 +18,22 @@ class UpdateEvent extends Event
 {
     private $force;
     private $reset;
+<<<<<<< HEAD
 
     public function __construct(bool $force, bool $reset)
+=======
+    private $assumeYesForPrompts;
+
+    public function __construct(bool $force, bool $reset, bool $assumeYesForPrompts)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->name = ScriptEvents::POST_UPDATE_CMD;
         $this->force = $force;
         $this->reset = $reset;
+<<<<<<< HEAD
+=======
+        $this->assumeYesForPrompts = $assumeYesForPrompts;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function force(): bool
@@ -35,4 +45,12 @@ class UpdateEvent extends Event
     {
         return $this->reset;
     }
+<<<<<<< HEAD
+=======
+
+    public function assumeYesForPrompts(): bool
+    {
+        return $this->assumeYesForPrompts;
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

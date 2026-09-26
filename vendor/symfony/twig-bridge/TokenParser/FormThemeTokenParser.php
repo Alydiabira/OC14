@@ -29,12 +29,24 @@ final class FormThemeTokenParser extends AbstractTokenParser
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
 
+<<<<<<< HEAD
         $form = $this->parser->getExpressionParser()->parseExpression();
+=======
+        $parseExpression = method_exists($this->parser, 'parseExpression')
+            ? $this->parser->parseExpression(...)
+            : $this->parser->getExpressionParser()->parseExpression(...);
+
+        $form = $parseExpression();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $only = false;
 
         if ($this->parser->getStream()->test(Token::NAME_TYPE, 'with')) {
             $this->parser->getStream()->next();
+<<<<<<< HEAD
             $resources = $this->parser->getExpressionParser()->parseExpression();
+=======
+            $resources = $parseExpression();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             if ($this->parser->getStream()->nextIf(Token::NAME_TYPE, 'only')) {
                 $only = true;
@@ -42,7 +54,11 @@ final class FormThemeTokenParser extends AbstractTokenParser
         } else {
             $resources = new ArrayExpression([], $stream->getCurrent()->getLine());
             do {
+<<<<<<< HEAD
                 $resources->addElement($this->parser->getExpressionParser()->parseExpression());
+=======
+                $resources->addElement($parseExpression());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } while (!$stream->test(Token::BLOCK_END_TYPE));
         }
 

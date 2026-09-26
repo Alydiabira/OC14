@@ -116,9 +116,15 @@ class TelegramBotHandler extends AbstractProcessingHandler
         ?bool   $disableNotification = null,
         bool   $splitLongMessages = false,
         bool   $delayBetweenMessages = false,
+<<<<<<< HEAD
         int    $topic = null
     ) {
         if (!extension_loaded('curl')) {
+=======
+        ?int   $topic = null
+    ) {
+        if (!\extension_loaded('curl')) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new MissingExtensionException('The curl extension is needed to use the TelegramBotHandler');
         }
 
@@ -139,7 +145,11 @@ class TelegramBotHandler extends AbstractProcessingHandler
      */
     public function setParseMode(string|null $parseMode = null): self
     {
+<<<<<<< HEAD
         if ($parseMode !== null && !in_array($parseMode, self::AVAILABLE_PARSE_MODES, true)) {
+=======
+        if ($parseMode !== null && !\in_array($parseMode, self::AVAILABLE_PARSE_MODES, true)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new \InvalidArgumentException('Unknown parseMode, use one of these: ' . implode(', ', self::AVAILABLE_PARSE_MODES) . '.');
         }
 
@@ -196,7 +206,11 @@ class TelegramBotHandler extends AbstractProcessingHandler
     /**
      * @return $this
      */
+<<<<<<< HEAD
     public function setTopic(int $topic = null): self
+=======
+    public function setTopic(?int $topic = null): self
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->topic = $topic;
 
@@ -251,6 +265,7 @@ class TelegramBotHandler extends AbstractProcessingHandler
         }
     }
 
+<<<<<<< HEAD
     protected function sendCurl(string $message): void
     {
         $ch = curl_init();
@@ -258,6 +273,43 @@ class TelegramBotHandler extends AbstractProcessingHandler
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+=======
+    /**
+     * Returns the Telegram Bot API base URL.
+     * Override in a subclass to point to a self-hosted Bot API server.
+     */
+    protected function getBotApiUrl(): string
+    {
+        return self::BOT_API;
+    }
+
+    /**
+     * Returns extra HTTP headers to send with every Telegram API request.
+     * Override in a subclass to inject custom headers (e.g. auth tokens, tracing).
+     *
+     * @return string[]
+     */
+    protected function getCurlHeaders(): array
+    {
+        return [];
+    }
+
+    protected function sendCurl(string $message): void
+    {
+        if ('' === trim($message)) {
+            return;
+        }
+
+        $ch = curl_init();
+        $url = $this->getBotApiUrl() . $this->apiKey . '/SendMessage';
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+        $headers = $this->getCurlHeaders();
+        if ($headers !== []) {
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $params = [
             'text' => $message,
             'chat_id' => $this->channel,
@@ -270,6 +322,7 @@ class TelegramBotHandler extends AbstractProcessingHandler
         }
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
 
+<<<<<<< HEAD
         $result = Curl\Util::execute($ch);
         if (!is_string($result)) {
             throw new RuntimeException('Telegram API error. Description: No response');
@@ -278,6 +331,28 @@ class TelegramBotHandler extends AbstractProcessingHandler
 
         if ($result['ok'] === false) {
             throw new RuntimeException('Telegram API error. Description: ' . $result['description']);
+=======
+        $this->validateApiResponse(Curl\Util::execute($ch));
+    }
+
+    /**
+     * @param  string|bool      $rawResult Raw response body from the Telegram API call
+     * @throws RuntimeException When the response is missing, non-JSON, or signals failure
+     */
+    protected function validateApiResponse(string|bool $rawResult): void
+    {
+        if (!\is_string($rawResult)) {
+            throw new RuntimeException('Telegram API error. Description: No response');
+        }
+
+        $result = json_decode($rawResult, true);
+
+        if (!\is_array($result)) {
+            throw new RuntimeException('Telegram API error. Description: Unexpected non-JSON response');
+        }
+        if (($result['ok'] ?? null) !== true) {
+            throw new RuntimeException('Telegram API error. Description: ' . ($result['description'] ?? 'Unknown error'));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -287,9 +362,15 @@ class TelegramBotHandler extends AbstractProcessingHandler
      */
     private function handleMessageLength(string $message): array
     {
+<<<<<<< HEAD
         $truncatedMarker = ' (...truncated)';
         if (!$this->splitLongMessages && strlen($message) > self::MAX_MESSAGE_LENGTH) {
             return [Utils::substr($message, 0, self::MAX_MESSAGE_LENGTH - strlen($truncatedMarker)) . $truncatedMarker];
+=======
+        $truncatedMarker = ' (…truncated)';
+        if (!$this->splitLongMessages && \strlen($message) > self::MAX_MESSAGE_LENGTH) {
+            return [Utils::substr($message, 0, self::MAX_MESSAGE_LENGTH - \strlen($truncatedMarker)) . $truncatedMarker];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return str_split($message, self::MAX_MESSAGE_LENGTH);

@@ -40,7 +40,11 @@ class ResolveTargetEntityListener implements EventSubscriber
     /**
      * Adds a target-entity class name to resolve to a new class name.
      *
+<<<<<<< HEAD
      * @psalm-param array<string, mixed> $mapping
+=======
+     * @phpstan-param array<string, mixed> $mapping
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function addResolveTargetEntity(string $originalEntity, string $newEntity, array $mapping): void
     {
@@ -75,12 +79,15 @@ class ResolveTargetEntityListener implements EventSubscriber
             }
         }
 
+<<<<<<< HEAD
         foreach ($this->resolveTargetEntities as $interface => $data) {
             if ($data['targetEntity'] === $cm->getName()) {
                 $args->getEntityManager()->getMetadataFactory()->setMetadataFor($interface, $cm);
             }
         }
 
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         foreach ($cm->discriminatorMap as $value => $class) {
             if (isset($this->resolveTargetEntities[$class])) {
                 $cm->addDiscriminatorMapClass($value, $this->resolveTargetEntities[$class]['targetEntity']);

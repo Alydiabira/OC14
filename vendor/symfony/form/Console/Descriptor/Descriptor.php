@@ -46,7 +46,11 @@ abstract class Descriptor implements DescriptorInterface
             null === $object => $this->describeDefaults($options),
             $object instanceof ResolvedFormTypeInterface => $this->describeResolvedFormType($object, $options),
             $object instanceof OptionsResolver => $this->describeOption($object, $options),
+<<<<<<< HEAD
             default => throw new \InvalidArgumentException(sprintf('Object of type "%s" is not describable.', get_debug_type($object))),
+=======
+            default => throw new \InvalidArgumentException(\sprintf('Object of type "%s" is not describable.', get_debug_type($object))),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         };
     }
 

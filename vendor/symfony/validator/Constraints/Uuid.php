@@ -45,7 +45,11 @@ class Uuid extends Constraint
      */
     protected static $errorNames = self::ERROR_NAMES;
 
+<<<<<<< HEAD
     // Possible versions defined by RFC 4122
+=======
+    // Possible versions defined by RFC 9562/4122
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public const V1_MAC = 1;
     public const V2_DCE = 2;
     public const V3_MD5 = 3;
@@ -80,7 +84,11 @@ class Uuid extends Constraint
     public $message = 'This is not a valid UUID.';
 
     /**
+<<<<<<< HEAD
      * Strict mode only allows UUIDs that meet the formal definition and formatting per RFC 4122.
+=======
+     * Strict mode only allows UUIDs that meet the formal definition and formatting per RFC 9562/4122.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * Set this to `false` to allow legacy formats with different dash positioning or wrapping characters
      *
@@ -110,7 +118,11 @@ class Uuid extends Constraint
         ?bool $strict = null,
         ?callable $normalizer = null,
         ?array $groups = null,
+<<<<<<< HEAD
         mixed $payload = null
+=======
+        mixed $payload = null,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ) {
         parent::__construct($options, $groups, $payload);
 
@@ -120,7 +132,11 @@ class Uuid extends Constraint
         $this->normalizer = $normalizer ?? $this->normalizer;
 
         if (null !== $this->normalizer && !\is_callable($this->normalizer)) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('The "normalizer" option must be a valid callable ("%s" given).', get_debug_type($this->normalizer)));
+=======
+            throw new InvalidArgumentException(\sprintf('The "normalizer" option must be a valid callable ("%s" given).', get_debug_type($this->normalizer)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

@@ -56,7 +56,11 @@ class ProcessUtils
                 return new \IteratorIterator($input);
             }
 
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('"%s" only accepts strings, Traversable objects or stream resources.', $caller));
+=======
+            throw new InvalidArgumentException(\sprintf('"%s" only accepts strings, Traversable objects or stream resources.', $caller));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $input;

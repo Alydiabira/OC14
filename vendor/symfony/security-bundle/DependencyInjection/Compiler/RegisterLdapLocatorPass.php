@@ -30,8 +30,14 @@ class RegisterLdapLocatorPass implements CompilerPassInterface
         $definition = $container->setDefinition('security.ldap_locator', new Definition(ServiceLocator::class));
 
         $locators = [];
+<<<<<<< HEAD
         foreach ($container->findTaggedServiceIds('ldap') as $serviceId => $tags) {
             $locators[$serviceId] = new ServiceClosureArgument(new Reference($serviceId));
+=======
+        foreach ($container->findTaggedServiceIds('ldap') as $id => $tags) {
+            $locators[$id] = new ServiceClosureArgument(new Reference($id));
+            $container->getDefinition($id)->addTag('kernel.reset', ['method' => 'reset', 'on_invalid' => 'ignore']);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $definition->addArgument($locators);

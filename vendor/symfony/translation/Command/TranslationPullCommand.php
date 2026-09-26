@@ -92,6 +92,7 @@ final class TranslationPullCommand extends Command
                 new InputArgument('provider', null !== $defaultProvider ? InputArgument::OPTIONAL : InputArgument::REQUIRED, 'The provider to pull translations from.', $defaultProvider),
                 new InputOption('force', null, InputOption::VALUE_NONE, 'Override existing translations with provider ones (it will delete not synchronized messages).'),
                 new InputOption('intl-icu', null, InputOption::VALUE_NONE, 'Associated to --force option, it will write messages in "%domain%+intl-icu.%locale%.xlf" files.'),
+<<<<<<< HEAD
                 new InputOption('domains', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Specify the domains to pull.'),
                 new InputOption('locales', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Specify the locales to pull.'),
                 new InputOption('format', null, InputOption::VALUE_OPTIONAL, 'Override the default output format.', 'xlf12'),
@@ -113,6 +114,29 @@ This command pulls all translations associated with the <comment>messages</> and
 Local translations for the specified domains and locale are deleted if they're not present on the provider and overwritten if it's the case.
 Local translations for others domains and locales are ignored.
 EOF
+=======
+                new InputOption('domains', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Specify the domains to pull.'),
+                new InputOption('locales', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Specify the locales to pull.'),
+                new InputOption('format', null, InputOption::VALUE_REQUIRED, 'Override the default output format.', 'xlf12'),
+                new InputOption('as-tree', null, InputOption::VALUE_REQUIRED, 'Write messages as a tree-like structure. Needs --format=yaml. The given value defines the level where to switch to inline YAML'),
+            ])
+            ->setHelp(<<<'EOF'
+                The <info>%command.name%</> command pulls translations from the given provider. Only
+                new translations are pulled, existing ones are not overwritten.
+
+                You can overwrite existing translations (and remove the missing ones on local side) by using the <comment>--force</> flag:
+
+                  <info>php %command.full_name% --force provider</>
+
+                Full example:
+
+                  <info>php %command.full_name% provider --force --domains=messages --domains=validators --locales=en</>
+
+                This command pulls all translations associated with the <comment>messages</> and <comment>validators</> domains for the <comment>en</> locale.
+                Local translations for the specified domains and locale are deleted if they're not present on the provider and overwritten if it's the case.
+                Local translations for others domains and locales are ignored.
+                EOF
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -163,7 +187,11 @@ EOF
                 $this->writer->write($operation->getResult(), $format, $writeOptions);
             }
 
+<<<<<<< HEAD
             $io->success(sprintf('Local translations has been updated from "%s" (for "%s" locale(s), and "%s" domain(s)).', parse_url($provider, \PHP_URL_SCHEME), implode(', ', $locales), implode(', ', $domains)));
+=======
+            $io->success(\sprintf('Local translations has been updated from "%s" (for "%s" locale(s), and "%s" domain(s)).', parse_url($provider, \PHP_URL_SCHEME), implode(', ', $locales), implode(', ', $domains)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             return 0;
         }
@@ -177,7 +205,11 @@ EOF
             $this->writer->write($catalogue, $format, $writeOptions);
         }
 
+<<<<<<< HEAD
         $io->success(sprintf('New translations from "%s" has been written locally (for "%s" locale(s), and "%s" domain(s)).', parse_url($provider, \PHP_URL_SCHEME), implode(', ', $locales), implode(', ', $domains)));
+=======
+        $io->success(\sprintf('New translations from "%s" has been written locally (for "%s" locale(s), and "%s" domain(s)).', parse_url($provider, \PHP_URL_SCHEME), implode(', ', $locales), implode(', ', $domains)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return 0;
     }

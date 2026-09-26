@@ -20,6 +20,11 @@ use function is_object;
 use function is_resource;
 use function sprintf;
 
+<<<<<<< HEAD
+=======
+use const PHP_VERSION_ID;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /**
  * This class represents an exception during the tag creation
  *
@@ -27,7 +32,11 @@ use function sprintf;
  * we cannot simply throw exceptions at all time because the exceptions will break the creation of a
  * docklock. Just silently ignore the exceptions is not an option because the user as an issue to fix.
  *
+<<<<<<< HEAD
  * This tag holds that error information until a using application is able to display it. The object wil just behave
+=======
+ * This tag holds that error information until a using application is able to display it. The object will just behave
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  * like any normal tag. So the normal application flow will not break.
  */
 final class InvalidTag implements Tag
@@ -77,7 +86,13 @@ final class InvalidTag implements Tag
     private function flattenExceptionBacktrace(Throwable $exception): void
     {
         $traceProperty = (new ReflectionClass(Exception::class))->getProperty('trace');
+<<<<<<< HEAD
         $traceProperty->setAccessible(true);
+=======
+        if (PHP_VERSION_ID < 80100) {
+            $traceProperty->setAccessible(true);
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         do {
             $trace = $exception->getTrace();
@@ -96,6 +111,13 @@ final class InvalidTag implements Tag
             $exception = $exception->getPrevious();
         } while ($exception !== null);
 
+<<<<<<< HEAD
+=======
+        if (PHP_VERSION_ID >= 80100) {
+            return;
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $traceProperty->setAccessible(false);
     }
 

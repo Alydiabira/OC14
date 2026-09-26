@@ -35,7 +35,11 @@ final class CompiledClassMetadataFactory implements ClassMetadataFactoryInterfac
 
         $compiledClassMetadata = require $compiledClassMetadataFile;
         if (!\is_array($compiledClassMetadata)) {
+<<<<<<< HEAD
             throw new \RuntimeException(sprintf('Compiled metadata must be of the type array, %s given.', \gettype($compiledClassMetadata)));
+=======
+            throw new \RuntimeException(\sprintf('Compiled metadata must be of the type array, %s given.', \gettype($compiledClassMetadata)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->compiledClassMetadata = $compiledClassMetadata;

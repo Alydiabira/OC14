@@ -34,7 +34,11 @@ EOT);
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+<<<<<<< HEAD
         $ui = (new SymfonyStyle($input, $output))->getErrorStyle();
+=======
+        $ui = new SymfonyStyle($input, $output);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $entityManager = $this->getEntityManager($input);
 
@@ -43,7 +47,11 @@ EOT);
                                           ->getAllClassNames();
 
         if (! $entityClassNames) {
+<<<<<<< HEAD
             $ui->caution(
+=======
+            $ui->getErrorStyle()->caution(
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 [
                     'You do not have any mapped Doctrine ORM entities according to the current configuration.',
                     'If you have entities or mapping files you should check your mapping configuration for errors.',

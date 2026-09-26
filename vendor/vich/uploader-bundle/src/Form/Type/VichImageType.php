@@ -29,7 +29,11 @@ class VichImageType extends VichFileType
         StorageInterface $storage,
         UploadHandler $handler,
         PropertyMappingFactory $factory,
+<<<<<<< HEAD
         PropertyAccessorInterface $propertyAccessor = null,
+=======
+        ?PropertyAccessorInterface $propertyAccessor = null,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         private readonly ?CacheManager $cacheManager = null
     ) {
         parent::__construct($storage, $handler, $factory, $propertyAccessor);
@@ -86,7 +90,11 @@ class VichImageType extends VichFileType
 
             $view->vars = \array_replace(
                 $view->vars,
+<<<<<<< HEAD
                 $this->resolveDownloadLabel($options['download_label'], $object, $form)
+=======
+                $this->resolveDownloadLabel($options['download_label'], $object, $form, $options)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
 
             $view->vars['download_uri'] = $this->resolveUriOption($options['download_uri'], $object, $form);

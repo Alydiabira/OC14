@@ -25,7 +25,11 @@ class FormatterHelper extends Helper
      */
     public function formatSection(string $section, string $message, string $style = 'info'): string
     {
+<<<<<<< HEAD
         return sprintf('<%s>[%s]</%s> %s', $style, $section, $style, $message);
+=======
+        return \sprintf('<%s>[%s]</%s> %s', $style, $section, $style, $message);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -41,7 +45,11 @@ class FormatterHelper extends Helper
         $lines = [];
         foreach ($messages as $message) {
             $message = OutputFormatter::escape($message);
+<<<<<<< HEAD
             $lines[] = sprintf($large ? '  %s  ' : ' %s ', $message);
+=======
+            $lines[] = \sprintf($large ? '  %s  ' : ' %s ', $message);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $len = max(self::width($message) + ($large ? 4 : 2), $len);
         }
 
@@ -54,7 +62,11 @@ class FormatterHelper extends Helper
         }
 
         for ($i = 0; isset($messages[$i]); ++$i) {
+<<<<<<< HEAD
             $messages[$i] = sprintf('<%s>%s</%s>', $style, $messages[$i], $style);
+=======
+            $messages[$i] = \sprintf('<%s>%s</%s>', $style, $messages[$i], $style);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return implode("\n", $messages);

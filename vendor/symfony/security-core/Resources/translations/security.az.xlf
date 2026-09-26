@@ -74,6 +74,13 @@
                 <source>Too many failed login attempts, please try again in %minutes% minute.</source>
                 <target>Həddindən artıq uğursuz giriş cəhdi, lütfən %minutes% dəqiqə ərzində yenidən yoxlayın.</target>
             </trans-unit>
+<<<<<<< HEAD
+=======
+            <trans-unit id="20">
+                <source>Too many failed login attempts, please try again in %minutes% minutes.</source>
+                <target>Çox sayda uğursuz giriş cəhdi, zəhmət olmasa %minutes% dəqiqə sonra yenidən cəhd edin.|Çox sayda uğursuz giriş cəhdi, zəhmət olmasa %minutes% dəqiqə sonra yenidən cəhd edin.</target>
+            </trans-unit>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         </body>
     </file>
 </xliff>

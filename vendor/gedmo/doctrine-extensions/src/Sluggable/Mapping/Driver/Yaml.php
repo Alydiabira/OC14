@@ -76,8 +76,13 @@ class Yaml extends File implements Driver
     /**
      * Checks if $field type is valid as Sluggable field
      *
+<<<<<<< HEAD
      * @param ClassMetadata $meta
      * @param string        $field
+=======
+     * @param ClassMetadata<object> $meta
+     * @param string                $field
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return bool
      */
@@ -85,12 +90,22 @@ class Yaml extends File implements Driver
     {
         $mapping = $meta->getFieldMapping($field);
 
+<<<<<<< HEAD
         return $mapping && in_array($mapping['type'], self::VALID_TYPES, true);
     }
 
     /**
      * @param array<string, mixed> $fieldMapping
      * @param array<string, mixed> $config
+=======
+        return $mapping && in_array($mapping->type ?? $mapping['type'], self::VALID_TYPES, true);
+    }
+
+    /**
+     * @param array<string, mixed>  $fieldMapping
+     * @param ClassMetadata<object> $meta
+     * @param array<string, mixed>  $config
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return array<string, mixed>
      */

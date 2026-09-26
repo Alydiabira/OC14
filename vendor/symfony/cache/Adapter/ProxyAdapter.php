@@ -39,7 +39,11 @@ class ProxyAdapter implements AdapterInterface, CacheInterface, PruneableInterfa
     public function __construct(CacheItemPoolInterface $pool, string $namespace = '', int $defaultLifetime = 0)
     {
         $this->pool = $pool;
+<<<<<<< HEAD
         $this->poolHash = spl_object_hash($pool);
+=======
+        $this->poolHash = spl_object_id($pool);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ('' !== $namespace) {
             \assert('' !== CacheItem::validateKey($namespace));
             $this->namespace = $namespace;
@@ -73,7 +77,11 @@ class ProxyAdapter implements AdapterInterface, CacheInterface, PruneableInterfa
         self::$setInnerItem ??= \Closure::bind(
             static function (CacheItemInterface $innerItem, CacheItem $item, $expiry = null) {
                 $innerItem->set($item->pack());
+<<<<<<< HEAD
                 $innerItem->expiresAt(($expiry ?? $item->expiry) ? \DateTimeImmutable::createFromFormat('U.u', sprintf('%.6F', $expiry ?? $item->expiry)) : null);
+=======
+                $innerItem->expiresAt(($expiry ?? $item->expiry) ? \DateTimeImmutable::createFromFormat('U.u', \sprintf('%.6F', $expiry ?? $item->expiry)) : null);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             },
             null,
             CacheItem::class

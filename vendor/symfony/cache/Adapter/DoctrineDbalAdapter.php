@@ -19,8 +19,18 @@ use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Exception as DBALException;
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use Doctrine\DBAL\ParameterType;
+<<<<<<< HEAD
 use Doctrine\DBAL\Schema\DefaultSchemaManagerFactory;
 use Doctrine\DBAL\Schema\Schema;
+=======
+use Doctrine\DBAL\Schema\Column;
+use Doctrine\DBAL\Schema\DefaultSchemaManagerFactory;
+use Doctrine\DBAL\Schema\Name\Identifier;
+use Doctrine\DBAL\Schema\Name\UnqualifiedName;
+use Doctrine\DBAL\Schema\PrimaryKeyConstraint;
+use Doctrine\DBAL\Schema\Schema;
+use Doctrine\DBAL\Schema\Table;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\DBAL\ServerVersionProvider;
 use Doctrine\DBAL\Tools\DsnParser;
 use Symfony\Component\Cache\Exception\InvalidArgumentException;
@@ -32,6 +42,11 @@ class DoctrineDbalAdapter extends AbstractAdapter implements PruneableInterface
 {
     private const MAX_KEY_LENGTH = 255;
 
+<<<<<<< HEAD
+=======
+    private static int $savepointCounter = 0;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private MarshallerInterface $marshaller;
     private Connection $conn;
     private string $platformName;
@@ -62,7 +77,11 @@ class DoctrineDbalAdapter extends AbstractAdapter implements PruneableInterface
     public function __construct(Connection|string $connOrDsn, string $namespace = '', int $defaultLifetime = 0, array $options = [], ?MarshallerInterface $marshaller = null)
     {
         if (isset($namespace[0]) && preg_match('#[^-+.A-Za-z0-9]#', $namespace, $match)) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Namespace contains "%s" but only characters in [-+.A-Za-z0-9] are allowed.', $match[0]));
+=======
+            throw new InvalidArgumentException(\sprintf('Namespace contains "%s" but only characters in [-+.A-Za-z0-9] are allowed.', $match[0]));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($connOrDsn instanceof Connection) {
@@ -117,8 +136,12 @@ class DoctrineDbalAdapter extends AbstractAdapter implements PruneableInterface
      */
     public function createTable(): void
     {
+<<<<<<< HEAD
         $schema = new Schema();
         $this->addTableToSchema($schema);
+=======
+        $schema = $this->addTableToSchema(new Schema());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         foreach ($schema->toSql($this->conn->getDatabasePlatform()) as $sql) {
             $this->conn->executeStatement($sql);
@@ -127,20 +150,37 @@ class DoctrineDbalAdapter extends AbstractAdapter implements PruneableInterface
 
     /**
      * @param \Closure $isSameDatabase
+<<<<<<< HEAD
      */
     public function configureSchema(Schema $schema, Connection $forConnection/* , \Closure $isSameDatabase */): void
     {
         if ($schema->hasTable($this->table)) {
             return;
+=======
+     *
+     * @return Schema The (possibly new) schema with the table added
+     */
+    public function configureSchema(Schema $schema, Connection $forConnection/* , \Closure $isSameDatabase */)
+    {
+        if ($schema->hasTable($this->table)) {
+            return $schema;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $isSameDatabase = 2 < \func_num_args() ? func_get_arg(2) : static fn () => false;
 
         if ($forConnection !== $this->conn && !$isSameDatabase($this->conn->executeStatement(...))) {
+<<<<<<< HEAD
             return;
         }
 
         $this->addTableToSchema($schema);
+=======
+            return $schema;
+        }
+
+        return $this->addTableToSchema($schema);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function prune(): bool
@@ -151,7 +191,11 @@ class DoctrineDbalAdapter extends AbstractAdapter implements PruneableInterface
 
         if ('' !== $this->namespace) {
             $deleteSql .= " AND $this->idCol LIKE ?";
+<<<<<<< HEAD
             $params[] = sprintf('%s%%', $this->namespace);
+=======
+            $params[] = \sprintf('%s%%', $this->namespace);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $paramTypes[] = ParameterType::STRING;
         }
 
@@ -216,7 +260,12 @@ class DoctrineDbalAdapter extends AbstractAdapter implements PruneableInterface
         if ('' === $namespace) {
             $sql = $this->conn->getDatabasePlatform()->getTruncateTableSQL($this->table);
         } else {
+<<<<<<< HEAD
             $sql = "DELETE FROM $this->table WHERE $this->idCol LIKE '$namespace%'";
+=======
+            $namespace = str_replace('_', '!_', $namespace);
+            $sql = "DELETE FROM $this->table WHERE $this->idCol LIKE '$namespace%' ESCAPE '!'";
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         try {
@@ -244,6 +293,29 @@ class DoctrineDbalAdapter extends AbstractAdapter implements PruneableInterface
             return $failed;
         }
 
+<<<<<<< HEAD
+=======
+        if ($this->conn->isTransactionActive() && $this->conn->getDatabasePlatform()->supportsSavepoints()) {
+            $savepoint = 'cache_save_'.++self::$savepointCounter;
+            try {
+                $this->conn->createSavepoint($savepoint);
+                $failed = $this->doSaveInner($values, $lifetime, $failed);
+                $this->conn->releaseSavepoint($savepoint);
+
+                return $failed;
+            } catch (\Throwable $e) {
+                $this->conn->rollbackSavepoint($savepoint);
+
+                throw $e;
+            }
+        }
+
+        return $this->doSaveInner($values, $lifetime, $failed);
+    }
+
+    private function doSaveInner(array $values, int $lifetime, array $failed): array|bool
+    {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $platformName = $this->getPlatformName();
         $insertSql = "INSERT INTO $this->table ($this->idCol, $this->dataCol, $this->lifetimeCol, $this->timeCol) VALUES (?, ?, ?, ?)";
 
@@ -396,18 +468,65 @@ class DoctrineDbalAdapter extends AbstractAdapter implements PruneableInterface
         return $this->serverVersion = $conn->getAttribute(\PDO::ATTR_SERVER_VERSION);
     }
 
+<<<<<<< HEAD
     private function addTableToSchema(Schema $schema): void
+=======
+    private function addTableToSchema(Schema $schema): Schema
+    {
+        if (method_exists($schema, 'edit')) {
+            return $schema->edit()->addTable($this->buildSchemaTable())->create();
+        }
+
+        $this->configureSchemaTable($schema->createTable($this->table));
+
+        return $schema;
+    }
+
+    private function buildSchemaTable(): Table
     {
         $types = [
             'mysql' => 'binary',
             'sqlite' => 'text',
         ];
 
+        return Table::editor()
+            ->setUnquotedName($this->table)
+            ->addColumn(Column::editor()->setUnquotedName($this->idCol)->setTypeName($types[$this->getPlatformName()] ?? 'string')->setLength(255)->create())
+            ->addColumn(Column::editor()->setUnquotedName($this->dataCol)->setTypeName('blob')->setLength(16777215)->create())
+            ->addColumn(Column::editor()->setUnquotedName($this->lifetimeCol)->setTypeName('integer')->setUnsigned(true)->setNotNull(false)->create())
+            ->addColumn(Column::editor()->setUnquotedName($this->timeCol)->setTypeName('integer')->setUnsigned(true)->create())
+            ->addPrimaryKeyConstraint(new PrimaryKeyConstraint(null, [new UnqualifiedName(Identifier::unquoted($this->idCol))], true))
+            ->create();
+    }
+
+    /**
+     * To be removed when doctrine/dbal minimum is bumped to ^4.5.
+     */
+    private function configureSchemaTable(Table $table): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
+    {
+        $types = [
+            'mysql' => 'binary',
+            'sqlite' => 'text',
+        ];
+
+<<<<<<< HEAD
         $table = $schema->createTable($this->table);
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $table->addColumn($this->idCol, $types[$this->getPlatformName()] ?? 'string', ['length' => 255]);
         $table->addColumn($this->dataCol, 'blob', ['length' => 16777215]);
         $table->addColumn($this->lifetimeCol, 'integer', ['unsigned' => true, 'notnull' => false]);
         $table->addColumn($this->timeCol, 'integer', ['unsigned' => true]);
+<<<<<<< HEAD
         $table->setPrimaryKey([$this->idCol]);
+=======
+
+        if (class_exists(PrimaryKeyConstraint::class)) {
+            $table->addPrimaryKeyConstraint(new PrimaryKeyConstraint(null, [new UnqualifiedName(Identifier::unquoted($this->idCol))], true));
+        } else {
+            $table->setPrimaryKey([$this->idCol]);
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

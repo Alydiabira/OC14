@@ -21,7 +21,11 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
  */
 class DateValidator extends ConstraintValidator
 {
+<<<<<<< HEAD
     public const PATTERN = '/^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})$/';
+=======
+    public const PATTERN = '/^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})$/D';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Checks whether a date is valid.

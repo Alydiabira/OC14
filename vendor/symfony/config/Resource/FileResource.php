@@ -34,7 +34,11 @@ class FileResource implements SelfCheckingResourceInterface
         $resolvedResource = realpath($resource) ?: (file_exists($resource) ? $resource : false);
 
         if (false === $resolvedResource) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('The file "%s" does not exist.', $resource));
+=======
+            throw new \InvalidArgumentException(\sprintf('The file "%s" does not exist.', $resource));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->resource = $resolvedResource;

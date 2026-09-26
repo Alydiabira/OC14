@@ -9,11 +9,22 @@
 
 namespace Gedmo\Sluggable\Mapping\Event\Adapter;
 
+<<<<<<< HEAD
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
+=======
+use Doctrine\ORM\Mapping\ClassMetadata as EntityClassMetadata;
+use Doctrine\ORM\Mapping\ClassMetadataInfo as LegacyEntityClassMetadata;
+use Doctrine\ORM\Query;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Gedmo\Mapping\Event\Adapter\ORM as BaseAdapterORM;
 use Gedmo\Sluggable\Mapping\Event\SluggableAdapter;
 use Gedmo\Tool\Wrapper\AbstractWrapper;
 use Gedmo\Tool\Wrapper\EntityWrapper;
+<<<<<<< HEAD
+=======
+use Gedmo\Translatable\Query\TreeWalker\TranslationWalker;
+use Gedmo\Translatable\Translatable;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Doctrine event adapter for ORM adapted
@@ -28,7 +39,11 @@ class ORM extends BaseAdapterORM implements SluggableAdapter
     public function getSimilarSlugs($object, $meta, array $config, $slug)
     {
         $em = $this->getObjectManager();
+<<<<<<< HEAD
         /** @var EntityWrapper $wrapped */
+=======
+        /** @var EntityWrapper<object> $wrapped */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $wrapped = AbstractWrapper::wrap($object, $em);
         $qb = $em->createQueryBuilder();
         $qb->select('rec.'.$config['slug'])
@@ -51,11 +66,19 @@ class ORM extends BaseAdapterORM implements SluggableAdapter
             if (($ubase || 0 === $ubase) && !$mapping) {
                 $qb->andWhere('rec.'.$config['unique_base'].' = :unique_base');
                 $qb->setParameter(':unique_base', $ubase);
+<<<<<<< HEAD
             } elseif ($ubase && $mapping && in_array($mapping['type'], [ClassMetadataInfo::ONE_TO_ONE, ClassMetadataInfo::MANY_TO_ONE], true)) {
                 $mappedAlias = 'mapped_'.$config['unique_base'];
                 $wrappedUbase = AbstractWrapper::wrap($ubase, $em);
                 $metadata = $wrappedUbase->getMetadata();
                 assert($metadata instanceof ClassMetadataInfo);
+=======
+            } elseif ($ubase && $mapping && in_array($mapping['type'], [EntityClassMetadata::ONE_TO_ONE, EntityClassMetadata::MANY_TO_ONE], true)) {
+                $mappedAlias = 'mapped_'.$config['unique_base'];
+                $wrappedUbase = AbstractWrapper::wrap($ubase, $em);
+                $metadata = $wrappedUbase->getMetadata();
+                assert($metadata instanceof EntityClassMetadata || $metadata instanceof LegacyEntityClassMetadata);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $qb->innerJoin('rec.'.$config['unique_base'], $mappedAlias);
                 foreach (array_keys($mapping['targetToSourceKeyColumns']) as $i => $mappedKey) {
                     $mappedProp = $metadata->getFieldName($mappedKey);
@@ -76,7 +99,22 @@ class ORM extends BaseAdapterORM implements SluggableAdapter
             }
         }
 
+<<<<<<< HEAD
         return $qb->getQuery()->getArrayResult();
+=======
+        $query = $qb->getQuery();
+        $query->setHydrationMode(Query::HYDRATE_ARRAY);
+        // Force translation walker to look for slug translations to avoid duplicated slugs
+        // TODO: Remove isset when removing support of YAML driver
+        if (isset($config['uniqueOverTranslations']) && $config['uniqueOverTranslations'] && $object instanceof Translatable) {
+            $query->setHint(
+                Query::HINT_CUSTOM_OUTPUT_WALKER,
+                TranslationWalker::class
+            );
+        }
+
+        return $query->getArrayResult();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function replaceRelative($object, array $config, $target, $replacement)

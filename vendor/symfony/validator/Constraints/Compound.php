@@ -27,7 +27,11 @@ abstract class Compound extends Composite
     public function __construct(mixed $options = null)
     {
         if (isset($options[$this->getCompositeOption()])) {
+<<<<<<< HEAD
             throw new ConstraintDefinitionException(sprintf('You can\'t redefine the "%s" option. Use the "%s::getConstraints()" method instead.', $this->getCompositeOption(), __CLASS__));
+=======
+            throw new ConstraintDefinitionException(\sprintf('You can\'t redefine the "%s" option. Use the "%s::getConstraints()" method instead.', $this->getCompositeOption(), __CLASS__));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->constraints = $this->getConstraints($this->normalizeOptions($options));

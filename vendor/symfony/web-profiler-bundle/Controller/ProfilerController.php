@@ -78,7 +78,11 @@ class ProfilerController
         $page = $request->query->get('page', 'home');
         $profileType = $request->query->get('type', 'request');
 
+<<<<<<< HEAD
         if ('latest' === $token && $latest = current($this->profiler->find(null, null, 1, null, null, null, null, fn ($profile) => $profileType === $profile['virtual_type']))) {
+=======
+        if ('latest' === $token && $latest = current($this->profiler->find(null, null, 1, null, null, null, null, static fn ($profile) => $profileType === $profile['virtual_type']))) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $token = $latest['token'];
         }
 
@@ -105,7 +109,11 @@ class ProfilerController
         }
 
         if (!$profile->hasCollector($panel)) {
+<<<<<<< HEAD
             throw new NotFoundHttpException(sprintf('Panel "%s" is not available for token "%s".', $panel, $token));
+=======
+            throw new NotFoundHttpException(\sprintf('Panel "%s" is not available for token "%s".', $panel, $token));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->renderWithCspNonces($request, $this->getTemplateManager()->getName($profile, $panel), [
@@ -180,7 +188,11 @@ class ProfilerController
         $this->cspHandler?->disableCsp();
 
         $session = null;
+<<<<<<< HEAD
         if ($request->attributes->getBoolean('_stateless') && $request->hasSession()) {
+=======
+        if (!$request->attributes->getBoolean('_stateless') && $request->hasSession()) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $session = $request->getSession();
         }
 
@@ -229,7 +241,11 @@ class ProfilerController
             'request' => $request,
             'token' => $token,
             'profile' => $profile,
+<<<<<<< HEAD
             'tokens' => $this->profiler->find($ip, $url, $limit, $method, $start, $end, $statusCode, fn ($profile) => $profileType === $profile['virtual_type']),
+=======
+            'tokens' => $this->profiler->find($ip, $url, $limit, $method, $start, $end, $statusCode, static fn ($profile) => $profileType === $profile['virtual_type']),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'ip' => $ip,
             'method' => $method,
             'status_code' => $statusCode,
@@ -279,7 +295,11 @@ class ProfilerController
             return new RedirectResponse($this->generator->generate('_profiler', ['token' => $token]), 302, ['Content-Type' => 'text/html']);
         }
 
+<<<<<<< HEAD
         $tokens = $this->profiler->find($ip, $url, $limit, $method, $start, $end, $statusCode, fn ($profile) => $profileType === $profile['virtual_type']);
+=======
+        $tokens = $this->profiler->find($ip, $url, $limit, $method, $start, $end, $statusCode, static fn ($profile) => $profileType === $profile['virtual_type']);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return new RedirectResponse($this->generator->generate('_profiler_search_results', [
             'token' => $tokens ? $tokens[0]['token'] : 'empty',
@@ -343,12 +363,20 @@ class ProfilerController
     {
         $this->denyAccessIfProfilerDisabled();
         if ('JetBrainsMono' !== $fontName) {
+<<<<<<< HEAD
             throw new NotFoundHttpException(sprintf('Font file "%s.woff2" not found.', $fontName));
+=======
+            throw new NotFoundHttpException(\sprintf('Font file "%s.woff2" not found.', $fontName));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $fontFile = \dirname(__DIR__).'/Resources/fonts/'.$fontName.'.woff2';
         if (!is_file($fontFile) || !is_readable($fontFile)) {
+<<<<<<< HEAD
             throw new NotFoundHttpException(sprintf('Cannot read font file "%s".', $fontFile));
+=======
+            throw new NotFoundHttpException(\sprintf('Cannot read font file "%s".', $fontFile));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->profiler?->disable();
@@ -375,7 +403,11 @@ class ProfilerController
         $filename = $this->baseDir.\DIRECTORY_SEPARATOR.$file;
 
         if (preg_match("'(^|[/\\\\])\.'", $file) || !is_readable($filename)) {
+<<<<<<< HEAD
             throw new NotFoundHttpException(sprintf('The file "%s" cannot be opened.', $file));
+=======
+            throw new NotFoundHttpException(\sprintf('The file "%s" cannot be opened.', $file));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->renderWithCspNonces($request, '@WebProfiler/Profiler/open.html.twig', [

@@ -955,7 +955,11 @@ final class TestResult implements Countable
                 $test,
                 new OutputError(
                     sprintf(
+<<<<<<< HEAD
                         'This test printed output: %s',
+=======
+                        'Test code or tested code printed unexpected output: %s',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $test->getActualOutput(),
                     ),
                 ),

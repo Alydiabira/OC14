@@ -246,7 +246,11 @@ class Email extends Message
             $priority = 1;
         }
 
+<<<<<<< HEAD
         return $this->setHeaderBody('Text', 'X-Priority', sprintf('%d (%s)', $priority, self::PRIORITY_MAP[$priority]));
+=======
+        return $this->setHeaderBody('Text', 'X-Priority', \sprintf('%d (%s)', $priority, self::PRIORITY_MAP[$priority]));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -270,7 +274,11 @@ class Email extends Message
     public function text($body, string $charset = 'utf-8'): static
     {
         if (null !== $body && !\is_string($body) && !\is_resource($body)) {
+<<<<<<< HEAD
             throw new \TypeError(sprintf('The body must be a string, a resource or null (got "%s").', get_debug_type($body)));
+=======
+            throw new \TypeError(\sprintf('The body must be a string, a resource or null (got "%s").', get_debug_type($body)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->cachedBody = null;
@@ -301,7 +309,11 @@ class Email extends Message
     public function html($body, string $charset = 'utf-8'): static
     {
         if (null !== $body && !\is_string($body) && !\is_resource($body)) {
+<<<<<<< HEAD
             throw new \TypeError(sprintf('The body must be a string, a resource or null (got "%s").', get_debug_type($body)));
+=======
+            throw new \TypeError(\sprintf('The body must be a string, a resource or null (got "%s").', get_debug_type($body)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->cachedBody = null;
@@ -416,7 +428,11 @@ class Email extends Message
 
     private function ensureBodyValid(): void
     {
+<<<<<<< HEAD
         if (null === $this->text && null === $this->html && !$this->attachments) {
+=======
+        if (null === $this->text && null === $this->html && !$this->attachments && null === parent::getBody()) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new LogicException('A message must have a text or an HTML part or attachments.');
         }
     }
@@ -497,6 +513,10 @@ class Email extends Message
         }
 
         $otherParts = $relatedParts = [];
+<<<<<<< HEAD
+=======
+        $cidReplacements = [];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         foreach ($this->attachments as $part) {
             foreach ($names as $name) {
                 if ($name !== $part->getName() && (!$part->hasContentId() || $name !== $part->getContentId())) {
@@ -506,17 +526,31 @@ class Email extends Message
                     continue 2;
                 }
 
+<<<<<<< HEAD
                 if ($name !== $part->getContentId()) {
                     $html = str_replace('cid:'.$name, 'cid:'.$part->getContentId(), $html, $count);
                 }
                 $relatedParts[$name] = $part;
                 $part->setName($part->getContentId())->asInline();
+=======
+                $cidReplacements['cid:'.$name] = 'cid:'.$part->getContentId();
+                $relatedParts[$name] = $part;
+                $part->setName($part->getName() ?? $part->getContentId())->asInline();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 continue 2;
             }
 
             $otherParts[] = $part;
         }
+<<<<<<< HEAD
+=======
+        if ($cidReplacements) {
+            // all references are replaced at once as strtr() matches the longest name first and
+            // never replaces inside already substituted text, unlike successive str_replace() calls
+            $html = strtr($html, $cidReplacements);
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (null !== $htmlPart) {
             $htmlPart = new TextPart($html, $this->htmlCharset, 'html');
         }
@@ -584,6 +618,13 @@ class Email extends Message
      */
     public function __unserialize(array $data): void
     {
+<<<<<<< HEAD
+=======
+        if (($data[1] ?? null) instanceof \Stringable || ($data[3] ?? null) instanceof \Stringable) {
+            throw new \BadMethodCallException('Cannot unserialize '.self::class);
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         [$this->text, $this->textCharset, $this->html, $this->htmlCharset, $this->attachments, $parentData] = $data;
 
         parent::__unserialize($parentData);

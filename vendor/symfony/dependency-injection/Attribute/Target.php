@@ -19,7 +19,11 @@ use Symfony\Component\DependencyInjection\Exception\LogicException;
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */
+<<<<<<< HEAD
 #[\Attribute(\Attribute::TARGET_PARAMETER)]
+=======
+#[\Attribute(\Attribute::TARGET_PARAMETER | \Attribute::TARGET_PROPERTY)]
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 final class Target
 {
     public function __construct(
@@ -30,7 +34,11 @@ final class Target
     public function getParsedName(): string
     {
         if (null === $this->name) {
+<<<<<<< HEAD
             throw new LogicException(sprintf('Cannot parse the name of a #[Target] attribute that has not been resolved. Did you forget to call "%s::parseName()"?', __CLASS__));
+=======
+            throw new LogicException(\sprintf('Cannot parse the name of a #[Target] attribute that has not been resolved. Did you forget to call "%s::parseName()"?', __CLASS__));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return lcfirst(str_replace(' ', '', ucwords(preg_replace('/[^a-zA-Z0-9\x7f-\xff]++/', ' ', $this->name))));
@@ -56,7 +64,11 @@ final class Target
                 $function = $function->name;
             }
 
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Invalid #[Target] name "%s" on parameter "$%s" of "%s()": the first character must be a letter.', $name, $parameter->name, $function));
+=======
+            throw new InvalidArgumentException(\sprintf('Invalid #[Target] name "%s" on parameter "$%s" of "%s()": the first character must be a letter.', $name, $parameter->name, $function));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return preg_match('/^[a-zA-Z0-9_\x7f-\xff]++$/', $name) ? $name : $parsedName;

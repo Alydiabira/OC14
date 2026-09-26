@@ -25,7 +25,11 @@ class ResolveFactoryClassPass extends AbstractRecursivePass
     {
         if ($value instanceof Definition && \is_array($factory = $value->getFactory()) && null === $factory[0]) {
             if (null === $class = $value->getClass()) {
+<<<<<<< HEAD
                 throw new RuntimeException(sprintf('The "%s" service is defined to be created by a factory, but is missing the factory class. Did you forget to define the factory or service class?', $this->currentId));
+=======
+                throw new RuntimeException(\sprintf('The "%s" service is defined to be created by a factory, but is missing the factory class. Did you forget to define the factory or service class?', $this->currentId));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $factory[0] = $class;

@@ -98,7 +98,11 @@ final class DatePoint extends \DateTimeImmutable
     public function modify(string $modifier): static
     {
         if (\PHP_VERSION_ID < 80300) {
+<<<<<<< HEAD
             return @parent::modify($modifier) ?: throw new \DateMalformedStringException(error_get_last()['message'] ?? sprintf('Invalid modifier: "%s".', $modifier));
+=======
+            return @parent::modify($modifier) ?: throw new \DateMalformedStringException(error_get_last()['message'] ?? \sprintf('Invalid modifier: "%s".', $modifier));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return parent::modify($modifier);

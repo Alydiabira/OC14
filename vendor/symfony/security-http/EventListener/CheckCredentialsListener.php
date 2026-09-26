@@ -46,7 +46,11 @@ class CheckCredentialsListener implements EventSubscriberInterface
             $user = $passport->getUser();
 
             if (!$user instanceof PasswordAuthenticatedUserInterface) {
+<<<<<<< HEAD
                 throw new \LogicException(sprintf('Class "%s" must implement "%s" for using password-based authentication.', get_debug_type($user), PasswordAuthenticatedUserInterface::class));
+=======
+                throw new \LogicException(\sprintf('Class "%s" must implement "%s" for using password-based authentication.', get_debug_type($user), PasswordAuthenticatedUserInterface::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             /** @var PasswordCredentials $badge */

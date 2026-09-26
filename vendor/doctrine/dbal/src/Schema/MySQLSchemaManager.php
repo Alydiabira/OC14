@@ -557,6 +557,7 @@ SQL;
      */
     protected function fetchTableOptionsByTable(string $databaseName, ?string $tableName = null): array
     {
+<<<<<<< HEAD
         $sql = <<<'SQL'
     SELECT t.TABLE_NAME,
            t.ENGINE,
@@ -582,6 +583,15 @@ SQL;
 
         $sql .= ' WHERE ' . implode(' AND ', $conditions);
 
+=======
+        $sql = $this->_platform->fetchTableOptionsByTable($tableName !== null);
+
+        $params = [$databaseName];
+        if ($tableName !== null) {
+            $params[] = $tableName;
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         /** @var array<string,array<string,mixed>> $metadata */
         $metadata = $this->_conn->executeQuery($sql, $params)
             ->fetchAllAssociativeIndexed();

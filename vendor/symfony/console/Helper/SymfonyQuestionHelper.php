@@ -34,17 +34,29 @@ class SymfonyQuestionHelper extends QuestionHelper
         $default = $question->getDefault();
 
         if ($question->isMultiline()) {
+<<<<<<< HEAD
             $text .= sprintf(' (press %s to continue)', $this->getEofShortcut());
+=======
+            $text .= \sprintf(' (press %s to continue)', $this->getEofShortcut($output));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         switch (true) {
             case null === $default:
+<<<<<<< HEAD
                 $text = sprintf(' <info>%s</info>:', $text);
+=======
+                $text = \sprintf(' <info>%s</info>:', $text);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 break;
 
             case $question instanceof ConfirmationQuestion:
+<<<<<<< HEAD
                 $text = sprintf(' <info>%s (yes/no)</info> [<comment>%s</comment>]:', $text, $default ? 'yes' : 'no');
+=======
+                $text = \sprintf(' <info>%s (yes/no)</info> [<comment>%s</comment>]:', $text, $default ? 'yes' : 'no');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 break;
 
@@ -56,18 +68,30 @@ class SymfonyQuestionHelper extends QuestionHelper
                     $default[$key] = $choices[trim($value)];
                 }
 
+<<<<<<< HEAD
                 $text = sprintf(' <info>%s</info> [<comment>%s</comment>]:', $text, OutputFormatter::escape(implode(', ', $default)));
+=======
+                $text = \sprintf(' <info>%s</info> [<comment>%s</comment>]:', $text, implode(', ', $default));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 break;
 
             case $question instanceof ChoiceQuestion:
                 $choices = $question->getChoices();
+<<<<<<< HEAD
                 $text = sprintf(' <info>%s</info> [<comment>%s</comment>]:', $text, OutputFormatter::escape($choices[$default] ?? $default));
+=======
+                $text = \sprintf(' <info>%s</info> [<comment>%s</comment>]:', $text, $choices[$default] ?? $default);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 break;
 
             default:
+<<<<<<< HEAD
                 $text = sprintf(' <info>%s</info> [<comment>%s</comment>]:', $text, OutputFormatter::escape($default));
+=======
+                $text = \sprintf(' <info>%s</info> [<comment>%s</comment>]:', $text, OutputFormatter::escape($default));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $output->writeln($text);
@@ -98,9 +122,15 @@ class SymfonyQuestionHelper extends QuestionHelper
         parent::writeError($output, $error);
     }
 
+<<<<<<< HEAD
     private function getEofShortcut(): string
     {
         if ('Windows' === \PHP_OS_FAMILY) {
+=======
+    private function getEofShortcut(OutputInterface $output): string
+    {
+        if ('\\' === \DIRECTORY_SEPARATOR && !$output->isDecorated()) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return '<comment>Ctrl+Z</comment> then <comment>Enter</comment>';
         }
 

@@ -99,7 +99,11 @@ class DefaultAuthenticationSuccessHandler implements AuthenticationSuccessHandle
         }
 
         if ($this->logger && $targetUrl) {
+<<<<<<< HEAD
             $this->logger->debug(sprintf('Ignoring query parameter "%s": not a valid URL.', $this->options['target_path_parameter']));
+=======
+            $this->logger->debug(\sprintf('Ignoring query parameter "%s": not a valid URL.', $this->options['target_path_parameter']));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $firewallName = $this->getFirewallName();

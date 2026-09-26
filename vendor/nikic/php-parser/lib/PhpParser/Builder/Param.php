@@ -123,6 +123,31 @@ class Param implements PhpParser\Builder {
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Gives the promoted property private(set) visibility.
+     *
+     * @return $this The builder instance (for fluid interface)
+     */
+    public function makePrivateSet() {
+        $this->flags = BuilderHelpers::addModifier($this->flags, Modifiers::PRIVATE_SET);
+
+        return $this;
+    }
+
+    /**
+     * Gives the promoted property protected(set) visibility.
+     *
+     * @return $this The builder instance (for fluid interface)
+     */
+    public function makeProtectedSet() {
+        $this->flags = BuilderHelpers::addModifier($this->flags, Modifiers::PROTECTED_SET);
+
+        return $this;
+    }
+
+    /**
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Adds an attribute group.
      *
      * @param Node\Attribute|Node\AttributeGroup $attribute

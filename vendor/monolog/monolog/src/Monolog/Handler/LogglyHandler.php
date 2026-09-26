@@ -14,7 +14,10 @@ namespace Monolog\Handler;
 use Monolog\Level;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\LogglyFormatter;
+<<<<<<< HEAD
 use function array_key_exists;
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use CurlHandle;
 use Monolog\LogRecord;
 
@@ -50,7 +53,11 @@ class LogglyHandler extends AbstractProcessingHandler
      */
     public function __construct(string $token, int|string|Level $level = Level::Debug, bool $bubble = true)
     {
+<<<<<<< HEAD
         if (!extension_loaded('curl')) {
+=======
+        if (!\extension_loaded('curl')) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new MissingExtensionException('The curl extension is needed to use the LogglyHandler');
         }
 
@@ -64,7 +71,11 @@ class LogglyHandler extends AbstractProcessingHandler
      */
     protected function getCurlHandler(string $endpoint): CurlHandle
     {
+<<<<<<< HEAD
         if (!array_key_exists($endpoint, $this->curlHandlers)) {
+=======
+        if (!\array_key_exists($endpoint, $this->curlHandlers)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->curlHandlers[$endpoint] = $this->loadCurlHandle($endpoint);
         }
 
@@ -88,7 +99,11 @@ class LogglyHandler extends AbstractProcessingHandler
     }
 
     /**
+<<<<<<< HEAD
      * @param string[]|string $tag
+=======
+     * @param  string[]|string $tag
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return $this
      */
     public function setTag(string|array $tag): self
@@ -96,20 +111,32 @@ class LogglyHandler extends AbstractProcessingHandler
         if ('' === $tag || [] === $tag) {
             $this->tag = [];
         } else {
+<<<<<<< HEAD
             $this->tag = is_array($tag) ? $tag : [$tag];
+=======
+            $this->tag = \is_array($tag) ? $tag : [$tag];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this;
     }
 
     /**
+<<<<<<< HEAD
      * @param string[]|string $tag
+=======
+     * @param  string[]|string $tag
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return $this
      */
     public function addTag(string|array $tag): self
     {
         if ('' !== $tag) {
+<<<<<<< HEAD
             $tag = is_array($tag) ? $tag : [$tag];
+=======
+            $tag = \is_array($tag) ? $tag : [$tag];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->tag = array_unique(array_merge($this->tag, $tag));
         }
 
@@ -147,7 +174,11 @@ class LogglyHandler extends AbstractProcessingHandler
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
+<<<<<<< HEAD
         Curl\Util::execute($ch, 5, false);
+=======
+        Curl\Util::execute($ch, 5);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function getDefaultFormatter(): FormatterInterface

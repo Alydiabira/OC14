@@ -117,11 +117,19 @@ class KernelBrowser extends HttpKernelBrowser
         $tokenAttributes = 2 < \func_num_args() ? func_get_arg(2) : [];
 
         if (!interface_exists(UserInterface::class)) {
+<<<<<<< HEAD
             throw new \LogicException(sprintf('"%s" requires symfony/security-core to be installed. Try running "composer require symfony/security-core".', __METHOD__));
         }
 
         if (!$user instanceof UserInterface) {
             throw new \LogicException(sprintf('The first argument of "%s" must be instance of "%s", "%s" provided.', __METHOD__, UserInterface::class, get_debug_type($user)));
+=======
+            throw new \LogicException(\sprintf('"%s" requires symfony/security-core to be installed. Try running "composer require symfony/security-core".', __METHOD__));
+        }
+
+        if (!$user instanceof UserInterface) {
+            throw new \LogicException(\sprintf('The first argument of "%s" must be instance of "%s", "%s" provided.', __METHOD__, UserInterface::class, get_debug_type($user)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $token = new TestBrowserToken($user->getRoles(), $user, $firewallContext);
@@ -142,7 +150,11 @@ class KernelBrowser extends HttpKernelBrowser
         $session->set('_security_'.$firewallContext, serialize($token));
         $session->save();
 
+<<<<<<< HEAD
         $domains = array_unique(array_map(fn (Cookie $cookie) => $cookie->getName() === $session->getName() ? $cookie->getDomain() : '', $this->getCookieJar()->all())) ?: [''];
+=======
+        $domains = array_unique(array_map(static fn (Cookie $cookie) => $cookie->getName() === $session->getName() ? $cookie->getDomain() : '', $this->getCookieJar()->all())) ?: [''];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         foreach ($domains as $domain) {
             $cookie = new Cookie($session->getName(), $session->getId(), null, null, $domain);
             $this->getCookieJar()->set($cookie);
@@ -223,6 +235,7 @@ class KernelBrowser extends HttpKernelBrowser
         $profilerCode = '';
         if ($this->profiler) {
             $profilerCode = <<<'EOF'
+<<<<<<< HEAD
 $container = $kernel->getContainer();
 $container = $container->has('test.service_container') ? $container->get('test.service_container') : $container;
 $container->get('profiler')->enable();
@@ -242,6 +255,27 @@ $profilerCode
 
 \$request = unserialize($request);
 EOF;
+=======
+                $container = $kernel->getContainer();
+                $container = $container->has('test.service_container') ? $container->get('test.service_container') : $container;
+                $container->get('profiler')->enable();
+                EOF;
+        }
+
+        $code = <<<EOF
+            <?php
+
+            error_reporting($errorReporting);
+
+            $requires
+
+            \$kernel = unserialize($kernel);
+            \$kernel->boot();
+            $profilerCode
+
+            \$request = unserialize($request);
+            EOF;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $code.$this->getHandleScript();
     }

@@ -35,11 +35,16 @@ class ListCommand extends Command
             ->setDefinition([
                 new InputArgument('namespace', InputArgument::OPTIONAL, 'The namespace name', null, fn () => array_keys((new ApplicationDescription($this->getApplication()))->getNamespaces())),
                 new InputOption('raw', null, InputOption::VALUE_NONE, 'To output raw command list'),
+<<<<<<< HEAD
                 new InputOption('format', null, InputOption::VALUE_REQUIRED, 'The output format (txt, xml, json, or md)', 'txt', fn () => (new DescriptorHelper())->getFormats()),
+=======
+                new InputOption('format', null, InputOption::VALUE_REQUIRED, 'The output format (txt, xml, json, or md)', 'txt', static fn () => (new DescriptorHelper())->getFormats()),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 new InputOption('short', null, InputOption::VALUE_NONE, 'To skip describing commands\' arguments'),
             ])
             ->setDescription('List commands')
             ->setHelp(<<<'EOF'
+<<<<<<< HEAD
 The <info>%command.name%</info> command lists all commands:
 
   <info>%command.full_name%</info>
@@ -56,6 +61,24 @@ It's also possible to get raw list of commands (useful for embedding command run
 
   <info>%command.full_name% --raw</info>
 EOF
+=======
+                The <info>%command.name%</info> command lists all commands:
+
+                  <info>%command.full_name%</info>
+
+                You can also display the commands for a specific namespace:
+
+                  <info>%command.full_name% test</info>
+
+                You can also output the information in other formats by using the <comment>--format</comment> option:
+
+                  <info>%command.full_name% --format=xml</info>
+
+                It's also possible to get raw list of commands (useful for embedding command runner):
+
+                  <info>%command.full_name% --raw</info>
+                EOF
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }

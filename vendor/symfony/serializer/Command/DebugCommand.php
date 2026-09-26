@@ -49,7 +49,11 @@ class DebugCommand extends Command
 
         if (!class_exists($class)) {
             $io = new SymfonyStyle($input, $output);
+<<<<<<< HEAD
             $io->error(sprintf('Class "%s" was not found.', $class));
+=======
+            $io->error(\sprintf('Class "%s" was not found.', $class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             return Command::FAILURE;
         }
@@ -62,7 +66,11 @@ class DebugCommand extends Command
     private function dumpSerializerDataForClass(InputInterface $input, OutputInterface $output, string $class): void
     {
         $io = new SymfonyStyle($input, $output);
+<<<<<<< HEAD
         $title = sprintf('<info>%s</info>', $class);
+=======
+        $title = \sprintf('<info>%s</info>', $class);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $rows = [];
         $dump = new Dumper($output);
 

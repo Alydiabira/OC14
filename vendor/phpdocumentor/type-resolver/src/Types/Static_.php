@@ -15,6 +15,11 @@ namespace phpDocumentor\Reflection\Types;
 
 use phpDocumentor\Reflection\Type;
 
+<<<<<<< HEAD
+=======
+use function implode;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /**
  * Value Object representing the 'static' type.
  *
@@ -29,11 +34,37 @@ use phpDocumentor\Reflection\Type;
  */
 final class Static_ implements Type
 {
+<<<<<<< HEAD
+=======
+    /** @var Type[] */
+    private $genericTypes;
+
+    public function __construct(Type ...$genericTypes)
+    {
+        $this->genericTypes = $genericTypes;
+    }
+
+    /**
+     * @return Type[]
+     */
+    public function getGenericTypes(): array
+    {
+        return $this->genericTypes;
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Returns a rendered output of the Type as it would be used in a DocBlock.
      */
     public function __toString(): string
     {
+<<<<<<< HEAD
+=======
+        if ($this->genericTypes) {
+            return 'static<' . implode(', ', $this->genericTypes) . '>';
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return 'static';
     }
 }

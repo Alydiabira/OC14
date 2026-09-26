@@ -144,7 +144,11 @@ class Router implements RouterInterface, RequestMatcherInterface
         }
 
         if ($invalid) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('The Router does not support the following options: "%s".', implode('", "', $invalid)));
+=======
+            throw new \InvalidArgumentException(\sprintf('The Router does not support the following options: "%s".', implode('", "', $invalid)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -158,7 +162,11 @@ class Router implements RouterInterface, RequestMatcherInterface
     public function setOption(string $key, mixed $value)
     {
         if (!\array_key_exists($key, $this->options)) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('The Router does not support the "%s" option.', $key));
+=======
+            throw new \InvalidArgumentException(\sprintf('The Router does not support the "%s" option.', $key));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->options[$key] = $value;
@@ -172,7 +180,11 @@ class Router implements RouterInterface, RequestMatcherInterface
     public function getOption(string $key): mixed
     {
         if (!\array_key_exists($key, $this->options)) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('The Router does not support the "%s" option.', $key));
+=======
+            throw new \InvalidArgumentException(\sprintf('The Router does not support the "%s" option.', $key));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->options[$key];
@@ -272,6 +284,10 @@ class Router implements RouterInterface, RequestMatcherInterface
                 }
 
                 $cache->write($dumper->dump(), $this->getRouteCollection()->getResources());
+<<<<<<< HEAD
+=======
+                unset(self::$cache[$cache->getPath()]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         );
 
@@ -301,6 +317,10 @@ class Router implements RouterInterface, RequestMatcherInterface
                     $dumper = $this->getGeneratorDumperInstance();
 
                     $cache->write($dumper->dump(), $this->getRouteCollection()->getResources());
+<<<<<<< HEAD
+=======
+                    unset(self::$cache[$cache->getPath()]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             );
 

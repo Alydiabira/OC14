@@ -27,10 +27,23 @@ trait PrefixTrait
             foreach ($prefix as $locale => $localePrefix) {
                 $prefix[$locale] = trim(trim($localePrefix), '/');
             }
+<<<<<<< HEAD
+=======
+            $aliases = [];
+            foreach ($routes->getAliases() as $name => $alias) {
+                $aliases[$alias->getId()][] = $name;
+            }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             foreach ($routes->all() as $name => $route) {
                 if (null === $locale = $route->getDefault('_locale')) {
                     $priority = $routes->getPriority($name) ?? 0;
                     $routes->remove($name);
+<<<<<<< HEAD
+=======
+                    foreach ($aliases[$name] ?? [] as $aliasName) {
+                        $routes->remove($aliasName);
+                    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     foreach ($prefix as $locale => $localePrefix) {
                         $localizedRoute = clone $route;
                         $localizedRoute->setDefault('_locale', $locale);
@@ -38,9 +51,18 @@ trait PrefixTrait
                         $localizedRoute->setDefault('_canonical_route', $name);
                         $localizedRoute->setPath($localePrefix.(!$trailingSlashOnRoot && '/' === $route->getPath() ? '' : $route->getPath()));
                         $routes->add($name.'.'.$locale, $localizedRoute, $priority);
+<<<<<<< HEAD
                     }
                 } elseif (!isset($prefix[$locale])) {
                     throw new \InvalidArgumentException(sprintf('Route "%s" with locale "%s" is missing a corresponding prefix in its parent collection.', $name, $locale));
+=======
+                        foreach ($aliases[$name] ?? [] as $aliasName) {
+                            $routes->addAlias($aliasName.'.'.$locale, $name.'.'.$locale);
+                        }
+                    }
+                } elseif (!isset($prefix[$locale])) {
+                    throw new \InvalidArgumentException(\sprintf('Route "%s" with locale "%s" is missing a corresponding prefix in its parent collection.', $name, $locale));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 } else {
                     $route->setPath($prefix[$locale].(!$trailingSlashOnRoot && '/' === $route->getPath() ? '' : $route->getPath()));
                     $routes->add($name, $route, $routes->getPriority($name) ?? 0);

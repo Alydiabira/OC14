@@ -10,9 +10,15 @@
 namespace Gedmo\Uploadable;
 
 use Doctrine\Common\EventArgs;
+<<<<<<< HEAD
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\Event\LoadClassMetadataEventArgs;
+=======
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\Event\LoadClassMetadataEventArgs;
+use Doctrine\Persistence\Event\ManagerEventArgs;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\NotifyPropertyChanged;
 use Doctrine\Persistence\ObjectManager;
@@ -36,6 +42,10 @@ use Gedmo\Uploadable\Event\UploadablePostFileProcessEventArgs;
 use Gedmo\Uploadable\Event\UploadablePreFileProcessEventArgs;
 use Gedmo\Uploadable\FileInfo\FileInfoArray;
 use Gedmo\Uploadable\FileInfo\FileInfoInterface;
+<<<<<<< HEAD
+=======
+use Gedmo\Uploadable\FilenameGenerator\FilenameGeneratorInterface;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Gedmo\Uploadable\Mapping\Validator;
 use Gedmo\Uploadable\MimeType\MimeTypeGuesser;
 use Gedmo\Uploadable\MimeType\MimeTypeGuesserInterface;
@@ -45,6 +55,28 @@ use Gedmo\Uploadable\MimeType\MimeTypeGuesserInterface;
  *
  * @author Gustavo Falco <comfortablynumb84@gmail.com>
  * @author Gediminas Morkevicius <gediminas.morkevicius@gmail.com>
+<<<<<<< HEAD
+=======
+ *
+ * @phpstan-type UploadableConfiguration = array{
+ *  filePathField?: string,
+ *  uploadable?: bool,
+ *  fileNameField?: string,
+ *  allowOverwrite?: bool,
+ *  appendNumber?: bool,
+ *  maxSize?: float,
+ *  path?: string,
+ *  pathMethod?: string,
+ *  allowedTypes?: string[],
+ *  disallowedTypes?: string[],
+ *  filenameGenerator?: Validator::FILENAME_GENERATOR_*|class-string<FilenameGeneratorInterface>,
+ *  fileMimeTypeField?: string,
+ *  fileSizeField?: string,
+ *  callback?: string,
+ * }
+ *
+ * @phpstan-extends MappedEventSubscriber<UploadableConfiguration, AdapterInterface>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 class UploadableListener extends MappedEventSubscriber
 {
@@ -66,7 +98,11 @@ class UploadableListener extends MappedEventSubscriber
     /**
      * Default FileInfoInterface class
      *
+<<<<<<< HEAD
      * @phpstan-var class-string<FileInfoInterface>
+=======
+     * @var class-string<FileInfoInterface>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private string $defaultFileInfoClass = FileInfoArray::class;
 
@@ -75,7 +111,11 @@ class UploadableListener extends MappedEventSubscriber
      *
      * @var array<int, string>
      */
+<<<<<<< HEAD
     private $pendingFileRemovals = [];
+=======
+    private array $pendingFileRemovals = [];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Array of FileInfoInterface objects. The index is the hash of the entity owner
@@ -85,7 +125,11 @@ class UploadableListener extends MappedEventSubscriber
      *
      * @phpstan-var array<int, array{entity: object, fileInfo: FileInfoInterface}>
      */
+<<<<<<< HEAD
     private $fileInfoObjects = [];
+=======
+    private array $fileInfoObjects = [];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     public function __construct(?MimeTypeGuesserInterface $mimeTypeGuesser = null)
     {
@@ -113,6 +157,13 @@ class UploadableListener extends MappedEventSubscriber
      * doctrine thinks the entity has no changes, which produces that the "onFlush" event gets never called.
      * Here we mark the entity as dirty, so the "onFlush" event gets called, and the file is processed.
      *
+<<<<<<< HEAD
+=======
+     * @param ManagerEventArgs $args
+     *
+     * @phpstan-param ManagerEventArgs<ObjectManager> $args
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function preFlush(EventArgs $args)
@@ -152,6 +203,13 @@ class UploadableListener extends MappedEventSubscriber
      * Handle file-uploading depending on the action
      * being done with objects
      *
+<<<<<<< HEAD
+=======
+     * @param ManagerEventArgs $args
+     *
+     * @phpstan-param ManagerEventArgs<ObjectManager> $args
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function onFlush(EventArgs $args)
@@ -311,7 +369,14 @@ class UploadableListener extends MappedEventSubscriber
 
         if ('' !== $config['callback']) {
             $callbackMethod = $refl->getMethod($config['callback']);
+<<<<<<< HEAD
             $callbackMethod->setAccessible(true);
+=======
+
+            if (PHP_VERSION_ID < 80100) {
+                $callbackMethod->setAccessible(true);
+            }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             $callbackMethod->invokeArgs($object, [$info]);
         }
@@ -329,10 +394,16 @@ class UploadableListener extends MappedEventSubscriber
         }
 
         if ($config['fileSizeField']) {
+<<<<<<< HEAD
             $typeOfSizeField = Type::getType($meta->getTypeOfField($config['fileSizeField']));
             $value = $typeOfSizeField->convertToPHPValue(
                 $info['fileSize'],
                 $om->getConnection()->getDatabasePlatform()
+=======
+            $value = $om->getConnection()->convertToPHPValue(
+                $info['fileSize'],
+                $meta->getTypeOfField($config['fileSizeField'])
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
             $this->updateField($object, $uow, $ea, $meta, $config['fileSizeField'], $value);
         }
@@ -378,6 +449,11 @@ class UploadableListener extends MappedEventSubscriber
      * @param bool        $appendNumber
      * @param object      $object
      *
+<<<<<<< HEAD
+=======
+     * @phpstan-param class-string|false $filenameGeneratorClass
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @throws UploadableUploadException
      * @throws UploadableNoFileException
      * @throws UploadableExtensionException
@@ -389,8 +465,11 @@ class UploadableListener extends MappedEventSubscriber
      * @throws UploadableCantWriteException
      *
      * @return array<string, int|string|null>
+<<<<<<< HEAD
      *
      * @phpstan-param class-string|false $filenameGeneratorClass
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function moveFile(FileInfoInterface $fileInfo, $path, $filenameGeneratorClass = false, $overwrite = false, $appendNumber = false, $object = null)
     {
@@ -572,7 +651,11 @@ class UploadableListener extends MappedEventSubscriber
     /**
      * Returns file info default class
      *
+<<<<<<< HEAD
      * @return string
+=======
+     * @return class-string<FileInfoInterface>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getDefaultFileInfoClass()
     {
@@ -582,10 +665,15 @@ class UploadableListener extends MappedEventSubscriber
     /**
      * Adds a FileInfoInterface object for the given entity
      *
+<<<<<<< HEAD
      * @param object                        $entity
      * @param array|FileInfoInterface|mixed $fileInfo
      *
      * @phpstan-assert FileInfoInterface|array $fileInfo
+=======
+     * @param object                                 $entity
+     * @param array<string, mixed>|FileInfoInterface $fileInfo
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws \RuntimeException
      *
@@ -641,8 +729,14 @@ class UploadableListener extends MappedEventSubscriber
     }
 
     /**
+<<<<<<< HEAD
      * @param array<string, mixed> $config
      * @param object               $object Entity
+=======
+     * @param ClassMetadata<object> $meta
+     * @param array<string, mixed>  $config
+     * @param object                $object Entity
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws UploadableNoPathDefinedException
      *
@@ -673,9 +767,15 @@ class UploadableListener extends MappedEventSubscriber
     }
 
     /**
+<<<<<<< HEAD
      * @param ClassMetadata        $meta
      * @param array<string, mixed> $config
      * @param object               $object Entity
+=======
+     * @param ClassMetadata<object> $meta
+     * @param array<string, mixed>  $config
+     * @param object                $object Entity
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return void
      */
@@ -707,8 +807,14 @@ class UploadableListener extends MappedEventSubscriber
     /**
      * Returns value of the entity's property
      *
+<<<<<<< HEAD
      * @param string $propertyName
      * @param object $object
+=======
+     * @param ClassMetadata<object> $meta
+     * @param string                $propertyName
+     * @param object                $object
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return mixed
      */
@@ -722,8 +828,14 @@ class UploadableListener extends MappedEventSubscriber
     /**
      * Returns the path of the entity's file
      *
+<<<<<<< HEAD
      * @param array<string, mixed> $config
      * @param object               $object
+=======
+     * @param ClassMetadata<object> $meta
+     * @param array<string, mixed>  $config
+     * @param object                $object
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return string
      */
@@ -735,8 +847,14 @@ class UploadableListener extends MappedEventSubscriber
     /**
      * Returns the name of the entity's file
      *
+<<<<<<< HEAD
      * @param array<string, mixed> $config
      * @param object               $object
+=======
+     * @param ClassMetadata<object> $meta
+     * @param array<string, mixed>  $config
+     * @param object                $object
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return string
      */
@@ -751,19 +869,33 @@ class UploadableListener extends MappedEventSubscriber
     }
 
     /**
+<<<<<<< HEAD
      * @param object $object
      * @param object $uow
      * @param string $field
      * @param mixed  $value
      * @param bool   $notifyPropertyChanged
+=======
+     * @param object                $object
+     * @param object                $uow
+     * @param ClassMetadata<object> $meta
+     * @param string                $field
+     * @param mixed                 $value
+     * @param bool                  $notifyPropertyChanged
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return void
      */
     protected function updateField($object, $uow, AdapterInterface $ea, ClassMetadata $meta, $field, $value, $notifyPropertyChanged = true)
     {
+<<<<<<< HEAD
         $property = $meta->getReflectionProperty($field);
         $oldValue = $property->getValue($object);
         $property->setValue($object, $value);
+=======
+        $oldValue = $meta->getFieldValue($object, $field);
+        $meta->setFieldValue($object, $field, $value);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($notifyPropertyChanged && $object instanceof NotifyPropertyChanged) {
             $uow = $ea->getObjectManager()->getUnitOfWork();

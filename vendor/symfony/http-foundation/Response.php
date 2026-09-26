@@ -241,7 +241,11 @@ class Response
     public function __toString(): string
     {
         return
+<<<<<<< HEAD
             sprintf('HTTP/%s %s %s', $this->version, $this->statusCode, $this->statusText)."\r\n".
+=======
+            \sprintf('HTTP/%s %s %s', $this->version, $this->statusCode, $this->statusText)."\r\n".
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->headers."\r\n".
             $this->getContent();
     }
@@ -393,7 +397,11 @@ class Response
         $statusCode ??= $this->statusCode;
 
         // status
+<<<<<<< HEAD
         header(sprintf('HTTP/%s %s %s', $this->version, $statusCode, $this->statusText), true, $statusCode);
+=======
+        header(\sprintf('HTTP/%s %s %s', $this->version, $statusCode, $this->statusText), true, $statusCode);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this;
     }
@@ -499,7 +507,11 @@ class Response
     {
         $this->statusCode = $code;
         if ($this->isInvalid()) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('The HTTP status code "%s" is not valid.', $code));
+=======
+            throw new \InvalidArgumentException(\sprintf('The HTTP status code "%s" is not valid.', $code));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (null === $text) {
@@ -991,7 +1003,11 @@ class Response
                 $etag = '"'.$etag.'"';
             }
 
+<<<<<<< HEAD
             $this->headers->set('ETag', (true === $weak ? 'W/' : '').$etag);
+=======
+            $this->headers->set('ETag', ($weak ? 'W/' : '').$etag);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this;
@@ -1011,7 +1027,11 @@ class Response
     public function setCache(array $options): static
     {
         if ($diff = array_diff(array_keys($options), array_keys(self::HTTP_RESPONSE_CACHE_CONTROL_DIRECTIVES))) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('Response does not support the following options: "%s".', implode('", "', $diff)));
+=======
+            throw new \InvalidArgumentException(\sprintf('Response does not support the following options: "%s".', implode('", "', $diff)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (isset($options['etag'])) {
@@ -1344,7 +1364,11 @@ class Response
      */
     protected function ensureIEOverSSLCompatibility(Request $request): void
     {
+<<<<<<< HEAD
         if (false !== stripos($this->headers->get('Content-Disposition') ?? '', 'attachment') && 1 == preg_match('/MSIE (.*?);/i', $request->server->get('HTTP_USER_AGENT') ?? '', $match) && true === $request->isSecure()) {
+=======
+        if (false !== stripos($this->headers->get('Content-Disposition') ?? '', 'attachment') && 1 == preg_match('/MSIE (.*?);/i', $request->server->get('HTTP_USER_AGENT') ?? '', $match) && $request->isSecure()) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if ((int) preg_replace('/(MSIE )(.*?);/', '$2', $match[0]) < 9) {
                 $this->headers->remove('Cache-Control');
             }

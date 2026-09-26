@@ -2,6 +2,10 @@
 
 namespace Vich\UploaderBundle\Command;
 
+<<<<<<< HEAD
+=======
+use Symfony\Component\Console\Attribute\AsCommand;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Completion\CompletionInput;
 use Symfony\Component\Console\Completion\CompletionSuggestions;
@@ -10,6 +14,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Vich\UploaderBundle\Metadata\MetadataReader;
 
+<<<<<<< HEAD
+=======
+#[AsCommand(name: 'vich:mapping:debug-class', description: 'Debug a class.')]
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 final class MappingDebugClassCommand extends Command
 {
     public function __construct(private readonly MetadataReader $metadataReader)
@@ -17,6 +25,7 @@ final class MappingDebugClassCommand extends Command
         parent::__construct();
     }
 
+<<<<<<< HEAD
     public static function getDefaultName(): string
     {
         return 'vich:mapping:debug-class';
@@ -29,6 +38,11 @@ final class MappingDebugClassCommand extends Command
             ->setDescription('Debug a class.')
             ->addArgument('fqcn', InputArgument::REQUIRED, 'The FQCN of the class to debug.')
         ;
+=======
+    protected function configure(): void
+    {
+        $this->addArgument('fqcn', InputArgument::REQUIRED, 'The FQCN of the class to debug.');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

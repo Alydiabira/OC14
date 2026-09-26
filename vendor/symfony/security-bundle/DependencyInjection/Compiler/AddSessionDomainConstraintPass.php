@@ -26,6 +26,7 @@ class AddSessionDomainConstraintPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+<<<<<<< HEAD
         if (!$container->hasParameter('session.storage.options') || !$container->has('security.http_utils')) {
             return;
         }
@@ -35,6 +36,18 @@ class AddSessionDomainConstraintPass implements CompilerPassInterface
 
         if ('auto' === ($sessionOptions['cookie_secure'] ?? null)) {
             $secureDomainRegexp = sprintf('{^https://%s$}i', $domainRegexp);
+=======
+        if (!$container->has('security.http_utils')) {
+            return;
+        }
+
+        // Without sessions, fall back to restricting redirections to the current host
+        $sessionOptions = $container->hasParameter('session.storage.options') ? $container->getParameter('session.storage.options') : [];
+        $domainRegexp = empty($sessionOptions['cookie_domain']) ? '%%s' : \sprintf('(?:%%%%s|(?:.+\.)?%s)', preg_quote(trim($sessionOptions['cookie_domain'], '.')));
+
+        if ('auto' === ($sessionOptions['cookie_secure'] ?? null)) {
+            $secureDomainRegexp = \sprintf('{^https://%s$}i', $domainRegexp);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $domainRegexp = 'https?://'.$domainRegexp;
         } else {
             $secureDomainRegexp = null;
@@ -42,7 +55,11 @@ class AddSessionDomainConstraintPass implements CompilerPassInterface
         }
 
         $container->findDefinition('security.http_utils')
+<<<<<<< HEAD
             ->addArgument(sprintf('{^%s$}i', $domainRegexp))
+=======
+            ->addArgument(\sprintf('{^%s$}i', $domainRegexp))
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->addArgument($secureDomainRegexp);
     }
 }

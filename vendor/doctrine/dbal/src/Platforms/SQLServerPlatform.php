@@ -38,9 +38,19 @@ use function is_string;
 use function preg_match;
 use function preg_match_all;
 use function sprintf;
+<<<<<<< HEAD
 use function str_replace;
 use function strpos;
 use function strtoupper;
+=======
+use function str_contains;
+use function str_ends_with;
+use function str_replace;
+use function str_starts_with;
+use function strpos;
+use function strtoupper;
+use function substr;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function substr_count;
 
 use const PREG_OFFSET_CAPTURE;
@@ -399,6 +409,16 @@ class SQLServerPlatform extends AbstractPlatform
         return $sql . ' (' . $this->getIndexFieldDeclarationListSQL($index) . ')';
     }
 
+<<<<<<< HEAD
+=======
+    private function unquoteSingleIdentifier(string $possiblyQuotedName): string
+    {
+        return str_starts_with($possiblyQuotedName, '[') && str_ends_with($possiblyQuotedName, ']')
+            ? substr($possiblyQuotedName, 1, -1)
+            : $possiblyQuotedName;
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Returns the SQL statement for creating a column comment.
      *
@@ -419,23 +439,37 @@ class SQLServerPlatform extends AbstractPlatform
     protected function getCreateColumnCommentSQL($tableName, $columnName, $comment)
     {
         if (strpos($tableName, '.') !== false) {
+<<<<<<< HEAD
             [$schemaSQL, $tableSQL] = explode('.', $tableName);
             $schemaSQL              = $this->quoteStringLiteral($schemaSQL);
             $tableSQL               = $this->quoteStringLiteral($tableSQL);
         } else {
             $schemaSQL = "'dbo'";
             $tableSQL  = $this->quoteStringLiteral($tableName);
+=======
+            [$schemaName, $tableName] = explode('.', $tableName);
+        } else {
+            $schemaName = 'dbo';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->getAddExtendedPropertySQL(
             'MS_Description',
             $comment,
             'SCHEMA',
+<<<<<<< HEAD
             $schemaSQL,
             'TABLE',
             $tableSQL,
             'COLUMN',
             $columnName,
+=======
+            $this->quoteStringLiteral($this->unquoteSingleIdentifier($schemaName)),
+            'TABLE',
+            $this->quoteStringLiteral($this->unquoteSingleIdentifier($tableName)),
+            'COLUMN',
+            $this->quoteStringLiteral($this->unquoteSingleIdentifier($columnName)),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         );
     }
 
@@ -806,23 +840,37 @@ class SQLServerPlatform extends AbstractPlatform
     protected function getAlterColumnCommentSQL($tableName, $columnName, $comment)
     {
         if (strpos($tableName, '.') !== false) {
+<<<<<<< HEAD
             [$schemaSQL, $tableSQL] = explode('.', $tableName);
             $schemaSQL              = $this->quoteStringLiteral($schemaSQL);
             $tableSQL               = $this->quoteStringLiteral($tableSQL);
         } else {
             $schemaSQL = "'dbo'";
             $tableSQL  = $this->quoteStringLiteral($tableName);
+=======
+            [$schemaName, $tableName] = explode('.', $tableName);
+        } else {
+            $schemaName = 'dbo';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->getUpdateExtendedPropertySQL(
             'MS_Description',
             $comment,
             'SCHEMA',
+<<<<<<< HEAD
             $schemaSQL,
             'TABLE',
             $tableSQL,
             'COLUMN',
             $columnName,
+=======
+            $this->quoteStringLiteral($this->unquoteSingleIdentifier($schemaName)),
+            'TABLE',
+            $this->quoteStringLiteral($this->unquoteSingleIdentifier($tableName)),
+            'COLUMN',
+            $this->quoteStringLiteral($this->unquoteSingleIdentifier($columnName)),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         );
     }
 
@@ -845,22 +893,36 @@ class SQLServerPlatform extends AbstractPlatform
     protected function getDropColumnCommentSQL($tableName, $columnName)
     {
         if (strpos($tableName, '.') !== false) {
+<<<<<<< HEAD
             [$schemaSQL, $tableSQL] = explode('.', $tableName);
             $schemaSQL              = $this->quoteStringLiteral($schemaSQL);
             $tableSQL               = $this->quoteStringLiteral($tableSQL);
         } else {
             $schemaSQL = "'dbo'";
             $tableSQL  = $this->quoteStringLiteral($tableName);
+=======
+            [$schemaName, $tableName] = explode('.', $tableName);
+        } else {
+            $schemaName = 'dbo';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->getDropExtendedPropertySQL(
             'MS_Description',
             'SCHEMA',
+<<<<<<< HEAD
             $schemaSQL,
             'TABLE',
             $tableSQL,
             'COLUMN',
             $columnName,
+=======
+            $this->quoteStringLiteral($this->unquoteSingleIdentifier($schemaName)),
+            'TABLE',
+            $this->quoteStringLiteral($this->unquoteSingleIdentifier($tableName)),
+            'COLUMN',
+            $this->quoteStringLiteral($this->unquoteSingleIdentifier($columnName)),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         );
     }
 
@@ -907,10 +969,20 @@ class SQLServerPlatform extends AbstractPlatform
         $level2Name = null
     ) {
         return 'EXEC sp_addextendedproperty ' .
+<<<<<<< HEAD
             'N' . $this->quoteStringLiteral($name) . ', N' . $this->quoteStringLiteral((string) $value) . ', ' .
             'N' . $this->quoteStringLiteral((string) $level0Type) . ', ' . $level0Name . ', ' .
             'N' . $this->quoteStringLiteral((string) $level1Type) . ', ' . $level1Name . ', ' .
             'N' . $this->quoteStringLiteral((string) $level2Type) . ', ' . $level2Name;
+=======
+            'N' . $this->quoteStringLiteral($name) . ', N' . $this->quoteStringLiteral($value ?? '') . ', ' .
+            'N' . $this->quoteStringLiteral($level0Type ?? '') . ', ' . $level0Name . ', ' .
+            'N' . $this->quoteStringLiteral($level1Type ?? '') . ', ' . $level1Name .
+            ($level2Type !== null || $level2Name !== null
+                ? ', N' . $this->quoteStringLiteral($level2Type ?? '') . ', ' . $level2Name
+                : ''
+            );
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -941,9 +1013,18 @@ class SQLServerPlatform extends AbstractPlatform
     ) {
         return 'EXEC sp_dropextendedproperty ' .
             'N' . $this->quoteStringLiteral($name) . ', ' .
+<<<<<<< HEAD
             'N' . $this->quoteStringLiteral((string) $level0Type) . ', ' . $level0Name . ', ' .
             'N' . $this->quoteStringLiteral((string) $level1Type) . ', ' . $level1Name . ', ' .
             'N' . $this->quoteStringLiteral((string) $level2Type) . ', ' . $level2Name;
+=======
+            'N' . $this->quoteStringLiteral($level0Type ?? '') . ', ' . $level0Name . ', ' .
+            'N' . $this->quoteStringLiteral($level1Type ?? '') . ', ' . $level1Name .
+            ($level2Type !== null || $level2Name !== null
+                ? ', N' . $this->quoteStringLiteral($level2Type ?? '') . ', ' . $level2Name
+                : ''
+            );
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -975,10 +1056,20 @@ class SQLServerPlatform extends AbstractPlatform
         $level2Name = null
     ) {
         return 'EXEC sp_updateextendedproperty ' .
+<<<<<<< HEAD
             'N' . $this->quoteStringLiteral($name) . ', N' . $this->quoteStringLiteral((string) $value) . ', ' .
             'N' . $this->quoteStringLiteral((string) $level0Type) . ', ' . $level0Name . ', ' .
             'N' . $this->quoteStringLiteral((string) $level1Type) . ', ' . $level1Name . ', ' .
             'N' . $this->quoteStringLiteral((string) $level2Type) . ', ' . $level2Name;
+=======
+            'N' . $this->quoteStringLiteral($name) . ', N' . $this->quoteStringLiteral($value ?? '') . ', ' .
+            'N' . $this->quoteStringLiteral($level0Type ?? '') . ', ' . $level0Name . ', ' .
+            'N' . $this->quoteStringLiteral($level1Type ?? '') . ', ' . $level1Name .
+            ($level2Type !== null || $level2Name !== null
+                ? ', N' . $this->quoteStringLiteral($level2Type ?? '') . ', ' . $level2Name
+                : ''
+            );
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -1296,7 +1387,11 @@ class SQLServerPlatform extends AbstractPlatform
     {
         $length = $column['length'] ?? null;
 
+<<<<<<< HEAD
         if (! isset($column['fixed'])) {
+=======
+        if (empty($column['fixed'])) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return sprintf('VARCHAR(%d)', $length ?? 255);
         }
 
@@ -1549,12 +1644,20 @@ class SQLServerPlatform extends AbstractPlatform
             'smalldatetime'    => Types::DATETIME_MUTABLE,
             'smallint'         => Types::SMALLINT,
             'smallmoney'       => Types::INTEGER,
+<<<<<<< HEAD
+=======
+            'sysname'          => Types::STRING,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'text'             => Types::TEXT,
             'time'             => Types::TIME_MUTABLE,
             'tinyint'          => Types::SMALLINT,
             'uniqueidentifier' => Types::GUID,
             'varbinary'        => Types::BINARY,
             'varchar'          => Types::STRING,
+<<<<<<< HEAD
+=======
+            'xml'              => Types::TEXT,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ];
     }
 
@@ -1765,6 +1868,7 @@ class SQLServerPlatform extends AbstractPlatform
 
     protected function getCommentOnTableSQL(string $tableName, ?string $comment): string
     {
+<<<<<<< HEAD
         return sprintf(
             <<<'SQL'
                 EXEC sys.sp_addextendedproperty @name=N'MS_Description',
@@ -1774,6 +1878,21 @@ class SQLServerPlatform extends AbstractPlatform
             ,
             $this->quoteStringLiteral((string) $comment),
             $this->quoteStringLiteral($tableName),
+=======
+        if (str_contains($tableName, '.')) {
+            [$schemaName, $tableName] = explode('.', $tableName);
+        } else {
+            $schemaName = 'dbo';
+        }
+
+        return $this->getAddExtendedPropertySQL(
+            'MS_Description',
+            $comment,
+            'SCHEMA',
+            $this->quoteStringLiteral($schemaName),
+            'TABLE',
+            $this->quoteStringLiteral($this->unquoteSingleIdentifier($tableName)),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         );
     }
 

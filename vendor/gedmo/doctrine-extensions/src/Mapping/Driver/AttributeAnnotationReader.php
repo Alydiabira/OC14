@@ -17,6 +17,11 @@ use Gedmo\Mapping\Annotation\Annotation;
  *
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  *
+<<<<<<< HEAD
+=======
+ * @deprecated since gedmo/doctrine-extensions 3.16, will be removed in version 4.0.
+ *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  * @internal
  */
 final class AttributeAnnotationReader implements Reader

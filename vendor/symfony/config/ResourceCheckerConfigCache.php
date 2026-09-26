@@ -111,7 +111,11 @@ class ResourceCheckerConfigCache implements ConfigCacheInterface
      */
     public function write(string $content, ?array $metadata = null)
     {
+<<<<<<< HEAD
         $mode = 0666;
+=======
+        $mode = 0o666;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $umask = umask();
         $filesystem = new Filesystem();
         $filesystem->dumpFile($this->file, $content);
@@ -149,7 +153,11 @@ class ResourceCheckerConfigCache implements ConfigCacheInterface
         $content = file_get_contents($file);
         $signalingException = new \UnexpectedValueException();
         $prevUnserializeHandler = ini_set('unserialize_callback_func', self::class.'::handleUnserializeCallback');
+<<<<<<< HEAD
         $prevErrorHandler = set_error_handler(function ($type, $msg, $file, $line, $context = []) use (&$prevErrorHandler, $signalingException) {
+=======
+        $prevErrorHandler = set_error_handler(static function ($type, $msg, $file, $line, $context = []) use (&$prevErrorHandler, $signalingException) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (__FILE__ === $file && !\in_array($type, [\E_DEPRECATED, \E_USER_DEPRECATED], true)) {
                 throw $signalingException;
             }
@@ -158,7 +166,11 @@ class ResourceCheckerConfigCache implements ConfigCacheInterface
         });
 
         try {
+<<<<<<< HEAD
             $meta = unserialize($content);
+=======
+            $meta = unserialize($content, ['allowed_classes' => true]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } catch (\Throwable $e) {
             if ($e !== $signalingException) {
                 throw $e;

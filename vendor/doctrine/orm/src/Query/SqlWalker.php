@@ -9,16 +9,28 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\LockMode;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
+<<<<<<< HEAD
+=======
+use Doctrine\DBAL\Types\Types;
+use Doctrine\Deprecations\Deprecation;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\QuoteStrategy;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Utility\HierarchyDiscriminatorResolver;
+<<<<<<< HEAD
 use Doctrine\ORM\Utility\LockSqlHelper;
 use Doctrine\ORM\Utility\PersisterHelper;
 use InvalidArgumentException;
 use LogicException;
+=======
+use Doctrine\ORM\Utility\PersisterHelper;
+use InvalidArgumentException;
+use LogicException;
+use SortDirection;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 use function array_diff;
 use function array_filter;
@@ -28,8 +40,15 @@ use function array_merge;
 use function assert;
 use function count;
 use function implode;
+<<<<<<< HEAD
 use function is_array;
 use function is_float;
+=======
+use function in_array;
+use function is_array;
+use function is_float;
+use function is_int;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function is_numeric;
 use function is_string;
 use function preg_match;
@@ -42,6 +61,7 @@ use function trim;
 /**
  * The SqlWalker walks over a DQL AST and constructs the corresponding SQL.
  *
+<<<<<<< HEAD
  * @psalm-import-type QueryComponent from Parser
  * @psalm-consistent-constructor
  */
@@ -51,6 +71,20 @@ class SqlWalker
 
     public const HINT_DISTINCT = 'doctrine.distinct';
 
+=======
+ * @phpstan-import-type QueryComponent from Parser
+ * @phpstan-consistent-constructor
+ */
+class SqlWalker
+{
+    public const HINT_DISTINCT = 'doctrine.distinct';
+
+    /**
+     * Used to mark a query as containing a PARTIAL expression, which needs to be known by SLC.
+     */
+    public const HINT_PARTIAL = 'doctrine.partial';
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private readonly ResultSetMapping $rsm;
 
     /**
@@ -87,14 +121,22 @@ class SqlWalker
     /**
      * Map from result variable names to their SQL column alias names.
      *
+<<<<<<< HEAD
      * @psalm-var array<string|int, string|list<string>>
+=======
+     * @phpstan-var array<string|int, string|list<string>>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private array $scalarResultAliasMap = [];
 
     /**
      * Map from Table-Alias + Column-Name to OrderBy-Direction.
      *
+<<<<<<< HEAD
      * @var array<string, string>
+=======
+     * @var array<string, SortDirection|string>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private array $orderedColumnsMap = [];
 
@@ -108,14 +150,22 @@ class SqlWalker
     /**
      * A list of classes that appear in non-scalar SelectExpressions.
      *
+<<<<<<< HEAD
      * @psalm-var array<string, array{class: ClassMetadata, dqlAlias: string, resultAlias: string|null}>
+=======
+     * @phpstan-var array<string, array{class: ClassMetadata, dqlAlias: string, resultAlias: string|null, partial: bool}>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private array $selectedClasses = [];
 
     /**
      * The DQL alias of the root class of the currently traversed query.
      *
+<<<<<<< HEAD
      * @psalm-var list<string>
+=======
+     * @phpstan-var list<string>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private array $rootAliases = [];
 
@@ -135,7 +185,11 @@ class SqlWalker
      */
     private readonly QuoteStrategy $quoteStrategy;
 
+<<<<<<< HEAD
     /** @psalm-param array<string, QueryComponent> $queryComponents The query components (symbol table). */
+=======
+    /** @phpstan-param array<string, QueryComponent> $queryComponents The query components (symbol table). */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function __construct(
         private readonly Query $query,
         private readonly ParserResult $parserResult,
@@ -178,7 +232,11 @@ class SqlWalker
      * @param string $dqlAlias The DQL alias.
      *
      * @return mixed[]
+<<<<<<< HEAD
      * @psalm-return QueryComponent
+=======
+     * @phpstan-return QueryComponent
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getQueryComponent(string $dqlAlias): array
     {
@@ -204,7 +262,11 @@ class SqlWalker
     /**
      * Sets or overrides a query component for a given dql alias.
      *
+<<<<<<< HEAD
      * @psalm-param QueryComponent $queryComponent
+=======
+     * @phpstan-param QueryComponent $queryComponent
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function setQueryComponent(string $dqlAlias, array $queryComponent): void
     {
@@ -219,6 +281,7 @@ class SqlWalker
 
     /**
      * Gets an executor that can be used to execute the result of this walker.
+<<<<<<< HEAD
      */
     public function getExecutor(AST\SelectStatement|AST\UpdateStatement|AST\DeleteStatement $statement): Exec\AbstractSqlExecutor
     {
@@ -236,6 +299,48 @@ class SqlWalker
         };
     }
 
+=======
+     *
+     * @deprecated Output walkers should no longer create the executor directly, but instead provide
+     *             a SqlFinalizer by implementing the `OutputWalker` interface. Thus, this method is
+     *             no longer needed and will be removed in 4.0.
+     */
+    public function getExecutor(AST\SelectStatement|AST\UpdateStatement|AST\DeleteStatement $statement): Exec\AbstractSqlExecutor
+    {
+        Deprecation::trigger(
+            'doctrine/orm',
+            'https://github.com/doctrine/orm/pull/11188/',
+            'Output walkers should implement %s. That way, the %s method is no longer needed and will be removed in 4.0',
+            OutputWalker::class,
+            __METHOD__,
+        );
+
+        return match (true) {
+            $statement instanceof AST\UpdateStatement => $this->createUpdateStatementExecutor($statement),
+            $statement instanceof AST\DeleteStatement => $this->createDeleteStatementExecutor($statement),
+            default => new Exec\SingleSelectExecutor($statement, $this),
+        };
+    }
+
+    protected function createUpdateStatementExecutor(AST\UpdateStatement $AST): Exec\AbstractSqlExecutor
+    {
+        $primaryClass = $this->em->getClassMetadata($AST->updateClause->abstractSchemaName);
+
+        return $primaryClass->isInheritanceTypeJoined()
+            ? new Exec\MultiTableUpdateExecutor($AST, $this)
+            : new Exec\SingleTableDeleteUpdateExecutor($AST, $this);
+    }
+
+    protected function createDeleteStatementExecutor(AST\DeleteStatement $AST): Exec\AbstractSqlExecutor
+    {
+        $primaryClass = $this->em->getClassMetadata($AST->deleteClause->abstractSchemaName);
+
+        return $primaryClass->isInheritanceTypeJoined()
+            ? new Exec\MultiTableDeleteExecutor($AST, $this)
+            : new Exec\SingleTableDeleteUpdateExecutor($AST, $this);
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Generates a unique, short SQL table alias.
      */
@@ -305,6 +410,14 @@ class SqlWalker
             $sql .= implode(' AND ', array_filter($sqlParts));
         }
 
+<<<<<<< HEAD
+=======
+        // Ignore subclassing inclusion if partial objects is disallowed
+        if ($this->query->getHint(Query::HINT_FORCE_PARTIAL_LOAD)) {
+            return $sql;
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         // LEFT JOIN child class tables
         foreach ($class->subClasses as $subClassName) {
             $subClass   = $this->em->getClassMetadata($subClassName);
@@ -353,7 +466,15 @@ class SqlWalker
                 }
 
                 $this->orderedColumnsMap[$orderedColumn] = $orientation;
+<<<<<<< HEAD
                 $orderedColumns[]                        = $orderedColumn . ' ' . $orientation;
+=======
+                if ($orientation instanceof SortDirection) {
+                    $orientation = ($orientation === SortDirection::Ascending ? 'ASC' : 'DESC');
+                }
+
+                $orderedColumns[] = $orderedColumn . ' ' . $orientation;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -363,7 +484,11 @@ class SqlWalker
     /**
      * Generates a discriminator column SQL condition for the class with the given DQL alias.
      *
+<<<<<<< HEAD
      * @psalm-param list<string> $dqlAliases List of root DQL aliases to inspect for discriminator restrictions.
+=======
+     * @phpstan-param list<string> $dqlAliases List of root DQL aliases to inspect for discriminator restrictions.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private function generateDiscriminatorColumnConditionSQL(array $dqlAliases): string
     {
@@ -384,7 +509,13 @@ class SqlWalker
             $values = [];
 
             if ($class->discriminatorValue !== null) { // discriminators can be 0
+<<<<<<< HEAD
                 $values[] = $conn->quote($class->discriminatorValue);
+=======
+                $values[] = $class->getDiscriminatorColumn()->type === 'integer' && is_int($class->discriminatorValue)
+                    ? $class->discriminatorValue
+                    : $conn->quote((string) $class->discriminatorValue);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             foreach ($class->subClasses as $subclassName) {
@@ -396,7 +527,13 @@ class SqlWalker
                     continue;
                 }
 
+<<<<<<< HEAD
                 $values[] = $conn->quote((string) $subclassMetadata->discriminatorValue);
+=======
+                $values[] = $subclassMetadata->getDiscriminatorColumn()->type === 'integer' && is_int($subclassMetadata->discriminatorValue)
+                    ? $subclassMetadata->discriminatorValue
+                    : $conn->quote((string) $subclassMetadata->discriminatorValue);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if ($values !== []) {
@@ -459,10 +596,22 @@ class SqlWalker
      */
     public function walkSelectStatement(AST\SelectStatement $selectStatement): string
     {
+<<<<<<< HEAD
         $limit    = $this->query->getMaxResults();
         $offset   = $this->query->getFirstResult();
         $lockMode = $this->query->getHint(Query::HINT_LOCK_MODE) ?: LockMode::NONE;
         $sql      = $this->walkSelectClause($selectStatement->selectClause)
+=======
+        $sql       = $this->createSqlForFinalizer($selectStatement);
+        $finalizer = new Exec\SingleSelectSqlFinalizer($sql);
+
+        return $finalizer->finalizeSql($this->query);
+    }
+
+    protected function createSqlForFinalizer(AST\SelectStatement $selectStatement): string
+    {
+        $sql = $this->walkSelectClause($selectStatement->selectClause)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             . $this->walkFromClause($selectStatement->fromClause)
             . $this->walkWhereClause($selectStatement->whereClause);
 
@@ -483,6 +632,7 @@ class SqlWalker
             $sql .= ' ORDER BY ' . $orderBySql;
         }
 
+<<<<<<< HEAD
         $sql = $this->platform->modifyLimitQuery($sql, $limit, $offset);
 
         if ($lockMode === LockMode::NONE) {
@@ -506,10 +656,29 @@ class SqlWalker
                 throw OptimisticLockException::lockFailed($selectedClass['class']->name);
             }
         }
+=======
+        $this->assertOptimisticLockingHasAllClassesVersioned();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $sql;
     }
 
+<<<<<<< HEAD
+=======
+    private function assertOptimisticLockingHasAllClassesVersioned(): void
+    {
+        $lockMode = $this->query->getHint(Query::HINT_LOCK_MODE) ?: LockMode::NONE;
+
+        if ($lockMode === LockMode::OPTIMISTIC) {
+            foreach ($this->selectedClasses as $selectedClass) {
+                if (! $selectedClass['class']->isVersioned) {
+                    throw OptimisticLockException::lockFailed($selectedClass['class']->name);
+                }
+            }
+        }
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Walks down a UpdateStatement AST node, thereby generating the appropriate SQL.
      */
@@ -552,6 +721,17 @@ class SqlWalker
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Walks down an EntityAsDtoArgumentExpression AST node, thereby generating the appropriate SQL.
+     */
+    public function walkEntityAsDtoArgumentExpression(AST\EntityAsDtoArgumentExpression $expr): string
+    {
+        return implode(', ', $this->walkObjectExpression($expr->expression, [], $expr->identificationVariable ?: null));
+    }
+
+    /**
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Walks down an IdentificationVariable (no AST node associated), thereby generating the SQL.
      */
     public function walkIdentificationVariable(string $identificationVariable, string|null $fieldName = null): string
@@ -639,17 +819,33 @@ class SqlWalker
             $this->query->setHint(self::HINT_DISTINCT, true);
         }
 
+<<<<<<< HEAD
         $addMetaColumns = $this->query->getHydrationMode() === Query::HYDRATE_OBJECT
+=======
+        $addMetaColumns = ! $this->query->getHint(Query::HINT_FORCE_PARTIAL_LOAD) &&
+            $this->query->getHydrationMode() === Query::HYDRATE_OBJECT
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             || $this->query->getHint(Query::HINT_INCLUDE_META_COLUMNS);
 
         foreach ($this->selectedClasses as $selectedClass) {
             $class       = $selectedClass['class'];
             $dqlAlias    = $selectedClass['dqlAlias'];
             $resultAlias = $selectedClass['resultAlias'];
+<<<<<<< HEAD
+=======
+            $isPartial   = $selectedClass['partial'];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             // Register as entity or joined entity result
             if (! isset($this->queryComponents[$dqlAlias]['relation'])) {
                 $this->rsm->addEntityResult($class->name, $dqlAlias, $resultAlias);
+<<<<<<< HEAD
+=======
+
+                if ($isPartial) {
+                    $this->rsm->markPartialEntityResult($dqlAlias);
+                }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } else {
                 assert(isset($this->queryComponents[$dqlAlias]['parent']));
 
@@ -658,6 +854,10 @@ class SqlWalker
                     $dqlAlias,
                     $this->queryComponents[$dqlAlias]['parent'],
                     $this->queryComponents[$dqlAlias]['relation']->fieldName,
+<<<<<<< HEAD
+=======
+                    $isPartial,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 );
             }
 
@@ -873,7 +1073,11 @@ class SqlWalker
     /**
      * Walks down a JoinAssociationDeclaration AST node, thereby generating the appropriate SQL.
      *
+<<<<<<< HEAD
      * @psalm-param AST\Join::JOIN_TYPE_* $joinType
+=======
+     * @phpstan-param AST\Join::JOIN_TYPE_* $joinType
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws QueryException
      */
@@ -906,7 +1110,13 @@ class SqlWalker
             }
         }
 
+<<<<<<< HEAD
         if ($relation->fetch === ClassMetadata::FETCH_EAGER && $condExpr !== null) {
+=======
+        $fetchMode = $this->query->getHint('fetchMode')[$assoc->sourceEntity][$assoc->fieldName] ?? $relation->fetch;
+
+        if ($fetchMode === ClassMetadata::FETCH_EAGER && $condExpr !== null) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw QueryException::eagerFetchJoinWithNotAllowed($assoc->sourceEntity, $assoc->fieldName);
         }
 
@@ -1055,9 +1265,17 @@ class SqlWalker
     {
         $orderByItems = array_map($this->walkOrderByItem(...), $orderByClause->orderByItems);
 
+<<<<<<< HEAD
         $collectionOrderByItems = $this->generateOrderedCollectionOrderByItems();
         if ($collectionOrderByItems !== '') {
             $orderByItems = array_merge($orderByItems, (array) $collectionOrderByItems);
+=======
+        if ($orderByClause->includeCollectionOrderByItems) {
+            $collectionOrderByItems = $this->generateOrderedCollectionOrderByItems();
+            if ($collectionOrderByItems !== '') {
+                $orderByItems = array_merge($orderByItems, (array) $collectionOrderByItems);
+            }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return ' ORDER BY ' . implode(', ', $orderByItems);
@@ -1286,15 +1504,41 @@ class SqlWalker
                     break;
                 }
 
+<<<<<<< HEAD
                 if (! $expr instanceof Query\AST\TypedExpression) {
                     // Conceptually we could resolve field type here by traverse through AST to retrieve field type,
                     // but this is not a feasible solution; assume 'string'.
                     $this->rsm->addScalarResult($columnAlias, $resultAlias, 'string');
+=======
+                if ($expr instanceof Query\AST\ExpressionWithReturnType) {
+                    $this->rsm->addScalarResult($columnAlias, $resultAlias, $expr->getReturnTypeName());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                     break;
                 }
 
+<<<<<<< HEAD
                 $this->rsm->addScalarResult($columnAlias, $resultAlias, Type::getTypeRegistry()->lookupName($expr->getReturnType()));
+=======
+                if ($expr instanceof Query\AST\TypedExpression) {
+                    Deprecation::trigger(
+                        'doctrine/orm',
+                        'https://github.com/doctrine/orm/pull/12543',
+                        'Implementing %s is deprecated, implement %s instead.',
+                        Query\AST\TypedExpression::class, // @phpstan-ignore classConstant.deprecatedInterface
+                        Query\AST\ExpressionWithReturnType::class,
+                    );
+
+                    // @phpstan-ignore method.deprecatedInterface
+                    $this->rsm->addScalarResult($columnAlias, $resultAlias, Type::getTypeRegistry()->lookupName($expr->getReturnType()));
+
+                    break;
+                }
+
+                // Conceptually we could resolve field type here by traverse through AST to retrieve field type,
+                // but this is not a feasible solution; assume 'string'.
+                $this->rsm->addScalarResult($columnAlias, $resultAlias, Types::STRING);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 break;
 
@@ -1308,7 +1552,11 @@ class SqlWalker
 
                 if (! $hidden) {
                     // We cannot resolve field type here; assume 'string'.
+<<<<<<< HEAD
                     $this->rsm->addScalarResult($columnAlias, $resultAlias, 'string');
+=======
+                    $this->rsm->addScalarResult($columnAlias, $resultAlias, Types::STRING);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 break;
@@ -1318,6 +1566,7 @@ class SqlWalker
                 break;
 
             default:
+<<<<<<< HEAD
                 $dqlAlias    = $expr;
                 $class       = $this->getMetadataForDqlAlias($dqlAlias);
                 $resultAlias = $selectExpression->fieldIdentificationVariable ?: null;
@@ -1341,6 +1590,95 @@ class SqlWalker
                     $sqlTableAlias    = $this->getSQLTableAlias($tableName, $dqlAlias);
                     $columnAlias      = $this->getSQLColumnAlias($mapping->columnName);
                     $quotedColumnName = $this->quoteStrategy->getColumnName($fieldName, $class, $this->platform);
+=======
+                // IdentificationVariable or PartialObjectExpression
+                if ($expr instanceof AST\PartialObjectExpression) {
+                    $this->query->setHint(self::HINT_PARTIAL, true);
+
+                    $dqlAlias        = $expr->identificationVariable;
+                    $partialFieldSet = $expr->partialFieldSet;
+                } else {
+                    $dqlAlias        = $expr;
+                    $partialFieldSet = [];
+                }
+
+                $sql .= implode(', ', $this->walkObjectExpression($dqlAlias, $partialFieldSet, $selectExpression->fieldIdentificationVariable ?: null));
+        }
+
+        return $sql;
+    }
+
+    /**
+     * Walks down an Object Expression AST node and return Sql Parts
+     *
+     * @param mixed[] $partialFieldSet
+     *
+     * @return string[]
+     */
+    public function walkObjectExpression(string $dqlAlias, array $partialFieldSet, string|null $resultAlias): array
+    {
+        $class = $this->getMetadataForDqlAlias($dqlAlias);
+
+        if (! isset($this->selectedClasses[$dqlAlias])) {
+            $this->selectedClasses[$dqlAlias] = [
+                'class'       => $class,
+                'dqlAlias'    => $dqlAlias,
+                'resultAlias' => $resultAlias,
+                'partial'     => $partialFieldSet !== [],
+            ];
+        }
+
+        $sqlParts = [];
+
+        // Select all fields from the queried class
+        foreach ($class->fieldMappings as $fieldName => $mapping) {
+            if ($partialFieldSet && ! in_array($fieldName, $partialFieldSet, true)) {
+                continue;
+            }
+
+            $tableName = isset($mapping->inherited)
+                ? $this->em->getClassMetadata($mapping->inherited)->getTableName()
+                : $class->getTableName();
+
+            $sqlTableAlias    = $this->getSQLTableAlias($tableName, $dqlAlias);
+            $columnAlias      = $this->getSQLColumnAlias($mapping->columnName);
+            $quotedColumnName = $this->quoteStrategy->getColumnName($fieldName, $class, $this->platform);
+
+            $col = $sqlTableAlias . '.' . $quotedColumnName;
+
+            $type = Type::getType($mapping->type);
+            $col  = $type->convertToPHPValueSQL($col, $this->platform);
+
+            $sqlParts[] = $col . ' AS ' . $columnAlias;
+
+            if ($resultAlias !== null) {
+                $this->scalarResultAliasMap[$resultAlias][] = $columnAlias;
+            }
+
+            $this->rsm->addFieldResult($dqlAlias, $columnAlias, $fieldName, $class->name);
+
+            if (! empty($mapping->enumType)) {
+                $this->rsm->addEnumResult($columnAlias, $mapping->enumType);
+            }
+        }
+
+        // Add any additional fields of subclasses (excluding inherited fields)
+        // 1) on Single Table Inheritance: always, since its marginal overhead
+        // 2) on Class Table Inheritance only if partial objects are disallowed,
+        //    since it requires outer joining subtables.
+        if ($class->isInheritanceTypeSingleTable() || ! $this->query->getHint(Query::HINT_FORCE_PARTIAL_LOAD)) {
+            foreach ($class->subClasses as $subClassName) {
+                $subClass      = $this->em->getClassMetadata($subClassName);
+                $sqlTableAlias = $this->getSQLTableAlias($subClass->getTableName(), $dqlAlias);
+
+                foreach ($subClass->fieldMappings as $fieldName => $mapping) {
+                    if (isset($mapping->inherited) || ($partialFieldSet && ! in_array($fieldName, $partialFieldSet, true))) {
+                        continue;
+                    }
+
+                    $columnAlias      = $this->getSQLColumnAlias($mapping->columnName);
+                    $quotedColumnName = $this->quoteStrategy->getColumnName($fieldName, $subClass, $this->platform);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                     $col = $sqlTableAlias . '.' . $quotedColumnName;
 
@@ -1349,6 +1687,7 @@ class SqlWalker
 
                     $sqlParts[] = $col . ' AS ' . $columnAlias;
 
+<<<<<<< HEAD
                     $this->scalarResultAliasMap[$resultAlias][] = $columnAlias;
 
                     $this->rsm->addFieldResult($dqlAlias, $columnAlias, $fieldName, $class->name);
@@ -1390,6 +1729,18 @@ class SqlWalker
         }
 
         return $sql;
+=======
+                    if ($resultAlias !== null) {
+                        $this->scalarResultAliasMap[$resultAlias][] = $columnAlias;
+                    }
+
+                    $this->rsm->addFieldResult($dqlAlias, $columnAlias, $fieldName, $subClassName);
+                }
+            }
+        }
+
+        return $sqlParts;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function walkQuantifiedExpression(AST\QuantifiedExpression $qExpr): string
@@ -1463,7 +1814,12 @@ class SqlWalker
 
             switch (true) {
                 case $e instanceof AST\NewObjectExpression:
+<<<<<<< HEAD
                     $sqlSelectExpressions[] = $e->dispatch($this);
+=======
+                    $sqlSelectExpressions[]                            = $e->dispatch($this, $columnAlias);
+                    $this->rsm->nestedNewObjectArguments[$columnAlias] = ['ownerIndex' => $objIndex, 'argIndex' => $argIndex, 'argAlias' => $columnAlias];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     break;
 
                 case $e instanceof AST\Subselect:
@@ -1504,6 +1860,17 @@ class SqlWalker
                     $sqlSelectExpressions[] = trim($e->dispatch($this)) . ' AS ' . $columnAlias;
                     break;
 
+<<<<<<< HEAD
+=======
+                case $e instanceof AST\EntityAsDtoArgumentExpression:
+                    $alias                                             = $e->identificationVariable ?: $columnAlias;
+                    $this->rsm->nestedNewObjectArguments[$columnAlias] = ['ownerIndex' => $objIndex, 'argIndex' => $argIndex, 'argAlias' => $alias];
+                    $this->rsm->nestedEntities[$alias]                 = ['parent' => $objIndex, 'argIndex' => $argIndex, 'type' => 'entity'];
+
+                    $sqlSelectExpressions[] = trim($e->dispatch($this));
+                    break;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 default:
                     $sqlSelectExpressions[] = trim($e->dispatch($this)) . ' AS ' . $columnAlias;
                     break;
@@ -1513,12 +1880,20 @@ class SqlWalker
             $this->rsm->addScalarResult($columnAlias, $resultAlias, $fieldType);
 
             $this->rsm->newObjectMappings[$columnAlias] = [
+<<<<<<< HEAD
                 'className' => $newObjectExpression->className,
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'objIndex'  => $objIndex,
                 'argIndex'  => $argIndex,
             ];
         }
 
+<<<<<<< HEAD
+=======
+        $this->rsm->newObject[$objIndex] = $newObjectExpression->className;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return implode(', ', $sqlSelectExpressions);
     }
 
@@ -2006,6 +2381,10 @@ class SqlWalker
             AST\Literal::STRING => $this->conn->quote($literal->value),
             AST\Literal::BOOLEAN => (string) $this->conn->getDatabasePlatform()->convertBooleans(strtolower($literal->value) === 'true'),
             AST\Literal::NUMERIC => (string) $literal->value,
+<<<<<<< HEAD
+=======
+            AST\Literal::NULL => 'NULL',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             default => throw QueryException::invalidLiteral($literal),
         };
     }
@@ -2246,8 +2625,15 @@ class SqlWalker
             $discriminators += HierarchyDiscriminatorResolver::resolveDiscriminatorsForClass($metadata, $this->em);
         }
 
+<<<<<<< HEAD
         foreach (array_keys($discriminators) as $dis) {
             $sqlParameterList[] = $this->conn->quote($dis);
+=======
+        foreach (array_keys($discriminators) as $discriminatorValue) {
+            $sqlParameterList[] = $rootClass->getDiscriminatorColumn()->type === 'integer' && is_int($discriminatorValue)
+                ? $discriminatorValue
+                : $this->conn->quote((string) $discriminatorValue);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return '(' . implode(', ', $sqlParameterList) . ')';

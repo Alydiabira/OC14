@@ -38,6 +38,10 @@ use Symfony\Bundle\TwigBundle\DependencyInjection\Configurator\EnvironmentConfig
 use Symfony\Bundle\TwigBundle\TemplateIterator;
 use Twig\Cache\FilesystemCache;
 use Twig\Environment;
+<<<<<<< HEAD
+=======
+use Twig\ExpressionParser\Infix\BinaryOperatorExpressionParser;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Twig\Extension\CoreExtension;
 use Twig\Extension\DebugExtension;
 use Twig\Extension\EscaperExtension;
@@ -63,6 +67,10 @@ return static function (ContainerConfigurator $container) {
             ->tag('container.preload', ['class' => EscaperExtension::class])
             ->tag('container.preload', ['class' => OptimizerExtension::class])
             ->tag('container.preload', ['class' => StagingExtension::class])
+<<<<<<< HEAD
+=======
+            ->tag('container.preload', ['class' => BinaryOperatorExpressionParser::class])
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->tag('container.preload', ['class' => ExtensionSet::class])
             ->tag('container.preload', ['class' => Template::class])
             ->tag('container.preload', ['class' => TemplateWrapper::class])

@@ -22,9 +22,15 @@ use Twig\Compiler;
 #[YieldReady]
 class ForLoopNode extends Node
 {
+<<<<<<< HEAD
     public function __construct(int $lineno, ?string $tag = null)
     {
         parent::__construct([], ['with_loop' => false, 'ifexpr' => false, 'else' => false], $lineno, $tag);
+=======
+    public function __construct(int $lineno)
+    {
+        parent::__construct([], ['with_loop' => false, 'ifexpr' => false, 'else' => false], $lineno);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function compile(Compiler $compiler): void
@@ -38,7 +44,11 @@ class ForLoopNode extends Node
                 ->write("++\$context['loop']['index0'];\n")
                 ->write("++\$context['loop']['index'];\n")
                 ->write("\$context['loop']['first'] = false;\n")
+<<<<<<< HEAD
                 ->write("if (isset(\$context['loop']['length'])) {\n")
+=======
+                ->write("if (isset(\$context['loop']['revindex0'], \$context['loop']['revindex'])) {\n")
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ->indent()
                 ->write("--\$context['loop']['revindex0'];\n")
                 ->write("--\$context['loop']['revindex'];\n")

@@ -22,10 +22,18 @@ interface SecurityPolicyInterface
      * @param string[] $tags
      * @param string[] $filters
      * @param string[] $functions
+<<<<<<< HEAD
      *
      * @throws SecurityError
      */
     public function checkSecurity($tags, $filters, $functions): void;
+=======
+     * @param string[] $tests
+     *
+     * @throws SecurityError
+     */
+    public function checkSecurity($tags, $filters, $functions/* , array $tests */): void;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * @param object $obj

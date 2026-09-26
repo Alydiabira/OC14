@@ -34,7 +34,11 @@ final class CreateSchemaObjectsSQLBuilder
     }
 
     /**
+<<<<<<< HEAD
      * @param list<string> $namespaces
+=======
+     * @param string[] $namespaces
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return list<string>
      *
@@ -54,7 +58,11 @@ final class CreateSchemaObjectsSQLBuilder
     }
 
     /**
+<<<<<<< HEAD
      * @param list<Table> $tables
+=======
+     * @param Table[] $tables
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return list<string>
      *
@@ -66,7 +74,11 @@ final class CreateSchemaObjectsSQLBuilder
     }
 
     /**
+<<<<<<< HEAD
      * @param list<Sequence> $sequences
+=======
+     * @param Sequence[] $sequences
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return list<string>
      *

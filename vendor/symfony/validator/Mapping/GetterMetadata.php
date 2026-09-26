@@ -53,10 +53,17 @@ class GetterMetadata extends MemberMetadata
             } elseif (method_exists($class, $hasMethod)) {
                 $method = $hasMethod;
             } else {
+<<<<<<< HEAD
                 throw new ValidatorException(sprintf('Neither of these methods exist in class "%s": "%s", "%s", "%s".', $class, $getMethod, $isMethod, $hasMethod));
             }
         } elseif (!method_exists($class, $method)) {
             throw new ValidatorException(sprintf('The "%s()" method does not exist in class "%s".', $method, $class));
+=======
+                throw new ValidatorException(\sprintf('Neither of these methods exist in class "%s": "%s", "%s", "%s".', $class, $getMethod, $isMethod, $hasMethod));
+            }
+        } elseif (!method_exists($class, $method)) {
+            throw new ValidatorException(\sprintf('The "%s()" method does not exist in class "%s".', $method, $class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         parent::__construct($class, $method, $property);

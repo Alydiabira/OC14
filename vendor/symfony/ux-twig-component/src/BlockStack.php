@@ -28,9 +28,21 @@ final class BlockStack
      */
     private array $stack;
 
+<<<<<<< HEAD
     public function convert(array $blocks, int $targetEmbeddedTemplateIndex): array
     {
         $newBlocks = [];
+=======
+    /**
+     * @var array<class-string, int>
+     */
+    private static array $templateIndexStack = [];
+
+    public function convert(array $blocks, int $targetEmbeddedTemplateIndex): array
+    {
+        $newBlocks = [];
+        $hostEmbeddedTemplateIndex = null;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         foreach ($blocks as $blockName => $block) {
             // Keep already converted outer blocks untouched
             if (str_starts_with($blockName, self::OUTER_BLOCK_PREFIX)) {
@@ -41,7 +53,11 @@ final class BlockStack
             // Determine the location of the block where it is defined in the host Template.
             // Each component has its own embedded template. That template's index uniquely
             // identifies the block definition.
+<<<<<<< HEAD
             $hostEmbeddedTemplateIndex = $this->findHostEmbeddedTemplateIndex();
+=======
+            $hostEmbeddedTemplateIndex ??= $this->findHostEmbeddedTemplateIndex();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             // Change the name of outer blocks to something unique so blocks of nested components aren't overridden,
             // which otherwise might cause a recursion loop when nesting components.
@@ -69,12 +85,19 @@ final class BlockStack
     {
         $backtrace = debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS | \DEBUG_BACKTRACE_PROVIDE_OBJECT);
 
+<<<<<<< HEAD
         $componentTemplateClassName = null;
 
         foreach ($backtrace as $trace) {
             if (isset($trace['object']) && $trace['object'] instanceof Template) {
                 $classname = $trace['object']::class;
                 $templateIndex = $this->getTemplateIndexFromTemplateClassname($classname);
+=======
+        foreach ($backtrace as $trace) {
+            if (isset($trace['object']) && $trace['object'] instanceof Template) {
+                $classname = $trace['object']::class;
+                $templateIndex = self::getTemplateIndexFromTemplateClassname($classname);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if ($templateIndex) {
                     // If there's no template index, then we're in a component template
                     // and we need to go up until we find the embedded template
@@ -93,7 +116,11 @@ final class BlockStack
 
         foreach ($backtrace as $trace) {
             if (isset($trace['object']) && $trace['object'] instanceof Template) {
+<<<<<<< HEAD
                 return $this->getTemplateIndexFromTemplateClassname($trace['object']::class);
+=======
+                return self::getTemplateIndexFromTemplateClassname($trace['object']::class);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
     }
@@ -108,7 +135,11 @@ final class BlockStack
         foreach ($backtrace as $trace) {
             if (isset($trace['object']) && $trace['object'] instanceof Template) {
                 $classname = $trace['object']::class;
+<<<<<<< HEAD
                 $templateIndex = $this->getTemplateIndexFromTemplateClassname($classname);
+=======
+                $templateIndex = self::getTemplateIndexFromTemplateClassname($classname);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if (null === $renderer) {
                     if ($templateIndex) {
                         // This class is an embedded template.
@@ -139,8 +170,14 @@ final class BlockStack
         return 0;
     }
 
+<<<<<<< HEAD
     private function getTemplateIndexFromTemplateClassname(string $classname): int
     {
         return (int) substr($classname, strrpos($classname, '___') + 3);
+=======
+    private static function getTemplateIndexFromTemplateClassname(string $classname): int
+    {
+        return self::$templateIndexStack[$classname] ??= (int) substr($classname, strrpos($classname, '___') + 3);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

@@ -23,9 +23,15 @@ use Twig\Node\Expression\AbstractExpression;
 #[YieldReady]
 class DoNode extends Node
 {
+<<<<<<< HEAD
     public function __construct(AbstractExpression $expr, int $lineno, ?string $tag = null)
     {
         parent::__construct(['expr' => $expr], [], $lineno, $tag);
+=======
+    public function __construct(AbstractExpression $expr, int $lineno)
+    {
+        parent::__construct(['expr' => $expr], [], $lineno);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function compile(Compiler $compiler): void

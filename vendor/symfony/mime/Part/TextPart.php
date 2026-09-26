@@ -45,13 +45,21 @@ class TextPart extends AbstractPart
         parent::__construct();
 
         if (!\is_string($body) && !\is_resource($body) && !$body instanceof File) {
+<<<<<<< HEAD
             throw new \TypeError(sprintf('The body of "%s" must be a string, a resource, or an instance of "%s" (got "%s").', self::class, File::class, get_debug_type($body)));
+=======
+            throw new \TypeError(\sprintf('The body of "%s" must be a string, a resource, or an instance of "%s" (got "%s").', self::class, File::class, get_debug_type($body)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($body instanceof File) {
             $path = $body->getPath();
             if ((is_file($path) && !is_readable($path)) || is_dir($path)) {
+<<<<<<< HEAD
                 throw new InvalidArgumentException(sprintf('Path "%s" is not readable.', $path));
+=======
+                throw new InvalidArgumentException(\sprintf('Path "%s" is not readable.', $path));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -64,7 +72,11 @@ class TextPart extends AbstractPart
             $this->encoding = $this->chooseEncoding();
         } else {
             if ('quoted-printable' !== $encoding && 'base64' !== $encoding && '8bit' !== $encoding) {
+<<<<<<< HEAD
                 throw new InvalidArgumentException(sprintf('The encoding must be one of "quoted-printable", "base64", or "8bit" ("%s" given).', $encoding));
+=======
+                throw new InvalidArgumentException(\sprintf('The encoding must be one of "quoted-printable", "base64", or "8bit" ("%s" given).', $encoding));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $this->encoding = $encoding;
         }
@@ -123,7 +135,15 @@ class TextPart extends AbstractPart
     public function getBody(): string
     {
         if ($this->body instanceof File) {
+<<<<<<< HEAD
             return file_get_contents($this->body->getPath());
+=======
+            if (false === $ret = @file_get_contents($this->body->getPath())) {
+                throw new InvalidArgumentException(error_get_last()['message']);
+            }
+
+            return $ret;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (null === $this->seekable) {
@@ -147,7 +167,11 @@ class TextPart extends AbstractPart
         if ($this->body instanceof File) {
             $path = $this->body->getPath();
             if (false === $handle = @fopen($path, 'r', false)) {
+<<<<<<< HEAD
                 throw new InvalidArgumentException(sprintf('Unable to open path "%s".', $path));
+=======
+                throw new InvalidArgumentException(\sprintf('Unable to open path "%s".', $path));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             yield from $this->getEncoder()->encodeByteStream($handle);

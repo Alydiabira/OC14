@@ -65,7 +65,11 @@ class WebProcessor implements ProcessorInterface
         }
         if (isset($extraFields[0])) {
             foreach (array_keys($this->extraFields) as $fieldName) {
+<<<<<<< HEAD
                 if (!in_array($fieldName, $extraFields, true)) {
+=======
+                if (!\in_array($fieldName, $extraFields, true)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     unset($this->extraFields[$fieldName]);
                 }
             }

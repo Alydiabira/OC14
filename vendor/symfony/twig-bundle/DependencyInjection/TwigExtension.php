@@ -25,6 +25,10 @@ use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Component\Translation\Translator;
 use Symfony\Contracts\Service\ResetInterface;
+<<<<<<< HEAD
+=======
+use Twig\Environment;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Twig\Extension\ExtensionInterface;
 use Twig\Extension\RuntimeExtensionInterface;
 use Twig\Loader\LoaderInterface;
@@ -45,6 +49,13 @@ class TwigExtension extends Extension
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('twig.php');
 
+<<<<<<< HEAD
+=======
+        if (method_exists(Environment::class, 'resetGlobals')) {
+            $container->getDefinition('twig')->addTag('kernel.reset', ['method' => 'resetGlobals']);
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ($container::willBeAvailable('symfony/form', Form::class, ['symfony/twig-bundle'])) {
             $loader->load('form.php');
 

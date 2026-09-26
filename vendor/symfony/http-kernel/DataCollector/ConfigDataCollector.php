@@ -47,7 +47,11 @@ class ConfigDataCollector extends DataCollector implements LateDataCollectorInte
         $this->data = [
             'token' => $response->headers->get('X-Debug-Token'),
             'symfony_version' => Kernel::VERSION,
+<<<<<<< HEAD
             'symfony_minor_version' => sprintf('%s.%s', Kernel::MAJOR_VERSION, Kernel::MINOR_VERSION),
+=======
+            'symfony_minor_version' => \sprintf('%s.%s', Kernel::MAJOR_VERSION, Kernel::MINOR_VERSION),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'symfony_lts' => 4 === Kernel::MINOR_VERSION,
             'symfony_state' => $this->determineSymfonyState(),
             'symfony_eom' => $eom->format('F Y'),

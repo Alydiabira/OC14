@@ -21,6 +21,7 @@ use Twig\Source;
  */
 final class ChainLoader implements LoaderInterface
 {
+<<<<<<< HEAD
     private $hasSourceCache = [];
     private $loaders = [];
 
@@ -32,11 +33,34 @@ final class ChainLoader implements LoaderInterface
         foreach ($loaders as $loader) {
             $this->addLoader($loader);
         }
+=======
+    /**
+     * @var array<string, bool>
+     */
+    private $hasSourceCache = [];
+
+    /**
+     * @param iterable<LoaderInterface> $loaders
+     */
+    public function __construct(
+        private iterable $loaders = [],
+    ) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function addLoader(LoaderInterface $loader): void
     {
+<<<<<<< HEAD
         $this->loaders[] = $loader;
+=======
+        $current = $this->loaders;
+
+        $this->loaders = (static function () use ($current, $loader): \Generator {
+            yield from $current;
+            yield $loader;
+        })();
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->hasSourceCache = [];
     }
 
@@ -45,13 +69,25 @@ final class ChainLoader implements LoaderInterface
      */
     public function getLoaders(): array
     {
+<<<<<<< HEAD
+=======
+        if (!\is_array($this->loaders)) {
+            $this->loaders = iterator_to_array($this->loaders, false);
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return $this->loaders;
     }
 
     public function getSourceContext(string $name): Source
     {
         $exceptions = [];
+<<<<<<< HEAD
         foreach ($this->loaders as $loader) {
+=======
+
+        foreach ($this->getLoaders() as $loader) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (!$loader->exists($name)) {
                 continue;
             }
@@ -63,7 +99,11 @@ final class ChainLoader implements LoaderInterface
             }
         }
 
+<<<<<<< HEAD
         throw new LoaderError(sprintf('Template "%s" is not defined%s.', $name, $exceptions ? ' ('.implode(', ', $exceptions).')' : ''));
+=======
+        throw new LoaderError(\sprintf('Template "%s" is not defined%s.', $name, $exceptions ? ' ('.implode(', ', $exceptions).')' : ''));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function exists(string $name): bool
@@ -72,7 +112,11 @@ final class ChainLoader implements LoaderInterface
             return $this->hasSourceCache[$name];
         }
 
+<<<<<<< HEAD
         foreach ($this->loaders as $loader) {
+=======
+        foreach ($this->getLoaders() as $loader) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if ($loader->exists($name)) {
                 return $this->hasSourceCache[$name] = true;
             }
@@ -84,7 +128,12 @@ final class ChainLoader implements LoaderInterface
     public function getCacheKey(string $name): string
     {
         $exceptions = [];
+<<<<<<< HEAD
         foreach ($this->loaders as $loader) {
+=======
+
+        foreach ($this->getLoaders() as $loader) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (!$loader->exists($name)) {
                 continue;
             }
@@ -92,17 +141,30 @@ final class ChainLoader implements LoaderInterface
             try {
                 return $loader->getCacheKey($name);
             } catch (LoaderError $e) {
+<<<<<<< HEAD
                 $exceptions[] = \get_class($loader).': '.$e->getMessage();
             }
         }
 
         throw new LoaderError(sprintf('Template "%s" is not defined%s.', $name, $exceptions ? ' ('.implode(', ', $exceptions).')' : ''));
+=======
+                $exceptions[] = $loader::class.': '.$e->getMessage();
+            }
+        }
+
+        throw new LoaderError(\sprintf('Template "%s" is not defined%s.', $name, $exceptions ? ' ('.implode(', ', $exceptions).')' : ''));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function isFresh(string $name, int $time): bool
     {
         $exceptions = [];
+<<<<<<< HEAD
         foreach ($this->loaders as $loader) {
+=======
+
+        foreach ($this->getLoaders() as $loader) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (!$loader->exists($name)) {
                 continue;
             }
@@ -110,10 +172,18 @@ final class ChainLoader implements LoaderInterface
             try {
                 return $loader->isFresh($name, $time);
             } catch (LoaderError $e) {
+<<<<<<< HEAD
                 $exceptions[] = \get_class($loader).': '.$e->getMessage();
             }
         }
 
         throw new LoaderError(sprintf('Template "%s" is not defined%s.', $name, $exceptions ? ' ('.implode(', ', $exceptions).')' : ''));
+=======
+                $exceptions[] = $loader::class.': '.$e->getMessage();
+            }
+        }
+
+        throw new LoaderError(\sprintf('Template "%s" is not defined%s.', $name, $exceptions ? ' ('.implode(', ', $exceptions).')' : ''));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

@@ -69,7 +69,11 @@ class RemotePackageDownloader
         $downloadedPackages = [];
         foreach ($remoteEntriesToDownload as $package => $entry) {
             if (!isset($contents[$package])) {
+<<<<<<< HEAD
                 throw new \LogicException(sprintf('The package "%s" was not downloaded.', $package));
+=======
+                throw new \LogicException(\sprintf('The package "%s" was not downloaded.', $package));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $this->remotePackageStorage->save($entry, $contents[$package]['content']);
@@ -88,7 +92,11 @@ class RemotePackageDownloader
         }
 
         if ($contents) {
+<<<<<<< HEAD
             throw new \LogicException(sprintf('The following packages were unexpectedly downloaded: "%s".', implode('", "', array_keys($contents))));
+=======
+            throw new \LogicException(\sprintf('The following packages were unexpectedly downloaded: "%s".', implode('", "', array_keys($contents))));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->saveInstalled($newInstalled);
@@ -103,7 +111,11 @@ class RemotePackageDownloader
     {
         $installed = $this->loadInstalled();
         if (!isset($installed[$importName])) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('The "%s" vendor asset is missing. Run "php bin/console importmap:install".', $importName));
+=======
+            throw new \InvalidArgumentException(\sprintf('The "%s" vendor asset is missing. Run "php bin/console importmap:install".', $importName));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $installed[$importName]['dependencies'];
@@ -128,11 +140,19 @@ class RemotePackageDownloader
 
         foreach ($installed as $package => $data) {
             if (!isset($data['version'])) {
+<<<<<<< HEAD
                 throw new \InvalidArgumentException(sprintf('The package "%s" is missing its version.', $package));
             }
 
             if (!isset($data['dependencies'])) {
                 throw new \LogicException(sprintf('The package "%s" is missing its dependencies.', $package));
+=======
+                throw new \InvalidArgumentException(\sprintf('The package "%s" is missing its version.', $package));
+            }
+
+            if (!isset($data['dependencies'])) {
+                throw new \LogicException(\sprintf('The package "%s" is missing its dependencies.', $package));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if (!isset($data['extraFiles'])) {
@@ -146,7 +166,11 @@ class RemotePackageDownloader
     private function saveInstalled(array $installed): void
     {
         $this->installed = $installed;
+<<<<<<< HEAD
         file_put_contents($this->remotePackageStorage->getStorageDir().'/installed.php', sprintf('<?php return %s;', var_export($installed, true)));
+=======
+        file_put_contents($this->remotePackageStorage->getStorageDir().'/installed.php', \sprintf('<?php return %s;', var_export($installed, true)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function areAllExtraFilesDownloaded(ImportMapEntry $entry, array $extraFilenames): bool

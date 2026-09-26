@@ -14,7 +14,10 @@ namespace Monolog\Handler;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Level;
+<<<<<<< HEAD
 use Monolog\Utils;
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Monolog\LogRecord;
 
 /**
@@ -27,11 +30,19 @@ class ErrorLogHandler extends AbstractProcessingHandler
     public const OPERATING_SYSTEM = 0;
     public const SAPI = 4;
 
+<<<<<<< HEAD
+=======
+    /** @var 0|4 */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected int $messageType;
     protected bool $expandNewlines;
 
     /**
+<<<<<<< HEAD
      * @param int  $messageType    Says where the error should go.
+=======
+     * @param 0|4 $messageType    Says where the error should go.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @param bool $expandNewlines If set to true, newlines in the message will be expanded to be take multiple log entries
      *
      * @throws \InvalidArgumentException If an unsupported message type is set
@@ -40,7 +51,11 @@ class ErrorLogHandler extends AbstractProcessingHandler
     {
         parent::__construct($level, $bubble);
 
+<<<<<<< HEAD
         if (false === in_array($messageType, self::getAvailableTypes(), true)) {
+=======
+        if (false === \in_array($messageType, self::getAvailableTypes(), true)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $message = sprintf('The given message type "%s" is not supported', print_r($messageType, true));
 
             throw new \InvalidArgumentException($message);
@@ -84,7 +99,11 @@ class ErrorLogHandler extends AbstractProcessingHandler
         if ($lines === false) {
             $pcreErrorCode = preg_last_error();
 
+<<<<<<< HEAD
             throw new \RuntimeException('Failed to preg_split formatted string: ' . $pcreErrorCode . ' / '. Utils::pcreLastErrorMessage($pcreErrorCode));
+=======
+            throw new \RuntimeException('Failed to preg_split formatted string: ' . $pcreErrorCode . ' / '. preg_last_error_msg());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         foreach ($lines as $line) {
             error_log($line, $this->messageType);

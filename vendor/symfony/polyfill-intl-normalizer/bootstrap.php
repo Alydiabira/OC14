@@ -21,3 +21,9 @@ if (!function_exists('normalizer_is_normalized')) {
 if (!function_exists('normalizer_normalize')) {
     function normalizer_normalize($string, $form = p\Normalizer::FORM_C) { return p\Normalizer::normalize($string, $form); }
 }
+<<<<<<< HEAD
+=======
+if (!function_exists('normalizer_get_raw_decomposition')) {
+    function normalizer_get_raw_decomposition(?string $string, ?int $form = p\Normalizer::FORM_C) { return p\Normalizer::getRawDecomposition((string) $string, (int) $form); }
+}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96

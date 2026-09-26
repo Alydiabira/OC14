@@ -23,7 +23,11 @@ use Symfony\Component\Serializer\SerializerInterface;
  *
  * @author Mathias Arlaud <mathias.arlaud@gmail.com>
  *
+<<<<<<< HEAD
  * @internal
+=======
+ * @final
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 class TraceableEncoder implements EncoderInterface, DecoderInterface, SerializerAwareInterface
 {
@@ -36,7 +40,11 @@ class TraceableEncoder implements EncoderInterface, DecoderInterface, Serializer
     public function encode(mixed $data, string $format, array $context = []): string
     {
         if (!$this->encoder instanceof EncoderInterface) {
+<<<<<<< HEAD
             throw new \BadMethodCallException(sprintf('The "%s()" method cannot be called as nested encoder doesn\'t implements "%s".', __METHOD__, EncoderInterface::class));
+=======
+            throw new \BadMethodCallException(\sprintf('The "%s()" method cannot be called as nested encoder doesn\'t implements "%s".', __METHOD__, EncoderInterface::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $startTime = microtime(true);
@@ -62,7 +70,11 @@ class TraceableEncoder implements EncoderInterface, DecoderInterface, Serializer
     public function decode(string $data, string $format, array $context = []): mixed
     {
         if (!$this->encoder instanceof DecoderInterface) {
+<<<<<<< HEAD
             throw new \BadMethodCallException(sprintf('The "%s()" method cannot be called as nested encoder doesn\'t implements "%s".', __METHOD__, DecoderInterface::class));
+=======
+            throw new \BadMethodCallException(\sprintf('The "%s()" method cannot be called as nested encoder doesn\'t implements "%s".', __METHOD__, DecoderInterface::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $startTime = microtime(true);

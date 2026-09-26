@@ -53,7 +53,11 @@ class InputOption
     private string $name;
     private string|array|null $shortcut;
     private int $mode;
+<<<<<<< HEAD
     private string|int|bool|array|null|float $default;
+=======
+    private string|int|bool|array|float|null $default;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private array|\Closure $suggestedValues;
     private string $description;
 
@@ -95,7 +99,11 @@ class InputOption
         if (null === $mode) {
             $mode = self::VALUE_NONE;
         } elseif ($mode >= (self::VALUE_NEGATABLE << 1) || $mode < 1) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Option mode "%s" is not valid.', $mode));
+=======
+            throw new InvalidArgumentException(\sprintf('Option mode "%s" is not valid.', $mode));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->name = $name;
@@ -231,7 +239,11 @@ class InputOption
     {
         $values = $this->suggestedValues;
         if ($values instanceof \Closure && !\is_array($values = $values($input))) {
+<<<<<<< HEAD
             throw new LogicException(sprintf('Closure for option "%s" must return an array. Got "%s".', $this->name, get_debug_type($values)));
+=======
+            throw new LogicException(\sprintf('Closure for option "%s" must return an array. Got "%s".', $this->name, get_debug_type($values)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         if ($values) {
             $suggestions->suggestValues($values);

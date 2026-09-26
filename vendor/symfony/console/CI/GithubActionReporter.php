@@ -89,11 +89,19 @@ class GithubActionReporter
 
         if (!$file) {
             // No file provided, output the message solely:
+<<<<<<< HEAD
             $this->output->writeln(sprintf('::%s::%s', $type, $message));
+=======
+            $this->output->writeln(\sprintf('::%s::%s', $type, $message));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             return;
         }
 
+<<<<<<< HEAD
         $this->output->writeln(sprintf('::%s file=%s,line=%s,col=%s::%s', $type, strtr($file, self::ESCAPED_PROPERTIES), strtr($line ?? 1, self::ESCAPED_PROPERTIES), strtr($col ?? 0, self::ESCAPED_PROPERTIES), $message));
+=======
+        $this->output->writeln(\sprintf('::%s file=%s,line=%s,col=%s::%s', $type, strtr($file, self::ESCAPED_PROPERTIES), strtr($line ?? 1, self::ESCAPED_PROPERTIES), strtr($col ?? 0, self::ESCAPED_PROPERTIES), $message));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

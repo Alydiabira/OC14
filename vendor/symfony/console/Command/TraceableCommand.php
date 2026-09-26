@@ -62,9 +62,13 @@ final class TraceableCommand extends Command implements SignalableCommandInterfa
         parent::__construct($command->getName());
 
         // init below enables calling {@see parent::run()}
+<<<<<<< HEAD
         [$code, $processTitle, $ignoreValidationErrors] = \Closure::bind(function () {
             return [$this->code, $this->processTitle, $this->ignoreValidationErrors];
         }, $command, Command::class)();
+=======
+        [$code, $processTitle, $ignoreValidationErrors] = \Closure::bind(fn () => [$this->code, $this->processTitle, $this->ignoreValidationErrors], $command, Command::class)();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (\is_callable($code)) {
             $this->setCode($code);
@@ -283,7 +287,11 @@ final class TraceableCommand extends Command implements SignalableCommandInterfa
         $event = $this->stopwatch->start($this->getName(), 'command');
 
         try {
+<<<<<<< HEAD
             $this->exitCode = parent::run($input, $output);
+=======
+            $this->exitCode = $this->command->run($input, $output);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } finally {
             $event->stop();
 

@@ -80,7 +80,11 @@ $exts = [
     'html' => ['text/html'],
     'jar' => ['application/x-java-archive'],
     'jpg' => ['image/jpeg'],
+<<<<<<< HEAD
     'js' => ['text/javascript'],
+=======
+    'js' => ['text/javascript', 'application/javascript', 'application/x-javascript'],
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     'keynote' => ['application/vnd.apple.keynote'],
     'key' => ['application/vnd.apple.keynote'],
     'm3u' => ['audio/x-mpegurl'],
@@ -88,6 +92,13 @@ $exts = [
     'md' => ['text/markdown', 'text/x-markdown'],
     'mdb' => ['application/x-msaccess'],
     'mid' => ['audio/midi'],
+<<<<<<< HEAD
+=======
+    'mk3d' => ['video/matroska'],
+    'mka' => ['audio/matroska'],
+    'mks' => ['video/matroska'],
+    'mkv' => ['video/matroska'],
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     'mov' => ['video/quicktime'],
     'mp3' => ['audio/mpeg'],
     'ogg' => ['audio/ogg'],

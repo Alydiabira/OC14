@@ -32,6 +32,10 @@ return static function (ContainerConfigurator $container) {
             ->args([
                 tagged_locator('scheduler.schedule_provider', 'name'),
                 service('event_dispatcher'),
+<<<<<<< HEAD
+=======
+                service('messenger.receiver_locator'),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ])
             ->tag('kernel.event_subscriber')
     ;

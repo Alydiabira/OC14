@@ -33,12 +33,21 @@ class FileProfilerStorage implements ProfilerStorageInterface
     public function __construct(string $dsn)
     {
         if (!str_starts_with($dsn, 'file:')) {
+<<<<<<< HEAD
             throw new \RuntimeException(sprintf('Please check your configuration. You are trying to use FileStorage with an invalid dsn "%s". The expected format is "file:/path/to/the/storage/folder".', $dsn));
         }
         $this->folder = substr($dsn, 5);
 
         if (!is_dir($this->folder) && false === @mkdir($this->folder, 0777, true) && !is_dir($this->folder)) {
             throw new \RuntimeException(sprintf('Unable to create the storage directory (%s).', $this->folder));
+=======
+            throw new \RuntimeException(\sprintf('Please check your configuration. You are trying to use FileStorage with an invalid dsn "%s". The expected format is "file:/path/to/the/storage/folder".', $dsn));
+        }
+        $this->folder = substr($dsn, 5);
+
+        if (!is_dir($this->folder) && !@mkdir($this->folder, 0o777, true) && !is_dir($this->folder)) {
+            throw new \RuntimeException(\sprintf('Unable to create the storage directory (%s).', $this->folder));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -59,7 +68,11 @@ class FileProfilerStorage implements ProfilerStorageInterface
 
         $result = [];
         while (\count($result) < $limit && $line = $this->readLineFromFile($file)) {
+<<<<<<< HEAD
             $values = str_getcsv($line);
+=======
+            $values = str_getcsv($line, ',', '"', '\\');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             if (7 > \count($values)) {
                 // skip invalid lines
@@ -143,8 +156,13 @@ class FileProfilerStorage implements ProfilerStorageInterface
         if (!$profileIndexed) {
             // Create directory
             $dir = \dirname($file);
+<<<<<<< HEAD
             if (!is_dir($dir) && false === @mkdir($dir, 0777, true) && !is_dir($dir)) {
                 throw new \RuntimeException(sprintf('Unable to create the storage directory (%s).', $dir));
+=======
+            if (!is_dir($dir) && !@mkdir($dir, 0o777, true) && !is_dir($dir)) {
+                throw new \RuntimeException(\sprintf('Unable to create the storage directory (%s).', $dir));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -152,7 +170,11 @@ class FileProfilerStorage implements ProfilerStorageInterface
         // when there are errors in sub-requests, the parent and/or children tokens
         // may equal the profile token, resulting in infinite loops
         $parentToken = $profile->getParentToken() !== $profileToken ? $profile->getParentToken() : null;
+<<<<<<< HEAD
         $childrenToken = array_filter(array_map(fn (Profile $p) => $profileToken !== $p->getToken() ? $p->getToken() : null, $profile->getChildren()));
+=======
+        $childrenToken = array_filter(array_map(static fn (Profile $p) => $profileToken !== $p->getToken() ? $p->getToken() : null, $profile->getChildren()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         // Store profile
         $data = [
@@ -193,10 +215,17 @@ class FileProfilerStorage implements ProfilerStorageInterface
                 $profile->getParentToken(),
                 $profile->getStatusCode(),
                 $profile->getVirtualType() ?? 'request',
+<<<<<<< HEAD
             ]);
             fclose($file);
 
             if (1 === mt_rand(1, 10)) {
+=======
+            ], ',', '"', '\\');
+            fclose($file);
+
+            if (1 === random_int(1, 10)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $this->removeExpiredProfiles();
             }
         }
@@ -206,9 +235,21 @@ class FileProfilerStorage implements ProfilerStorageInterface
 
     /**
      * Gets filename to store data, associated to the token.
+<<<<<<< HEAD
      */
     protected function getFilename(string $token): string
     {
+=======
+     *
+     * @throws \InvalidArgumentException when the token cannot be used as a file name
+     */
+    protected function getFilename(string $token): string
+    {
+        if (!self::isValidToken($token)) {
+            throw new \InvalidArgumentException(\sprintf('The profiler token "%s" is invalid: only letters, digits, dashes and underscores are allowed.', $token));
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         // Uses 4 last characters, because first are mostly the same.
         $folderA = substr($token, -2, 2);
         $folderB = substr($token, -4, 2);
@@ -302,7 +343,11 @@ class FileProfilerStorage implements ProfilerStorageInterface
 
     private function doRead($token, ?Profile $profile = null): ?Profile
     {
+<<<<<<< HEAD
         if (!$token || !file_exists($file = $this->getFilename($token))) {
+=======
+        if (!$token || !self::isValidToken($token) || !file_exists($file = $this->getFilename($token))) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return null;
         }
 
@@ -316,7 +361,11 @@ class FileProfilerStorage implements ProfilerStorageInterface
             $data = @gzdecode($data) ?: $data;
         }
 
+<<<<<<< HEAD
         if (!$data = unserialize($data)) {
+=======
+        if (!$data = unserialize($data, ['allowed_classes' => true])) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return null;
         }
 
@@ -334,7 +383,11 @@ class FileProfilerStorage implements ProfilerStorageInterface
         }
 
         while ($line = fgets($handle)) {
+<<<<<<< HEAD
             $values = str_getcsv($line);
+=======
+            $values = str_getcsv($line, ',', '"', '\\');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             if (7 > \count($values)) {
                 // skip invalid lines
@@ -348,11 +401,25 @@ class FileProfilerStorage implements ProfilerStorageInterface
                 break;
             }
 
+<<<<<<< HEAD
             @unlink($this->getFilename($csvToken));
+=======
+            if (self::isValidToken($csvToken)) {
+                @unlink($this->getFilename($csvToken));
+            }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $offset += \strlen($line);
         }
         fclose($handle);
 
         file_put_contents($file.'.offset', $offset);
     }
+<<<<<<< HEAD
+=======
+
+    private static function isValidToken(string $token): bool
+    {
+        return preg_match('/^[a-zA-Z0-9_-]++$/D', $token);
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

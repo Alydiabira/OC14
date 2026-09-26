@@ -12,6 +12,11 @@
 namespace Symfony\Component\PropertyInfo\Extractor;
 
 use phpDocumentor\Reflection\DocBlock;
+<<<<<<< HEAD
+=======
+use phpDocumentor\Reflection\DocBlock\Tags\Factory\StaticMethod;
+use phpDocumentor\Reflection\DocBlock\Tags\Generic;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use phpDocumentor\Reflection\DocBlock\Tags\InvalidTag;
 use phpDocumentor\Reflection\DocBlockFactory;
 use phpDocumentor\Reflection\DocBlockFactoryInterface;
@@ -36,7 +41,11 @@ class PhpDocExtractor implements PropertyDescriptionExtractorInterface, Property
     public const MUTATOR = 2;
 
     /**
+<<<<<<< HEAD
      * @var array<string, array{DocBlock|null, int|null, string|null}>
+=======
+     * @var array<string, array{DocBlock|null, int|null, string|null, string|null}>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private array $docBlocks = [];
 
@@ -60,7 +69,15 @@ class PhpDocExtractor implements PropertyDescriptionExtractorInterface, Property
     public function __construct(?DocBlockFactoryInterface $docBlockFactory = null, ?array $mutatorPrefixes = null, ?array $accessorPrefixes = null, ?array $arrayMutatorPrefixes = null)
     {
         if (!class_exists(DocBlockFactory::class)) {
+<<<<<<< HEAD
             throw new \LogicException(sprintf('Unable to use the "%s" class as the "phpdocumentor/reflection-docblock" package is not installed. Try running composer require "phpdocumentor/reflection-docblock".', __CLASS__));
+=======
+            throw new \LogicException(\sprintf('Unable to use the "%s" class as the "phpdocumentor/reflection-docblock" package is not installed. Try running composer require "phpdocumentor/reflection-docblock".', __CLASS__));
+        }
+
+        if (!is_subclass_of(Generic::class, StaticMethod::class)) {
+            throw new \LogicException('symfony/property-info v6 does not support phpdocumentor/reflection-docblock v6. Please stick to ^5.2 in your composer.json file.');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->docBlockFactory = $docBlockFactory ?: DocBlockFactory::createInstance();
@@ -73,7 +90,11 @@ class PhpDocExtractor implements PropertyDescriptionExtractorInterface, Property
 
     public function getShortDescription(string $class, string $property, array $context = []): ?string
     {
+<<<<<<< HEAD
         /** @var $docBlock DocBlock */
+=======
+        /** @var DocBlock $docBlock */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         [$docBlock] = $this->getDocBlock($class, $property);
         if (!$docBlock) {
             return null;
@@ -100,7 +121,11 @@ class PhpDocExtractor implements PropertyDescriptionExtractorInterface, Property
 
     public function getLongDescription(string $class, string $property, array $context = []): ?string
     {
+<<<<<<< HEAD
         /** @var $docBlock DocBlock */
+=======
+        /** @var DocBlock $docBlock */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         [$docBlock] = $this->getDocBlock($class, $property);
         if (!$docBlock) {
             return null;
@@ -113,8 +138,13 @@ class PhpDocExtractor implements PropertyDescriptionExtractorInterface, Property
 
     public function getTypes(string $class, string $property, array $context = []): ?array
     {
+<<<<<<< HEAD
         /** @var $docBlock DocBlock */
         [$docBlock, $source, $prefix] = $this->getDocBlock($class, $property);
+=======
+        /** @var DocBlock $docBlock */
+        [$docBlock, $source, $prefix, $declaringClass] = $this->getDocBlock($class, $property);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (!$docBlock) {
             return null;
         }
@@ -133,12 +163,22 @@ class PhpDocExtractor implements PropertyDescriptionExtractorInterface, Property
                 foreach ($this->phpDocTypeHelper->getTypes($tag->getType()) as $type) {
                     switch ($type->getClassName()) {
                         case 'self':
+<<<<<<< HEAD
+=======
+                            $resolvedClass = $declaringClass ?? $class;
+                            break;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         case 'static':
                             $resolvedClass = $class;
                             break;
 
                         case 'parent':
+<<<<<<< HEAD
                             if (false !== $resolvedClass = $parentClass ??= get_parent_class($class)) {
+=======
+                            if (false !== $resolvedClass = $parentClass ??= get_parent_class($declaringClass ?? $class)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                                 break;
                             }
                             // no break
@@ -210,18 +250,30 @@ class PhpDocExtractor implements PropertyDescriptionExtractorInterface, Property
 
     private function filterDocBlockParams(DocBlock $docBlock, string $allowedParam): DocBlock
     {
+<<<<<<< HEAD
         $tags = array_values(array_filter($docBlock->getTagsByName('param'), fn ($tag) => $tag instanceof DocBlock\Tags\Param && $allowedParam === $tag->getVariableName()));
+=======
+        $tags = array_values(array_filter($docBlock->getTagsByName('param'), static fn ($tag) => $tag instanceof DocBlock\Tags\Param && $allowedParam === $tag->getVariableName()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return new DocBlock($docBlock->getSummary(), $docBlock->getDescription(), $tags, $docBlock->getContext(),
             $docBlock->getLocation(), $docBlock->isTemplateStart(), $docBlock->isTemplateEnd());
     }
 
     /**
+<<<<<<< HEAD
      * @return array{DocBlock|null, int|null, string|null}
      */
     private function getDocBlock(string $class, string $property): array
     {
         $propertyHash = sprintf('%s::%s', $class, $property);
+=======
+     * @return array{DocBlock|null, int|null, string|null, string|null}
+     */
+    private function getDocBlock(string $class, string $property): array
+    {
+        $propertyHash = \sprintf('%s::%s', $class, $property);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (isset($this->docBlocks[$propertyHash])) {
             return $this->docBlocks[$propertyHash];
@@ -236,6 +288,7 @@ class PhpDocExtractor implements PropertyDescriptionExtractorInterface, Property
         $ucFirstProperty = ucfirst($property);
 
         switch (true) {
+<<<<<<< HEAD
             case $reflectionProperty?->isPromoted() && $docBlock = $this->getDocBlockFromConstructor($class, $property):
                 $data = [$docBlock, self::MUTATOR, null];
                 break;
@@ -254,13 +307,43 @@ class PhpDocExtractor implements PropertyDescriptionExtractorInterface, Property
 
             default:
                 $data = [null, null, null];
+=======
+            case $reflectionProperty?->isPromoted() && $docBlock = $this->getDocBlockFromConstructor($reflectionProperty->class, $property):
+                $data = [$docBlock, self::MUTATOR, null, $reflectionProperty->class];
+                break;
+
+            case [$docBlock, $declaringClass] = $this->getDocBlockFromProperty($class, $property):
+                $data = [$docBlock, self::PROPERTY, null, $declaringClass];
+                break;
+
+            case [$docBlock, , $declaringClass] = $this->getDocBlockFromMethod($class, $ucFirstProperty, self::ACCESSOR):
+                $data = [$docBlock, self::ACCESSOR, null, $declaringClass];
+                break;
+
+            case [$docBlock, $prefix, $declaringClass] = $this->getDocBlockFromMethod($class, $ucFirstProperty, self::MUTATOR):
+                $data = [$docBlock, self::MUTATOR, $prefix, $declaringClass];
+                break;
+
+            default:
+                $data = [null, null, null, null];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->docBlocks[$propertyHash] = $data;
     }
 
+<<<<<<< HEAD
     private function getDocBlockFromProperty(string $class, string $property): ?DocBlock
     {
+=======
+    /**
+     * @return array{DocBlock, string}|null
+     */
+    private function getDocBlockFromProperty(string $class, string $property, ?string $originalClass = null): ?array
+    {
+        $originalClass ??= $class;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         // Use a ReflectionProperty instead of $class to get the parent class if applicable
         try {
             $reflectionProperty = new \ReflectionProperty($class, $property);
@@ -272,45 +355,90 @@ class PhpDocExtractor implements PropertyDescriptionExtractorInterface, Property
 
         foreach ($reflector->getTraits() as $trait) {
             if ($trait->hasProperty($property)) {
+<<<<<<< HEAD
                 return $this->getDocBlockFromProperty($trait->getName(), $property);
+=======
+                return $this->getDocBlockFromProperty($trait->getName(), $property, $reflector->isTrait() ? $originalClass : $reflector->getName());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
         try {
+<<<<<<< HEAD
             return $this->docBlockFactory->create($reflectionProperty, $this->createFromReflector($reflector));
+=======
+            $declaringClass = $reflector->isTrait() ? $originalClass : $reflector->getName();
+
+            return [$this->docBlockFactory->create($reflectionProperty, $this->createFromReflector($reflector)), $declaringClass];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } catch (\InvalidArgumentException|\RuntimeException) {
             return null;
         }
     }
 
     /**
+<<<<<<< HEAD
      * @return array{DocBlock, string}|null
      */
     private function getDocBlockFromMethod(string $class, string $ucFirstProperty, int $type): ?array
     {
         $prefixes = self::ACCESSOR === $type ? $this->accessorPrefixes : $this->mutatorPrefixes;
         $prefix = null;
+=======
+     * @return array{DocBlock, string, string}|null
+     */
+    private function getDocBlockFromMethod(string $class, string $ucFirstProperty, int $type, ?string $originalClass = null): ?array
+    {
+        $originalClass ??= $class;
+        $prefixes = self::ACCESSOR === $type ? $this->accessorPrefixes : $this->mutatorPrefixes;
+        $prefix = null;
+        $method = null;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         foreach ($prefixes as $prefix) {
             $methodName = $prefix.$ucFirstProperty;
 
             try {
+<<<<<<< HEAD
                 $reflectionMethod = new \ReflectionMethod($class, $methodName);
                 if ($reflectionMethod->isStatic()) {
+=======
+                $method = new \ReflectionMethod($class, $methodName);
+                if ($method->isStatic()) {
+                    $method = null;
+
+                    continue;
+                }
+
+                if (self::ACCESSOR === $type && \in_array((string) $method->getReturnType(), ['void', 'never'], true)) {
+                    $method = null;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     continue;
                 }
 
                 if (
+<<<<<<< HEAD
                     (self::ACCESSOR === $type && 0 === $reflectionMethod->getNumberOfRequiredParameters())
                     || (self::MUTATOR === $type && $reflectionMethod->getNumberOfParameters() >= 1)
                 ) {
                     break;
                 }
+=======
+                    (self::ACCESSOR === $type && !$method->getNumberOfRequiredParameters())
+                    || (self::MUTATOR === $type && $method->getNumberOfParameters() >= 1 && $method->getNumberOfRequiredParameters() <= 1)
+                ) {
+                    break;
+                }
+
+                $method = null;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } catch (\ReflectionException) {
                 // Try the next prefix if the method doesn't exist
             }
         }
 
+<<<<<<< HEAD
         if (!isset($reflectionMethod)) {
             return null;
         }
@@ -320,11 +448,28 @@ class PhpDocExtractor implements PropertyDescriptionExtractorInterface, Property
         foreach ($reflector->getTraits() as $trait) {
             if ($trait->hasMethod($methodName)) {
                 return $this->getDocBlockFromMethod($trait->getName(), $ucFirstProperty, $type);
+=======
+        if (!$method) {
+            return null;
+        }
+
+        $reflector = $method->getDeclaringClass();
+
+        foreach ($reflector->getTraits() as $trait) {
+            if ($trait->hasMethod($methodName)) {
+                return $this->getDocBlockFromMethod($trait->getName(), $ucFirstProperty, $type, $reflector->isTrait() ? $originalClass : $reflector->getName());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
         try {
+<<<<<<< HEAD
             return [$this->docBlockFactory->create($reflectionMethod, $this->createFromReflector($reflector)), $prefix];
+=======
+            $declaringClass = $reflector->isTrait() ? $originalClass : $reflector->getName();
+
+            return [$this->docBlockFactory->create($method, $this->createFromReflector($reflector)), $prefix, $declaringClass];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } catch (\InvalidArgumentException|\RuntimeException) {
             return null;
         }

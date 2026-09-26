@@ -110,11 +110,19 @@ final class Test
     }
 
     /**
+<<<<<<< HEAD
      * @throws CodeCoverageException
      *
      * @return array|bool
      *
      * @psalm-param class-string $className
+=======
+     * @psalm-param class-string $className
+     *
+     * @throws CodeCoverageException
+     *
+     * @return array|bool
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public static function getLinesToBeCovered(string $className, string $methodName)
     {
@@ -133,9 +141,15 @@ final class Test
     /**
      * Returns lines of code specified with the @uses annotation.
      *
+<<<<<<< HEAD
      * @throws CodeCoverageException
      *
      * @psalm-param class-string $className
+=======
+     * @psalm-param class-string $className
+     *
+     * @throws CodeCoverageException
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public static function getLinesToBeUsed(string $className, string $methodName): array
     {
@@ -175,9 +189,15 @@ final class Test
     }
 
     /**
+<<<<<<< HEAD
      * @throws Exception
      *
      * @psalm-param class-string $className
+=======
+     * @psalm-param class-string $className
+     *
+     * @throws Exception
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public static function getRequirements(string $className, string $methodName): array
     {
@@ -190,10 +210,17 @@ final class Test
     /**
      * Returns the missing requirements for a test.
      *
+<<<<<<< HEAD
      * @throws Exception
      * @throws Warning
      *
      * @psalm-param class-string $className
+=======
+     * @psalm-param class-string $className
+     *
+     * @throws Exception
+     * @throws Warning
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public static function getMissingRequirements(string $className, string $methodName): array
     {
@@ -320,9 +347,15 @@ final class Test
     /**
      * Returns the provided data for a method.
      *
+<<<<<<< HEAD
      * @throws Exception
      *
      * @psalm-param class-string $className
+=======
+     * @psalm-param class-string $className
+     *
+     * @throws Exception
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public static function getProvidedData(string $className, string $methodName): ?array
     {
@@ -597,9 +630,15 @@ final class Test
     }
 
     /**
+<<<<<<< HEAD
      * @throws CodeCoverageException
      *
      * @psalm-param class-string $className
+=======
+     * @psalm-param class-string $className
+     *
+     * @throws CodeCoverageException
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private static function getLinesToBeCoveredOrUsed(string $className, string $methodName, string $mode): array
     {

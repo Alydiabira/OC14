@@ -33,14 +33,22 @@ class MoneyToLocalizedStringTransformer extends NumberToLocalizedStringTransform
     /**
      * Transforms a normalized format into a localized money string.
      *
+<<<<<<< HEAD
      * @param int|float|null $value Normalized number
+=======
+     * @param int|float|string|null $value Normalized number
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws TransformationFailedException if the given value is not numeric or
      *                                       if the value cannot be transformed
      */
     public function transform(mixed $value): string
     {
+<<<<<<< HEAD
         if (null !== $value && 1 !== $this->divisor) {
+=======
+        if (null !== $value && '' !== $value && 1 !== $this->divisor) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (!is_numeric($value)) {
                 throw new TransformationFailedException('Expected a numeric.');
             }

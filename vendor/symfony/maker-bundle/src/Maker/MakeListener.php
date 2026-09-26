@@ -23,6 +23,10 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
+<<<<<<< HEAD
+=======
+use Symfony\Component\Console\Question\ConfirmationQuestion;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -65,7 +69,11 @@ final class MakeListener extends AbstractMaker
         $command
             ->addArgument('name', InputArgument::OPTIONAL, 'Choose a class name for your event listener or subscriber (e.g. <fg=yellow>ExceptionListener</> or <fg=yellow>ExceptionSubscriber</>)')
             ->addArgument('event', InputArgument::OPTIONAL, 'What event do you want to listen to?')
+<<<<<<< HEAD
             ->setHelp(file_get_contents(__DIR__.'/../Resources/help/MakeListener.txt'))
+=======
+            ->setHelp($this->getHelpFileContents('MakeListener.txt'))
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ;
 
         $inputConfig->setArgumentAsNonInteractive('event');
@@ -96,12 +104,51 @@ final class MakeListener extends AbstractMaker
 
             $io->writeln(' <fg=green>Suggested Events:</>');
             $io->listing($this->eventRegistry->listActiveEvents($events));
+<<<<<<< HEAD
             $question = new Question(sprintf(' <fg=green>%s</>', $command->getDefinition()->getArgument('event')->getDescription()));
+=======
+            $question = new Question(\sprintf(' <fg=green>%s</>', $command->getDefinition()->getArgument('event')->getDescription()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $question->setAutocompleterValues($events);
             $question->setValidator(Validator::notBlank(...));
             $event = $io->askQuestion($question);
             $input->setArgument('event', $event);
         }
+<<<<<<< HEAD
+=======
+
+        $event = $input->getArgument('event');
+        if (null === $this->getEventConstant($event) && null === $this->eventRegistry->getEventClassName($event)) {
+            $eventList = $this->eventRegistry->getAllActiveEvents();
+            $eventFQCNList = array_filter(array_map($this->eventRegistry->getEventClassName(...), $eventList), static fn ($eventFQCN) => \is_string($eventFQCN));
+            $eventIdAndFQCNList = array_unique(array_merge($eventList, $eventFQCNList));
+            $suggestionList = [];
+
+            foreach ($eventIdAndFQCNList as $eventSuggestion) {
+                if (levenshtein($event, Str::getShortClassName($eventSuggestion)) < 3) {
+                    $suggestionList[] = $eventSuggestion;
+                }
+            }
+
+            if (!$suggestionList) {
+                return;
+            }
+
+            if (1 === \count($suggestionList)) {
+                $question = new ConfirmationQuestion(\sprintf('<fg=green>Did you mean</> <fg=yellow>"%s"</> <fg=green>?</>', $suggestionList[0]), false);
+                $input->setArgument('event', $io->askQuestion($question) ? $suggestionList[0] : $event);
+
+                return;
+            }
+
+            $io->writeln(' <fg=yellow>Did you mean one of these events?</>');
+            $io->listing($suggestionList);
+            $question = new Question(\sprintf(' <fg=green>%s</>', $command->getDefinition()->getArgument('event')->getDescription()), $event);
+            $question->setAutocompleterValues(array_merge($suggestionList, [$event]));
+
+            $input->setArgument('event', $io->askQuestion($question));
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function generate(InputInterface $input, ConsoleStyle $io, Generator $generator): void
@@ -120,6 +167,7 @@ final class MakeListener extends AbstractMaker
         $eventFullClassName = $this->eventRegistry->getEventClassName($event);
         $eventClassName = $eventFullClassName ? Str::getShortClassName($eventFullClassName) : null;
 
+<<<<<<< HEAD
         if (null !== ($eventConstant = $this->getEventConstant($event))) {
             $useStatements->addUseStatement(KernelEvents::class);
             $eventName = $eventConstant;
@@ -127,6 +175,14 @@ final class MakeListener extends AbstractMaker
             $eventName = class_exists($event) ? sprintf('%s::class', $eventClassName) : sprintf('\'%s\'', $event);
         }
 
+=======
+        if ($this->getEventConstant($event)) {
+            $event = $eventFullClassName;
+        }
+
+        $eventName = class_exists($event) ? \sprintf('%s::class', $eventClassName) : \sprintf('\'%s\'', $event);
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (null !== $eventFullClassName) {
             $useStatements->addUseStatement($eventFullClassName);
         }
@@ -148,7 +204,11 @@ final class MakeListener extends AbstractMaker
         $constants = (new \ReflectionClass(KernelEvents::class))->getConstants();
 
         if (false !== ($name = array_search($event, $constants, true))) {
+<<<<<<< HEAD
             return sprintf('KernelEvents::%s', $name);
+=======
+            return \sprintf('KernelEvents::%s', $name);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return null;
@@ -168,7 +228,11 @@ final class MakeListener extends AbstractMaker
             [
                 'use_statements' => $useStatements,
                 'event' => $eventName,
+<<<<<<< HEAD
                 'event_arg' => $eventClassName ? sprintf('%s $event', $eventClassName) : '$event',
+=======
+                'event_arg' => $eventClassName ? \sprintf('%s $event', $eventClassName) : '$event',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'method_name' => class_exists($event) ? Str::asEventMethod($eventClassName) : Str::asEventMethod($event),
             ]
         );
@@ -197,7 +261,12 @@ final class MakeListener extends AbstractMaker
             [
                 'use_statements' => $useStatements,
                 'event' => $eventName,
+<<<<<<< HEAD
                 'event_arg' => $eventClassName ? sprintf('%s $event', $eventClassName) : '$event',
+=======
+                'class_event' => str_ends_with($eventName, '::class'),
+                'event_arg' => $eventClassName ? \sprintf('%s $event', $eventClassName) : '$event',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'method_name' => class_exists($event) ? Str::asEventMethod($eventClassName) : Str::asEventMethod($event),
             ]
         );

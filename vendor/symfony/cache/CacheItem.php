@@ -11,6 +11,10 @@
 
 namespace Symfony\Component\Cache;
 
+<<<<<<< HEAD
+=======
+use Psr\Cache\CacheItemInterface;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Cache\Exception\InvalidArgumentException;
 use Symfony\Component\Cache\Exception\LogicException;
@@ -30,7 +34,11 @@ final class CacheItem implements ItemInterface
     protected float|int|null $expiry = null;
     protected array $metadata = [];
     protected array $newMetadata = [];
+<<<<<<< HEAD
     protected ?ItemInterface $innerItem = null;
+=======
+    protected ?CacheItemInterface $innerItem = null;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected ?string $poolHash = null;
     protected bool $isTaggable = false;
 
@@ -81,7 +89,11 @@ final class CacheItem implements ItemInterface
         } elseif (\is_int($time)) {
             $this->expiry = $time + microtime(true);
         } else {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Expiration date must be an integer, a DateInterval or null, "%s" given.', get_debug_type($time)));
+=======
+            throw new InvalidArgumentException(\sprintf('Expiration date must be an integer, a DateInterval or null, "%s" given.', get_debug_type($time)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this;
@@ -90,14 +102,22 @@ final class CacheItem implements ItemInterface
     public function tag(mixed $tags): static
     {
         if (!$this->isTaggable) {
+<<<<<<< HEAD
             throw new LogicException(sprintf('Cache item "%s" comes from a non tag-aware pool: you cannot tag it.', $this->key));
+=======
+            throw new LogicException(\sprintf('Cache item "%s" comes from a non tag-aware pool: you cannot tag it.', $this->key));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         if (!\is_array($tags) && !$tags instanceof \Traversable) { // don't use is_iterable(), it's slow
             $tags = [$tags];
         }
         foreach ($tags as $tag) {
             if (!\is_string($tag) && !$tag instanceof \Stringable) {
+<<<<<<< HEAD
                 throw new InvalidArgumentException(sprintf('Cache tag must be string or object that implements __toString(), "%s" given.', get_debug_type($tag)));
+=======
+                throw new InvalidArgumentException(\sprintf('Cache tag must be string or object that implements __toString(), "%s" given.', get_debug_type($tag)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $tag = (string) $tag;
             if (isset($this->newMetadata[self::METADATA_TAGS][$tag])) {
@@ -107,7 +127,11 @@ final class CacheItem implements ItemInterface
                 throw new InvalidArgumentException('Cache tag length must be greater than zero.');
             }
             if (false !== strpbrk($tag, self::RESERVED_CHARACTERS)) {
+<<<<<<< HEAD
                 throw new InvalidArgumentException(sprintf('Cache tag "%s" contains reserved characters "%s".', $tag, self::RESERVED_CHARACTERS));
+=======
+                throw new InvalidArgumentException(\sprintf('Cache tag "%s" contains reserved characters "%s".', $tag, self::RESERVED_CHARACTERS));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $this->newMetadata[self::METADATA_TAGS][$tag] = $tag;
         }
@@ -130,13 +154,21 @@ final class CacheItem implements ItemInterface
     public static function validateKey($key): string
     {
         if (!\is_string($key)) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Cache key must be string, "%s" given.', get_debug_type($key)));
+=======
+            throw new InvalidArgumentException(\sprintf('Cache key must be string, "%s" given.', get_debug_type($key)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         if ('' === $key) {
             throw new InvalidArgumentException('Cache key length must be greater than zero.');
         }
         if (false !== strpbrk($key, self::RESERVED_CHARACTERS)) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Cache key "%s" contains reserved characters "%s".', $key, self::RESERVED_CHARACTERS));
+=======
+            throw new InvalidArgumentException(\sprintf('Cache key "%s" contains reserved characters "%s".', $key, self::RESERVED_CHARACTERS));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $key;
@@ -169,6 +201,13 @@ final class CacheItem implements ItemInterface
         }
         $valueWrapper = self::VALUE_WRAPPER;
 
+<<<<<<< HEAD
+=======
+        if ($this->value instanceof $valueWrapper) {
+            return new $valueWrapper($this->value->value, $m + ['expiry' => $this->expiry] + $this->value->metadata);
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return new $valueWrapper($this->value, $m + ['expiry' => $this->expiry]);
     }
 
@@ -196,3 +235,8 @@ final class CacheItem implements ItemInterface
         return true;
     }
 }
+<<<<<<< HEAD
+=======
+
+// @php-cs-fixer-ignore protected_to_private Friend-level scope access relies on protected properties
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96

@@ -26,6 +26,7 @@ class ResolveClassPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         foreach ($container->getDefinitions() as $id => $definition) {
+<<<<<<< HEAD
             if ($definition->isSynthetic() || null !== $definition->getClass()) {
                 continue;
             }
@@ -35,6 +36,19 @@ class ResolveClassPass implements CompilerPassInterface
                 }
                 $definition->setClass($id);
             }
+=======
+            if ($definition->isSynthetic()
+                || $definition->hasErrors()
+                || null !== $definition->getClass()
+                || !preg_match('/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*+(?:\\\\[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*+)++$/', $id)
+            ) {
+                continue;
+            }
+            if ($definition instanceof ChildDefinition && !class_exists($id)) {
+                throw new InvalidArgumentException(\sprintf('Service definition "%s" has a parent but no class, and its name looks like an FQCN. Either the class is missing or you want to inherit it from the parent service. To resolve this ambiguity, please rename this service to a non-FQCN (e.g. using dots), or create the missing class.', $id));
+            }
+            $definition->setClass($id);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

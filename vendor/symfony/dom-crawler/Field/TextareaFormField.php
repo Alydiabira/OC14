@@ -28,6 +28,7 @@ class TextareaFormField extends FormField
     protected function initialize()
     {
         if ('textarea' !== $this->node->nodeName) {
+<<<<<<< HEAD
             throw new \LogicException(sprintf('A TextareaFormField can only be created from a textarea tag (%s given).', $this->node->nodeName));
         }
 
@@ -35,5 +36,11 @@ class TextareaFormField extends FormField
         foreach ($this->node->childNodes as $node) {
             $this->value .= $node->wholeText;
         }
+=======
+            throw new \LogicException(\sprintf('A TextareaFormField can only be created from a textarea tag (%s given).', $this->node->nodeName));
+        }
+
+        $this->value = $this->node->textContent;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

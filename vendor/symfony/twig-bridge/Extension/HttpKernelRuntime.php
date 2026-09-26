@@ -57,7 +57,11 @@ final class HttpKernelRuntime
     public function generateFragmentUri(ControllerReference $controller, bool $absolute = false, bool $strict = true, bool $sign = true): string
     {
         if (null === $this->fragmentUriGenerator) {
+<<<<<<< HEAD
             throw new \LogicException(sprintf('An instance of "%s" must be provided to use "%s()".', FragmentUriGeneratorInterface::class, __METHOD__));
+=======
+            throw new \LogicException(\sprintf('An instance of "%s" must be provided to use "%s()".', FragmentUriGeneratorInterface::class, __METHOD__));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->fragmentUriGenerator->generate($controller, null, $absolute, $strict, $sign);

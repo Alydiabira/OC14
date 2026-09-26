@@ -19,6 +19,10 @@ use Symfony\Component\Form\ChoiceList\View\ChoiceView;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormRenderer;
 use Symfony\Component\Form\FormView;
+<<<<<<< HEAD
+=======
+use Symfony\Contracts\Translation\TranslatableInterface;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -149,23 +153,43 @@ final class FormExtension extends AbstractExtension
     private function createFieldChoicesList(iterable $choices, string|false|null $translationDomain): iterable
     {
         foreach ($choices as $choice) {
+<<<<<<< HEAD
             $translatableLabel = $this->createFieldTranslation($choice->label, [], $translationDomain);
 
             if ($choice instanceof ChoiceGroupView) {
+=======
+            if ($choice instanceof ChoiceGroupView) {
+                $translatableLabel = $this->createFieldTranslation($choice->label, [], $translationDomain);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 yield $translatableLabel => $this->createFieldChoicesList($choice, $translationDomain);
 
                 continue;
             }
 
+<<<<<<< HEAD
             /* @var ChoiceView $choice */
+=======
+            /** @var ChoiceView $choice */
+            $translatableLabel = $this->createFieldTranslation($choice->label, $choice->labelTranslationParameters, $translationDomain);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             yield $translatableLabel => $choice->value;
         }
     }
 
+<<<<<<< HEAD
     private function createFieldTranslation(?string $value, array $parameters, string|false|null $domain): ?string
     {
         if (!$this->translator || !$value || false === $domain) {
             return $value;
+=======
+    private function createFieldTranslation(TranslatableInterface|string|null $value, array $parameters, string|false|null $domain): ?string
+    {
+        if (!$this->translator || !$value || false === $domain) {
+            return null !== $value ? (string) $value : null;
+        }
+        if ($value instanceof TranslatableInterface) {
+            return $value->trans($this->translator);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->translator->trans($value, $parameters, $domain);

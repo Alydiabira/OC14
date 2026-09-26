@@ -50,10 +50,17 @@ class WindowsPipes extends AbstractPipes
             ];
             $tmpDir = sys_get_temp_dir();
             $lastError = 'unknown reason';
+<<<<<<< HEAD
             set_error_handler(function ($type, $msg) use (&$lastError) { $lastError = $msg; });
             for ($i = 0;; ++$i) {
                 foreach ($pipes as $pipe => $name) {
                     $file = sprintf('%s\\sf_proc_%02X.%s', $tmpDir, $i, $name);
+=======
+            set_error_handler(static function ($type, $msg) use (&$lastError) { $lastError = $msg; });
+            for ($i = 0;; ++$i) {
+                foreach ($pipes as $pipe => $name) {
+                    $file = \sprintf('%s\\sf_proc_%02X.%s', $tmpDir, $i, $name);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                     if (!$h = fopen($file.'.lock', 'w')) {
                         if (file_exists($file.'.lock')) {
@@ -88,12 +95,20 @@ class WindowsPipes extends AbstractPipes
         parent::__construct($input);
     }
 
+<<<<<<< HEAD
     public function __sleep(): array
+=======
+    public function __serialize(): array
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
     }
 
+<<<<<<< HEAD
     public function __wakeup(): void
+=======
+    public function __unserialize(array $data): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
     }

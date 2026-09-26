@@ -17,13 +17,22 @@ class Standard extends PrettyPrinterAbstract {
     // Special nodes
 
     protected function pParam(Node\Param $node): string {
+<<<<<<< HEAD
         return $this->pAttrGroups($node->attrGroups, true)
+=======
+        return $this->pAttrGroups($node->attrGroups, $this->phpVersion->supportsAttributes())
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
              . $this->pModifiers($node->flags)
              . ($node->type ? $this->p($node->type) . ' ' : '')
              . ($node->byRef ? '&' : '')
              . ($node->variadic ? '...' : '')
              . $this->p($node->var)
+<<<<<<< HEAD
              . ($node->default ? ' = ' . $this->p($node->default) : '');
+=======
+             . ($node->default ? ' = ' . $this->p($node->default) : '')
+             . ($node->hooks ? ' {' . $this->pStmts($node->hooks) . $this->nl . '}' : '');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function pArg(Node\Arg $node): string {
@@ -125,6 +134,13 @@ class Standard extends PrettyPrinterAbstract {
         return '__TRAIT__';
     }
 
+<<<<<<< HEAD
+=======
+    protected function pScalar_MagicConst_Property(MagicConst\Property $node): string {
+        return '__PROPERTY__';
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     // Scalars
 
     private function indentString(string $str): string {
@@ -192,6 +208,13 @@ class Standard extends PrettyPrinterAbstract {
     }
 
     protected function pScalar_Int(Scalar\Int_ $node): string {
+<<<<<<< HEAD
+=======
+        if ($node->getAttribute('shouldPrintRawValue') === true) {
+            return $node->getAttribute('rawValue');
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ($node->value === -\PHP_INT_MAX - 1) {
             // PHP_INT_MIN cannot be represented as a literal,
             // because the sign is not part of the literal
@@ -199,6 +222,10 @@ class Standard extends PrettyPrinterAbstract {
         }
 
         $kind = $node->getAttribute('kind', Scalar\Int_::KIND_DEC);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (Scalar\Int_::KIND_DEC === $kind) {
             return (string) $node->value;
         }
@@ -420,6 +447,17 @@ class Standard extends PrettyPrinterAbstract {
         return $this->pInfixOp(BinaryOp\Coalesce::class, $node->left, ' ?? ', $node->right, $precedence, $lhsPrecedence);
     }
 
+<<<<<<< HEAD
+=======
+    protected function pExpr_BinaryOp_Pipe(BinaryOp\Pipe $node, int $precedence, int $lhsPrecedence): string {
+        if ($node->right instanceof Expr\ArrowFunction) {
+            // Force parentheses around arrow functions.
+            $lhsPrecedence = $this->precedenceMap[Expr\ArrowFunction::class][0];
+        }
+        return $this->pInfixOp(BinaryOp\Pipe::class, $node->left, ' |> ', $node->right, $precedence, $lhsPrecedence);
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected function pExpr_Instanceof(Expr\Instanceof_ $node, int $precedence, int $lhsPrecedence): string {
         return $this->pPostfixOp(
             Expr\Instanceof_::class, $node->expr,
@@ -512,6 +550,13 @@ class Standard extends PrettyPrinterAbstract {
         return $this->pPrefixOp(Cast\Unset_::class, '(unset) ', $node->expr, $precedence, $lhsPrecedence);
     }
 
+<<<<<<< HEAD
+=======
+    protected function pExpr_Cast_Void(Cast\Void_ $node, int $precedence, int $lhsPrecedence): string {
+        return $this->pPrefixOp(Cast\Void_::class, '(void) ', $node->expr, $precedence, $lhsPrecedence);
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     // Function calls and similar constructs
 
     protected function pExpr_FuncCall(Expr\FuncCall $node): string {
@@ -651,7 +696,11 @@ class Standard extends PrettyPrinterAbstract {
         return $this->pAttrGroups($node->attrGroups, true)
              . $this->pStatic($node->static)
              . 'function ' . ($node->byRef ? '&' : '')
+<<<<<<< HEAD
              . '(' . $this->pMaybeMultiline($node->params, $this->phpVersion->supportsTrailingCommaInParamList()) . ')'
+=======
+             . '(' . $this->pParams($node->params) . ')'
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
              . (!empty($node->uses) ? ' use (' . $this->pCommaSeparated($node->uses) . ')' : '')
              . (null !== $node->returnType ? ': ' . $this->p($node->returnType) : '')
              . ' {' . $this->pStmts($node->stmts) . $this->nl . '}';
@@ -683,7 +732,11 @@ class Standard extends PrettyPrinterAbstract {
             $this->pAttrGroups($node->attrGroups, true)
             . $this->pStatic($node->static)
             . 'fn' . ($node->byRef ? '&' : '')
+<<<<<<< HEAD
             . '(' . $this->pMaybeMultiline($node->params, $this->phpVersion->supportsTrailingCommaInParamList()) . ')'
+=======
+            . '(' . $this->pParams($node->params) . ')'
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             . (null !== $node->returnType ? ': ' . $this->p($node->returnType) : '')
             . ' => ',
             $node->expr, $precedence, $lhsPrecedence);
@@ -827,7 +880,12 @@ class Standard extends PrettyPrinterAbstract {
         return $this->pAttrGroups($node->attrGroups)
             . (0 === $node->flags ? 'var ' : $this->pModifiers($node->flags))
             . ($node->type ? $this->p($node->type) . ' ' : '')
+<<<<<<< HEAD
             . $this->pCommaSeparated($node->props) . ';';
+=======
+            . $this->pCommaSeparated($node->props)
+            . ($node->hooks ? ' {' . $this->pStmts($node->hooks) . $this->nl . '}' : ';');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function pPropertyItem(Node\PropertyItem $node): string {
@@ -835,11 +893,27 @@ class Standard extends PrettyPrinterAbstract {
              . (null !== $node->default ? ' = ' . $this->p($node->default) : '');
     }
 
+<<<<<<< HEAD
+=======
+    protected function pPropertyHook(Node\PropertyHook $node): string {
+        return $this->pAttrGroups($node->attrGroups)
+             . $this->pModifiers($node->flags)
+             . ($node->byRef ? '&' : '') . $node->name
+             . ($node->params ? '(' . $this->pParams($node->params) . ')' : '')
+             . (\is_array($node->body) ? ' {' . $this->pStmts($node->body) . $this->nl . '}'
+                : ($node->body !== null ? ' => ' . $this->p($node->body) : '') . ';');
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected function pStmt_ClassMethod(Stmt\ClassMethod $node): string {
         return $this->pAttrGroups($node->attrGroups)
              . $this->pModifiers($node->flags)
              . 'function ' . ($node->byRef ? '&' : '') . $node->name
+<<<<<<< HEAD
              . '(' . $this->pMaybeMultiline($node->params, $this->phpVersion->supportsTrailingCommaInParamList()) . ')'
+=======
+             . '(' . $this->pParams($node->params) . ')'
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
              . (null !== $node->returnType ? ': ' . $this->p($node->returnType) : '')
              . (null !== $node->stmts
                 ? $this->nl . '{' . $this->pStmts($node->stmts) . $this->nl . '}'
@@ -857,13 +931,23 @@ class Standard extends PrettyPrinterAbstract {
     protected function pStmt_Function(Stmt\Function_ $node): string {
         return $this->pAttrGroups($node->attrGroups)
              . 'function ' . ($node->byRef ? '&' : '') . $node->name
+<<<<<<< HEAD
              . '(' . $this->pMaybeMultiline($node->params, $this->phpVersion->supportsTrailingCommaInParamList()) . ')'
+=======
+             . '(' . $this->pParams($node->params) . ')'
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
              . (null !== $node->returnType ? ': ' . $this->p($node->returnType) : '')
              . $this->nl . '{' . $this->pStmts($node->stmts) . $this->nl . '}';
     }
 
     protected function pStmt_Const(Stmt\Const_ $node): string {
+<<<<<<< HEAD
         return 'const ' . $this->pCommaSeparated($node->consts) . ';';
+=======
+        return $this->pAttrGroups($node->attrGroups)
+            . 'const '
+            . $this->pCommaSeparated($node->consts) . ';';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function pStmt_Declare(Stmt\Declare_ $node): string {
@@ -1164,6 +1248,30 @@ class Standard extends PrettyPrinterAbstract {
         }
     }
 
+<<<<<<< HEAD
+=======
+    /** @param Node\Param[] $params
+     */
+    private function hasParamWithAttributes(array $params): bool {
+        foreach ($params as $param) {
+            if ($param->attrGroups) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /** @param Node\Param[] $params */
+    protected function pParams(array $params): string {
+        if ($this->hasNodeWithComments($params) ||
+            ($this->hasParamWithAttributes($params) && !$this->phpVersion->supportsAttributes())
+        ) {
+            return $this->pCommaSeparatedMultiline($params, $this->phpVersion->supportsTrailingCommaInParamList()) . $this->nl;
+        }
+        return $this->pCommaSeparated($params);
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /** @param Node\AttributeGroup[] $nodes */
     protected function pAttrGroups(array $nodes, bool $inline = false): string {
         $result = '';

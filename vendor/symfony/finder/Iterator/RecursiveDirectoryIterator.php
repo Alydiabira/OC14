@@ -63,8 +63,14 @@ class RecursiveDirectoryIterator extends \RecursiveDirectoryIterator
             $subPathname .= $this->directorySeparator;
         }
         $subPathname .= $this->getFilename();
+<<<<<<< HEAD
 
         if ('/' !== $basePath = $this->rootPath) {
+=======
+        $basePath = $this->rootPath;
+
+        if ('/' !== $basePath && !str_ends_with($basePath, $this->directorySeparator) && !str_ends_with($basePath, '/')) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $basePath .= $this->directorySeparator;
         }
 

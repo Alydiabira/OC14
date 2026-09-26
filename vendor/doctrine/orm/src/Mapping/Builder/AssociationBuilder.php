@@ -113,6 +113,13 @@ class AssociationBuilder
         string|null $onDelete = null,
         string|null $columnDef = null,
     ): static {
+<<<<<<< HEAD
+=======
+        if ($this->mapping['id'] ?? false) {
+            $nullable = null;
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->joinColumns[] = [
             'name' => $columnName,
             'referencedColumnName' => $referencedColumnName,
@@ -133,6 +140,12 @@ class AssociationBuilder
     public function makePrimaryKey(): static
     {
         $this->mapping['id'] = true;
+<<<<<<< HEAD
+=======
+        foreach ($this->joinColumns ?? [] as $i => $joinColumn) {
+            $this->joinColumns[$i]['nullable'] = null;
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this;
     }

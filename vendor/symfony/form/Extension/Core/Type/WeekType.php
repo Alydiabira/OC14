@@ -42,7 +42,10 @@ class WeekType extends AbstractType
         } else {
             $yearOptions = $weekOptions = [
                 'error_bubbling' => true,
+<<<<<<< HEAD
                 'empty_data' => '',
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ];
             // when the form is compound the entries of the array are ignored in favor of children data
             // so we need to handle the cascade setting here
@@ -154,7 +157,11 @@ class WeekType extends AbstractType
         $resolver->setNormalizer('choice_translation_domain', $choiceTranslationDomainNormalizer);
         $resolver->setNormalizer('html5', static function (Options $options, $html5) {
             if ($html5 && 'single_text' !== $options['widget']) {
+<<<<<<< HEAD
                 throw new LogicException(sprintf('The "widget" option of "%s" must be set to "single_text" when the "html5" option is enabled.', self::class));
+=======
+                throw new LogicException(\sprintf('The "widget" option of "%s" must be set to "single_text" when the "html5" option is enabled.', self::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return $html5;

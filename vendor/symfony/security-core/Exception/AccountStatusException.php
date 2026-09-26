@@ -48,7 +48,10 @@ abstract class AccountStatusException extends AuthenticationException
     public function __unserialize(array $data): void
     {
         [$this->user, $parentData] = $data;
+<<<<<<< HEAD
         $parentData = \is_array($parentData) ? $parentData : unserialize($parentData);
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         parent::__unserialize($parentData);
     }
 }

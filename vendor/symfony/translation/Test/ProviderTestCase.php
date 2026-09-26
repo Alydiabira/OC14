@@ -14,10 +14,20 @@ namespace Symfony\Component\Translation\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
+<<<<<<< HEAD
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\Translation\Dumper\XliffFileDumper;
 use Symfony\Component\Translation\Loader\LoaderInterface;
 use Symfony\Component\Translation\Provider\ProviderInterface;
+=======
+use Psr\Log\NullLogger;
+use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\Translation\Dumper\XliffFileDumper;
+use Symfony\Component\Translation\Loader\ArrayLoader;
+use Symfony\Component\Translation\Loader\LoaderInterface;
+use Symfony\Component\Translation\Provider\ProviderInterface;
+use Symfony\Component\Translation\TranslatorBag;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Translation\TranslatorBagInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -57,12 +67,20 @@ abstract class ProviderTestCase extends TestCase
 
     protected function getLoader(): LoaderInterface
     {
+<<<<<<< HEAD
         return $this->loader ??= $this->createMock(LoaderInterface::class);
+=======
+        return $this->loader ??= new ArrayLoader();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function getLogger(): LoggerInterface
     {
+<<<<<<< HEAD
         return $this->logger ??= $this->createMock(LoggerInterface::class);
+=======
+        return $this->logger ??= new NullLogger();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function getDefaultLocale(): string
@@ -72,11 +90,19 @@ abstract class ProviderTestCase extends TestCase
 
     protected function getXliffFileDumper(): XliffFileDumper
     {
+<<<<<<< HEAD
         return $this->xliffFileDumper ??= $this->createMock(XliffFileDumper::class);
+=======
+        return $this->xliffFileDumper ??= new XliffFileDumper();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function getTranslatorBag(): TranslatorBagInterface
     {
+<<<<<<< HEAD
         return $this->translatorBag ??= $this->createMock(TranslatorBagInterface::class);
+=======
+        return $this->translatorBag ??= new TranslatorBag();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

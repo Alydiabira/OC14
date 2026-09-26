@@ -15,6 +15,7 @@ if ('cli' !== \PHP_SAPI) {
 
 $usageInstructions = <<<END
 
+<<<<<<< HEAD
   Usage instructions
   -------------------------------------------------------------------------------
 
@@ -36,6 +37,29 @@ $usageInstructions = <<<END
   $ php translation-status.php fr -v
 
 END;
+=======
+      Usage instructions
+      -------------------------------------------------------------------------------
+
+      $ cd symfony-code-root-directory/
+
+      # show the translation status of all locales
+      $ php translation-status.php
+
+      # only show the translation status of incomplete or erroneous locales
+      $ php translation-status.php --incomplete
+
+      # show the translation status of all locales, all their missing translations and mismatches between trans-unit id and source
+      $ php translation-status.php -v
+
+      # show the status of a single locale
+      $ php translation-status.php fr
+
+      # show the status of a single locale, missing translations and mismatches between trans-unit id and source
+      $ php translation-status.php fr -v
+
+    END;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 $config = [
     // if TRUE, the full list of missing translations is displayed
@@ -87,8 +111,13 @@ foreach ($config['original_files'] as $originalFilePath) {
     $translationFilePaths = findTranslationFiles($originalFilePath, $config['locale_to_analyze']);
     $translationStatus = calculateTranslationStatus($originalFilePath, $translationFilePaths);
 
+<<<<<<< HEAD
     $totalMissingTranslations += array_sum(array_map(fn ($translation) => count($translation['missingKeys']), array_values($translationStatus)));
     $totalTranslationMismatches += array_sum(array_map(fn ($translation) => count($translation['mismatches']), array_values($translationStatus)));
+=======
+    $totalMissingTranslations += array_sum(array_map(static fn ($translation) => count($translation['missingKeys']), array_values($translationStatus)));
+    $totalTranslationMismatches += array_sum(array_map(static fn ($translation) => count($translation['mismatches']), array_values($translationStatus)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     printTranslationStatus($originalFilePath, $translationStatus, $config['verbose_output'], $config['include_completed_languages']);
 }
@@ -218,7 +247,11 @@ function printTable($translations, $verboseOutput, bool $includeCompletedLanguag
 
         if ($translation['translated'] > $translation['total']) {
             textColorRed();
+<<<<<<< HEAD
         } elseif (count($translation['mismatches']) > 0) {
+=======
+        } elseif ($translation['mismatches']) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             textColorRed();
         } elseif ($translation['is_completed']) {
             textColorGreen();
@@ -235,7 +268,11 @@ function printTable($translations, $verboseOutput, bool $includeCompletedLanguag
         textColorNormal();
 
         $shouldBeClosed = false;
+<<<<<<< HEAD
         if (true === $verboseOutput && count($translation['missingKeys']) > 0) {
+=======
+        if ($verboseOutput && $translation['missingKeys']) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             echo '|    Missing Translations:'.\PHP_EOL;
 
             foreach ($translation['missingKeys'] as $id => $content) {
@@ -243,7 +280,11 @@ function printTable($translations, $verboseOutput, bool $includeCompletedLanguag
             }
             $shouldBeClosed = true;
         }
+<<<<<<< HEAD
         if (true === $verboseOutput && count($translation['mismatches']) > 0) {
+=======
+        if ($verboseOutput && $translation['mismatches']) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             echo '|    Mismatches between trans-unit id and source:'.\PHP_EOL;
 
             foreach ($translation['mismatches'] as $id => $content) {

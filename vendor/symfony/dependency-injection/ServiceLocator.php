@@ -46,11 +46,19 @@ class ServiceLocator implements ServiceProviderInterface, \Countable
         try {
             return $this->doGet($id);
         } catch (RuntimeException $e) {
+<<<<<<< HEAD
             $what = sprintf('service "%s" required by "%s"', $id, $this->externalId);
             $message = preg_replace('/service "\.service_locator\.[^"]++"/', $what, $e->getMessage());
 
             if ($e->getMessage() === $message) {
                 $message = sprintf('Cannot resolve %s: %s', $what, $message);
+=======
+            $what = \sprintf('service "%s" required by "%s"', $id, $this->externalId);
+            $message = preg_replace('/service "\.service_locator\.[^"]++"/', $what, $e->getMessage());
+
+            if ($e->getMessage() === $message) {
+                $message = \sprintf('Cannot resolve %s: %s', $what, $message);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $r = new \ReflectionProperty($e, 'message');
@@ -88,7 +96,11 @@ class ServiceLocator implements ServiceProviderInterface, \Countable
     private function createNotFoundException(string $id): NotFoundExceptionInterface
     {
         if ($this->loading) {
+<<<<<<< HEAD
             $msg = sprintf('The service "%s" has a dependency on a non-existent service "%s". This locator %s', end($this->loading), $id, $this->formatAlternatives());
+=======
+            $msg = \sprintf('The service "%s" has a dependency on a non-existent service "%s". This locator %s', end($this->loading), $id, $this->formatAlternatives());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             return new ServiceNotFoundException($id, end($this->loading) ?: null, null, [], $msg);
         }
@@ -98,7 +110,11 @@ class ServiceLocator implements ServiceProviderInterface, \Countable
         $externalId = $this->externalId ?: $class;
 
         $msg = [];
+<<<<<<< HEAD
         $msg[] = sprintf('Service "%s" not found:', $id);
+=======
+        $msg[] = \sprintf('Service "%s" not found:', $id);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (!$this->container) {
             $class = null;
@@ -110,22 +126,36 @@ class ServiceLocator implements ServiceProviderInterface, \Countable
                 $class = null;
             } catch (ServiceNotFoundException $e) {
                 if ($e->getAlternatives()) {
+<<<<<<< HEAD
                     $msg[] = sprintf('did you mean %s? Anyway,', $this->formatAlternatives($e->getAlternatives(), 'or'));
+=======
+                    $msg[] = \sprintf('did you mean %s? Anyway,', $this->formatAlternatives($e->getAlternatives(), 'or'));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 } else {
                     $class = null;
                 }
             }
         }
         if ($externalId) {
+<<<<<<< HEAD
             $msg[] = sprintf('the container inside "%s" is a smaller service locator that %s', $externalId, $this->formatAlternatives());
         } else {
             $msg[] = sprintf('the current service locator %s', $this->formatAlternatives());
+=======
+            $msg[] = \sprintf('the container inside "%s" is a smaller service locator that %s', $externalId, $this->formatAlternatives());
+        } else {
+            $msg[] = \sprintf('the current service locator %s', $this->formatAlternatives());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (!$class) {
             // no-op
         } elseif (is_subclass_of($class, ServiceSubscriberInterface::class)) {
+<<<<<<< HEAD
             $msg[] = sprintf('Unless you need extra laziness, try using dependency injection instead. Otherwise, you need to declare it using "%s::getSubscribedServices()".', preg_replace('/([^\\\\]++\\\\)++/', '', $class));
+=======
+            $msg[] = \sprintf('Unless you need extra laziness, try using dependency injection instead. Otherwise, you need to declare it using "%s::getSubscribedServices()".', preg_replace('/([^\\\\]++\\\\)++/', '', $class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } else {
             $msg[] = 'Try using dependency injection instead.';
         }
@@ -145,10 +175,18 @@ class ServiceLocator implements ServiceProviderInterface, \Countable
             if (!$alternatives = array_keys($this->factories)) {
                 return 'is empty...';
             }
+<<<<<<< HEAD
             $format = sprintf('only knows about the %s service%s.', $format, 1 < \count($alternatives) ? 's' : '');
         }
         $last = array_pop($alternatives);
 
         return sprintf($format, $alternatives ? implode('", "', $alternatives) : $last, $alternatives ? sprintf(' %s "%s"', $separator, $last) : '');
+=======
+            $format = \sprintf('only knows about the %s service%s.', $format, 1 < \count($alternatives) ? 's' : '');
+        }
+        $last = array_pop($alternatives);
+
+        return \sprintf($format, $alternatives ? implode('", "', $alternatives) : $last, $alternatives ? \sprintf(' %s "%s"', $separator, $last) : '');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

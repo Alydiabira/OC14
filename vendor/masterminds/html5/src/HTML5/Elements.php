@@ -310,6 +310,10 @@ class Elements
         'feDiffuseLighting' => 1,
         'feDisplacementMap' => 1,
         'feDistantLight' => 1,
+<<<<<<< HEAD
+=======
+        'feDropShadow' => 1,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'feFlood' => 1,
         'feFuncA' => 1,
         'feFuncB' => 1,
@@ -463,6 +467,10 @@ class Elements
         'fediffuselighting' => 'feDiffuseLighting',
         'fedisplacementmap' => 'feDisplacementMap',
         'fedistantlight' => 'feDistantLight',
+<<<<<<< HEAD
+=======
+        'fedropshadow' => 'feDropShadow',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'feflood' => 'feFlood',
         'fefunca' => 'feFuncA',
         'fefuncb' => 'feFuncB',

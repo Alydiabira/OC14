@@ -47,11 +47,19 @@ class CacheWarmupCommand extends Command
                 new InputOption('no-optional-warmers', '', InputOption::VALUE_NONE, 'Skip optional cache warmers (faster)'),
             ])
             ->setHelp(<<<'EOF'
+<<<<<<< HEAD
 The <info>%command.name%</info> command warms up the cache.
 
 Before running this command, the cache must be empty.
 
 EOF
+=======
+                The <info>%command.name%</info> command warms up the cache.
+
+                Before running this command, the cache must be empty.
+
+                EOF
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -61,7 +69,11 @@ EOF
         $io = new SymfonyStyle($input, $output);
 
         $kernel = $this->getApplication()->getKernel();
+<<<<<<< HEAD
         $io->comment(sprintf('Warming up the cache for the <info>%s</info> environment with debug <info>%s</info>', $kernel->getEnvironment(), var_export($kernel->isDebug(), true)));
+=======
+        $io->comment(\sprintf('Warming up the cache for the <info>%s</info> environment with debug <info>%s</info>', $kernel->getEnvironment(), var_export($kernel->isDebug(), true)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (!$input->getOption('no-optional-warmers')) {
             $this->cacheWarmer->enableOptionalWarmers();
@@ -72,14 +84,25 @@ EOF
             $kernel->warmUp($cacheDir);
         }
 
+<<<<<<< HEAD
         $preload = $this->cacheWarmer->warmUp($cacheDir);
 
         $buildDir = $kernel->getContainer()->getParameter('kernel.build_dir');
+=======
+        $buildDir = $kernel->getContainer()->getParameter('kernel.build_dir');
+
+        $preload = $this->cacheWarmer->warmUp($cacheDir, $buildDir);
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ($preload && $cacheDir === $buildDir && file_exists($preloadFile = $buildDir.'/'.$kernel->getContainer()->getParameter('kernel.container_class').'.preload.php')) {
             Preloader::append($preloadFile, $preload);
         }
 
+<<<<<<< HEAD
         $io->success(sprintf('Cache for the "%s" environment (debug=%s) was successfully warmed.', $kernel->getEnvironment(), var_export($kernel->isDebug(), true)));
+=======
+        $io->success(\sprintf('Cache for the "%s" environment (debug=%s) was successfully warmed.', $kernel->getEnvironment(), var_export($kernel->isDebug(), true)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return 0;
     }

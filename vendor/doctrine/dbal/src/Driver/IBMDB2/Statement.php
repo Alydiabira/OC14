@@ -174,7 +174,12 @@ final class Statement implements StatementInterface
         foreach ($this->lobs as $param => $value) {
             if (is_resource($value)) {
                 $handle = $handles[] = $this->createTemporaryFile();
+<<<<<<< HEAD
                 $path   = stream_get_meta_data($handle)['uri'];
+=======
+                $path   = stream_get_meta_data($handle)['uri'] ?? null;
+                assert($path !== null);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 $this->copyStreamToStream($value, $handle);
 

@@ -38,6 +38,11 @@ final class ConsoleProfilerListener implements EventSubscriberInterface
     /** @var \SplObjectStorage<Request, ?Request> */
     private \SplObjectStorage $parents;
 
+<<<<<<< HEAD
+=======
+    private bool $disabled = false;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function __construct(
         private readonly Profiler $profiler,
         private readonly RequestStack $requestStack,
@@ -66,7 +71,11 @@ final class ConsoleProfilerListener implements EventSubscriberInterface
 
         $input = $event->getInput();
         if (!$input->hasOption('profile') || !$input->getOption('profile')) {
+<<<<<<< HEAD
             $this->profiler->disable();
+=======
+            $this->disabled = true;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             return;
         }
@@ -92,7 +101,16 @@ final class ConsoleProfilerListener implements EventSubscriberInterface
 
     public function profile(ConsoleTerminateEvent $event): void
     {
+<<<<<<< HEAD
         if (!$this->cliMode || !$this->profiler->isEnabled()) {
+=======
+        $error = $this->error;
+        $this->error = null;
+
+        if (!$this->cliMode || $this->disabled) {
+            $this->disabled = false;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return;
         }
 
@@ -102,6 +120,13 @@ final class ConsoleProfilerListener implements EventSubscriberInterface
             return;
         }
 
+<<<<<<< HEAD
+=======
+        if (!$this->profiler->isEnabled()) {
+            return;
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (null !== $sectionId = $request->attributes->get('_stopwatch_token')) {
             // we must close the section before saving the profile to allow late collect
             try {
@@ -111,11 +136,27 @@ final class ConsoleProfilerListener implements EventSubscriberInterface
             }
         }
 
+<<<<<<< HEAD
         $request->command->exitCode = $event->getExitCode();
         $request->command->interruptedBySignal = $event->getInterruptingSignal();
 
         $profile = $this->profiler->collect($request, $request->getResponse(), $this->error);
         $this->error = null;
+=======
+        $command = $request->command;
+        $command->exitCode = $event->getExitCode();
+        $command->interruptedBySignal = $event->getInterruptingSignal();
+
+        if (!isset($command->input)) {
+            // the command was stopped before it could run and record what it was given
+            $command->input = $input = $event->getInput();
+            $command->output = $event->getOutput();
+            $command->arguments = $input->getArguments();
+            $command->options = $input->getOptions();
+        }
+
+        $profile = $this->profiler->collect($request, $request->getResponse(), $error);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->profiles[$request] = $profile;
 
         if ($this->parents[$request] = $this->requestStack->getParentRequest()) {
@@ -142,7 +183,11 @@ final class ConsoleProfilerListener implements EventSubscriberInterface
 
             if ($this->urlGenerator && $output) {
                 $token = $p->getToken();
+<<<<<<< HEAD
                 $output->writeln(sprintf(
+=======
+                $output->writeln(\sprintf(
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     'See profile <href=%s>%s</>',
                     $this->urlGenerator->generate('_profiler', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL),
                     $token

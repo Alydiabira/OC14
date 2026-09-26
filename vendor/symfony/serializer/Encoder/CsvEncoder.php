@@ -65,6 +65,13 @@ class CsvEncoder implements EncoderInterface, DecoderInterface
         } elseif (empty($data)) {
             $data = [[]];
         } else {
+<<<<<<< HEAD
+=======
+            if ($data instanceof \Traversable) {
+                // Generators can only be iterated once — convert to array to allow multiple traversals
+                $data = iterator_to_array($data);
+            }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             // Sequential arrays of arrays are considered as collections
             $i = 0;
             foreach ($data as $key => $value) {
@@ -148,10 +155,24 @@ class CsvEncoder implements EncoderInterface, DecoderInterface
                 $nbHeaders = $nbCols;
 
                 if ($context[self::NO_HEADERS_KEY] ?? $this->defaultContext[self::NO_HEADERS_KEY]) {
+<<<<<<< HEAD
                     for ($i = 0; $i < $nbCols; ++$i) {
                         $headers[] = [$i];
                     }
                     $headerCount = array_fill(0, $nbCols, 1);
+=======
+                    $userHeaders = $context[self::HEADERS_KEY] ?? $this->defaultContext[self::HEADERS_KEY];
+                    for ($i = 0; $i < $nbCols; ++$i) {
+                        if (isset($userHeaders[$i])) {
+                            $header = explode($keySeparator, $userHeaders[$i]);
+                            $headers[] = $header;
+                            $headerCount[] = \count($header);
+                        } else {
+                            $headers[] = [$i];
+                            $headerCount[] = 1;
+                        }
+                    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 } else {
                     foreach ($cols as $col) {
                         $header = explode($keySeparator, $col ?? '');
@@ -168,18 +189,38 @@ class CsvEncoder implements EncoderInterface, DecoderInterface
                 $depth = $headerCount[$i];
                 $arr = &$item;
                 for ($j = 0; $j < $depth; ++$j) {
+<<<<<<< HEAD
                     // Handle nested arrays
                     if ($j === ($depth - 1)) {
                         $arr[$headers[$i][$j]] = $cols[$i];
+=======
+                    $headerName = $headers[$i][$j];
+
+                    if ('' === $headerName) {
+                        $headerName = $i;
+                    }
+
+                    // Handle nested arrays
+                    if ($j === ($depth - 1)) {
+                        $arr[$headerName] = $cols[$i];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                         continue;
                     }
 
+<<<<<<< HEAD
                     if (!isset($arr[$headers[$i][$j]])) {
                         $arr[$headers[$i][$j]] = [];
                     }
 
                     $arr = &$arr[$headers[$i][$j]];
+=======
+                    if (!isset($arr[$headerName])) {
+                        $arr[$headerName] = [];
+                    }
+
+                    $arr = &$arr[$headerName];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
 
@@ -235,7 +276,11 @@ class CsvEncoder implements EncoderInterface, DecoderInterface
         $asCollection = $context[self::AS_COLLECTION_KEY] ?? $this->defaultContext[self::AS_COLLECTION_KEY];
 
         if (!\is_array($headers)) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('The "%s" context variable must be an array or null, given "%s".', self::HEADERS_KEY, get_debug_type($headers)));
+=======
+            throw new InvalidArgumentException(\sprintf('The "%s" context variable must be an array or null, given "%s".', self::HEADERS_KEY, get_debug_type($headers)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return [$delimiter, $enclosure, $escapeChar, $keySeparator, $headers, $escapeFormulas, $outputBom, $asCollection];

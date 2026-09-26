@@ -11,6 +11,10 @@
 
 namespace Symfony\Bridge\PhpUnit;
 
+<<<<<<< HEAD
+=======
+use PHPUnit\Framework\TestCase;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use PHPUnit\Framework\TestResult;
 use PHPUnit\Runner\ErrorHandler;
 use PHPUnit\Util\Error\Handler;
@@ -95,8 +99,13 @@ class DeprecationErrorHandler
     public static function collectDeprecations($outputFile)
     {
         $deprecations = [];
+<<<<<<< HEAD
         $previousErrorHandler = set_error_handler(function ($type, $msg, $file, $line, $context = []) use (&$deprecations, &$previousErrorHandler) {
             if (\E_USER_DEPRECATED !== $type && \E_DEPRECATED !== $type && (\E_WARNING !== $type || false === strpos($msg, '" targeting switch is equivalent to "break'))) {
+=======
+        $previousErrorHandler = set_error_handler(static function ($type, $msg, $file, $line, $context = []) use (&$deprecations, &$previousErrorHandler) {
+            if (\E_USER_DEPRECATED !== $type && \E_DEPRECATED !== $type && (\E_WARNING !== $type || !str_contains($msg, '" targeting switch is equivalent to "break'))) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if ($previousErrorHandler) {
                     return $previousErrorHandler($type, $msg, $file, $line, $context);
                 }
@@ -118,7 +127,11 @@ class DeprecationErrorHandler
             return null;
         });
 
+<<<<<<< HEAD
         register_shutdown_function(function () use ($outputFile, &$deprecations) {
+=======
+        register_shutdown_function(static function () use ($outputFile, &$deprecations) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             file_put_contents($outputFile, serialize($deprecations));
         });
     }
@@ -128,7 +141,11 @@ class DeprecationErrorHandler
      */
     public function handleError($type, $msg, $file, $line, $context = [])
     {
+<<<<<<< HEAD
         if ((\E_USER_DEPRECATED !== $type && \E_DEPRECATED !== $type && (\E_WARNING !== $type || false === strpos($msg, '" targeting switch is equivalent to "break'))) || !$this->getConfiguration()->isEnabled()) {
+=======
+        if ((\E_USER_DEPRECATED !== $type && \E_DEPRECATED !== $type && (\E_WARNING !== $type || !str_contains($msg, '" targeting switch is equivalent to "break'))) || !$this->getConfiguration()->isEnabled()) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return \call_user_func(self::getPhpUnitErrorHandler(), $type, $msg, $file, $line, $context);
         }
 
@@ -170,6 +187,16 @@ class DeprecationErrorHandler
             exit(1);
         }
 
+<<<<<<< HEAD
+=======
+        if (\PHP_VERSION_ID >= 80500 && \in_array($msg, [
+            'The __sleep() serialization magic method has been deprecated. Implement __serialize() instead (or in addition, if support for old PHP versions is necessary)',
+            'The __wakeup() serialization magic method has been deprecated. Implement __unserialize() instead (or in addition, if support for old PHP versions is necessary)',
+        ], true)) {
+            return null;
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ('legacy' === $group) {
             $this->deprecationGroups[$group]->addNotice();
         } elseif ($deprecation->originatesFromAnObject()) {
@@ -294,6 +321,7 @@ class DeprecationErrorHandler
      */
     private function displayDeprecations(array $groups, Configuration $configuration): void
     {
+<<<<<<< HEAD
         $cmp = function ($a, $b) {
             return $b->count() - $a->count();
         };
@@ -301,6 +329,13 @@ class DeprecationErrorHandler
         if ($configuration->shouldWriteToLogFile()) {
             if (false === $handle = @fopen($file = $configuration->getLogFile(), 'a')) {
                 throw new \InvalidArgumentException(sprintf('The configured log file "%s" is not writeable.', $file));
+=======
+        $cmp = static fn ($a, $b) => $b->count() - $a->count();
+
+        if ($configuration->shouldWriteToLogFile()) {
+            if (false === $handle = @fopen($file = $configuration->getLogFile(), 'a')) {
+                throw new \InvalidArgumentException(\sprintf('The configured log file "%s" is not writeable.', $file));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         } else {
             $handle = fopen('php://output', 'w');
@@ -308,7 +343,11 @@ class DeprecationErrorHandler
 
         foreach ($groups as $group) {
             if ($this->deprecationGroups[$group]->count()) {
+<<<<<<< HEAD
                 $deprecationGroupMessage = sprintf(
+=======
+                $deprecationGroupMessage = \sprintf(
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     '%s deprecation notices (%d)',
                     \in_array($group, ['direct', 'indirect', 'self'], true) ? "Remaining $group" : ucfirst($group),
                     $this->deprecationGroups[$group]->count()
@@ -327,7 +366,11 @@ class DeprecationErrorHandler
                 uasort($notices, $cmp);
 
                 foreach ($notices as $msg => $notice) {
+<<<<<<< HEAD
                     fwrite($handle, sprintf("\n  %sx: %s\n", $notice->count(), $msg));
+=======
+                    fwrite($handle, \sprintf("\n  %sx: %s\n", $notice->count(), $msg));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                     $countsByCaller = $notice->getCountsByCaller();
                     arsort($countsByCaller);
@@ -339,7 +382,11 @@ class DeprecationErrorHandler
                                 fwrite($handle, "    ...\n");
                                 break;
                             }
+<<<<<<< HEAD
                             fwrite($handle, sprintf("    %dx in %s\n", $count, preg_replace('/(.*)\\\\(.*?::.*?)$/', '$2 from $1', $method)));
+=======
+                            fwrite($handle, \sprintf("    %dx in %s\n", $count, preg_replace('/(.*)\\\\(.*?::.*?)$/', '$2 from $1', $method)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         }
                     }
                 }
@@ -360,8 +407,17 @@ class DeprecationErrorHandler
                 $eh = self::$errorHandler = UtilErrorHandler::class;
             } elseif (method_exists(ErrorHandler::class, '__invoke')) {
                 $eh = self::$errorHandler = ErrorHandler::class;
+<<<<<<< HEAD
             } else {
                 return self::$errorHandler = 'PHPUnit\Util\ErrorHandler::handleError';
+=======
+            } elseif (method_exists(UtilErrorHandler::class, 'handleError')) {
+                return self::$errorHandler = 'PHPUnit\Util\ErrorHandler::handleError';
+            } else {
+                // PHPUnit is not loadable in this process, so there is no handler to
+                // delegate to; leave the error to PHP
+                return static function () { return false; };
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -370,17 +426,38 @@ class DeprecationErrorHandler
         }
 
         foreach (debug_backtrace(\DEBUG_BACKTRACE_PROVIDE_OBJECT | \DEBUG_BACKTRACE_IGNORE_ARGS) as $frame) {
+<<<<<<< HEAD
             if (isset($frame['object']) && $frame['object'] instanceof TestResult) {
+=======
+            if (!isset($frame['object'])) {
+                continue;
+            }
+
+            if ($frame['object'] instanceof TestResult) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 return new $eh(
                     $frame['object']->getConvertDeprecationsToExceptions(),
                     $frame['object']->getConvertErrorsToExceptions(),
                     $frame['object']->getConvertNoticesToExceptions(),
                     $frame['object']->getConvertWarningsToExceptions()
                 );
+<<<<<<< HEAD
             }
         }
 
         return function () { return false; };
+=======
+            } elseif (ErrorHandler::class === $eh && $frame['object'] instanceof TestCase) {
+                return static function (int $errorNumber, string $errorString, string $errorFile, int $errorLine) {
+                    ErrorHandler::instance()($errorNumber, $errorString, $errorFile, $errorLine);
+
+                    return true;
+                };
+            }
+        }
+
+        return static fn () => false;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -396,10 +473,22 @@ class DeprecationErrorHandler
         }
 
         // Follow https://no-color.org/
+<<<<<<< HEAD
         if (isset($_SERVER['NO_COLOR']) || false !== getenv('NO_COLOR')) {
             return false;
         }
 
+=======
+        if ('' !== (($_SERVER['NO_COLOR'] ?? getenv('NO_COLOR'))[0] ?? '')) {
+            return false;
+        }
+
+        // Follow https://force-color.org/
+        if ('' !== (($_SERVER['FORCE_COLOR'] ?? getenv('FORCE_COLOR'))[0] ?? '')) {
+            return true;
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         // Detect msysgit/mingw and assume this is a tty because detection
         // does not work correctly, see https://github.com/composer/composer/issues/9690
         if (!@stream_isatty(\STDOUT) && !\in_array(strtoupper((string) getenv('MSYSTEM')), ['MINGW32', 'MINGW64'], true)) {

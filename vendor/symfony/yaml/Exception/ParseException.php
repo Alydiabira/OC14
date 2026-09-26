@@ -114,6 +114,7 @@ class ParseException extends RuntimeException
         }
 
         if (null !== $this->parsedFile) {
+<<<<<<< HEAD
             $this->message .= sprintf(' in %s', json_encode($this->parsedFile, \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE));
         }
 
@@ -123,6 +124,17 @@ class ParseException extends RuntimeException
 
         if ($this->snippet) {
             $this->message .= sprintf(' (near "%s")', $this->snippet);
+=======
+            $this->message .= \sprintf(' in %s', json_encode($this->parsedFile, \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE));
+        }
+
+        if ($this->parsedLine >= 0) {
+            $this->message .= \sprintf(' at line %d', $this->parsedLine);
+        }
+
+        if ($this->snippet) {
+            $this->message .= \sprintf(' (near "%s")', $this->snippet);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($dot) {

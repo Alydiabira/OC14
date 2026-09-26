@@ -50,7 +50,11 @@ abstract class AbstractExtension implements FormExtensionInterface
         }
 
         if (!isset($this->types[$name])) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('The type "%s" cannot be loaded by this extension.', $name));
+=======
+            throw new InvalidArgumentException(\sprintf('The type "%s" cannot be loaded by this extension.', $name));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->types[$name];
@@ -81,7 +85,11 @@ abstract class AbstractExtension implements FormExtensionInterface
             $this->initTypeExtensions();
         }
 
+<<<<<<< HEAD
         return isset($this->typeExtensions[$name]) && \count($this->typeExtensions[$name]) > 0;
+=======
+        return isset($this->typeExtensions[$name]) && $this->typeExtensions[$name];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getTypeGuesser(): ?FormTypeGuesserInterface

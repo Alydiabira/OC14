@@ -43,10 +43,17 @@ class DivisibleByValidator extends AbstractComparisonValidator
             $quotient = $value1 / $value2;
             $rounded = round($quotient);
 
+<<<<<<< HEAD
             return sprintf('%.12e', $quotient) === sprintf('%.12e', $rounded);
         }
 
         return sprintf('%.12e', $value2) === sprintf('%.12e', $remainder);
+=======
+            return \sprintf('%.12e', $quotient) === \sprintf('%.12e', $rounded);
+        }
+
+        return \sprintf('%.12e', $value2) === \sprintf('%.12e', $remainder);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function getErrorCode(): ?string

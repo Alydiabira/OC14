@@ -21,7 +21,11 @@ final class DownloadHandler extends AbstractHandler
      * @throws NoFileFoundException
      * @throws \InvalidArgumentException
      */
+<<<<<<< HEAD
     public function downloadObject(object|array $object, string $field, ?string $className = null, string|bool $fileName = null, bool $forceDownload = true): StreamedResponse
+=======
+    public function downloadObject(object|array $object, string $field, ?string $className = null, string|bool|null $fileName = null, bool $forceDownload = true): StreamedResponse
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $mapping = $this->getMapping($object, $field, $className);
         $stream = $this->storage->resolveStream($object, $field, $className);

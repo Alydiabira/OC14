@@ -6,7 +6,11 @@ use Doctrine\DBAL\SQL\Builder\SelectSQLBuilder;
 use Doctrine\Deprecations\Deprecation;
 
 /**
+<<<<<<< HEAD
  * Provides the behavior, features and SQL dialect of the MySQL 8.0 (8.0 GA) database platform.
+=======
+ * Provides the behavior, features and SQL dialect of the MySQL 8.0 database platform.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 class MySQL80Platform extends MySQL57Platform
 {

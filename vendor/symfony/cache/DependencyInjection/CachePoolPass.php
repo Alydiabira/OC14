@@ -16,7 +16,13 @@ use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Cache\Adapter\ChainAdapter;
 use Symfony\Component\Cache\Adapter\NullAdapter;
 use Symfony\Component\Cache\Adapter\ParameterNormalizer;
+<<<<<<< HEAD
 use Symfony\Component\Cache\Messenger\EarlyExpirationDispatcher;
+=======
+use Symfony\Component\Cache\Adapter\TagAwareAdapter;
+use Symfony\Component\Cache\Messenger\EarlyExpirationDispatcher;
+use Symfony\Component\Cache\PruneableInterface;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -51,6 +57,10 @@ class CachePoolPass implements CompilerPassInterface
             'default_lifetime',
             'early_expiration_message_bus',
             'reset',
+<<<<<<< HEAD
+=======
+            'pruneable',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ];
         foreach ($container->findTaggedServiceIds('cache.pool') as $id => $tags) {
             $adapter = $pool = $container->getDefinition($id);
@@ -58,9 +68,17 @@ class CachePoolPass implements CompilerPassInterface
                 continue;
             }
             $class = $adapter->getClass();
+<<<<<<< HEAD
             while ($adapter instanceof ChildDefinition) {
                 $adapter = $container->findDefinition($adapter->getParent());
                 $class = $class ?: $adapter->getClass();
+=======
+            $providers = $adapter->getArguments();
+            while ($adapter instanceof ChildDefinition) {
+                $adapter = $container->findDefinition($adapter->getParent());
+                $class = $class ?: $adapter->getClass();
+                $providers += $adapter->getArguments();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if ($t = $adapter->getTag('cache.pool')) {
                     $tags[0] += $t[0];
                 }
@@ -88,11 +106,21 @@ class CachePoolPass implements CompilerPassInterface
                 $tags[0]['provider'] = new Reference(static::getServiceProvider($container, $tags[0]['provider']));
             }
 
+<<<<<<< HEAD
             if (ChainAdapter::class === $class) {
                 $adapters = [];
                 foreach ($adapter->getArgument(0) as $provider => $adapter) {
                     if ($adapter instanceof ChildDefinition) {
                         $chainedPool = $adapter;
+=======
+            $pruneable = $tags[0]['pruneable'] ?? $container->getReflectionClass($class, false)?->implementsInterface(PruneableInterface::class) ?? false;
+
+            if (ChainAdapter::class === $class) {
+                $adapters = [];
+                foreach ($providers['index_0'] ?? $providers[0] as $provider => $adapter) {
+                    if ($adapter instanceof ChildDefinition) {
+                        $chainedPool = clone $adapter;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     } else {
                         $chainedPool = $adapter = new ChildDefinition($adapter);
                     }
@@ -109,7 +137,11 @@ class CachePoolPass implements CompilerPassInterface
                     }
 
                     if (ChainAdapter::class === $chainedClass) {
+<<<<<<< HEAD
                         throw new InvalidArgumentException(sprintf('Invalid service "%s": chain of adapters cannot reference another chain, found "%s".', $id, $chainedPool->getParent()));
+=======
+                        throw new InvalidArgumentException(\sprintf('Invalid service "%s": chain of adapters cannot reference another chain, found "%s".', $id, $chainedPool->getParent()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
 
                     $i = 0;
@@ -123,7 +155,18 @@ class CachePoolPass implements CompilerPassInterface
                     }
 
                     if (isset($tags[0]['default_lifetime'])) {
+<<<<<<< HEAD
                         $chainedPool->replaceArgument($i++, $tags[0]['default_lifetime']);
+=======
+                        $defaultLifetime = $tags[0]['default_lifetime'];
+
+                        if (!is_numeric($defaultLifetime)) {
+                            $defaultLifetime = (new Definition('int', [$defaultLifetime]))
+                                ->setFactory([ParameterNormalizer::class, 'normalizeDuration']);
+                        }
+
+                        $chainedPool->replaceArgument($i++, $defaultLifetime);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
 
                     $adapters[] = $chainedPool;
@@ -154,7 +197,13 @@ class CachePoolPass implements CompilerPassInterface
                         ),
                     ]);
                     $pool->addTag('container.reversible');
+<<<<<<< HEAD
                 } elseif ('namespace' !== $attr || !\in_array($class, [ArrayAdapter::class, NullAdapter::class], true)) {
+=======
+                } elseif ('pruneable' === $attr) {
+                    // no-op
+                } elseif ('namespace' !== $attr || !\in_array($class, [ArrayAdapter::class, NullAdapter::class, TagAwareAdapter::class], true)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $argument = $tags[0][$attr];
 
                     if ('default_lifetime' === $attr && !is_numeric($argument)) {
@@ -167,13 +216,24 @@ class CachePoolPass implements CompilerPassInterface
                 unset($tags[0][$attr]);
             }
             if (!empty($tags[0])) {
+<<<<<<< HEAD
                 throw new InvalidArgumentException(sprintf('Invalid "cache.pool" tag for service "%s": accepted attributes are "clearer", "provider", "name", "namespace", "default_lifetime", "early_expiration_message_bus" and "reset", found "%s".', $id, implode('", "', array_keys($tags[0]))));
+=======
+                throw new InvalidArgumentException(\sprintf('Invalid "cache.pool" tag for service "%s": accepted attributes are "clearer", "provider", "name", "namespace", "default_lifetime", "early_expiration_message_bus", "reset" and "pruneable", found "%s".', $id, implode('", "', array_keys($tags[0]))));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if (null !== $clearer) {
                 $clearers[$clearer][$name] = new Reference($id, $container::IGNORE_ON_UNINITIALIZED_REFERENCE);
             }
 
+<<<<<<< HEAD
+=======
+            $poolTags = $pool->getTags();
+            $poolTags['cache.pool'][0]['pruneable'] ??= $pruneable;
+            $pool->setTags($poolTags);
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $allPools[$name] = new Reference($id, $container::IGNORE_ON_UNINITIALIZED_REFERENCE);
         }
 
@@ -197,10 +257,13 @@ class CachePoolPass implements CompilerPassInterface
                 $clearer->setArgument(0, $pools);
             }
             $clearer->addTag('cache.pool.clearer');
+<<<<<<< HEAD
 
             if ('cache.system_clearer' === $id) {
                 $clearer->addTag('kernel.cache_clearer');
             }
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $allPoolsKeys = array_keys($allPools);

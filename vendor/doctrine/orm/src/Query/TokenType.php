@@ -77,6 +77,10 @@ enum TokenType: int
     case T_OR       = 242;
     case T_ORDER    = 243;
     case T_OUTER    = 244;
+<<<<<<< HEAD
+=======
+    case T_PARTIAL  = 245;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     case T_SELECT   = 246;
     case T_SET      = 247;
     case T_SOME     = 248;
@@ -88,4 +92,9 @@ enum TokenType: int
     case T_WHEN     = 254;
     case T_WHERE    = 255;
     case T_WITH     = 256;
+<<<<<<< HEAD
+=======
+    case T_NAMED    = 257;
+    case T_ON       = 258;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

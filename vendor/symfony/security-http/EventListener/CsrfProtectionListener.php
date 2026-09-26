@@ -47,7 +47,11 @@ class CsrfProtectionListener implements EventSubscriberInterface
 
         $csrfToken = new CsrfToken($badge->getCsrfTokenId(), $badge->getCsrfToken());
 
+<<<<<<< HEAD
         if (false === $this->csrfTokenManager->isTokenValid($csrfToken)) {
+=======
+        if (!$this->csrfTokenManager->isTokenValid($csrfToken)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new InvalidCsrfTokenException('Invalid CSRF token.');
         }
 

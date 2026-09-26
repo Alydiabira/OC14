@@ -63,7 +63,11 @@ class SlackHandler extends SocketHandler
         ?float $connectionTimeout = null,
         ?int $chunkSize = null
     ) {
+<<<<<<< HEAD
         if (!extension_loaded('openssl')) {
+=======
+        if (!\extension_loaded('openssl')) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new MissingExtensionException('The OpenSSL PHP extension is required to use the SlackHandler');
         }
 
@@ -129,7 +133,11 @@ class SlackHandler extends SocketHandler
         $dataArray = $this->slackRecord->getSlackData($record);
         $dataArray['token'] = $this->token;
 
+<<<<<<< HEAD
         if (isset($dataArray['attachments']) && is_array($dataArray['attachments']) && \count($dataArray['attachments']) > 0) {
+=======
+        if (isset($dataArray['attachments']) && \is_array($dataArray['attachments']) && \count($dataArray['attachments']) > 0) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $dataArray['attachments'] = Utils::jsonEncode($dataArray['attachments']);
         }
 
@@ -144,7 +152,11 @@ class SlackHandler extends SocketHandler
         $header = "POST /api/chat.postMessage HTTP/1.1\r\n";
         $header .= "Host: slack.com\r\n";
         $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
+<<<<<<< HEAD
         $header .= "Content-Length: " . strlen($content) . "\r\n";
+=======
+        $header .= "Content-Length: " . \strlen($content) . "\r\n";
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $header .= "\r\n";
 
         return $header;
@@ -168,7 +180,11 @@ class SlackHandler extends SocketHandler
     protected function finalizeWrite(): void
     {
         $res = $this->getResource();
+<<<<<<< HEAD
         if (is_resource($res)) {
+=======
+        if (\is_resource($res)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             @fread($res, 2048);
         }
         $this->closeSocket();
@@ -255,7 +271,11 @@ class SlackHandler extends SocketHandler
     }
 
     /**
+<<<<<<< HEAD
      * @param string[] $excludeFields
+=======
+     * @param  string[] $excludeFields
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return $this
      */
     public function excludeFields(array $excludeFields): self

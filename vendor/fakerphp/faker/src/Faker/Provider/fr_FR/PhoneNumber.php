@@ -13,7 +13,11 @@ class PhoneNumber extends \Faker\Provider\PhoneNumber
         '+33 (0)3 ## ## ## ##',
         '+33 (0)4 ## ## ## ##',
         '+33 (0)5 ## ## ## ##',
+<<<<<<< HEAD
         '+33 (0)6 ## ## ## ##',
+=======
+        '+33 (0)6 {{phoneNumber06WithSeparator}}',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         '+33 (0)7 {{phoneNumber07WithSeparator}}',
         '+33 (0)8 {{phoneNumber08WithSeparator}}',
         '+33 (0)9 ## ## ## ##',
@@ -23,7 +27,11 @@ class PhoneNumber extends \Faker\Provider\PhoneNumber
         '+33 3 ## ## ## ##',
         '+33 4 ## ## ## ##',
         '+33 5 ## ## ## ##',
+<<<<<<< HEAD
         '+33 6 ## ## ## ##',
+=======
+        '+33 6 {{phoneNumber06WithSeparator}}',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         '+33 7 {{phoneNumber07WithSeparator}}',
         '+33 8 {{phoneNumber08WithSeparator}}',
         '+33 9 ## ## ## ##',
@@ -33,7 +41,11 @@ class PhoneNumber extends \Faker\Provider\PhoneNumber
         '03########',
         '04########',
         '05########',
+<<<<<<< HEAD
         '06########',
+=======
+        '06{{phoneNumber06}}',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         '07{{phoneNumber07}}',
         '08{{phoneNumber08}}',
         '09########',
@@ -43,7 +55,11 @@ class PhoneNumber extends \Faker\Provider\PhoneNumber
         '03 ## ## ## ##',
         '04 ## ## ## ##',
         '05 ## ## ## ##',
+<<<<<<< HEAD
         '06 ## ## ## ##',
+=======
+        '06 {{phoneNumber06WithSeparator}}',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         '07 {{phoneNumber07WithSeparator}}',
         '08 {{phoneNumber08WithSeparator}}',
         '09 ## ## ## ##',
@@ -52,6 +68,7 @@ class PhoneNumber extends \Faker\Provider\PhoneNumber
     // Mobile phone numbers start by 06 and 07
     // 06 is the most common prefix
     protected static $mobileFormats = [
+<<<<<<< HEAD
         '+33 (0)6 ## ## ## ##',
         '+33 6 ## ## ## ##',
         '+33 (0)7 {{phoneNumber07WithSeparator}}',
@@ -59,6 +76,15 @@ class PhoneNumber extends \Faker\Provider\PhoneNumber
         '06########',
         '07{{phoneNumber07}}',
         '06 ## ## ## ##',
+=======
+        '+33 (0)6 {{phoneNumber06WithSeparator}}',
+        '+33 6 {{phoneNumber06WithSeparator}}',
+        '+33 (0)7 {{phoneNumber07WithSeparator}}',
+        '+33 7 {{phoneNumber07WithSeparator}}',
+        '06{{phoneNumber06}}',
+        '07{{phoneNumber07}}',
+        '06 {{phoneNumber06WithSeparator}}',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         '07 {{phoneNumber07WithSeparator}}',
     ];
 
@@ -73,6 +99,29 @@ class PhoneNumber extends \Faker\Provider\PhoneNumber
         '+33#########',
     ];
 
+<<<<<<< HEAD
+=======
+    public function phoneNumber06()
+    {
+        $phoneNumber = $this->phoneNumber06WithSeparator();
+
+        return str_replace(' ', '', $phoneNumber);
+    }
+
+    /**
+     * Only 0601 to 0638, 0640 to 0689, 0695 and 0698 to 0699 are acceptable prefixes with 06
+     *
+     * @see https://www.arcep.fr/la-regulation/grands-dossiers-thematiques-transverses/la-numerotation.html#c8961
+     * @see https://www.itu.int/itu-t/nnp/#/numbering-plans?country=France%C2%A0&code=33
+     */
+    public function phoneNumber06WithSeparator()
+    {
+        $regex = '([0-24-8]\d|3[0-8]|9[589])( \d{2}){3}';
+
+        return static::regexify($regex);
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function phoneNumber07()
     {
         $phoneNumber = $this->phoneNumber07WithSeparator();
@@ -81,6 +130,7 @@ class PhoneNumber extends \Faker\Provider\PhoneNumber
     }
 
     /**
+<<<<<<< HEAD
      * Only 073 to 079 are acceptable prefixes with 07
      *
      * @see http://www.arcep.fr/index.php?id=8146
@@ -91,6 +141,18 @@ class PhoneNumber extends \Faker\Provider\PhoneNumber
         $phoneNumber .= $this->numerify('# ## ## ##');
 
         return $phoneNumber;
+=======
+     * Only 0730 to 0789 are acceptable prefixes with 07
+     *
+     * @see https://www.arcep.fr/la-regulation/grands-dossiers-thematiques-transverses/la-numerotation.html#c8961
+     * @see https://www.itu.int/itu-t/nnp/#/numbering-plans?country=France%C2%A0&code=33
+     */
+    public function phoneNumber07WithSeparator()
+    {
+        $regex = '([3-8]\d)( \d{2}){3}';
+
+        return static::regexify($regex);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function phoneNumber08()
@@ -121,9 +183,15 @@ class PhoneNumber extends \Faker\Provider\PhoneNumber
      */
     public function phoneNumber08WithSeparator()
     {
+<<<<<<< HEAD
         $regex = '([012]{1}\d{1}|(9[1-357-9])( \d{2}){3}';
 
         return $this->regexify($regex);
+=======
+        $regex = '([012]\d|(9[1-357-9])( \d{2}){3}';
+
+        return static::regexify($regex);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

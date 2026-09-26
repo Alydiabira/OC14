@@ -19,6 +19,10 @@ use Composer\Util\ProcessExecutor;
 use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+<<<<<<< HEAD
+=======
+use Symfony\Component\Console\Input\InputOption;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Flex\Configurator;
 use Symfony\Flex\Downloader;
@@ -51,12 +55,20 @@ class UpdateRecipesCommand extends BaseCommand
         parent::__construct();
     }
 
+<<<<<<< HEAD
     protected function configure()
+=======
+    protected function configure(): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->setName('symfony:recipes:update')
             ->setAliases(['recipes:update'])
             ->setDescription('Updates an already-installed recipe to the latest version.')
             ->addArgument('package', InputArgument::OPTIONAL, 'Recipe that should be updated.')
+<<<<<<< HEAD
+=======
+            ->addOption('no-changelog', null, InputOption::VALUE_NONE, 'Do not generate the changelog after updating the recipe.')
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ;
     }
 
@@ -93,7 +105,11 @@ class UpdateRecipesCommand extends BaseCommand
         if (!$symfonyLock->has($packageName)) {
             $io->writeError([
                 'Package not found inside symfony.lock. It looks like it\'s not installed?',
+<<<<<<< HEAD
                 sprintf('Try running <info>composer recipes:install %s --force -v</info> to re-install the recipe.', $packageName),
+=======
+                \sprintf('Try running <info>composer recipes:install %s --force -v</info> to re-install the recipe.', $packageName),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ]);
 
             return 1;
@@ -104,7 +120,11 @@ class UpdateRecipesCommand extends BaseCommand
             $io->writeError([
                 'It doesn\'t look like this package had a recipe when it was originally installed.',
                 'To install the latest version of the recipe, if there is one, run:',
+<<<<<<< HEAD
                 sprintf('  <info>composer recipes:install %s --force -v</info>', $packageName),
+=======
+                \sprintf('  <info>composer recipes:install %s --force -v</info>', $packageName),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ]);
 
             return 1;
@@ -117,7 +137,11 @@ class UpdateRecipesCommand extends BaseCommand
                 'The version of the installed recipe was not saved into symfony.lock.',
                 'This is possible if it was installed by an old version of Symfony Flex.',
                 'Update the recipe by re-installing the latest version with:',
+<<<<<<< HEAD
                 sprintf('  <info>composer recipes:install %s --force -v</info>', $packageName),
+=======
+                \sprintf('  <info>composer recipes:install %s --force -v</info>', $packageName),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ]);
 
             return 1;
@@ -131,7 +155,11 @@ class UpdateRecipesCommand extends BaseCommand
             $io->writeError([
                 'The original recipe version you have installed could not be found, it may be too old.',
                 'Update the recipe by re-installing the latest version with:',
+<<<<<<< HEAD
                 sprintf('  <info>composer recipes:install %s --force -v</info>', $packageName),
+=======
+                \sprintf('  <info>composer recipes:install %s --force -v</info>', $packageName),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ]);
 
             return 1;
@@ -140,31 +168,51 @@ class UpdateRecipesCommand extends BaseCommand
         $newRecipe = $this->getRecipe($package);
 
         if ($newRecipe->getRef() === $originalRecipe->getRef()) {
+<<<<<<< HEAD
             $io->write(sprintf('This recipe for <info>%s</info> is already at the latest version.', $packageName));
+=======
+            $io->write(\sprintf('This recipe for <info>%s</info> is already at the latest version.', $packageName));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             return 0;
         }
 
         $io->write([
+<<<<<<< HEAD
             sprintf('  Updating recipe for <info>%s</info>...', $packageName),
+=======
+            \sprintf('  Updating recipe for <info>%s</info>...', $packageName),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             '',
         ]);
 
         $recipeUpdate = new RecipeUpdate($originalRecipe, $newRecipe, $symfonyLock, $this->rootDir);
         $this->configurator->populateUpdate($recipeUpdate);
         $originalComposerJsonHash = $this->flex->getComposerJsonHash();
+<<<<<<< HEAD
         $patcher = new RecipePatcher($this->rootDir, $io);
 
         try {
             $patch = $patcher->generatePatch($recipeUpdate->getOriginalFiles(), $recipeUpdate->getNewFiles());
             $hasConflicts = !$patcher->applyPatch($patch);
+=======
+        $patcher = new RecipePatcher($this->rootDir, $io, $symfonyLock);
+
+        try {
+            $patch = $patcher->generatePatch($recipeUpdate->getOriginalFiles(), $recipeUpdate->getNewFiles());
+            $hasConflicts = !$patcher->applyPatch($patch, $packageName);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } catch (\Throwable $throwable) {
             $io->writeError([
                 '<bg=red;fg=white>There was an error applying the recipe update patch</>',
                 $throwable->getMessage(),
                 '',
                 'Update the recipe by re-installing the latest version with:',
+<<<<<<< HEAD
                 sprintf('  <info>composer recipes:install %s --force -v</info>', $packageName),
+=======
+                \sprintf('  <info>composer recipes:install %s --force -v</info>', $packageName),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ]);
 
             return 1;
@@ -211,7 +259,11 @@ class UpdateRecipesCommand extends BaseCommand
                 '  This recipe copies the following paths from the bundle into your app:',
             ]);
             foreach ($recipeUpdate->getCopyFromPackagePaths() as $source => $target) {
+<<<<<<< HEAD
                 $io->write(sprintf('  * %s => %s', $source, $target));
+=======
+                $io->write(\sprintf('  * %s => %s', $source, $target));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $io->write([
                 '',
@@ -223,12 +275,20 @@ class UpdateRecipesCommand extends BaseCommand
         if (0 !== \count($patch->getRemovedPatches())) {
             if (1 === \count($patch->getRemovedPatches())) {
                 $notes = [
+<<<<<<< HEAD
                     sprintf('  The file <comment>%s</comment> was not updated because it doesn\'t exist in your app.', array_keys($patch->getRemovedPatches())[0]),
+=======
+                    \sprintf('  The file <comment>%s</comment> was not updated because it doesn\'t exist in your app.', array_keys($patch->getRemovedPatches())[0]),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ];
             } else {
                 $notes = ['  The following files were not updated because they don\'t exist in your app:'];
                 foreach ($patch->getRemovedPatches() as $filename => $contents) {
+<<<<<<< HEAD
                     $notes[] = sprintf('    * <comment>%s</comment>', $filename);
+=======
+                    $notes[] = \sprintf('    * <comment>%s</comment>', $filename);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
             $io->write([
@@ -242,12 +302,20 @@ class UpdateRecipesCommand extends BaseCommand
                 file_put_contents($this->rootDir.'/'.$patchFilename, implode("\n", $patch->getRemovedPatches()));
                 $io->write([
                     '',
+<<<<<<< HEAD
                     sprintf('  Saved diff to <info>%s</info>', $patchFilename),
+=======
+                    \sprintf('  Saved diff to <info>%s</info>', $patchFilename),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ]);
             }
         }
 
+<<<<<<< HEAD
         if ($patch->getPatch()) {
+=======
+        if ($patch->getPatch() && !$input->getOption('no-changelog')) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $io->write('');
             $io->write('  Calculating CHANGELOG...', false);
             $changelog = $this->generateChangelog($originalRecipe);
@@ -262,7 +330,11 @@ class UpdateRecipesCommand extends BaseCommand
         return 0;
     }
 
+<<<<<<< HEAD
     private function getRecipe(PackageInterface $package, string $recipeRef = null, string $recipeVersion = null): ?Recipe
+=======
+    private function getRecipe(PackageInterface $package, ?string $recipeRef = null, ?string $recipeVersion = null): ?Recipe
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $operation = new InformationOperation($package);
         if (null !== $recipeRef) {
@@ -347,7 +419,11 @@ class UpdateRecipesCommand extends BaseCommand
             if ($handlesHrefGracefully) {
                 $url = "\033]8;;$url\033\\$number\033]8;;\033\\";
             }
+<<<<<<< HEAD
             $lines[] = sprintf('  * %s (PR %s)', $data['title'], $url);
+=======
+            $lines[] = \sprintf('  * %s (PR %s)', $data['title'], $url);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $lines;

@@ -43,6 +43,10 @@ return static function (ContainerConfigurator $container) {
                     ->args([
                         param('session.metadata.storage_key'),
                         param('session.metadata.update_threshold'),
+<<<<<<< HEAD
+=======
+                        param('session.metadata.cookie_lifetime'),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     ]),
                 false,
             ])
@@ -53,6 +57,10 @@ return static function (ContainerConfigurator $container) {
                     ->args([
                         param('session.metadata.storage_key'),
                         param('session.metadata.update_threshold'),
+<<<<<<< HEAD
+=======
+                        param('session.metadata.cookie_lifetime'),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     ]),
                 false,
             ])
@@ -64,6 +72,10 @@ return static function (ContainerConfigurator $container) {
                     ->args([
                         param('session.metadata.storage_key'),
                         param('session.metadata.update_threshold'),
+<<<<<<< HEAD
+=======
+                        param('session.metadata.cookie_lifetime'),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     ]),
             ])
 
@@ -90,6 +102,10 @@ return static function (ContainerConfigurator $container) {
                     'session_factory' => service('session.factory')->ignoreOnInvalid(),
                     'logger' => service('logger')->ignoreOnInvalid(),
                     'session_collector' => service('data_collector.request.session_collector')->ignoreOnInvalid(),
+<<<<<<< HEAD
+=======
+                    'request_stack' => service('request_stack')->ignoreOnInvalid(),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ]),
                 param('kernel.debug'),
                 param('session.storage.options'),

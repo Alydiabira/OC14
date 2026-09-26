@@ -11,7 +11,16 @@
 
 namespace Symfony\Component\Form;
 
+<<<<<<< HEAD
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+=======
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\PercentType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class FormFactory implements FormFactoryInterface
@@ -73,6 +82,7 @@ class FormFactory implements FormFactoryInterface
 
         $type = $typeGuess ? $typeGuess->getType() : TextType::class;
 
+<<<<<<< HEAD
         $maxLength = $maxLengthGuess?->getValue();
         $pattern = $patternGuess?->getValue();
 
@@ -82,6 +92,17 @@ class FormFactory implements FormFactoryInterface
 
         if (null !== $maxLength) {
             $options = array_replace_recursive(['attr' => ['maxlength' => $maxLength]], $options);
+=======
+        // the "pattern" and "maxlength" attributes are valid on text inputs only
+        if ($this->isTextInput($type)) {
+            if (null !== $pattern = $patternGuess?->getValue()) {
+                $options = array_replace_recursive(['attr' => ['pattern' => $pattern]], $options);
+            }
+
+            if (null !== $maxLength = $maxLengthGuess?->getValue()) {
+                $options = array_replace_recursive(['attr' => ['maxlength' => $maxLength]], $options);
+            }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($requiredGuess) {
@@ -101,4 +122,27 @@ class FormFactory implements FormFactoryInterface
 
         return $this->createNamedBuilder($property, $type, $data, $options);
     }
+<<<<<<< HEAD
+=======
+
+    private function isTextInput(string $type): bool
+    {
+        $resolvedType = $this->registry->getType($type);
+
+        do {
+            $innerType = $resolvedType->getInnerType();
+
+            // both descend from TextType but render their own input types
+            if ($innerType instanceof RangeType || $innerType instanceof ColorType) {
+                return false;
+            }
+
+            if ($innerType instanceof TextType || $innerType instanceof NumberType || $innerType instanceof MoneyType || $innerType instanceof PercentType) {
+                return true;
+            }
+        } while ($resolvedType = $resolvedType->getParent());
+
+        return false;
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

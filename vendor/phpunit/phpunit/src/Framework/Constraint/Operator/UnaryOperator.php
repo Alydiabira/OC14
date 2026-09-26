@@ -10,7 +10,10 @@
 namespace PHPUnit\Framework\Constraint;
 
 use function count;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use SebastianBergmann\RecursionContext\InvalidArgumentException;
 
 /**
@@ -107,7 +110,11 @@ abstract class UnaryOperator extends Operator
     }
 
     /**
+<<<<<<< HEAD
      * Transforms string returned by the memeber constraint's toString() or
+=======
+     * Transforms string returned by the member constraint's toString() or
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * failureDescription() such that it reflects constraint's participation in
      * this expression.
      *

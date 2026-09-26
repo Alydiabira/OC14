@@ -26,7 +26,11 @@ use function is_string;
 use function mb_strlen;
 use function mb_substr;
 use function preg_match;
+<<<<<<< HEAD
 use function spl_object_hash;
+=======
+use function spl_object_id;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function sprintf;
 use function str_repeat;
 use function str_replace;
@@ -199,7 +203,11 @@ class Exporter
         // Format the output similarly to print_r() in this case
         if ($value instanceof SplObjectStorage) {
             foreach ($value as $key => $val) {
+<<<<<<< HEAD
                 $array[spl_object_hash($val)] = [
+=======
+                $array[spl_object_id($val)] = [
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     'obj' => $val,
                     'inf' => $value->getInfo(),
                 ];
@@ -240,9 +248,15 @@ class Exporter
             ini_set('precision', '-1');
 
             try {
+<<<<<<< HEAD
                 $valueStr = (string) $value;
 
                 if ((string) (int) $value === $valueStr) {
+=======
+                $valueStr = @(string) $value;
+
+                if ((string) @(int) $value === $valueStr) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     return $valueStr . '.0';
                 }
 

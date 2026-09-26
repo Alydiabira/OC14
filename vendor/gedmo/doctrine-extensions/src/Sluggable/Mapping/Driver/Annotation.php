@@ -14,6 +14,7 @@ use Gedmo\Exception\InvalidMappingException;
 use Gedmo\Mapping\Annotation\Slug;
 use Gedmo\Mapping\Annotation\SlugHandler;
 use Gedmo\Mapping\Annotation\SlugHandlerOption;
+<<<<<<< HEAD
 use Gedmo\Mapping\Driver\AbstractAnnotationDriver;
 
 /**
@@ -94,6 +95,26 @@ class Annotation extends AbstractAnnotationDriver
      * @internal
      *
      * @return array<string, SlugHandler[]>
+=======
+use Gedmo\Mapping\Driver\AnnotationDriverInterface;
+use Gedmo\Sluggable\Handler\SlugHandlerInterface;
+
+/**
+ * Mapping driver for the sluggable extension which reads extended metadata from annotations on a sluggable class.
+ *
+ * @author Gediminas Morkevicius <gediminas.morkevicius@gmail.com>
+ *
+ * @deprecated since gedmo/doctrine-extensions 3.16, will be removed in version 4.0.
+ *
+ * @internal
+ */
+class Annotation extends Attribute implements AnnotationDriverInterface
+{
+    /**
+     * @param ClassMetadata<object> $meta
+     *
+     * @return array<class-string<SlugHandlerInterface>, SlugHandler[]>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function getSlugHandlers(\ReflectionProperty $property, Slug $slug, ClassMetadata $meta): array
     {
@@ -107,25 +128,50 @@ class Annotation extends AbstractAnnotationDriver
             if (!$handler instanceof SlugHandler) {
                 throw new InvalidMappingException("SlugHandler: {$handler} should be instance of SlugHandler annotation in entity - {$meta->getName()}");
             }
+<<<<<<< HEAD
             if (!class_exists($handler->class)) {
                 throw new InvalidMappingException("SlugHandler class: {$handler->class} should be a valid class name in entity - {$meta->getName()}");
             }
             $class = $handler->class;
             $handlers[$class] = [];
+=======
+
+            if (!class_exists($handler->class)) {
+                throw new InvalidMappingException("SlugHandler class: {$handler->class} should be a valid class name in entity - {$meta->getName()}");
+            }
+
+            /** @var class-string<SlugHandlerInterface> $class */
+            $class = $handler->class;
+
+            $handlers[$class] = [];
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             foreach ($handler->options as $option) {
                 if (!$option instanceof SlugHandlerOption) {
                     throw new InvalidMappingException("SlugHandlerOption: {$option} should be instance of SlugHandlerOption annotation in entity - {$meta->getName()}");
                 }
+<<<<<<< HEAD
                 if ('' === $option->name) {
                     throw new InvalidMappingException("SlugHandlerOption name: {$option->name} should be valid name in entity - {$meta->getName()}");
                 }
                 $handlers[$class][$option->name] = $option->value;
             }
+=======
+
+                if ('' === $option->name) {
+                    throw new InvalidMappingException("SlugHandlerOption name: {$option->name} should be valid name in entity - {$meta->getName()}");
+                }
+
+                $handlers[$class][$option->name] = $option->value;
+            }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $class::validate($handlers[$class], $meta);
         }
 
         return $handlers;
     }
+<<<<<<< HEAD
 
     /**
      * @param array<string, mixed> $config
@@ -204,4 +250,6 @@ class Annotation extends AbstractAnnotationDriver
 
         return $config;
     }
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

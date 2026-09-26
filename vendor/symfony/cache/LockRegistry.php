@@ -65,12 +65,22 @@ final class LockRegistry
     /**
      * Defines a set of existing files that will be used as keys to acquire locks.
      *
+<<<<<<< HEAD
      * @return array The previously defined set of files
+=======
+     * @param list<string> $files A list of existing files
+     *
+     * @return list<string> The previously defined set of files
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public static function setFiles(array $files): array
     {
         $previousFiles = self::$files;
+<<<<<<< HEAD
         self::$files = $files;
+=======
+        self::$files = array_values($files);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         foreach (self::$openedFiles as $file) {
             if ($file) {
@@ -83,7 +93,11 @@ final class LockRegistry
         return $previousFiles;
     }
 
+<<<<<<< HEAD
     public static function compute(callable $callback, ItemInterface $item, bool &$save, CacheInterface $pool, ?\Closure $setMetadata = null, ?LoggerInterface $logger = null): mixed
+=======
+    public static function compute(callable $callback, ItemInterface $item, bool &$save, CacheInterface $pool, ?\Closure $setMetadata = null, ?LoggerInterface $logger = null, ?float $beta = null): mixed
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if ('\\' === \DIRECTORY_SEPARATOR && null === self::$lockedFiles) {
             // disable locking on Windows by default
@@ -96,8 +110,13 @@ final class LockRegistry
             return $callback($item, $save);
         }
 
+<<<<<<< HEAD
         self::$signalingException ??= unserialize("O:9:\"Exception\":1:{s:16:\"\0Exception\0trace\";a:0:{}}");
         self::$signalingCallback ??= fn () => throw self::$signalingException;
+=======
+        self::$signalingException ??= unserialize("O:9:\"Exception\":1:{s:16:\"\0Exception\0trace\";a:0:{}}", ['allowed_classes' => [\Exception::class]]);
+        self::$signalingCallback ??= static fn () => throw self::$signalingException;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         while (true) {
             try {
@@ -105,7 +124,11 @@ final class LockRegistry
                 $locked = flock($lock, \LOCK_EX | \LOCK_NB, $wouldBlock);
 
                 if ($locked || !$wouldBlock) {
+<<<<<<< HEAD
                     $logger?->info(sprintf('Lock %s, now computing item "{key}"', $locked ? 'acquired' : 'not supported'), ['key' => $item->getKey()]);
+=======
+                    $logger?->info(\sprintf('Lock %s, now computing item "{key}"', $locked ? 'acquired' : 'not supported'), ['key' => $item->getKey()]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     self::$lockedFiles[$key] = true;
 
                     $value = $callback($item, $save);
@@ -123,9 +146,50 @@ final class LockRegistry
                 }
                 // if we failed the race, retry locking in blocking mode to wait for the winner
                 $logger?->info('Item "{key}" is locked, waiting for it to be released', ['key' => $item->getKey()]);
+<<<<<<< HEAD
                 flock($lock, \LOCK_SH);
             } finally {
                 flock($lock, \LOCK_UN);
+=======
+
+                $deadline = microtime(true) + 30.0;
+
+                // max_execution_time counts wall time on Windows, on Apple Silicon and on ZTS builds with zend-max-execution-timers
+                // (e.g. FrankenPHP): stop waiting 1s before that limit, to leave time for evicting the slot and computing the value.
+                // A limit that is already past means the timer counts CPU time or was restarted by set_time_limit(): ignore it then.
+                if (0 < $limit = (int) \ini_get('max_execution_time')) {
+                    $end = ($_SERVER['REQUEST_TIME_FLOAT'] ?? microtime(true)) + $limit;
+
+                    if (microtime(true) < $end) {
+                        $deadline = min($deadline, $end - 1.0);
+                    }
+                }
+                $acquired = false;
+                do {
+                    if ($acquired = flock($lock, \LOCK_SH | \LOCK_NB)) {
+                        break;
+                    }
+                    usleep(100_000);
+                } while (microtime(true) < $deadline);
+
+                if (!$acquired) {
+                    $logger?->warning('Lock on item "{key}" timed out, evicting slot', ['key' => $item->getKey()]);
+                    unset(self::$files[$key]);
+                    self::setFiles(self::$files);
+                    $lock = null;
+
+                    return self::compute($callback, $item, $save, $pool, $setMetadata, $logger, $beta);
+                }
+
+                if (\INF === $beta) {
+                    $logger?->info('Force-recomputing item "{key}"', ['key' => $item->getKey()]);
+                    continue;
+                }
+            } finally {
+                if ($lock) {
+                    flock($lock, \LOCK_UN);
+                }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 unset(self::$lockedFiles[$key]);
             }
 

@@ -28,6 +28,16 @@ use Symfony\Component\CssSelector\XPath\XPathExpr;
  */
 class HtmlExtension extends AbstractExtension
 {
+<<<<<<< HEAD
+=======
+    // Each disabled fieldset ancestor disables the element, except the one whose first legend
+    // child the element sits in. Those excepted fieldsets are exactly the parents of the
+    // ancestors-or-self that are a first legend child of a disabled fieldset, one for one, so
+    // the element is disabled as soon as the first count exceeds the second one. Counting keeps
+    // this to two cheap ancestor walks instead of a predicate run on every ancestor.
+    private const DISABLING_FIELDSET = 'count(ancestor::fieldset[@disabled]) > count(ancestor-or-self::legend[not(preceding-sibling::legend)][parent::fieldset[@disabled]])';
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function __construct(Translator $translator)
     {
         $translator
@@ -91,10 +101,17 @@ class HtmlExtension extends AbstractExtension
                 ." or name(.) = 'button'"
                 ." or name(.) = 'select'"
                 ." or name(.) = 'textarea'"
+<<<<<<< HEAD
             .')'
             .' and ancestor::fieldset[@disabled]'
         );
         // todo: in the second half, add "and is not a descendant of that fieldset element's first legend element child, if any."
+=======
+                ." or name(.) = 'fieldset'"
+            .')'
+            .' and '.self::DISABLING_FIELDSET
+        );
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function translateEnabled(XPathExpr $xpath): XPathExpr
@@ -109,7 +126,10 @@ class HtmlExtension extends AbstractExtension
             .') or ('
                 .'('
                     ."name(.) = 'command'"
+<<<<<<< HEAD
                     ." or name(.) = 'fieldset'"
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     ." or name(.) = 'optgroup'"
                 .')'
                 .' and not(@disabled)'
@@ -120,8 +140,14 @@ class HtmlExtension extends AbstractExtension
                     ." or name(.) = 'select'"
                     ." or name(.) = 'textarea'"
                     ." or name(.) = 'keygen'"
+<<<<<<< HEAD
                 .')'
                 .' and not (@disabled or ancestor::fieldset[@disabled])'
+=======
+                    ." or name(.) = 'fieldset'"
+                .')'
+                .' and not(@disabled or '.self::DISABLING_FIELDSET.')'
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             .') or ('
                 ."name(.) = 'option' and not("
                     .'@disabled or ancestor::optgroup[@disabled]'
@@ -142,7 +168,11 @@ class HtmlExtension extends AbstractExtension
             }
         }
 
+<<<<<<< HEAD
         return $xpath->addCondition(sprintf(
+=======
+        return $xpath->addCondition(\sprintf(
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'ancestor-or-self::*[@lang][1][starts-with(concat('
             ."translate(@%s, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), '-')"
             .', %s)]',

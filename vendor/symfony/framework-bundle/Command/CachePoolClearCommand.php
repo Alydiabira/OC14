@@ -55,10 +55,17 @@ final class CachePoolClearCommand extends Command
             ->addOption('all', null, InputOption::VALUE_NONE, 'Clear all cache pools')
             ->addOption('exclude', null, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'A list of cache pools or cache pool clearers to exclude')
             ->setHelp(<<<'EOF'
+<<<<<<< HEAD
 The <info>%command.name%</info> command clears the given cache pools or cache pool clearers.
 
     %command.full_name% <cache pool or clearer 1> [...<cache pool or clearer N>]
 EOF
+=======
+                The <info>%command.name%</info> command clears the given cache pools or cache pool clearers.
+
+                    %command.full_name% <cache pool or clearer 1> [...<cache pool or clearer N>]
+                EOF
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -99,18 +106,27 @@ EOF
                 } elseif ($pool instanceof Psr6CacheClearer) {
                     $clearers[$id] = $pool;
                 } else {
+<<<<<<< HEAD
                     throw new InvalidArgumentException(sprintf('"%s" is not a cache pool nor a cache clearer.', $id));
+=======
+                    throw new InvalidArgumentException(\sprintf('"%s" is not a cache pool nor a cache clearer.', $id));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
         }
 
         foreach ($clearers as $id => $clearer) {
+<<<<<<< HEAD
             $io->comment(sprintf('Calling cache clearer: <info>%s</info>', $id));
+=======
+            $io->comment(\sprintf('Calling cache clearer: <info>%s</info>', $id));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $clearer->clear($kernel->getContainer()->getParameter('kernel.cache_dir'));
         }
 
         $failure = false;
         foreach ($pools as $id => $pool) {
+<<<<<<< HEAD
             $io->comment(sprintf('Clearing cache pool: <info>%s</info>', $id));
 
             if ($pool instanceof CacheItemPoolInterface) {
@@ -121,6 +137,18 @@ EOF
             } else {
                 if (false === $this->poolClearer->clearPool($id)) {
                     $io->warning(sprintf('Cache pool "%s" could not be cleared.', $pool));
+=======
+            $io->comment(\sprintf('Clearing cache pool: <info>%s</info>', $id));
+
+            if ($pool instanceof CacheItemPoolInterface) {
+                if (!$pool->clear()) {
+                    $io->warning(\sprintf('Cache pool "%s" could not be cleared.', $pool));
+                    $failure = true;
+                }
+            } else {
+                if (!$this->poolClearer->clearPool($id)) {
+                    $io->warning(\sprintf('Cache pool "%s" could not be cleared.', $pool));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $failure = true;
                 }
             }

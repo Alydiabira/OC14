@@ -34,12 +34,25 @@ class NumericNode extends ScalarNode
     {
         $value = parent::finalizeValue($value);
 
+<<<<<<< HEAD
         $errorMsg = null;
         if (isset($this->min) && $value < $this->min) {
             $errorMsg = sprintf('The value %s is too small for path "%s". Should be greater than or equal to %s', $value, $this->getPath(), $this->min);
         }
         if (isset($this->max) && $value > $this->max) {
             $errorMsg = sprintf('The value %s is too big for path "%s". Should be less than or equal to %s', $value, $this->getPath(), $this->max);
+=======
+        if ($this->isHandlingPlaceholder()) {
+            return $value;
+        }
+
+        $errorMsg = null;
+        if (isset($this->min) && $value < $this->min) {
+            $errorMsg = \sprintf('The value %s is too small for path "%s". Should be greater than or equal to %s', $value, $this->getPath(), $this->min);
+        }
+        if (isset($this->max) && $value > $this->max) {
+            $errorMsg = \sprintf('The value %s is too big for path "%s". Should be less than or equal to %s', $value, $this->getPath(), $this->max);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         if (isset($errorMsg)) {
             $ex = new InvalidConfigurationException($errorMsg);

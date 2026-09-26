@@ -61,7 +61,11 @@ class DateType extends AbstractType
 
         if ('single_text' === $options['widget']) {
             if ('' !== $pattern && !str_contains($pattern, 'y') && !str_contains($pattern, 'M') && !str_contains($pattern, 'd')) {
+<<<<<<< HEAD
                 throw new InvalidOptionsException(sprintf('The "format" option should contain the letters "y", "M" or "d". Its current value is "%s".', $pattern));
+=======
+                throw new InvalidOptionsException(\sprintf('The "format" option should contain the letters "y", "M" or "d". Its current value is "%s".', $pattern));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $builder->addViewTransformer(new DateTimeToLocalizedStringTransformer(
@@ -74,7 +78,11 @@ class DateType extends AbstractType
             ));
         } else {
             if ('' !== $pattern && (!str_contains($pattern, 'y') || !str_contains($pattern, 'M') || !str_contains($pattern, 'd'))) {
+<<<<<<< HEAD
                 throw new InvalidOptionsException(sprintf('The "format" option should contain the letters "y", "M" and "d". Its current value is "%s".', $pattern));
+=======
+                throw new InvalidOptionsException(\sprintf('The "format" option should contain the letters "y", "M" and "d". Its current value is "%s".', $pattern));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $yearOptions = $monthOptions = $dayOptions = [
@@ -190,7 +198,11 @@ class DateType extends AbstractType
                 }
 
                 if ($date->getTimezone()->getName() !== $options['model_timezone']) {
+<<<<<<< HEAD
                     trigger_deprecation('symfony/form', '6.4', sprintf('Using a "%s" instance with a timezone ("%s") not matching the configured model timezone "%s" is deprecated.', $date::class, $date->getTimezone()->getName(), $options['model_timezone']));
+=======
+                    trigger_deprecation('symfony/form', '6.4', \sprintf('Using a "%s" instance with a timezone ("%s") not matching the configured model timezone "%s" is deprecated.', $date::class, $date->getTimezone()->getName(), $options['model_timezone']));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     // throw new LogicException(sprintf('Using a "%s" instance with a timezone ("%s") not matching the configured model timezone "%s" is not supported.', $date::class, $date->getTimezone()->getName(), $options['model_timezone']));
                 }
             });
@@ -337,7 +349,11 @@ class DateType extends AbstractType
 
         $resolver->setNormalizer('html5', static function (Options $options, $html5) {
             if ($html5 && 'single_text' === $options['widget'] && self::HTML5_FORMAT !== $options['format']) {
+<<<<<<< HEAD
                 throw new LogicException(sprintf('Cannot use the "format" option of "%s" when the "html5" option is enabled.', self::class));
+=======
+                throw new LogicException(\sprintf('Cannot use the "format" option of "%s" when the "html5" option is enabled.', self::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return $html5;

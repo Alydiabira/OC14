@@ -7,6 +7,10 @@ namespace PhpParser;
  * turn is based on work by Masato Bito.
  */
 
+<<<<<<< HEAD
+=======
+use PhpParser\Node\Arg;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\Cast\Double;
@@ -14,6 +18,10 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\InterpolatedStringPart;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
+<<<<<<< HEAD
+=======
+use PhpParser\Node\PropertyHook;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use PhpParser\Node\Scalar\InterpolatedString;
 use PhpParser\Node\Scalar\Int_;
 use PhpParser\Node\Scalar\String_;
@@ -21,6 +29,10 @@ use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\ClassMethod;
+<<<<<<< HEAD
+=======
+use PhpParser\Node\Stmt\Const_;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use PhpParser\Node\Stmt\Else_;
 use PhpParser\Node\Stmt\ElseIf_;
 use PhpParser\Node\Stmt\Enum_;
@@ -30,6 +42,10 @@ use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\TryCatch;
 use PhpParser\Node\UseItem;
+<<<<<<< HEAD
+=======
+use PhpParser\Node\VarLikeIdentifier;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use PhpParser\NodeVisitor\CommentAnnotatingVisitor;
 
 abstract class ParserAbstract implements Parser {
@@ -128,6 +144,14 @@ abstract class ParserAbstract implements Parser {
     /** @var \SplObjectStorage<Array_, null>|null Array nodes created during parsing, for postprocessing of empty elements. */
     protected ?\SplObjectStorage $createdArrays;
 
+<<<<<<< HEAD
+=======
+    /** @var \SplObjectStorage<Expr\ArrowFunction, null>|null
+     *       Arrow functions that are wrapped in parentheses, to enforce the pipe operator parentheses requirements.
+     */
+    protected ?\SplObjectStorage $parenthesizedArrowFunctions;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /** @var Token[] Tokens for the current parse */
     protected array $tokens;
     /** @var int Current position in token array */
@@ -178,6 +202,10 @@ abstract class ParserAbstract implements Parser {
     public function parse(string $code, ?ErrorHandler $errorHandler = null): ?array {
         $this->errorHandler = $errorHandler ?: new ErrorHandler\Throwing();
         $this->createdArrays = new \SplObjectStorage();
+<<<<<<< HEAD
+=======
+        $this->parenthesizedArrowFunctions = new \SplObjectStorage();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $this->tokens = $this->lexer->tokenize($code, $this->errorHandler);
         $result = $this->doParse();
@@ -201,6 +229,10 @@ abstract class ParserAbstract implements Parser {
         $this->semStack = [];
         $this->semValue = null;
         $this->createdArrays = null;
+<<<<<<< HEAD
+=======
+        $this->parenthesizedArrowFunctions = null;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($result !== null) {
             $traverser = new NodeTraverser(new CommentAnnotatingVisitor($this->tokens));
@@ -409,8 +441,11 @@ abstract class ParserAbstract implements Parser {
                 $rule = $state - $this->numNonLeafStates;
             }
         }
+<<<<<<< HEAD
 
         throw new \RuntimeException('Reached end of parser loop');
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function emitError(Error $error): void {
@@ -734,6 +769,36 @@ abstract class ParserAbstract implements Parser {
         return Double::KIND_DOUBLE;
     }
 
+<<<<<<< HEAD
+=======
+    protected function getIntCastKind(string $cast): int {
+        $cast = strtolower($cast);
+        if (strpos($cast, 'integer') !== false) {
+            return Expr\Cast\Int_::KIND_INTEGER;
+        }
+
+        return Expr\Cast\Int_::KIND_INT;
+    }
+
+    protected function getBoolCastKind(string $cast): int {
+        $cast = strtolower($cast);
+        if (strpos($cast, 'boolean') !== false) {
+            return Expr\Cast\Bool_::KIND_BOOLEAN;
+        }
+
+        return Expr\Cast\Bool_::KIND_BOOL;
+    }
+
+    protected function getStringCastKind(string $cast): int {
+        $cast = strtolower($cast);
+        if (strpos($cast, 'binary') !== false) {
+            return Expr\Cast\String_::KIND_BINARY;
+        }
+
+        return Expr\Cast\String_::KIND_STRING;
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /** @param array<string, mixed> $attributes */
     protected function parseLNumber(string $str, array $attributes, bool $allowInvalidOctal = false): Int_ {
         try {
@@ -974,7 +1039,11 @@ abstract class ParserAbstract implements Parser {
     }
 
     protected function fixupArrayDestructuring(Array_ $node): Expr\List_ {
+<<<<<<< HEAD
         $this->createdArrays->detach($node);
+=======
+        $this->createdArrays->offsetUnset($node);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return new Expr\List_(array_map(function (Node\ArrayItem $item) {
             if ($item->value instanceof Expr\Error) {
                 // We used Error as a placeholder for empty elements, which are legal for destructuring.
@@ -1042,6 +1111,16 @@ abstract class ParserAbstract implements Parser {
                 $node->default->getAttributes()
             ));
         }
+<<<<<<< HEAD
+=======
+
+        if ($node->type instanceof Identifier && $node->type->name === 'void') {
+            $this->emitError(new Error(
+                'void cannot be used as a parameter type',
+                $node->type->getAttributes()
+            ));
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function checkTryCatch(TryCatch $node): void {
@@ -1137,6 +1216,7 @@ abstract class ParserAbstract implements Parser {
     }
 
     protected function checkClassConst(ClassConst $node, int $modifierPos): void {
+<<<<<<< HEAD
         if ($node->flags & Modifiers::STATIC) {
             $this->emitError(new Error(
                 "Cannot use 'static' as constant modifier",
@@ -1163,6 +1243,14 @@ abstract class ParserAbstract implements Parser {
         if ($node->flags & Modifiers::FINAL) {
             $this->emitError(new Error('Properties cannot be declared final',
                 $this->getAttributesAt($modifierPos)));
+=======
+        foreach ([Modifiers::STATIC, Modifiers::ABSTRACT, Modifiers::READONLY] as $modifier) {
+            if ($node->flags & $modifier) {
+                $this->emitError(new Error(
+                    "Cannot use '" . Modifiers::toString($modifier) . "' as constant modifier",
+                    $this->getAttributesAt($modifierPos)));
+            }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -1178,6 +1266,106 @@ abstract class ParserAbstract implements Parser {
         }
     }
 
+<<<<<<< HEAD
+=======
+    protected function checkPropertyHooksForMultiProperty(Property $property, int $hookPos): void {
+        if (count($property->props) > 1) {
+            $this->emitError(new Error(
+                'Cannot use hooks when declaring multiple properties', $this->getAttributesAt($hookPos)));
+        }
+    }
+
+    /** @param PropertyHook[] $hooks */
+    protected function checkEmptyPropertyHookList(array $hooks, int $hookPos): void {
+        if (empty($hooks)) {
+            $this->emitError(new Error(
+                'Property hook list cannot be empty', $this->getAttributesAt($hookPos)));
+        }
+    }
+
+    protected function checkPropertyHook(PropertyHook $hook, ?int $paramListPos): void {
+        $name = $hook->name->toLowerString();
+        if ($name !== 'get' && $name !== 'set') {
+            $this->emitError(new Error(
+                'Unknown hook "' . $hook->name . '", expected "get" or "set"',
+                $hook->name->getAttributes()));
+        }
+        if ($name === 'get' && $paramListPos !== null) {
+            $this->emitError(new Error(
+                'get hook must not have a parameter list', $this->getAttributesAt($paramListPos)));
+        }
+    }
+
+    protected function checkPropertyHookModifiers(int $a, int $b, int $modifierPos): void {
+        try {
+            Modifiers::verifyModifier($a, $b);
+        } catch (Error $error) {
+            $error->setAttributes($this->getAttributesAt($modifierPos));
+            $this->emitError($error);
+        }
+
+        if ($b != Modifiers::FINAL) {
+            $this->emitError(new Error(
+                'Cannot use the ' . Modifiers::toString($b) . ' modifier on a property hook',
+                $this->getAttributesAt($modifierPos)));
+        }
+    }
+
+    protected function checkConstantAttributes(Const_ $node): void {
+        if ($node->attrGroups !== [] && count($node->consts) > 1) {
+            $this->emitError(new Error(
+                'Cannot use attributes on multiple constants at once', $node->getAttributes()));
+        }
+    }
+
+    protected function checkPipeOperatorParentheses(Expr $node): void {
+        if ($node instanceof Expr\ArrowFunction && !$this->parenthesizedArrowFunctions->offsetExists($node)) {
+            $this->emitError(new Error(
+                'Arrow functions on the right hand side of |> must be parenthesized', $node->getAttributes()));
+        }
+    }
+
+    /**
+     * @param Property|Param $node
+     */
+    protected function addPropertyNameToHooks(Node $node): void {
+        if ($node instanceof Property) {
+            $name = $node->props[0]->name->toString();
+        } else {
+            $name = $node->var->name;
+        }
+        foreach ($node->hooks as $hook) {
+            $hook->setAttribute('propertyName', $name);
+        }
+    }
+
+    /** @param array<Node\Arg|Node\VariadicPlaceholder> $args */
+    private function isSimpleExit(array $args): bool {
+        if (\count($args) === 0) {
+            return true;
+        }
+        if (\count($args) === 1) {
+            $arg = $args[0];
+            return $arg instanceof Arg && $arg->name === null &&
+                   $arg->byRef === false && $arg->unpack === false;
+        }
+        return false;
+    }
+
+    /**
+     * @param array<Node\Arg|Node\VariadicPlaceholder> $args
+     * @param array<string, mixed> $attrs
+     */
+    protected function createExitExpr(string $name, int $namePos, array $args, array $attrs): Expr {
+        if ($this->isSimpleExit($args)) {
+            // Create Exit node for backwards compatibility.
+            $attrs['kind'] = strtolower($name) === 'exit' ? Expr\Exit_::KIND_EXIT : Expr\Exit_::KIND_DIE;
+            return new Expr\Exit_(\count($args) === 1 ? $args[0]->value : null, $attrs);
+        }
+        return new Expr\FuncCall(new Name($name, $this->getAttributesAt($namePos)), $args, $attrs);
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Creates the token map.
      *
@@ -1190,6 +1378,7 @@ abstract class ParserAbstract implements Parser {
     protected function createTokenMap(): array {
         $tokenMap = [];
 
+<<<<<<< HEAD
         for ($i = 0; $i < 1000; ++$i) {
             if ($i < 256) {
                 // Single-char tokens use an identity mapping.
@@ -1226,6 +1415,25 @@ abstract class ParserAbstract implements Parser {
         $tokenMap[\T_READONLY] = static::T_READONLY;
 
         // We have create a map from PHP token IDs to external symbol IDs.
+=======
+        // Single-char tokens use an identity mapping.
+        for ($i = 0; $i < 256; ++$i) {
+            $tokenMap[$i] = $i;
+        }
+
+        foreach ($this->symbolToName as $name) {
+            if ($name[0] === 'T') {
+                $tokenMap[\constant($name)] = constant(static::class . '::' . $name);
+            }
+        }
+
+        // T_OPEN_TAG_WITH_ECHO with dropped T_OPEN_TAG results in T_ECHO
+        $tokenMap[\T_OPEN_TAG_WITH_ECHO] = static::T_ECHO;
+        // T_CLOSE_TAG is equivalent to ';'
+        $tokenMap[\T_CLOSE_TAG] = ord(';');
+
+        // We have created a map from PHP token IDs to external symbol IDs.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         // Now map them to the internal symbol ID.
         $fullTokenMap = [];
         foreach ($tokenMap as $phpToken => $extSymbol) {

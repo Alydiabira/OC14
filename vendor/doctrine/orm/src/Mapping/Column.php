@@ -15,7 +15,11 @@ final class Column implements MappingAttribute
      * @param int|null                      $scale     The scale for a decimal (exact numeric) column (Applies only for decimal column).
      * @param class-string<BackedEnum>|null $enumType
      * @param array<string,mixed>           $options
+<<<<<<< HEAD
      * @psalm-param 'NEVER'|'INSERT'|'ALWAYS'|null $generated
+=======
+     * @phpstan-param 'NEVER'|'INSERT'|'ALWAYS'|null $generated
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct(
         public readonly string|null $name = null,
@@ -31,6 +35,10 @@ final class Column implements MappingAttribute
         public readonly array $options = [],
         public readonly string|null $columnDefinition = null,
         public readonly string|null $generated = null,
+<<<<<<< HEAD
+=======
+        public readonly bool $index = false,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ) {
     }
 }

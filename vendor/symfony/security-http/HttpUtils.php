@@ -13,6 +13,10 @@ namespace Symfony\Component\Security\Http;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+<<<<<<< HEAD
+=======
+use Symfony\Component\Routing\Exception\ExceptionInterface;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -53,10 +57,17 @@ class HttpUtils
      */
     public function createRedirectResponse(Request $request, string $path, int $status = 302): RedirectResponse
     {
+<<<<<<< HEAD
         if (null !== $this->secureDomainRegexp && 'https' === $this->urlMatcher->getContext()->getScheme() && preg_match('#^https?:[/\\\\]{2,}+[^/]++#i', $path, $host) && !preg_match(sprintf($this->secureDomainRegexp, preg_quote($request->getHttpHost())), $host[0])) {
             $path = '/';
         }
         if (null !== $this->domainRegexp && preg_match('#^https?:[/\\\\]{2,}+[^/]++#i', $path, $host) && !preg_match(sprintf($this->domainRegexp, preg_quote($request->getHttpHost())), $host[0])) {
+=======
+        if (null !== $this->secureDomainRegexp && 'https' === $this->urlMatcher->getContext()->getScheme() && preg_match('#^https?:[/\\\\]{2,}+[^/]++#i', $path, $host) && !preg_match(\sprintf($this->secureDomainRegexp, preg_quote($request->getHttpHost())), $host[0])) {
+            $path = '/';
+        }
+        if (null !== $this->domainRegexp && preg_match('#^https?:[/\\\\]{2,}+[^/]++#i', $path, $host) && !preg_match(\sprintf($this->domainRegexp, preg_quote($request->getHttpHost())), $host[0])) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $path = '/';
         }
 
@@ -70,7 +81,37 @@ class HttpUtils
      */
     public function createRequest(Request $request, string $path): Request
     {
+<<<<<<< HEAD
         $newRequest = Request::create($this->generateUri($request, $path), 'get', [], $request->cookies->all(), [], $request->server->all());
+=======
+        if ($trustedProxies = Request::getTrustedProxies()) {
+            Request::setTrustedProxies([], Request::getTrustedHeaderSet());
+        }
+
+        // Trusted proxies are disabled above, so getBaseUrl() now returns only the
+        // webserver-derived portion of the base URL (e.g. an Apache "Alias /myapp …"
+        // sub-directory install). That portion must remain in the generated sub-request
+        // URI so it can re-detect its own base URL from SCRIPT_NAME/REQUEST_URI; only
+        // the trusted-proxy prefix is dropped from the URL generator's context here,
+        // otherwise it would be doubled once the sub-request is processed.
+        $context = $this->urlGenerator?->getContext();
+        $contextBaseUrl = $context?->getBaseUrl();
+        $realBaseUrl = null !== $context ? $request->getBaseUrl() : null;
+        if ($resetBaseUrl = $contextBaseUrl !== $realBaseUrl) {
+            $context->setBaseUrl($realBaseUrl);
+        }
+
+        try {
+            $newRequest = Request::create($this->generateUri($request, $path), 'get', [], $request->cookies->all(), [], $request->server->all());
+        } finally {
+            if ($trustedProxies) {
+                Request::setTrustedProxies($trustedProxies, Request::getTrustedHeaderSet());
+            }
+            if ($resetBaseUrl) {
+                $context->setBaseUrl($contextBaseUrl);
+            }
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         static $setSession;
 
@@ -109,7 +150,11 @@ class HttpUtils
         if ('/' !== $path[0]) {
             // Shortcut if request has already been matched before
             if ($request->attributes->has('_route')) {
+<<<<<<< HEAD
                 return $path === $request->attributes->get('_route');
+=======
+                return $path === $request->attributes->get('_route') || $this->generatesRequestPath($request, $path, $request->attributes->get('_route_params', []));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             try {
@@ -120,7 +165,11 @@ class HttpUtils
                     $parameters = $this->urlMatcher->match($request->getPathInfo());
                 }
 
+<<<<<<< HEAD
                 return isset($parameters['_route']) && $path === $parameters['_route'];
+=======
+                return isset($parameters['_route']) && ($path === $parameters['_route'] || $this->generatesRequestPath($request, $path, $parameters));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } catch (MethodNotAllowedException) {
                 return false;
             } catch (ResourceNotFoundException) {
@@ -171,4 +220,29 @@ class HttpUtils
 
         return $url;
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * Tells whether generating the given route leads to the path of the current request.
+     *
+     * This makes route aliases work, since matching a request always yields the canonical route name.
+     */
+    private function generatesRequestPath(Request $request, string $route, array $parameters): bool
+    {
+        if (null === $this->urlGenerator) {
+            return false;
+        }
+
+        unset($parameters['_route'], $parameters['_controller']);
+
+        try {
+            $url = $this->urlGenerator->generate($route, $parameters);
+        } catch (ExceptionInterface) {
+            return false;
+        }
+
+        return $url === $request->getBaseUrl().$request->getPathInfo();
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

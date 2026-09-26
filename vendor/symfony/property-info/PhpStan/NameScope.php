@@ -48,11 +48,19 @@ final class NameScope
             }
             array_shift($nameParts);
 
+<<<<<<< HEAD
             return sprintf('%s\\%s', $this->uses[$firstNamePart], implode('\\', $nameParts));
         }
 
         if (null !== $this->namespace) {
             return sprintf('%s\\%s', $this->namespace, $name);
+=======
+            return \sprintf('%s\\%s', $this->uses[$firstNamePart], implode('\\', $nameParts));
+        }
+
+        if (null !== $this->namespace) {
+            return \sprintf('%s\\%s', $this->namespace, $name);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $name;

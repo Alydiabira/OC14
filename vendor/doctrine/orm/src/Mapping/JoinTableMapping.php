@@ -14,7 +14,13 @@ final class JoinTableMapping implements ArrayAccess
 {
     use ArrayAccessImplementation;
 
+<<<<<<< HEAD
     public bool|null $quoted = null;
+=======
+    public bool|null $quoted                  = null;
+    public string|null $foreignKeyName        = null;
+    public string|null $inverseForeignKeyName = null;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /** @var list<JoinColumnMapping> */
     public array $joinColumns = [];
@@ -33,12 +39,21 @@ final class JoinTableMapping implements ArrayAccess
 
     /**
      * @param mixed[] $mappingArray
+<<<<<<< HEAD
      * @psalm-param array{
+=======
+     * @phpstan-param array{
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *    name: string,
      *    quoted?: bool|null,
      *    joinColumns?: mixed[],
      *    inverseJoinColumns?: mixed[],
      *    schema?: string|null,
+<<<<<<< HEAD
+=======
+     *    foreignKeyName?: string|null,
+     *    inverseForeignKeyName?: string|null,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *    options?: array<string, mixed>
      * } $mappingArray
      */
@@ -52,6 +67,17 @@ final class JoinTableMapping implements ArrayAccess
             }
         }
 
+<<<<<<< HEAD
+=======
+        if (isset($mappingArray['foreignKeyName'])) {
+            $mapping->foreignKeyName = $mappingArray['foreignKeyName'];
+        }
+
+        if (isset($mappingArray['inverseForeignKeyName'])) {
+            $mapping->inverseForeignKeyName = $mappingArray['inverseForeignKeyName'];
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (isset($mappingArray['joinColumns'])) {
             foreach ($mappingArray['joinColumns'] as $column) {
                 $mapping->joinColumns[] = JoinColumnMapping::fromMappingArray($column);
@@ -84,9 +110,20 @@ final class JoinTableMapping implements ArrayAccess
     /** @return mixed[] */
     public function toArray(): array
     {
+<<<<<<< HEAD
         $array = (array) $this;
 
         $toArray                     = static fn (JoinColumnMapping $column): array => (array) $column;
+=======
+        $array                       = (array) $this;
+        $toArray                     = static function (JoinColumnMapping $column) {
+            $array = (array) $column;
+
+            unset($array['nullable']);
+
+            return $array;
+        };
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $array['joinColumns']        = array_map($toArray, $array['joinColumns']);
         $array['inverseJoinColumns'] = array_map($toArray, $array['inverseJoinColumns']);
 
@@ -98,7 +135,11 @@ final class JoinTableMapping implements ArrayAccess
     {
         $serialized = [];
 
+<<<<<<< HEAD
         foreach (['joinColumns', 'inverseJoinColumns', 'name', 'schema', 'options'] as $stringOrArrayKey) {
+=======
+        foreach (['joinColumns', 'inverseJoinColumns', 'name', 'schema', 'options', 'foreignKeyName', 'inverseForeignKeyName'] as $stringOrArrayKey) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if ($this->$stringOrArrayKey !== null) {
                 $serialized[] = $stringOrArrayKey;
             }

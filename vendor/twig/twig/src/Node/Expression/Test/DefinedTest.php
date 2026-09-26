@@ -11,6 +11,7 @@
 
 namespace Twig\Node\Expression\Test;
 
+<<<<<<< HEAD
 use Twig\Compiler;
 use Twig\Error\SyntaxError;
 use Twig\Node\Expression\ArrayExpression;
@@ -22,6 +23,16 @@ use Twig\Node\Expression\MethodCallExpression;
 use Twig\Node\Expression\NameExpression;
 use Twig\Node\Expression\TestExpression;
 use Twig\Node\Node;
+=======
+use Twig\Attribute\FirstClassTwigCallableReady;
+use Twig\Compiler;
+use Twig\Error\SyntaxError;
+use Twig\Node\Expression\AbstractExpression;
+use Twig\Node\Expression\SupportDefinedTestInterface;
+use Twig\Node\Expression\TestExpression;
+use Twig\Node\Node;
+use Twig\TwigTest;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Checks if a variable is defined in the current context.
@@ -35,6 +46,7 @@ use Twig\Node\Node;
  */
 class DefinedTest extends TestExpression
 {
+<<<<<<< HEAD
     public function __construct(Node $node, string $name, ?Node $arguments, int $lineno)
     {
         if ($node instanceof NameExpression) {
@@ -65,10 +77,42 @@ class DefinedTest extends TestExpression
         if ($node->getNode('node') instanceof GetAttrExpression) {
             $this->changeIgnoreStrictCheck($node->getNode('node'));
         }
+=======
+    /**
+     * @param AbstractExpression $node
+     */
+    #[FirstClassTwigCallableReady]
+    public function __construct(Node $node, TwigTest|string $name, ?Node $arguments, int $lineno)
+    {
+        if (!$node instanceof AbstractExpression) {
+            trigger_deprecation('twig/twig', '3.15', 'Not passing a "%s" instance to the "node" argument of "%s" is deprecated ("%s" given).', AbstractExpression::class, static::class, $node::class);
+        }
+
+        if (!$node instanceof SupportDefinedTestInterface) {
+            throw new SyntaxError('The "defined" test only works with simple variables.', $lineno);
+        }
+
+        $node->enableDefinedTest();
+
+        if (\is_string($name) && 'defined' !== $name) {
+            trigger_deprecation('twig/twig', '3.12', 'Creating a "DefinedTest" instance with a test name that is not "defined" is deprecated.');
+        }
+
+        parent::__construct($node, $name, $arguments, $lineno);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function compile(Compiler $compiler): void
     {
         $compiler->subcompile($this->getNode('node'));
     }
+<<<<<<< HEAD
+=======
+
+    public function getStringCoercedChildNames(): array
+    {
+        // the `defined` test does not coerce its node to string (it only inspects existence)
+        return [];
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

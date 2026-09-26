@@ -146,7 +146,10 @@ class HTML5
      * Parse an input string.
      *
      * @param string $input
+<<<<<<< HEAD
      * @param array  $options
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return \DOMDocument
      */

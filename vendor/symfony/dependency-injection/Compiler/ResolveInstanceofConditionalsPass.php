@@ -31,7 +31,11 @@ class ResolveInstanceofConditionalsPass implements CompilerPassInterface
     {
         foreach ($container->getAutoconfiguredInstanceof() as $interface => $definition) {
             if ($definition->getArguments()) {
+<<<<<<< HEAD
                 throw new InvalidArgumentException(sprintf('Autoconfigured instanceof for type "%s" defines arguments but these are not supported and should be removed.', $interface));
+=======
+                throw new InvalidArgumentException(\sprintf('Autoconfigured instanceof for type "%s" defines arguments but these are not supported and should be removed.', $interface));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -85,7 +89,11 @@ class ResolveInstanceofConditionalsPass implements CompilerPassInterface
                 /** @var ChildDefinition $instanceofDef */
                 $instanceofDef = clone $instanceofDef;
                 $instanceofDef->setAbstract(true)->setParent($parent ?: '.abstract.instanceof.'.$id);
+<<<<<<< HEAD
                 $parent = '.instanceof.'.$interface.'.'.$key.'.'.$id;
+=======
+                $parent = '.instanceof.'.strtr($interface, "\0\r\n", '---').'.'.$key.'.'.$id;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $container->setDefinition($parent, $instanceofDef);
                 $instanceofTags[] = [$interface, $instanceofDef->getTags()];
                 $instanceofBindings = $instanceofDef->getBindings() + $instanceofBindings;
@@ -116,7 +124,11 @@ class ResolveInstanceofConditionalsPass implements CompilerPassInterface
                 $definition = substr_replace($definition, 'Child', 44, 0);
             }
             /** @var ChildDefinition $definition */
+<<<<<<< HEAD
             $definition = unserialize($definition);
+=======
+            $definition = unserialize($definition, ['allowed_classes' => true]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $definition->setParent($parent);
 
             if (null !== $shared && !isset($definition->getChanges()['shared'])) {
@@ -158,12 +170,20 @@ class ResolveInstanceofConditionalsPass implements CompilerPassInterface
     private function mergeConditionals(array $autoconfiguredInstanceof, array $instanceofConditionals, ContainerBuilder $container): array
     {
         // make each value an array of ChildDefinition
+<<<<<<< HEAD
         $conditionals = array_map(fn ($childDef) => [$childDef], $autoconfiguredInstanceof);
+=======
+        $conditionals = array_map(static fn ($childDef) => [$childDef], $autoconfiguredInstanceof);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         foreach ($instanceofConditionals as $interface => $instanceofDef) {
             // make sure the interface/class exists (but don't validate automaticInstanceofConditionals)
             if (!$container->getReflectionClass($interface)) {
+<<<<<<< HEAD
                 throw new RuntimeException(sprintf('"%s" is set as an "instanceof" conditional, but it does not exist.', $interface));
+=======
+                throw new RuntimeException(\sprintf('"%s" is set as an "instanceof" conditional, but it does not exist.', $interface));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if (!isset($autoconfiguredInstanceof[$interface])) {

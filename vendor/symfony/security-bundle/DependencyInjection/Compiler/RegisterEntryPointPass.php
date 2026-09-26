@@ -76,7 +76,11 @@ class RegisterEntryPointPass implements CompilerPassInterface
                     $entryPointNames[] = is_numeric($key) ? $serviceId : $key;
                 }
 
+<<<<<<< HEAD
                 throw new InvalidConfigurationException(sprintf('Because you have multiple authenticators in firewall "%s", you need to set the "entry_point" key to one of your authenticators ("%s") or a service ID implementing "%s". The "entry_point" determines what should happen (e.g. redirect to "/login") when an anonymous user tries to access a protected page.', $firewallName, implode('", "', $entryPointNames), AuthenticationEntryPointInterface::class));
+=======
+                throw new InvalidConfigurationException(\sprintf('Because you have multiple authenticators in firewall "%s", you need to set the "entry_point" key to one of your authenticators ("%s") or a service ID implementing "%s". The "entry_point" determines what should happen (e.g. redirect to "/login") when an anonymous user tries to access a protected page.', $firewallName, implode('", "', $entryPointNames), AuthenticationEntryPointInterface::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $config->replaceArgument(7, $entryPoint);

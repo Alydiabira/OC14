@@ -13,6 +13,15 @@ namespace Twig\TokenParser;
 
 use Twig\Error\SyntaxError;
 use Twig\Node\BodyNode;
+<<<<<<< HEAD
+=======
+use Twig\Node\ConfigNode;
+use Twig\Node\Expression\ArrayExpression;
+use Twig\Node\Expression\ConstantExpression;
+use Twig\Node\Expression\Unary\NegUnary;
+use Twig\Node\Expression\Unary\PosUnary;
+use Twig\Node\Expression\Variable\LocalVariable;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Twig\Node\MacroNode;
 use Twig\Node\Node;
 use Twig\Token;
@@ -32,6 +41,7 @@ final class MacroTokenParser extends AbstractTokenParser
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
+<<<<<<< HEAD
         $name = $stream->expect(/* Token::NAME_TYPE */ 5)->getValue();
 
         $arguments = $this->parser->getExpressionParser()->parseArguments(true, true);
@@ -52,6 +62,27 @@ final class MacroTokenParser extends AbstractTokenParser
         $this->parser->setMacro($name, new MacroNode($name, new BodyNode([$body]), $arguments, $lineno, $this->getTag()));
 
         return new Node();
+=======
+        $name = $stream->expect(Token::NAME_TYPE)->getValue();
+        $arguments = $this->parseDefinition();
+
+        $stream->expect(Token::BLOCK_END_TYPE);
+        $this->parser->pushLocalScope();
+        $body = $this->parser->subparse([$this, 'decideBlockEnd'], true);
+        if ($token = $stream->nextIf(Token::NAME_TYPE)) {
+            $value = $token->getValue();
+
+            if ($value != $name) {
+                throw new SyntaxError(\sprintf('Expected endmacro for macro "%s" (but "%s" given).', $name, $value), $stream->getCurrent()->getLine(), $stream->getSourceContext());
+            }
+        }
+        $this->parser->popLocalScope();
+        $stream->expect(Token::BLOCK_END_TYPE);
+
+        $this->parser->setMacro($name, new MacroNode($name, new BodyNode([$body]), $arguments, $lineno));
+
+        return new ConfigNode($lineno);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function decideBlockEnd(Token $token): bool
@@ -63,4 +94,59 @@ final class MacroTokenParser extends AbstractTokenParser
     {
         return 'macro';
     }
+<<<<<<< HEAD
+=======
+
+    private function parseDefinition(): ArrayExpression
+    {
+        $arguments = new ArrayExpression([], $this->parser->getCurrentToken()->getLine());
+        $stream = $this->parser->getStream();
+        $stream->expect(Token::OPERATOR_TYPE, '(', 'A list of arguments must begin with an opening parenthesis');
+        while (!$stream->test(Token::PUNCTUATION_TYPE, ')')) {
+            if (\count($arguments)) {
+                $stream->expect(Token::PUNCTUATION_TYPE, ',', 'Arguments must be separated by a comma');
+
+                // if the comma above was a trailing comma, early exit the argument parse loop
+                if ($stream->test(Token::PUNCTUATION_TYPE, ')')) {
+                    break;
+                }
+            }
+
+            $token = $stream->expect(Token::NAME_TYPE, null, 'An argument must be a name');
+            $name = new LocalVariable($token->getValue(), $this->parser->getCurrentToken()->getLine());
+            if ($token = $stream->nextIf(Token::OPERATOR_TYPE, '=')) {
+                $default = $this->parser->parseExpression();
+            } else {
+                $default = new ConstantExpression(null, $this->parser->getCurrentToken()->getLine());
+                $default->setAttribute('is_implicit', true);
+            }
+
+            if (!$this->checkConstantExpression($default)) {
+                throw new SyntaxError('A default value for an argument must be a constant (a boolean, a string, a number, a sequence, or a mapping).', $token->getLine(), $stream->getSourceContext());
+            }
+            $arguments->addElement($default, $name);
+        }
+        $stream->expect(Token::PUNCTUATION_TYPE, ')', 'A list of arguments must be closed by a parenthesis');
+
+        return $arguments;
+    }
+
+    // checks that the node only contains "constant" elements
+    private function checkConstantExpression(Node $node): bool
+    {
+        if (!($node instanceof ConstantExpression || $node instanceof ArrayExpression
+            || $node instanceof NegUnary || $node instanceof PosUnary
+        )) {
+            return false;
+        }
+
+        foreach ($node as $n) {
+            if (!$this->checkConstantExpression($n)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

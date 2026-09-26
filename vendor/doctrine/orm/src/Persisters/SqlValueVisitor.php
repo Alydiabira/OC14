@@ -7,25 +7,37 @@ namespace Doctrine\ORM\Persisters;
 use Doctrine\Common\Collections\Expr\Comparison;
 use Doctrine\Common\Collections\Expr\CompositeExpression;
 use Doctrine\Common\Collections\Expr\ExpressionVisitor;
+<<<<<<< HEAD
 use Doctrine\Common\Collections\Expr\Value;
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Extract the values from a criteria/expression
  */
 class SqlValueVisitor extends ExpressionVisitor
 {
+<<<<<<< HEAD
+=======
+    use SqlValueVisitorImplementation;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /** @var mixed[] */
     private array $values = [];
 
     /** @var mixed[][] */
     private array $types = [];
 
+<<<<<<< HEAD
     /**
      * Converts a comparison expression into the target query language output.
      *
      * {@inheritDoc}
      */
     public function walkComparison(Comparison $comparison)
+=======
+    private function doWalkComparison(Comparison $comparison): mixed
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $value = $this->getValueFromComparison($comparison);
 
@@ -35,12 +47,16 @@ class SqlValueVisitor extends ExpressionVisitor
         return null;
     }
 
+<<<<<<< HEAD
     /**
      * Converts a composite expression into the target query language output.
      *
      * {@inheritDoc}
      */
     public function walkCompositeExpression(CompositeExpression $expr)
+=======
+    private function doWalkCompositeExpression(CompositeExpression $expr): mixed
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         foreach ($expr->getExpressionList() as $child) {
             $this->dispatch($child);
@@ -50,6 +66,7 @@ class SqlValueVisitor extends ExpressionVisitor
     }
 
     /**
+<<<<<<< HEAD
      * Converts a value expression into the target query language part.
      *
      * {@inheritDoc}
@@ -64,6 +81,12 @@ class SqlValueVisitor extends ExpressionVisitor
      *
      * @return mixed[][]
      * @psalm-return array{0: array, 1: array<array<mixed>>}
+=======
+     * Returns the Parameters and Types necessary for matching the last visited expression.
+     *
+     * @return mixed[][]
+     * @phpstan-return array{0: array, 1: array<array<mixed>>}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getParamsAndTypes(): array
     {

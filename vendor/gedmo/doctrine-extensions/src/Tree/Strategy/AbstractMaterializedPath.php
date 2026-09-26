@@ -96,10 +96,18 @@ abstract class AbstractMaterializedPath implements Strategy
     public function processScheduledInsertion($om, $node, AdapterInterface $ea)
     {
         $meta = $om->getClassMetadata(get_class($node));
+<<<<<<< HEAD
         $config = $this->listener->getConfiguration($om, $meta->getName());
         $fieldMapping = $meta->getFieldMapping($config['path_source']);
 
         if ($meta->isIdentifier($config['path_source']) || 'string' === $fieldMapping['type']) {
+=======
+
+        // ID is always used in a path,
+        // and if it is generated value from engine (like AUTO_INCREMENT),
+        // we need to schedule the path update
+        if ([] === $meta->getIdentifierValues($node)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->scheduledForPathProcess[spl_object_id($node)] = $node;
         } else {
             $this->updateNode($om, $node, $ea);
@@ -117,9 +125,13 @@ abstract class AbstractMaterializedPath implements Strategy
             if (isset($changeSet[$config['path']])) {
                 $originalPath = $changeSet[$config['path']][0];
             } else {
+<<<<<<< HEAD
                 $pathProp = $meta->getReflectionProperty($config['path']);
                 $pathProp->setAccessible(true);
                 $originalPath = $pathProp->getValue($node);
+=======
+                $originalPath = $meta->getFieldValue($node, $config['path']);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $this->updateNode($om, $node, $ea);
@@ -203,6 +215,7 @@ abstract class AbstractMaterializedPath implements Strategy
         $meta = $om->getClassMetadata(get_class($node));
         $config = $this->listener->getConfiguration($om, $meta->getName());
         $uow = $om->getUnitOfWork();
+<<<<<<< HEAD
         $parentProp = $meta->getReflectionProperty($config['parent']);
         $parentProp->setAccessible(true);
         $parent = $parentProp->getValue($node);
@@ -211,6 +224,10 @@ abstract class AbstractMaterializedPath implements Strategy
         $pathSourceProp = $meta->getReflectionProperty($config['path_source']);
         $pathSourceProp->setAccessible(true);
         $path = (string) $pathSourceProp->getValue($node);
+=======
+        $parent = $meta->getFieldValue($node, $config['parent']);
+        $path = (string) $meta->getFieldValue($node, $config['path_source']);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         // We need to avoid the presence of the path separator in the path source
         if (false !== strpos($path, $config['path_separator'])) {
@@ -224,6 +241,7 @@ abstract class AbstractMaterializedPath implements Strategy
         // default behavior: if PathSource field is a string, we append the ID to the path
         // path_append_id is true: always append id
         // path_append_id is false: never append id
+<<<<<<< HEAD
         if (true === $config['path_append_id'] || ('string' === $fieldMapping['type'] && false !== $config['path_append_id'])) {
             if (method_exists($meta, 'getIdentifierValue')) {
                 $identifier = $meta->getIdentifierValue($node);
@@ -231,6 +249,13 @@ abstract class AbstractMaterializedPath implements Strategy
                 $identifierProp = $meta->getReflectionProperty($meta->getSingleIdentifierFieldName());
                 $identifierProp->setAccessible(true);
                 $identifier = $identifierProp->getValue($node);
+=======
+        if (true === $config['path_append_id'] || ('string' === ($fieldMapping->type ?? $fieldMapping['type']) && false !== $config['path_append_id'])) {
+            if (method_exists($meta, 'getIdentifierValue')) {
+                $identifier = $meta->getIdentifierValue($node);
+            } else {
+                $identifier = $meta->getFieldValue($node, $meta->getSingleIdentifierFieldName());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $path .= '-'.$identifier;
@@ -243,6 +268,7 @@ abstract class AbstractMaterializedPath implements Strategy
             $changeSet = $uow->isScheduledForUpdate($parent) ? $ea->getObjectChangeSet($uow, $parent) : false;
             $pathOrPathSourceHasChanged = $changeSet && (isset($changeSet[$config['path_source']]) || isset($changeSet[$config['path']]));
 
+<<<<<<< HEAD
             if ($pathOrPathSourceHasChanged || !$pathProp->getValue($parent)) {
                 $this->updateNode($om, $parent, $ea);
             }
@@ -255,6 +281,20 @@ abstract class AbstractMaterializedPath implements Strategy
             } else {
                 // don't add separator
                 $path = $pathProp->getValue($parent).$path;
+=======
+            if ($pathOrPathSourceHasChanged || !$meta->getFieldValue($node, $config['path'])) {
+                $this->updateNode($om, $parent, $ea);
+            }
+
+            $parentPath = $meta->getFieldValue($parent, $config['path']);
+            // if parent path not ends with separator
+            if ($parentPath[strlen($parentPath) - 1] !== $config['path_separator']) {
+                // add separator
+                $path = $parentPath.$config['path_separator'].$path;
+            } else {
+                // don't add separator
+                $path = $parentPath.$path;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -266,7 +306,11 @@ abstract class AbstractMaterializedPath implements Strategy
             $path .= $config['path_separator'];
         }
 
+<<<<<<< HEAD
         $pathProp->setValue($node, $path);
+=======
+        $meta->setFieldValue($node, $config['path'], $path);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $changes = [
             $config['path'] => [null, $path],
         ];
@@ -275,9 +319,13 @@ abstract class AbstractMaterializedPath implements Strategy
 
         if (isset($config['path_hash'])) {
             $pathHash = md5($path);
+<<<<<<< HEAD
             $pathHashProp = $meta->getReflectionProperty($config['path_hash']);
             $pathHashProp->setAccessible(true);
             $pathHashProp->setValue($node, $pathHash);
+=======
+            $meta->setFieldValue($node, $config['path_hash'], $pathHash);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $changes[$config['path_hash']] = [null, $pathHash];
         }
 
@@ -296,17 +344,25 @@ abstract class AbstractMaterializedPath implements Strategy
                 $root = $om->getReference($rootClass, $root);
             }
 
+<<<<<<< HEAD
             $rootProp = $meta->getReflectionProperty($config['root']);
             $rootProp->setAccessible(true);
             $rootProp->setValue($node, $root);
+=======
+            $meta->setFieldValue($node, $config['root'], $root);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $changes[$config['root']] = [null, $root];
         }
 
         if (isset($config['level'])) {
             $level = substr_count($path, $config['path_separator']);
+<<<<<<< HEAD
             $levelProp = $meta->getReflectionProperty($config['level']);
             $levelProp->setAccessible(true);
             $levelProp->setValue($node, $level);
+=======
+            $meta->setFieldValue($node, $config['level'], $level);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $changes[$config['level']] = [null, $level];
         }
 
@@ -355,11 +411,17 @@ abstract class AbstractMaterializedPath implements Strategy
         $config = $this->listener->getConfiguration($om, $meta->getName());
 
         if ($config['activate_locking']) {
+<<<<<<< HEAD
             $parentProp = $meta->getReflectionProperty($config['parent']);
             $parentProp->setAccessible(true);
             $parentNode = $node;
 
             while (($parent = $parentProp->getValue($parentNode)) !== null) {
+=======
+            $parentNode = $node;
+
+            while (($parent = $meta->getFieldValue($parentNode, $config['parent'])) !== null) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $parentNode = $parent;
             }
 
@@ -371,9 +433,13 @@ abstract class AbstractMaterializedPath implements Strategy
             }
 
             // If tree is already locked, we throw an exception
+<<<<<<< HEAD
             $lockTimeProp = $meta->getReflectionProperty($config['lock_time']);
             $lockTimeProp->setAccessible(true);
             $lockTime = $lockTimeProp->getValue($parentNode);
+=======
+            $lockTime = $meta->getFieldValue($parentNode, $config['lock_time']);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             if (null !== $lockTime) {
                 $lockTime = $lockTime instanceof UTCDateTime ? $lockTime->toDateTime()->getTimestamp() : $lockTime->getTimestamp();
@@ -450,10 +516,17 @@ abstract class AbstractMaterializedPath implements Strategy
     /**
      * Remove node and its children
      *
+<<<<<<< HEAD
      * @param ObjectManager        $om
      * @param ClassMetadata        $meta   Metadata
      * @param array<string, mixed> $config config
      * @param object               $node   node to remove
+=======
+     * @param ObjectManager         $om
+     * @param ClassMetadata<object> $meta   Metadata
+     * @param array<string, mixed>  $config config
+     * @param object                $node   node to remove
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return void
      */
@@ -462,10 +535,17 @@ abstract class AbstractMaterializedPath implements Strategy
     /**
      * Returns children of the node with its original path
      *
+<<<<<<< HEAD
      * @param ObjectManager        $om
      * @param ClassMetadata        $meta         Metadata
      * @param array<string, mixed> $config       config
      * @param string               $originalPath original path of object
+=======
+     * @param ObjectManager         $om
+     * @param ClassMetadata<object> $meta         Metadata
+     * @param array<string, mixed>  $config       config
+     * @param string                $originalPath original path of object
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return array<int, object>|\Traversable<int, object>
      */

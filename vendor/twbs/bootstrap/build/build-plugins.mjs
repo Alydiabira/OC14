@@ -2,14 +2,22 @@
 
 /*!
  * Script to build our plugins to use them separately.
+<<<<<<< HEAD
  * Copyright 2020-2024 The Bootstrap Authors
+=======
+ * Copyright 2020-2025 The Bootstrap Authors
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { babel } from '@rollup/plugin-babel'
+<<<<<<< HEAD
 import globby from 'globby'
+=======
+import { globby } from 'globby'
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 import { rollup } from 'rollup'
 import banner from './banner.mjs'
 
@@ -17,7 +25,11 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const sourcePath = path.resolve(__dirname, '../js/src/').replace(/\\/g, '/')
+<<<<<<< HEAD
 const jsFiles = globby.sync(`${sourcePath}/**/*.js`)
+=======
+const jsFiles = await globby(`${sourcePath}/**/*.js`)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 // Array which holds the resolved plugins
 const resolvedPlugins = []
@@ -37,6 +49,12 @@ for (const file of jsFiles) {
 }
 
 const build = async plugin => {
+<<<<<<< HEAD
+=======
+  /**
+   * @type {import('rollup').GlobalsOption}
+   */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
   const globals = {}
 
   const bundle = await rollup({

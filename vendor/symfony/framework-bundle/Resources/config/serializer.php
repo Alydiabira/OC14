@@ -60,7 +60,11 @@ return static function (ContainerConfigurator $container) {
 
     $container->services()
         ->set('serializer', Serializer::class)
+<<<<<<< HEAD
             ->args([[], []])
+=======
+            ->args([[], [], []])
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         ->alias(SerializerInterface::class, 'serializer')
         ->alias(NormalizerInterface::class, 'serializer')
@@ -129,6 +133,11 @@ return static function (ContainerConfigurator $container) {
                 service('property_info')->ignoreOnInvalid(),
                 service('serializer.mapping.class_discriminator_resolver')->ignoreOnInvalid(),
                 null,
+<<<<<<< HEAD
+=======
+                null,
+                service('property_info')->ignoreOnInvalid(),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ])
             ->tag('serializer.normalizer', ['priority' => -1000])
 
@@ -142,8 +151,11 @@ return static function (ContainerConfigurator $container) {
                 service('property_info')->ignoreOnInvalid(),
                 service('serializer.mapping.class_discriminator_resolver')->ignoreOnInvalid(),
                 null,
+<<<<<<< HEAD
                 [],
                 service('property_info')->ignoreOnInvalid(),
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ])
 
         ->alias(PropertyNormalizer::class, 'serializer.normalizer.property')

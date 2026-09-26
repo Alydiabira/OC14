@@ -61,7 +61,11 @@ class CacheWarmerAggregate implements CacheWarmerInterface
 
         if ($collectDeprecations = $this->debug && !\defined('PHPUNIT_COMPOSER_INSTALL')) {
             $collectedLogs = [];
+<<<<<<< HEAD
             $previousHandler = set_error_handler(function ($type, $message, $file, $line) use (&$collectedLogs, &$previousHandler) {
+=======
+            $previousHandler = set_error_handler(static function ($type, $message, $file, $line) use (&$collectedLogs, &$previousHandler) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if (\E_USER_DEPRECATED !== $type && \E_DEPRECATED !== $type) {
                     return $previousHandler ? $previousHandler($type, $message, $file, $line) : false;
                 }
@@ -107,19 +111,28 @@ class CacheWarmerAggregate implements CacheWarmerInterface
                 $start = microtime(true);
                 foreach ((array) $warmer->warmUp($cacheDir, $buildDir) as $item) {
                     if (is_dir($item) || (str_starts_with($item, \dirname($cacheDir)) && !is_file($item)) || ($buildDir && str_starts_with($item, \dirname($buildDir)) && !is_file($item))) {
+<<<<<<< HEAD
                         throw new \LogicException(sprintf('"%s::warmUp()" should return a list of files or classes but "%s" is none of them.', $warmer::class, $item));
+=======
+                        throw new \LogicException(\sprintf('"%s::warmUp()" should return a list of files or classes but "%s" is none of them.', $warmer::class, $item));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
                     $preload[] = $item;
                 }
 
                 if ($io?->isDebug()) {
+<<<<<<< HEAD
                     $io->info(sprintf('"%s" completed in %0.2fms.', $warmer::class, 1000 * (microtime(true) - $start)));
+=======
+                    $io->info(\sprintf('"%s" completed in %0.2fms.', $warmer::class, 1000 * (microtime(true) - $start)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
         } finally {
             if ($collectDeprecations) {
                 restore_error_handler();
 
+<<<<<<< HEAD
                 if (is_file($this->deprecationLogsFilepath)) {
                     $previousLogs = unserialize(file_get_contents($this->deprecationLogsFilepath));
                     if (\is_array($previousLogs)) {
@@ -128,6 +141,29 @@ class CacheWarmerAggregate implements CacheWarmerInterface
                 }
 
                 file_put_contents($this->deprecationLogsFilepath, serialize(array_values($collectedLogs)));
+=======
+                if ($h = fopen($this->deprecationLogsFilepath, 'c+')) {
+                    flock($h, \LOCK_EX);
+
+                    set_error_handler(static fn () => true);
+                    try {
+                        $previousLogs = unserialize(stream_get_contents($h), ['allowed_classes' => false]);
+                    } finally {
+                        restore_error_handler();
+                    }
+                    if (\is_array($previousLogs)) {
+                        $collectedLogs = array_merge($previousLogs, $collectedLogs);
+                    }
+
+                    $serializedLogs = serialize(array_values($collectedLogs));
+
+                    ftruncate($h, 0);
+                    rewind($h);
+                    fwrite($h, $serializedLogs);
+                    flock($h, \LOCK_UN);
+                    fclose($h);
+                }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 

@@ -19,7 +19,11 @@ function _sf_{{ COMMAND_NAME }}
 
     set completecmd $completecmd "-c$c"
 
+<<<<<<< HEAD
     set sfcomplete ($completecmd)
+=======
+    set sfcomplete (env SHELL_VERBOSITY=0 $completecmd)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     for i in $sfcomplete
         echo $i

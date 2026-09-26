@@ -12,6 +12,10 @@ namespace PHPUnit\Framework\MockObject;
 use const DIRECTORY_SEPARATOR;
 use const PHP_EOL;
 use const PHP_MAJOR_VERSION;
+<<<<<<< HEAD
+=======
+use const PHP_VERSION;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use const PREG_OFFSET_CAPTURE;
 use const WSDL_CACHE_NONE;
 use function array_merge;
@@ -41,6 +45,10 @@ use function strpos;
 use function strtolower;
 use function substr;
 use function trait_exists;
+<<<<<<< HEAD
+=======
+use function version_compare;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\Instantiator\Exception\ExceptionInterface as InstantiatorException;
 use Doctrine\Instantiator\Instantiator;
 use Exception;
@@ -111,6 +119,7 @@ trait UnmockedCloneMethodWithoutReturnType
 EOT;
 
     /**
+<<<<<<< HEAD
      * @var array
      */
     private const EXCLUDED_METHOD_NAMES = [
@@ -125,6 +134,11 @@ EOT;
         '__clone'         => true,
         '__halt_compiler' => true,
     ];
+=======
+     * @var array<non-empty-string, true>
+     */
+    private static $excludedMethodNames = [];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * @var array
@@ -293,8 +307,11 @@ EOT;
      *
      * @psalm-param class-string<RealInstanceType> $originalClassName
      *
+<<<<<<< HEAD
      * @psalm-return MockObject&RealInstanceType
      *
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @throws ClassAlreadyExistsException
      * @throws ClassIsFinalException
      * @throws ClassIsReadonlyException
@@ -306,6 +323,11 @@ EOT;
      * @throws RuntimeException
      * @throws UnknownClassException
      * @throws UnknownTypeException
+<<<<<<< HEAD
+=======
+     *
+     * @psalm-return MockObject&RealInstanceType
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getMockForAbstractClass(string $originalClassName, array $arguments = [], string $mockClassName = '', bool $callOriginalConstructor = true, bool $callOriginalClone = true, bool $callAutoload = true, ?array $mockedMethods = null, bool $cloneArguments = true): MockObject
     {
@@ -1079,7 +1101,31 @@ EOT;
 
     private function isMethodNameExcluded(string $name): bool
     {
+<<<<<<< HEAD
         return isset(self::EXCLUDED_METHOD_NAMES[$name]);
+=======
+        if (self::$excludedMethodNames === []) {
+            self::$excludedMethodNames = [
+                '__CLASS__'       => true,
+                '__DIR__'         => true,
+                '__FILE__'        => true,
+                '__FUNCTION__'    => true,
+                '__LINE__'        => true,
+                '__METHOD__'      => true,
+                '__NAMESPACE__'   => true,
+                '__TRAIT__'       => true,
+                '__clone'         => true,
+                '__halt_compiler' => true,
+            ];
+
+            if (version_compare(PHP_VERSION, '8.5', '>=')) {
+                self::$excludedMethodNames['__sleep']  = true;
+                self::$excludedMethodNames['__wakeup'] = true;
+            }
+        }
+
+        return isset(self::$excludedMethodNames[$name]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

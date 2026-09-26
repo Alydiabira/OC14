@@ -35,7 +35,11 @@ final class MakeSerializerNormalizer extends AbstractMaker
             @trigger_deprecation(
                 'symfony/maker-bundle',
                 '1.56.0',
+<<<<<<< HEAD
                 sprintf('Initializing MakeSerializerNormalizer while providing an instance of "%s" is deprecated. The $fileManager param will be removed in a future version.', FileManager::class)
+=======
+                \sprintf('Initializing MakeSerializerNormalizer while providing an instance of "%s" is deprecated. The $fileManager param will be removed in a future version.', FileManager::class)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
         }
     }
@@ -54,7 +58,11 @@ final class MakeSerializerNormalizer extends AbstractMaker
     {
         $command
             ->addArgument('name', InputArgument::OPTIONAL, 'Choose a class name for your normalizer (e.g. <fg=yellow>UserNormalizer</>)')
+<<<<<<< HEAD
             ->setHelp(file_get_contents(__DIR__.'/../Resources/help/MakeSerializerNormalizer.txt'))
+=======
+            ->setHelp($this->getHelpFileContents('MakeSerializerNormalizer.txt'))
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ;
     }
 
@@ -69,7 +77,11 @@ final class MakeSerializerNormalizer extends AbstractMaker
         $useStatements = new UseStatementGenerator([
             NormalizerInterface::class,
             Autowire::class,
+<<<<<<< HEAD
             sprintf('App\Entity\%s', str_replace('Normalizer', '', $normalizerClassNameDetails->getShortName())),
+=======
+            \sprintf('App\Entity\%s', str_replace('Normalizer', '', $normalizerClassNameDetails->getShortName())),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ]);
 
         $entityDetails = $generator->createClassNameDetails(

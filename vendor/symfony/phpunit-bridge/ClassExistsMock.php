@@ -62,7 +62,11 @@ class ClassExistsMock
         return isset(self::$classes[$name]) ? (bool) self::$classes[$name] : \trait_exists($name, $autoload);
     }
 
+<<<<<<< HEAD
     public static function enum_exists($name, $autoload = true):bool
+=======
+    public static function enum_exists($name, $autoload = true): bool
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $name = ltrim($name, '\\');
 
@@ -77,7 +81,11 @@ class ClassExistsMock
         if (0 < strpos($class, '\\Tests\\')) {
             $ns = str_replace('\\Tests\\', '\\', $class);
             $mockedNs[] = substr($ns, 0, strrpos($ns, '\\'));
+<<<<<<< HEAD
         } elseif (0 === strpos($class, 'Tests\\')) {
+=======
+        } elseif (str_starts_with($class, 'Tests\\')) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $mockedNs[] = substr($class, 6, strrpos($class, '\\') - 6);
         }
         foreach ($mockedNs as $ns) {

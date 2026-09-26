@@ -12,15 +12,23 @@ use Generator;
  * Only the last walker in the chain can emit output. Any previous walkers can modify
  * the AST to influence the final output produced by the last walker.
  *
+<<<<<<< HEAD
  * @psalm-import-type QueryComponent from Parser
+=======
+ * @phpstan-import-type QueryComponent from Parser
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 class TreeWalkerChain implements TreeWalker
 {
     /**
      * The tree walkers.
      *
+<<<<<<< HEAD
      * @var string[]
      * @psalm-var list<class-string<TreeWalker>>
+=======
+     * @var list<class-string<TreeWalker>>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private array $walkers = [];
 
@@ -47,8 +55,12 @@ class TreeWalkerChain implements TreeWalker
     /**
      * Adds a tree walker to the chain.
      *
+<<<<<<< HEAD
      * @param string $walkerClass The class of the walker to instantiate.
      * @psalm-param class-string<TreeWalker> $walkerClass
+=======
+     * @param class-string<TreeWalker> $walkerClass The class of the walker to instantiate.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function addTreeWalker(string $walkerClass): void
     {
@@ -78,7 +90,11 @@ class TreeWalkerChain implements TreeWalker
         }
     }
 
+<<<<<<< HEAD
     /** @psalm-return Generator<int, TreeWalker> */
+=======
+    /** @phpstan-return Generator<int, TreeWalker> */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private function getWalkers(): Generator
     {
         foreach ($this->walkers as $walkerClass) {

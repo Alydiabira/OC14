@@ -38,12 +38,20 @@ final class Psr4DirectoryLoader extends Loader implements DirectoryAwareLoaderIn
      */
     public function load(mixed $resource, ?string $type = null): ?RouteCollection
     {
+<<<<<<< HEAD
+=======
+        $excluded = $resource['_excluded'] ?? [];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $path = $this->locator->locate($resource['path'], $this->currentDirectory);
         if (!is_dir($path)) {
             return new RouteCollection();
         }
 
+<<<<<<< HEAD
         return $this->loadFromDirectory($path, trim($resource['namespace'], '\\'));
+=======
+        return $this->loadFromDirectory($path, trim($resource['namespace'], '\\'), $excluded);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function supports(mixed $resource, ?string $type = null): bool
@@ -59,13 +67,18 @@ final class Psr4DirectoryLoader extends Loader implements DirectoryAwareLoaderIn
         return $loader;
     }
 
+<<<<<<< HEAD
     private function loadFromDirectory(string $directory, string $psr4Prefix): RouteCollection
+=======
+    private function loadFromDirectory(string $directory, string $psr4Prefix, array $excluded = []): RouteCollection
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $collection = new RouteCollection();
         $collection->addResource(new DirectoryResource($directory, '/\.php$/'));
         $files = iterator_to_array(new \RecursiveIteratorIterator(
             new \RecursiveCallbackFilterIterator(
                 new \RecursiveDirectoryIterator($directory, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::FOLLOW_SYMLINKS),
+<<<<<<< HEAD
                 fn (\SplFileInfo $current) => !str_starts_with($current->getBasename(), '.')
             ),
             \RecursiveIteratorIterator::SELF_FIRST
@@ -76,6 +89,23 @@ final class Psr4DirectoryLoader extends Loader implements DirectoryAwareLoaderIn
         foreach ($files as $file) {
             if ($file->isDir()) {
                 $collection->addCollection($this->loadFromDirectory($file->getPathname(), $psr4Prefix.'\\'.$file->getFilename()));
+=======
+                static fn (\SplFileInfo $current) => !str_starts_with($current->getBasename(), '.')
+            ),
+            \RecursiveIteratorIterator::SELF_FIRST
+        ));
+        usort($files, static fn (\SplFileInfo $a, \SplFileInfo $b) => (string) $a > (string) $b ? 1 : -1);
+
+        /** @var \SplFileInfo $file */
+        foreach ($files as $file) {
+            $normalizedPath = rtrim(str_replace('\\', '/', $file->getPathname()), '/');
+            if (isset($excluded[$normalizedPath])) {
+                continue;
+            }
+
+            if ($file->isDir()) {
+                $collection->addCollection($this->loadFromDirectory($file->getPathname(), $psr4Prefix.'\\'.$file->getFilename(), $excluded));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 continue;
             }

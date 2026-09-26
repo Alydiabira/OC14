@@ -44,8 +44,13 @@ class Store implements StoreInterface
     public function __construct(string $root, array $options = [])
     {
         $this->root = $root;
+<<<<<<< HEAD
         if (!is_dir($this->root) && !@mkdir($this->root, 0777, true) && !is_dir($this->root)) {
             throw new \RuntimeException(sprintf('Unable to create the store directory (%s).', $this->root));
+=======
+        if (!is_dir($this->root) && !@mkdir($this->root, 0o777, true) && !is_dir($this->root)) {
+            throw new \RuntimeException(\sprintf('Unable to create the store directory (%s).', $this->root));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         $this->keyCache = new \SplObjectStorage();
         $this->options = array_merge([
@@ -80,7 +85,11 @@ class Store implements StoreInterface
 
         if (!isset($this->locks[$key])) {
             $path = $this->getPath($key);
+<<<<<<< HEAD
             if (!is_dir(\dirname($path)) && false === @mkdir(\dirname($path), 0777, true) && !is_dir(\dirname($path))) {
+=======
+            if (!is_dir(\dirname($path)) && !@mkdir(\dirname($path), 0o777, true) && !is_dir(\dirname($path))) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 return $path;
             }
             $h = fopen($path, 'c');
@@ -197,20 +206,38 @@ class Store implements StoreInterface
             }
         // Everything seems ok, omit writing content to disk
         } else {
+<<<<<<< HEAD
             $digest = $this->generateContentDigest($response);
             $response->headers->set('X-Content-Digest', $digest);
 
             if (!$this->save($digest, $response->getContent(), false)) {
+=======
+            // Responses that cannot provide their content, like BinaryFileResponse or
+            // StreamedResponse, have no entity to store, so no entry is written
+            if (false === $content = $response->getContent()) {
+                return $key;
+            }
+
+            $digest = $this->generateContentDigest($response);
+            $response->headers->set('X-Content-Digest', $digest);
+
+            if (!$this->save($digest, $content, false)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 throw new \RuntimeException('Unable to store the entity.');
             }
 
             if (!$response->headers->has('Transfer-Encoding')) {
+<<<<<<< HEAD
                 $response->headers->set('Content-Length', \strlen($response->getContent()));
+=======
+                $response->headers->set('Content-Length', \strlen($content));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
         // read existing cache entries, remove non-varying, and add this one to the list
         $entries = [];
+<<<<<<< HEAD
         $vary = $response->headers->get('vary');
         foreach ($this->getMetadata($key) as $entry) {
             if (!isset($entry[1]['vary'][0])) {
@@ -218,6 +245,11 @@ class Store implements StoreInterface
             }
 
             if ($entry[1]['vary'][0] != $vary || !$this->requestsMatch($vary ?? '', $entry[0], $storedEnv)) {
+=======
+        $vary = implode(', ', $response->headers->all('vary'));
+        foreach ($this->getMetadata($key) as $entry) {
+            if (!$this->requestsMatch($vary ?? '', $entry[0], $storedEnv)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $entries[] = $entry;
             }
         }
@@ -285,7 +317,11 @@ class Store implements StoreInterface
      */
     private function requestsMatch(?string $vary, array $env1, array $env2): bool
     {
+<<<<<<< HEAD
         if (empty($vary)) {
+=======
+        if ('' === ($vary ?? '')) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return true;
         }
 
@@ -312,7 +348,11 @@ class Store implements StoreInterface
             return [];
         }
 
+<<<<<<< HEAD
         return unserialize($entries) ?: [];
+=======
+        return unserialize($entries, ['allowed_classes' => false]) ?: [];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -386,7 +426,11 @@ class Store implements StoreInterface
                 return false;
             }
         } else {
+<<<<<<< HEAD
             if (!is_dir(\dirname($path)) && false === @mkdir(\dirname($path), 0777, true) && !is_dir(\dirname($path))) {
+=======
+            if (!is_dir(\dirname($path)) && !@mkdir(\dirname($path), 0o777, true) && !is_dir(\dirname($path))) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 return false;
             }
 
@@ -405,14 +449,22 @@ class Store implements StoreInterface
                 return false;
             }
 
+<<<<<<< HEAD
             if (false === @rename($tmpFile, $path)) {
+=======
+            if (!@rename($tmpFile, $path)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 @unlink($tmpFile);
 
                 return false;
             }
         }
 
+<<<<<<< HEAD
         @chmod($path, 0666 & ~umask());
+=======
+        @chmod($path, 0o666 & ~umask());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return true;
     }

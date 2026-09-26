@@ -29,7 +29,11 @@ final class CrawlerSelectorAttributeValueSame extends Constraint
 
     public function toString(): string
     {
+<<<<<<< HEAD
         return sprintf('has a node matching selector "%s" with attribute "%s" of value "%s"', $this->selector, $this->attribute, $this->expectedText);
+=======
+        return \sprintf('has a node matching selector "%s" with attribute "%s" of value "%s"', $this->selector, $this->attribute, $this->expectedText);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

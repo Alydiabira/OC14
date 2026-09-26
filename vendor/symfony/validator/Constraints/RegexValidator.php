@@ -47,7 +47,13 @@ class RegexValidator extends ConstraintValidator
             $value = ($constraint->normalizer)($value);
         }
 
+<<<<<<< HEAD
         if ($constraint->match xor preg_match($constraint->pattern, $value)) {
+=======
+        $expectedResult = $constraint->match ? 1 : 0;
+
+        if (preg_match($constraint->pattern, $value) !== $expectedResult) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $this->formatValue($value))
                 ->setParameter('{{ pattern }}', $constraint->pattern)

@@ -41,6 +41,7 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
     {
         parent::__construct($this->openOutputStream(), $verbosity, $decorated, $formatter);
 
+<<<<<<< HEAD
         if (null === $formatter) {
             // for BC reasons, stdErr has it own Formatter only when user don't inject a specific formatter.
             $this->stderr = new StreamOutput($this->openErrorStream(), $verbosity, $decorated);
@@ -54,6 +55,11 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
         if (null === $decorated) {
             $this->setDecorated($actualDecorated && $this->stderr->isDecorated());
         }
+=======
+        // stderr gets its own formatter: decoration is held by the formatter, so a shared one
+        // would force both streams to the same state instead of detecting each independently
+        $this->stderr = new StreamOutput($this->openErrorStream(), $verbosity, $decorated, $formatter ? clone $formatter : null);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -110,7 +116,11 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
      */
     protected function hasStdoutSupport(): bool
     {
+<<<<<<< HEAD
         return false === $this->isRunningOS400();
+=======
+        return !$this->isRunningOS400();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -119,7 +129,11 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
      */
     protected function hasStderrSupport(): bool
     {
+<<<<<<< HEAD
         return false === $this->isRunningOS400();
+=======
+        return !$this->isRunningOS400();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -142,12 +156,36 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
      */
     private function openOutputStream()
     {
+<<<<<<< HEAD
         if (!$this->hasStdoutSupport()) {
             return fopen('php://output', 'w');
         }
 
         // Use STDOUT when possible to prevent from opening too many file descriptors
         return \defined('STDOUT') ? \STDOUT : (@fopen('php://stdout', 'w') ?: fopen('php://output', 'w'));
+=======
+        static $stdout;
+
+        if ($stdout) {
+            return $stdout;
+        }
+
+        if (!$this->hasStdoutSupport()) {
+            return $stdout = fopen('php://output', 'w');
+        }
+
+        // Use STDOUT when possible to prevent from opening too many file descriptors
+        if (!\defined('STDOUT')) {
+            return $stdout = @fopen('php://stdout', 'w') ?: fopen('php://output', 'w');
+        }
+
+        // On Windows, STDOUT is opened in text mode; reopen in binary mode to prevent \n to \r\n conversion
+        if ('\\' === \DIRECTORY_SEPARATOR) {
+            return $stdout = @fopen('php://stdout', 'w') ?: \STDOUT;
+        }
+
+        return $stdout = \STDOUT;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -155,11 +193,35 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
      */
     private function openErrorStream()
     {
+<<<<<<< HEAD
         if (!$this->hasStderrSupport()) {
             return fopen('php://output', 'w');
         }
 
         // Use STDERR when possible to prevent from opening too many file descriptors
         return \defined('STDERR') ? \STDERR : (@fopen('php://stderr', 'w') ?: fopen('php://output', 'w'));
+=======
+        static $stderr;
+
+        if ($stderr) {
+            return $stderr;
+        }
+
+        if (!$this->hasStderrSupport()) {
+            return $stderr = fopen('php://output', 'w');
+        }
+
+        // Use STDERR when possible to prevent from opening too many file descriptors
+        if (!\defined('STDERR')) {
+            return $stderr = @fopen('php://stderr', 'w') ?: fopen('php://output', 'w');
+        }
+
+        // On Windows, STDERR is opened in text mode; reopen in binary mode to prevent \n → \r\n conversion
+        if ('\\' === \DIRECTORY_SEPARATOR) {
+            return $stderr = @fopen('php://stderr', 'w') ?: \STDERR;
+        }
+
+        return $stderr ??= \STDERR;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

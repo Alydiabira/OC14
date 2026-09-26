@@ -405,8 +405,11 @@ SQL
      * @deprecated The SQL used for schema introspection is an implementation detail and should not be relied upon.
      *
      * {@inheritDoc}
+<<<<<<< HEAD
      *
      * @link http://ezcomponents.org/docs/api/trunk/DatabaseSchema/ezcDbSchemaPgsqlReader.html
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getListTableIndexesSQL($table, $database = null)
     {
@@ -835,6 +838,19 @@ SQL
             return $this->getDropConstraintSQL($constraintName, $table);
         }
 
+<<<<<<< HEAD
+=======
+        if ($table !== null) {
+            $indexName = $index instanceof Index ? $index->getQuotedName($this) : $index;
+            $tableName = $table instanceof Table ? $table->getQuotedName($this) : $table;
+
+            if (strpos($tableName, '.') !== false) {
+                [$schema] = explode('.', $tableName);
+                $index    = $schema . '.' . $indexName;
+            }
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return parent::getDropIndexSQL($index, $table);
     }
 
@@ -1194,6 +1210,22 @@ SQL
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Get the snippet used to retrieve the default value for a given column
+     */
+    public function getDefaultColumnValueSQLSnippet(): string
+    {
+        return <<<'SQL'
+             SELECT pg_get_expr(adbin, adrelid)
+             FROM pg_attrdef
+             WHERE c.oid = pg_attrdef.adrelid
+                AND pg_attrdef.adnum=a.attnum
+        SQL;
+    }
+
+    /**
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * {@inheritDoc}
      */
     public function getReadLockSQL()

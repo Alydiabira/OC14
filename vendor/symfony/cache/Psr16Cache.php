@@ -18,6 +18,10 @@ use Psr\SimpleCache\CacheInterface;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Cache\Exception\InvalidArgumentException;
 use Symfony\Component\Cache\Traits\ProxyTrait;
+<<<<<<< HEAD
+=======
+use Symfony\Contracts\Cache\ItemInterface;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Turns a PSR-6 cache into a PSR-16 one.
@@ -68,6 +72,13 @@ class Psr16Cache implements CacheInterface, PruneableInterface, ResettableInterf
         };
         self::$packCacheItem ??= \Closure::bind(
             static function (CacheItem $item) {
+<<<<<<< HEAD
+=======
+                if (!isset($item->metadata[ItemInterface::METADATA_CTIME])) {
+                    return $item->value;
+                }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $item->newMetadata = $item->metadata;
 
                 return $item->pack();
@@ -135,7 +146,11 @@ class Psr16Cache implements CacheInterface, PruneableInterface, ResettableInterf
         if ($keys instanceof \Traversable) {
             $keys = iterator_to_array($keys, false);
         } elseif (!\is_array($keys)) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Cache keys must be array or Traversable, "%s" given.', get_debug_type($keys)));
+=======
+            throw new InvalidArgumentException(\sprintf('Cache keys must be array or Traversable, "%s" given.', get_debug_type($keys)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         try {
@@ -152,21 +167,33 @@ class Psr16Cache implements CacheInterface, PruneableInterface, ResettableInterf
                 $values[$key] = $item->isHit() ? $item->get() : $default;
             }
 
+<<<<<<< HEAD
             return $values;
+=======
+            return $this->withRequestedKeys($keys, $values);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         foreach ($items as $key => $item) {
             $values[$key] = $item->isHit() ? (self::$packCacheItem)($item) : $default;
         }
 
+<<<<<<< HEAD
         return $values;
+=======
+        return $this->withRequestedKeys($keys, $values);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function setMultiple($values, $ttl = null): bool
     {
         $valuesIsArray = \is_array($values);
         if (!$valuesIsArray && !$values instanceof \Traversable) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Cache values must be array or Traversable, "%s" given.', get_debug_type($values)));
+=======
+            throw new InvalidArgumentException(\sprintf('Cache values must be array or Traversable, "%s" given.', get_debug_type($values)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         $items = [];
 
@@ -215,7 +242,11 @@ class Psr16Cache implements CacheInterface, PruneableInterface, ResettableInterf
         if ($keys instanceof \Traversable) {
             $keys = iterator_to_array($keys, false);
         } elseif (!\is_array($keys)) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Cache keys must be array or Traversable, "%s" given.', get_debug_type($keys)));
+=======
+            throw new InvalidArgumentException(\sprintf('Cache keys must be array or Traversable, "%s" given.', get_debug_type($keys)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         try {
@@ -237,4 +268,28 @@ class Psr16Cache implements CacheInterface, PruneableInterface, ResettableInterf
             throw new InvalidArgumentException($e->getMessage(), $e->getCode(), $e);
         }
     }
+<<<<<<< HEAD
+=======
+
+    private function withRequestedKeys(array $keys, array $values): iterable
+    {
+        foreach ($keys as $key) {
+            // PHP casts numeric strings to integers when they are used as array keys
+            if (\is_string($key) && $key === (string) (int) $key) {
+                return $this->yieldRequestedKeys($keys, $values);
+            }
+        }
+
+        return $values;
+    }
+
+    private function yieldRequestedKeys(array $keys, array $values): \Generator
+    {
+        $keys = array_combine($keys, $keys);
+
+        foreach ($values as $key => $value) {
+            yield ($keys[$key] ?? $key) => $value;
+        }
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

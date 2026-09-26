@@ -73,7 +73,12 @@ class AttributeNode extends AbstractNode
         $attribute = $this->namespace ? $this->namespace.'|'.$this->attribute : $this->attribute;
 
         return 'exists' === $this->operator
+<<<<<<< HEAD
             ? sprintf('%s[%s[%s]]', $this->getNodeName(), $this->selector, $attribute)
             : sprintf("%s[%s[%s %s '%s']]", $this->getNodeName(), $this->selector, $attribute, $this->operator, $this->value);
+=======
+            ? \sprintf('%s[%s[%s]]', $this->getNodeName(), $this->selector, $attribute)
+            : \sprintf("%s[%s[%s %s '%s']]", $this->getNodeName(), $this->selector, $attribute, $this->operator, $this->value);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

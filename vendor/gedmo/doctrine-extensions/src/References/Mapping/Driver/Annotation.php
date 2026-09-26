@@ -9,6 +9,7 @@
 
 namespace Gedmo\References\Mapping\Driver;
 
+<<<<<<< HEAD
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use Gedmo\Mapping\Annotation\ReferenceMany;
@@ -108,4 +109,17 @@ class Annotation implements AnnotationDriverInterface
     {
         $this->_originalDriver = $driver;
     }
+=======
+use Gedmo\Mapping\Driver\AnnotationDriverInterface;
+
+/**
+ * Mapping driver for the references extension which reads extended metadata from annotations on a class with references.
+ *
+ * @deprecated since gedmo/doctrine-extensions 3.16, will be removed in version 4.0.
+ *
+ * @internal
+ */
+class Annotation extends Attribute implements AnnotationDriverInterface
+{
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

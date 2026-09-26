@@ -33,6 +33,7 @@ final class BrowserCookieValueSame extends Constraint
 
     public function toString(): string
     {
+<<<<<<< HEAD
         $str = sprintf('has cookie "%s"', $this->name);
         if ('/' !== $this->path) {
             $str .= sprintf(' with path "%s"', $this->path);
@@ -41,6 +42,16 @@ final class BrowserCookieValueSame extends Constraint
             $str .= sprintf(' for domain "%s"', $this->domain);
         }
         $str .= sprintf(' with %svalue "%s"', $this->raw ? 'raw ' : '', $this->value);
+=======
+        $str = \sprintf('has cookie "%s"', $this->name);
+        if ('/' !== $this->path) {
+            $str .= \sprintf(' with path "%s"', $this->path);
+        }
+        if ($this->domain) {
+            $str .= \sprintf(' for domain "%s"', $this->domain);
+        }
+        $str .= \sprintf(' with %svalue "%s"', $this->raw ? 'raw ' : '', $this->value);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $str;
     }

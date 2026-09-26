@@ -22,7 +22,11 @@ final class RunCommandFailedException extends RuntimeException
     {
         parent::__construct(
             $exception instanceof \Throwable ? $exception->getMessage() : $exception,
+<<<<<<< HEAD
             $exception instanceof \Throwable ? $exception->getCode() : 0,
+=======
+            $exception instanceof \Throwable && \is_int($exception->getCode()) ? $exception->getCode() : 0,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $exception instanceof \Throwable ? $exception : null,
         );
     }

@@ -25,8 +25,11 @@ class WildfireFormatter extends NormalizerFormatter
 {
     /**
      * @param string|null $dateFormat The format of the timestamp: one supported by DateTime::format
+<<<<<<< HEAD
      *
      * @throws \RuntimeException If the function json_encode does not exist
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct(?string $dateFormat = null)
     {
@@ -73,6 +76,7 @@ class WildfireFormatter extends NormalizerFormatter
 
         $message = ['message' => $record->message];
         $handleError = false;
+<<<<<<< HEAD
         if (count($record->context) > 0) {
             $message['context'] = $this->normalize($record->context);
             $handleError = true;
@@ -86,6 +90,21 @@ class WildfireFormatter extends NormalizerFormatter
         }
 
         if (is_array($message) && isset($message['context']['table'])) {
+=======
+        if (\count($record->context) > 0) {
+            $message['context'] = $this->normalize($record->context);
+            $handleError = true;
+        }
+        if (\count($record->extra) > 0) {
+            $message['extra'] = $this->normalize($record->extra);
+            $handleError = true;
+        }
+        if (\count($message) === 1) {
+            $message = reset($message);
+        }
+
+        if (is_array($message) && isset($message['context']) && \is_array($message['context']) && isset($message['context']['table'])) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $type  = 'TABLE';
             $label = $record->channel .': '. $record->message;
             $message = $message['context']['table'];
@@ -108,7 +127,11 @@ class WildfireFormatter extends NormalizerFormatter
         // The message itself is a serialization of the above JSON object + it's length
         return sprintf(
             '%d|%s|',
+<<<<<<< HEAD
             strlen($json),
+=======
+            \strlen($json),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $json
         );
     }
@@ -130,7 +153,11 @@ class WildfireFormatter extends NormalizerFormatter
      */
     protected function normalize(mixed $data, int $depth = 0): mixed
     {
+<<<<<<< HEAD
         if (is_object($data) && !$data instanceof \DateTimeInterface) {
+=======
+        if (\is_object($data) && !$data instanceof \DateTimeInterface) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return $data;
         }
 

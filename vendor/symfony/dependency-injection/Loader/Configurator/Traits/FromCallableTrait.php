@@ -35,7 +35,11 @@ trait FromCallableTrait
             'calls' => 'getMethodCalls',
         ] as $key => $method) {
             if ($this->definition->$method()) {
+<<<<<<< HEAD
                 throw new InvalidArgumentException(sprintf('The configuration key "%s" is unsupported when using "fromCallable()".', $key));
+=======
+                throw new InvalidArgumentException(\sprintf('The configuration key "%s" is unsupported when using "fromCallable()".', $key));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -44,7 +48,11 @@ trait FromCallableTrait
         if (\is_string($callable) && 1 === substr_count($callable, ':')) {
             $parts = explode(':', $callable);
 
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Invalid callable "%s": the "service:method" notation is not available when using PHP-based DI configuration. Use "[service(\'%s\'), \'%s\']" instead.', $callable, $parts[0], $parts[1]));
+=======
+            throw new InvalidArgumentException(\sprintf('Invalid callable "%s": the "service:method" notation is not available when using PHP-based DI configuration. Use "[service(\'%s\'), \'%s\']" instead.', $callable, $parts[0], $parts[1]));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($callable instanceof Expression) {

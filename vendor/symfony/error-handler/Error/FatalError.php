@@ -26,12 +26,22 @@ class FatalError extends \Error
 
         if (null !== $trace) {
             if (!$traceArgs) {
+<<<<<<< HEAD
                 foreach ($trace as &$frame) {
                     unset($frame['args'], $frame['this'], $frame);
                 }
             }
         } elseif (null !== $traceOffset) {
             if (\function_exists('xdebug_get_function_stack') && $trace = @xdebug_get_function_stack()) {
+=======
+                foreach ($trace as $index => $frame) {
+                    unset($frame['args'], $frame['this']);
+                    $trace[$index] = $frame;
+                }
+            }
+        } elseif (null !== $traceOffset) {
+            if (\function_exists('xdebug_get_function_stack') && \in_array(\ini_get('xdebug.mode'), ['develop', false], true) && $trace = @xdebug_get_function_stack()) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if (0 < $traceOffset) {
                     array_splice($trace, -$traceOffset);
                 }

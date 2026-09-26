@@ -29,7 +29,12 @@
                 tabNavigation.classList.add('tab-navigation');
                 tabNavigation.setAttribute('role', 'tablist');
 
+<<<<<<< HEAD
                 let selectedTabId = `tab-${i}-0`; /* select the first tab by default */
+=======
+                let selectedTabId = null;
+                let firstEnabledTabId = null;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 tabs.forEach((tab, j) => {
                     const tabId = `tab-${i}-${j}`;
                     const tabTitle = tab.querySelector('.tab-title').innerHTML;
@@ -42,6 +47,11 @@
                     if (tab.classList.contains('active')) { selectedTabId = tabId; }
                     if (tab.classList.contains('disabled')) {
                         tabNavigationItem.classList.add('disabled');
+<<<<<<< HEAD
+=======
+                    } else if (null === firstEnabledTabId) {
+                        firstEnabledTabId = tabId;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
                     tabNavigationItem.innerHTML = tabTitle;
                     tabNavigation.appendChild(tabNavigationItem);
@@ -51,6 +61,10 @@
                 });
 
                 tabGroup.insertBefore(tabNavigation, tabGroup.firstChild);
+<<<<<<< HEAD
+=======
+                selectedTabId = selectedTabId || firstEnabledTabId || `tab-${i}-0`;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 document.querySelector('[data-tab-id="' + selectedTabId + '"]').classList.add('active');
             });
 
@@ -75,7 +89,11 @@
                     }
 
                     tab.addEventListener('click', function(e) {
+<<<<<<< HEAD
                         const activeTab = e.target || e.srcElement;
+=======
+                        let activeTab = e.target || e.srcElement;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                         /* needed because when the tab contains HTML contents, user can click */
                         /* on any of those elements instead of their parent '<button>' element */
@@ -122,6 +140,15 @@
                 }
 
                 toggle.addEventListener('click', (e) => {
+<<<<<<< HEAD
+=======
+                    const toggle = e.currentTarget;
+
+                    if (e.target.closest('a, .sf-toggle') !== toggle) {
+                        return;
+                    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     e.preventDefault();
 
                     if ('' !== window.getSelection().toString()) {
@@ -129,9 +156,12 @@
                         return;
                     }
 
+<<<<<<< HEAD
                     /* needed because when the toggle contains HTML contents, user can click */
                     /* on any of those elements instead of their parent '.sf-toggle' element */
                     const toggle = e.target.closest('.sf-toggle');
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     const element = document.querySelector(toggle.getAttribute('data-toggle-selector'));
 
                     toggle.classList.toggle('sf-toggle-on');
@@ -154,6 +184,7 @@
                     toggle.innerHTML = currentContent !== altContent ? altContent : originalContent;
                 });
 
+<<<<<<< HEAD
                 /* Prevents from disallowing clicks on links inside toggles */
                 const toggleLinks = toggle.querySelectorAll('a');
                 toggleLinks.forEach((toggleLink) => {
@@ -162,6 +193,8 @@
                     });
                 });
 
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 toggle.setAttribute('data-processed', 'true');
             });
         }

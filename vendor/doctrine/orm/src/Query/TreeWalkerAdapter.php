@@ -16,7 +16,11 @@ use function sprintf;
  * An adapter implementation of the TreeWalker interface. The methods in this class
  * are empty. This class exists as convenience for creating tree walkers.
  *
+<<<<<<< HEAD
  * @psalm-import-type QueryComponent from Parser
+=======
+ * @phpstan-import-type QueryComponent from Parser
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 abstract class TreeWalkerAdapter implements TreeWalker
 {
@@ -53,7 +57,11 @@ abstract class TreeWalkerAdapter implements TreeWalker
     /**
      * Sets or overrides a query component for a given dql alias.
      *
+<<<<<<< HEAD
      * @psalm-param QueryComponent $queryComponent
+=======
+     * @phpstan-param QueryComponent $queryComponent
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function setQueryComponent(string $dqlAlias, array $queryComponent): void
     {

@@ -22,8 +22,13 @@ class Join implements Stringable
     final public const WITH = 'WITH';
 
     /**
+<<<<<<< HEAD
      * @psalm-param self::INNER_JOIN|self::LEFT_JOIN $joinType
      * @psalm-param self::ON|self::WITH|null $conditionType
+=======
+     * @phpstan-param self::INNER_JOIN|self::LEFT_JOIN $joinType
+     * @phpstan-param self::ON|self::WITH|null $conditionType
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct(
         protected string $joinType,
@@ -35,7 +40,11 @@ class Join implements Stringable
     ) {
     }
 
+<<<<<<< HEAD
     /** @psalm-return self::INNER_JOIN|self::LEFT_JOIN */
+=======
+    /** @phpstan-return self::INNER_JOIN|self::LEFT_JOIN */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function getJoinType(): string
     {
         return $this->joinType;
@@ -51,7 +60,11 @@ class Join implements Stringable
         return $this->alias;
     }
 
+<<<<<<< HEAD
     /** @psalm-return self::ON|self::WITH|null */
+=======
+    /** @phpstan-return self::ON|self::WITH|null */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function getConditionType(): string|null
     {
         return $this->conditionType;

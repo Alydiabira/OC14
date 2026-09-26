@@ -34,8 +34,11 @@ class ElasticaFormatter extends NormalizerFormatter
     /**
      * @param string  $index Elastic Search index name
      * @param ?string $type  Elastic Search document type, deprecated as of Elastica 7
+<<<<<<< HEAD
      *
      * @throws \RuntimeException If the function json_encode does not exist
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct(string $index, ?string $type)
     {
@@ -79,9 +82,12 @@ class ElasticaFormatter extends NormalizerFormatter
     {
         $document = new Document();
         $document->setData($record);
+<<<<<<< HEAD
         if (method_exists($document, 'setType')) {
             $document->setType($this->type);
         }
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $document->setIndex($this->index);
 
         return $document;

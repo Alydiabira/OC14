@@ -108,13 +108,21 @@ class ConsoleFormatter implements FormatterInterface
         $record = $this->replacePlaceHolder($record);
 
         if (!$this->options['ignore_empty_context_and_extra'] || !empty($record['context'])) {
+<<<<<<< HEAD
             $context = ($this->options['multiline'] ? "\n" : ' ').$this->dumpData($record['context']);
+=======
+            $context = ($this->options['multiline'] ? "\n" : ' ').OutputFormatter::escape($this->dumpData($record['context']));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } else {
             $context = '';
         }
 
         if (!$this->options['ignore_empty_context_and_extra'] || !empty($record['extra'])) {
+<<<<<<< HEAD
             $extra = ($this->options['multiline'] ? "\n" : ' ').$this->dumpData($record['extra']);
+=======
+            $extra = ($this->options['multiline'] ? "\n" : ' ').OutputFormatter::escape($this->dumpData($record['extra']));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } else {
             $extra = '';
         }
@@ -122,12 +130,21 @@ class ConsoleFormatter implements FormatterInterface
         $formatted = strtr($this->options['format'], [
             '%datetime%' => $record['datetime'] instanceof \DateTimeInterface
                 ? $record['datetime']->format($this->options['date_format'])
+<<<<<<< HEAD
                 : $record['datetime'],
             '%start_tag%' => sprintf('<%s>', self::LEVEL_COLOR_MAP[$record['level']]),
             '%level_name%' => sprintf($this->options['level_name_format'], $record['level_name']),
             '%end_tag%' => '</>',
             '%channel%' => $record['channel'],
             '%message%' => $this->replacePlaceHolder($record)['message'],
+=======
+                : self::escape($record['datetime']),
+            '%start_tag%' => \sprintf('<%s>', self::LEVEL_COLOR_MAP[$record['level']]),
+            '%level_name%' => \sprintf($this->options['level_name_format'], self::escape($record['level_name'])),
+            '%end_tag%' => '</>',
+            '%channel%' => self::escape($record['channel']),
+            '%message%' => $record['message'],
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             '%context%' => $context,
             '%extra%' => $extra,
         ]);
@@ -164,7 +181,11 @@ class ConsoleFormatter implements FormatterInterface
 
     private function replacePlaceHolder(array $record): array
     {
+<<<<<<< HEAD
         $message = $record['message'];
+=======
+        $message = $record['message'] = self::escape($record['message']);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (!str_contains($message, '{')) {
             return $record;
@@ -177,7 +198,11 @@ class ConsoleFormatter implements FormatterInterface
             // Remove quotes added by the dumper around string.
             $v = trim($this->dumpData($v, false), '"');
             $v = OutputFormatter::escape($v);
+<<<<<<< HEAD
             $replacements['{'.$k.'}'] = sprintf('<comment>%s</>', $v);
+=======
+            $replacements['{'.$k.'}'] = \sprintf('<comment>%s</>', $v);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $record['message'] = strtr($message, $replacements);
@@ -209,4 +234,12 @@ class ConsoleFormatter implements FormatterInterface
 
         return rtrim($dump);
     }
+<<<<<<< HEAD
+=======
+
+    private static function escape(string $value): string
+    {
+        return OutputFormatter::escape(preg_replace('/[\x00-\x08\x0B-\x1F\x7F]|\xC2[\x80-\x9F]/', '', $value));
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

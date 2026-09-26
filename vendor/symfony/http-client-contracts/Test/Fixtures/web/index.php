@@ -12,6 +12,7 @@ if (!$_POST) {
     $_POST['content-type'] = $_SERVER['HTTP_CONTENT_TYPE'] ?? '?';
 }
 
+<<<<<<< HEAD
 foreach ($_SERVER as $k => $v) {
     switch ($k) {
         default:
@@ -26,16 +27,46 @@ foreach ($_SERVER as $k => $v) {
         case 'PHP_AUTH_USER':
         case 'PHP_AUTH_PW':
             $vars[$k] = $v;
+=======
+$headers = [
+    'SERVER_PROTOCOL',
+    'SERVER_NAME',
+    'REQUEST_URI',
+    'REQUEST_METHOD',
+    'PHP_AUTH_USER',
+    'PHP_AUTH_PW',
+    'REMOTE_ADDR',
+    'REMOTE_PORT',
+];
+
+foreach ($headers as $k) {
+    if (isset($_SERVER[$k])) {
+        $vars[$k] = $_SERVER[$k];
+    }
+}
+
+foreach ($_SERVER as $k => $v) {
+    if (str_starts_with($k, 'HTTP_')) {
+        $vars[$k] = $v;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }
 
 $json = json_encode($vars, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE);
 
+<<<<<<< HEAD
 switch ($vars['REQUEST_URI']) {
+=======
+switch (parse_url($vars['REQUEST_URI'], \PHP_URL_PATH)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     default:
         exit;
 
     case '/head':
+<<<<<<< HEAD
+=======
+        header('X-Request-Vars: '.json_encode($vars, \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         header('Content-Length: '.strlen($json), true);
         break;
 
@@ -94,7 +125,12 @@ switch ($vars['REQUEST_URI']) {
 
     case '/302':
         if (!isset($vars['HTTP_AUTHORIZATION'])) {
+<<<<<<< HEAD
             header('Location: http://localhost:8057/', true, 302);
+=======
+            $location = $_GET['location'] ?? 'http://localhost:8057/';
+            header('Location: '.$location, true, 302);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         break;
 
@@ -108,6 +144,17 @@ switch ($vars['REQUEST_URI']) {
 
         return;
 
+<<<<<<< HEAD
+=======
+    case '/304/etag':
+        if (isset($_SERVER['HTTP_IF_NONE_MATCH'])) {
+            header('ETag: "abc123"', true, 304);
+            exit;
+        }
+        header('ETag: "abc123"');
+        break;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     case '/307':
         header('Location: http://localhost:8057/post', true, 307);
         break;
@@ -191,6 +238,20 @@ switch ($vars['REQUEST_URI']) {
         ]);
 
         exit;
+<<<<<<< HEAD
+=======
+
+    case '/custom':
+        if (isset($_GET['status'])) {
+            http_response_code((int) $_GET['status']);
+        }
+        if (isset($_GET['headers']) && is_array($_GET['headers'])) {
+            foreach ($_GET['headers'] as $header) {
+                header($header);
+            }
+        }
+        break;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }
 
 header('Content-Type: application/json', true);

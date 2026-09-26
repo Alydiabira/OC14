@@ -12,7 +12,11 @@ namespace PHPUnit\Runner\Filter;
 use function array_map;
 use function array_merge;
 use function in_array;
+<<<<<<< HEAD
 use function spl_object_hash;
+=======
+use function spl_object_id;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use PHPUnit\Framework\TestSuite;
 use RecursiveFilterIterator;
 use RecursiveIterator;
@@ -23,7 +27,11 @@ use RecursiveIterator;
 abstract class GroupFilterIterator extends RecursiveFilterIterator
 {
     /**
+<<<<<<< HEAD
      * @var string[]
+=======
+     * @var int[]
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected $groupTests = [];
 
@@ -33,12 +41,21 @@ abstract class GroupFilterIterator extends RecursiveFilterIterator
 
         foreach ($suite->getGroupDetails() as $group => $tests) {
             if (in_array((string) $group, $groups, true)) {
+<<<<<<< HEAD
                 $testHashes = array_map(
                     'spl_object_hash',
                     $tests,
                 );
 
                 $this->groupTests = array_merge($this->groupTests, $testHashes);
+=======
+                $testIds = array_map(
+                    'spl_object_id',
+                    $tests,
+                );
+
+                $this->groupTests = array_merge($this->groupTests, $testIds);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
     }
@@ -51,8 +68,15 @@ abstract class GroupFilterIterator extends RecursiveFilterIterator
             return true;
         }
 
+<<<<<<< HEAD
         return $this->doAccept(spl_object_hash($test));
     }
 
     abstract protected function doAccept(string $hash);
+=======
+        return $this->doAccept(spl_object_id($test));
+    }
+
+    abstract protected function doAccept(int $id);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

@@ -15,6 +15,10 @@ use Composer\IO\IOInterface;
 use Composer\Util\ProcessExecutor;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
+<<<<<<< HEAD
+=======
+use Symfony\Flex\Lock;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 class RecipePatcher
 {
@@ -22,12 +26,22 @@ class RecipePatcher
     private $filesystem;
     private $io;
     private $processExecutor;
+<<<<<<< HEAD
 
     public function __construct(string $rootDir, IOInterface $io)
+=======
+    private $symfonyLock;
+
+    public function __construct(string $rootDir, IOInterface $io, Lock $symfonyLock)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->rootDir = $rootDir;
         $this->filesystem = new Filesystem();
         $this->io = $io;
+<<<<<<< HEAD
+=======
+        $this->symfonyLock = $symfonyLock;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->processExecutor = new ProcessExecutor($io);
     }
 
@@ -36,6 +50,7 @@ class RecipePatcher
      *
      * @return bool returns true if fully successful, false if conflicts were encountered
      */
+<<<<<<< HEAD
     public function applyPatch(RecipePatch $patch): bool
     {
         $withConflicts = $this->_applyPatchFile($patch);
@@ -44,6 +59,35 @@ class RecipePatcher
             if (file_exists($this->rootDir.'/'.$deletedFile)) {
                 $this->execute(sprintf('git rm %s', ProcessExecutor::escape($deletedFile)), $this->rootDir);
             }
+=======
+    public function applyPatch(RecipePatch $patch, ?string $packageName = null): bool
+    {
+        $withConflicts = $this->_applyPatchFile($patch);
+        $lockedFiles = $packageName ? array_count_values(array_merge(...array_column(array_filter($this->symfonyLock->all(), fn ($package) => $package !== $packageName, \ARRAY_FILTER_USE_KEY), 'files'))) : [];
+
+        $nonRemovableFiles = [];
+        foreach ($patch->getDeletedFiles() as $deletedFile) {
+            if (!file_exists($this->rootDir.'/'.$deletedFile)) {
+                continue;
+            }
+
+            if (isset($lockedFiles[$deletedFile])) {
+                $nonRemovableFiles[] = $deletedFile;
+
+                continue;
+            }
+
+            $this->execute(\sprintf('git rm %s', ProcessExecutor::escape($deletedFile)), $this->rootDir);
+        }
+
+        if ($nonRemovableFiles) {
+            $this->io->writeError('  <warning>The following files were removed in the recipe, but are still referenced by other recipes. You might need to adjust them manually:</warning>');
+            foreach ($nonRemovableFiles as $file) {
+                $this->io->writeError('      - '.$file);
+            }
+
+            $this->io->writeError('');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $withConflicts;
@@ -98,7 +142,11 @@ class RecipePatcher
             if (\count($originalFiles) > 0) {
                 $this->writeFiles($originalFiles, $tmpPath);
                 $this->execute('git add -A', $tmpPath);
+<<<<<<< HEAD
                 $this->execute('git commit -m "original files"', $tmpPath);
+=======
+                $this->execute('git commit -n -m "original files"', $tmpPath);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 $blobs = $this->generateBlobs($originalFiles, $tmpPath);
             }
@@ -106,7 +154,11 @@ class RecipePatcher
             $this->writeFiles($newFiles, $tmpPath);
             $this->execute('git add -A', $tmpPath);
 
+<<<<<<< HEAD
             $patchString = $this->execute(sprintf('git diff --cached --src-prefix "a/%s" --dst-prefix "b/%s"', $prefix, $prefix), $tmpPath);
+=======
+            $patchString = $this->execute(\sprintf('git diff --cached --src-prefix "a/%s" --dst-prefix "b/%s"', $prefix, $prefix), $tmpPath);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $removedPatches = [];
             $patchString = DiffHelper::removeFilesFromPatch($patchString, $deletedModifiedFiles, $removedPatches);
 
@@ -151,7 +203,11 @@ class RecipePatcher
         $statusCode = $this->processExecutor->execute($command, $output, $cwd);
 
         if (0 !== $statusCode) {
+<<<<<<< HEAD
             throw new \LogicException(sprintf('Command "%s" failed: "%s". Output: "%s".', $command, $this->processExecutor->getErrorOutput(), $output));
+=======
+            throw new \LogicException(\sprintf('Command "%s" failed: "%s". Output: "%s".', $command, $this->processExecutor->getErrorOutput(), $output));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $output;
@@ -233,7 +289,11 @@ class RecipePatcher
                 return true;
             }
 
+<<<<<<< HEAD
             if (false !== strpos($this->processExecutor->getErrorOutput(), 'with conflicts')) {
+=======
+            if (str_contains($this->processExecutor->getErrorOutput(), 'with conflicts')) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 // successful with conflicts
                 return false;
             }
@@ -252,7 +312,11 @@ class RecipePatcher
     {
         $args = implode(' ', array_map([ProcessExecutor::class, 'escape'], $fileNames));
         $output = '';
+<<<<<<< HEAD
         $this->processExecutor->execute(sprintf('git check-ignore %s', $args), $output, $this->rootDir);
+=======
+        $this->processExecutor->execute(\sprintf('git check-ignore %s', $args), $output, $this->rootDir);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this->processExecutor->splitLines($output);
     }

@@ -50,6 +50,10 @@ use PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Text as TestDoxText;
 use PHPUnit\TextUI\XmlConfiguration\Logging\TestDox\Xml as TestDoxXml;
 use PHPUnit\TextUI\XmlConfiguration\Logging\Text;
 use PHPUnit\TextUI\XmlConfiguration\TestSuite as TestSuiteConfiguration;
+<<<<<<< HEAD
+=======
+use PHPUnit\TextUI\XmlConfigurationTest;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use PHPUnit\Util\TestDox\CliTestDoxPrinter;
 use PHPUnit\Util\VersionComparisonOperator;
 use PHPUnit\Util\Xml;
@@ -702,7 +706,11 @@ final class Loader
      * If $value is 'false' or 'true', this returns the value that $value represents.
      * Otherwise, returns $default, which may be a string in rare cases.
      *
+<<<<<<< HEAD
      * @see \PHPUnit\TextUI\XmlConfigurationTest::testPHPConfigurationIsReadCorrectly
+=======
+     * @see XmlConfigurationTest::testPHPConfigurationIsReadCorrectly
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @param bool|string $default
      *

@@ -14,6 +14,10 @@ namespace Symfony\Flex;
 use Composer\Factory;
 use Composer\Package\Version\VersionParser;
 use Composer\Repository\PlatformRepository;
+<<<<<<< HEAD
+=======
+use Composer\Semver\Constraint\MatchAllConstraint;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
@@ -45,22 +49,51 @@ class PackageResolver
         // second pass to resolve versions
         $versionParser = new VersionParser();
         $requires = [];
+<<<<<<< HEAD
         foreach ($versionParser->parseNameVersionPairs($packages) as $package) {
             $requires[] = $package['name'].$this->parseVersion($package['name'], $package['version'] ?? '', $isRequire);
         }
 
         return array_unique($requires);
+=======
+        $toGuess = [];
+        foreach ($versionParser->parseNameVersionPairs($packages) as $package) {
+            $version = $this->parseVersion($package['name'], $package['version'] ?? '', $isRequire);
+            if ('' !== $version) {
+                unset($toGuess[$package['name']]);
+            } elseif (!isset($requires[$package['name']])) {
+                $toGuess[$package['name']] = new MatchAllConstraint();
+            }
+            $requires[$package['name']] = $package['name'].$version;
+        }
+
+        if ($toGuess && $isRequire) {
+            foreach ($this->downloader->getSymfonyPacks($toGuess) as $package) {
+                $requires[$package] .= ':*';
+            }
+        }
+
+        return array_values($requires);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function parseVersion(string $package, string $version, bool $isRequire): string
     {
+<<<<<<< HEAD
         if (0 !== strpos($package, 'symfony/')) {
             return $version ? ':'.$version : '';
+=======
+        $guess = 'guess' === ($version ?: 'guess');
+
+        if (!str_starts_with($package, 'symfony/')) {
+            return $guess ? '' : ':'.$version;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $versions = $this->downloader->getVersions();
 
         if (!isset($versions['splits'][$package])) {
+<<<<<<< HEAD
             return $version ? ':'.$version : '';
         }
 
@@ -73,6 +106,20 @@ class PackageResolver
                 }
             }
             $version = $config['extra']['symfony']['require'] ?? $config['require']['symfony/framework-bundle'];
+=======
+            return $guess ? '' : ':'.$version;
+        }
+
+        if ($guess || '*' === $version) {
+            try {
+                $config = @json_decode(file_get_contents(Factory::getComposerFile()), true);
+            } finally {
+                if (!$isRequire || !isset($config['extra']['symfony']['require'])) {
+                    return '';
+                }
+            }
+            $version = $config['extra']['symfony']['require'];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } elseif ('dev' === $version) {
             $version = '^'.$versions['dev-name'].'@dev';
         } elseif ('next' === $version) {
@@ -92,7 +139,11 @@ class PackageResolver
             $skippedPackages[] = 'lock';
         }
 
+<<<<<<< HEAD
         if (false !== strpos($argument, '/') || preg_match(PlatformRepository::PLATFORM_PACKAGE_REGEX, $argument) || preg_match('{(?<=[a-z0-9_/-])\*|\*(?=[a-z0-9_/-])}i', $argument) || \in_array($argument, $skippedPackages)) {
+=======
+        if (str_contains($argument, '/') || preg_match(PlatformRepository::PLATFORM_PACKAGE_REGEX, $argument) || preg_match('{(?<=[a-z0-9_/-])\*|\*(?=[a-z0-9_/-])}i', $argument) || \in_array($argument, $skippedPackages)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return $argument;
         }
 
@@ -124,14 +175,22 @@ class PackageResolver
         $alternatives = [];
         foreach ($this->downloader->getAliases() as $alias => $package) {
             $lev = levenshtein($argument, $alias);
+<<<<<<< HEAD
             if ($lev <= \strlen($argument) / 3 || ('' !== $argument && false !== strpos($alias, $argument))) {
+=======
+            if ($lev <= \strlen($argument) / 3 || ('' !== $argument && str_contains($alias, $argument))) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $alternatives[$package][] = $alias;
             }
         }
 
         // First position can only be a package name, not a version
         if ($alternatives || 0 === $position) {
+<<<<<<< HEAD
             $message = sprintf('"%s" is not a valid alias.', $argument);
+=======
+            $message = \sprintf('"%s" is not a valid alias.', $argument);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if ($alternatives) {
                 if (1 === \count($alternatives)) {
                     $message .= " Did you mean this:\n";
@@ -139,11 +198,19 @@ class PackageResolver
                     $message .= " Did you mean one of these:\n";
                 }
                 foreach ($alternatives as $package => $aliases) {
+<<<<<<< HEAD
                     $message .= sprintf("  \"%s\", supported aliases: \"%s\"\n", $package, implode('", "', $aliases));
                 }
             }
         } else {
             $message = sprintf('Could not parse version constraint "%s".', $argument);
+=======
+                    $message .= \sprintf("  \"%s\", supported aliases: \"%s\"\n", $package, implode('", "', $aliases));
+                }
+            }
+        } else {
+            $message = \sprintf('Could not parse version constraint "%s".', $argument);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         throw new \UnexpectedValueException($message);

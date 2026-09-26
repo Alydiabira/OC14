@@ -9,6 +9,7 @@
 
 namespace Gedmo\Timestampable\Mapping\Driver;
 
+<<<<<<< HEAD
 use Gedmo\Exception\InvalidMappingException;
 use Gedmo\Mapping\Annotation\Timestampable;
 use Gedmo\Mapping\Driver\AbstractAnnotationDriver;
@@ -91,4 +92,17 @@ class Annotation extends AbstractAnnotationDriver
 
         return $config;
     }
+=======
+use Gedmo\Mapping\Driver\AnnotationDriverInterface;
+
+/**
+ * Mapping driver for the timestampable extension which reads extended metadata from annotations on a timestampable class.
+ *
+ * @deprecated since gedmo/doctrine-extensions 3.16, will be removed in version 4.0.
+ *
+ * @internal
+ */
+class Annotation extends Attribute implements AnnotationDriverInterface
+{
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

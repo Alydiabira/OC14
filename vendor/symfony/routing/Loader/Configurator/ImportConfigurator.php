@@ -30,15 +30,23 @@ class ImportConfigurator
         $this->route = $route;
     }
 
+<<<<<<< HEAD
     public function __sleep(): array
+=======
+    public function __serialize(): array
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
     }
 
+<<<<<<< HEAD
     /**
      * @return void
      */
     public function __wakeup()
+=======
+    public function __unserialize(array $data): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
     }

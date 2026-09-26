@@ -67,7 +67,11 @@ return static function (ContainerConfigurator $container) {
         // Listeners
         ->set('security.listener.check_authenticator_credentials', CheckCredentialsListener::class)
             ->args([
+<<<<<<< HEAD
                service('security.password_hasher_factory'),
+=======
+                service('security.password_hasher_factory'),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ])
             ->tag('kernel.event_subscriber')
 

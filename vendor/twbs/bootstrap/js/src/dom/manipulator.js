@@ -56,7 +56,11 @@ const Manipulator = {
 
     for (const key of bsKeys) {
       let pureKey = key.replace(/^bs/, '')
+<<<<<<< HEAD
       pureKey = pureKey.charAt(0).toLowerCase() + pureKey.slice(1, pureKey.length)
+=======
+      pureKey = pureKey.charAt(0).toLowerCase() + pureKey.slice(1)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
       attributes[pureKey] = normalizeData(element.dataset[key])
     }
 

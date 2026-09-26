@@ -11,7 +11,11 @@ use function trim;
  */
 class DefaultEntityListenerResolver implements EntityListenerResolver
 {
+<<<<<<< HEAD
     /** @psalm-var array<class-string, object> Map to store entity listener instances. */
+=======
+    /** @var array<class-string, object> Map to store entity listener instances. */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private array $instances = [];
 
     public function clear(string|null $className = null): void

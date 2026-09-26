@@ -13,6 +13,10 @@ namespace Symfony\Component\Translation\Extractor\Visitor;
 
 use PhpParser\Node;
 use PhpParser\NodeVisitor;
+<<<<<<< HEAD
+=======
+use Symfony\Component\Translation\TranslatableMessage;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * @author Mathieu Santostefano <msantostefano@protonmail.com>
@@ -39,7 +43,13 @@ final class TranslatableMessageVisitor extends AbstractVisitor implements NodeVi
             return null;
         }
 
+<<<<<<< HEAD
         if (!\in_array('TranslatableMessage', $className->getParts(), true)) {
+=======
+        // the name resolver gives a fully qualified name; templates without a "use"
+        // statement resolve to the global namespace, which is accepted as well
+        if (!\in_array($className->toString(), [TranslatableMessage::class, 'TranslatableMessage'], true)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return null;
         }
 

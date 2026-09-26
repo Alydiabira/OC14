@@ -78,7 +78,11 @@ abstract class AbstractLoader implements LoaderInterface
             [$prefix, $className] = explode(':', $name, 2);
 
             if (!isset($this->namespaces[$prefix])) {
+<<<<<<< HEAD
                 throw new MappingException(sprintf('Undefined namespace prefix "%s".', $prefix));
+=======
+                throw new MappingException(\sprintf('Undefined namespace prefix "%s".', $prefix));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $className = $this->namespaces[$prefix].$className;
@@ -87,6 +91,21 @@ abstract class AbstractLoader implements LoaderInterface
         }
 
         if ($this->namedArgumentsCache[$className] ??= (bool) (new \ReflectionMethod($className, '__construct'))->getAttributes(HasNamedArguments::class)) {
+<<<<<<< HEAD
+=======
+            if (null === $options) {
+                return new $className();
+            }
+
+            if (!\is_array($options)) {
+                return new $className($options);
+            }
+
+            if (1 === \count($options) && isset($options['value'])) {
+                return new $className($options['value']);
+            }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return new $className(...$options);
         }
 

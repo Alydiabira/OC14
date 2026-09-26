@@ -24,6 +24,11 @@ namespace Symfony\UX\TwigComponent;
  * @author Mathéo Daninos <matheo.daninos@gmail.com>
  *
  * @experimental
+<<<<<<< HEAD
+=======
+ *
+ * @deprecated since Symfony UX 2.20, use CVA from the "twig/html-extra:^3.12.0" package instead.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 final class CVA
 {

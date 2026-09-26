@@ -56,7 +56,11 @@ class UniqueEntityValidator extends ConstraintValidator
 
         $fields = (array) $constraint->fields;
 
+<<<<<<< HEAD
         if (0 === \count($fields)) {
+=======
+        if (!$fields) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new ConstraintDefinitionException('At least one field has to be specified.');
         }
 
@@ -69,16 +73,27 @@ class UniqueEntityValidator extends ConstraintValidator
         }
 
         if ($constraint->em) {
+<<<<<<< HEAD
             $em = $this->registry->getManager($constraint->em);
 
             if (!$em) {
                 throw new ConstraintDefinitionException(sprintf('Object manager "%s" does not exist.', $constraint->em));
+=======
+            try {
+                $em = $this->registry->getManager($constraint->em);
+            } catch (\InvalidArgumentException $e) {
+                throw new ConstraintDefinitionException(\sprintf('Object manager "%s" does not exist.', $constraint->em), 0, $e);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         } else {
             $em = $this->registry->getManagerForClass($entity::class);
 
             if (!$em) {
+<<<<<<< HEAD
                 throw new ConstraintDefinitionException(sprintf('Unable to find the object manager associated with an entity of class "%s".', get_debug_type($entity)));
+=======
+                throw new ConstraintDefinitionException(\sprintf('Unable to find the object manager associated with an entity of class "%s".', get_debug_type($entity)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -89,10 +104,21 @@ class UniqueEntityValidator extends ConstraintValidator
 
         foreach ($fields as $fieldName) {
             if (!$class->hasField($fieldName) && !$class->hasAssociation($fieldName)) {
+<<<<<<< HEAD
                 throw new ConstraintDefinitionException(sprintf('The field "%s" is not mapped by Doctrine, so it cannot be validated for uniqueness.', $fieldName));
             }
 
             $fieldValue = $class->reflFields[$fieldName]->getValue($entity);
+=======
+                throw new ConstraintDefinitionException(\sprintf('The field "%s" is not mapped by Doctrine, so it cannot be validated for uniqueness.', $fieldName));
+            }
+
+            if (property_exists($class, 'propertyAccessors')) {
+                $fieldValue = $class->propertyAccessors[$fieldName]->getValue($entity);
+            } else {
+                $fieldValue = $class->reflFields[$fieldName]->getValue($entity);
+            }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             if (null === $fieldValue && $this->ignoreNullForField($constraint, $fieldName)) {
                 $hasIgnorableNullValue = true;
@@ -102,7 +128,11 @@ class UniqueEntityValidator extends ConstraintValidator
 
             $criteria[$fieldName] = $fieldValue;
 
+<<<<<<< HEAD
             if (null !== $criteria[$fieldName] && $class->hasAssociation($fieldName)) {
+=======
+            if (\is_object($criteria[$fieldName]) && $class->hasAssociation($fieldName)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 /* Ensure the Proxy is initialized before using reflection to
                  * read its identifiers. This is necessary because the wrapped
                  * getter methods in the Proxy are being bypassed.
@@ -131,7 +161,11 @@ class UniqueEntityValidator extends ConstraintValidator
             $supportedClass = $repository->getClassName();
 
             if (!$entity instanceof $supportedClass) {
+<<<<<<< HEAD
                 throw new ConstraintDefinitionException(sprintf('The "%s" entity repository does not support the "%s" entity. The entity should be an instance of or extend "%s".', $constraint->entityClass, $class->getName(), $supportedClass));
+=======
+                throw new ConstraintDefinitionException(\sprintf('The "%s" entity repository does not support the "%s" entity. The entity should be an instance of or extend "%s".', $constraint->entityClass, $class->getName(), $supportedClass));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         } else {
             $repository = $em->getRepository($entity::class);
@@ -224,13 +258,18 @@ class UniqueEntityValidator extends ConstraintValidator
         }
 
         if (!$identifiers) {
+<<<<<<< HEAD
             return sprintf('object("%s")', $idClass);
+=======
+            return \sprintf('object("%s")', $idClass);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         array_walk($identifiers, function (&$id, $field) {
             if (!\is_object($id) || $id instanceof \DateTimeInterface) {
                 $idAsString = $this->formatValue($id, self::PRETTY_DATE);
             } else {
+<<<<<<< HEAD
                 $idAsString = sprintf('object("%s")', $id::class);
             }
 
@@ -238,5 +277,14 @@ class UniqueEntityValidator extends ConstraintValidator
         });
 
         return sprintf('object("%s") identified by (%s)', $idClass, implode(', ', $identifiers));
+=======
+                $idAsString = \sprintf('object("%s")', $id::class);
+            }
+
+            $id = \sprintf('%s => %s', $field, $idAsString);
+        });
+
+        return \sprintf('object("%s") identified by (%s)', $idClass, implode(', ', $identifiers));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

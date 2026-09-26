@@ -86,13 +86,21 @@ class FormPass implements CompilerPassInterface
                 $extendsTypes = false;
 
                 $typeExtensionsClasses[] = $typeExtensionClass;
+<<<<<<< HEAD
+=======
+                $container->getReflectionClass($typeExtensionClass);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 foreach ($typeExtensionClass::getExtendedTypes() as $extendedType) {
                     $typeExtensions[$extendedType][] = new Reference($serviceId);
                     $extendsTypes = true;
                 }
 
                 if (!$extendsTypes) {
+<<<<<<< HEAD
                     throw new InvalidArgumentException(sprintf('The getExtendedTypes() method for service "%s" does not return any extended types.', $serviceId));
+=======
+                    throw new InvalidArgumentException(\sprintf('The getExtendedTypes() method for service "%s" does not return any extended types.', $serviceId));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
         }

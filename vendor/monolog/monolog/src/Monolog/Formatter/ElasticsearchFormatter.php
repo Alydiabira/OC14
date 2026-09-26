@@ -34,13 +34,20 @@ class ElasticsearchFormatter extends NormalizerFormatter
     /**
      * @param string $index Elasticsearch index name
      * @param string $type  Elasticsearch record type
+<<<<<<< HEAD
      *
      * @throws \RuntimeException If the function json_encode does not exist
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct(string $index, string $type)
     {
         // Elasticsearch requires an ISO 8601 format date with optional millisecond precision.
+<<<<<<< HEAD
         parent::__construct(DateTimeInterface::ISO8601);
+=======
+        parent::__construct(DateTimeInterface::ATOM);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $this->index = $index;
         $this->type = $type;

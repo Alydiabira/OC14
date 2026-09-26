@@ -1794,7 +1794,11 @@ abstract class AbstractPlatform
      *
      * @param string $fromClause The FROM clause to append the hint for the given lock mode to
      * @param int    $lockMode   One of the Doctrine\DBAL\LockMode::* constants
+<<<<<<< HEAD
      * @psalm-param LockMode::* $lockMode
+=======
+     * @phpstan-param LockMode::* $lockMode
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function appendLockHint(string $fromClause, int $lockMode): string
     {
@@ -2053,7 +2057,11 @@ abstract class AbstractPlatform
      * on this platform.
      *
      * @param int $createFlags
+<<<<<<< HEAD
      * @psalm-param int-mask-of<self::CREATE_*> $createFlags
+=======
+     * @phpstan-param int-mask-of<self::CREATE_*> $createFlags
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return list<string> The list of SQL statements.
      *
@@ -2226,7 +2234,11 @@ abstract class AbstractPlatform
     }
 
     /**
+<<<<<<< HEAD
      * @param list<Table> $tables
+=======
+     * @param Table[] $tables
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return list<string>
      *
@@ -4564,7 +4576,11 @@ abstract class AbstractPlatform
      * @deprecated Implement {@see createReservedKeywordsList()} instead.
      *
      * @return string
+<<<<<<< HEAD
      * @psalm-return class-string<KeywordList>
+=======
+     * @phpstan-return class-string<KeywordList>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws Exception If not supported on this platform.
      */
@@ -4693,6 +4709,14 @@ abstract class AbstractPlatform
             return false;
         }
 
+<<<<<<< HEAD
+=======
+        // If disableTypeComments is true, we do not need to check types, all comparison is already done above
+        if ($this->disableTypeComments) {
+            return true;
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return $column1->getType() === $column2->getType();
     }
 

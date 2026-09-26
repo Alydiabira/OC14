@@ -87,7 +87,11 @@ class ChoiceType extends AbstractType
 
             // Check if the choices already contain the empty value
             // Only add the placeholder option if this is not the case
+<<<<<<< HEAD
             if (null !== $options['placeholder'] && 0 === \count($choiceList->getChoicesForValues(['']))) {
+=======
+            if (null !== $options['placeholder'] && !$choiceList->getChoicesForValues([''])) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $placeholderView = new ChoiceView(null, '', $options['placeholder'], $options['placeholder_attr']);
 
                 // "placeholder" is a reserved name
@@ -144,9 +148,14 @@ class ChoiceType extends AbstractType
                             $knownValues[$child->getName()] = $value;
                             unset($unknownValues[$value]);
                             continue;
+<<<<<<< HEAD
                         } else {
                             $knownValues[$child->getName()] = null;
                         }
+=======
+                        }
+                        $knownValues[$child->getName()] = null;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
                 } else {
                     foreach ($choiceList->getChoicesForValues($data) as $key => $choice) {
@@ -160,8 +169,13 @@ class ChoiceType extends AbstractType
                 unset($unknownValues['']);
 
                 // Throw exception if unknown values were submitted (multiple choices will be handled in a different event listener below)
+<<<<<<< HEAD
                 if (\count($unknownValues) > 0 && !$options['multiple']) {
                     throw new TransformationFailedException(sprintf('The choices "%s" do not exist in the choice list.', implode('", "', array_keys($unknownValues))));
+=======
+                if ($unknownValues && !$options['multiple']) {
+                    throw new TransformationFailedException(\sprintf('The choices "%s" do not exist in the choice list.', implode('", "', array_keys($unknownValues))));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 $event->setData($knownValues);
@@ -174,7 +188,11 @@ class ChoiceType extends AbstractType
 
             $builder->addEventListener(FormEvents::POST_SUBMIT, static function (FormEvent $event) use (&$unknownValues, $messageTemplate, $translator) {
                 // Throw exception if unknown values were submitted
+<<<<<<< HEAD
                 if (\count($unknownValues) > 0) {
+=======
+                if ($unknownValues) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $form = $event->getForm();
 
                     $clientDataAsString = \is_scalar($form->getViewData()) ? (string) $form->getViewData() : (\is_array($form->getViewData()) ? implode('", "', array_keys($unknownValues)) : \gettype($form->getViewData()));
@@ -185,7 +203,11 @@ class ChoiceType extends AbstractType
                         $message = strtr($messageTemplate, ['{{ value }}' => $clientDataAsString]);
                     }
 
+<<<<<<< HEAD
                     $form->addError(new FormError($message, $messageTemplate, ['{{ value }}' => $clientDataAsString], null, new TransformationFailedException(sprintf('The choices "%s" do not exist in the choice list.', $clientDataAsString))));
+=======
+                    $form->addError(new FormError($message, $messageTemplate, ['{{ value }}' => $clientDataAsString], null, new TransformationFailedException(\sprintf('The choices "%s" do not exist in the choice list.', $clientDataAsString))));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             });
 
@@ -281,6 +303,11 @@ class ChoiceType extends AbstractType
      */
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
+<<<<<<< HEAD
+=======
+        $view->vars['duplicate_preferred_choices'] = $options['duplicate_preferred_choices'];
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ($options['expanded']) {
             // Radio buttons should have the same name as the parent
             $childName = $view->vars['full_name'];

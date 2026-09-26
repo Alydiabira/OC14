@@ -73,7 +73,11 @@ class FragmentHandler
         }
 
         if (!isset($this->renderers[$renderer])) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('The "%s" renderer does not exist.', $renderer));
+=======
+            throw new \InvalidArgumentException(\sprintf('The "%s" renderer does not exist.', $renderer));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (!$request = $this->requestStack->getCurrentRequest()) {
@@ -97,7 +101,11 @@ class FragmentHandler
     {
         if (!$response->isSuccessful()) {
             $responseStatusCode = $response->getStatusCode();
+<<<<<<< HEAD
             throw new \RuntimeException(sprintf('Error when rendering "%s" (Status code is %d).', $this->requestStack->getCurrentRequest()->getUri(), $responseStatusCode), 0, new HttpException($responseStatusCode));
+=======
+            throw new \RuntimeException(\sprintf('Error when rendering "%s" (Status code is %d).', $this->requestStack->getCurrentRequest()->getUri(), $responseStatusCode), 0, new HttpException($responseStatusCode));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (!$response instanceof StreamedResponse) {

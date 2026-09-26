@@ -61,7 +61,11 @@ class HtmlErrorRenderer implements ErrorRendererInterface
     {
         $headers = ['Content-Type' => 'text/html; charset='.$this->charset];
         if (\is_bool($this->debug) ? $this->debug : ($this->debug)($exception)) {
+<<<<<<< HEAD
             $headers['X-Debug-Exception'] = rawurlencode($exception->getMessage());
+=======
+            $headers['X-Debug-Exception'] = rawurlencode(substr($exception->getMessage(), 0, 2000));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $headers['X-Debug-Exception-File'] = rawurlencode($exception->getFile()).':'.$exception->getLine();
         }
 
@@ -158,9 +162,15 @@ class HtmlErrorRenderer implements ErrorRendererInterface
         $result = [];
         foreach ($args as $key => $item) {
             if ('object' === $item[0]) {
+<<<<<<< HEAD
                 $formattedValue = sprintf('<em>object</em>(%s)', $this->abbrClass($item[1]));
             } elseif ('array' === $item[0]) {
                 $formattedValue = sprintf('<em>array</em>(%s)', \is_array($item[1]) ? $this->formatArgs($item[1]) : $item[1]);
+=======
+                $formattedValue = \sprintf('<em>object</em>(%s)', $this->abbrClass($item[1]));
+            } elseif ('array' === $item[0]) {
+                $formattedValue = \sprintf('<em>array</em>(%s)', \is_array($item[1]) ? $this->formatArgs($item[1]) : $item[1]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } elseif ('null' === $item[0]) {
                 $formattedValue = '<em>null</em>';
             } elseif ('boolean' === $item[0]) {
@@ -173,7 +183,11 @@ class HtmlErrorRenderer implements ErrorRendererInterface
                 $formattedValue = str_replace("\n", '', $this->escape(var_export($item[1], true)));
             }
 
+<<<<<<< HEAD
             $result[] = \is_int($key) ? $formattedValue : sprintf("'%s' => %s", $this->escape($key), $formattedValue);
+=======
+            $result[] = \is_int($key) ? $formattedValue : \sprintf("'%s' => %s", $this->escape($key), $formattedValue);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return implode(', ', $result);
@@ -194,7 +208,11 @@ class HtmlErrorRenderer implements ErrorRendererInterface
         $parts = explode('\\', $class);
         $short = array_pop($parts);
 
+<<<<<<< HEAD
         return sprintf('<abbr title="%s">%s</abbr>', $class, $short);
+=======
+        return \sprintf('<abbr title="%s">%s</abbr>', $class, $short);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function getFileRelative(string $file): ?string
@@ -223,7 +241,11 @@ class HtmlErrorRenderer implements ErrorRendererInterface
             $text = $file;
             if (null !== $rel = $this->getFileRelative($text)) {
                 $rel = explode('/', $rel, 2);
+<<<<<<< HEAD
                 $text = sprintf('<abbr title="%s%2$s">%s</abbr>%s', $this->projectDir, $rel[0], '/'.($rel[1] ?? ''));
+=======
+                $text = \sprintf('<abbr title="%s%2$s">%s</abbr>%s', $this->projectDir, $rel[0], '/'.($rel[1] ?? ''));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -231,9 +253,19 @@ class HtmlErrorRenderer implements ErrorRendererInterface
             $text .= ' at line '.$line;
         }
 
+<<<<<<< HEAD
         $link = $this->fileLinkFormat->format($file, $line);
 
         return sprintf('<a href="%s" title="Click to open this file" class="file_link">%s</a>', $this->escape($link), $text);
+=======
+        if (!file_exists($file)) {
+            return $text;
+        }
+
+        $link = $this->fileLinkFormat->format($file, $line);
+
+        return \sprintf('<a href="%s" title="Click to open this file" class="file_link">%s</a>', $this->escape($link), $text);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -252,16 +284,25 @@ class HtmlErrorRenderer implements ErrorRendererInterface
             if (\PHP_VERSION_ID >= 80300) {
                 // remove main pre/code tags
                 $code = preg_replace('#^<pre.*?>\s*<code.*?>(.*)</code>\s*</pre>#s', '\\1', $code);
+<<<<<<< HEAD
                 // split multiline code tags
                 $code = preg_replace_callback('#<code ([^>]++)>((?:[^<]*+\\n)++[^<]*+)</code>#', fn ($m) => "<code $m[1]>".str_replace("\n", "</code>\n<code $m[1]>", $m[2]).'</code>', $code);
                 // Convert spaces to html entities to preserve indentation when rendered
                 $code = str_replace(' ', '&nbsp;', $code);
+=======
+                // split multiline span tags
+                $code = preg_replace_callback('#<span ([^>]++)>((?:[^<\\n]*+\\n)++[^<]*+)</span>#', static fn ($m) => "<span $m[1]>".str_replace("\n", "</span>\n<span $m[1]>", $m[2]).'</span>', $code);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $content = explode("\n", $code);
             } else {
                 // remove main code/span tags
                 $code = preg_replace('#^<code.*?>\s*<span.*?>(.*)</span>\s*</code>#s', '\\1', $code);
                 // split multiline spans
+<<<<<<< HEAD
                 $code = preg_replace_callback('#<span ([^>]++)>((?:[^<]*+<br \/>)++[^<]*+)</span>#', fn ($m) => "<span $m[1]>".str_replace('<br />', "</span><br /><span $m[1]>", $m[2]).'</span>', $code);
+=======
+                $code = preg_replace_callback('#<span ([^>]++)>((?:[^<]*+<br \/>)++[^<]*+)</span>#', static fn ($m) => "<span $m[1]>".str_replace('<br />', "</span><br /><span $m[1]>", $m[2]).'</span>', $code);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $content = explode('<br />', $code);
             }
 

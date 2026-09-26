@@ -31,10 +31,16 @@ class ControllerResolver extends ContainerControllerResolver
         }
         if ($controller instanceof AbstractController) {
             if (null === $previousContainer = $controller->setContainer($this->container)) {
+<<<<<<< HEAD
                 throw new \LogicException(sprintf('"%s" has no container set, did you forget to define it as a service subscriber?', $class));
             } else {
                 $controller->setContainer($previousContainer);
             }
+=======
+                throw new \LogicException(\sprintf('"%s" has no container set, did you forget to define it as a service subscriber?', $class));
+            }
+            $controller->setContainer($previousContainer);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $controller;

@@ -20,16 +20,28 @@ use Twig\Source;
  * Represents a node in the AST.
  *
  * @author Fabien Potencier <fabien@symfony.com>
+<<<<<<< HEAD
+=======
+ *
+ * @implements \IteratorAggregate<int|string, Node>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 #[YieldReady]
 class Node implements \Countable, \IteratorAggregate
 {
+<<<<<<< HEAD
+=======
+    /**
+     * @var array<string|int, Node>
+     */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected $nodes;
     protected $attributes;
     protected $lineno;
     protected $tag;
 
     private $sourceContext;
+<<<<<<< HEAD
 
     /**
      * @param array  $nodes      An array of named nodes
@@ -42,11 +54,33 @@ class Node implements \Countable, \IteratorAggregate
         foreach ($nodes as $name => $node) {
             if (!$node instanceof self) {
                 throw new \InvalidArgumentException(sprintf('Using "%s" for the value of node "%s" of "%s" is not supported. You must pass a \Twig\Node\Node instance.', \is_object($node) ? \get_class($node) : (null === $node ? 'null' : \gettype($node)), $name, static::class));
+=======
+    /** @var array<string, NameDeprecation> */
+    private $nodeNameDeprecations = [];
+    /** @var array<string, NameDeprecation> */
+    private $attributeNameDeprecations = [];
+
+    /**
+     * @param array<string|int, Node> $nodes      An array of named nodes
+     * @param array                   $attributes An array of attributes (should not be nodes)
+     * @param int                     $lineno     The line number
+     */
+    public function __construct(array $nodes = [], array $attributes = [], int $lineno = 0)
+    {
+        if (self::class === static::class) {
+            trigger_deprecation('twig/twig', '3.15', \sprintf('Instantiating "%s" directly is deprecated; the class will become abstract in 4.0.', self::class));
+        }
+
+        foreach ($nodes as $name => $node) {
+            if (!$node instanceof self) {
+                throw new \InvalidArgumentException(\sprintf('Using "%s" for the value of node "%s" of "%s" is not supported. You must pass a \Twig\Node\Node instance.', get_debug_type($node), $name, static::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
         $this->nodes = $nodes;
         $this->attributes = $attributes;
         $this->lineno = $lineno;
+<<<<<<< HEAD
         $this->tag = $tag;
     }
 
@@ -62,11 +96,48 @@ class Node implements \Countable, \IteratorAggregate
         if (\count($this->nodes)) {
             foreach ($this->nodes as $name => $node) {
                 $len = \strlen($name) + 4;
+=======
+
+        if (\func_num_args() > 3) {
+            trigger_deprecation('twig/twig', '3.12', \sprintf('The "tag" constructor argument of the "%s" class is deprecated and ignored (check which TokenParser class set it to "%s"), the tag is now automatically set by the Parser when needed.', static::class, func_get_arg(3) ?: 'null'));
+        }
+    }
+
+    public function __toString(): string
+    {
+        $repr = static::class;
+
+        if ($this->tag) {
+            $repr .= \sprintf("\n  tag: %s", $this->tag);
+        }
+
+        $attributes = [];
+        foreach ($this->attributes as $name => $value) {
+            if (\is_callable($value)) {
+                $v = '\Closure';
+            } elseif ($value instanceof \Stringable) {
+                $v = (string) $value;
+            } else {
+                $v = str_replace("\n", '', var_export($value, true));
+            }
+            $attributes[] = \sprintf('%s: %s', $name, $v);
+        }
+
+        if ($attributes) {
+            $repr .= \sprintf("\n  attributes:\n    %s", implode("\n    ", $attributes));
+        }
+
+        if (\count($this->nodes)) {
+            $repr .= "\n  nodes:";
+            foreach ($this->nodes as $name => $node) {
+                $len = \strlen($name) + 6;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $noderepr = [];
                 foreach (explode("\n", (string) $node) as $line) {
                     $noderepr[] = str_repeat(' ', $len).$line;
                 }
 
+<<<<<<< HEAD
                 $repr[] = sprintf('  %s: %s', $name, ltrim(implode("\n", $noderepr)));
             }
 
@@ -76,6 +147,20 @@ class Node implements \Countable, \IteratorAggregate
         }
 
         return implode("\n", $repr);
+=======
+                $repr .= \sprintf("\n    %s: %s", $name, ltrim(implode("\n", $noderepr)));
+            }
+        }
+
+        return $repr;
+    }
+
+    public function __clone()
+    {
+        foreach ($this->nodes as $name => $node) {
+            $this->nodes[$name] = clone $node;
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -98,6 +183,21 @@ class Node implements \Countable, \IteratorAggregate
         return $this->tag;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @internal
+     */
+    public function setNodeTag(string $tag): void
+    {
+        if ($this->tag) {
+            throw new \LogicException('The tag of a node can only be set once.');
+        }
+
+        $this->tag = $tag;
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function hasAttribute(string $name): bool
     {
         return \array_key_exists($name, $this->attributes);
@@ -106,7 +206,21 @@ class Node implements \Countable, \IteratorAggregate
     public function getAttribute(string $name)
     {
         if (!\array_key_exists($name, $this->attributes)) {
+<<<<<<< HEAD
             throw new \LogicException(sprintf('Attribute "%s" does not exist for Node "%s".', $name, static::class));
+=======
+            throw new \LogicException(\sprintf('Attribute "%s" does not exist for Node "%s".', $name, static::class));
+        }
+
+        $triggerDeprecation = \func_num_args() > 1 ? func_get_arg(1) : true;
+        if ($triggerDeprecation && isset($this->attributeNameDeprecations[$name])) {
+            $dep = $this->attributeNameDeprecations[$name];
+            if ($dep->getNewName()) {
+                trigger_deprecation($dep->getPackage(), $dep->getVersion(), 'Getting attribute "%s" on a "%s" class is deprecated, get the "%s" attribute instead.', $name, static::class, $dep->getNewName());
+            } else {
+                trigger_deprecation($dep->getPackage(), $dep->getVersion(), 'Getting attribute "%s" on a "%s" class is deprecated.', $name, static::class);
+            }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->attributes[$name];
@@ -114,42 +228,124 @@ class Node implements \Countable, \IteratorAggregate
 
     public function setAttribute(string $name, $value): void
     {
+<<<<<<< HEAD
         $this->attributes[$name] = $value;
     }
 
+=======
+        $triggerDeprecation = \func_num_args() > 2 ? func_get_arg(2) : true;
+        if ($triggerDeprecation && isset($this->attributeNameDeprecations[$name])) {
+            $dep = $this->attributeNameDeprecations[$name];
+            if ($dep->getNewName()) {
+                trigger_deprecation($dep->getPackage(), $dep->getVersion(), 'Setting attribute "%s" on a "%s" class is deprecated, set the "%s" attribute instead.', $name, static::class, $dep->getNewName());
+            } else {
+                trigger_deprecation($dep->getPackage(), $dep->getVersion(), 'Setting attribute "%s" on a "%s" class is deprecated.', $name, static::class);
+            }
+        }
+
+        $this->attributes[$name] = $value;
+    }
+
+    public function deprecateAttribute(string $name, NameDeprecation $dep): void
+    {
+        $this->attributeNameDeprecations[$name] = $dep;
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function removeAttribute(string $name): void
     {
         unset($this->attributes[$name]);
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @param string|int $name
+     */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function hasNode(string $name): bool
     {
         return isset($this->nodes[$name]);
     }
 
+<<<<<<< HEAD
     public function getNode(string $name): self
     {
         if (!isset($this->nodes[$name])) {
             throw new \LogicException(sprintf('Node "%s" does not exist for Node "%s".', $name, static::class));
+=======
+    /**
+     * @param string|int $name
+     */
+    public function getNode(string $name): self
+    {
+        if (!isset($this->nodes[$name])) {
+            throw new \LogicException(\sprintf('Node "%s" does not exist for Node "%s".', $name, static::class));
+        }
+
+        $triggerDeprecation = \func_num_args() > 1 ? func_get_arg(1) : true;
+        if ($triggerDeprecation && isset($this->nodeNameDeprecations[$name])) {
+            $dep = $this->nodeNameDeprecations[$name];
+            if ($dep->getNewName()) {
+                trigger_deprecation($dep->getPackage(), $dep->getVersion(), 'Getting node "%s" on a "%s" class is deprecated, get the "%s" node instead.', $name, static::class, $dep->getNewName());
+            } else {
+                trigger_deprecation($dep->getPackage(), $dep->getVersion(), 'Getting node "%s" on a "%s" class is deprecated.', $name, static::class);
+            }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->nodes[$name];
     }
 
+<<<<<<< HEAD
     public function setNode(string $name, self $node): void
     {
+=======
+    /**
+     * @param string|int $name
+     */
+    public function setNode(string $name, self $node): void
+    {
+        $triggerDeprecation = \func_num_args() > 2 ? func_get_arg(2) : true;
+        if ($triggerDeprecation && isset($this->nodeNameDeprecations[$name])) {
+            $dep = $this->nodeNameDeprecations[$name];
+            if ($dep->getNewName()) {
+                trigger_deprecation($dep->getPackage(), $dep->getVersion(), 'Setting node "%s" on a "%s" class is deprecated, set the "%s" node instead.', $name, static::class, $dep->getNewName());
+            } else {
+                trigger_deprecation($dep->getPackage(), $dep->getVersion(), 'Setting node "%s" on a "%s" class is deprecated.', $name, static::class);
+            }
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (null !== $this->sourceContext) {
             $node->setSourceContext($this->sourceContext);
         }
         $this->nodes[$name] = $node;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @param string|int $name
+     */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function removeNode(string $name): void
     {
         unset($this->nodes[$name]);
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * @param string|int $name
+     */
+    public function deprecateNode(string $name, NameDeprecation $dep): void
+    {
+        $this->nodeNameDeprecations[$name] = $dep;
+    }
+
+    /**
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return int
      */
     #[\ReturnTypeWillChange]

@@ -60,7 +60,11 @@ final class MakeMigration extends AbstractMaker implements ApplicationAwareMaker
     public function configureCommand(Command $command, InputConfiguration $inputConfig): void
     {
         $command
+<<<<<<< HEAD
             ->setHelp(file_get_contents(__DIR__.'/../Resources/help/MakeMigration.txt'))
+=======
+            ->setHelp($this->getHelpFileContents('MakeMigration.txt'))
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ;
 
         if (class_exists(MigrationsDiffDoctrineCommand::class)) {
@@ -74,6 +78,10 @@ final class MakeMigration extends AbstractMaker implements ApplicationAwareMaker
 
         $command
             ->addOption('formatted', null, InputOption::VALUE_NONE, 'Format the generated SQL')
+<<<<<<< HEAD
+=======
+            ->addOption('nowdoc', null, InputOption::VALUE_NONE, 'Use nowdoc format for generated SQL')
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->addOption('configuration', null, InputOption::VALUE_OPTIONAL, 'The path of doctrine configuration file')
         ;
     }
@@ -99,6 +107,13 @@ final class MakeMigration extends AbstractMaker implements ApplicationAwareMaker
             $options[] = '--formatted';
         }
 
+<<<<<<< HEAD
+=======
+        if ($input->getOption('nowdoc')) {
+            $options[] = '--nowdoc';
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (null !== $configuration = $input->getOption('configuration')) {
             $options[] = '--configuration='.$configuration;
         }
@@ -114,7 +129,11 @@ final class MakeMigration extends AbstractMaker implements ApplicationAwareMaker
         try {
             $returnCode = $generateMigrationCommand->run($generateMigrationCommandInput, $commandOutput);
 
+<<<<<<< HEAD
             // non-zero code would ideally mean the internal command has already printed an errror
+=======
+            // non-zero code would ideally mean the internal command has already printed an error
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             // this happens if you "decline" generating a migration when you already
             // have some available
             if (0 !== $returnCode) {
@@ -142,7 +161,11 @@ final class MakeMigration extends AbstractMaker implements ApplicationAwareMaker
         $this->writeSuccessMessage($io);
 
         $io->text([
+<<<<<<< HEAD
             sprintf('Review the new migration then run it with <info>%s doctrine:migrations:migrate</info>', CliOutputHelper::getCommandPrefix()),
+=======
+            \sprintf('Review the new migration then run it with <info>%s doctrine:migrations:migrate</info>', CliOutputHelper::getCommandPrefix()),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'See <fg=yellow>https://symfony.com/doc/current/bundles/DoctrineMigrationsBundle/index.html</>',
         ]);
     }

@@ -104,13 +104,21 @@ class DefaultChoiceListFactory implements ChoiceListFactoryInterface
             // Remove empty group views that may have been created by
             // addChoiceViewsGroupedByCallable()
             foreach ($preferredViews as $key => $view) {
+<<<<<<< HEAD
                 if ($view instanceof ChoiceGroupView && 0 === \count($view->choices)) {
+=======
+                if ($view instanceof ChoiceGroupView && !$view->choices) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     unset($preferredViews[$key]);
                 }
             }
 
             foreach ($otherViews as $key => $view) {
+<<<<<<< HEAD
                 if ($view instanceof ChoiceGroupView && 0 === \count($view->choices)) {
+=======
+                if ($view instanceof ChoiceGroupView && !$view->choices) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     unset($otherViews[$key]);
                 }
             }
@@ -222,11 +230,19 @@ class DefaultChoiceListFactory implements ChoiceListFactoryInterface
                     $duplicatePreferredChoices,
                 );
 
+<<<<<<< HEAD
                 if (\count($preferredViewsForGroup) > 0) {
                     $preferredViews[$key] = new ChoiceGroupView($key, $preferredViewsForGroup);
                 }
 
                 if (\count($otherViewsForGroup) > 0) {
+=======
+                if ($preferredViewsForGroup) {
+                    $preferredViews[$key] = new ChoiceGroupView($key, $preferredViewsForGroup);
+                }
+
+                if ($otherViewsForGroup) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $otherViews[$key] = new ChoiceGroupView($key, $otherViewsForGroup);
                 }
 

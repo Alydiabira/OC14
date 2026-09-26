@@ -33,6 +33,7 @@
         "ext-dom": "*",
         "ext-libxml": "*",
         "ext-xmlwriter": "*",
+<<<<<<< HEAD
         "nikic/php-parser": "^4.18 || ^5.0",
         "phpunit/php-file-iterator": "^3.0.3",
         "phpunit/php-text-template": "^2.0.2",
@@ -45,6 +46,20 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^9.3"
+=======
+        "nikic/php-parser": "^4.19.1 || ^5.1.0",
+        "phpunit/php-file-iterator": "^3.0.6",
+        "phpunit/php-text-template": "^2.0.4",
+        "sebastian/code-unit-reverse-lookup": "^2.0.3",
+        "sebastian/complexity": "^2.0.3",
+        "sebastian/environment": "^5.1.5",
+        "sebastian/lines-of-code": "^1.0.4",
+        "sebastian/version": "^3.0.2",
+        "theseer/tokenizer": "^1.2.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     },
     "suggest": {
         "ext-pcov": "PHP extension that provides line coverage",
@@ -63,7 +78,11 @@
     },
     "extra": {
         "branch-alias": {
+<<<<<<< HEAD
             "dev-master": "9.2-dev"
+=======
+            "dev-main": "9.2.x-dev"
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

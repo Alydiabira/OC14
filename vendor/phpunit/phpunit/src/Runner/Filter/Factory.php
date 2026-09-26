@@ -24,7 +24,11 @@ use ReflectionClass;
 final class Factory
 {
     /**
+<<<<<<< HEAD
      * @psalm-var array<int,array{0: \ReflectionClass, 1: array|string}>
+=======
+     * @psalm-var array<int,array{0: ReflectionClass, 1: array|string}>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private $filters = [];
 

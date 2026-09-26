@@ -11,14 +11,26 @@
 
 use Symfony\Polyfill\Intl\Grapheme as p;
 
+<<<<<<< HEAD
 if (extension_loaded('intl')) {
     return;
 }
 
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 if (\PHP_VERSION_ID >= 80000) {
     return require __DIR__.'/bootstrap80.php';
 }
 
+<<<<<<< HEAD
+=======
+if (!class_exists('ValueError', false)) {
+    class ValueError extends Error
+    {
+    }
+}
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 if (!defined('GRAPHEME_EXTR_COUNT')) {
     define('GRAPHEME_EXTR_COUNT', 0);
 }
@@ -56,3 +68,15 @@ if (!function_exists('grapheme_strstr')) {
 if (!function_exists('grapheme_substr')) {
     function grapheme_substr($string, $offset, $length = null) { return p\Grapheme::grapheme_substr($string, $offset, $length); }
 }
+<<<<<<< HEAD
+=======
+if (!function_exists('grapheme_str_split')) {
+    function grapheme_str_split(string $string, int $length = 1) { return p\Grapheme::grapheme_str_split($string, $length); }
+}
+if (!function_exists('grapheme_levenshtein')) {
+    function grapheme_levenshtein(string $string1, string $string2, int $insertion_cost = 1, int $replacement_cost = 1, int $deletion_cost = 1, string $locale = '') { return p\Grapheme::grapheme_levenshtein($string1, $string2, $insertion_cost, $replacement_cost, $deletion_cost); }
+}
+if (!function_exists('grapheme_strrev')) {
+    function grapheme_strrev(string $string) { return p\Grapheme::grapheme_strrev($string); }
+}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96

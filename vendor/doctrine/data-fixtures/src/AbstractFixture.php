@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Doctrine\Common\DataFixtures;
 
 use BadMethodCallException;
+<<<<<<< HEAD
 use Doctrine\Deprecations\Deprecation;
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 use function assert;
 
@@ -18,6 +21,7 @@ abstract class AbstractFixture implements SharedFixtureInterface
 {
     /**
      * Fixture reference repository
+<<<<<<< HEAD
      *
      * @var ReferenceRepository|null
      */
@@ -27,6 +31,12 @@ abstract class AbstractFixture implements SharedFixtureInterface
      * {@inheritDoc}
      */
     public function setReferenceRepository(ReferenceRepository $referenceRepository)
+=======
+     */
+    protected ReferenceRepository|null $referenceRepository = null;
+
+    public function setReferenceRepository(ReferenceRepository $referenceRepository): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->referenceRepository = $referenceRepository;
     }
@@ -43,6 +53,7 @@ abstract class AbstractFixture implements SharedFixtureInterface
      * and referenced to managed $object. If $name
      * already is set, it overrides it
      *
+<<<<<<< HEAD
      * @see Doctrine\Common\DataFixtures\ReferenceRepository::setReference
      *
      * @param string $name
@@ -51,6 +62,13 @@ abstract class AbstractFixture implements SharedFixtureInterface
      * @return void
      */
     public function setReference($name, $object)
+=======
+     * @see ReferenceRepository::setReference()
+     *
+     * @param object $object - managed object
+     */
+    public function setReference(string $name, object $object): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->getReferenceRepository()->setReference($name, $object);
     }
@@ -61,6 +79,7 @@ abstract class AbstractFixture implements SharedFixtureInterface
      * already is set, it throws a
      * BadMethodCallException exception
      *
+<<<<<<< HEAD
      * @see Doctrine\Common\DataFixtures\ReferenceRepository::addReference
      *
      * @param string $name
@@ -71,6 +90,15 @@ abstract class AbstractFixture implements SharedFixtureInterface
      * @throws BadMethodCallException - if repository already has a reference by $name.
      */
     public function addReference($name, $object)
+=======
+     * @see ReferenceRepository::addReference()
+     *
+     * @param object $object - managed object
+     *
+     * @throws BadMethodCallException - if repository already has a reference by $name.
+     */
+    public function addReference(string $name, object $object): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->getReferenceRepository()->addReference($name, $object);
     }
@@ -79,6 +107,7 @@ abstract class AbstractFixture implements SharedFixtureInterface
      * Loads an object using stored reference
      * named by $name
      *
+<<<<<<< HEAD
      * @see Doctrine\Common\DataFixtures\ReferenceRepository::getReference
      *
      * @param string $name
@@ -100,6 +129,18 @@ abstract class AbstractFixture implements SharedFixtureInterface
             );
         }
 
+=======
+     * @see ReferenceRepository::getReference()
+     *
+     * @phpstan-param class-string<T> $class
+     *
+     * @phpstan-return T
+     *
+     * @template T of object
+     */
+    public function getReference(string $name, string $class): object
+    {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return $this->getReferenceRepository()->getReference($name, $class);
     }
 
@@ -107,6 +148,7 @@ abstract class AbstractFixture implements SharedFixtureInterface
      * Check if an object is stored using reference
      * named by $name
      *
+<<<<<<< HEAD
      * @see Doctrine\Common\DataFixtures\ReferenceRepository::hasReference
      *
      * @param string $name
@@ -125,6 +167,14 @@ abstract class AbstractFixture implements SharedFixtureInterface
             );
         }
 
+=======
+     * @see ReferenceRepository::hasReference()
+     *
+     * @phpstan-param class-string $class
+     */
+    public function hasReference(string $name, string $class): bool
+    {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return $this->getReferenceRepository()->hasReference($name, $class);
     }
 }

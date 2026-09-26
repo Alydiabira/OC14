@@ -15,9 +15,13 @@ namespace Symfony\Component\Security\Core\User;
  * Represents the interface that all user classes must implement.
  *
  * This interface is useful because the authentication layer can deal with
+<<<<<<< HEAD
  * the object through its lifecycle, using the object to get the hashed
  * password (for checking against a submitted password), assigning roles
  * and so on.
+=======
+ * the object through its lifecycle, assigning roles and so on.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * Regardless of how your users are loaded or where they come from (a database,
  * configuration, web service, etc.), you will have a class that implements

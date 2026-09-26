@@ -10,8 +10,15 @@ use Doctrine\Bundle\FixturesBundle\Loader\SymfonyFixturesLoader;
 use Doctrine\Bundle\FixturesBundle\Purger\ORMPurgerFactory;
 use Doctrine\Bundle\FixturesBundle\Purger\PurgerFactory;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
+<<<<<<< HEAD
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+=======
+use Doctrine\Common\DataFixtures\Purger\ORMPurgerInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
+use Psr\Log\AbstractLogger;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -127,16 +134,46 @@ class LoadDataFixturesDoctrineCommand extends DoctrineCommand
             $factory = $this->purgerFactories[$input->getOption('purger')];
         }
 
+<<<<<<< HEAD
         $purger   = $factory->createForEntityManager(
+=======
+        $purger = $factory->createForEntityManager(
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $input->getOption('em'),
             $em,
             $input->getOption('purge-exclusions'),
             $input->getOption('purge-with-truncate'),
         );
+<<<<<<< HEAD
         $executor = new ORMExecutor($em, $purger);
         $executor->setLogger(static function ($message) use ($ui): void {
             $ui->text(sprintf('  <comment>></comment> <info>%s</info>', $message));
         });
+=======
+        assert($purger instanceof ORMPurgerInterface);
+        $executor = new ORMExecutor($em, $purger);
+        $executor->setLogger(new class ($ui) extends AbstractLogger {
+            private SymfonyStyle $ui;
+
+            public function __construct(SymfonyStyle $ui)
+            {
+                $this->ui = $ui;
+            }
+
+            /** {@inheritDoc} */
+            public function log($level, $message, array $context = []): void
+            {
+                $this->ui->text(sprintf('  <comment>></comment> <info>%s</info>', $message));
+            }
+
+            /** @deprecated to be removed when dropping support for doctrine/data-fixtures <1.8 */
+            public function __invoke(string $message): void
+            {
+                $this->log(0, $message);
+            }
+        });
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $executor->execute($fixtures, $input->getOption('append'));
 
         return 0;

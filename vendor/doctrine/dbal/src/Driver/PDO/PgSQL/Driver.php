@@ -5,6 +5,7 @@ namespace Doctrine\DBAL\Driver\PDO\PgSQL;
 use Doctrine\DBAL\Driver\AbstractPostgreSQLDriver;
 use Doctrine\DBAL\Driver\PDO\Connection;
 use Doctrine\DBAL\Driver\PDO\Exception;
+<<<<<<< HEAD
 use Doctrine\Deprecations\Deprecation;
 use PDO;
 use PDOException;
@@ -12,6 +13,21 @@ use SensitiveParameter;
 
 final class Driver extends AbstractPostgreSQLDriver
 {
+=======
+use Doctrine\DBAL\Driver\PDO\PDOConnect;
+use Doctrine\Deprecations\Deprecation;
+use PDO;
+use Pdo\Pgsql;
+use PDOException;
+use SensitiveParameter;
+
+use const PHP_VERSION_ID;
+
+final class Driver extends AbstractPostgreSQLDriver
+{
+    use PDOConnect;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * {@inheritDoc}
      *
@@ -31,7 +47,11 @@ final class Driver extends AbstractPostgreSQLDriver
         unset($safeParams['password'], $safeParams['url']);
 
         try {
+<<<<<<< HEAD
             $pdo = new PDO(
+=======
+            $pdo = $this->doConnect(
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $this->constructPdoDsn($safeParams),
                 $params['user'] ?? '',
                 $params['password'] ?? '',
@@ -41,11 +61,22 @@ final class Driver extends AbstractPostgreSQLDriver
             throw Exception::new($exception);
         }
 
+<<<<<<< HEAD
         if (
             ! isset($driverOptions[PDO::PGSQL_ATTR_DISABLE_PREPARES])
             || $driverOptions[PDO::PGSQL_ATTR_DISABLE_PREPARES] === true
         ) {
             $pdo->setAttribute(PDO::PGSQL_ATTR_DISABLE_PREPARES, true);
+=======
+        $disablePreparesAttr = PHP_VERSION_ID >= 80400
+            ? Pgsql::ATTR_DISABLE_PREPARES
+            : PDO::PGSQL_ATTR_DISABLE_PREPARES;
+        if (
+            ! isset($driverOptions[$disablePreparesAttr])
+            || $driverOptions[$disablePreparesAttr] === true
+        ) {
+            $pdo->setAttribute($disablePreparesAttr, true);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $connection = new Connection($pdo);

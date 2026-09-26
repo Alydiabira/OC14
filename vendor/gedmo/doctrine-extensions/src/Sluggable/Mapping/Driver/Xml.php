@@ -67,8 +67,13 @@ class Xml extends BaseXml
     /**
      * Checks if $field type is valid as Sluggable field
      *
+<<<<<<< HEAD
      * @param ClassMetadata $meta
      * @param string        $field
+=======
+     * @param ClassMetadata<object> $meta
+     * @param string                $field
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return bool
      */
@@ -76,11 +81,20 @@ class Xml extends BaseXml
     {
         $mapping = $meta->getFieldMapping($field);
 
+<<<<<<< HEAD
         return $mapping && in_array($mapping['type'], self::VALID_TYPES, true);
     }
 
     /**
      * @param array<string, mixed> $config
+=======
+        return $mapping && in_array($mapping->type ?? $mapping['type'], self::VALID_TYPES, true);
+    }
+
+    /**
+     * @param ClassMetadata<object> $meta
+     * @param array<string, mixed>  $config
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return array<string, mixed>
      */
@@ -144,6 +158,11 @@ class Xml extends BaseXml
                 'suffix' => $this->_isAttributeSet($slug, 'suffix') ?
                     $this->_getAttribute($slug, 'suffix') : '',
                 'handlers' => $handlers,
+<<<<<<< HEAD
+=======
+                'uniqueOverTranslations' => $this->_isAttributeSet($slug, 'uniqueOverTranslations') ?
+                    $this->_getBooleanAttribute($slug, 'uniqueOverTranslations') : false,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ];
             if (!$meta->isMappedSuperclass && $meta->isIdentifier($field) && !$config['slugs'][$field]['unique']) {
                 throw new InvalidMappingException("Identifier field - [{$field}] slug must be unique in order to maintain primary key in class - {$meta->getName()}");

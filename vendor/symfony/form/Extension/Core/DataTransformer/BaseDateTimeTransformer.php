@@ -48,13 +48,21 @@ abstract class BaseDateTimeTransformer implements DataTransformerInterface
         try {
             new \DateTimeZone($this->inputTimezone);
         } catch (\Exception $e) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Input timezone is invalid: "%s".', $this->inputTimezone), $e->getCode(), $e);
+=======
+            throw new InvalidArgumentException(\sprintf('Input timezone is invalid: "%s".', $this->inputTimezone), $e->getCode(), $e);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         try {
             new \DateTimeZone($this->outputTimezone);
         } catch (\Exception $e) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Output timezone is invalid: "%s".', $this->outputTimezone), $e->getCode(), $e);
+=======
+            throw new InvalidArgumentException(\sprintf('Output timezone is invalid: "%s".', $this->outputTimezone), $e->getCode(), $e);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

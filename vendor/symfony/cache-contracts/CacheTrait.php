@@ -35,10 +35,20 @@ trait CacheTrait
         return $this->deleteItem($key);
     }
 
+<<<<<<< HEAD
     private function doGet(CacheItemPoolInterface $pool, string $key, callable $callback, ?float $beta, ?array &$metadata = null, ?LoggerInterface $logger = null): mixed
     {
         if (0 > $beta ??= 1.0) {
             throw new class(sprintf('Argument "$beta" provided to "%s::get()" must be a positive number, %f given.', static::class, $beta)) extends \InvalidArgumentException implements InvalidArgumentException {};
+=======
+    /**
+     * @param-immediately-invoked-callable $callback
+     */
+    private function doGet(CacheItemPoolInterface $pool, string $key, callable $callback, ?float $beta, ?array &$metadata = null, ?LoggerInterface $logger = null): mixed
+    {
+        if (0 > $beta ??= 1.0) {
+            throw new class(\sprintf('Argument "$beta" provided to "%s::get()" must be a positive number, %f given.', static::class, $beta)) extends \InvalidArgumentException implements InvalidArgumentException {};
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $item = $pool->getItem($key);
@@ -54,7 +64,11 @@ trait CacheTrait
                 $item->expiresAt(null);
                 $logger?->info('Item "{key}" elected for early recomputation {delta}s before its expiration', [
                     'key' => $key,
+<<<<<<< HEAD
                     'delta' => sprintf('%.1f', $expiry - $now),
+=======
+                    'delta' => \sprintf('%.1f', $expiry - $now),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ]);
             }
         }

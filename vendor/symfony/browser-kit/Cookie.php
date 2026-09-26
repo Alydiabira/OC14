@@ -48,6 +48,7 @@ class Cookie
     /**
      * Sets a cookie.
      *
+<<<<<<< HEAD
      * @param string      $name         The cookie name
      * @param string|null $value        The value of the cookie
      * @param string|null $expires      The time the cookie expires
@@ -63,6 +64,23 @@ class Cookie
         if ($encodedValue) {
             $this->rawValue = $value ?? '';
             $this->value = urldecode($this->rawValue);
+=======
+     * @param string          $name         The cookie name
+     * @param string|null     $value        The value of the cookie
+     * @param string|int|null $expires      The time the cookie expires
+     * @param string|null     $path         The path on the server in which the cookie will be available on
+     * @param string          $domain       The domain that the cookie is available
+     * @param bool            $secure       Indicates that the cookie should only be transmitted over a secure HTTPS connection from the client
+     * @param bool            $httponly     The cookie httponly flag
+     * @param bool            $encodedValue Whether the value is encoded or not
+     * @param string|null     $samesite     The cookie samesite attribute
+     */
+    public function __construct(string $name, ?string $value, string|int|null $expires = null, ?string $path = null, string $domain = '', bool $secure = false, bool $httponly = true, bool $encodedValue = false, ?string $samesite = null)
+    {
+        if ($encodedValue) {
+            $this->rawValue = $value ?? '';
+            $this->value = rawurldecode($this->rawValue);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } else {
             $this->value = $value ?? '';
             $this->rawValue = rawurlencode($this->value);
@@ -77,7 +95,11 @@ class Cookie
         if (null !== $expires) {
             $timestampAsDateTime = \DateTimeImmutable::createFromFormat('U', $expires);
             if (false === $timestampAsDateTime) {
+<<<<<<< HEAD
                 throw new UnexpectedValueException(sprintf('The cookie expiration time "%s" is not valid.', $expires));
+=======
+                throw new UnexpectedValueException(\sprintf('The cookie expiration time "%s" is not valid.', $expires));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $this->expires = $timestampAsDateTime->format('U');
@@ -89,7 +111,11 @@ class Cookie
      */
     public function __toString(): string
     {
+<<<<<<< HEAD
         $cookie = sprintf('%s=%s', $this->name, $this->rawValue);
+=======
+        $cookie = \sprintf('%s=%s', $this->name, $this->rawValue);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (null !== $this->expires) {
             $dateTime = \DateTimeImmutable::createFromFormat('U', $this->expires, new \DateTimeZone('GMT'));
@@ -129,7 +155,11 @@ class Cookie
         $parts = explode(';', $cookie);
 
         if (!str_contains($parts[0], '=')) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('The cookie string "%s" is not valid.', $parts[0]));
+=======
+            throw new InvalidArgumentException(\sprintf('The cookie string "%s" is not valid.', $parts[0]));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         [$name, $value] = explode('=', array_shift($parts), 2);
@@ -147,8 +177,13 @@ class Cookie
         ];
 
         if (null !== $url) {
+<<<<<<< HEAD
             if ((false === $urlParts = parse_url($url)) || !isset($urlParts['host'])) {
                 throw new InvalidArgumentException(sprintf('The URL "%s" is not valid.', $url));
+=======
+            if (false === ($urlParts = parse_url($url)) || !isset($urlParts['host'])) {
+                throw new InvalidArgumentException(\sprintf('The URL "%s" is not valid.', $url));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $values['domain'] = $urlParts['host'];
@@ -160,7 +195,11 @@ class Cookie
 
             if ('secure' === strtolower($part)) {
                 // Ignore the secure flag if the original URI is not given or is not HTTPS
+<<<<<<< HEAD
                 if (!$url || !isset($urlParts['scheme']) || 'https' !== $urlParts['scheme']) {
+=======
+                if (null === $url || !isset($urlParts['scheme']) || 'https' !== $urlParts['scheme']) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     continue;
                 }
 

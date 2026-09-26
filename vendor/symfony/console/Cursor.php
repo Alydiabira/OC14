@@ -36,7 +36,11 @@ final class Cursor
      */
     public function moveUp(int $lines = 1): static
     {
+<<<<<<< HEAD
         $this->output->write(sprintf("\x1b[%dA", $lines));
+=======
+        $this->output->write(\sprintf("\x1b[%dA", $lines));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this;
     }
@@ -46,7 +50,11 @@ final class Cursor
      */
     public function moveDown(int $lines = 1): static
     {
+<<<<<<< HEAD
         $this->output->write(sprintf("\x1b[%dB", $lines));
+=======
+        $this->output->write(\sprintf("\x1b[%dB", $lines));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this;
     }
@@ -56,7 +64,11 @@ final class Cursor
      */
     public function moveRight(int $columns = 1): static
     {
+<<<<<<< HEAD
         $this->output->write(sprintf("\x1b[%dC", $columns));
+=======
+        $this->output->write(\sprintf("\x1b[%dC", $columns));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this;
     }
@@ -66,7 +78,11 @@ final class Cursor
      */
     public function moveLeft(int $columns = 1): static
     {
+<<<<<<< HEAD
         $this->output->write(sprintf("\x1b[%dD", $columns));
+=======
+        $this->output->write(\sprintf("\x1b[%dD", $columns));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this;
     }
@@ -76,7 +92,11 @@ final class Cursor
      */
     public function moveToColumn(int $column): static
     {
+<<<<<<< HEAD
         $this->output->write(sprintf("\x1b[%dG", $column));
+=======
+        $this->output->write(\sprintf("\x1b[%dG", $column));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this;
     }
@@ -86,7 +106,11 @@ final class Cursor
      */
     public function moveToPosition(int $column, int $row): static
     {
+<<<<<<< HEAD
         $this->output->write(sprintf("\x1b[%d;%dH", $row + 1, $column));
+=======
+        $this->output->write(\sprintf("\x1b[%d;%dH", $row + 1, $column));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this;
     }
@@ -195,7 +219,11 @@ final class Cursor
 
         $code = trim(fread($this->input, 1024));
 
+<<<<<<< HEAD
         shell_exec(sprintf('stty %s', $sttyMode));
+=======
+        shell_exec(\sprintf('stty %s', $sttyMode));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         sscanf($code, "\033[%d;%dR", $row, $col);
 

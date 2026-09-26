@@ -6,8 +6,14 @@ use Doctrine\DBAL\Driver\AbstractSQLiteDriver;
 use Doctrine\DBAL\Driver\API\SQLite\UserDefinedFunctions;
 use Doctrine\DBAL\Driver\PDO\Connection;
 use Doctrine\DBAL\Driver\PDO\Exception;
+<<<<<<< HEAD
 use Doctrine\Deprecations\Deprecation;
 use PDO;
+=======
+use Doctrine\DBAL\Driver\PDO\PDOConnect;
+use Doctrine\Deprecations\Deprecation;
+use Pdo\Sqlite;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use PDOException;
 use SensitiveParameter;
 
@@ -15,6 +21,11 @@ use function array_intersect_key;
 
 final class Driver extends AbstractSQLiteDriver
 {
+<<<<<<< HEAD
+=======
+    use PDOConnect;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * {@inheritDoc}
      *
@@ -40,7 +51,11 @@ final class Driver extends AbstractSQLiteDriver
         }
 
         try {
+<<<<<<< HEAD
             $pdo = new PDO(
+=======
+            $pdo = $this->doConnect(
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $this->constructPdoDsn(array_intersect_key($params, ['path' => true, 'memory' => true])),
                 $params['user'] ?? '',
                 $params['password'] ?? '',
@@ -51,7 +66,11 @@ final class Driver extends AbstractSQLiteDriver
         }
 
         UserDefinedFunctions::register(
+<<<<<<< HEAD
             [$pdo, 'sqliteCreateFunction'],
+=======
+            $pdo instanceof Sqlite ? [$pdo, 'createFunction'] : [$pdo, 'sqliteCreateFunction'],
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $userDefinedFunctions,
         );
 

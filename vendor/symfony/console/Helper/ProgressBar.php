@@ -229,7 +229,11 @@ final class ProgressBar
 
     public function getRemaining(): float
     {
+<<<<<<< HEAD
         if (!$this->step) {
+=======
+        if (0 === $this->step || $this->step === $this->startingStep) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return 0;
         }
 
@@ -486,12 +490,27 @@ final class ProgressBar
                 if ($this->output instanceof ConsoleSectionOutput) {
                     $messageLines = explode("\n", $this->previousMessage);
                     $lineCount = \count($messageLines);
+<<<<<<< HEAD
+=======
+
+                    $lastLineWithoutDecoration = Helper::removeDecoration($this->output->getFormatter(), end($messageLines) ?? '');
+
+                    // When the last previous line is empty (without formatting) it is already cleared by the section output, so we don't need to clear it again
+                    if ('' === $lastLineWithoutDecoration) {
+                        --$lineCount;
+                    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     foreach ($messageLines as $messageLine) {
                         $messageLineLength = Helper::width(Helper::removeDecoration($this->output->getFormatter(), $messageLine));
                         if ($messageLineLength > $this->terminal->getWidth()) {
                             $lineCount += floor($messageLineLength / $this->terminal->getWidth());
                         }
                     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $this->output->clear($lineCount);
                 } else {
                     $lineCount = substr_count($this->previousMessage, "\n");
@@ -530,35 +549,59 @@ final class ProgressBar
     private static function initPlaceholderFormatters(): array
     {
         return [
+<<<<<<< HEAD
             'bar' => function (self $bar, OutputInterface $output) {
+=======
+            'bar' => static function (self $bar, OutputInterface $output) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $completeBars = $bar->getBarOffset();
                 $display = str_repeat($bar->getBarCharacter(), $completeBars);
                 if ($completeBars < $bar->getBarWidth()) {
                     $emptyBars = $bar->getBarWidth() - $completeBars - Helper::length(Helper::removeDecoration($output->getFormatter(), $bar->getProgressCharacter()));
+<<<<<<< HEAD
                     $display .= $bar->getProgressCharacter().str_repeat($bar->getEmptyBarCharacter(), $emptyBars);
+=======
+                    $display .= $bar->getProgressCharacter().str_repeat($bar->getEmptyBarCharacter(), max(0, $emptyBars));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 return $display;
             },
+<<<<<<< HEAD
             'elapsed' => fn (self $bar) => Helper::formatTime(time() - $bar->getStartTime(), 2),
             'remaining' => function (self $bar) {
+=======
+            'elapsed' => static fn (self $bar) => Helper::formatTime(time() - $bar->getStartTime(), 2),
+            'remaining' => static function (self $bar) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if (!$bar->getMaxSteps()) {
                     throw new LogicException('Unable to display the remaining time if the maximum number of steps is not set.');
                 }
 
                 return Helper::formatTime($bar->getRemaining(), 2);
             },
+<<<<<<< HEAD
             'estimated' => function (self $bar) {
+=======
+            'estimated' => static function (self $bar) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if (!$bar->getMaxSteps()) {
                     throw new LogicException('Unable to display the estimated time if the maximum number of steps is not set.');
                 }
 
                 return Helper::formatTime($bar->getEstimated(), 2);
             },
+<<<<<<< HEAD
             'memory' => fn (self $bar) => Helper::formatMemory(memory_get_usage(true)),
             'current' => fn (self $bar) => str_pad($bar->getProgress(), $bar->getStepWidth(), ' ', \STR_PAD_LEFT),
             'max' => fn (self $bar) => $bar->getMaxSteps(),
             'percent' => fn (self $bar) => floor($bar->getProgressPercent() * 100),
+=======
+            'memory' => static fn (self $bar) => Helper::formatMemory(memory_get_usage(true)),
+            'current' => static fn (self $bar) => str_pad($bar->getProgress(), $bar->getStepWidth(), ' ', \STR_PAD_LEFT),
+            'max' => static fn (self $bar) => $bar->getMaxSteps(),
+            'percent' => static fn (self $bar) => floor($bar->getProgressPercent() * 100),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ];
     }
 
@@ -594,7 +637,11 @@ final class ProgressBar
             }
 
             if (isset($matches[2])) {
+<<<<<<< HEAD
                 $text = sprintf('%'.$matches[2], $text);
+=======
+                $text = \sprintf('%'.$matches[2], $text);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return $text;

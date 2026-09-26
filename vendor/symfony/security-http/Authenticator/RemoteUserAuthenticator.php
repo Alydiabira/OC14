@@ -42,9 +42,16 @@ class RemoteUserAuthenticator extends AbstractPreAuthenticatedAuthenticator
     protected function extractUsername(Request $request): ?string
     {
         if (!$request->server->has($this->userKey)) {
+<<<<<<< HEAD
             throw new BadCredentialsException(sprintf('User key was not found: "%s".', $this->userKey));
         }
 
         return $request->server->get($this->userKey);
+=======
+            throw new BadCredentialsException(\sprintf('User key was not found: "%s".', $this->userKey));
+        }
+
+        return $request->server->get($this->userKey) ?: null;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

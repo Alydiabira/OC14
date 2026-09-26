@@ -58,7 +58,15 @@ class RememberMeFactory implements AuthenticatorFactoryInterface, PrependExtensi
         // create remember me handler (which manage the remember-me cookies)
         $rememberMeHandlerId = 'security.authenticator.remember_me_handler.'.$firewallName;
         if (isset($config['service']) && isset($config['token_provider'])) {
+<<<<<<< HEAD
             throw new InvalidConfigurationException(sprintf('You cannot use both "service" and "token_provider" in "security.firewalls.%s.remember_me".', $firewallName));
+=======
+            throw new InvalidConfigurationException(\sprintf('You cannot use both "service" and "token_provider" in "security.firewalls.%s.remember_me".', $firewallName));
+        }
+
+        if (isset($config['service']) && $config['signature_properties']) {
+            throw new InvalidConfigurationException(\sprintf('You cannot use both "service" and "signature_properties" in "security.firewalls.%s.remember_me" because the custom handler signs the cookies itself and the option would have no effect.', $firewallName));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (isset($config['service'])) {
@@ -73,11 +81,19 @@ class RememberMeFactory implements AuthenticatorFactoryInterface, PrependExtensi
                 ->replaceArgument(1, new Reference($userProviderId))
                 ->replaceArgument(3, $config)
                 ->replaceArgument(5, $tokenVerifier)
+<<<<<<< HEAD
+=======
+                ->replaceArgument(6, $config['signature_properties'] ?: null)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ->addTag('security.remember_me_handler', ['firewall' => $firewallName]);
         } else {
             $signatureHasherId = 'security.authenticator.remember_me_signature_hasher.'.$firewallName;
             $container->setDefinition($signatureHasherId, new ChildDefinition('security.authenticator.remember_me_signature_hasher'))
+<<<<<<< HEAD
                 ->replaceArgument(1, $config['signature_properties'])
+=======
+                ->replaceArgument(1, $config['signature_properties'] ?: ['password'])
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ->replaceArgument(2, $config['secret'])
             ;
 
@@ -138,7 +154,11 @@ class RememberMeFactory implements AuthenticatorFactoryInterface, PrependExtensi
             ->scalarNode('service')->end()
             ->arrayNode('user_providers')
                 ->beforeNormalization()
+<<<<<<< HEAD
                     ->ifString()->then(fn ($v) => [$v])
+=======
+                    ->ifString()->then(static fn ($v) => [$v])
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ->end()
                 ->prototype('scalar')->end()
             ->end()
@@ -146,6 +166,7 @@ class RememberMeFactory implements AuthenticatorFactoryInterface, PrependExtensi
             ->arrayNode('signature_properties')
                 ->prototype('scalar')->end()
                 ->requiresAtLeastOneElement()
+<<<<<<< HEAD
                 ->info('An array of properties on your User that are used to sign the remember-me cookie. If any of these change, all existing cookies will become invalid.')
                 ->example(['email', 'password'])
                 ->defaultValue(['password'])
@@ -153,6 +174,14 @@ class RememberMeFactory implements AuthenticatorFactoryInterface, PrependExtensi
             ->arrayNode('token_provider')
                 ->beforeNormalization()
                     ->ifString()->then(fn ($v) => ['service' => $v])
+=======
+                ->info('An array of properties on your User. All existing cookies become invalid when one of them changes. Defaults to ["password"], which a "token_provider" skips when the user class does not expose it. A property listed here explicitly must exist on the user class. Cannot be combined with a custom "service".')
+                ->example(['email', 'password'])
+            ->end()
+            ->arrayNode('token_provider')
+                ->beforeNormalization()
+                    ->ifString()->then(static fn ($v) => ['service' => $v])
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ->end()
                 ->children()
                     ->scalarNode('service')->info('The service ID of a custom rememberme token provider.')->end()
@@ -203,7 +232,11 @@ class RememberMeFactory implements AuthenticatorFactoryInterface, PrependExtensi
         }
 
         if (!$tokenProviderId) {
+<<<<<<< HEAD
             throw new InvalidConfigurationException(sprintf('No token provider was set for firewall "%s". Either configure a service ID or set "remember_me.token_provider.doctrine" to true.', $firewallName));
+=======
+            throw new InvalidConfigurationException(\sprintf('No token provider was set for firewall "%s". Either configure a service ID or set "remember_me.token_provider.doctrine" to true.', $firewallName));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $tokenProviderId;

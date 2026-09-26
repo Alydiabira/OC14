@@ -21,8 +21,13 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
  */
 class TimeValidator extends ConstraintValidator
 {
+<<<<<<< HEAD
     public const PATTERN = '/^(\d{2}):(\d{2}):(\d{2})$/';
     public const PATTERN_WITHOUT_SECONDS = '/^(\d{2}):(\d{2})$/';
+=======
+    public const PATTERN = '/^(\d{2}):(\d{2}):(\d{2})$/D';
+    public const PATTERN_WITHOUT_SECONDS = '/^(\d{2}):(\d{2})$/D';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Checks whether a time is valid.

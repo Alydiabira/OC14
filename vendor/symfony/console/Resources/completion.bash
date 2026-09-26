@@ -17,7 +17,11 @@ _sf_{{ COMMAND_NAME }}() {
     done
 
     # Use newline as only separator to allow space in completion values
+<<<<<<< HEAD
     IFS=$'\n'
+=======
+    local IFS=$'\n'
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     local sf_cmd="${COMP_WORDS[0]}"
 
     # for an alias, get the real script behind it
@@ -37,7 +41,11 @@ _sf_{{ COMMAND_NAME }}() {
 
     local completecmd=("$sf_cmd" "_complete" "--no-interaction" "-sbash" "-c$cword" "-a{{ VERSION }}")
     for w in ${words[@]}; do
+<<<<<<< HEAD
         w=$(printf -- '%b' "$w")
+=======
+        w="${w//\\\\/\\}"
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         # remove quotes from typed values
         quote="${w:0:1}"
         if [ "$quote" == \' ]; then
@@ -54,7 +62,11 @@ _sf_{{ COMMAND_NAME }}() {
     done
 
     local sfcomplete
+<<<<<<< HEAD
     if sfcomplete=$(${completecmd[@]} 2>&1); then
+=======
+    if sfcomplete=$(SHELL_VERBOSITY=0 ${completecmd[@]} 2>&1); then
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         local quote suggestions
         quote=${cur:0:1}
 

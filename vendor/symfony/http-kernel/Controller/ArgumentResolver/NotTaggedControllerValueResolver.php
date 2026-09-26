@@ -82,8 +82,13 @@ final class NotTaggedControllerValueResolver implements ArgumentValueResolverInt
             return [];
         }
 
+<<<<<<< HEAD
         $what = sprintf('argument $%s of "%s()"', $argument->getName(), $controller);
         $message = sprintf('Could not resolve %s, maybe you forgot to register the controller as a service or missed tagging it with the "controller.service_arguments"?', $what);
+=======
+        $what = \sprintf('argument $%s of "%s()"', $argument->getName(), $controller);
+        $message = \sprintf('Could not resolve %s, maybe you forgot to register the controller as a service or missed tagging it with the "controller.service_arguments"?', $what);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         throw new RuntimeException($message);
     }

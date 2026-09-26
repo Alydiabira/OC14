@@ -28,7 +28,11 @@ class PhpCompatUtil
     {
         $rootDirectory = $this->fileManager->getRootDirectory();
 
+<<<<<<< HEAD
         $composerLockPath = sprintf('%s/composer.lock', $rootDirectory);
+=======
+        $composerLockPath = \sprintf('%s/composer.lock', $rootDirectory);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (!$this->fileManager->fileExists($composerLockPath)) {
             return \PHP_VERSION;

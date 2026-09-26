@@ -10,8 +10,17 @@ use Doctrine\DBAL\Logging\SQLLogger;
 use Doctrine\DBAL\Schema\SchemaManagerFactory;
 use Doctrine\Deprecations\Deprecation;
 use Psr\Cache\CacheItemPoolInterface;
+<<<<<<< HEAD
 
 use function func_num_args;
+=======
+use RuntimeException;
+
+use function class_exists;
+use function func_num_args;
+use function interface_exists;
+use function sprintf;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Configuration container for the Doctrine DBAL.
@@ -129,6 +138,17 @@ class Configuration
             __METHOD__,
         );
 
+<<<<<<< HEAD
+=======
+        if ($this->resultCache !== null && ! interface_exists(Cache::class)) {
+            throw new RuntimeException(sprintf(
+                'Calling %s() is not supported if the doctrine/cache package is not installed. '
+                . 'Try running "composer require doctrine/cache" or migrate cache access to PSR-6.',
+                __METHOD__,
+            ));
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return $this->resultCacheImpl;
     }
 
@@ -137,8 +157,16 @@ class Configuration
      */
     public function setResultCache(CacheItemPoolInterface $cache): void
     {
+<<<<<<< HEAD
         $this->resultCacheImpl = DoctrineProvider::wrap($cache);
         $this->resultCache     = $cache;
+=======
+        if (class_exists(DoctrineProvider::class)) {
+            $this->resultCacheImpl = DoctrineProvider::wrap($cache);
+        }
+
+        $this->resultCache = $cache;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

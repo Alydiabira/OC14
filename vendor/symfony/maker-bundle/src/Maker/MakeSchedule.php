@@ -31,12 +31,21 @@ use Symfony\Contracts\Cache\CacheInterface;
 /**
  * @author Jesse Rushlow <jr@rushlow.dev>
  *
+<<<<<<< HEAD
+=======
+ * @deprecated since MakerBundle v1.63.0, use symfony/scheduler recipe instead,
+ *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  * @internal
  */
 final class MakeSchedule extends AbstractMaker
 {
     private string $scheduleName;
     private ?string $message = null;
+<<<<<<< HEAD
+=======
+    private ?string $transportName = null;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     public function __construct(
         private FileManager $fileManager,
@@ -57,12 +66,21 @@ final class MakeSchedule extends AbstractMaker
     public function configureCommand(Command $command, InputConfiguration $inputConfig): void
     {
         $command
+<<<<<<< HEAD
             ->setHelp(file_get_contents(__DIR__.'/../Resources/help/MakeScheduler.txt'))
+=======
+            ->setHelp($this->getHelpFileContents('MakeScheduler.txt'))
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ;
     }
 
     public function interact(InputInterface $input, ConsoleStyle $io, Command $command): void
     {
+<<<<<<< HEAD
+=======
+        trigger_deprecation('symfony/maker-bundle', 'v1.63.0', '"make:schedule" is deprecated, install the symfony/scheduler recipe instead.');
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (!class_exists(AsSchedule::class)) {
             $io->writeln('Running composer require symfony/scheduler');
             $process = Process::fromShellCommandline('composer require symfony/scheduler');
@@ -82,6 +100,11 @@ final class MakeSchedule extends AbstractMaker
             }
         }
 
+<<<<<<< HEAD
+=======
+        $this->transportName = $io->ask('What should we call the new transport? (To be used for the attribute #[AsSchedule(name)])');
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $scheduleNameHint = 'MainSchedule';
 
         // If the count is 1, no other messages were found - don't ask to create a message
@@ -92,7 +115,11 @@ final class MakeSchedule extends AbstractMaker
                 $this->message = $selectedMessage;
 
                 // We don't want SomeMessageSchedule, so remove the "Message" suffix to give us SomeSchedule
+<<<<<<< HEAD
                 $scheduleNameHint = sprintf('%sSchedule', Str::removeSuffix($selectedMessage, 'Message'));
+=======
+                $scheduleNameHint = \sprintf('%sSchedule', Str::removeSuffix($selectedMessage, 'Message'));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -126,6 +153,11 @@ final class MakeSchedule extends AbstractMaker
                 'use_statements' => $useStatements,
                 'has_custom_message' => null !== $this->message,
                 'message_class_name' => $this->message,
+<<<<<<< HEAD
+=======
+                'has_transport_name' => null !== $this->transportName,
+                'transport_name' => $this->transportName,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ],
         );
 

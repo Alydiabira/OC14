@@ -59,7 +59,11 @@ use function count;
  *
  * Instantiation through the DriverManager looks like:
  *
+<<<<<<< HEAD
  * @psalm-import-type Params from DriverManager
+=======
+ * @phpstan-import-type Params from DriverManager
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  * @example
  *
  * $conn = DriverManager::getConnection(array(
@@ -98,7 +102,11 @@ class PrimaryReadReplicaConnection extends Connection
      * @internal The connection can be only instantiated by the driver manager.
      *
      * @param array<string,mixed> $params
+<<<<<<< HEAD
      * @psalm-param Params $params
+=======
+     * @phpstan-param Params $params
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws Exception
      * @throws InvalidArgumentException

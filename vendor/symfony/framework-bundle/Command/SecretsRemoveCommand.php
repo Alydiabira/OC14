@@ -49,10 +49,17 @@ final class SecretsRemoveCommand extends Command
             ->addArgument('name', InputArgument::REQUIRED, 'The name of the secret')
             ->addOption('local', 'l', InputOption::VALUE_NONE, 'Update the local vault.')
             ->setHelp(<<<'EOF'
+<<<<<<< HEAD
 The <info>%command.name%</info> command removes a secret from the vault.
 
     <info>%command.full_name% <name></info>
 EOF
+=======
+                The <info>%command.name%</info> command removes a secret from the vault.
+
+                    <info>%command.full_name% <name></info>
+                EOF
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -63,7 +70,11 @@ EOF
         $vault = $input->getOption('local') ? $this->localVault : $this->vault;
 
         if (null === $vault) {
+<<<<<<< HEAD
             $io->success('The local vault is disabled.');
+=======
+            $io->error('The local vault is disabled.');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             return 1;
         }

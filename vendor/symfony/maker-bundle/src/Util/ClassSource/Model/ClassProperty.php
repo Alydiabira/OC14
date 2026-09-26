@@ -33,6 +33,10 @@ final class ClassProperty
         public ?int $scale = null,
         public bool $needsTypeHint = true,
         public bool $unique = false,
+<<<<<<< HEAD
+=======
+        public ?string $enumType = null,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ) {
     }
 
@@ -52,6 +56,13 @@ final class ClassProperty
             $attributes['unique'] = true;
         }
 
+<<<<<<< HEAD
+=======
+        if ($this->enumType) {
+            $attributes['enumType'] = $this->enumType;
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         foreach (['length', 'id', 'nullable', 'precision', 'scale'] as $property) {
             if (null !== $this->$property) {
                 $attributes[$property] = $this->$property;
@@ -74,6 +85,10 @@ final class ClassProperty
                 precision: $data->precision,
                 scale: $data->scale,
                 unique: $data->unique ?? false,
+<<<<<<< HEAD
+=======
+                enumType: $data->enumType,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
         }
 
@@ -93,6 +108,10 @@ final class ClassProperty
             precision: $data['precision'] ?? null,
             scale: $data['scale'] ?? null,
             unique: $data['unique'] ?? false,
+<<<<<<< HEAD
+=======
+            enumType: $data['enumType'] ?? null,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         );
     }
 }

@@ -63,7 +63,11 @@ class SocketHandler extends AbstractProcessingHandler
             $this->validateTimeout($connectionTimeout);
         }
 
+<<<<<<< HEAD
         $this->connectionTimeout = $connectionTimeout ?? (float) ini_get('default_socket_timeout');
+=======
+        $this->connectionTimeout = $connectionTimeout ?? (float) \ini_get('default_socket_timeout');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->persistent = $persistent;
         $this->validateTimeout($timeout);
         $this->timeout = $timeout;
@@ -102,7 +106,11 @@ class SocketHandler extends AbstractProcessingHandler
      */
     public function closeSocket(): void
     {
+<<<<<<< HEAD
         if (is_resource($this->resource)) {
+=======
+        if (\is_resource($this->resource)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             fclose($this->resource);
             $this->resource = null;
         }
@@ -151,7 +159,11 @@ class SocketHandler extends AbstractProcessingHandler
     /**
      * Set writing timeout. Only has effect during connection in the writing cycle.
      *
+<<<<<<< HEAD
      * @param float $seconds 0 for no timeout
+=======
+     * @param  float $seconds 0 for no timeout
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return $this
      */
     public function setWritingTimeout(float $seconds): self
@@ -229,7 +241,11 @@ class SocketHandler extends AbstractProcessingHandler
      */
     public function isConnected(): bool
     {
+<<<<<<< HEAD
         return is_resource($this->resource)
+=======
+        return \is_resource($this->resource)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             && !feof($this->resource);  // on TCP - other party can close connection.
     }
 
@@ -263,7 +279,11 @@ class SocketHandler extends AbstractProcessingHandler
         $seconds = floor($this->timeout);
         $microseconds = round(($this->timeout - $seconds) * 1e6);
 
+<<<<<<< HEAD
         if (!is_resource($this->resource)) {
+=======
+        if (!\is_resource($this->resource)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new \LogicException('streamSetTimeout called but $this->resource is not a resource');
         }
 
@@ -279,7 +299,11 @@ class SocketHandler extends AbstractProcessingHandler
      */
     protected function streamSetChunkSize(): int|bool
     {
+<<<<<<< HEAD
         if (!is_resource($this->resource)) {
+=======
+        if (!\is_resource($this->resource)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new \LogicException('streamSetChunkSize called but $this->resource is not a resource');
         }
 
@@ -297,7 +321,11 @@ class SocketHandler extends AbstractProcessingHandler
      */
     protected function fwrite(string $data): int|bool
     {
+<<<<<<< HEAD
         if (!is_resource($this->resource)) {
+=======
+        if (!\is_resource($this->resource)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new \LogicException('fwrite called but $this->resource is not a resource');
         }
 
@@ -311,7 +339,11 @@ class SocketHandler extends AbstractProcessingHandler
      */
     protected function streamGetMetadata(): array|bool
     {
+<<<<<<< HEAD
         if (!is_resource($this->resource)) {
+=======
+        if (!\is_resource($this->resource)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new \LogicException('streamGetMetadata called but $this->resource is not a resource');
         }
 
@@ -360,7 +392,11 @@ class SocketHandler extends AbstractProcessingHandler
         } else {
             $resource = $this->fsockopen();
         }
+<<<<<<< HEAD
         if (is_bool($resource)) {
+=======
+        if (\is_bool($resource)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new \UnexpectedValueException("Failed connecting to $this->connectionString ($this->errno: $this->errstr)");
         }
         $this->resource = $resource;
@@ -382,11 +418,19 @@ class SocketHandler extends AbstractProcessingHandler
 
     private function writeToSocket(string $data): void
     {
+<<<<<<< HEAD
         $length = strlen($data);
         $sent = 0;
         $this->lastSentBytes = $sent;
         while ($this->isConnected() && $sent < $length) {
             if (0 == $sent) {
+=======
+        $length = \strlen($data);
+        $sent = 0;
+        $this->lastSentBytes = $sent;
+        while ($this->isConnected() && $sent < $length) {
+            if (0 === $sent) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $chunk = $this->fwrite($data);
             } else {
                 $chunk = $this->fwrite(substr($data, $sent));
@@ -396,7 +440,11 @@ class SocketHandler extends AbstractProcessingHandler
             }
             $sent += $chunk;
             $socketInfo = $this->streamGetMetadata();
+<<<<<<< HEAD
             if (is_array($socketInfo) && (bool) $socketInfo['timed_out']) {
+=======
+            if (\is_array($socketInfo) && (bool) $socketInfo['timed_out']) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 throw new \RuntimeException("Write timed-out");
             }
 
@@ -412,7 +460,11 @@ class SocketHandler extends AbstractProcessingHandler
     private function writingIsTimedOut(int $sent): bool
     {
         // convert to ms
+<<<<<<< HEAD
         if (0.0 == $this->writingTimeout) {
+=======
+        if (0.0 === $this->writingTimeout) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return false;
         }
 

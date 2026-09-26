@@ -6,6 +6,7 @@ namespace Doctrine\ORM\Tools\Pagination;
 
 use ArrayIterator;
 use Countable;
+<<<<<<< HEAD
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Internal\SQLResultCasing;
 use Doctrine\ORM\NoResultException;
@@ -13,42 +14,72 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Parameter;
 use Doctrine\ORM\Query\Parser;
 use Doctrine\ORM\Query\ResultSetMapping;
+=======
+use Doctrine\ORM\Internal\SQLResultCasing;
+use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\QueryBuilder;
 use IteratorAggregate;
 use Traversable;
 
+<<<<<<< HEAD
 use function array_key_exists;
 use function array_map;
 use function array_sum;
 use function assert;
 use function is_string;
+=======
+use function array_map;
+use function array_sum;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * The paginator can handle various complex scenarios with DQL.
  *
+<<<<<<< HEAD
+=======
+ * @deprecated This class is no longer needed by the ORM and will be removed in 4.0.
+ *             Use {@see OffsetPaginator} instead.
+ *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  * @template-covariant T
  * @implements IteratorAggregate<array-key, T>
  */
 class Paginator implements Countable, IteratorAggregate
 {
     use SQLResultCasing;
+<<<<<<< HEAD
 
     public const HINT_ENABLE_DISTINCT = 'paginator.distinct.enable';
 
     private readonly Query $query;
     private bool|null $useOutputWalkers = null;
     private int|null $count             = null;
+=======
+    use PaginatorQuery;
+
+    /** @deprecated Use {@see PaginatorInterface::HINT_ENABLE_DISTINCT} instead. */
+    public const HINT_ENABLE_DISTINCT = PaginatorInterface::HINT_ENABLE_DISTINCT;
+
+    private readonly Query $query;
+    private int|null $count = null;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /** @param bool $fetchJoinCollection Whether the query joins a collection (true by default). */
     public function __construct(
         Query|QueryBuilder $query,
         private readonly bool $fetchJoinCollection = true,
     ) {
+<<<<<<< HEAD
         if ($query instanceof QueryBuilder) {
             $query = $query->getQuery();
         }
 
         $this->query = $query;
+=======
+        $this->query = $this->resolveQuery($query);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -93,7 +124,11 @@ class Paginator implements Countable, IteratorAggregate
     {
         if ($this->count === null) {
             try {
+<<<<<<< HEAD
                 $this->count = (int) array_sum(array_map('current', $this->getCountQuery()->getScalarResult()));
+=======
+                $this->count = (int) array_sum(array_map('current', $this->getCountQuery($this->query)->getScalarResult()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } catch (NoResultException) {
                 $this->count = 0;
             }
@@ -105,6 +140,7 @@ class Paginator implements Countable, IteratorAggregate
     /**
      * {@inheritDoc}
      *
+<<<<<<< HEAD
      * @psalm-return Traversable<array-key, T>
      */
     public function getIterator(): Traversable
@@ -259,5 +295,17 @@ class Paginator implements Countable, IteratorAggregate
         assert(is_string($type));
 
         return array_map(static fn ($id): mixed => $connection->convertToDatabaseValue($id, $type), $identifiers);
+=======
+     * @phpstan-return Traversable<array-key, T>
+     */
+    public function getIterator(): Traversable
+    {
+        return new ArrayIterator($this->getResultForOffset(
+            $this->query,
+            $this->query->getFirstResult(),
+            $this->query->getMaxResults(),
+            $this->fetchJoinCollection,
+        ));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

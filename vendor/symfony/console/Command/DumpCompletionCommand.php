@@ -56,6 +56,7 @@ final class DumpCompletionCommand extends Command
 
         $this
             ->setHelp(<<<EOH
+<<<<<<< HEAD
 The <info>%command.name%</> command dumps the shell completion script required
 to use shell autocompletion (currently, {$supportedShells} completion are supported).
 
@@ -83,6 +84,35 @@ Add this to the end of your shell configuration file (e.g. <info>"{$rcFile}"</>)
 
     <info>eval "$({$fullCommand} completion {$shell})"</>
 EOH
+=======
+                The <info>%command.name%</> command dumps the shell completion script required
+                to use shell autocompletion (currently, {$supportedShells} completion are supported).
+
+                <comment>Static installation
+                -------------------</>
+
+                Dump the script to a global completion file and restart your shell:
+
+                    <info>%command.full_name% {$shell} | sudo tee {$completionFile}</>
+
+                Or dump the script to a local file and source it:
+
+                    <info>%command.full_name% {$shell} > completion.sh</>
+
+                    <comment># source the file whenever you use the project</>
+                    <info>source completion.sh</>
+
+                    <comment># or add this line at the end of your "{$rcFile}" file:</>
+                    <info>source /path/to/completion.sh</>
+
+                <comment>Dynamic installation
+                --------------------</>
+
+                Add this to the end of your shell configuration file (e.g. <info>"{$rcFile}"</>):
+
+                    <info>eval "$({$fullCommand} completion {$shell})"</>
+                EOH
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
             ->addArgument('shell', InputArgument::OPTIONAL, 'The shell type (e.g. "bash"), the value of the "$SHELL" env var will be used if this is not given', null, $this->getSupportedShells(...))
             ->addOption('debug', null, InputOption::VALUE_NONE, 'Tail the completion debug log')
@@ -108,9 +138,15 @@ EOH
                 $output = $output->getErrorOutput();
             }
             if ($shell) {
+<<<<<<< HEAD
                 $output->writeln(sprintf('<error>Detected shell "%s", which is not supported by Symfony shell completion (supported shells: "%s").</>', $shell, implode('", "', $supportedShells)));
             } else {
                 $output->writeln(sprintf('<error>Shell not detected, Symfony shell completion only supports "%s").</>', implode('", "', $supportedShells)));
+=======
+                $output->writeln(\sprintf('<error>Detected shell "%s", which is not supported by Symfony shell completion (supported shells: "%s").</>', $shell, implode('", "', $supportedShells)));
+            } else {
+                $output->writeln(\sprintf('<error>Shell not detected, Symfony shell completion only supports "%s").</>', implode('", "', $supportedShells)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return 2;
@@ -133,7 +169,11 @@ EOH
             touch($debugFile);
         }
         $process = new Process(['tail', '-f', $debugFile], null, null, null, 0);
+<<<<<<< HEAD
         $process->run(function (string $type, string $line) use ($output): void {
+=======
+        $process->run(static function (string $type, string $line) use ($output): void {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $output->write($line);
         });
     }

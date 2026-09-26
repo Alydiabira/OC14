@@ -9,13 +9,22 @@ use Doctrine\Common\Collections\Expr\Expression;
 use Doctrine\Deprecations\Deprecation;
 
 use function array_map;
+<<<<<<< HEAD
+=======
+use function func_get_arg;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function func_num_args;
 use function strtoupper;
 
 /**
  * Criteria for filtering Selectable collections.
  *
+<<<<<<< HEAD
  * @psalm-consistent-constructor
+=======
+ * @phpstan-consistent-constructor
+ * @final since 2.5
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 class Criteria
 {
@@ -38,9 +47,17 @@ class Criteria
      *
      * @return static
      */
+<<<<<<< HEAD
     public static function create()
     {
         return new static();
+=======
+    public static function create(/* bool $accessRawFieldValues = false */): self
+    {
+        $accessRawFieldValues = 0 < func_num_args() ? func_get_arg(0) : false;
+
+        return new static(firstResult: 0, accessRawFieldValues: $accessRawFieldValues);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -60,17 +77,38 @@ class Criteria
     /**
      * Construct a new Criteria.
      *
+<<<<<<< HEAD
+=======
+     * @param int|null                         $firstResult
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @param array<string, string|Order>|null $orderings
      */
     public function __construct(
         private Expression|null $expression = null,
         array|null $orderings = null,
+<<<<<<< HEAD
         int|null $firstResult = null,
         int|null $maxResults = null,
     ) {
         $this->expression = $expression;
 
         if ($firstResult === null && func_num_args() > 2) {
+=======
+        int|Placeholder|null $firstResult = Placeholder::NotSpecified,
+        int|null $maxResults = null,
+        private bool $accessRawFieldValues = false,
+    ) {
+        if (! $accessRawFieldValues) {
+            Deprecation::trigger(
+                'doctrine/collections',
+                'https://github.com/doctrine/collections/pull/472',
+                'Not enabling raw field value access for the Criteria matching API in %s is deprecated. Raw field access will be the only supported method in 3.0',
+                self::class,
+            );
+        }
+
+        if ($firstResult === null) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             Deprecation::trigger(
                 'doctrine/collections',
                 'https://github.com/doctrine/collections/pull/311',
@@ -79,6 +117,13 @@ class Criteria
             );
         }
 
+<<<<<<< HEAD
+=======
+        if ($firstResult === Placeholder::NotSpecified) {
+            $firstResult = null;
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->setFirstResult($firstResult);
         $this->setMaxResults($maxResults);
 
@@ -282,4 +327,13 @@ class Criteria
 
         return $this;
     }
+<<<<<<< HEAD
+=======
+
+    /** @internal */
+    public function isRawFieldValueAccessEnabled(): bool
+    {
+        return $this->accessRawFieldValues;
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

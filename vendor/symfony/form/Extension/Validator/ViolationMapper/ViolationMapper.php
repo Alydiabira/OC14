@@ -17,10 +17,18 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormRendererInterface;
 use Symfony\Component\Form\Util\InheritDataAwareIterator;
 use Symfony\Component\PropertyAccess\PropertyPathBuilder;
+<<<<<<< HEAD
+=======
+use Symfony\Component\PropertyAccess\PropertyPathInterface;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\PropertyAccess\PropertyPathIterator;
 use Symfony\Component\PropertyAccess\PropertyPathIteratorInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\ConstraintViolation;
+<<<<<<< HEAD
+=======
+use Symfony\Contracts\Translation\TranslatableInterface;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -184,6 +192,7 @@ class ViolationMapper implements ViolationMapperInterface
                     }
 
                     if (null !== $this->translator) {
+<<<<<<< HEAD
                         $form = $scope;
                         $translationParameters[] = $form->getConfig()->getOption('label_translation_parameters', []);
 
@@ -202,6 +211,30 @@ class ViolationMapper implements ViolationMapperInterface
                             $translationParameters,
                             $translationDomain
                         );
+=======
+                        if ($label instanceof TranslatableInterface) {
+                            $label = $label->trans($this->translator);
+                        } else {
+                            $form = $scope;
+                            $translationParameters[] = $form->getConfig()->getOption('label_translation_parameters', []);
+
+                            do {
+                                $translationDomain = $form->getConfig()->getOption('translation_domain');
+                                array_unshift(
+                                    $translationParameters,
+                                    $form->getConfig()->getOption('label_translation_parameters', [])
+                                );
+                            } while (null === $translationDomain && null !== $form = $form->getParent());
+
+                            $translationParameters = array_merge([], ...$translationParameters);
+
+                            $label = $this->translator->trans(
+                                $label,
+                                $translationParameters,
+                                $translationDomain
+                            );
+                        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
 
                     $message = str_replace('{{ label }}', $label, $message);
@@ -243,6 +276,11 @@ class ViolationMapper implements ViolationMapperInterface
         }
 
         $children = iterator_to_array(new \RecursiveIteratorIterator(new InheritDataAwareIterator($form)), false);
+<<<<<<< HEAD
+=======
+        $allChildren = $children;
+        $startIndex = $it->valid() ? $it->key() : null;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         while ($it->valid()) {
             if ($it->isIndex()) {
@@ -253,7 +291,11 @@ class ViolationMapper implements ViolationMapperInterface
 
             // Test mapping rules as long as we have any
             foreach ($rules as $key => $rule) {
+<<<<<<< HEAD
                 /* @var MappingRule $rule */
+=======
+                /** @var MappingRule $rule */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 // Mapping rule matches completely, terminate.
                 if (null !== ($form = $rule->match($chunk))) {
@@ -282,6 +324,61 @@ class ViolationMapper implements ViolationMapperInterface
             $it->next();
         }
 
+<<<<<<< HEAD
+=======
+        // No child matched the violation path verbatim: retry with camelized paths.
+        if (null === $target && null !== $startIndex) {
+            return $this->matchCamelizedChild($allChildren, $it, $startIndex);
+        }
+
+        if (null !== $foundAtIndex) {
+            $it->seek($foundAtIndex);
+        }
+
+        return $target;
+    }
+
+    /**
+     * Tries to match the beginning of the property path at the current position
+     * against the children of the scope, comparing camelized property paths.
+     *
+     * The property accessor camelizes property paths when it looks for getters and
+     * setters, which makes a child named "discount_price" read and write the
+     * "discountPrice" property the violation points at.
+     *
+     * @param list<FormInterface> $children
+     */
+    private function matchCamelizedChild(array $children, PropertyPathIteratorInterface $it, int $startIndex): ?FormInterface
+    {
+        $target = null;
+        $chunk = '';
+        $foundAtIndex = null;
+        $childPaths = [];
+
+        foreach ($children as $i => $child) {
+            $childPaths[$i] = self::camelizePath($child->getPropertyPath());
+        }
+
+        for ($it->seek($startIndex); $it->valid(); $it->next()) {
+            if ($it->isIndex()) {
+                $chunk .= '['.$it->current().']';
+            } else {
+                $chunk .= ('' === $chunk ? '' : '.').self::camelize($it->current());
+            }
+
+            foreach ($childPaths as $i => $childPath) {
+                if ($childPath === $chunk) {
+                    $target = $children[$i];
+                    $foundAtIndex = $it->key();
+                } elseif (str_starts_with($childPath, $chunk)) {
+                    continue;
+                }
+
+                unset($childPaths[$i]);
+            }
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (null !== $foundAtIndex) {
             $it->seek($foundAtIndex);
         }
@@ -317,7 +414,11 @@ class ViolationMapper implements ViolationMapperInterface
                 // Cut the piece out of the property path and proceed
                 $propertyPathBuilder->remove($i);
             } else {
+<<<<<<< HEAD
                 /* @var \Symfony\Component\PropertyAccess\PropertyPathInterface $propertyPath */
+=======
+                /** @var PropertyPathInterface $propertyPath */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $propertyPath = $scope->getPropertyPath();
 
                 if (null === $propertyPath) {
@@ -340,4 +441,35 @@ class ViolationMapper implements ViolationMapperInterface
     {
         return $this->allowNonSynchronized || $form->isSynchronized();
     }
+<<<<<<< HEAD
+=======
+
+    private static function camelizePath(?PropertyPathInterface $path): string
+    {
+        if (null === $path) {
+            return '';
+        }
+
+        $camelized = '';
+
+        foreach ($path->getElements() as $i => $element) {
+            if ($path->isIndex($i)) {
+                $camelized .= '['.$element.']';
+            } else {
+                $camelized .= ('' === $camelized ? '' : '.').self::camelize($element);
+            }
+        }
+
+        return $camelized;
+    }
+
+    private static function camelize(string $string): string
+    {
+        if ('' === ltrim($string, '_')) {
+            return $string;
+        }
+
+        return str_replace(' ', '', ucwords(str_replace('_', ' ', $string)));
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

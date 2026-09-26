@@ -11,12 +11,17 @@
 
 namespace Symfony\UX\TwigComponent\Twig;
 
+<<<<<<< HEAD
 use Psr\Container\ContainerInterface;
 use Symfony\Contracts\Service\ServiceSubscriberInterface;
 use Symfony\UX\TwigComponent\ComponentRenderer;
 use Symfony\UX\TwigComponent\CVA;
 use Symfony\UX\TwigComponent\Event\PreRenderEvent;
 use Twig\Error\RuntimeError;
+=======
+use Symfony\UX\TwigComponent\CVA;
+use Twig\DeprecatedCallableInfo;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -25,6 +30,7 @@ use Twig\TwigFunction;
  *
  * @internal
  */
+<<<<<<< HEAD
 final class ComponentExtension extends AbstractExtension implements ServiceSubscriberInterface
 {
     public function __construct(private ContainerInterface $container)
@@ -43,6 +49,19 @@ final class ComponentExtension extends AbstractExtension implements ServiceSubsc
         return [
             new TwigFunction('component', [$this, 'render'], ['is_safe' => ['all']]),
             new TwigFunction('cva', [$this, 'cva']),
+=======
+final class ComponentExtension extends AbstractExtension
+{
+    public function getFunctions(): array
+    {
+        return [
+            new TwigFunction('component', [ComponentRuntime::class, 'render'], ['is_safe' => ['all']]),
+            new TwigFunction('cva', [$this, 'cva'], [
+                ...(class_exists(DeprecatedCallableInfo::class)
+                    ? ['deprecation_info' => new DeprecatedCallableInfo('symfony/ux-twig-component', '2.20', 'html_cva', 'twig/html-extra')]
+                    : ['deprecated' => '2.20', 'deprecating_package' => 'symfony/ux-twig-component', 'alternative' => 'html_cva']),
+            ]),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ];
     }
 
@@ -54,6 +73,7 @@ final class ComponentExtension extends AbstractExtension implements ServiceSubsc
         ];
     }
 
+<<<<<<< HEAD
     public function render(string $name, array $props = []): string
     {
         try {
@@ -86,6 +106,8 @@ final class ComponentExtension extends AbstractExtension implements ServiceSubsc
         $this->container->get(ComponentRenderer::class)->finishEmbeddedComponentRender();
     }
 
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Create a CVA instance.
      *
@@ -105,6 +127,11 @@ final class ComponentExtension extends AbstractExtension implements ServiceSubsc
      */
     public function cva(array $cva): CVA
     {
+<<<<<<< HEAD
+=======
+        trigger_deprecation('symfony/ux-twig-component', '2.20', 'Twig Function "cva" is deprecated; use "html_cva" from the "twig/html-extra" package (available since version 3.12) instead.');
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return new CVA(
             $cva['base'] ?? '',
             $cva['variants'] ?? [],
@@ -112,6 +139,7 @@ final class ComponentExtension extends AbstractExtension implements ServiceSubsc
             $cva['defaultVariants'] ?? [],
         );
     }
+<<<<<<< HEAD
 
     private function throwRuntimeError(string $name, \Throwable $e): void
     {
@@ -126,4 +154,6 @@ final class ComponentExtension extends AbstractExtension implements ServiceSubsc
 
         throw new RuntimeError(sprintf('Error rendering "%s" component: %s', $name, $e->getMessage()), previous: $e);
     }
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

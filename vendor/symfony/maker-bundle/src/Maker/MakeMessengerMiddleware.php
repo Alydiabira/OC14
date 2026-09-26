@@ -45,7 +45,12 @@ final class MakeMessengerMiddleware extends AbstractMaker
     {
         $command
             ->addArgument('name', InputArgument::OPTIONAL, 'The name of the middleware class (e.g. <fg=yellow>CustomMiddleware</>)')
+<<<<<<< HEAD
             ->setHelp(file_get_contents(__DIR__.'/../Resources/help/MakeMessage.txt'));
+=======
+            ->setHelp($this->getHelpFileContents('MakeMessage.txt'))
+        ;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function generate(InputInterface $input, ConsoleStyle $io, Generator $generator): void
@@ -76,7 +81,11 @@ final class MakeMessengerMiddleware extends AbstractMaker
 
         $io->text([
             'Next:',
+<<<<<<< HEAD
             sprintf('- Open the <info>%s</info> class and add the code you need', $middlewareClassNameDetails->getFullName()),
+=======
+            \sprintf('- Open the <info>%s</info> class and add the code you need', $middlewareClassNameDetails->getFullName()),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             '- Add the middleware to your <info>config/packages/messenger.yaml</info> file',
             'Find the documentation at <fg=yellow>https://symfony.com/doc/current/messenger.html#middleware</>',
         ]);

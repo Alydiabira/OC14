@@ -96,10 +96,17 @@ class TranslatorPathsPass extends AbstractRecursivePass
                     $class = $this->definitions[$i]->getClass();
 
                     if (ServiceLocator::class === $class) {
+<<<<<<< HEAD
                         if (!isset($this->controllers[$this->currentId])) {
                             continue;
                         }
                         foreach ($this->controllers[$this->currentId] as $class => $_) {
+=======
+                        if (!isset($this->controllers[$this->currentId ?? ''])) {
+                            continue;
+                        }
+                        foreach ($this->controllers[$this->currentId ?? ''] as $class => $_) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                             $this->paths[$class] = true;
                         }
                     } else {

@@ -33,7 +33,11 @@ class UriResolver
         $uri = trim($uri);
 
         // absolute URL?
+<<<<<<< HEAD
         if (null !== parse_url($uri, \PHP_URL_SCHEME)) {
+=======
+        if (null !== parse_url(\strlen($uri) !== strcspn($uri, '?#') ? $uri : $uri.'#', \PHP_URL_SCHEME)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return $uri;
         }
 

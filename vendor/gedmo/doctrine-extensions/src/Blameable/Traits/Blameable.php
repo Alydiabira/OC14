@@ -10,7 +10,13 @@
 namespace Gedmo\Blameable\Traits;
 
 /**
+<<<<<<< HEAD
  * Blameable Trait, usable with PHP >= 5.4
+=======
+ * Trait for blamable objects.
+ *
+ * This implementation does not provide any mapping configurations.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @author David Buchmann <mail@davidbu.ch>
  */

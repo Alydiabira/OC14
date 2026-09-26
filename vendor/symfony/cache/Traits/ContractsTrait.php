@@ -54,7 +54,11 @@ trait ContractsTrait
         }
 
         $previousWrapper = $this->callbackWrapper;
+<<<<<<< HEAD
         $this->callbackWrapper = $callbackWrapper ?? static fn (callable $callback, ItemInterface $item, bool &$save, CacheInterface $pool, \Closure $setMetadata, ?LoggerInterface $logger) => $callback($item, $save);
+=======
+        $this->callbackWrapper = $callbackWrapper ?? static fn (callable $callback, ItemInterface $item, bool &$save, CacheInterface $pool, \Closure $setMetadata, ?LoggerInterface $logger, ?float $beta = null) => $callback($item, $save);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $previousWrapper;
     }
@@ -62,7 +66,11 @@ trait ContractsTrait
     private function doGet(AdapterInterface $pool, string $key, callable $callback, ?float $beta, ?array &$metadata = null): mixed
     {
         if (0 > $beta ??= 1.0) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Argument "$beta" provided to "%s::get()" must be a positive number, %f given.', static::class, $beta));
+=======
+            throw new InvalidArgumentException(\sprintf('Argument "$beta" provided to "%s::get()" must be a positive number, %f given.', static::class, $beta));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         static $setMetadata;
@@ -80,9 +88,13 @@ trait ContractsTrait
             CacheItem::class
         );
 
+<<<<<<< HEAD
         $this->callbackWrapper ??= LockRegistry::compute(...);
 
         return $this->contractsGet($pool, $key, function (CacheItem $item, bool &$save) use ($pool, $callback, $setMetadata, &$metadata, $key) {
+=======
+        return $this->contractsGet($pool, $key, function (CacheItem $item, bool &$save) use ($pool, $callback, $setMetadata, &$metadata, $key, $beta) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             // don't wrap nor save recursive calls
             if (isset($this->computing[$key])) {
                 $value = $callback($item, $save);
@@ -99,9 +111,15 @@ trait ContractsTrait
             }
 
             try {
+<<<<<<< HEAD
                 $value = ($this->callbackWrapper)($callback, $item, $save, $pool, function (CacheItem $item) use ($setMetadata, $startTime, &$metadata) {
                     $setMetadata($item, $startTime, $metadata);
                 }, $this->logger ?? null);
+=======
+                $value = ($this->callbackWrapper)($callback, $item, $save, $pool, static function (CacheItem $item) use ($setMetadata, $startTime, &$metadata) {
+                    $setMetadata($item, $startTime, $metadata);
+                }, $this->logger ?? null, $beta);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $setMetadata($item, $startTime, $metadata);
 
                 return $value;

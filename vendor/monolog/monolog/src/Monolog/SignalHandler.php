@@ -44,7 +44,11 @@ class SignalHandler
      */
     public function registerSignalHandler(int $signo, int|string|Level $level = LogLevel::CRITICAL, bool $callPrevious = true, bool $restartSyscalls = true, ?bool $async = true): self
     {
+<<<<<<< HEAD
         if (!extension_loaded('pcntl') || !function_exists('pcntl_signal')) {
+=======
+        if (!\extension_loaded('pcntl') || !\function_exists('pcntl_signal')) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return $this;
         }
 
@@ -76,10 +80,17 @@ class SignalHandler
         /** @var array<int, string> $signals */
         static $signals = [];
 
+<<<<<<< HEAD
         if (\count($signals) === 0 && extension_loaded('pcntl')) {
             $pcntl = new ReflectionExtension('pcntl');
             foreach ($pcntl->getConstants() as $name => $value) {
                 if (substr($name, 0, 3) === 'SIG' && $name[3] !== '_' && is_int($value)) {
+=======
+        if (\count($signals) === 0 && \extension_loaded('pcntl')) {
+            $pcntl = new ReflectionExtension('pcntl');
+            foreach ($pcntl->getConstants() as $name => $value) {
+                if (substr($name, 0, 3) === 'SIG' && $name[3] !== '_' && \is_int($value)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $signals[$value] = $name;
                 }
             }
@@ -95,8 +106,13 @@ class SignalHandler
         }
 
         if ($this->previousSignalHandler[$signo] === SIG_DFL) {
+<<<<<<< HEAD
             if (extension_loaded('pcntl') && function_exists('pcntl_signal') && function_exists('pcntl_sigprocmask') && function_exists('pcntl_signal_dispatch')
                 && extension_loaded('posix') && function_exists('posix_getpid') && function_exists('posix_kill')
+=======
+            if (\extension_loaded('pcntl') && \function_exists('pcntl_signal') && \function_exists('pcntl_sigprocmask') && \function_exists('pcntl_signal_dispatch')
+                && \extension_loaded('posix') && \function_exists('posix_getpid') && \function_exists('posix_kill')
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ) {
                 $restartSyscalls = $this->signalRestartSyscalls[$signo] ?? true;
                 pcntl_signal($signo, SIG_DFL, $restartSyscalls);
@@ -106,7 +122,11 @@ class SignalHandler
                 pcntl_sigprocmask(SIG_SETMASK, $oldset);
                 pcntl_signal($signo, [$this, 'handleSignal'], $restartSyscalls);
             }
+<<<<<<< HEAD
         } elseif (is_callable($this->previousSignalHandler[$signo])) {
+=======
+        } elseif (\is_callable($this->previousSignalHandler[$signo])) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->previousSignalHandler[$signo]($signo, $siginfo);
         }
     }

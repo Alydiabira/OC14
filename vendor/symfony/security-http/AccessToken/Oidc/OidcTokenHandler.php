@@ -44,7 +44,11 @@ final class OidcTokenHandler implements AccessTokenHandlerInterface
         private array $issuers,
         private string $claim = 'sub',
         private ?LoggerInterface $logger = null,
+<<<<<<< HEAD
         private ClockInterface $clock = new Clock()
+=======
+        private ClockInterface $clock = new Clock(),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ) {
     }
 
@@ -85,6 +89,7 @@ final class OidcTokenHandler implements AccessTokenHandlerInterface
             ];
             $claimCheckerManager = new ClaimCheckerManager($checkers);
             // if this check fails, an InvalidClaimException is thrown
+<<<<<<< HEAD
             $claimCheckerManager->check($claims);
 
             if (empty($claims[$this->claim])) {
@@ -93,6 +98,20 @@ final class OidcTokenHandler implements AccessTokenHandlerInterface
 
             // UserLoader argument can be overridden by a UserProvider on AccessTokenAuthenticator::authenticate
             return new UserBadge($claims[$this->claim], new FallbackUserLoader(fn () => $this->createUser($claims)), $claims);
+=======
+            $claimCheckerManager->check($claims, ['iat', 'exp', 'aud', 'iss']);
+
+            if (empty($claims[$this->claim])) {
+                throw new MissingClaimException(\sprintf('"%s" claim not found.', $this->claim));
+            }
+
+            // UserLoader argument can be overridden by a UserProvider on AccessTokenAuthenticator::authenticate
+            return new UserBadge($claims[$this->claim], new FallbackUserLoader(function () use ($claims) {
+                $claims['user_identifier'] = $claims[$this->claim];
+
+                return $this->createUser($claims);
+            }), $claims);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } catch (\Exception $e) {
             $this->logger?->error('An error occurred while decoding and validating the token.', [
                 'error' => $e->getMessage(),

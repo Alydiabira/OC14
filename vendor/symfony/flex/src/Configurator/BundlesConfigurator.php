@@ -118,7 +118,11 @@ class BundlesConfigurator extends AbstractConfigurator
         file_put_contents($file, $contents);
 
         if (\function_exists('opcache_invalidate')) {
+<<<<<<< HEAD
             opcache_invalidate($file);
+=======
+            @opcache_invalidate($file);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 

@@ -35,11 +35,19 @@ class AboutCommand extends Command
     {
         $this
             ->setHelp(<<<'EOT'
+<<<<<<< HEAD
 The <info>%command.name%</info> command displays information about the current Symfony project.
 
 The <info>PHP</info> section displays important configuration that could affect your application. The values might
 be different between web and CLI.
 EOT
+=======
+                The <info>%command.name%</info> command displays information about the current Symfony project.
+
+                The <info>PHP</info> section displays important configuration that could affect your application. The values might
+                be different between web and CLI.
+                EOT
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }

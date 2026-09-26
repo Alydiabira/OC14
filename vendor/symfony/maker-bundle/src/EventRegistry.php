@@ -116,7 +116,11 @@ class EventRegistry
     public function listActiveEvents(array $events): array
     {
         foreach ($events as $key => $event) {
+<<<<<<< HEAD
             $events[$key] = sprintf('%s (<fg=yellow>%s</>)', $event, self::$eventsMap[$event]);
+=======
+            $events[$key] = \sprintf('%s (<fg=yellow>%s</>)', $event, self::$eventsMap[$event]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $events;

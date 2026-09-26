@@ -170,7 +170,11 @@ const noop = () => {}
  * @param {HTMLElement} element
  * @return void
  *
+<<<<<<< HEAD
  * @see https://www.charistheo.io/blog/2021/02/restart-a-css-animation-with-javascript/#restarting-a-css-animation
+=======
+ * @see https://www.harrytheo.com/blog/2021/02/restart-a-css-animation-with-javascript/#restarting-a-css-animation
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 const reflow = element => {
   element.offsetHeight // eslint-disable-line no-unused-expressions
@@ -223,7 +227,11 @@ const defineJQueryPlugin = plugin => {
 }
 
 const execute = (possibleCallback, args = [], defaultValue = possibleCallback) => {
+<<<<<<< HEAD
   return typeof possibleCallback === 'function' ? possibleCallback(...args) : defaultValue
+=======
+  return typeof possibleCallback === 'function' ? possibleCallback.call(...args) : defaultValue
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }
 
 const executeAfterTransition = (callback, transitionElement, waitForTransition = true) => {

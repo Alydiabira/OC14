@@ -16,9 +16,12 @@ use Masterminds\HTML5\Elements;
  */
 class OutputRules implements RulesInterface
 {
+<<<<<<< HEAD
     /**
      * Defined in http://www.w3.org/TR/html51/infrastructure.html#html-namespace-0.
      */
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     const NAMESPACE_HTML = 'http://www.w3.org/1999/xhtml';
 
     const NAMESPACE_MATHML = 'http://www.w3.org/1998/Math/MathML';
@@ -50,6 +53,7 @@ class OutputRules implements RulesInterface
 
     const IM_IN_MATHML = 3;
 
+<<<<<<< HEAD
     /**
      * Used as cache to detect if is available ENT_HTML5.
      *
@@ -57,6 +61,8 @@ class OutputRules implements RulesInterface
      */
     private $hasHTML5 = false;
 
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected $traverser;
 
     protected $encode = false;
@@ -167,7 +173,10 @@ class OutputRules implements RulesInterface
 
         $this->outputMode = static::IM_IN_HTML;
         $this->out = $output;
+<<<<<<< HEAD
         $this->hasHTML5 = defined('ENT_HTML5');
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function addRule(array $rule)
@@ -206,6 +215,12 @@ class OutputRules implements RulesInterface
         $this->nl();
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @param \DOMElement $ele
+     */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function element($ele)
     {
         $name = $ele->tagName;
@@ -227,6 +242,12 @@ class OutputRules implements RulesInterface
         }
 
         $this->openTag($ele);
+<<<<<<< HEAD
+=======
+        // The tag is already self-closed (`<svg />` or `<math />`) in `openTag` if there are no child nodes.
+        $handledAsVoidTag = $this->outputMode !== static::IM_IN_HTML && !$ele->hasChildNodes();
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (Elements::isA($name, Elements::TEXT_RAW)) {
             foreach ($ele->childNodes as $child) {
                 if ($child instanceof \DOMCharacterData) {
@@ -248,7 +269,11 @@ class OutputRules implements RulesInterface
         }
 
         // If not unary, add a closing tag.
+<<<<<<< HEAD
         if (!Elements::isA($name, Elements::VOID_TAG)) {
+=======
+        if (!$handledAsVoidTag && !Elements::isA($name, Elements::VOID_TAG)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->closeTag($ele);
         }
     }
@@ -448,7 +473,11 @@ class OutputRules implements RulesInterface
      */
     protected function wr($text)
     {
+<<<<<<< HEAD
         fwrite($this->out, $text);
+=======
+        fwrite($this->out, (string) $text);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this;
     }
@@ -483,12 +512,17 @@ class OutputRules implements RulesInterface
      *      This includes such characters as +.# and many other common ones. By default
      *      encoding here will just escape &'<>".
      *
+<<<<<<< HEAD
      *      Note, PHP 5.4+ has better html5 encoding.
      *
      * @todo Use the Entities class in php 5.3 to have html5 entities.
      *
      * @param string $text      Text to encode.
      * @param bool   $attribute True if we are encoding an attrubute, false otherwise.
+=======
+     * @param string $text      Text to encode.
+     * @param bool   $attribute True if we are encoding an attribute, false otherwise.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return string The encoded text.
      */
@@ -499,6 +533,7 @@ class OutputRules implements RulesInterface
             return $this->escape($text, $attribute);
         }
 
+<<<<<<< HEAD
         // If we are in PHP 5.4+ we can use the native html5 entity functionality to
         // convert the named character references.
 
@@ -509,6 +544,9 @@ class OutputRules implements RulesInterface
         else {
             return strtr($text, HTML5Entities::$map);
         }
+=======
+        return htmlentities($text, ENT_HTML5 | ENT_SUBSTITUTE | ENT_QUOTES, 'UTF-8', false);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

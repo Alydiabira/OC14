@@ -58,7 +58,11 @@ interface LogEntryInterface
     /**
      * @return string|null
      *
+<<<<<<< HEAD
      * @phpstan-return class-string<T>
+=======
+     * @phpstan-return class-string<T>|null
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getObjectClass();
 

@@ -11,6 +11,10 @@
 
 namespace Symfony\Bundle\MakerBundle\Test;
 
+<<<<<<< HEAD
+=======
+use Composer\InstalledVersions;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\InputStream;
 
@@ -22,12 +26,26 @@ use Symfony\Component\Process\InputStream;
  */
 final class MakerTestEnvironment
 {
+<<<<<<< HEAD
     public const GENERATED_FILES_REGEX = '#(?:created|updated):\s(?:.*\\\\)*(.*\.[a-z]{3,4}).*(?:\\\\n)?#ui';
 
     private Filesystem $fs;
     private bool|string $rootPath;
     private string $cachePath;
     private string $flexPath;
+=======
+    // Config used for creating tmp flex project and test app's
+    private const GIT_CONFIG = 'git config user.name "symfony" && git config user.email "test@symfony.com" && git config commit.gpgsign false && git config user.signingkey false';
+
+    public const GENERATED_FILES_REGEX = '#(?:created|updated):\s(?:.*\\\\)*(.*\.[a-z]{3,4}).*(?:\\\\n)?#ui';
+
+    private Filesystem $fs;
+    private string $packageName;
+    private string $rootPath;
+    private string $cachePath;
+    private string $flexPath;
+    private string $fixturesPath;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private string $path;
     private MakerTestProcess $runnedMakerProcess;
     private bool $isWindows;
@@ -35,10 +53,19 @@ final class MakerTestEnvironment
     private function __construct(
         private MakerTestDetails $testDetails,
     ) {
+<<<<<<< HEAD
         $this->isWindows = str_contains(strtolower(\PHP_OS), 'win');
 
         $this->fs = new Filesystem();
         $this->rootPath = realpath(__DIR__.'/../../');
+=======
+        $this->isWindows = '\\' === \DIRECTORY_SEPARATOR;
+
+        $this->fs = new Filesystem();
+        $composerPackage = InstalledVersions::getRootPackage();
+        $this->packageName = $composerPackage['name'];
+        $this->rootPath = realpath($composerPackage['install_path']);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $cachePath = $this->rootPath.'/tests/tmp/cache';
 
         if (!$this->fs->exists($cachePath)) {
@@ -48,6 +75,10 @@ final class MakerTestEnvironment
         $this->cachePath = realpath($cachePath);
         $targetVersion = $this->getTargetSkeletonVersion();
         $this->flexPath = $this->cachePath.'/flex_project'.$targetVersion;
+<<<<<<< HEAD
+=======
+        $this->fixturesPath = $this->rootPath.'/tests/fixtures/';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $directoryName = $targetVersion ?: 'current';
         if (str_ends_with($directoryName, '.*')) {
@@ -62,6 +93,14 @@ final class MakerTestEnvironment
         return new self($testDetails);
     }
 
+<<<<<<< HEAD
+=======
+    public function getFixturesPath(string $path = ''): string
+    {
+        return $this->fixturesPath.$path;
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function getPath(): string
     {
         return $this->path;
@@ -70,7 +109,11 @@ final class MakerTestEnvironment
     public function readFile(string $path): string
     {
         if (!file_exists($this->path.'/'.$path)) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('Cannot find file "%s"', $path));
+=======
+            throw new \InvalidArgumentException(\sprintf('Cannot find file "%s"', $path));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return file_get_contents($this->path.'/'.$path);
@@ -130,17 +173,33 @@ final class MakerTestEnvironment
     public function prepareDirectory(): void
     {
         // Copy MakerBundle to a "repo" directory for tests
+<<<<<<< HEAD
         if (!file_exists($makerRepoPath = sprintf('%s/maker-repo', $this->cachePath))) {
             MakerTestProcess::create(sprintf('git clone %s %s', $this->rootPath, $makerRepoPath), $this->cachePath)->run();
         }
 
         if (!$this->fs->exists($this->flexPath)) {
             $this->buildFlexSkeleton();
+=======
+        if (!file_exists($makerRepoPath = \sprintf('%s/maker-repo', $this->cachePath))) {
+            MakerTestProcess::create(['git', 'clone', $this->rootPath, $makerRepoPath], $this->cachePath)->run();
+        }
+
+        if (!$this->fs->exists($this->flexPath)) {
+            try {
+                $this->buildFlexSkeleton();
+            } catch (\Exception $e) {
+                $this->fs->remove($this->flexPath);
+
+                throw $e;
+            }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (!$this->fs->exists($this->path)) {
             try {
                 // let's do some magic here git is faster than copy
+<<<<<<< HEAD
                 MakerTestProcess::create(
                     '\\' === \DIRECTORY_SEPARATOR ? 'git clone %FLEX_PATH% %APP_PATH%' : 'git clone "$FLEX_PATH" "$APP_PATH"',
                     \dirname($this->flexPath),
@@ -150,6 +209,9 @@ final class MakerTestEnvironment
                     ]
                 )
                     ->run();
+=======
+                MakerTestProcess::create(['git', 'clone', $this->flexPath, $this->path], \dirname($this->flexPath))->run();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 // In Window's we have to require MakerBundle in each project - git clone doesn't symlink well
                 if ($this->isWindows) {
@@ -160,12 +222,20 @@ final class MakerTestEnvironment
                 $dependencies = $this->determineMissingDependencies();
                 if ($dependencies) {
                     // -v actually silences the "very" verbose output in case of an error
+<<<<<<< HEAD
                     $composerProcess = MakerTestProcess::create(sprintf('composer require %s -v', implode(' ', $dependencies)), $this->path)
+=======
+                    $composerProcess = MakerTestProcess::create(\sprintf('composer require %s -v', implode(' ', $dependencies)), $this->path)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         ->run(true)
                     ;
 
                     if (!$composerProcess->isSuccessful()) {
+<<<<<<< HEAD
                         throw new \Exception(sprintf('Error running command: composer require %s -v. Output: "%s". Error: "%s"', implode(' ', $dependencies), $composerProcess->getOutput(), $composerProcess->getErrorOutput()));
+=======
+                        throw new \Exception(\sprintf('Error running command: composer require "%s" -v. Output: "%s". Error: "%s"', implode(' ', $dependencies), $composerProcess->getOutput(), $composerProcess->getErrorOutput()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
                 }
 
@@ -173,7 +243,11 @@ final class MakerTestEnvironment
 
                 file_put_contents($this->path.'/.gitignore', "var/cache/\nvendor/\n");
 
+<<<<<<< HEAD
                 MakerTestProcess::create('git diff --quiet || ( git config user.name "symfony" && git config user.email "test@symfony.com" && git add . && git commit -a -m "second commit" )',
+=======
+                MakerTestProcess::create(\sprintf('git diff --quiet || ( %s && git add . && git commit -a -m "second commit" )', self::GIT_CONFIG),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $this->path
                 )->run();
             } catch (\Exception $e) {
@@ -187,7 +261,14 @@ final class MakerTestEnvironment
         }
     }
 
+<<<<<<< HEAD
     public function runCommand(string $command): MakerTestProcess
+=======
+    /**
+     * @param string|list<string> $command
+     */
+    public function runCommand(string|array $command): MakerTestProcess
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return MakerTestProcess::create($command, $this->path)->run();
     }
@@ -227,17 +308,26 @@ final class MakerTestEnvironment
 
     public function runTwigCSLint(string $file): MakerTestProcess
     {
+<<<<<<< HEAD
         if (!file_exists(__DIR__.'/../../tools/twigcs/vendor/bin/twigcs')) {
             throw new \Exception('twigcs not found: run: "composer upgrade -W --working-dir=tools/twigcs".');
         }
 
         return MakerTestProcess::create(sprintf('php tools/twigcs/vendor/bin/twigcs --config ./tools/twigcs/.twig_cs.dist %s', $this->path.'/'.$file), $this->rootPath)
+=======
+        if (!file_exists($this->rootPath.'/tools/twigcs/vendor/bin/twigcs')) {
+            throw new \Exception('twigcs not found: run: "composer upgrade -W --working-dir=tools/twigcs".');
+        }
+
+        return MakerTestProcess::create(\sprintf('php tools/twigcs/vendor/bin/twigcs --config ./tools/twigcs/.twig_cs.dist %s', $this->path.'/'.$file), $this->rootPath)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                                ->run(true);
     }
 
     private function buildFlexSkeleton(): void
     {
         $targetVersion = $this->getTargetSkeletonVersion();
+<<<<<<< HEAD
         $versionString = $targetVersion ? sprintf(':%s', $targetVersion) : '';
 
         $flexProjectDir = sprintf('flex_project%s', $targetVersion);
@@ -271,18 +361,50 @@ final class MakerTestEnvironment
             $this->fs->symlink($rootPath.'/vendor/symfony/phpunit-bridge', $this->flexPath.'/vendor/symfony/phpunit-bridge');
         }
 
+=======
+        $versionString = $targetVersion ? \sprintf(':%s', $targetVersion) : '';
+
+        $flexProjectDir = \sprintf('%s/flex_project%s', $this->cachePath, $targetVersion);
+
+        MakerTestProcess::create(
+            \sprintf('composer create-project symfony/skeleton%s %s --prefer-dist --no-progress --keep-vcs', $versionString, $flexProjectDir),
+            $this->cachePath
+        )->run();
+
+        $rootPath = str_replace('\\', '\\\\', $this->rootPath);
+
+        $this->addMakerBundleRepoToComposer($flexProjectDir);
+
+        // In Linux, git plays well with symlinks - we can add maker to the flex skeleton.
+        if (!$this->isWindows) {
+            $this->composerRequireMakerBundle($flexProjectDir);
+        }
+
+        // fetch a few packages needed for testing
+        MakerTestProcess::create('composer require phpunit:1.1.* browser-kit symfony/css-selector --prefer-dist --no-progress --no-suggest', $this->flexPath)
+                        ->run();
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $replacements = [
             // temporarily ignoring indirect deprecations - see #237
             [
                 'filename' => '.env.test',
                 'find' => 'SYMFONY_DEPRECATIONS_HELPER=999999',
                 'replace' => 'SYMFONY_DEPRECATIONS_HELPER=max[self]=0',
+<<<<<<< HEAD
+=======
+                'allow_not_found' => true, // Not present in PHPUnit 11+ recipe
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ],
             // do not explicitly set the PHPUnit version
             [
                 'filename' => 'phpunit.xml.dist',
                 'find' => '<server name="SYMFONY_PHPUNIT_VERSION" value="9.6" />',
                 'replace' => '',
+<<<<<<< HEAD
+=======
+                'allow_not_found' => true, // Not present in PHPUnit 10+ recipe
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ],
         ];
         $this->processReplacements($replacements, $this->flexPath);
@@ -291,7 +413,11 @@ final class MakerTestEnvironment
         file_put_contents($this->flexPath.'/.gitignore', "var/cache/\n");
 
         // Force adding vendor/ dir to Git repo in case users exclude it in global .gitignore
+<<<<<<< HEAD
         MakerTestProcess::create('git init && git config user.name "symfony" && git config user.email "test@symfony.com" && git add . && git add vendor/ -f && git commit -a -m "first commit"',
+=======
+        MakerTestProcess::create(\sprintf('git init && %s && git add . && git add vendor/ -f && git commit -a -m "first commit"', self::GIT_CONFIG),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->flexPath
         )->run();
     }
@@ -299,7 +425,11 @@ final class MakerTestEnvironment
     private function processReplacements(array $replacements, string $rootDir): void
     {
         foreach ($replacements as $replacement) {
+<<<<<<< HEAD
             $this->processReplacement($rootDir, $replacement['filename'], $replacement['find'], $replacement['replace']);
+=======
+            $this->processReplacement($rootDir, $replacement['filename'], $replacement['find'], $replacement['replace'], $replacement['allow_not_found'] ?? false);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -312,7 +442,11 @@ final class MakerTestEnvironment
                 return;
             }
 
+<<<<<<< HEAD
             throw new \Exception(sprintf('Could not find file "%s" to process replacements inside "%s"', $filename, $rootDir));
+=======
+            throw new \Exception(\sprintf('Could not find file "%s" to process replacements inside "%s"', $filename, $rootDir));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $contents = file_get_contents($path);
@@ -321,7 +455,11 @@ final class MakerTestEnvironment
                 return;
             }
 
+<<<<<<< HEAD
             throw new \Exception(sprintf('Could not find "%s" inside "%s"', $find, $filename));
+=======
+            throw new \Exception(\sprintf('Could not find "%s" inside "%s"', $find, $filename));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         file_put_contents($path, str_replace($find, $replace, $contents));
@@ -333,7 +471,11 @@ final class MakerTestEnvironment
 
         // We don't need ansi coloring in tests!
         $process = MakerTestProcess::create(
+<<<<<<< HEAD
             commandLine: sprintf('php bin/console %s %s --no-ansi', $commandName, $argumentsString),
+=======
+            commandLine: \sprintf('php bin/console %s %s --no-ansi', $commandName, $argumentsString),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             cwd: $this->path,
             envVars: $envVars,
             timeout: 30
@@ -345,7 +487,11 @@ final class MakerTestEnvironment
             // start the command with some input
             $inputStream->write(current($userInputs)."\n");
 
+<<<<<<< HEAD
             $inputStream->onEmpty(function () use ($inputStream, &$userInputs) {
+=======
+            $inputStream->onEmpty(static function () use ($inputStream, &$userInputs) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $nextInput = next($userInputs);
                 if (false === $nextInput) {
                     $inputStream->close();
@@ -411,20 +557,31 @@ echo json_encode($missingDependencies);
 
     private function composerRequireMakerBundle(string $projectDirectory): void
     {
+<<<<<<< HEAD
         MakerTestProcess::create('composer require --dev symfony/maker-bundle', $projectDirectory)
             ->run()
         ;
 
         $makerRepoSrcPath = sprintf('%s/maker-repo/src', $this->cachePath);
+=======
+        MakerTestProcess::create(['composer', 'require', '--dev', $this->packageName], $projectDirectory)->run();
+
+        $makerRepoSrcPath = \sprintf('%s/maker-repo/src', $this->cachePath);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         // DX - So we can test local changes without having to commit them.
         if (!is_link($makerRepoSrcPath)) {
             $this->fs->remove($makerRepoSrcPath);
+<<<<<<< HEAD
             $this->fs->symlink(sprintf('%s/src', $this->rootPath), $makerRepoSrcPath);
+=======
+            $this->fs->symlink(\sprintf('%s/src', $this->rootPath), $makerRepoSrcPath);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
     /**
+<<<<<<< HEAD
      * Adds Symfony/MakerBundle as a "path" repository to composer.json.
      */
     private function addMakerBundleRepoToComposer(string $composerJsonPath): void
@@ -441,10 +598,26 @@ echo json_encode($missingDependencies);
             'options' => [
                 'versions' => [
                     'symfony/maker-bundle' => '9999.99', // Arbitrary version to avoid stability conflicts
+=======
+     * Adds symfony/maker-bundle as a "path" repository to composer.json.
+     */
+    private function addMakerBundleRepoToComposer(string $projectDirectory): void
+    {
+        $repo = [
+            'type' => 'path',
+            'url' => \sprintf('%s%smaker-repo', $this->cachePath, \DIRECTORY_SEPARATOR),
+            'options' => [
+                'versions' => [
+                    $this->packageName => '9999.99', // Arbitrary version to avoid stability conflicts
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ],
             ],
         ];
 
+<<<<<<< HEAD
         file_put_contents($composerJsonPath, json_encode($composerJson, \JSON_THROW_ON_ERROR | \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES));
+=======
+        MakerTestProcess::create(['composer', 'repo', 'add', $this->packageName, json_encode($repo)], $projectDirectory)->run();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

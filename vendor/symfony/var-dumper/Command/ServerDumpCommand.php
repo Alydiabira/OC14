@@ -57,6 +57,7 @@ class ServerDumpCommand extends Command
     protected function configure(): void
     {
         $this
+<<<<<<< HEAD
             ->addOption('format', null, InputOption::VALUE_REQUIRED, sprintf('The output format (%s)', implode(', ', $this->getAvailableFormats())), 'cli')
             ->setHelp(<<<'EOF'
 <info>%command.name%</info> starts a dump server that collects and displays
@@ -70,6 +71,21 @@ and redirecting the output to a file:
   <info>php %command.full_name% --format="html" > dump.html</info>
 
 EOF
+=======
+            ->addOption('format', null, InputOption::VALUE_REQUIRED, \sprintf('The output format (%s)', implode(', ', $this->getAvailableFormats())), 'cli')
+            ->setHelp(<<<'EOF'
+                <info>%command.name%</info> starts a dump server that collects and displays
+                dumps in a single place for debugging you application:
+
+                  <info>php %command.full_name%</info>
+
+                You can consult dumped data in HTML format in your browser by providing the <comment>--format=html</comment> option
+                and redirecting the output to a file:
+
+                  <info>php %command.full_name% --format="html" > dump.html</info>
+
+                EOF
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -80,7 +96,11 @@ EOF
         $format = $input->getOption('format');
 
         if (!$descriptor = $this->descriptors[$format] ?? null) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Unsupported format "%s".', $format));
+=======
+            throw new InvalidArgumentException(\sprintf('Unsupported format "%s".', $format));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $errorIo = $io->getErrorStyle();
@@ -88,10 +108,17 @@ EOF
 
         $this->server->start();
 
+<<<<<<< HEAD
         $errorIo->success(sprintf('Server listening on %s', $this->server->getHost()));
         $errorIo->comment('Quit the server with CONTROL-C.');
 
         $this->server->listen(function (Data $data, array $context, int $clientId) use ($descriptor, $io) {
+=======
+        $errorIo->success(\sprintf('Server listening on %s', $this->server->getHost()));
+        $errorIo->comment('Quit the server with CONTROL-C.');
+
+        $this->server->listen(static function (Data $data, array $context, int $clientId) use ($descriptor, $io) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $descriptor->describe($io, $data, $context, $clientId);
         });
 

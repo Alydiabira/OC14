@@ -266,6 +266,10 @@
             <xsd:element name="static-method" type="xsd:string" />
             <xsd:element name="mapping" type="file_mapping" />
             <xsd:element name="auto-mapping" type="auto_mapping" />
+<<<<<<< HEAD
+=======
+            <xsd:element name="not-compromised-password" type="not-compromised-password" />
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         </xsd:choice>
 
         <xsd:attribute name="enabled" type="xsd:boolean" />
@@ -294,11 +298,23 @@
     <xsd:simpleType name="email-validation-mode">
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="html5" />
+<<<<<<< HEAD
+=======
+            <xsd:enumeration value="html5-allow-no-tld" />
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             <xsd:enumeration value="loose" />
             <xsd:enumeration value="strict" />
         </xsd:restriction>
     </xsd:simpleType>
 
+<<<<<<< HEAD
+=======
+    <xsd:complexType name="not-compromised-password">
+        <xsd:attribute name="enabled" type="xsd:boolean" />
+        <xsd:attribute name="endpoint" type="xsd:string" />
+    </xsd:complexType>
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     <xsd:complexType name="annotations">
         <xsd:attribute name="cache" type="xsd:string" />
         <xsd:attribute name="debug" type="xsd:string" />
@@ -464,7 +480,12 @@
             <xsd:element name="metadata" type="metadata" minOccurs="0" maxOccurs="unbounded" />
             <xsd:element name="guard" type="xsd:string" minOccurs="0" maxOccurs="unbounded" />
         </xsd:sequence>
+<<<<<<< HEAD
         <xsd:attribute name="name" type="xsd:string" use="required" />
+=======
+        <xsd:attribute name="name" type="xsd:string" />
+        <xsd:attribute name="key" type="xsd:string" />
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     </xsd:complexType>
 
     <xsd:complexType name="place" mixed="true">
@@ -478,6 +499,10 @@
         <xsd:sequence>
             <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
         </xsd:sequence>
+<<<<<<< HEAD
+=======
+        <xsd:attribute name="key" type="xsd:string" />
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     </xsd:complexType>
 
     <xsd:simpleType name="event_to_dispatch">
@@ -551,7 +576,11 @@
 
     <xsd:complexType name="lock">
         <xsd:sequence>
+<<<<<<< HEAD
             <xsd:element name="resource" type="lock_resource" minOccurs="1" maxOccurs="unbounded" />
+=======
+            <xsd:element name="resource" type="lock_resource" minOccurs="0" maxOccurs="unbounded" />
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         </xsd:sequence>
         <xsd:attribute name="enabled" type="xsd:boolean" />
     </xsd:complexType>

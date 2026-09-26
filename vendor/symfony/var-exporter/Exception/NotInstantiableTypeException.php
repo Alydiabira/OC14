@@ -15,6 +15,10 @@ class NotInstantiableTypeException extends \Exception implements ExceptionInterf
 {
     public function __construct(string $type, ?\Throwable $previous = null)
     {
+<<<<<<< HEAD
         parent::__construct(sprintf('Type "%s" is not instantiable.', $type), 0, $previous);
+=======
+        parent::__construct(\sprintf('Type "%s" is not instantiable.', $type), 0, $previous);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

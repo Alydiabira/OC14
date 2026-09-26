@@ -56,6 +56,14 @@ final class MakerCommand extends Command
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->io = new ConsoleStyle($input, $output);
+<<<<<<< HEAD
+=======
+
+        if (!$input->isInteractive()) {
+            $this->io->warning(\sprintf('"%s" is not meant to be run in non-interactive mode.', $this->getName()));
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->fileManager->setIO($this->io);
 
         if ($this->checkDependencies) {
@@ -72,7 +80,11 @@ final class MakerCommand extends Command
     {
         if (!$this->fileManager->isNamespaceConfiguredToAutoload($this->generator->getRootNamespace())) {
             $this->io->note([
+<<<<<<< HEAD
                 sprintf('It looks like your app may be using a namespace other than "%s".', $this->generator->getRootNamespace()),
+=======
+                \sprintf('It looks like your app may be using a namespace other than "%s".', $this->generator->getRootNamespace()),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'To configure this and make your life easier, see: https://symfony.com/doc/current/bundles/SymfonyMakerBundle/index.html#configuration',
             ]);
         }

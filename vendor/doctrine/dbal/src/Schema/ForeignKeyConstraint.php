@@ -251,6 +251,13 @@ class ForeignKeyConstraint extends AbstractAsset implements Constraint
             $name = substr($name, $position + 1);
         }
 
+<<<<<<< HEAD
+=======
+        if ($this->isIdentifierQuoted($name)) {
+            $name = $this->trimQuotes($name);
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return strtolower($name);
     }
 

@@ -32,6 +32,11 @@ class HttpKernelBrowser extends AbstractBrowser
 {
     protected $kernel;
     private bool $catchExceptions = true;
+<<<<<<< HEAD
+=======
+    private ?object $sentResponse = null;
+    private string $sentContent = '';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * @param array $server The server parameters (equivalent of $_SERVER)
@@ -64,6 +69,25 @@ class HttpKernelBrowser extends AbstractBrowser
     {
         $response = $this->kernel->handle($request, HttpKernelInterface::MAIN_REQUEST, $this->catchExceptions);
 
+<<<<<<< HEAD
+=======
+        // the content must be sent before the kernel is terminated, as when serving a real request
+        $content = '';
+        ob_start(static function ($chunk) use (&$content) {
+            $content .= $chunk;
+
+            return '';
+        });
+
+        try {
+            $response->sendContent();
+        } finally {
+            ob_end_clean();
+            $this->sentResponse = $response;
+            $this->sentContent = $content;
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ($this->kernel instanceof TerminableInterface) {
             $this->kernel->terminate($request, $response);
         }
@@ -99,6 +123,7 @@ class HttpKernelBrowser extends AbstractBrowser
         }
 
         $code = <<<EOF
+<<<<<<< HEAD
 <?php
 
 error_reporting($errorReporting);
@@ -108,6 +133,17 @@ $requires
 \$kernel = unserialize($kernel);
 \$request = unserialize($request);
 EOF;
+=======
+            <?php
+
+            error_reporting($errorReporting);
+
+            $requires
+
+            \$kernel = unserialize($kernel);
+            \$request = unserialize($request);
+            EOF;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $code.$this->getHandleScript();
     }
@@ -118,6 +154,7 @@ EOF;
     protected function getHandleScript()
     {
         return <<<'EOF'
+<<<<<<< HEAD
 $response = $kernel->handle($request);
 
 if ($kernel instanceof Symfony\Component\HttpKernel\TerminableInterface) {
@@ -126,6 +163,16 @@ if ($kernel instanceof Symfony\Component\HttpKernel\TerminableInterface) {
 
 echo serialize($response);
 EOF;
+=======
+            $response = $kernel->handle($request);
+
+            if ($kernel instanceof Symfony\Component\HttpKernel\TerminableInterface) {
+                $kernel->terminate($request, $response);
+            }
+
+            echo serialize($response);
+            EOF;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function filterRequest(DomRequest $request): Request
@@ -188,10 +235,32 @@ EOF;
      */
     protected function filterResponse(object $response): DomResponse
     {
+<<<<<<< HEAD
         // this is needed to support StreamedResponse
         ob_start();
         $response->sendContent();
         $content = ob_get_clean();
+=======
+        if ($response === $this->sentResponse) {
+            $content = $this->sentContent;
+            $this->sentResponse = null;
+            $this->sentContent = '';
+        } else {
+            // this is needed to support StreamedResponse
+            $content = '';
+            ob_start(static function ($chunk) use (&$content) {
+                $content .= $chunk;
+
+                return '';
+            });
+
+            try {
+                $response->sendContent();
+            } finally {
+                ob_end_clean();
+            }
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return new DomResponse($content, $response->getStatusCode(), $response->headers->all());
     }

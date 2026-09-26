@@ -44,7 +44,11 @@ class ImportMapAuditCommand extends Command
         $this->addOption(
             name: 'format',
             mode: InputOption::VALUE_REQUIRED,
+<<<<<<< HEAD
             description: sprintf('The output format ("%s")', implode(', ', $this->getAvailableFormatOptions())),
+=======
+            description: \sprintf('The output format ("%s")', implode(', ', $this->getAvailableFormatOptions())),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             default: 'txt',
         );
     }
@@ -63,7 +67,11 @@ class ImportMapAuditCommand extends Command
         return match ($format) {
             'txt' => $this->displayTxt($audit),
             'json' => $this->displayJson($audit),
+<<<<<<< HEAD
             default => throw new \InvalidArgumentException(sprintf('Supported formats are "%s".', implode('", "', $this->getAvailableFormatOptions()))),
+=======
+            default => throw new \InvalidArgumentException(\sprintf('Supported formats are "%s".', implode('", "', $this->getAvailableFormatOptions()))),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         };
     }
 
@@ -72,14 +80,22 @@ class ImportMapAuditCommand extends Command
         $rows = [];
 
         $packagesWithoutVersion = [];
+<<<<<<< HEAD
         $vulnerabilitiesCount = array_map(fn () => 0, self::SEVERITY_COLORS);
+=======
+        $vulnerabilitiesCount = array_map(static fn () => 0, self::SEVERITY_COLORS);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         foreach ($audit as $packageAudit) {
             if (!$packageAudit->version) {
                 $packagesWithoutVersion[] = $packageAudit->package;
             }
             foreach ($packageAudit->vulnerabilities as $vulnerability) {
                 $rows[] = [
+<<<<<<< HEAD
                     sprintf('<fg=%s>%s</>', self::SEVERITY_COLORS[$vulnerability->severity] ?? 'default', ucfirst($vulnerability->severity)),
+=======
+                    \sprintf('<fg=%s>%s</>', self::SEVERITY_COLORS[$vulnerability->severity] ?? 'default', ucfirst($vulnerability->severity)),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $vulnerability->summary,
                     $packageAudit->package,
                     $packageAudit->version ?? 'n/a',
@@ -113,7 +129,11 @@ class ImportMapAuditCommand extends Command
             $this->io->newLine();
         }
 
+<<<<<<< HEAD
         $this->io->text(sprintf('%d package%s found: %d audited / %d skipped',
+=======
+        $this->io->text(\sprintf('%d package%s found: %d audited / %d skipped',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $packagesCount,
             1 === $packagesCount ? '' : 's',
             $packagesCount - $packagesWithoutVersionCount,
@@ -121,23 +141,38 @@ class ImportMapAuditCommand extends Command
         ));
 
         if (0 < $packagesWithoutVersionCount) {
+<<<<<<< HEAD
             $this->io->warning(sprintf('Unable to retrieve versions for package%s: %s',
+=======
+            $this->io->warning(\sprintf('Unable to retrieve versions for package%s: %s',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 1 === $packagesWithoutVersionCount ? '' : 's',
                 implode(', ', $packagesWithoutVersion)
             ));
         }
 
+<<<<<<< HEAD
         if ([] !== $rows) {
+=======
+        if ($rows) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $vulnerabilityCount = 0;
             $vulnerabilitySummary = [];
             foreach ($vulnerabilitiesCount as $severity => $count) {
                 if (!$count) {
                     continue;
                 }
+<<<<<<< HEAD
                 $vulnerabilitySummary[] = sprintf('%d %s', $count, ucfirst($severity));
                 $vulnerabilityCount += $count;
             }
             $this->io->text(sprintf('%d vulnerabilit%s found: %s',
+=======
+                $vulnerabilitySummary[] = \sprintf('%d %s', $count, ucfirst($severity));
+                $vulnerabilityCount += $count;
+            }
+            $this->io->text(\sprintf('%d vulnerabilit%s found: %s',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $vulnerabilityCount,
                 1 === $vulnerabilityCount ? 'y' : 'ies',
                 implode(' / ', $vulnerabilitySummary),
@@ -149,7 +184,11 @@ class ImportMapAuditCommand extends Command
 
     private function displayJson(array $audit): int
     {
+<<<<<<< HEAD
         $vulnerabilitiesCount = array_map(fn () => 0, self::SEVERITY_COLORS);
+=======
+        $vulnerabilitiesCount = array_map(static fn () => 0, self::SEVERITY_COLORS);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $json = [
             'packages' => [],
@@ -160,7 +199,11 @@ class ImportMapAuditCommand extends Command
             $json['packages'][] = [
                 'package' => $packageAudit->package,
                 'version' => $packageAudit->version,
+<<<<<<< HEAD
                 'vulnerabilities' => array_map(fn (ImportMapPackageAuditVulnerability $v) => [
+=======
+                'vulnerabilities' => array_map(static fn (ImportMapPackageAuditVulnerability $v) => [
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     'ghsa_id' => $v->ghsaId,
                     'cve_id' => $v->cveId,
                     'url' => $v->url,

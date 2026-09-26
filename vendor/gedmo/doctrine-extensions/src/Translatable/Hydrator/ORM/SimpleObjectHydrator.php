@@ -12,6 +12,10 @@ namespace Gedmo\Translatable\Hydrator\ORM;
 use Doctrine\ORM\Internal\Hydration\SimpleObjectHydrator as BaseSimpleObjectHydrator;
 use Gedmo\Exception\RuntimeException;
 use Gedmo\Tool\ORM\Hydration\EntityManagerRetriever;
+<<<<<<< HEAD
+=======
+use Gedmo\Tool\ORM\Hydration\HydratorCompat;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Gedmo\Translatable\TranslatableListener;
 
 /**
@@ -27,12 +31,17 @@ use Gedmo\Translatable\TranslatableListener;
 class SimpleObjectHydrator extends BaseSimpleObjectHydrator
 {
     use EntityManagerRetriever;
+<<<<<<< HEAD
+=======
+    use HydratorCompat;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * State of skipOnLoad for listener between hydrations
      *
      * @see SimpleObjectHydrator::prepare()
      * @see SimpleObjectHydrator::cleanup()
+<<<<<<< HEAD
      *
      * @var bool|null
      */
@@ -42,6 +51,12 @@ class SimpleObjectHydrator extends BaseSimpleObjectHydrator
      * @return void
      */
     protected function prepare()
+=======
+     */
+    private ?bool $savedSkipOnLoad = null;
+
+    protected function doPrepareWithCompat(): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $listener = $this->getTranslatableListener();
         $this->savedSkipOnLoad = $listener->isSkipOnLoad();
@@ -49,10 +64,14 @@ class SimpleObjectHydrator extends BaseSimpleObjectHydrator
         parent::prepare();
     }
 
+<<<<<<< HEAD
     /**
      * @return void
      */
     protected function cleanup()
+=======
+    protected function doCleanupWithCompat(): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         parent::cleanup();
         $listener = $this->getTranslatableListener();

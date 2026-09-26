@@ -56,7 +56,11 @@ abstract class AbstractSurrogate implements SurrogateInterface
             return false;
         }
 
+<<<<<<< HEAD
         return str_contains($value, sprintf('%s/1.0', strtoupper($this->getName())));
+=======
+        return str_contains($value, \sprintf('%s/1.0', strtoupper($this->getName())));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -65,7 +69,11 @@ abstract class AbstractSurrogate implements SurrogateInterface
     public function addSurrogateCapability(Request $request)
     {
         $current = $request->headers->get('Surrogate-Capability');
+<<<<<<< HEAD
         $new = sprintf('symfony="%s/1.0"', strtoupper($this->getName()));
+=======
+        $new = \sprintf('symfony="%s/1.0"', strtoupper($this->getName()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $request->headers->set('Surrogate-Capability', $current ? $current.', '.$new : $new);
     }
@@ -76,7 +84,11 @@ abstract class AbstractSurrogate implements SurrogateInterface
             return false;
         }
 
+<<<<<<< HEAD
         $pattern = sprintf('#content="[^"]*%s/1.0[^"]*"#', strtoupper($this->getName()));
+=======
+        $pattern = \sprintf('#content="[^"]*%s/1.0[^"]*"#', strtoupper($this->getName()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return (bool) preg_match($pattern, $control);
     }
@@ -89,7 +101,11 @@ abstract class AbstractSurrogate implements SurrogateInterface
             $response = $cache->handle($subRequest, HttpKernelInterface::SUB_REQUEST, true);
 
             if (!$response->isSuccessful() && Response::HTTP_NOT_MODIFIED !== $response->getStatusCode()) {
+<<<<<<< HEAD
                 throw new \RuntimeException(sprintf('Error when rendering "%s" (Status code is %d).', $subRequest->getUri(), $response->getStatusCode()));
+=======
+                throw new \RuntimeException(\sprintf('Error when rendering "%s" (Status code is %d).', $subRequest->getUri(), $response->getStatusCode()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return $response->getContent();
@@ -120,12 +136,21 @@ abstract class AbstractSurrogate implements SurrogateInterface
         $value = $response->headers->get('Surrogate-Control');
         $upperName = strtoupper($this->getName());
 
+<<<<<<< HEAD
         if (sprintf('content="%s/1.0"', $upperName) == $value) {
             $response->headers->remove('Surrogate-Control');
         } elseif (preg_match(sprintf('#,\s*content="%s/1.0"#', $upperName), $value)) {
             $response->headers->set('Surrogate-Control', preg_replace(sprintf('#,\s*content="%s/1.0"#', $upperName), '', $value));
         } elseif (preg_match(sprintf('#content="%s/1.0",\s*#', $upperName), $value)) {
             $response->headers->set('Surrogate-Control', preg_replace(sprintf('#content="%s/1.0",\s*#', $upperName), '', $value));
+=======
+        if (\sprintf('content="%s/1.0"', $upperName) == $value) {
+            $response->headers->remove('Surrogate-Control');
+        } elseif (preg_match(\sprintf('#,\s*content="%s/1.0"#', $upperName), $value)) {
+            $response->headers->set('Surrogate-Control', preg_replace(\sprintf('#,\s*content="%s/1.0"#', $upperName), '', $value));
+        } elseif (preg_match(\sprintf('#content="%s/1.0",\s*#', $upperName), $value)) {
+            $response->headers->set('Surrogate-Control', preg_replace(\sprintf('#content="%s/1.0",\s*#', $upperName), '', $value));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 

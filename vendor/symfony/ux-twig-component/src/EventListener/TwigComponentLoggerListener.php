@@ -12,16 +12,22 @@
 namespace Symfony\UX\TwigComponent\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+<<<<<<< HEAD
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Contracts\Service\ResetInterface;
 use Symfony\UX\TwigComponent\Event\PostMountEvent;
 use Symfony\UX\TwigComponent\Event\PostRenderEvent;
 use Symfony\UX\TwigComponent\Event\PreCreateForRenderEvent;
 use Symfony\UX\TwigComponent\Event\PreMountEvent;
+=======
+use Symfony\Contracts\Service\ResetInterface;
+use Symfony\UX\TwigComponent\Event\PostRenderEvent;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\UX\TwigComponent\Event\PreRenderEvent;
 
 /**
  * @author Simon André <smn.andre@gmail.com>
+<<<<<<< HEAD
  */
 class TwigComponentLoggerListener implements EventSubscriberInterface, ResetInterface
 {
@@ -42,16 +48,38 @@ class TwigComponentLoggerListener implements EventSubscriberInterface, ResetInte
             ],
             PreMountEvent::class => ['onPreMount', 255],
             PostMountEvent::class => ['onPostMount', -255],
+=======
+ *
+ * @internal
+ */
+final class TwigComponentLoggerListener implements EventSubscriberInterface, ResetInterface
+{
+    private array $events = [];
+
+    public static function getSubscribedEvents(): array
+    {
+        return [
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             PreRenderEvent::class => ['onPreRender', 255],
             PostRenderEvent::class => ['onPostRender', -255],
         ];
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return list<array{
+     *     PreRenderEvent|PostRenderEvent,
+     *     array{float, int},
+     * }>
+     */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function getEvents(): array
     {
         return $this->events;
     }
 
+<<<<<<< HEAD
     public function onPreCreateForRender(PreCreateForRenderEvent $event): void
     {
         $this->stopwatch?->start($event->getName(), 'twig_component');
@@ -81,6 +109,8 @@ class TwigComponentLoggerListener implements EventSubscriberInterface, ResetInte
         $this->logEvent($event);
     }
 
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function onPreRender(PreRenderEvent $event): void
     {
         $this->logEvent($event);
@@ -88,9 +118,12 @@ class TwigComponentLoggerListener implements EventSubscriberInterface, ResetInte
 
     public function onPostRender(PostRenderEvent $event): void
     {
+<<<<<<< HEAD
         if ($this->stopwatch?->isStarted($name = $event->getMountedComponent()->getName())) {
             $this->stopwatch->stop($name);
         }
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->logEvent($event);
     }
 
@@ -98,4 +131,12 @@ class TwigComponentLoggerListener implements EventSubscriberInterface, ResetInte
     {
         $this->events = [];
     }
+<<<<<<< HEAD
+=======
+
+    private function logEvent(object $event): void
+    {
+        $this->events[] = [$event, [microtime(true), memory_get_usage(true)]];
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

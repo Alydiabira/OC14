@@ -57,6 +57,7 @@ class RouterMatchCommand extends Command
                 new InputOption('host', null, InputOption::VALUE_REQUIRED, 'Set the URI host'),
             ])
             ->setHelp(<<<'EOF'
+<<<<<<< HEAD
 The <info>%command.name%</info> shows which routes match a given request and which don't and for what reason:
 
   <info>php %command.full_name% /foo</info>
@@ -66,6 +67,17 @@ or
   <info>php %command.full_name% /foo --method POST --scheme https --host symfony.com --verbose</info>
 
 EOF
+=======
+                The <info>%command.name%</info> shows which routes match a given request and which don't and for what reason:
+
+                  <info>php %command.full_name% /foo</info>
+
+                or
+
+                  <info>php %command.full_name% /foo --method POST --scheme https --host symfony.com --verbose</info>
+
+                EOF
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -97,21 +109,35 @@ EOF
         $matches = false;
         foreach ($traces as $trace) {
             if (TraceableUrlMatcher::ROUTE_ALMOST_MATCHES == $trace['level']) {
+<<<<<<< HEAD
                 $io->text(sprintf('Route <info>"%s"</> almost matches but %s', $trace['name'], lcfirst($trace['log'])));
             } elseif (TraceableUrlMatcher::ROUTE_MATCHES == $trace['level']) {
                 $io->success(sprintf('Route "%s" matches', $trace['name']));
+=======
+                $io->text(\sprintf('Route <info>"%s"</> almost matches but %s', $trace['name'], lcfirst($trace['log'])));
+            } elseif (TraceableUrlMatcher::ROUTE_MATCHES == $trace['level']) {
+                $io->success(\sprintf('Route "%s" matches', $trace['name']));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 $routerDebugCommand = $this->getApplication()->find('debug:router');
                 $routerDebugCommand->run(new ArrayInput(['name' => $trace['name']]), $output);
 
                 $matches = true;
             } elseif ($input->getOption('verbose')) {
+<<<<<<< HEAD
                 $io->text(sprintf('Route "%s" does not match: %s', $trace['name'], $trace['log']));
+=======
+                $io->text(\sprintf('Route "%s" does not match: %s', $trace['name'], $trace['log']));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
         if (!$matches) {
+<<<<<<< HEAD
             $io->error(sprintf('None of the routes match the path "%s"', $input->getArgument('path_info')));
+=======
+            $io->error(\sprintf('None of the routes match the path "%s"', $input->getArgument('path_info')));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             return 1;
         }

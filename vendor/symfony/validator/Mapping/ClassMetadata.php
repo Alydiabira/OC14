@@ -198,7 +198,11 @@ class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
                     continue;
                 }
 
+<<<<<<< HEAD
                 if ($property->hasType() && (('array' === $type = $property->getType()->getName()) || class_exists($type))) {
+=======
+                if ($this->canCascade($property->getType())) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $this->addPropertyConstraint($property->getName(), new Valid());
                 }
             }
@@ -331,6 +335,13 @@ class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
             $this->setGroupSequenceProvider(true);
         }
 
+<<<<<<< HEAD
+=======
+        if (TraversalStrategy::IMPLICIT === $this->traversalStrategy) {
+            $this->traversalStrategy = $source->getTraversalStrategy();
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         foreach ($source->getConstraints() as $constraint) {
             $this->addConstraint(clone $constraint);
         }
@@ -398,11 +409,19 @@ class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
         }
 
         if (\in_array(Constraint::DEFAULT_GROUP, $groupSequence->groups, true)) {
+<<<<<<< HEAD
             throw new GroupDefinitionException(sprintf('The group "%s" is not allowed in group sequences.', Constraint::DEFAULT_GROUP));
         }
 
         if (!\in_array($this->getDefaultGroup(), $groupSequence->groups, true)) {
             throw new GroupDefinitionException(sprintf('The group "%s" is missing in the group sequence.', $this->getDefaultGroup()));
+=======
+            throw new GroupDefinitionException(\sprintf('The group "%s" is not allowed in group sequences.', Constraint::DEFAULT_GROUP));
+        }
+
+        if (!\in_array($this->getDefaultGroup(), $groupSequence->groups, true)) {
+            throw new GroupDefinitionException(\sprintf('The group "%s" is missing in the group sequence.', $this->getDefaultGroup()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->groupSequence = $groupSequence;
@@ -442,7 +461,11 @@ class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
         }
 
         if (null === $this->groupProvider && !$this->getReflectionClass()->implementsInterface(GroupSequenceProviderInterface::class)) {
+<<<<<<< HEAD
             throw new GroupDefinitionException(sprintf('Class "%s" must implement GroupSequenceProviderInterface.', $this->name));
+=======
+            throw new GroupDefinitionException(\sprintf('Class "%s" must implement GroupSequenceProviderInterface.', $this->name));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->groupSequenceProvider = $active;
@@ -478,7 +501,11 @@ class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
     private function checkConstraint(Constraint $constraint): void
     {
         if (!\in_array(Constraint::CLASS_CONSTRAINT, (array) $constraint->getTargets(), true)) {
+<<<<<<< HEAD
             throw new ConstraintDefinitionException(sprintf('The constraint "%s" cannot be put on classes.', get_debug_type($constraint)));
+=======
+            throw new ConstraintDefinitionException(\sprintf('The constraint "%s" cannot be put on classes.', get_debug_type($constraint)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($constraint instanceof Composite) {
@@ -487,4 +514,36 @@ class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
             }
         }
     }
+<<<<<<< HEAD
+=======
+
+    private function canCascade(?\ReflectionType $type = null): bool
+    {
+        if (null === $type) {
+            return false;
+        }
+
+        if ($type instanceof \ReflectionIntersectionType) {
+            foreach ($type->getTypes() as $nestedType) {
+                if ($this->canCascade($nestedType)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        if ($type instanceof \ReflectionUnionType) {
+            foreach ($type->getTypes() as $nestedType) {
+                if (!$this->canCascade($nestedType)) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        return $type instanceof \ReflectionNamedType && (\in_array($type->getName(), ['array', 'null'], true) || class_exists($type->getName()));
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

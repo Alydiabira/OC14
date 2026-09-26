@@ -11,6 +11,10 @@
 
 namespace Monolog\Handler;
 
+<<<<<<< HEAD
+=======
+use Elastic\Transport\Exception\TransportException;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Elastica\Document;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\ElasticaFormatter;
@@ -18,6 +22,10 @@ use Monolog\Level;
 use Elastica\Client;
 use Elastica\Exception\ExceptionInterface;
 use Monolog\LogRecord;
+<<<<<<< HEAD
+=======
+use Monolog\Utils;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Elastic Search handler
@@ -88,7 +96,11 @@ class ElasticaHandler extends AbstractProcessingHandler
      */
     public function setFormatter(FormatterInterface $formatter): HandlerInterface
     {
+<<<<<<< HEAD
         if ($formatter instanceof ElasticaFormatter) {
+=======
+        if (Utils::unwrapFormatter($formatter) instanceof ElasticaFormatter) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return parent::setFormatter($formatter);
         }
 
@@ -133,7 +145,11 @@ class ElasticaHandler extends AbstractProcessingHandler
     {
         try {
             $this->client->addDocuments($documents);
+<<<<<<< HEAD
         } catch (ExceptionInterface $e) {
+=======
+        } catch (ExceptionInterface | TransportException $e) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (!$this->options['ignore_error']) {
                 throw new \RuntimeException("Error sending messages to Elasticsearch", 0, $e);
             }

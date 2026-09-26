@@ -54,7 +54,11 @@ class NotificationEmail extends TemplatedEmail
         }
 
         if ($missingPackages) {
+<<<<<<< HEAD
             throw new \LogicException(sprintf('You cannot use "%s" if the "%s" Twig extension%s not available. Try running "%s".', static::class, implode('" and "', $missingPackages), \count($missingPackages) > 1 ? 's are' : ' is', 'composer require '.implode(' ', array_keys($missingPackages))));
+=======
+            throw new \LogicException(\sprintf('You cannot use "%s" if the "%s" Twig extension%s not available. Try running "%s".', static::class, implode('" and "', $missingPackages), \count($missingPackages) > 1 ? 's are' : ' is', 'composer require '.implode(' ', array_keys($missingPackages))));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         parent::__construct($headers, $body);
@@ -88,7 +92,11 @@ class NotificationEmail extends TemplatedEmail
     public function markdown(string $content): static
     {
         if (!class_exists(MarkdownExtension::class)) {
+<<<<<<< HEAD
             throw new \LogicException(sprintf('You cannot use "%s" if the Markdown Twig extension is not available. Try running "composer require twig/markdown-extra".', __METHOD__));
+=======
+            throw new \LogicException(\sprintf('You cannot use "%s" if the Markdown Twig extension is not available. Try running "composer require twig/markdown-extra".', __METHOD__));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->context['markdown'] = true;
@@ -218,7 +226,11 @@ class NotificationEmail extends TemplatedEmail
         $importance = $this->context['importance'] ?? self::IMPORTANCE_LOW;
         $this->priority($this->determinePriority($importance));
         if ($this->context['importance']) {
+<<<<<<< HEAD
             $headers->setHeaderBody('Text', 'Subject', sprintf('[%s] %s', strtoupper($importance), $this->getSubject()));
+=======
+            $headers->setHeaderBody('Text', 'Subject', \sprintf('[%s] %s', strtoupper($importance), $this->getSubject()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $headers;
@@ -266,6 +278,13 @@ class NotificationEmail extends TemplatedEmail
      */
     public function __unserialize(array $data): void
     {
+<<<<<<< HEAD
+=======
+        if (($data[1] ?? null) instanceof \Stringable) {
+            throw new \BadMethodCallException('Cannot unserialize '.self::class);
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (4 === \count($data)) {
             [$this->context, $this->theme, $this->rendered, $parentData] = $data;
         } elseif (3 === \count($data)) {

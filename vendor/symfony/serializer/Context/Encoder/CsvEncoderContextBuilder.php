@@ -35,7 +35,11 @@ final class CsvEncoderContextBuilder implements ContextBuilderInterface
     public function withDelimiter(?string $delimiter): static
     {
         if (null !== $delimiter && 1 !== \strlen($delimiter)) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('The "%s" delimiter must be a single character.', $delimiter));
+=======
+            throw new InvalidArgumentException(\sprintf('The "%s" delimiter must be a single character.', $delimiter));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->with(CsvEncoder::DELIMITER_KEY, $delimiter);
@@ -51,7 +55,11 @@ final class CsvEncoderContextBuilder implements ContextBuilderInterface
     public function withEnclosure(?string $enclosure): static
     {
         if (null !== $enclosure && 1 !== \strlen($enclosure)) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('The "%s" enclosure must be a single character.', $enclosure));
+=======
+            throw new InvalidArgumentException(\sprintf('The "%s" enclosure must be a single character.', $enclosure));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->with(CsvEncoder::ENCLOSURE_KEY, $enclosure);
@@ -67,7 +75,11 @@ final class CsvEncoderContextBuilder implements ContextBuilderInterface
     public function withEscapeChar(?string $escapeChar): static
     {
         if (null !== $escapeChar && \strlen($escapeChar) > 1) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('The "%s" escape character must be empty or a single character.', $escapeChar));
+=======
+            throw new InvalidArgumentException(\sprintf('The "%s" escape character must be empty or a single character.', $escapeChar));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->with(CsvEncoder::ESCAPE_CHAR_KEY, $escapeChar);

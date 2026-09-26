@@ -40,7 +40,11 @@ final class Statement implements StatementInterface
     /** @var array<int, mixed> */
     private array $parameters = [];
 
+<<<<<<< HEAD
     /** @psalm-var array<int, int> */
+=======
+    /** @var array<int, int> */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private array $parameterTypes = [];
 
     /**
@@ -81,8 +85,22 @@ final class Statement implements StatementInterface
             throw UnknownParameter::new((string) $param);
         }
 
+<<<<<<< HEAD
         $this->parameters[$this->parameterMap[$param]]     = $value;
         $this->parameterTypes[$this->parameterMap[$param]] = $type;
+=======
+        if ($value === null) {
+            $type = ParameterType::NULL;
+        }
+
+        if ($type === ParameterType::BOOLEAN) {
+            $this->parameters[$this->parameterMap[$param]]     = (bool) $value === false ? 'f' : 't';
+            $this->parameterTypes[$this->parameterMap[$param]] = ParameterType::STRING;
+        } else {
+            $this->parameters[$this->parameterMap[$param]]     = $value;
+            $this->parameterTypes[$this->parameterMap[$param]] = $type;
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return true;
     }

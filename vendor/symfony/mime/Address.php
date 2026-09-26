@@ -42,7 +42,11 @@ final class Address
     public function __construct(string $address, string $name = '')
     {
         if (!class_exists(EmailValidator::class)) {
+<<<<<<< HEAD
             throw new LogicException(sprintf('The "%s" class cannot be used as it needs "%s". Try running "composer require egulias/email-validator".', __CLASS__, EmailValidator::class));
+=======
+            throw new LogicException(\sprintf('The "%s" class cannot be used as it needs "%s". Try running "composer require egulias/email-validator".', __CLASS__, EmailValidator::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         self::$validator ??= new EmailValidator();
@@ -50,8 +54,17 @@ final class Address
         $this->address = trim($address);
         $this->name = trim(str_replace(["\n", "\r"], '', $name));
 
+<<<<<<< HEAD
         if (!self::$validator->isValid($this->address, class_exists(MessageIDValidation::class) ? new MessageIDValidation() : new RFCValidation())) {
             throw new RfcComplianceException(sprintf('Email "%s" does not comply with addr-spec of RFC 2822.', $address));
+=======
+        if (preg_match('/[\x00-\x1F\x7F]/', $this->address)) {
+            throw new InvalidArgumentException('Email address contains control characters.');
+        }
+
+        if (!self::isValidAddrSpec($this->address)) {
+            throw new RfcComplianceException(\sprintf('Email "%s" does not comply with addr-spec of RFC 2822.', $address));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -83,7 +96,11 @@ final class Address
             return '';
         }
 
+<<<<<<< HEAD
         return sprintf('"%s"', preg_replace('/"/u', '\"', $this->getName()));
+=======
+        return \sprintf('"%s"', preg_replace('/["\\\\]/', '\\\\$0', $this->getName()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public static function create(self|string $address): self
@@ -97,7 +114,11 @@ final class Address
         }
 
         if (!preg_match(self::FROM_STRING_PATTERN, $address, $matches)) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Could not parse "%s" to a "%s" instance.', $address, self::class));
+=======
+            throw new InvalidArgumentException(\sprintf('Could not parse "%s" to a "%s" instance.', $address, self::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return new self($matches['addrSpec'], trim($matches['displayName'], ' \'"'));
@@ -117,4 +138,22 @@ final class Address
 
         return $addrs;
     }
+<<<<<<< HEAD
+=======
+
+    private static function isValidAddrSpec(string $address): bool
+    {
+        // the message id validation is needed as this class also holds the ids of the Message-ID,
+        // In-Reply-To and References headers, but it accepts an unquoted "@" in the local part
+        if (!self::$validator->isValid($address, class_exists(MessageIDValidation::class) ? new MessageIDValidation() : new RFCValidation())) {
+            return false;
+        }
+
+        if (substr_count($address, '@') < 2) {
+            return true;
+        }
+
+        return self::$validator->isValid(substr($address, 0, strrpos($address, '@')).'@example.com', new RFCValidation());
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

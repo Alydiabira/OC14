@@ -56,6 +56,10 @@ class SerializerPass implements CompilerPassInterface
             }
 
             $container->getParameterBag()->remove('serializer.default_context');
+<<<<<<< HEAD
+=======
+            $container->getDefinition('serializer')->setArgument('$defaultContext', $defaultContext);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($container->getParameter('kernel.debug') && $container->hasDefinition('serializer.data_collector')) {

@@ -106,10 +106,19 @@ class SecurityDataCollector extends DataCollector implements LateDataCollectorIn
             }
 
             $logoutUrl = null;
+<<<<<<< HEAD
             try {
                 $logoutUrl = $this->logoutUrlGenerator?->getLogoutPath();
             } catch (\Exception) {
                 // fail silently when the logout URL cannot be generated
+=======
+            if ($this->logoutUrlGenerator && method_exists($token, 'getFirewallName')) {
+                try {
+                    $logoutUrl = $this->logoutUrlGenerator->getLogoutPath($token->getFirewallName());
+                } catch (\Exception) {
+                    // fail silently when the logout URL cannot be generated
+                }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $this->data = [
@@ -187,7 +196,11 @@ class SecurityDataCollector extends DataCollector implements LateDataCollectorIn
                 if ($this->data['impersonated'] && null !== $switchUserConfig = $firewallConfig->getSwitchUser()) {
                     $exitPath = $request->getRequestUri();
                     $exitPath .= null === $request->getQueryString() ? '?' : '&';
+<<<<<<< HEAD
                     $exitPath .= sprintf('%s=%s', urlencode($switchUserConfig['parameter']), SwitchUserListener::EXIT_VALUE);
+=======
+                    $exitPath .= \sprintf('%s=%s', urlencode($switchUserConfig['parameter']), SwitchUserListener::EXIT_VALUE);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                     $this->data['impersonation_exit_path'] = $exitPath;
                 }

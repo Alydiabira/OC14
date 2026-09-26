@@ -36,6 +36,7 @@ final class ImportMapRemoveCommand extends Command
         $this
             ->addArgument('packages', InputArgument::IS_ARRAY | InputArgument::REQUIRED, 'The packages to remove')
             ->setHelp(<<<'EOT'
+<<<<<<< HEAD
 The <info>%command.name%</info> command removes packages from the <comment>importmap.php</comment>.
 If a package was downloaded into your app, the downloaded file will also be removed.
 
@@ -43,6 +44,15 @@ For example:
 
     <info>php %command.full_name% lodash</info>
 EOT
+=======
+                The <info>%command.name%</info> command removes packages from the <comment>importmap.php</comment>.
+                If a package was downloaded into your app, the downloaded file will also be removed.
+
+                For example:
+
+                    <info>php %command.full_name% lodash</info>
+                EOT
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -55,9 +65,15 @@ EOT
         $this->importMapManager->remove($packageList);
 
         if (1 === \count($packageList)) {
+<<<<<<< HEAD
             $io->success(sprintf('Removed "%s" from importmap.php.', $packageList[0]));
         } else {
             $io->success(sprintf('Removed %d items from importmap.php.', \count($packageList)));
+=======
+            $io->success(\sprintf('Removed "%s" from importmap.php.', $packageList[0]));
+        } else {
+            $io->success(\sprintf('Removed %d items from importmap.php.', \count($packageList)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return Command::SUCCESS;

@@ -599,7 +599,11 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
     }
 
     /**
+<<<<<<< HEAD
      * @psalm-param class-string<\Throwable> $exception
+=======
+     * @psalm-param class-string<Throwable> $exception
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function expectException(string $exception): void
     {
@@ -2038,12 +2042,20 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * @psalm-param class-string|null $classOrInterface
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @throws ClassNotFoundException
      * @throws DoubleException
      * @throws InterfaceNotFoundException
      *
+<<<<<<< HEAD
      * @psalm-param class-string|null $classOrInterface
      *
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @deprecated https://github.com/sebastianbergmann/phpunit/issues/4141
      */
     protected function prophesize(?string $classOrInterface = null): ObjectProphecy
@@ -2208,7 +2220,12 @@ abstract class TestCase extends Assert implements Reorderable, SelfDescribing, T
                     $deepCopy = new DeepCopy;
                     $deepCopy->skipUncloneable(false);
 
+<<<<<<< HEAD
                     $this->dependencyInput[$dependencyTarget] = $deepCopy->copy($passed[$dependencyTarget]['result']);
+=======
+                    // The diagnostics are suppressed because myclabs/deep-copy uses spl_object_hash(), which is deprecated since PHP 8.6
+                    $this->dependencyInput[$dependencyTarget] = @$deepCopy->copy($passed[$dependencyTarget]['result']);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 } elseif ($dependency->useShallowClone()) {
                     $this->dependencyInput[$dependencyTarget] = clone $passed[$dependencyTarget]['result'];
                 } else {

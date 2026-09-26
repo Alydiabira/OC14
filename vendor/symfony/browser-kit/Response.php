@@ -46,10 +46,17 @@ final class Response
         $headers = '';
         foreach ($this->headers as $name => $value) {
             if (\is_string($value)) {
+<<<<<<< HEAD
                 $headers .= sprintf("%s: %s\n", $name, $value);
             } else {
                 foreach ($value as $headerValue) {
                     $headers .= sprintf("%s: %s\n", $name, $headerValue);
+=======
+                $headers .= \sprintf("%s: %s\n", $name, $value);
+            } else {
+                foreach ($value as $headerValue) {
+                    $headers .= \sprintf("%s: %s\n", $name, $headerValue);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
         }
@@ -81,7 +88,11 @@ final class Response
         foreach ($this->headers as $key => $value) {
             if (str_replace('-', '_', strtolower($key)) === $normalizedHeader) {
                 if ($first) {
+<<<<<<< HEAD
                     return \is_array($value) ? (\count($value) ? $value[0] : '') : $value;
+=======
+                    return \is_array($value) ? ($value ? $value[0] : '') : $value;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 return \is_array($value) ? $value : [$value];
@@ -104,7 +115,11 @@ final class Response
         }
 
         if (!\is_array($content)) {
+<<<<<<< HEAD
             throw new JsonException(sprintf('JSON content was expected to decode to an array, "%s" returned.', get_debug_type($content)));
+=======
+            throw new JsonException(\sprintf('JSON content was expected to decode to an array, "%s" returned.', get_debug_type($content)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->jsonData = $content;

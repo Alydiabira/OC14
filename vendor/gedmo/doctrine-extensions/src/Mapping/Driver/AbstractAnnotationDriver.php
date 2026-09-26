@@ -10,6 +10,10 @@
 namespace Gedmo\Mapping\Driver;
 
 use Doctrine\Common\Annotations\Reader;
+<<<<<<< HEAD
+=======
+use Doctrine\Deprecations\Deprecation;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 
@@ -19,7 +23,11 @@ use Doctrine\Persistence\Mapping\Driver\MappingDriver;
  *
  * @author Derek J. Lambert <dlambert@dereklambert.com>
  */
+<<<<<<< HEAD
 abstract class AbstractAnnotationDriver implements AnnotationDriverInterface
+=======
+abstract class AbstractAnnotationDriver implements AttributeDriverInterface
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 {
     /**
      * Annotation reader instance
@@ -44,6 +52,7 @@ abstract class AbstractAnnotationDriver implements AnnotationDriverInterface
      */
     protected $validTypes = [];
 
+<<<<<<< HEAD
     public function setAnnotationReader($reader)
     {
         if (!$reader instanceof Reader && !$reader instanceof AttributeReader) {
@@ -57,6 +66,43 @@ abstract class AbstractAnnotationDriver implements AnnotationDriverInterface
                 __METHOD__,
                 \TypeError::class,
                 get_class($reader)
+=======
+    /**
+     * Set the annotation reader instance
+     *
+     * When originally implemented, `Doctrine\Common\Annotations\Reader` was not available,
+     * therefore this method may accept any object implementing these methods from the interface:
+     *
+     *     getClassAnnotations([reflectionClass])
+     *     getClassAnnotation([reflectionClass], [name])
+     *     getPropertyAnnotations([reflectionProperty])
+     *     getPropertyAnnotation([reflectionProperty], [name])
+     *
+     * @param Reader|AttributeReader|object $reader
+     *
+     * @return void
+     *
+     * @note Providing any object is deprecated, as of 4.0 an {@see AttributeReader} will be required
+     */
+    public function setAnnotationReader($reader)
+    {
+        if ($reader instanceof Reader) {
+            Deprecation::trigger(
+                'gedmo/doctrine-extensions',
+                'https://github.com/doctrine-extensions/DoctrineExtensions/pull/2772',
+                'Annotations support is deprecated, migrate your application to use attributes and pass an instance of %s to the %s() method instead.',
+                AttributeReader::class,
+                __METHOD__
+            );
+        } elseif (!$reader instanceof AttributeReader) {
+            Deprecation::trigger(
+                'gedmo/doctrine-extensions',
+                'https://github.com/doctrine-extensions/DoctrineExtensions/pull/2558',
+                'Providing an annotation reader which does not implement %s or is not an instance of %s to %s() is deprecated.',
+                Reader::class,
+                AttributeReader::class,
+                __METHOD__
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
         }
 
@@ -76,11 +122,17 @@ abstract class AbstractAnnotationDriver implements AnnotationDriverInterface
     }
 
     /**
+<<<<<<< HEAD
      * @param ClassMetadata $meta
      *
      * @return \ReflectionClass
      *
      * @phpstan-return \ReflectionClass<object>
+=======
+     * @param ClassMetadata<object> $meta
+     *
+     * @return \ReflectionClass<covariant object>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getMetaReflectionClass($meta)
     {
@@ -88,7 +140,12 @@ abstract class AbstractAnnotationDriver implements AnnotationDriverInterface
     }
 
     /**
+<<<<<<< HEAD
      * @param array<string, mixed> $config
+=======
+     * @param ClassMetadata<object> $meta
+     * @param array<string, mixed>  $config
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return void
      */
@@ -99,8 +156,13 @@ abstract class AbstractAnnotationDriver implements AnnotationDriverInterface
     /**
      * Checks if $field type is valid
      *
+<<<<<<< HEAD
      * @param ClassMetadata $meta
      * @param string        $field
+=======
+     * @param ClassMetadata<object> $meta
+     * @param string                $field
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return bool
      */
@@ -108,12 +170,17 @@ abstract class AbstractAnnotationDriver implements AnnotationDriverInterface
     {
         $mapping = $meta->getFieldMapping($field);
 
+<<<<<<< HEAD
         return $mapping && in_array($mapping['type'], $this->validTypes, true);
+=======
+        return $mapping && in_array($mapping->type ?? $mapping['type'], $this->validTypes, true);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
      * Try to find out related class name out of mapping
      *
+<<<<<<< HEAD
      * @param ClassMetadata $metadata the mapped class metadata
      * @param string        $name     the related object class name
      *
@@ -121,6 +188,15 @@ abstract class AbstractAnnotationDriver implements AnnotationDriverInterface
      *
      * @phpstan-param class-string|string $name
      *
+=======
+     * @param ClassMetadata<object> $metadata the mapped class metadata
+     * @param string                $name     the related object class name
+     *
+     * @phpstan-param class-string|string $name
+     *
+     * @return string related class name or empty string if does not exist
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @phpstan-return class-string|''
      */
     protected function getRelatedClassName($metadata, $name)

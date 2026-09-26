@@ -6,6 +6,10 @@ CHANGELOG
 
  * Add `HttpClientAssertionsTrait`
  * Add `AbstractController::renderBlock()` and `renderBlockView()`
+<<<<<<< HEAD
+=======
+ * Remove call to `renderView()` in `AbstractController::render()`
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  * Add native return type to `Translator` and to `Application::reset()`
  * Deprecate the integration of Doctrine annotations, either uninstall the `doctrine/annotations` package or disable the integration by setting `framework.annotations` to `false`
  * Enable `json_decode_detailed_errors` context for Serializer by default if `kernel.debug` is true and the `seld/jsonlint` package is installed

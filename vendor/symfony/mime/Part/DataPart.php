@@ -66,7 +66,11 @@ class DataPart extends TextPart
     public function setContentId(string $cid): static
     {
         if (!str_contains($cid, '@')) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Invalid cid "%s".', $cid));
+=======
+            throw new InvalidArgumentException(\sprintf('Invalid cid "%s".', $cid));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->cid = $cid;
@@ -141,7 +145,11 @@ class DataPart extends TextPart
         }
         $this->_headers = $this->getHeaders();
 
+<<<<<<< HEAD
         return ['_headers', '_parent', 'filename', 'mediaType'];
+=======
+        return ['_headers', '_parent', 'filename', 'mediaType', 'cid'];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

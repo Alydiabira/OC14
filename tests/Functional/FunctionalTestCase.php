@@ -26,12 +26,17 @@ abstract class FunctionalTestCase extends WebTestCase
     }
 
     /**
+<<<<<<< HEAD
      * @template T of object
+=======
+     * @template T
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @param class-string<T> $id
      * @return T
      */
     protected function service(string $id): object
     {
+<<<<<<< HEAD
         /** @var null|T $service */
         $service = $this->client->getContainer()->get($id);
         self::assertNotNull($service);
@@ -41,6 +46,11 @@ abstract class FunctionalTestCase extends WebTestCase
     /**
      * @param array<string, mixed> $parameters
      */
+=======
+        return $this->client->getContainer()->get($id);
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected function get(string $uri, array $parameters = []): Crawler
     {
         return $this->client->request('GET', $uri, $parameters);
@@ -48,6 +58,7 @@ abstract class FunctionalTestCase extends WebTestCase
 
     protected function login(string $email = 'user+0@email.com'): void
     {
+<<<<<<< HEAD
         $user = $this->getEntityManager()->getRepository(User::class)->findOneBy(['email' => $email]);
         self::assertNotNull($user);
         $this->client->loginUser($user);
@@ -60,4 +71,10 @@ abstract class FunctionalTestCase extends WebTestCase
     {
         return $this->client->submitForm($button, $formData, $method);
     }
+=======
+        $user = $this->service(EntityManagerInterface::class)->getRepository(User::class)->findOneByEmail($email);
+
+        $this->client->loginUser($user);
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

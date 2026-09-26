@@ -53,7 +53,11 @@ class CliDumper extends AbstractDumper
         "\r" => '\r',
         "\033" => '\e',
     ];
+<<<<<<< HEAD
     protected static $unicodeCharsRx = "/[\u{00A0}\u{00AD}\u{034F}\u{061C}\u{115F}\u{1160}\u{17B4}\u{17B5}\u{180E}\u{2000}-\u{200F}\u{202F}\u{205F}\u{2060}-\u{2064}\u{206A}-\u{206F}\u{3000}\u{2800}\u{3164}\u{FEFF}\u{FFA0}\u{1D159}\u{1D173}-\u{1D17A}]/u";
+=======
+    protected static $unicodeCharsRx = "/[\u{0080}-\u{009F}\u{00A0}\u{00AD}\u{034F}\u{061C}\u{115F}\u{1160}\u{17B4}\u{17B5}\u{180E}\u{2000}-\u{200F}\u{202F}\u{205F}\u{2060}-\u{2064}\u{206A}-\u{206F}\u{3000}\u{2800}\u{3164}\u{FEFF}\u{FFA0}\u{1D159}\u{1D173}-\u{1D17A}]/u";
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     protected $collapseNextHash = false;
     protected $expandNextHash = false;
@@ -479,18 +483,30 @@ class CliDumper extends AbstractDumper
         $map = static::$controlCharsMap;
         $startCchr = $this->colors ? "\033[m\033[{$this->styles['default']}m" : '';
         $endCchr = $this->colors ? "\033[m\033[{$this->styles[$style]}m" : '';
+<<<<<<< HEAD
         $value = preg_replace_callback(static::$controlCharsRx, function ($c) use ($map, $startCchr, $endCchr) {
             $s = $startCchr;
             $c = $c[$i = 0];
             do {
                 $s .= $map[$c[$i]] ?? sprintf('\x%02X', \ord($c[$i]));
+=======
+        $value = preg_replace_callback(static::$controlCharsRx, static function ($c) use ($map, $startCchr, $endCchr) {
+            $s = $startCchr;
+            $c = $c[$i = 0];
+            do {
+                $s .= $map[$c[$i]] ?? \sprintf('\x%02X', \ord($c[$i]));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } while (isset($c[++$i]));
 
             return $s.$endCchr;
         }, $value, -1, $cchrCount);
 
         if (!($attr['binary'] ?? false)) {
+<<<<<<< HEAD
             $value = preg_replace_callback(static::$unicodeCharsRx, function ($c) use (&$cchrCount, $startCchr, $endCchr) {
+=======
+            $value = preg_replace_callback(static::$unicodeCharsRx, static function ($c) use (&$cchrCount, $startCchr, $endCchr) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ++$cchrCount;
 
                 return $startCchr.'\u{'.strtoupper(dechex(mb_ord($c[0]))).'}'.$endCchr;
@@ -537,7 +553,11 @@ class CliDumper extends AbstractDumper
     protected function supportsColors(): bool
     {
         if ($this->outputStream !== static::$defaultOutput) {
+<<<<<<< HEAD
             return $this->hasColorSupport($this->outputStream);
+=======
+            return $this->hasColorSupport($this->getColorSupportStream());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         if (isset(static::$defaultColors)) {
             return static::$defaultColors;
@@ -567,10 +587,14 @@ class CliDumper extends AbstractDumper
             }
         }
 
+<<<<<<< HEAD
         $h = stream_get_meta_data($this->outputStream) + ['wrapper_type' => null];
         $h = 'Output' === $h['stream_type'] && 'PHP' === $h['wrapper_type'] ? fopen('php://stdout', 'w') : $this->outputStream;
 
         return static::$defaultColors = $this->hasColorSupport($h);
+=======
+        return static::$defaultColors = $this->hasColorSupport($this->getColorSupportStream());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -583,7 +607,11 @@ class CliDumper extends AbstractDumper
         }
 
         if ($this->colors) {
+<<<<<<< HEAD
             $this->line = sprintf("\033[%sm%s\033[m", $this->styles['default'], $this->line);
+=======
+            $this->line = \sprintf("\033[%sm%s\033[m", $this->styles['default'], $this->line);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         parent::dumpLine($depth);
     }
@@ -609,6 +637,23 @@ class CliDumper extends AbstractDumper
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Returns the stream to probe for color support: on the CLI, php://output is backed by STDOUT.
+     */
+    private function getColorSupportStream(): mixed
+    {
+        if (!\defined('STDOUT') || !\is_resource($this->outputStream) || 'stream' !== get_resource_type($this->outputStream)) {
+            return $this->outputStream;
+        }
+
+        $h = stream_get_meta_data($this->outputStream) + ['wrapper_type' => null];
+
+        return 'Output' === $h['stream_type'] && 'PHP' === $h['wrapper_type'] ? \STDOUT : $this->outputStream;
+    }
+
+    /**
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Returns true if the stream supports colorization.
      *
      * Reference: Composer\XdebugHandler\Process::supportsColor
@@ -621,7 +666,11 @@ class CliDumper extends AbstractDumper
         }
 
         // Follow https://no-color.org/
+<<<<<<< HEAD
         if (isset($_SERVER['NO_COLOR']) || false !== getenv('NO_COLOR')) {
+=======
+        if ('' !== (($_SERVER['NO_COLOR'] ?? getenv('NO_COLOR'))[0] ?? '')) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return false;
         }
 
@@ -666,7 +715,11 @@ class CliDumper extends AbstractDumper
             || 'Hyper' === getenv('TERM_PROGRAM');
 
         if (!$result) {
+<<<<<<< HEAD
             $version = sprintf(
+=======
+            $version = \sprintf(
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 '%s.%s.%s',
                 PHP_WINDOWS_VERSION_MAJOR,
                 PHP_WINDOWS_VERSION_MINOR,

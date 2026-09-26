@@ -26,7 +26,11 @@ class LazyString implements \Stringable, \JsonSerializable
     public static function fromCallable(callable|array $callback, mixed ...$arguments): static
     {
         if (\is_array($callback) && !\is_callable($callback) && !(($callback[0] ?? null) instanceof \Closure || 2 < \count($callback))) {
+<<<<<<< HEAD
             throw new \TypeError(sprintf('Argument 1 passed to "%s()" must be a callable or a [Closure, method] lazy-callable, "%s" given.', __METHOD__, '['.implode(', ', array_map('get_debug_type', $callback)).']'));
+=======
+            throw new \TypeError(\sprintf('Argument 1 passed to "%s()" must be a callable or a [Closure, method] lazy-callable, "%s" given.', __METHOD__, '['.implode(', ', array_map('get_debug_type', $callback)).']'));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $lazyString = new static();
@@ -94,7 +98,11 @@ class LazyString implements \Stringable, \JsonSerializable
                 $r = new \ReflectionFunction($this->value);
                 $callback = $r->getStaticVariables()['callback'];
 
+<<<<<<< HEAD
                 $e = new \TypeError(sprintf('Return value of %s() passed to %s::fromCallable() must be of the type string, %s returned.', $callback, static::class, $type));
+=======
+                $e = new \TypeError(\sprintf('Return value of %s() passed to %s::fromCallable() must be of the type string, %s returned.', $callback, static::class, $type));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             throw $e;

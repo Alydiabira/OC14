@@ -48,12 +48,19 @@ final class TraceableAuthenticator implements AuthenticatorInterface, Interactiv
             'stub' => $this->stub ??= class_exists(ClassStub::class) ? new ClassStub($this->authenticator::class) : $this->authenticator::class,
             'authenticated' => $this->authenticated,
             'badges' => array_map(
+<<<<<<< HEAD
                 static function (BadgeInterface $badge): array {
                     return [
                         'stub' => class_exists(ClassStub::class) ? new ClassStub($badge::class) : $badge::class,
                         'resolved' => $badge->isResolved(),
                     ];
                 },
+=======
+                static fn (BadgeInterface $badge): array => [
+                    'stub' => class_exists(ClassStub::class) ? new ClassStub($badge::class) : $badge::class,
+                    'resolved' => $badge->isResolved(),
+                ],
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $this->passport?->getBadges() ?? [],
             ),
         ];

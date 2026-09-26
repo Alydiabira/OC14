@@ -68,7 +68,11 @@ class MappingRule
 
         foreach ($childNames as $childName) {
             if (!$target->has($childName)) {
+<<<<<<< HEAD
                 throw new ErrorMappingException(sprintf('The child "%s" of "%s" mapped by the rule "%s" in "%s" does not exist.', $childName, $target->getName(), $this->targetPath, $this->origin->getName()));
+=======
+                throw new ErrorMappingException(\sprintf('The child "%s" of "%s" mapped by the rule "%s" in "%s" does not exist.', $childName, $target->getName(), $this->targetPath, $this->origin->getName()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $target = $target->get($childName);
         }

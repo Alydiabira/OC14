@@ -10,8 +10,16 @@ use Doctrine\ORM\Internal\SQLResultCasing;
 use function array_map;
 use function array_merge;
 use function assert;
+<<<<<<< HEAD
 use function is_numeric;
 use function preg_replace;
+=======
+use function explode;
+use function implode;
+use function is_numeric;
+use function preg_replace;
+use function sprintf;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function substr;
 
 /**
@@ -24,7 +32,11 @@ class DefaultQuoteStrategy implements QuoteStrategy
     public function getColumnName(string $fieldName, ClassMetadata $class, AbstractPlatform $platform): string
     {
         return isset($class->fieldMappings[$fieldName]->quoted)
+<<<<<<< HEAD
             ? $platform->quoteIdentifier($class->fieldMappings[$fieldName]->columnName)
+=======
+            ? $platform->quoteSingleIdentifier($class->fieldMappings[$fieldName]->columnName)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             : $class->fieldMappings[$fieldName]->columnName;
     }
 
@@ -38,11 +50,25 @@ class DefaultQuoteStrategy implements QuoteStrategy
         $tableName = $class->table['name'];
 
         if (! empty($class->table['schema'])) {
+<<<<<<< HEAD
             $tableName = $class->table['schema'] . '.' . $class->table['name'];
         }
 
         return isset($class->table['quoted'])
             ? $platform->quoteIdentifier($tableName)
+=======
+            return isset($class->table['quoted'])
+                ? sprintf(
+                    '%s.%s',
+                    $platform->quoteSingleIdentifier($class->table['schema']),
+                    $platform->quoteSingleIdentifier($tableName),
+                )
+                : $class->table['schema'] . '.' . $class->table['name'];
+        }
+
+        return isset($class->table['quoted'])
+            ? $platform->quoteSingleIdentifier($tableName)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             : $tableName;
     }
 
@@ -52,14 +78,25 @@ class DefaultQuoteStrategy implements QuoteStrategy
     public function getSequenceName(array $definition, ClassMetadata $class, AbstractPlatform $platform): string
     {
         return isset($definition['quoted'])
+<<<<<<< HEAD
             ? $platform->quoteIdentifier($definition['sequenceName'])
+=======
+            ? implode('.', array_map(
+                static fn (string $part) => $platform->quoteSingleIdentifier($part),
+                explode('.', $definition['sequenceName']),
+            ))
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             : $definition['sequenceName'];
     }
 
     public function getJoinColumnName(JoinColumnMapping $joinColumn, ClassMetadata $class, AbstractPlatform $platform): string
     {
         return isset($joinColumn->quoted)
+<<<<<<< HEAD
             ? $platform->quoteIdentifier($joinColumn->name)
+=======
+            ? $platform->quoteSingleIdentifier($joinColumn->name)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             : $joinColumn->name;
     }
 
@@ -69,7 +106,11 @@ class DefaultQuoteStrategy implements QuoteStrategy
         AbstractPlatform $platform,
     ): string {
         return isset($joinColumn->quoted)
+<<<<<<< HEAD
             ? $platform->quoteIdentifier($joinColumn->referencedColumnName)
+=======
+            ? $platform->quoteSingleIdentifier($joinColumn->referencedColumnName)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             : $joinColumn->referencedColumnName;
     }
 
@@ -87,7 +128,11 @@ class DefaultQuoteStrategy implements QuoteStrategy
         $tableName = $association->joinTable->name;
 
         if (isset($association->joinTable->quoted)) {
+<<<<<<< HEAD
             $tableName = $platform->quoteIdentifier($tableName);
+=======
+            $tableName = $platform->quoteSingleIdentifier($tableName);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $schema . $tableName;
@@ -113,7 +158,11 @@ class DefaultQuoteStrategy implements QuoteStrategy
             $joinColumns            = $assoc->joinColumns;
             $assocQuotedColumnNames = array_map(
                 static fn (JoinColumnMapping $joinColumn) => isset($joinColumn->quoted)
+<<<<<<< HEAD
                     ? $platform->quoteIdentifier($joinColumn->name)
+=======
+                    ? $platform->quoteSingleIdentifier($joinColumn->name)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     : $joinColumn->name,
                 $joinColumns,
             );

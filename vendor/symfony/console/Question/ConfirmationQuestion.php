@@ -41,7 +41,11 @@ class ConfirmationQuestion extends Question
         $default = $this->getDefault();
         $regex = $this->trueAnswerRegex;
 
+<<<<<<< HEAD
         return function ($answer) use ($default, $regex) {
+=======
+        return static function ($answer) use ($default, $regex) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (\is_bool($answer)) {
                 return $answer;
             }

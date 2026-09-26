@@ -48,10 +48,17 @@ class AddConsoleCommandPass implements CompilerPassInterface
                 $aliases = $tags[0]['command'];
             } else {
                 if (!$r = $container->getReflectionClass($class)) {
+<<<<<<< HEAD
                     throw new InvalidArgumentException(sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
                 }
                 if (!$r->isSubclassOf(Command::class)) {
                     throw new InvalidArgumentException(sprintf('The service "%s" tagged "%s" must be a subclass of "%s".', $id, 'console.command', Command::class));
+=======
+                    throw new InvalidArgumentException(\sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
+                }
+                if (!$r->isSubclassOf(Command::class)) {
+                    throw new InvalidArgumentException(\sprintf('The service "%s" tagged "%s" must be a subclass of "%s".', $id, 'console.command', Command::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
                 $aliases = str_replace('%', '%%', $class::getDefaultName() ?? '');
             }
@@ -105,10 +112,17 @@ class AddConsoleCommandPass implements CompilerPassInterface
 
             if (!$description) {
                 if (!$r = $container->getReflectionClass($class)) {
+<<<<<<< HEAD
                     throw new InvalidArgumentException(sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
                 }
                 if (!$r->isSubclassOf(Command::class)) {
                     throw new InvalidArgumentException(sprintf('The service "%s" tagged "%s" must be a subclass of "%s".', $id, 'console.command', Command::class));
+=======
+                    throw new InvalidArgumentException(\sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
+                }
+                if (!$r->isSubclassOf(Command::class)) {
+                    throw new InvalidArgumentException(\sprintf('The service "%s" tagged "%s" must be a subclass of "%s".', $id, 'console.command', Command::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
                 $description = str_replace('%', '%%', $class::getDefaultDescription() ?? '');
             }

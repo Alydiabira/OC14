@@ -11,10 +11,18 @@ namespace Gedmo\References;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\EventArgs;
+<<<<<<< HEAD
+=======
+use Doctrine\Persistence\Event\LifecycleEventArgs;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\Persistence\Event\LoadClassMetadataEventArgs;
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\ObjectManager;
 use Gedmo\Mapping\MappedEventSubscriber;
+<<<<<<< HEAD
+=======
+use Gedmo\References\Mapping\Event\ReferencesAdapter;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Listener for loading and persisting cross database references.
@@ -38,7 +46,11 @@ use Gedmo\Mapping\MappedEventSubscriber;
  *   useObjectClass?: class-string,
  * }
  *
+<<<<<<< HEAD
  * @phpstan-method ReferencesConfiguration getConfiguration(ObjectManager $objectManager, $class)
+=======
+ * @phpstan-extends MappedEventSubscriber<ReferencesConfiguration, ReferencesAdapter>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @final since gedmo/doctrine-extensions 3.11
  */
@@ -74,6 +86,13 @@ class ReferencesListener extends MappedEventSubscriber
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * @param LifecycleEventArgs $eventArgs
+     *
+     * @phpstan-param LifecycleEventArgs<ObjectManager> $eventArgs
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function postLoad(EventArgs $eventArgs)
@@ -87,7 +106,15 @@ class ReferencesListener extends MappedEventSubscriber
         if (isset($config['referenceOne'])) {
             foreach ($config['referenceOne'] as $mapping) {
                 $property = $meta->reflClass->getProperty($mapping['field']);
+<<<<<<< HEAD
                 $property->setAccessible(true);
+=======
+
+                if (PHP_VERSION_ID < 80100) {
+                    $property->setAccessible(true);
+                }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if (isset($mapping['identifier'])) {
                     $referencedObjectId = $meta->getFieldValue($object, $mapping['identifier']);
                     if (null !== $referencedObjectId) {
@@ -107,7 +134,15 @@ class ReferencesListener extends MappedEventSubscriber
         if (isset($config['referenceMany'])) {
             foreach ($config['referenceMany'] as $mapping) {
                 $property = $meta->reflClass->getProperty($mapping['field']);
+<<<<<<< HEAD
                 $property->setAccessible(true);
+=======
+
+                if (PHP_VERSION_ID < 80100) {
+                    $property->setAccessible(true);
+                }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if (isset($mapping['mappedBy'])) {
                     $id = $ea->extractIdentifier($om, $object);
                     $manager = $this->getManager($mapping['type']);
@@ -120,6 +155,7 @@ class ReferencesListener extends MappedEventSubscriber
                         $property->setValue(
                             $object,
                             new LazyCollection(
+<<<<<<< HEAD
                                 static function () use ($id, &$manager, $class, $identifier) {
                                     $results = $manager
                                         ->getRepository($class)
@@ -129,6 +165,14 @@ class ReferencesListener extends MappedEventSubscriber
 
                                     return new ArrayCollection(is_array($results) ? $results : $results->toArray());
                                 }
+=======
+                                static fn () => new ArrayCollection(
+                                    $manager->getRepository($class)
+                                        ->findBy([
+                                            $identifier => $id,
+                                        ])
+                                )
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                             )
                         );
                     }
@@ -140,6 +184,13 @@ class ReferencesListener extends MappedEventSubscriber
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * @param LifecycleEventArgs $eventArgs
+     *
+     * @phpstan-param LifecycleEventArgs<ObjectManager> $eventArgs
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function prePersist(EventArgs $eventArgs)
@@ -148,6 +199,13 @@ class ReferencesListener extends MappedEventSubscriber
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * @param LifecycleEventArgs $eventArgs
+     *
+     * @phpstan-param LifecycleEventArgs<ObjectManager> $eventArgs
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function preUpdate(EventArgs $eventArgs)
@@ -190,6 +248,13 @@ class ReferencesListener extends MappedEventSubscriber
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * @param LifecycleEventArgs $eventArgs
+     *
+     * @phpstan-param LifecycleEventArgs<ObjectManager> $eventArgs
+     *
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function updateManyEmbedReferences(EventArgs $eventArgs)
@@ -203,7 +268,14 @@ class ReferencesListener extends MappedEventSubscriber
         if (isset($config['referenceManyEmbed'])) {
             foreach ($config['referenceManyEmbed'] as $mapping) {
                 $property = $meta->reflClass->getProperty($mapping['field']);
+<<<<<<< HEAD
                 $property->setAccessible(true);
+=======
+
+                if (PHP_VERSION_ID < 80100) {
+                    $property->setAccessible(true);
+                }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 $id = $ea->extractIdentifier($om, $object);
                 $manager = $this->getManager('document');
@@ -217,6 +289,7 @@ class ReferencesListener extends MappedEventSubscriber
                 $property->setValue(
                     $object,
                     new LazyCollection(
+<<<<<<< HEAD
                         static function () use ($id, &$manager, $class, $identifier) {
                             $results = $manager
                                 ->getRepository($class)
@@ -226,6 +299,14 @@ class ReferencesListener extends MappedEventSubscriber
 
                             return new ArrayCollection(is_array($results) ? $results : $results->toArray());
                         }
+=======
+                        static fn () => new ArrayCollection(
+                            $manager->getRepository($class)
+                                ->findBy([
+                                    $identifier => $id,
+                                ])
+                        )
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     )
                 );
             }
@@ -237,6 +318,14 @@ class ReferencesListener extends MappedEventSubscriber
         return __NAMESPACE__;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @param LifecycleEventArgs $eventArgs
+     *
+     * @phpstan-param LifecycleEventArgs<ObjectManager> $eventArgs
+     */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private function updateReferences(EventArgs $eventArgs): void
     {
         $ea = $this->getEventAdapter($eventArgs);
@@ -249,7 +338,15 @@ class ReferencesListener extends MappedEventSubscriber
             foreach ($config['referenceOne'] as $mapping) {
                 if (isset($mapping['identifier'])) {
                     $property = $meta->reflClass->getProperty($mapping['field']);
+<<<<<<< HEAD
                     $property->setAccessible(true);
+=======
+
+                    if (PHP_VERSION_ID < 80100) {
+                        $property->setAccessible(true);
+                    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $referencedObject = $property->getValue($object);
 
                     if (is_object($referencedObject)) {

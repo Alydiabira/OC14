@@ -124,12 +124,20 @@ final class PropertyMappingFactory
     /**
      * Returns the className of the given object.
      *
+<<<<<<< HEAD
      * @param object|mixed $object    The object to inspect
+=======
+     * @param object|array $object    The object to inspect
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @param string|null  $className User specified className
      *
      * @throws \RuntimeException
      */
+<<<<<<< HEAD
     private function getClassName($object, ?string $className = null): string
+=======
+    private function getClassName(object|array $object, ?string $className = null): string
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if (null !== $className) {
             return $className;

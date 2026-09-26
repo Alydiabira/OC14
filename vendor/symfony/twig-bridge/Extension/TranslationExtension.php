@@ -47,10 +47,17 @@ final class TranslationExtension extends AbstractExtension
     {
         if (null === $this->translator) {
             if (!interface_exists(TranslatorInterface::class)) {
+<<<<<<< HEAD
                 throw new \LogicException(sprintf('You cannot use the "%s" if the Translation Contracts are not available. Try running "composer require symfony/translation".', __CLASS__));
             }
 
             $this->translator = new class() implements TranslatorInterface {
+=======
+                throw new \LogicException(\sprintf('You cannot use the "%s" if the Translation Contracts are not available. Try running "composer require symfony/translation".', __CLASS__));
+            }
+
+            $this->translator = new class implements TranslatorInterface {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 use TranslatorTrait;
             };
         }
@@ -100,7 +107,11 @@ final class TranslationExtension extends AbstractExtension
     {
         if ($message instanceof TranslatableInterface) {
             if ([] !== $arguments && !\is_string($arguments)) {
+<<<<<<< HEAD
                 throw new \TypeError(sprintf('Argument 2 passed to "%s()" must be a locale passed as a string when the message is a "%s", "%s" given.', __METHOD__, TranslatableInterface::class, get_debug_type($arguments)));
+=======
+                throw new \TypeError(\sprintf('Argument 2 passed to "%s()" must be a locale passed as a string when the message is a "%s", "%s" given.', __METHOD__, TranslatableInterface::class, get_debug_type($arguments)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if ($message instanceof TranslatableMessage && '' === $message->getMessage()) {
@@ -111,7 +122,11 @@ final class TranslationExtension extends AbstractExtension
         }
 
         if (!\is_array($arguments)) {
+<<<<<<< HEAD
             throw new \TypeError(sprintf('Unless the message is a "%s", argument 2 passed to "%s()" must be an array of parameters, "%s" given.', TranslatableInterface::class, __METHOD__, get_debug_type($arguments)));
+=======
+            throw new \TypeError(\sprintf('Unless the message is a "%s", argument 2 passed to "%s()" must be an array of parameters, "%s" given.', TranslatableInterface::class, __METHOD__, get_debug_type($arguments)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ('' === $message = (string) $message) {
@@ -128,7 +143,11 @@ final class TranslationExtension extends AbstractExtension
     public function createTranslatable(string $message, array $parameters = [], ?string $domain = null): TranslatableMessage
     {
         if (!class_exists(TranslatableMessage::class)) {
+<<<<<<< HEAD
             throw new \LogicException(sprintf('You cannot use the "%s" as the Translation Component is not installed. Try running "composer require symfony/translation".', __CLASS__));
+=======
+            throw new \LogicException(\sprintf('You cannot use the "%s" as the Translation Component is not installed. Try running "composer require symfony/translation".', __CLASS__));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return new TranslatableMessage($message, $parameters, $domain);

@@ -9,14 +9,18 @@
 
 namespace Gedmo\Mapping\Driver;
 
+<<<<<<< HEAD
 use Doctrine\Common\Annotations\Reader;
 use Gedmo\Mapping\Driver;
 
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /**
  * Annotation driver interface, provides method
  * to set custom annotation reader.
  *
  * @author Gediminas Morkevicius <gediminas.morkevicius@gmail.com>
+<<<<<<< HEAD
  */
 interface AnnotationDriverInterface extends Driver
 {
@@ -38,4 +42,11 @@ interface AnnotationDriverInterface extends Driver
      * @note Providing any object is deprecated, as of 4.0 a `Doctrine\Common\Annotations\Reader` or `Gedmo\Mapping\Driver\AttributeReader` will be required
      */
     public function setAnnotationReader($reader);
+=======
+ *
+ * @deprecated since gedmo/doctrine-extensions 3.16, will be removed in version 4.0.
+ */
+interface AnnotationDriverInterface extends AttributeDriverInterface
+{
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

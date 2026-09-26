@@ -54,6 +54,7 @@ class LintCommand extends Command
     protected function configure()
     {
         $this
+<<<<<<< HEAD
             ->addOption('format', null, InputOption::VALUE_REQUIRED, sprintf('The output format ("%s")', implode('", "', $this->getAvailableFormatOptions())))
             ->addOption('show-deprecations', null, InputOption::VALUE_NONE, 'Show deprecations as errors')
             ->addArgument('filename', InputArgument::IS_ARRAY, 'A file, a directory or "-" for reading from STDIN')
@@ -75,6 +76,29 @@ Or of a whole directory:
   <info>php %command.full_name% dirname --format=json</info>
 
 EOF
+=======
+            ->addOption('format', null, InputOption::VALUE_REQUIRED, \sprintf('The output format ("%s")', implode('", "', $this->getAvailableFormatOptions())))
+            ->addOption('show-deprecations', null, InputOption::VALUE_NONE, 'Show deprecations as errors')
+            ->addArgument('filename', InputArgument::IS_ARRAY, 'A file, a directory or "-" for reading from STDIN')
+            ->setHelp(<<<'EOF'
+                The <info>%command.name%</info> command lints a template and outputs to STDOUT
+                the first encountered syntax error.
+
+                You can validate the syntax of contents passed from STDIN:
+
+                  <info>cat filename | php %command.full_name% -</info>
+
+                Or the syntax of a file:
+
+                  <info>php %command.full_name% filename</info>
+
+                Or of a whole directory:
+
+                  <info>php %command.full_name% dirname</info>
+                  <info>php %command.full_name% dirname --format=json</info>
+
+                EOF
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -151,7 +175,11 @@ EOF
             return Finder::create()->files()->in($filename)->name($this->namePatterns);
         }
 
+<<<<<<< HEAD
         throw new RuntimeException(sprintf('File or directory "%s" is not readable.', $filename));
+=======
+        throw new RuntimeException(\sprintf('File or directory "%s" is not readable.', $filename));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function validate(string $template, string $file): array
@@ -178,7 +206,11 @@ EOF
             'txt' => $this->displayTxt($output, $io, $files),
             'json' => $this->displayJson($output, $files),
             'github' => $this->displayTxt($output, $io, $files, true),
+<<<<<<< HEAD
             default => throw new InvalidArgumentException(sprintf('Supported formats are "%s".', implode('", "', $this->getAvailableFormatOptions()))),
+=======
+            default => throw new InvalidArgumentException(\sprintf('Supported formats are "%s".', implode('", "', $this->getAvailableFormatOptions()))),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         };
     }
 
@@ -189,7 +221,11 @@ EOF
 
         foreach ($filesInfo as $info) {
             if ($info['valid'] && $output->isVerbose()) {
+<<<<<<< HEAD
                 $io->comment('<info>OK</info>'.($info['file'] ? sprintf(' in %s', $info['file']) : ''));
+=======
+                $io->comment('<info>OK</info>'.($info['file'] ? \sprintf(' in %s', $info['file']) : ''));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } elseif (!$info['valid']) {
                 ++$errors;
                 $this->renderException($io, $info['template'], $info['exception'], $info['file'], $githubReporter);
@@ -197,9 +233,15 @@ EOF
         }
 
         if (0 === $errors) {
+<<<<<<< HEAD
             $io->success(sprintf('All %d Twig files contain valid syntax.', \count($filesInfo)));
         } else {
             $io->warning(sprintf('%d Twig files have valid syntax and %d contain errors.', \count($filesInfo) - $errors, $errors));
+=======
+            $io->success(\sprintf('All %d Twig files contain valid syntax.', \count($filesInfo)));
+        } else {
+            $io->warning(\sprintf('%d Twig files have valid syntax and %d contain errors.', \count($filesInfo) - $errors, $errors));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return min($errors, 1);
@@ -209,7 +251,11 @@ EOF
     {
         $errors = 0;
 
+<<<<<<< HEAD
         array_walk($filesInfo, function (&$v) use (&$errors) {
+=======
+        array_walk($filesInfo, static function (&$v) use (&$errors) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $v['file'] = (string) $v['file'];
             unset($v['template']);
             if (!$v['valid']) {
@@ -231,28 +277,46 @@ EOF
         $githubReporter?->error($exception->getRawMessage(), $file, $line <= 0 ? null : $line);
 
         if ($file) {
+<<<<<<< HEAD
             $output->text(sprintf('<error> ERROR </error> in %s (line %s)', $file, $line));
         } else {
             $output->text(sprintf('<error> ERROR </error> (line %s)', $line));
+=======
+            $output->text(\sprintf('<error> ERROR </error> in %s (line %s)', $file, $line));
+        } else {
+            $output->text(\sprintf('<error> ERROR </error> (line %s)', $line));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         // If the line is not known (this might happen for deprecations if we fail at detecting the line for instance),
         // we render the message without context, to ensure the message is displayed.
         if ($line <= 0) {
+<<<<<<< HEAD
             $output->text(sprintf('<error> >> %s</error> ', $exception->getRawMessage()));
+=======
+            $output->text(\sprintf('<error> >> %s</error> ', $exception->getRawMessage()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             return;
         }
 
         foreach ($this->getContext($template, $line) as $lineNumber => $code) {
+<<<<<<< HEAD
             $output->text(sprintf(
+=======
+            $output->text(\sprintf(
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 '%s %-6s %s',
                 $lineNumber === $line ? '<error> >> </error>' : '    ',
                 $lineNumber,
                 $code
             ));
             if ($lineNumber === $line) {
+<<<<<<< HEAD
                 $output->text(sprintf('<error> >> %s</error> ', $exception->getRawMessage()));
+=======
+                $output->text(\sprintf('<error> >> %s</error> ', $exception->getRawMessage()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
     }

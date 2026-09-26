@@ -5,12 +5,15 @@ use DOMDocument;
 
 class XMLSerializer {
 
+<<<<<<< HEAD
     /** @var \XMLWriter */
     private $writer;
 
     /** @var Token */
     private $previousToken;
 
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /** @var NamespaceUri */
     private $xmlns;
 
@@ -35,6 +38,7 @@ class XMLSerializer {
     }
 
     public function toXML(TokenCollection $tokens): string {
+<<<<<<< HEAD
         $this->writer = new \XMLWriter();
         $this->writer->openMemory();
         $this->writer->setIndent(true);
@@ -75,5 +79,48 @@ class XMLSerializer {
             $this->writer->writeRaw(\htmlspecialchars($token->getValue(), \ENT_NOQUOTES | \ENT_DISALLOWED | \ENT_XML1));
             $this->writer->endElement();
         }
+=======
+        $writer = new \XMLWriter();
+        $writer->openMemory();
+        $writer->setIndent(true);
+        $writer->startDocument();
+        $writer->startElement('source');
+        $writer->writeAttribute('xmlns', $this->xmlns->asString());
+
+        if (\count($tokens) > 0) {
+            $writer->startElement('line');
+            $writer->writeAttribute('no', '1');
+
+            $iterator = $tokens->getIterator();
+            $previousToken = $iterator->current();
+            $previousLine = $previousToken->getLine();
+
+            foreach ($iterator as $token) {
+                $line = $token->getLine();
+                if ($previousLine < $line) {
+                    $writer->endElement();
+
+                    $writer->startElement('line');
+                    $writer->writeAttribute('no', (string)$line);
+                    $previousLine = $line;
+                }
+
+                $value = $token->getValue();
+                if ($value !== '') {
+                    $writer->startElement('token');
+                    $writer->writeAttribute('name', $token->getName());
+                    $writer->writeRaw(\htmlspecialchars($value, \ENT_NOQUOTES | \ENT_DISALLOWED | \ENT_XML1));
+                    $writer->endElement();
+                }
+            }
+
+            $writer->endElement();
+        }
+
+        $writer->endElement();
+        $writer->endDocument();
+
+        return $writer->outputMemory();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

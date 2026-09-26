@@ -21,6 +21,11 @@ class Param extends NodeAbstract {
     public int $flags;
     /** @var AttributeGroup[] PHP attribute groups */
     public array $attrGroups;
+<<<<<<< HEAD
+=======
+    /** @var PropertyHook[] Property hooks for promoted properties */
+    public array $hooks;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Constructs a parameter node.
@@ -33,13 +38,22 @@ class Param extends NodeAbstract {
      * @param array<string, mixed> $attributes Additional attributes
      * @param int $flags Optional visibility flags
      * @param list<AttributeGroup> $attrGroups PHP attribute groups
+<<<<<<< HEAD
+=======
+     * @param PropertyHook[] $hooks Property hooks for promoted properties
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct(
         Expr $var, ?Expr $default = null, ?Node $type = null,
         bool $byRef = false, bool $variadic = false,
         array $attributes = [],
         int $flags = 0,
+<<<<<<< HEAD
         array $attrGroups = []
+=======
+        array $attrGroups = [],
+        array $hooks = []
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ) {
         $this->attributes = $attributes;
         $this->type = $type;
@@ -49,10 +63,18 @@ class Param extends NodeAbstract {
         $this->default = $default;
         $this->flags = $flags;
         $this->attrGroups = $attrGroups;
+<<<<<<< HEAD
     }
 
     public function getSubNodeNames(): array {
         return ['attrGroups', 'flags', 'type', 'byRef', 'variadic', 'var', 'default'];
+=======
+        $this->hooks = $hooks;
+    }
+
+    public function getSubNodeNames(): array {
+        return ['attrGroups', 'flags', 'type', 'byRef', 'variadic', 'var', 'default', 'hooks'];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getType(): string {
@@ -63,11 +85,32 @@ class Param extends NodeAbstract {
      * Whether this parameter uses constructor property promotion.
      */
     public function isPromoted(): bool {
+<<<<<<< HEAD
         return $this->flags !== 0;
     }
 
     public function isPublic(): bool {
         return (bool) ($this->flags & Modifiers::PUBLIC);
+=======
+        return $this->flags !== 0 || $this->hooks !== [];
+    }
+
+    public function isFinal(): bool {
+        return (bool) ($this->flags & Modifiers::FINAL);
+    }
+
+    public function isPublic(): bool {
+        $public = (bool) ($this->flags & Modifiers::PUBLIC);
+        if ($public) {
+            return true;
+        }
+
+        if (!$this->isPromoted()) {
+            return false;
+        }
+
+        return ($this->flags & Modifiers::VISIBILITY_MASK) === 0;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function isProtected(): bool {
@@ -81,4 +124,28 @@ class Param extends NodeAbstract {
     public function isReadonly(): bool {
         return (bool) ($this->flags & Modifiers::READONLY);
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * Whether the promoted property has explicit public(set) visibility.
+     */
+    public function isPublicSet(): bool {
+        return (bool) ($this->flags & Modifiers::PUBLIC_SET);
+    }
+
+    /**
+     * Whether the promoted property has explicit protected(set) visibility.
+     */
+    public function isProtectedSet(): bool {
+        return (bool) ($this->flags & Modifiers::PROTECTED_SET);
+    }
+
+    /**
+     * Whether the promoted property has explicit private(set) visibility.
+     */
+    public function isPrivateSet(): bool {
+        return (bool) ($this->flags & Modifiers::PRIVATE_SET);
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

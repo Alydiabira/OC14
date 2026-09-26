@@ -1,5 +1,10 @@
 <?php
 
+<<<<<<< HEAD
+=======
+declare(strict_types=1);
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 namespace Doctrine\Bundle\DoctrineBundle\Mapping;
 
 use Doctrine\ORM\Mapping\ClassMetadata as OrmClassMetadata;
@@ -9,6 +14,7 @@ use Psr\Container\ContainerInterface;
 
 class MappingDriver implements MappingDriverInterface
 {
+<<<<<<< HEAD
     private MappingDriverInterface $driver;
     private ContainerInterface $idGeneratorLocator;
 
@@ -16,12 +22,22 @@ class MappingDriver implements MappingDriverInterface
     {
         $this->driver             = $driver;
         $this->idGeneratorLocator = $idGeneratorLocator;
+=======
+    public function __construct(
+        private readonly MappingDriverInterface $driver,
+        private readonly ContainerInterface $idGeneratorLocator,
+    ) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
      * {@inheritDoc}
      */
+<<<<<<< HEAD
     public function getAllClassNames()
+=======
+    public function getAllClassNames(): array
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return $this->driver->getAllClassNames();
     }

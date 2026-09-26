@@ -123,20 +123,33 @@ class DateIntervalToArrayTransformer implements DataTransformerInterface
                 $emptyFields[] = $field;
             }
         }
+<<<<<<< HEAD
         if (\count($emptyFields) > 0) {
             throw new TransformationFailedException(sprintf('The fields "%s" should not be empty.', implode('", "', $emptyFields)));
+=======
+        if ($emptyFields) {
+            throw new TransformationFailedException(\sprintf('The fields "%s" should not be empty.', implode('", "', $emptyFields)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         if (isset($value['invert']) && !\is_bool($value['invert'])) {
             throw new TransformationFailedException('The value of "invert" must be boolean.');
         }
         foreach (self::AVAILABLE_FIELDS as $field => $char) {
             if ('invert' !== $field && isset($value[$field]) && !ctype_digit((string) $value[$field])) {
+<<<<<<< HEAD
                 throw new TransformationFailedException(sprintf('This amount of "%s" is invalid.', $field));
+=======
+                throw new TransformationFailedException(\sprintf('This amount of "%s" is invalid.', $field));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
         try {
             if (!empty($value['weeks'])) {
+<<<<<<< HEAD
                 $interval = sprintf(
+=======
+                $interval = \sprintf(
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     'P%sY%sM%sWT%sH%sM%sS',
                     empty($value['years']) ? '0' : $value['years'],
                     empty($value['months']) ? '0' : $value['months'],
@@ -146,7 +159,11 @@ class DateIntervalToArrayTransformer implements DataTransformerInterface
                     empty($value['seconds']) ? '0' : $value['seconds']
                 );
             } else {
+<<<<<<< HEAD
                 $interval = sprintf(
+=======
+                $interval = \sprintf(
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     'P%sY%sM%sDT%sH%sM%sS',
                     empty($value['years']) ? '0' : $value['years'],
                     empty($value['months']) ? '0' : $value['months'],

@@ -35,7 +35,11 @@ class SingleTablePersister extends AbstractEntityInheritancePersister
     protected function getSelectColumnsSQL(): string
     {
         $columnList = [];
+<<<<<<< HEAD
         if ($this->currentPersisterContext->selectColumnListSql !== null) {
+=======
+        if ($this->currentPersisterContext->selectColumnListSql !== null && $this->isFilterHashUpToDate()) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return $this->currentPersisterContext->selectColumnListSql;
         }
 
@@ -89,6 +93,10 @@ class SingleTablePersister extends AbstractEntityInheritancePersister
         }
 
         $this->currentPersisterContext->selectColumnListSql = implode(', ', $columnList);
+<<<<<<< HEAD
+=======
+        $this->updateFilterHash();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this->currentPersisterContext->selectColumnListSql;
     }

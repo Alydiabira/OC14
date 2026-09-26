@@ -99,7 +99,11 @@ final class Extensions
     public static function getFilter(string $name): array
     {
         foreach (self::EXTENSIONS as $extension) {
+<<<<<<< HEAD
             if (\in_array($name, $extension['filters'])) {
+=======
+            if (\in_array($name, $extension['filters'], true)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 return [$extension['class_name'], $extension['package']];
             }
         }
@@ -110,7 +114,11 @@ final class Extensions
     public static function getFunction(string $name): array
     {
         foreach (self::EXTENSIONS as $extension) {
+<<<<<<< HEAD
             if (\in_array($name, $extension['functions'])) {
+=======
+            if (\in_array($name, $extension['functions'], true)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 return [$extension['class_name'], $extension['package']];
             }
         }
@@ -121,7 +129,11 @@ final class Extensions
     public static function getTag(string $name): array
     {
         foreach (self::EXTENSIONS as $extension) {
+<<<<<<< HEAD
             if (\in_array($name, $extension['tags'])) {
+=======
+            if (\in_array($name, $extension['tags'], true)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 return [$extension['class_name'], $extension['package']];
             }
         }

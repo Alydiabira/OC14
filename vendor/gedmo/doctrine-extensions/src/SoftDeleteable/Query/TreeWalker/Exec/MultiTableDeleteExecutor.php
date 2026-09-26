@@ -26,13 +26,22 @@ use Doctrine\ORM\Query\Exec\MultiTableDeleteExecutor as BaseMultiTableDeleteExec
 class MultiTableDeleteExecutor extends BaseMultiTableDeleteExecutor
 {
     /**
+<<<<<<< HEAD
      * @param array<string, mixed> $config
+=======
+     * @param ClassMetadata<object> $meta
+     * @param array<string, mixed>  $config
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct(Node $AST, $sqlWalker, ClassMetadata $meta, AbstractPlatform $platform, array $config)
     {
         parent::__construct($AST, $sqlWalker);
 
+<<<<<<< HEAD
         $sqlStatements = $this->_sqlStatements;
+=======
+        $sqlStatements = $this->getSqlStatements();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $quoteStrategy = $sqlWalker->getEntityManager()->getConfiguration()->getQuoteStrategy();
 
@@ -53,6 +62,15 @@ class MultiTableDeleteExecutor extends BaseMultiTableDeleteExecutor
             }
         }
 
+<<<<<<< HEAD
         $this->_sqlStatements = $sqlStatements;
+=======
+        // @todo: Once the minimum supported ORM version is 2.17, this can always write to the `$this->sqlStatements` property
+        if (property_exists($this, 'sqlStatements')) {
+            $this->sqlStatements = $sqlStatements;
+        } else {
+            $this->_sqlStatements = $sqlStatements;
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

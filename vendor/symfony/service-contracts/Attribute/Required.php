@@ -22,4 +22,14 @@ namespace Symfony\Contracts\Service\Attribute;
 #[\Attribute(\Attribute::TARGET_METHOD | \Attribute::TARGET_PROPERTY)]
 final class Required
 {
+<<<<<<< HEAD
+=======
+    /**
+     * @param int $priority The priority of the method call when the class declares several required methods; the higher the sooner it's called
+     */
+    public function __construct(
+        public int $priority = 0,
+    ) {
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

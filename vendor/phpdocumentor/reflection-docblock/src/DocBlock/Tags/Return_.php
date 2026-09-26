@@ -60,6 +60,7 @@ final class Return_ extends TagWithType implements Factory\StaticMethod
 
         return new static($type, $description);
     }
+<<<<<<< HEAD
 
     public function __toString(): string
     {
@@ -73,4 +74,6 @@ final class Return_ extends TagWithType implements Factory\StaticMethod
 
         return $type . ($description !== '' ? ' ' . $description : '');
     }
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

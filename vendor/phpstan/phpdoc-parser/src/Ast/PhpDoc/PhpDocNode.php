@@ -131,6 +131,21 @@ class PhpDocNode implements Node
 		);
 	}
 
+<<<<<<< HEAD
+=======
+	/**
+	 * @return PureUnlessCallableIsImpureTagValueNode[]
+	 */
+	public function getPureUnlessCallableIsImpureTagValues(string $tagName = '@pure-unless-callable-is-impure'): array
+	{
+		return array_filter(
+			array_column($this->getTagsByName($tagName), 'value'),
+			static function (PhpDocTagValueNode $value): bool {
+				return $value instanceof PureUnlessCallableIsImpureTagValueNode;
+			}
+		);
+	}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 	/**
 	 * @return TemplateTagValueNode[]

@@ -26,17 +26,28 @@ class DateComparator extends Comparator
     public function __construct(string $test)
     {
         if (!preg_match('#^\s*(==|!=|[<>]=?|after|since|before|until)?\s*(.+?)\s*$#i', $test, $matches)) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('Don\'t understand "%s" as a date test.', $test));
+=======
+            throw new \InvalidArgumentException(\sprintf('Don\'t understand "%s" as a date test.', $test));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         try {
             $date = new \DateTimeImmutable($matches[2]);
             $target = $date->format('U');
         } catch (\Exception) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('"%s" is not a valid date.', $matches[2]));
         }
 
         $operator = $matches[1] ?? '==';
+=======
+            throw new \InvalidArgumentException(\sprintf('"%s" is not a valid date.', $matches[2]));
+        }
+
+        $operator = $matches[1] ?: '==';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ('since' === $operator || 'after' === $operator) {
             $operator = '>';
         }

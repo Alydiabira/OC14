@@ -57,11 +57,19 @@ final class MetadataReader
     /**
      * Search for all uploadable classes.
      *
+<<<<<<< HEAD
      * @return array|null A list of uploadable class names
      *
      * @throws \RuntimeException
      */
     public function getUploadableClasses(): ?array
+=======
+     * @return array A list of uploadable class names
+     *
+     * @throws \RuntimeException
+     */
+    public function getUploadableClasses(): array
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return $this->reader->getAllClassNames();
     }
@@ -105,7 +113,11 @@ final class MetadataReader
      *
      * @throws MappingNotFoundException
      */
+<<<<<<< HEAD
     public function getUploadableField(string $class, string $field)
+=======
+    public function getUploadableField(string $class, string $field): mixed
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $fieldsMetadata = $this->getUploadableFields($class);
 

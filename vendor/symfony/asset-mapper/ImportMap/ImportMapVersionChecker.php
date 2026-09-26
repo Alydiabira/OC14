@@ -21,14 +21,22 @@ class ImportMapVersionChecker
 {
     private const PACKAGE_METADATA_PATTERN = 'https://registry.npmjs.org/%package%/%version%';
 
+<<<<<<< HEAD
     private HttpClientInterface $httpClient;
+=======
+    private readonly HttpClientInterface $httpClient;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     public function __construct(
         private ImportMapConfigReader $importMapConfigReader,
         private RemotePackageDownloader $packageDownloader,
         ?HttpClientInterface $httpClient = null,
     ) {
+<<<<<<< HEAD
         $this->httpClient = $httpClient ?? HttpClient::create();
+=======
+        $this->httpClient = new BatchHttpClient($httpClient ?? HttpClient::create());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -86,7 +94,18 @@ class ImportMapVersionChecker
                     continue;
                 }
 
+<<<<<<< HEAD
                 $dependencyPackageName = $entries->get($dependencyName)->getPackageName();
+=======
+                $dependencyEntry = $entries->get($dependencyName);
+
+                // local entries have no version to check and no package name to resolve
+                if (!$dependencyEntry->isRemotePackage()) {
+                    continue;
+                }
+
+                $dependencyPackageName = $dependencyEntry->getPackageName();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 if (!isset($packageDependencies[$dependencyPackageName])) {
                     continue;
@@ -94,8 +113,13 @@ class ImportMapVersionChecker
 
                 $dependencyVersionConstraint = $packageDependencies[$dependencyPackageName];
 
+<<<<<<< HEAD
                 if (!$this->isVersionSatisfied($dependencyVersionConstraint, $entries->get($dependencyName)->version)) {
                     $problems[] = new PackageVersionProblem($packageName, $dependencyPackageName, $dependencyVersionConstraint, $entries->get($dependencyName)->version);
+=======
+                if (!$this->isVersionSatisfied($dependencyVersionConstraint, $dependencyEntry->version)) {
+                    $problems[] = new PackageVersionProblem($packageName, $dependencyPackageName, $dependencyVersionConstraint, $dependencyEntry->version);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
         }
@@ -106,7 +130,11 @@ class ImportMapVersionChecker
             $response = $e->getResponse();
             $packageNames = implode('", "', array_column($errors, 0));
 
+<<<<<<< HEAD
             throw new RuntimeException(sprintf('Error %d finding metadata for package "%s". Response: ', $response->getStatusCode(), $packageNames).$response->getContent(false), 0, $e);
+=======
+            throw new RuntimeException(\sprintf('Error %d finding metadata for package "%s". Response: ', $response->getStatusCode(), $packageNames).$response->getContent(false), 0, $e);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $problems;
@@ -137,7 +165,11 @@ class ImportMapVersionChecker
             if (str_contains($segment, '-') && !preg_match('/-(alpha|beta|rc)\./', $segment)) {
                 // This is a range
                 [$start, $end] = explode('-', $segment);
+<<<<<<< HEAD
                 $processedSegments[] = '>='.self::cleanVersionSegment(trim($start)).' <='.self::cleanVersionSegment(trim($end));
+=======
+                $processedSegments[] = self::cleanVersionSegment(trim($start)).' - '.self::cleanVersionSegment(trim($end));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } elseif (preg_match('/^~(\d+\.\d+)$/', $segment, $matches)) {
                 // Handle the tilde when only major.minor specified
                 $baseVersion = $matches[1];

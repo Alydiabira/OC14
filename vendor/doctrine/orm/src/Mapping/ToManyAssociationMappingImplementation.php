@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Doctrine\ORM\Mapping;
 
 use LogicException;
+<<<<<<< HEAD
+=======
+use SortDirection;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 use function sprintf;
 
@@ -22,17 +26,29 @@ trait ToManyAssociationMappingImplementation
     /**
      * A map of field names (of the target entity) to sorting directions
      *
+<<<<<<< HEAD
      * @var array<string, 'asc'|'desc'>
      */
     public array $orderBy = [];
 
     /** @return array<string, 'asc'|'desc'> */
+=======
+     * @var array<string, SortDirection|'asc'|'desc'>
+     */
+    public array $orderBy = [];
+
+    /** @return array<string, SortDirection|'asc'|'desc'> */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     final public function orderBy(): array
     {
         return $this->orderBy;
     }
 
+<<<<<<< HEAD
     /** @psalm-assert-if-true !null $this->indexBy */
+=======
+    /** @phpstan-assert-if-true !null $this->indexBy */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     final public function isIndexed(): bool
     {
         return $this->indexBy !== null;

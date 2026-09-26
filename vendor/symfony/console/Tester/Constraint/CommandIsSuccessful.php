@@ -38,6 +38,10 @@ final class CommandIsSuccessful extends Constraint
             Command::INVALID => 'Command was invalid.',
         ];
 
+<<<<<<< HEAD
         return $mapping[$other] ?? sprintf('Command returned exit status %d.', $other);
+=======
+        return $mapping[$other] ?? \sprintf('Command returned exit status %d.', $other);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

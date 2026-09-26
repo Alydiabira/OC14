@@ -66,7 +66,11 @@ abstract class AbstractRememberMeHandler implements RememberMeHandlerInterface
         }
 
         if (!$user instanceof UserInterface) {
+<<<<<<< HEAD
             throw new \LogicException(sprintf('The UserProviderInterface implementation must return an instance of UserInterface, but returned "%s".', get_debug_type($user)));
+=======
+            throw new \LogicException(\sprintf('The UserProviderInterface implementation must return an instance of UserInterface, but returned "%s".', get_debug_type($user)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->processRememberMe($rememberMeDetails, $user);

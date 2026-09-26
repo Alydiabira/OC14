@@ -22,7 +22,11 @@ class Comparator
     public function __construct(string $target, string $operator = '==')
     {
         if (!\in_array($operator, ['>', '<', '>=', '<=', '==', '!='])) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('Invalid operator "%s".', $operator));
+=======
+            throw new \InvalidArgumentException(\sprintf('Invalid operator "%s".', $operator));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->target = $target;

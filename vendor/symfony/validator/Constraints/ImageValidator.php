@@ -68,7 +68,11 @@ class ImageValidator extends FileValidator
 
         if ($constraint->minWidth) {
             if (!ctype_digit((string) $constraint->minWidth)) {
+<<<<<<< HEAD
                 throw new ConstraintDefinitionException(sprintf('"%s" is not a valid minimum width.', $constraint->minWidth));
+=======
+                throw new ConstraintDefinitionException(\sprintf('"%s" is not a valid minimum width.', $constraint->minWidth));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if ($width < $constraint->minWidth) {
@@ -84,7 +88,11 @@ class ImageValidator extends FileValidator
 
         if ($constraint->maxWidth) {
             if (!ctype_digit((string) $constraint->maxWidth)) {
+<<<<<<< HEAD
                 throw new ConstraintDefinitionException(sprintf('"%s" is not a valid maximum width.', $constraint->maxWidth));
+=======
+                throw new ConstraintDefinitionException(\sprintf('"%s" is not a valid maximum width.', $constraint->maxWidth));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if ($width > $constraint->maxWidth) {
@@ -100,7 +108,11 @@ class ImageValidator extends FileValidator
 
         if ($constraint->minHeight) {
             if (!ctype_digit((string) $constraint->minHeight)) {
+<<<<<<< HEAD
                 throw new ConstraintDefinitionException(sprintf('"%s" is not a valid minimum height.', $constraint->minHeight));
+=======
+                throw new ConstraintDefinitionException(\sprintf('"%s" is not a valid minimum height.', $constraint->minHeight));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if ($height < $constraint->minHeight) {
@@ -116,7 +128,11 @@ class ImageValidator extends FileValidator
 
         if ($constraint->maxHeight) {
             if (!ctype_digit((string) $constraint->maxHeight)) {
+<<<<<<< HEAD
                 throw new ConstraintDefinitionException(sprintf('"%s" is not a valid maximum height.', $constraint->maxHeight));
+=======
+                throw new ConstraintDefinitionException(\sprintf('"%s" is not a valid maximum height.', $constraint->maxHeight));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if ($height > $constraint->maxHeight) {
@@ -132,7 +148,11 @@ class ImageValidator extends FileValidator
 
         if (null !== $constraint->minPixels) {
             if (!ctype_digit((string) $constraint->minPixels)) {
+<<<<<<< HEAD
                 throw new ConstraintDefinitionException(sprintf('"%s" is not a valid minimum amount of pixels.', $constraint->minPixels));
+=======
+                throw new ConstraintDefinitionException(\sprintf('"%s" is not a valid minimum amount of pixels.', $constraint->minPixels));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if ($pixels < $constraint->minPixels) {
@@ -148,7 +168,11 @@ class ImageValidator extends FileValidator
 
         if (null !== $constraint->maxPixels) {
             if (!ctype_digit((string) $constraint->maxPixels)) {
+<<<<<<< HEAD
                 throw new ConstraintDefinitionException(sprintf('"%s" is not a valid maximum amount of pixels.', $constraint->maxPixels));
+=======
+                throw new ConstraintDefinitionException(\sprintf('"%s" is not a valid maximum amount of pixels.', $constraint->maxPixels));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if ($pixels > $constraint->maxPixels) {
@@ -166,7 +190,11 @@ class ImageValidator extends FileValidator
 
         if (null !== $constraint->minRatio) {
             if (!is_numeric((string) $constraint->minRatio)) {
+<<<<<<< HEAD
                 throw new ConstraintDefinitionException(sprintf('"%s" is not a valid minimum ratio.', $constraint->minRatio));
+=======
+                throw new ConstraintDefinitionException(\sprintf('"%s" is not a valid minimum ratio.', $constraint->minRatio));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if ($ratio < round($constraint->minRatio, 2)) {
@@ -180,7 +208,11 @@ class ImageValidator extends FileValidator
 
         if (null !== $constraint->maxRatio) {
             if (!is_numeric((string) $constraint->maxRatio)) {
+<<<<<<< HEAD
                 throw new ConstraintDefinitionException(sprintf('"%s" is not a valid maximum ratio.', $constraint->maxRatio));
+=======
+                throw new ConstraintDefinitionException(\sprintf('"%s" is not a valid maximum ratio.', $constraint->maxRatio));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if ($ratio > round($constraint->maxRatio, 2)) {
@@ -230,8 +262,11 @@ class ImageValidator extends FileValidator
 
                 return;
             }
+<<<<<<< HEAD
 
             imagedestroy($resource);
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

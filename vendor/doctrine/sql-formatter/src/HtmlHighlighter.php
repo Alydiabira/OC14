@@ -10,7 +10,10 @@ use function trim;
 
 use const ENT_COMPAT;
 use const ENT_IGNORE;
+<<<<<<< HEAD
 use const PHP_EOL;
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 final class HtmlHighlighter implements Highlighter
 {
@@ -57,6 +60,10 @@ final class HtmlHighlighter implements Highlighter
         return '<span ' . $attributes . '>' . $value . '</span>';
     }
 
+<<<<<<< HEAD
+=======
+    /** @param Token::TOKEN_TYPE_* $type */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function attributes(int $type): string|null
     {
         if (! isset(self::TOKEN_TYPE_TO_HIGHLIGHT[$type])) {
@@ -70,7 +77,11 @@ final class HtmlHighlighter implements Highlighter
     {
         return sprintf(
             '%s<span %s>%s</span>',
+<<<<<<< HEAD
             PHP_EOL,
+=======
+            "\n",
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->htmlAttributes[self::HIGHLIGHT_ERROR],
             $value,
         );

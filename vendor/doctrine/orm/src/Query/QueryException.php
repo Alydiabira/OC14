@@ -88,9 +88,24 @@ class QueryException extends Exception implements ORMException
         );
     }
 
+<<<<<<< HEAD
     /**
      * @param string[] $assoc
      * @psalm-param array<string, string> $assoc
+=======
+    public static function partialObjectsAreDangerous(): self
+    {
+        return new self(
+            'Loading partial objects is dangerous. Fetch full objects or consider ' .
+            'using a different fetch mode. If you really want partial objects, ' .
+            'set the doctrine.forcePartialLoad query hint to TRUE.',
+        );
+    }
+
+    /**
+     * @param string[] $assoc
+     * @phpstan-param array<string, string> $assoc
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public static function overwritingJoinConditionsNotYetSupported(array $assoc): self
     {

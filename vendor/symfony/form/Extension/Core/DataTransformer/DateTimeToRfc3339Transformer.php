@@ -64,7 +64,11 @@ class DateTimeToRfc3339Transformer extends BaseDateTimeTransformer
         }
 
         if (!preg_match('/^(\d{4})-(\d{2})-(\d{2})T\d{2}:\d{2}(?::\d{2})?(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))$/', $rfc3339, $matches)) {
+<<<<<<< HEAD
             throw new TransformationFailedException(sprintf('The date "%s" is not a valid date.', $rfc3339));
+=======
+            throw new TransformationFailedException(\sprintf('The date "%s" is not a valid date.', $rfc3339));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         try {
@@ -78,7 +82,11 @@ class DateTimeToRfc3339Transformer extends BaseDateTimeTransformer
         }
 
         if (!checkdate($matches[2], $matches[3], $matches[1])) {
+<<<<<<< HEAD
             throw new TransformationFailedException(sprintf('The date "%s-%s-%s" is not a valid date.', $matches[1], $matches[2], $matches[3]));
+=======
+            throw new TransformationFailedException(\sprintf('The date "%s-%s-%s" is not a valid date.', $matches[1], $matches[2], $matches[3]));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $dateTime;

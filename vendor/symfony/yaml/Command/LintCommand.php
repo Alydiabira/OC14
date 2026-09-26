@@ -57,6 +57,7 @@ class LintCommand extends Command
     {
         $this
             ->addArgument('filename', InputArgument::IS_ARRAY, 'A file, a directory or "-" for reading from STDIN')
+<<<<<<< HEAD
             ->addOption('format', null, InputOption::VALUE_REQUIRED, sprintf('The output format ("%s")', implode('", "', $this->getAvailableFormatOptions())))
             ->addOption('exclude', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Path(s) to exclude')
             ->addOption('parse-tags', null, InputOption::VALUE_NEGATABLE, 'Parse custom tags', null)
@@ -82,6 +83,33 @@ You can also exclude one or more specific files:
   <info>php %command.full_name% dirname --exclude="dirname/foo.yaml" --exclude="dirname/bar.yaml"</info>
 
 EOF
+=======
+            ->addOption('format', null, InputOption::VALUE_REQUIRED, \sprintf('The output format ("%s")', implode('", "', $this->getAvailableFormatOptions())))
+            ->addOption('exclude', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Path(s) to exclude')
+            ->addOption('parse-tags', null, InputOption::VALUE_NEGATABLE, 'Parse custom tags', null)
+            ->setHelp(<<<EOF
+                The <info>%command.name%</info> command lints a YAML file and outputs to STDOUT
+                the first encountered syntax error.
+
+                You can validates YAML contents passed from STDIN:
+
+                  <info>cat filename | php %command.full_name% -</info>
+
+                You can also validate the syntax of a file:
+
+                  <info>php %command.full_name% filename</info>
+
+                Or of a whole directory:
+
+                  <info>php %command.full_name% dirname</info>
+                  <info>php %command.full_name% dirname --format=json</info>
+
+                You can also exclude one or more specific files:
+
+                  <info>php %command.full_name% dirname --exclude="dirname/foo.yaml" --exclude="dirname/bar.yaml"</info>
+
+                EOF
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -114,7 +142,11 @@ EOF
         $filesInfo = [];
         foreach ($filenames as $filename) {
             if (!$this->isReadable($filename)) {
+<<<<<<< HEAD
                 throw new RuntimeException(sprintf('File or directory "%s" is not readable.', $filename));
+=======
+                throw new RuntimeException(\sprintf('File or directory "%s" is not readable.', $filename));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             foreach ($this->getFiles($filename) as $file) {
@@ -154,7 +186,11 @@ EOF
             'txt' => $this->displayTxt($io, $files),
             'json' => $this->displayJson($io, $files),
             'github' => $this->displayTxt($io, $files, true),
+<<<<<<< HEAD
             default => throw new InvalidArgumentException(sprintf('Supported formats are "%s".', implode('", "', $this->getAvailableFormatOptions()))),
+=======
+            default => throw new InvalidArgumentException(\sprintf('Supported formats are "%s".', implode('", "', $this->getAvailableFormatOptions()))),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         };
     }
 
@@ -170,11 +206,19 @@ EOF
 
         foreach ($filesInfo as $info) {
             if ($info['valid'] && $this->displayCorrectFiles) {
+<<<<<<< HEAD
                 $io->comment('<info>OK</info>'.($info['file'] ? sprintf(' in %s', $info['file']) : ''));
             } elseif (!$info['valid']) {
                 ++$erroredFiles;
                 $io->text('<error> ERROR </error>'.($info['file'] ? sprintf(' in %s', $info['file']) : ''));
                 $io->text(sprintf('<error> >> %s</error>', $info['message']));
+=======
+                $io->comment('<info>OK</info>'.($info['file'] ? \sprintf(' in %s', $info['file']) : ''));
+            } elseif (!$info['valid']) {
+                ++$erroredFiles;
+                $io->text('<error> ERROR </error>'.($info['file'] ? \sprintf(' in %s', $info['file']) : ''));
+                $io->text(\sprintf('<error> >> %s</error>', $info['message']));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 if (str_contains($info['message'], 'PARSE_CUSTOM_TAGS')) {
                     $suggestTagOption = true;
@@ -187,9 +231,15 @@ EOF
         }
 
         if (0 === $erroredFiles) {
+<<<<<<< HEAD
             $io->success(sprintf('All %d YAML files contain valid syntax.', $countFiles));
         } else {
             $io->warning(sprintf('%d YAML files have valid syntax and %d contain errors.%s', $countFiles - $erroredFiles, $erroredFiles, $suggestTagOption ? ' Use the --parse-tags option if you want parse custom tags.' : ''));
+=======
+            $io->success(\sprintf('All %d YAML files contain valid syntax.', $countFiles));
+        } else {
+            $io->warning(\sprintf('%d YAML files have valid syntax and %d contain errors.%s', $countFiles - $erroredFiles, $erroredFiles, $suggestTagOption ? ' Use the --parse-tags option if you want parse custom tags.' : ''));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return min($erroredFiles, 1);
@@ -199,7 +249,11 @@ EOF
     {
         $errors = 0;
 
+<<<<<<< HEAD
         array_walk($filesInfo, function (&$v) use (&$errors) {
+=======
+        array_walk($filesInfo, static function (&$v) use (&$errors) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $v['file'] = (string) $v['file'];
             if (!$v['valid']) {
                 ++$errors;
@@ -239,7 +293,11 @@ EOF
 
     private function getDirectoryIterator(string $directory): iterable
     {
+<<<<<<< HEAD
         $default = fn ($directory) => new \RecursiveIteratorIterator(
+=======
+        $default = static fn ($directory) => new \RecursiveIteratorIterator(
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             new \RecursiveDirectoryIterator($directory, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::FOLLOW_SYMLINKS),
             \RecursiveIteratorIterator::LEAVES_ONLY
         );

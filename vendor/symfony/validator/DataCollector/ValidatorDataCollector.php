@@ -54,7 +54,11 @@ class ValidatorDataCollector extends DataCollector implements LateDataCollectorI
     {
         $collected = $this->validator->getCollectedData();
         $this->data['calls'] = $this->cloneVar($collected);
+<<<<<<< HEAD
         $this->data['violations_count'] = array_reduce($collected, fn ($previous, $item) => $previous + \count($item['violations']), 0);
+=======
+        $this->data['violations_count'] = array_reduce($collected, static fn ($previous, $item) => $previous + \count($item['violations']), 0);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getCalls(): Data
@@ -75,7 +79,11 @@ class ValidatorDataCollector extends DataCollector implements LateDataCollectorI
     protected function getCasters(): array
     {
         return parent::getCasters() + [
+<<<<<<< HEAD
             \Exception::class => function (\Exception $e, array $a, Stub $s) {
+=======
+            \Exception::class => static function (\Exception $e, array $a, Stub $s) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 foreach (["\0Exception\0previous", "\0Exception\0trace"] as $k) {
                     if (isset($a[$k])) {
                         unset($a[$k]);
@@ -85,7 +93,11 @@ class ValidatorDataCollector extends DataCollector implements LateDataCollectorI
 
                 return $a;
             },
+<<<<<<< HEAD
             FormInterface::class => fn (FormInterface $f, array $a) => [
+=======
+            FormInterface::class => static fn (FormInterface $f, array $a) => [
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 Caster::PREFIX_VIRTUAL.'name' => $f->getName(),
                 Caster::PREFIX_VIRTUAL.'type_class' => new ClassStub($f->getConfig()->getType()->getInnerType()::class),
                 Caster::PREFIX_VIRTUAL.'data' => $f->getData(),

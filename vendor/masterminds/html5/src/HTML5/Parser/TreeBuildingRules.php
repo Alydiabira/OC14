@@ -80,7 +80,10 @@ class TreeBuildingRules
             case 'thead':
             case 'tfoot':
             case 'table': // Spec isn't explicit about this, but it's necessary.
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 return $this->closeIfCurrentMatches($new, $current, array(
                     'thead',
                     'tfoot',

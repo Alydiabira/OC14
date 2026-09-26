@@ -101,7 +101,11 @@ class PasswordHasherListener
         $parent = $this->getTargetForm($form)->getParent();
 
         if (!($user = $parent?->getData()) || !$user instanceof PasswordAuthenticatedUserInterface) {
+<<<<<<< HEAD
             throw new InvalidConfigurationException(sprintf('The "hash_property_path" option only supports "%s" objects, "%s" given.', PasswordAuthenticatedUserInterface::class, get_debug_type($user)));
+=======
+            throw new InvalidConfigurationException(\sprintf('The "hash_property_path" option only supports "%s" objects, "%s" given.', PasswordAuthenticatedUserInterface::class, get_debug_type($user)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $user;

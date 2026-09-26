@@ -18,25 +18,53 @@ use InvalidArgumentException;
 use phpDocumentor\Reflection\PseudoTypes\ArrayShape;
 use phpDocumentor\Reflection\PseudoTypes\ArrayShapeItem;
 use phpDocumentor\Reflection\PseudoTypes\CallableString;
+<<<<<<< HEAD
+=======
+use phpDocumentor\Reflection\PseudoTypes\Conditional;
+use phpDocumentor\Reflection\PseudoTypes\ConditionalForParameter;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use phpDocumentor\Reflection\PseudoTypes\ConstExpression;
 use phpDocumentor\Reflection\PseudoTypes\False_;
 use phpDocumentor\Reflection\PseudoTypes\FloatValue;
 use phpDocumentor\Reflection\PseudoTypes\HtmlEscapedString;
 use phpDocumentor\Reflection\PseudoTypes\IntegerRange;
 use phpDocumentor\Reflection\PseudoTypes\IntegerValue;
+<<<<<<< HEAD
 use phpDocumentor\Reflection\PseudoTypes\List_;
 use phpDocumentor\Reflection\PseudoTypes\LiteralString;
 use phpDocumentor\Reflection\PseudoTypes\LowercaseString;
 use phpDocumentor\Reflection\PseudoTypes\NegativeInteger;
+=======
+use phpDocumentor\Reflection\PseudoTypes\IntMask;
+use phpDocumentor\Reflection\PseudoTypes\IntMaskOf;
+use phpDocumentor\Reflection\PseudoTypes\KeyOf;
+use phpDocumentor\Reflection\PseudoTypes\List_;
+use phpDocumentor\Reflection\PseudoTypes\ListShape;
+use phpDocumentor\Reflection\PseudoTypes\ListShapeItem;
+use phpDocumentor\Reflection\PseudoTypes\LiteralString;
+use phpDocumentor\Reflection\PseudoTypes\LowercaseString;
+use phpDocumentor\Reflection\PseudoTypes\NegativeInteger;
+use phpDocumentor\Reflection\PseudoTypes\NonEmptyArray;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use phpDocumentor\Reflection\PseudoTypes\NonEmptyList;
 use phpDocumentor\Reflection\PseudoTypes\NonEmptyLowercaseString;
 use phpDocumentor\Reflection\PseudoTypes\NonEmptyString;
 use phpDocumentor\Reflection\PseudoTypes\Numeric_;
 use phpDocumentor\Reflection\PseudoTypes\NumericString;
+<<<<<<< HEAD
+=======
+use phpDocumentor\Reflection\PseudoTypes\ObjectShape;
+use phpDocumentor\Reflection\PseudoTypes\ObjectShapeItem;
+use phpDocumentor\Reflection\PseudoTypes\OffsetAccess;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use phpDocumentor\Reflection\PseudoTypes\PositiveInteger;
 use phpDocumentor\Reflection\PseudoTypes\StringValue;
 use phpDocumentor\Reflection\PseudoTypes\TraitString;
 use phpDocumentor\Reflection\PseudoTypes\True_;
+<<<<<<< HEAD
+=======
+use phpDocumentor\Reflection\PseudoTypes\ValueOf;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use phpDocumentor\Reflection\Types\AggregatedType;
 use phpDocumentor\Reflection\Types\Array_;
 use phpDocumentor\Reflection\Types\ArrayKey;
@@ -82,6 +110,11 @@ use PHPStan\PhpDocParser\Ast\Type\GenericTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\IntersectionTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\NullableTypeNode;
+<<<<<<< HEAD
+=======
+use PHPStan\PhpDocParser\Ast\Type\ObjectShapeItemNode;
+use PHPStan\PhpDocParser\Ast\Type\ObjectShapeNode;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use PHPStan\PhpDocParser\Ast\Type\OffsetAccessTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\ThisTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\TypeNode;
@@ -91,6 +124,10 @@ use PHPStan\PhpDocParser\Parser\ConstExprParser;
 use PHPStan\PhpDocParser\Parser\ParserException;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
 use PHPStan\PhpDocParser\Parser\TypeParser;
+<<<<<<< HEAD
+=======
+use PHPStan\PhpDocParser\ParserConfig;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use RuntimeException;
 
 use function array_filter;
@@ -104,6 +141,10 @@ use function in_array;
 use function sprintf;
 use function strpos;
 use function strtolower;
+<<<<<<< HEAD
+=======
+use function substr;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function trim;
 
 final class TypeResolver
@@ -139,6 +180,10 @@ final class TypeResolver
         'mixed' => Mixed_::class,
         'array' => Array_::class,
         'array-key' => ArrayKey::class,
+<<<<<<< HEAD
+=======
+        'non-empty-array' => NonEmptyArray::class,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'resource' => Resource_::class,
         'void' => Void_::class,
         'null' => Null_::class,
@@ -181,8 +226,19 @@ final class TypeResolver
     public function __construct(?FqsenResolver $fqsenResolver = null)
     {
         $this->fqsenResolver = $fqsenResolver ?: new FqsenResolver();
+<<<<<<< HEAD
         $this->typeParser = new TypeParser(new ConstExprParser());
         $this->lexer = new Lexer();
+=======
+
+        if (class_exists(ParserConfig::class)) {
+            $this->typeParser = new TypeParser(new ParserConfig([]), new ConstExprParser(new ParserConfig([])));
+            $this->lexer = new Lexer(new ParserConfig([]));
+        } else {
+            $this->typeParser = new TypeParser(new ConstExprParser());
+            $this->lexer = new Lexer();
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -234,10 +290,50 @@ final class TypeResolver
                 );
 
             case ArrayShapeNode::class:
+<<<<<<< HEAD
                 return new ArrayShape(
                     ...array_map(
                         function (ArrayShapeItemNode $item) use ($context): ArrayShapeItem {
                             return new ArrayShapeItem(
+=======
+                switch ($type->kind) {
+                    case ArrayShapeNode::KIND_ARRAY:
+                        return new ArrayShape(
+                            ...array_map(
+                                function (ArrayShapeItemNode $item) use ($context): ArrayShapeItem {
+                                    return new ArrayShapeItem(
+                                        $item->keyName !== null ? (string) $item->keyName : null,
+                                        $this->createType($item->valueType, $context),
+                                        $item->optional
+                                    );
+                                },
+                                $type->items
+                            )
+                        );
+
+                    case ArrayShapeNode::KIND_LIST:
+                        return new ListShape(
+                            ...array_map(
+                                function (ArrayShapeItemNode $item) use ($context): ListShapeItem {
+                                    return new ListShapeItem(
+                                        null,
+                                        $this->createType($item->valueType, $context),
+                                        $item->optional
+                                    );
+                                },
+                                $type->items
+                            )
+                        );
+
+                    default:
+                        throw new RuntimeException('Unsupported array shape kind');
+                }
+            case ObjectShapeNode::class:
+                return new ObjectShape(
+                    ...array_map(
+                        function (ObjectShapeItemNode $item) use ($context): ObjectShapeItem {
+                            return new ObjectShapeItem(
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                                 (string) $item->keyName,
                                 $this->createType($item->valueType, $context),
                                 $item->optional
@@ -302,8 +398,34 @@ final class TypeResolver
                 return new This();
 
             case ConditionalTypeNode::class:
+<<<<<<< HEAD
             case ConditionalTypeForParameterNode::class:
             case OffsetAccessTypeNode::class:
+=======
+                return new Conditional(
+                    $type->negated,
+                    $this->createType($type->subjectType, $context),
+                    $this->createType($type->targetType, $context),
+                    $this->createType($type->if, $context),
+                    $this->createType($type->else, $context),
+                );
+
+            case ConditionalTypeForParameterNode::class:
+                return new ConditionalForParameter(
+                    $type->negated,
+                    substr($type->parameterName, 1),
+                    $this->createType($type->targetType, $context),
+                    $this->createType($type->if, $context),
+                    $this->createType($type->else, $context),
+                );
+
+            case OffsetAccessTypeNode::class:
+                return new OffsetAccess(
+                    $this->createType($type->type, $context),
+                    $this->createType($type->offset, $context)
+                );
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             default:
                 return new Mixed_();
         }
@@ -357,6 +479,7 @@ final class TypeResolver
                 return new IntegerRange((string) $type->genericTypes[0], (string) $type->genericTypes[1]);
 
             case 'iterable':
+<<<<<<< HEAD
                 return new Iterable_(
                     ...array_reverse(
                         array_map(
@@ -367,6 +490,27 @@ final class TypeResolver
                         )
                     )
                 );
+=======
+                return new Iterable_(...array_reverse($this->createTypesByTypeNodes($type->genericTypes, $context)));
+
+            case 'key-of':
+                return new KeyOf($this->createType($type->genericTypes[0], $context));
+
+            case 'value-of':
+                return new ValueOf($this->createType($type->genericTypes[0], $context));
+
+            case 'int-mask':
+                return new IntMask(...$this->createTypesByTypeNodes($type->genericTypes, $context));
+
+            case 'int-mask-of':
+                return new IntMaskOf($this->createType($type->genericTypes[0], $context));
+
+            case 'static':
+                return new Static_(...$this->createTypesByTypeNodes($type->genericTypes, $context));
+
+            case 'self':
+                return new Self_(...$this->createTypesByTypeNodes($type->genericTypes, $context));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             default:
                 $collectionType = $this->createType($type->type, $context);
@@ -376,6 +520,7 @@ final class TypeResolver
 
                 return new Collection(
                     $collectionType->getFqsen(),
+<<<<<<< HEAD
                     ...array_reverse(
                         array_map(
                             function (TypeNode $genericType) use ($context): Type {
@@ -384,6 +529,9 @@ final class TypeResolver
                             $type->genericTypes
                         )
                     )
+=======
+                    ...array_reverse($this->createTypesByTypeNodes($type->genericTypes, $context))
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 );
         }
     }
@@ -549,6 +697,7 @@ final class TypeResolver
     /** @param TypeNode[] $typeNodes */
     private function createArray(array $typeNodes, Context $context): Array_
     {
+<<<<<<< HEAD
         $types = array_reverse(
             array_map(
                 function (TypeNode $node) use ($context): Type {
@@ -557,6 +706,9 @@ final class TypeResolver
                 $typeNodes
             )
         );
+=======
+        $types = array_reverse($this->createTypesByTypeNodes($typeNodes, $context));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (isset($types[1]) === false) {
             return new Array_(...$types);
@@ -631,4 +783,22 @@ final class TypeResolver
 
         return $type;
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * @param TypeNode[] $nodes
+     *
+     * @return Type[]
+     */
+    private function createTypesByTypeNodes(array $nodes, Context $context): array
+    {
+        return array_map(
+            function (TypeNode $node) use ($context): Type {
+                return $this->createType($node, $context);
+            },
+            $nodes
+        );
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

@@ -70,7 +70,11 @@ class XmlFileLoader extends FileLoader
                     try {
                         $attributeMetadata->setSerializedPath(new PropertyPath((string) $attribute['serialized-path']));
                     } catch (InvalidPropertyPathException) {
+<<<<<<< HEAD
                         throw new MappingException(sprintf('The "serialized-path" value must be a valid property path for the attribute "%s" of the class "%s".', $attributeName, $classMetadata->getName()));
+=======
+                        throw new MappingException(\sprintf('The "serialized-path" value must be a valid property path for the attribute "%s" of the class "%s".', $attributeName, $classMetadata->getName()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
                 }
 

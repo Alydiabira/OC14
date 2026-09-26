@@ -31,13 +31,22 @@ trait ValidatorExtensionTrait
         }
 
         if (!$this instanceof TypeTestCase) {
+<<<<<<< HEAD
             throw new \Exception(sprintf('The trait "ValidatorExtensionTrait" can only be added to a class that extends "%s".', TypeTestCase::class));
+=======
+            throw new \Exception(\sprintf('The trait "ValidatorExtensionTrait" can only be added to a class that extends "%s".', TypeTestCase::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->validator = $this->createMock(ValidatorInterface::class);
         $metadata = $this->getMockBuilder(ClassMetadata::class)->setConstructorArgs([''])->onlyMethods(['addPropertyConstraint'])->getMock();
+<<<<<<< HEAD
         $this->validator->expects($this->any())->method('getMetadataFor')->will($this->returnValue($metadata));
         $this->validator->expects($this->any())->method('validate')->will($this->returnValue(new ConstraintViolationList()));
+=======
+        $this->validator->expects($this->any())->method('getMetadataFor')->willReturn($metadata);
+        $this->validator->expects($this->any())->method('validate')->willReturn(new ConstraintViolationList());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return new ValidatorExtension($this->validator, false);
     }

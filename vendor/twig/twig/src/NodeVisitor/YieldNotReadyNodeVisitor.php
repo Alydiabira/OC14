@@ -21,17 +21,29 @@ use Twig\Node\Node;
  */
 final class YieldNotReadyNodeVisitor implements NodeVisitorInterface
 {
+<<<<<<< HEAD
     private $useYield;
     private $yieldReadyNodes = [];
 
     public function __construct(bool $useYield)
     {
         $this->useYield = $useYield;
+=======
+    private $yieldReadyNodes = [];
+
+    public function __construct(
+        private bool $useYield,
+    ) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function enterNode(Node $node, Environment $env): Node
     {
+<<<<<<< HEAD
         $class = \get_class($node);
+=======
+        $class = $node::class;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($node instanceof AbstractExpression || isset($this->yieldReadyNodes[$class])) {
             return $node;
@@ -39,10 +51,17 @@ final class YieldNotReadyNodeVisitor implements NodeVisitorInterface
 
         if (!$this->yieldReadyNodes[$class] = (bool) (new \ReflectionClass($class))->getAttributes(YieldReady::class)) {
             if ($this->useYield) {
+<<<<<<< HEAD
                 throw new \LogicException(sprintf('You cannot enable the "use_yield" option of Twig as node "%s" is not marked as ready for it; please make it ready and then flag it with the #[YieldReady] attribute.', $class));
             }
 
             trigger_deprecation('twig/twig', '3.9', 'Twig node "%s" is not marked as ready for using "yield" instead of "echo"; please make it ready and then flag it with the #[YieldReady] attribute.', $class);
+=======
+                throw new \LogicException(\sprintf('You cannot enable the "use_yield" option of Twig as node "%s" is not marked as ready for it; please make it ready and then flag it with the #[\Twig\Attribute\YieldReady] attribute.', $class));
+            }
+
+            trigger_deprecation('twig/twig', '3.9', 'Twig node "%s" is not marked as ready for using "yield" instead of "echo"; please make it ready and then flag it with the #[\Twig\Attribute\YieldReady] attribute.', $class);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $node;

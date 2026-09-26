@@ -13,6 +13,10 @@ namespace Symfony\Component\Serializer\Encoder;
 
 use Symfony\Component\Serializer\Exception\BadMethodCallException;
 use Symfony\Component\Serializer\Exception\NotEncodableValueException;
+<<<<<<< HEAD
+=======
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Serializer\SerializerAwareInterface;
 use Symfony\Component\Serializer\SerializerAwareTrait;
 
@@ -134,7 +138,13 @@ class XmlEncoder implements EncoderInterface, DecoderInterface, NormalizationAwa
             }
         }
 
+<<<<<<< HEAD
         // todo: throw an exception if the root node name is not correctly configured (bc)
+=======
+        if (!$rootNode) {
+            throw new NotEncodableValueException('Invalid XML data, it does not contain a root node.');
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($rootNode->hasChildNodes()) {
             $data = $this->parseXml($rootNode, $context);
@@ -231,7 +241,11 @@ class XmlEncoder implements EncoderInterface, DecoderInterface, NormalizationAwa
 
         $value = $this->parseXmlValue($node, $context);
 
+<<<<<<< HEAD
         if (!\count($data)) {
+=======
+        if (!$data) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return $value;
         }
 
@@ -308,7 +322,11 @@ class XmlEncoder implements EncoderInterface, DecoderInterface, NormalizationAwa
             $val = $this->parseXml($subnode, $context);
 
             if ('item' === $subnode->nodeName && isset($val['@key'])) {
+<<<<<<< HEAD
                 $value[$val['@key']] = $val['#'] ?? $val;
+=======
+                $value[$val['@key']] = 2 === \count($val) && isset($val['#']) ? $val['#'] : $val;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } else {
                 $value[$subnode->nodeName][] = $val;
             }
@@ -391,7 +409,11 @@ class XmlEncoder implements EncoderInterface, DecoderInterface, NormalizationAwa
 
         if (\is_object($data)) {
             if (null === $this->serializer) {
+<<<<<<< HEAD
                 throw new BadMethodCallException(sprintf('The serializer needs to be set to allow "%s()" to be used with object data.', __METHOD__));
+=======
+                throw new BadMethodCallException(\sprintf('The serializer needs to be set to allow "%s()" to be used with object data.', __METHOD__));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $data = $this->serializer->normalize($data, $format, $context);
@@ -410,7 +432,11 @@ class XmlEncoder implements EncoderInterface, DecoderInterface, NormalizationAwa
             return $this->appendNode($parentNode, $data, $format, $context, 'data');
         }
 
+<<<<<<< HEAD
         throw new NotEncodableValueException('An unexpected value could not be serialized: '.(!\is_resource($data) ? var_export($data, true) : sprintf('%s resource', get_resource_type($data))));
+=======
+        throw new NotEncodableValueException('An unexpected value could not be serialized: '.(!\is_resource($data) ? var_export($data, true) : get_resource_type($data).' resource'));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -452,19 +478,31 @@ class XmlEncoder implements EncoderInterface, DecoderInterface, NormalizationAwa
         } elseif ($val instanceof \SimpleXMLElement) {
             $child = $node->ownerDocument->importNode(dom_import_simplexml($val), true);
             $node->appendChild($child);
+<<<<<<< HEAD
         } elseif ($val instanceof \Traversable) {
+=======
+        } elseif ($val instanceof \Traversable && (!$this->serializer instanceof NormalizerInterface || !$this->serializer->supportsNormalization($val, $format))) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->buildXml($node, $val, $format, $context);
         } elseif ($val instanceof \DOMNode) {
             $child = $node->ownerDocument->importNode($val, true);
             $node->appendChild($child);
         } elseif (\is_object($val)) {
             if (null === $this->serializer) {
+<<<<<<< HEAD
                 throw new BadMethodCallException(sprintf('The serializer needs to be set to allow "%s()" to be used with object data.', __METHOD__));
+=======
+                throw new BadMethodCallException(\sprintf('The serializer needs to be set to allow "%s()" to be used with object data.', __METHOD__));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return $this->selectNodeType($node, $this->serializer->normalize($val, $format, $context), $format, $context);
         } elseif (is_numeric($val)) {
+<<<<<<< HEAD
             return $this->appendText($node, (string) $val);
+=======
+            return $this->appendText($node, is_nan($val) ? 'NAN' : (string) $val);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } elseif (\is_string($val) && $this->needsCdataWrapping($val, $context)) {
             return $this->appendCData($node, $val);
         } elseif (\is_string($val)) {

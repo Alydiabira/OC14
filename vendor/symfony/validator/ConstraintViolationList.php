@@ -79,7 +79,11 @@ class ConstraintViolationList implements \IteratorAggregate, ConstraintViolation
     public function get(int $offset): ConstraintViolationInterface
     {
         if (!isset($this->violations[$offset])) {
+<<<<<<< HEAD
             throw new OutOfBoundsException(sprintf('The offset "%s" does not exist.', $offset));
+=======
+            throw new OutOfBoundsException(\sprintf('The offset "%s" does not exist.', $offset));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->violations[$offset];

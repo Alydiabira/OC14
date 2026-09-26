@@ -120,6 +120,45 @@ final class GlobalState
             'mbstring.internal_encoding'   => true,
             'oci8.old_oci_close_semantics' => true,
         ],
+<<<<<<< HEAD
+=======
+
+        '8.4' => [
+            'auto_detect_line_endings'     => true,
+            'filter.default'               => true,
+            'iconv.input_encoding'         => true,
+            'iconv.output_encoding'        => true,
+            'iconv.internal_encoding'      => true,
+            'mbstring.http_input'          => true,
+            'mbstring.http_output'         => true,
+            'mbstring.internal_encoding'   => true,
+            'oci8.old_oci_close_semantics' => true,
+        ],
+
+        '8.5' => [
+            'auto_detect_line_endings'     => true,
+            'filter.default'               => true,
+            'iconv.input_encoding'         => true,
+            'iconv.output_encoding'        => true,
+            'iconv.internal_encoding'      => true,
+            'mbstring.http_input'          => true,
+            'mbstring.http_output'         => true,
+            'mbstring.internal_encoding'   => true,
+            'oci8.old_oci_close_semantics' => true,
+        ],
+
+        '8.6' => [
+            'auto_detect_line_endings'     => true,
+            'filter.default'               => true,
+            'iconv.input_encoding'         => true,
+            'iconv.output_encoding'        => true,
+            'iconv.internal_encoding'      => true,
+            'mbstring.http_input'          => true,
+            'mbstring.http_output'         => true,
+            'mbstring.internal_encoding'   => true,
+            'oci8.old_oci_close_semantics' => true,
+        ],
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ];
 
     /**

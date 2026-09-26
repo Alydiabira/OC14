@@ -64,6 +64,15 @@ class TemplateIterator implements \IteratorAggregate
             if (null !== $this->defaultPath) {
                 $templates[] = $this->findTemplatesInDirectory($this->defaultPath.'/bundles/'.$bundle->getName(), $name);
             }
+<<<<<<< HEAD
+=======
+
+            /*
+             * The bundle's own templates are also registered with the "!" prefix namespace - this matches
+             * @see \Symfony\Bundle\TwigBundle\DependencyInjection\TwigExtension::load()
+             */
+            $templates[] = $this->findTemplatesInDirectory($bundleTemplatesDir, '!'.$name);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         foreach ($this->paths as $dir => $namespace) {

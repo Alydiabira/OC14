@@ -141,7 +141,11 @@ class SplCaster
         }
 
         if (isset($a[$prefix.'perms'])) {
+<<<<<<< HEAD
             $a[$prefix.'perms'] = new ConstStub(sprintf('0%o', $a[$prefix.'perms']), $a[$prefix.'perms']);
+=======
+            $a[$prefix.'perms'] = new ConstStub(\sprintf('0%o', $a[$prefix.'perms']), $a[$prefix.'perms']);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         static $mapDate = ['aTime', 'mTime', 'cTime'];
@@ -160,7 +164,10 @@ class SplCaster
     public static function castFileObject(\SplFileObject $c, array $a, Stub $stub, bool $isNested)
     {
         static $map = [
+<<<<<<< HEAD
             'csvControl' => 'getCsvControl',
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'flags' => 'getFlags',
             'maxLineLen' => 'getMaxLineLen',
             'fstat' => 'fstat',
@@ -170,6 +177,19 @@ class SplCaster
 
         $prefix = Caster::PREFIX_VIRTUAL;
 
+<<<<<<< HEAD
+=======
+        if (\PHP_VERSION_ID < 90000) {
+            set_error_handler(static fn () => true, \E_DEPRECATED);
+            try {
+                $a[$prefix.'csvControl'] = $c->getCsvControl();
+            } catch (\Exception) {
+            } finally {
+                restore_error_handler();
+            }
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         foreach ($map as $key => $accessor) {
             try {
                 $a[$prefix.$key] = $c->$accessor();
@@ -208,7 +228,11 @@ class SplCaster
             $storage[] = new EnumStub([
                 'object' => $obj,
                 'info' => $clone->getInfo(),
+<<<<<<< HEAD
              ]);
+=======
+            ]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $a += [
@@ -249,7 +273,11 @@ class SplCaster
             $map[] = new EnumStub([
                 'object' => $obj,
                 'data' => $data,
+<<<<<<< HEAD
              ]);
+=======
+            ]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $a += [
@@ -262,12 +290,32 @@ class SplCaster
     private static function castSplArray(\ArrayObject|\ArrayIterator $c, array $a, Stub $stub, bool $isNested): array
     {
         $prefix = Caster::PREFIX_VIRTUAL;
+<<<<<<< HEAD
         $flags = $c->getFlags();
 
         if (!($flags & \ArrayObject::STD_PROP_LIST)) {
             $c->setFlags(\ArrayObject::STD_PROP_LIST);
             $a = Caster::castObject($c, $c::class, method_exists($c, '__debugInfo'), $stub->class);
             $c->setFlags($flags);
+=======
+        $hasDebugInfo = method_exists($c, '__debugInfo');
+
+        if ($c instanceof \ArrayObject) {
+            $flags = $c->getFlags();
+
+            if (!($flags & \ArrayObject::STD_PROP_LIST)) {
+                $c->setFlags(\ArrayObject::STD_PROP_LIST);
+                $a = Caster::castObject($c, $c::class, $hasDebugInfo, $stub->class);
+                $c->setFlags($flags);
+            }
+        } else {
+            // ArrayIterator::getFlags() and ArrayIterator::setFlags() are deprecated as of PHP 8.6
+            [$flags, , $properties] = $c->__serialize();
+
+            if (!($flags & \ArrayObject::STD_PROP_LIST)) {
+                $a = $properties;
+            }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         unset($a["\0ArrayObject\0storage"], $a["\0ArrayIterator\0storage"]);

@@ -170,7 +170,11 @@ abstract class AbstractBrowser
      */
     public function jsonRequest(string $method, string $uri, array $parameters = [], array $server = [], bool $changeHistory = true): Crawler
     {
+<<<<<<< HEAD
         $content = json_encode($parameters);
+=======
+        $content = json_encode($parameters, \JSON_PRESERVE_ZERO_FRACTION);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $this->setServerParameter('CONTENT_TYPE', 'application/json');
         $this->setServerParameter('HTTP_ACCEPT', 'application/json');
@@ -204,7 +208,11 @@ abstract class AbstractBrowser
      */
     public function getCrawler(): Crawler
     {
+<<<<<<< HEAD
         return $this->crawler ?? throw new BadMethodCallException(sprintf('The "request()" method must be called before "%s()".', __METHOD__));
+=======
+        return $this->crawler ?? throw new BadMethodCallException(\sprintf('The "request()" method must be called before "%s()".', __METHOD__));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -224,7 +232,11 @@ abstract class AbstractBrowser
      */
     public function getInternalResponse(): Response
     {
+<<<<<<< HEAD
         return $this->internalResponse ?? throw new BadMethodCallException(sprintf('The "request()" method must be called before "%s()".', __METHOD__));
+=======
+        return $this->internalResponse ?? throw new BadMethodCallException(\sprintf('The "request()" method must be called before "%s()".', __METHOD__));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -237,7 +249,11 @@ abstract class AbstractBrowser
      */
     public function getResponse(): object
     {
+<<<<<<< HEAD
         return $this->response ?? throw new BadMethodCallException(sprintf('The "request()" method must be called before "%s()".', __METHOD__));
+=======
+        return $this->response ?? throw new BadMethodCallException(\sprintf('The "request()" method must be called before "%s()".', __METHOD__));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -245,7 +261,11 @@ abstract class AbstractBrowser
      */
     public function getInternalRequest(): Request
     {
+<<<<<<< HEAD
         return $this->internalRequest ?? throw new BadMethodCallException(sprintf('The "request()" method must be called before "%s()".', __METHOD__));
+=======
+        return $this->internalRequest ?? throw new BadMethodCallException(\sprintf('The "request()" method must be called before "%s()".', __METHOD__));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -258,7 +278,11 @@ abstract class AbstractBrowser
      */
     public function getRequest(): object
     {
+<<<<<<< HEAD
         return $this->request ?? throw new BadMethodCallException(sprintf('The "request()" method must be called before "%s()".', __METHOD__));
+=======
+        return $this->request ?? throw new BadMethodCallException(\sprintf('The "request()" method must be called before "%s()".', __METHOD__));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -287,7 +311,11 @@ abstract class AbstractBrowser
     {
         $serverParameters = 1 < \func_num_args() ? func_get_arg(1) : [];
 
+<<<<<<< HEAD
         $crawler = $this->crawler ?? throw new BadMethodCallException(sprintf('The "request()" method must be called before "%s()".', __METHOD__));
+=======
+        $crawler = $this->crawler ?? throw new BadMethodCallException(\sprintf('The "request()" method must be called before "%s()".', __METHOD__));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this->click($crawler->selectLink($linkText)->link(), $serverParameters);
     }
@@ -316,11 +344,19 @@ abstract class AbstractBrowser
      */
     public function submitForm(string $button, array $fieldValues = [], string $method = 'POST', array $serverParameters = []): Crawler
     {
+<<<<<<< HEAD
         $crawler = $this->crawler ?? throw new BadMethodCallException(sprintf('The "request()" method must be called before "%s()".', __METHOD__));
         $buttonNode = $crawler->selectButton($button);
 
         if (0 === $buttonNode->count()) {
             throw new InvalidArgumentException(sprintf('There is no button with "%s" as its content, id, value or name.', $button));
+=======
+        $crawler = $this->crawler ?? throw new BadMethodCallException(\sprintf('The "request()" method must be called before "%s()".', __METHOD__));
+        $buttonNode = $crawler->selectButton($button);
+
+        if (0 === $buttonNode->count()) {
+            throw new InvalidArgumentException(\sprintf('There is no button with "%s" as its content, id, value or name.', $button));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $form = $buttonNode->form($fieldValues, $method);
@@ -353,11 +389,19 @@ abstract class AbstractBrowser
 
         $server = array_merge($this->server, $server);
 
+<<<<<<< HEAD
         if (!empty($server['HTTP_HOST']) && null === parse_url($originalUri, \PHP_URL_HOST)) {
             $uri = preg_replace('{^(https?\://)'.preg_quote($this->extractHost($uri)).'}', '${1}'.$server['HTTP_HOST'], $uri);
         }
 
         if (isset($server['HTTPS']) && null === parse_url($originalUri, \PHP_URL_SCHEME)) {
+=======
+        if (!empty($server['HTTP_HOST']) && !parse_url($originalUri, \PHP_URL_HOST)) {
+            $uri = preg_replace('{^(https?\://)'.preg_quote($this->extractHost($uri)).'}', '${1}'.$server['HTTP_HOST'], $uri);
+        }
+
+        if (isset($server['HTTPS']) && !parse_url($originalUri, \PHP_URL_SCHEME)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $uri = preg_replace('{^'.parse_url($uri, \PHP_URL_SCHEME).'}', $server['HTTPS'] ? 'https' : 'http', $uri);
         }
 
@@ -375,7 +419,11 @@ abstract class AbstractBrowser
 
         $this->request = $this->filterRequest($this->internalRequest);
 
+<<<<<<< HEAD
         if (true === $changeHistory) {
+=======
+        if ($changeHistory) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->history->add($this->internalRequest);
         }
 
@@ -433,7 +481,11 @@ abstract class AbstractBrowser
         if (file_exists($deprecationsFile)) {
             $deprecations = file_get_contents($deprecationsFile);
             unlink($deprecationsFile);
+<<<<<<< HEAD
             foreach ($deprecations ? unserialize($deprecations) : [] as $deprecation) {
+=======
+            foreach ($deprecations ? unserialize($deprecations, ['allowed_classes' => false]) : [] as $deprecation) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if ($deprecation[0]) {
                     // unsilenced on purpose
                     trigger_error($deprecation[1], \E_USER_DEPRECATED);
@@ -444,10 +496,17 @@ abstract class AbstractBrowser
         }
 
         if (!$process->isSuccessful() || !preg_match('/^O\:\d+\:/', $process->getOutput())) {
+<<<<<<< HEAD
             throw new RuntimeException(sprintf('OUTPUT: %s ERROR OUTPUT: %s.', $process->getOutput(), $process->getErrorOutput()));
         }
 
         return unserialize($process->getOutput());
+=======
+            throw new RuntimeException('OUTPUT: '.$process->getOutput().' ERROR OUTPUT: '.$process->getErrorOutput().'.');
+        }
+
+        return unserialize($process->getOutput(), ['allowed_classes' => true]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -554,7 +613,11 @@ abstract class AbstractBrowser
         if (-1 !== $this->maxRedirects) {
             if ($this->redirectCount > $this->maxRedirects) {
                 $this->redirectCount = 0;
+<<<<<<< HEAD
                 throw new LogicException(sprintf('The maximum number (%d) of redirections was reached.', $this->maxRedirects));
+=======
+                throw new LogicException(\sprintf('The maximum number (%d) of redirections was reached.', $this->maxRedirects));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -630,7 +693,11 @@ abstract class AbstractBrowser
         if (!$this->history->isEmpty()) {
             $currentUri = $this->history->current()->getUri();
         } else {
+<<<<<<< HEAD
             $currentUri = sprintf('http%s://%s/',
+=======
+            $currentUri = \sprintf('http%s://%s/',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 isset($this->server['HTTPS']) ? 's' : '',
                 $this->server['HTTP_HOST'] ?? 'localhost'
             );
@@ -656,7 +723,11 @@ abstract class AbstractBrowser
             $uri = $path.$uri;
         }
 
+<<<<<<< HEAD
         return preg_replace('#^(.*?//[^/]+)\/.*$#', '$1', $currentUri).$uri;
+=======
+        return preg_replace('#^(.*?//[^/?]+)[/?].*$#', '$1', $currentUri).$uri;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -690,3 +761,8 @@ abstract class AbstractBrowser
         return $host;
     }
 }
+<<<<<<< HEAD
+=======
+
+// @php-cs-fixer-ignore error_suppression This file is explicitly expected to not silence each of trigger_error calls
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96

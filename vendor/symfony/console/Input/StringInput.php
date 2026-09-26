@@ -72,7 +72,11 @@ class StringInput extends ArgvInput
                 $token .= $match[1];
             } else {
                 // should never happen
+<<<<<<< HEAD
                 throw new InvalidArgumentException(sprintf('Unable to parse input near "... %s ...".', substr($input, $cursor, 10)));
+=======
+                throw new InvalidArgumentException(\sprintf('Unable to parse input near "... %s ...".', substr($input, $cursor, 10)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $cursor += \strlen($match[0]);

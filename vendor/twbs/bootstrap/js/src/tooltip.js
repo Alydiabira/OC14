@@ -105,7 +105,11 @@ const DefaultType = {
 class Tooltip extends BaseComponent {
   constructor(element, config) {
     if (typeof Popper === 'undefined') {
+<<<<<<< HEAD
       throw new TypeError('Bootstrap\'s tooltips require Popper (https://popper.js.org)')
+=======
+      throw new TypeError('Bootstrap\'s tooltips require Popper (https://popper.js.org/docs/v2/)')
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     super(element, config)
@@ -160,7 +164,10 @@ class Tooltip extends BaseComponent {
       return
     }
 
+<<<<<<< HEAD
     this._activeTrigger.click = !this._activeTrigger.click
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     if (this._isShown()) {
       this._leave()
       return
@@ -392,7 +399,11 @@ class Tooltip extends BaseComponent {
   }
 
   _resolvePossibleFunction(arg) {
+<<<<<<< HEAD
     return execute(arg, [this._element])
+=======
+    return execute(arg, [this._element, this._element])
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
   }
 
   _getPopperConfig(attachment) {
@@ -438,7 +449,11 @@ class Tooltip extends BaseComponent {
 
     return {
       ...defaultBsPopperConfig,
+<<<<<<< HEAD
       ...execute(this._config.popperConfig, [defaultBsPopperConfig])
+=======
+      ...execute(this._config.popperConfig, [undefined, defaultBsPopperConfig])
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
   }
 
@@ -449,6 +464,10 @@ class Tooltip extends BaseComponent {
       if (trigger === 'click') {
         EventHandler.on(this._element, this.constructor.eventName(EVENT_CLICK), this._config.selector, event => {
           const context = this._initializeOnDelegatedTarget(event)
+<<<<<<< HEAD
+=======
+          context._activeTrigger[TRIGGER_CLICK] = !(context._isShown() && context._activeTrigger[TRIGGER_CLICK])
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
           context.toggle()
         })
       } else if (trigger !== TRIGGER_MANUAL) {

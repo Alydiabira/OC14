@@ -17,6 +17,10 @@ use Symfony\Bundle\MakerBundle\Util\ClassSource\Model\ClassProperty;
 use Symfony\Bundle\MakerBundle\Util\ClassSourceManipulator;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+<<<<<<< HEAD
+=======
+use Symfony\Component\Security\Http\Attribute\IsGrantedContext;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Adds logic to implement UserInterface to an existing User class.
@@ -37,7 +41,17 @@ final class UserClassBuilder
 
         $this->addPasswordImplementation($manipulator, $userClassConfig);
 
+<<<<<<< HEAD
         $this->addEraseCredentials($manipulator);
+=======
+        if (class_exists(IsGrantedContext::class) && $userClassConfig->hasPassword()) {
+            $this->addSerialize($manipulator);
+        }
+
+        if (method_exists(UserInterface::class, 'eraseCredentials')) {
+            $this->addEraseCredentials($manipulator);
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function addPasswordImplementation(ClassSourceManipulator $manipulator, UserClassConfiguration $userClassConfig): void
@@ -132,7 +146,11 @@ final class UserClassBuilder
             'getRoles',
             'array',
             false,
+<<<<<<< HEAD
             ['@see UserInterface', '@return list<string>']
+=======
+            ['@see UserInterface']
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         );
 
         // $roles = $this->roles
@@ -232,7 +250,11 @@ final class UserClassBuilder
             'password',
             'getPassword',
             'string',
+<<<<<<< HEAD
             false,
+=======
+            true,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             [
                 '@see PasswordAuthenticatedUserInterface',
             ]
@@ -245,6 +267,7 @@ final class UserClassBuilder
         $builder = $manipulator->createMethodBuilder(
             'eraseCredentials',
             'void',
+<<<<<<< HEAD
             false,
             ['@see UserInterface']
         );
@@ -256,6 +279,82 @@ final class UserClassBuilder
         $builder->addStmt(
             $manipulator->createMethodLevelCommentNode(
                 '$this->plainPassword = null;'
+=======
+            false
+        );
+        $builder->addAttribute(new Node\Attribute(new Node\Name('\Deprecated')));
+        $builder->addStmt(
+            $manipulator->createMethodLevelCommentNode(
+                '@deprecated, to be removed when upgrading to Symfony 8'
+            )
+        );
+
+        $manipulator->addMethodBuilder($builder);
+    }
+
+    private function addSerialize(ClassSourceManipulator $manipulator): void
+    {
+        $builder = $manipulator->createMethodBuilder(
+            '__serialize',
+            'array',
+            false,
+            [
+                'Ensure the session doesn\'t contain actual password hashes by CRC32C-hashing them, as supported since Symfony 7.3.',
+            ]
+        );
+
+        // $data = (array) $this;
+        $builder->addStmt(
+            new Node\Stmt\Expression(
+                new Node\Expr\Assign(
+                    new Node\Expr\Variable('data'),
+                    new Node\Expr\Cast\Array_(
+                        new Node\Expr\Variable('this')
+                    )
+                )
+            )
+        );
+
+        // $data["\0".self::class."\0password"] = hash('crc32c', $this->password);
+        $builder->addStmt(
+            new Node\Stmt\Expression(
+                new Node\Expr\Assign(
+                    new Node\Expr\ArrayDimFetch(
+                        new Node\Expr\Variable('data'),
+                        new Node\Expr\BinaryOp\Concat(
+                            new Node\Expr\BinaryOp\Concat(
+                                new Node\Scalar\String_("\0", ['kind' => Node\Scalar\String_::KIND_DOUBLE_QUOTED]),
+                                new Node\Expr\ClassConstFetch(
+                                    new Node\Name('self'),
+                                    'class'
+                                )
+                            ),
+                            new Node\Scalar\String_("\0password", ['kind' => Node\Scalar\String_::KIND_DOUBLE_QUOTED]),
+                        )
+                    ),
+                    new Node\Expr\FuncCall(
+                        new Node\Name('hash'),
+                        [
+                            new Node\Arg(new Node\Scalar\String_('crc32c')),
+                            new Node\Arg(
+                                new Node\Expr\PropertyFetch(
+                                    new Node\Expr\Variable('this'),
+                                    'password'
+                                )
+                            ),
+                        ]
+                    )
+                )
+            )
+        );
+
+        $builder->addStmt(new Node\Stmt\Nop());
+
+        // return $data;
+        $builder->addStmt(
+            new Node\Stmt\Return_(
+                new Node\Expr\Variable('data')
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         );
 

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace phpDocumentor\Reflection\PseudoTypes;
 
+<<<<<<< HEAD
 use phpDocumentor\Reflection\Type;
 use phpDocumentor\Reflection\Types\Mixed_;
 
@@ -62,4 +63,8 @@ final class ArrayShapeItem
 
         return (string) $this->value;
     }
+=======
+class ArrayShapeItem extends ShapeItem
+{
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

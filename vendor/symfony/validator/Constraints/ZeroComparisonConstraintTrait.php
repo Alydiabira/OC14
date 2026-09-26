@@ -26,11 +26,19 @@ trait ZeroComparisonConstraintTrait
         $options ??= [];
 
         if (isset($options['propertyPath'])) {
+<<<<<<< HEAD
             throw new ConstraintDefinitionException(sprintf('The "propertyPath" option of the "%s" constraint cannot be set.', static::class));
         }
 
         if (isset($options['value'])) {
             throw new ConstraintDefinitionException(sprintf('The "value" option of the "%s" constraint cannot be set.', static::class));
+=======
+            throw new ConstraintDefinitionException(\sprintf('The "propertyPath" option of the "%s" constraint cannot be set.', static::class));
+        }
+
+        if (isset($options['value'])) {
+            throw new ConstraintDefinitionException(\sprintf('The "value" option of the "%s" constraint cannot be set.', static::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         parent::__construct(0, null, $message, $groups, $payload, $options);

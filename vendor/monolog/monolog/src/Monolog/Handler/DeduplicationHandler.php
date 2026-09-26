@@ -46,11 +46,19 @@ class DeduplicationHandler extends BufferHandler
     protected bool $gc = false;
 
     /**
+<<<<<<< HEAD
      * @param HandlerInterface                       $handler            Handler.
      * @param string|null                            $deduplicationStore The file/path where the deduplication log should be kept
      * @param int|string|Level|LogLevel::* $deduplicationLevel The minimum logging level for log records to be looked at for deduplication purposes
      * @param int                                    $time               The period (in seconds) during which duplicate entries should be suppressed after a given log is sent through
      * @param bool                                   $bubble             Whether the messages that are handled can bubble up the stack or not
+=======
+     * @param HandlerInterface             $handler            Handler.
+     * @param string|null                  $deduplicationStore The file/path where the deduplication log should be kept
+     * @param int|string|Level|LogLevel::* $deduplicationLevel The minimum logging level for log records to be looked at for deduplication purposes
+     * @param int                          $time               The period (in seconds) during which duplicate entries should be suppressed after a given log is sent through
+     * @param bool                         $bubble             Whether the messages that are handled can bubble up the stack or not
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @phpstan-param value-of<Level::VALUES>|value-of<Level::NAMES>|Level|LogLevel::* $deduplicationLevel
      */
@@ -79,11 +87,19 @@ class DeduplicationHandler extends BufferHandler
 
         foreach ($this->buffer as $record) {
             if ($record->level->value >= $this->deduplicationLevel->value) {
+<<<<<<< HEAD
                 $passthru = $passthru === true || !is_array($store) || !$this->isDuplicate($store, $record);
                 if ($passthru) {
                     $line = $this->buildDeduplicationStoreEntry($record);
                     file_put_contents($this->deduplicationStore, $line . "\n", FILE_APPEND);
                     if (!is_array($store)) {
+=======
+                $passthru = $passthru === true || !\is_array($store) || !$this->isDuplicate($store, $record);
+                if ($passthru) {
+                    $line = $this->buildDeduplicationStoreEntry($record);
+                    file_put_contents($this->deduplicationStore, $line . "\n", FILE_APPEND | LOCK_EX);
+                    if (!\is_array($store)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $store = [];
                     }
                     $store[] = $line;
@@ -113,8 +129,20 @@ class DeduplicationHandler extends BufferHandler
         $expectedMessage = preg_replace('{[\r\n].*}', '', $record->message);
         $yesterday = time() - 86400;
 
+<<<<<<< HEAD
         for ($i = count($store) - 1; $i >= 0; $i--) {
             list($timestamp, $level, $message) = explode(':', $store[$i], 3);
+=======
+        for ($i = \count($store) - 1; $i >= 0; $i--) {
+            $parts = explode(':', $store[$i], 3);
+
+            if (\count($parts) < 3) {
+                // Skip invalid/incomplete lines (e.g. partially written due to concurrent access)
+                continue;
+            }
+
+            [$timestamp, $level, $message] = $parts;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             if ($level === $record->level->getName() && $message === $expectedMessage && $timestamp > $timestampValidity) {
                 return true;
@@ -148,14 +176,25 @@ class DeduplicationHandler extends BufferHandler
             throw new \RuntimeException('Failed to open file for reading and writing: ' . $this->deduplicationStore);
         }
 
+<<<<<<< HEAD
         flock($handle, LOCK_EX);
+=======
+        if (false === flock($handle, LOCK_EX)) {
+            fclose($handle);
+            return;
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $validLogs = [];
 
         $timestampValidity = time() - $this->time;
 
         while (!feof($handle)) {
             $log = fgets($handle);
+<<<<<<< HEAD
             if (is_string($log) && '' !== $log && substr($log, 0, 10) >= $timestampValidity) {
+=======
+            if (\is_string($log) && '' !== $log && substr($log, 0, 10) >= $timestampValidity) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $validLogs[] = $log;
             }
         }

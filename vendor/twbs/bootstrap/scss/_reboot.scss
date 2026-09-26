@@ -499,9 +499,15 @@ legend {
   width: 100%;
   padding: 0;
   margin-bottom: $legend-margin-bottom;
+<<<<<<< HEAD
   @include font-size($legend-font-size);
   font-weight: $legend-font-weight;
   line-height: inherit;
+=======
+  font-weight: $legend-font-weight;
+  line-height: inherit;
+  @include font-size($legend-font-size);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
   + * {
     clear: left; // 2
@@ -534,6 +540,15 @@ legend {
 [type="search"] {
   -webkit-appearance: textfield; // 1
   outline-offset: -2px; // 2
+<<<<<<< HEAD
+=======
+
+  // 3. Better affordance and consistent appearance for search cancel button
+  &::-webkit-search-cancel-button {
+    cursor: pointer;
+    filter: grayscale(1);
+  }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }
 
 // 1. A few input types should stay LTR

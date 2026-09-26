@@ -83,7 +83,11 @@ class TextDescriptor extends Descriptor
             'extension' => 'Extension options',
         ], $formOptions);
 
+<<<<<<< HEAD
         $this->output->title(sprintf('%s (Block prefix: "%s")', $resolvedFormType->getInnerType()::class, $resolvedFormType->getInnerType()->getBlockPrefix()));
+=======
+        $this->output->title(\sprintf('%s (Block prefix: "%s")', $resolvedFormType->getInnerType()::class, $resolvedFormType->getInnerType()->getBlockPrefix()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($formOptions) {
             $this->output->table($tableHeaders, $this->buildTableRows($tableHeaders, $formOptions));
@@ -134,7 +138,11 @@ class TextDescriptor extends Descriptor
         }
         array_pop($rows);
 
+<<<<<<< HEAD
         $this->output->title(sprintf('%s (%s)', $options['type']::class, $options['option']));
+=======
+        $this->output->title(\sprintf('%s (%s)', $options['type']::class, $options['option']));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->output->table([], $rows);
     }
 
@@ -166,7 +174,11 @@ class TextDescriptor extends Descriptor
                     unset($options[$group][$class]);
                 }
 
+<<<<<<< HEAD
                 if (!\is_array($opt) || 0 === \count($opt)) {
+=======
+                if (!\is_array($opt) || !$opt) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     continue;
                 }
 
@@ -175,7 +187,11 @@ class TextDescriptor extends Descriptor
                 } else {
                     $options[$group][] = null;
                 }
+<<<<<<< HEAD
                 $options[$group][] = sprintf('<info>%s</info>', (new \ReflectionClass($class))->getShortName());
+=======
+                $options[$group][] = \sprintf('<info>%s</info>', (new \ReflectionClass($class))->getShortName());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $options[$group][] = new TableSeparator();
 
                 sort($opt);
@@ -199,7 +215,11 @@ class TextDescriptor extends Descriptor
             return $text;
         }
 
+<<<<<<< HEAD
         return sprintf('<href=%s>%s</>', $fileLink, $text);
+=======
+        return \sprintf('<href=%s>%s</>', $fileLink, $text);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function getFileLink(string $class): string

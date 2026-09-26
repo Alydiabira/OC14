@@ -1,10 +1,24 @@
 <?php
 
+<<<<<<< HEAD
 namespace Doctrine\Bundle\DoctrineBundle\DependencyInjection;
 
 use Doctrine\DBAL\Schema\LegacySchemaManagerFactory;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+=======
+declare(strict_types=1);
+
+namespace Doctrine\Bundle\DoctrineBundle\DependencyInjection;
+
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Schema\LegacySchemaManagerFactory;
+use Doctrine\Deprecations\Deprecation;
+use Doctrine\ORM\Configuration as OrmConfiguration;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping\ClassMetadata;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\Mapping\ClassMetadataFactory;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\ORM\Proxy\ProxyFactory;
@@ -21,7 +35,10 @@ use function array_intersect_key;
 use function array_key_exists;
 use function array_keys;
 use function array_pop;
+<<<<<<< HEAD
 use function assert;
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function class_exists;
 use function constant;
 use function count;
@@ -40,7 +57,12 @@ use function strlen;
 use function strpos;
 use function strtoupper;
 use function substr;
+<<<<<<< HEAD
 use function trigger_deprecation;
+=======
+
+use const PHP_VERSION_ID;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * This class contains the configuration information for the bundle
@@ -52,12 +74,18 @@ use function trigger_deprecation;
  */
 class Configuration implements ConfigurationInterface
 {
+<<<<<<< HEAD
     private bool $debug;
 
     /** @param bool $debug Whether to use the debug mode */
     public function __construct(bool $debug)
     {
         $this->debug = $debug;
+=======
+    /** @param bool $debug Whether to use the debug mode */
+    public function __construct(private bool $debug)
+    {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getConfigTreeBuilder(): TreeBuilder
@@ -121,9 +149,13 @@ class Configuration implements ConfigurationInterface
                         ->prototype('array')
                             ->beforeNormalization()
                                 ->ifString()
+<<<<<<< HEAD
                                 ->then(static function ($v) {
                                     return ['class' => $v];
                                 })
+=======
+                                ->then(static fn ($v) => ['class' => $v])
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                             ->end()
                             ->children()
                                 ->scalarNode('class')->isRequired()->end()
@@ -184,7 +216,10 @@ class Configuration implements ConfigurationInterface
             ->requiresAtLeastOneElement()
             ->useAttributeAsKey('name')
             ->prototype('array');
+<<<<<<< HEAD
         assert($connectionNode instanceof ArrayNodeDefinition);
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $this->configureDbalDriverNode($connectionNode);
 
@@ -219,8 +254,27 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue(true)
                     ->info('Enables collecting schema errors when profiling is enabled')
                 ->end()
+<<<<<<< HEAD
                 ->booleanNode('disable_type_comments')->end()
                 ->scalarNode('server_version')->end()
+=======
+                ->booleanNode('disable_type_comments')
+                    ->beforeNormalization()
+                        ->ifTrue(static fn ($v): bool => isset($v) && ! method_exists(Connection::class, 'getEventManager'))
+                        ->then(static function ($v) {
+                            Deprecation::trigger(
+                                'doctrine/doctrine-bundle',
+                                'https://github.com/doctrine/DoctrineBundle/pull/2048',
+                                'The "disable_type_comments" configuration key is deprecated when using DBAL 4 and will be removed in DoctrineBundle 3.0.',
+                            );
+
+                            return $v;
+                        })
+                    ->end()
+                ->end()
+                ->scalarNode('server_version')->end()
+                ->integerNode('idle_connection_ttl')->defaultValue(600)->end()
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ->scalarNode('driver_class')->end()
                 ->scalarNode('wrapper_class')->end()
                 ->booleanNode('keep_slave')
@@ -297,9 +351,15 @@ class Configuration implements ConfigurationInterface
 
                 if ($urlConflictingValues) {
                     $tail = count($urlConflictingValues) > 1 ? sprintf('or "%s" options', array_pop($urlConflictingValues)) : 'option';
+<<<<<<< HEAD
                     trigger_deprecation(
                         'doctrine/doctrine-bundle',
                         '2.4',
+=======
+                    Deprecation::trigger(
+                        'doctrine/doctrine-bundle',
+                        'https://github.com/doctrine/DoctrineBundle/pull/1342',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         'Setting the "doctrine.dbal.%s" %s while the "url" one is defined is deprecated',
                         implode('", "', $urlConflictingValues),
                         $tail,
@@ -321,7 +381,11 @@ class Configuration implements ConfigurationInterface
                     '2.4',
                     'The "doctrine.dbal.override_url" configuration key is deprecated.',
                 )->end()
+<<<<<<< HEAD
                 ->scalarNode('dbname_suffix')->end()
+=======
+                ->scalarNode('dbname_suffix')->info('Adds the given suffix to the configured database name, this option has no effects for the SQLite platform')->end()
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ->scalarNode('application_name')->end()
                 ->scalarNode('charset')->end()
                 ->scalarNode('path')->end()
@@ -346,7 +410,11 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->scalarNode('default_dbname')
                     ->info(
+<<<<<<< HEAD
                         'Override the default database (postgres) to connect to for PostgreSQL connexion.',
+=======
+                        'Override the default database (postgres) to connect to for PostgreSQL connection.',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     )
                 ->end()
                 ->scalarNode('sslmode')
@@ -378,7 +446,25 @@ class Configuration implements ConfigurationInterface
                 ->end()
                 ->booleanNode('pooled')->info('True to use a pooled server with the oci8/pdo_oracle driver')->end()
                 ->booleanNode('MultipleActiveResultSets')->info('Configuring MultipleActiveResultSets for the pdo_sqlsrv driver')->end()
+<<<<<<< HEAD
                 ->booleanNode('use_savepoints')->info('Use savepoints for nested transactions')->end()
+=======
+                ->booleanNode('use_savepoints')
+                    ->info('Use savepoints for nested transactions')
+                    ->beforeNormalization()
+                        ->ifTrue(static fn ($v): bool => isset($v) && ! method_exists(Connection::class, 'getEventManager'))
+                        ->then(static function ($v) {
+                            Deprecation::trigger(
+                                'doctrine/doctrine-bundle',
+                                'https://github.com/doctrine/DoctrineBundle/pull/2055',
+                                'The "use_savepoints" configuration key is deprecated when using DBAL 4 and will be removed in DoctrineBundle 3.0.',
+                            );
+
+                            return $v;
+                        })
+                    ->end()
+                ->end()
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ->scalarNode('instancename')
                 ->info(
                     'Optional parameter, complete whether to add the INSTANCE_NAME parameter in the connection.' .
@@ -396,9 +482,13 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
             ->beforeNormalization()
+<<<<<<< HEAD
                 ->ifTrue(static function ($v) {
                     return ! isset($v['sessionMode']) && isset($v['session_mode']);
                 })
+=======
+                ->ifTrue(static fn ($v) => ! isset($v['sessionMode']) && isset($v['session_mode']))
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ->then(static function ($v) {
                     $v['sessionMode'] = $v['session_mode'];
                     unset($v['session_mode']);
@@ -407,9 +497,13 @@ class Configuration implements ConfigurationInterface
                 })
             ->end()
             ->beforeNormalization()
+<<<<<<< HEAD
                 ->ifTrue(static function ($v) {
                     return ! isset($v['MultipleActiveResultSets']) && isset($v['multiple_active_result_sets']);
                 })
+=======
+                ->ifTrue(static fn ($v) => ! isset($v['MultipleActiveResultSets']) && isset($v['multiple_active_result_sets']))
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ->then(static function ($v) {
                     $v['MultipleActiveResultSets'] = $v['multiple_active_result_sets'];
                     unset($v['multiple_active_result_sets']);
@@ -429,6 +523,10 @@ class Configuration implements ConfigurationInterface
             'default_entity_manager' => true,
             'auto_generate_proxy_classes' => true,
             'enable_lazy_ghost_objects' => true,
+<<<<<<< HEAD
+=======
+            'enable_native_lazy_objects' => true,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'proxy_dir' => true,
             'proxy_namespace' => true,
             'resolve_target_entities' => true,
@@ -475,9 +573,24 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->scalarNode('default_entity_manager')->end()
                         ->scalarNode('auto_generate_proxy_classes')->defaultValue(false)
+<<<<<<< HEAD
                             ->info('Auto generate mode possible values are: "NEVER", "ALWAYS", "FILE_NOT_EXISTS", "EVAL", "FILE_NOT_EXISTS_OR_CHANGED"')
                             ->validate()
                                 ->ifTrue(function ($v) {
+=======
+                            ->info('Auto generate mode possible values are: "NEVER", "ALWAYS", "FILE_NOT_EXISTS", "EVAL", "FILE_NOT_EXISTS_OR_CHANGED", this option is ignored when the "enable_native_lazy_objects" option is true')
+                            ->validate()
+                                ->ifTrue(function ($v) {
+                                    /** @phpstan-ignore function.alreadyNarrowedType */
+                                    if (PHP_VERSION_ID >= 80400 && method_exists(OrmConfiguration::class, 'enableNativeLazyObjects')) {
+                                        Deprecation::trigger(
+                                            'doctrine/doctrine-bundle',
+                                            'https://github.com/doctrine/DoctrineBundle/issues/2107',
+                                            'Not using native lazy objects with PHP 8.4+ and ORM 3.4+ is deprecated. In this case, the "auto_generate_proxy_classes" configuration key is deprecated as well.',
+                                        );
+                                    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                                     $generationModes = $this->getAutoGenerateModes();
 
                                     if (is_int($v) && in_array($v, $generationModes['values']/*array(0, 1, 2, 3)*/)) {
@@ -500,17 +613,66 @@ class Configuration implements ConfigurationInterface
                             ->end()
                             ->validate()
                                 ->ifString()
+<<<<<<< HEAD
                                 ->then(static function ($v) {
                                     return constant('Doctrine\ORM\Proxy\ProxyFactory::AUTOGENERATE_' . strtoupper($v));
                                 })
+=======
+                                ->then(static fn (string $v) => constant('Doctrine\ORM\Proxy\ProxyFactory::AUTOGENERATE_' . strtoupper($v)))
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                             ->end()
                         ->end()
                         ->booleanNode('enable_lazy_ghost_objects')
                             ->defaultValue(! method_exists(ProxyFactory::class, 'resetUninitializedProxy'))
                             ->info('Enables the new implementation of proxies based on lazy ghosts instead of using the legacy implementation')
                         ->end()
+<<<<<<< HEAD
                         ->scalarNode('proxy_dir')->defaultValue('%kernel.cache_dir%/doctrine/orm/Proxies')->end()
                         ->scalarNode('proxy_namespace')->defaultValue('Proxies')->end()
+=======
+                        ->booleanNode('enable_native_lazy_objects')
+                            ->defaultFalse()
+                            ->info('Enables the new native implementation of PHP lazy objects instead of generated proxies')
+                        ->end()
+                        ->scalarNode('proxy_dir')
+                            ->defaultValue('%kernel.build_dir%/doctrine/orm/Proxies')
+                            ->info('Configures the path where generated proxy classes are saved when using non-native lazy objects, this option is ignored when the "enable_native_lazy_objects" option is true')
+                            ->beforeNormalization()
+                                ->ifTrue(static fn ($v): bool => true)
+                                ->then(static function ($v) {
+                                    /** @phpstan-ignore function.alreadyNarrowedType */
+                                    if (PHP_VERSION_ID >= 80400 && method_exists(OrmConfiguration::class, 'enableNativeLazyObjects')) {
+                                        Deprecation::trigger(
+                                            'doctrine/doctrine-bundle',
+                                            'https://github.com/doctrine/DoctrineBundle/issues/2107',
+                                            'Not using native lazy objects with PHP 8.4+ and ORM 3.4+ is deprecated. In this case, the "proxy_dir" configuration key is deprecated as well.',
+                                        );
+                                    }
+
+                                    return $v;
+                                })
+                            ->end()
+                        ->end()
+                        ->scalarNode('proxy_namespace')
+                            ->defaultValue('Proxies')
+                            ->info('Defines the root namespace for generated proxy classes when using non-native lazy objects, this option is ignored when the "enable_native_lazy_objects" option is true')
+                            ->beforeNormalization()
+                                ->ifTrue(static fn ($v): bool => true)
+                                ->then(static function ($v) {
+                                    /** @phpstan-ignore function.alreadyNarrowedType */
+                                    if (PHP_VERSION_ID >= 80400 && method_exists(OrmConfiguration::class, 'enableNativeLazyObjects')) {
+                                        Deprecation::trigger(
+                                            'doctrine/doctrine-bundle',
+                                            'https://github.com/doctrine/DoctrineBundle/issues/2107',
+                                            'Not using native lazy objects with PHP 8.4+ and ORM 3.4+ is deprecated. In this case, the "proxy_namespace" configuration key is deprecated as well.',
+                                        );
+                                    }
+
+                                    return $v;
+                                })
+                            ->end()
+                        ->end()
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         ->arrayNode('controller_resolver')
                             ->canBeDisabled()
                             ->children()
@@ -598,9 +760,13 @@ class Configuration implements ConfigurationInterface
         $node
             ->beforeNormalization()
                 // Yaml normalization
+<<<<<<< HEAD
                 ->ifTrue(static function ($v) {
                     return is_array(reset($v)) && is_string(key(reset($v)));
                 })
+=======
+                ->ifTrue(static fn ($v) => is_array(reset($v)) && is_string(key(reset($v))))
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ->then($normalizer)
             ->end()
             ->fixXmlConfig('entity', 'entities')
@@ -659,12 +825,33 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('auto_mapping')->defaultFalse()->end()
                     ->scalarNode('naming_strategy')->defaultValue('doctrine.orm.naming_strategy.default')->end()
                     ->scalarNode('quote_strategy')->defaultValue('doctrine.orm.quote_strategy.default')->end()
+<<<<<<< HEAD
                     ->scalarNode('entity_listener_resolver')->defaultNull()->end()
+=======
+                    ->scalarNode('typed_field_mapper')->defaultValue('doctrine.orm.typed_field_mapper.default')->end()
+                    ->scalarNode('entity_listener_resolver')->defaultNull()->end()
+                    ->scalarNode('fetch_mode_subselect_batch_size')->end()
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     ->scalarNode('repository_factory')->defaultValue('doctrine.orm.container_repository_factory')->end()
                     ->arrayNode('schema_ignore_classes')
                         ->prototype('scalar')->end()
                     ->end()
                     ->booleanNode('report_fields_where_declared')
+<<<<<<< HEAD
+=======
+                        ->beforeNormalization()
+                            ->ifTrue(static fn ($v): bool => isset($v) && ! class_exists(AnnotationDriver::class))
+                            ->then(static function ($v) {
+                                Deprecation::trigger(
+                                    'doctrine/doctrine-bundle',
+                                    'https://github.com/doctrine/DoctrineBundle/pull/1962',
+                                    'The "report_fields_where_declared" configuration option is deprecated and will be removed in DoctrineBundle 3.0. When using ORM 3, report_fields_where_declared will always be true.',
+                                );
+
+                                return $v;
+                            })
+                        ->end()
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         ->defaultValue(! class_exists(AnnotationDriver::class))
                         ->info('Set to "true" to opt-in to the new mapping driver mode that was added in Doctrine ORM 2.16 and will be mandatory in ORM 3.0. See https://github.com/doctrine/orm/pull/10455.')
                         ->validate()
@@ -672,7 +859,11 @@ class Configuration implements ConfigurationInterface
                             ->thenInvalid('The setting "report_fields_where_declared" cannot be disabled for ORM 3.')
                         ->end()
                     ->end()
+<<<<<<< HEAD
                     ->booleanNode('validate_xml_mapping')->defaultFalse()->info('Set to "true" to opt-in to the new mapping driver mode that was added in Doctrine ORM 2.14 and will be mandatory in ORM 3.0. See https://github.com/doctrine/orm/pull/6728.')->end()
+=======
+                    ->booleanNode('validate_xml_mapping')->defaultFalse()->info('Set to "true" to opt-in to the new mapping driver mode that was added in Doctrine ORM 2.14. See https://github.com/doctrine/orm/pull/6728.')->end()
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ->end()
                 ->children()
                     ->arrayNode('second_level_cache')
@@ -729,9 +920,13 @@ class Configuration implements ConfigurationInterface
                         ->prototype('array')
                             ->beforeNormalization()
                                 ->ifString()
+<<<<<<< HEAD
                                 ->then(static function ($v) {
                                     return ['type' => $v];
                                 })
+=======
+                                ->then(static fn ($v) => ['type' => $v])
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                             ->end()
                             ->treatNullLike([])
                             ->treatFalseLike(['mapping' => false])
@@ -774,6 +969,7 @@ class Configuration implements ConfigurationInterface
                         ->prototype('array')
                             ->beforeNormalization()
                                 ->ifString()
+<<<<<<< HEAD
                                 ->then(static function ($v) {
                                     return ['class' => $v];
                                 })
@@ -783,6 +979,13 @@ class Configuration implements ConfigurationInterface
                                 ->ifTrue(static function ($v) {
                                     return is_array($v) && isset($v['value']);
                                 })
+=======
+                                ->then(static fn ($v) => ['class' => $v])
+                            ->end()
+                            ->beforeNormalization()
+                                // The content of the XML node is returned as the "value" key so we need to rename it
+                                ->ifTrue(static fn ($v) => is_array($v) && isset($v['value']))
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                                 ->then(static function ($v) {
                                     $v['class'] = $v['value'];
                                     unset($v['value']);
@@ -802,13 +1005,33 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+<<<<<<< HEAD
+=======
+                ->fixXmlConfig('identity_generation_preference')
+                ->children()
+                    ->arrayNode('identity_generation_preferences')
+                        ->info('Configures the preferences for identity generation when using the AUTO strategy. Valid values are "SEQUENCE" or "IDENTITY".')
+                        ->useAttributeAsKey('platform')
+                        ->prototype('scalar')
+                            ->beforeNormalization()
+                                ->ifString()
+                                ->then(static fn (string $v) => constant(ClassMetadata::class . '::GENERATOR_TYPE_' . strtoupper($v)))
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->end();
 
         return $node;
     }
 
     /**
+<<<<<<< HEAD
      * Return a ORM cache driver node for an given entity manager
+=======
+     * Return an ORM cache driver node for a given entity manager
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private function getOrmCacheDriverNode(string $name): ArrayNodeDefinition
     {
@@ -818,9 +1041,13 @@ class Configuration implements ConfigurationInterface
         $node
             ->beforeNormalization()
                 ->ifString()
+<<<<<<< HEAD
                 ->then(static function ($v): array {
                     return ['type' => $v];
                 })
+=======
+                ->then(static fn ($v): array => ['type' => $v])
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->end()
             ->children()
                 ->scalarNode('type')->defaultNull()->end()

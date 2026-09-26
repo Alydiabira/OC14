@@ -186,6 +186,10 @@ return static function (ContainerConfigurator $container) {
             ->args([
                 abstract_arg('failure transports'),
                 service('logger')->ignoreOnInvalid(),
+<<<<<<< HEAD
+=======
+                abstract_arg('failure transports by name'),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ])
             ->tag('kernel.event_subscriber')
             ->tag('monolog.logger', ['channel' => 'messenger'])

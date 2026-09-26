@@ -29,7 +29,11 @@ class Link extends AbstractUriElement
     protected function setNode(\DOMElement $node)
     {
         if ('a' !== $node->nodeName && 'area' !== $node->nodeName && 'link' !== $node->nodeName) {
+<<<<<<< HEAD
             throw new \LogicException(sprintf('Unable to navigate from a "%s" tag.', $node->nodeName));
+=======
+            throw new \LogicException(\sprintf('Unable to navigate from a "%s" tag.', $node->nodeName));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->node = $node;

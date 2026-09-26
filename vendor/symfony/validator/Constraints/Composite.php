@@ -55,7 +55,11 @@ abstract class Composite extends Constraint
 
         $this->initializeNestedConstraints();
 
+<<<<<<< HEAD
         /* @var Constraint[] $nestedConstraints */
+=======
+        /** @var Constraint[] $nestedConstraints */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $compositeOption = $this->getCompositeOption();
         $nestedConstraints = $this->$compositeOption;
 
@@ -69,11 +73,19 @@ abstract class Composite extends Constraint
                     $constraint = $constraint::class;
                 }
 
+<<<<<<< HEAD
                 throw new ConstraintDefinitionException(sprintf('The value "%s" is not an instance of Constraint in constraint "%s".', $constraint, static::class));
             }
 
             if ($constraint instanceof Valid) {
                 throw new ConstraintDefinitionException(sprintf('The constraint Valid cannot be nested inside constraint "%s". You can only declare the Valid constraint directly on a field or method.', static::class));
+=======
+                throw new ConstraintDefinitionException(\sprintf('The value "%s" is not an instance of Constraint in constraint "%s".', $constraint, static::class));
+            }
+
+            if ($constraint instanceof Valid) {
+                throw new ConstraintDefinitionException(\sprintf('The constraint Valid cannot be nested inside constraint "%s". You can only declare the Valid constraint directly on a field or method.', static::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -98,7 +110,11 @@ abstract class Composite extends Constraint
                 $excessGroups = array_diff($constraint->groups, $this->groups);
 
                 if (\count($excessGroups) > 0) {
+<<<<<<< HEAD
                     throw new ConstraintDefinitionException(sprintf('The group(s) "%s" passed to the constraint "%s" should also be passed to its containing constraint "%s".', implode('", "', $excessGroups), get_debug_type($constraint), static::class));
+=======
+                    throw new ConstraintDefinitionException(\sprintf('The group(s) "%s" passed to the constraint "%s" should also be passed to its containing constraint "%s".', implode('", "', $excessGroups), get_debug_type($constraint), static::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             } else {
                 $constraint->groups = $this->groups;
@@ -138,7 +154,13 @@ abstract class Composite extends Constraint
     public function getNestedConstraints(): array
     {
         /* @var Constraint[] $nestedConstraints */
+<<<<<<< HEAD
         return $this->{$this->getCompositeOption()};
+=======
+        $nestedConstraints = $this->{$this->getCompositeOption()};
+
+        return $nestedConstraints;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

@@ -20,7 +20,11 @@ class BasicErrorHandler
 {
     public static function register(bool $debug): void
     {
+<<<<<<< HEAD
         error_reporting(-1);
+=======
+        error_reporting(\E_ALL & ~\E_DEPRECATED & ~\E_USER_DEPRECATED);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (!\in_array(\PHP_SAPI, ['cli', 'phpdbg', 'embed'], true)) {
             ini_set('display_errors', $debug);
@@ -30,10 +34,17 @@ class BasicErrorHandler
         }
 
         if (0 <= \ini_get('zend.assertions')) {
+<<<<<<< HEAD
             ini_set('zend.assertions', 1);
             ini_set('assert.active', $debug);
             ini_set('assert.exception', 1);
         }
+=======
+            ini_set('zend.assertions', (int) $debug);
+        }
+        ini_set('assert.active', 1);
+        ini_set('assert.exception', 1);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         set_error_handler(new self());
     }

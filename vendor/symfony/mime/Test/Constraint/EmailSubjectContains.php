@@ -23,7 +23,11 @@ final class EmailSubjectContains extends Constraint
 
     public function toString(): string
     {
+<<<<<<< HEAD
         return sprintf('contains subject with value "%s"', $this->expectedSubjectValue);
+=======
+        return \sprintf('contains subject with value "%s"', $this->expectedSubjectValue);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function matches($other): bool
@@ -39,7 +43,11 @@ final class EmailSubjectContains extends Constraint
     {
         $message = 'The email subject '.$this->toString();
         if ($other instanceof Email) {
+<<<<<<< HEAD
             $message .= sprintf('. The subject was: "%s"', $other->getSubject() ?? '<empty>');
+=======
+            $message .= \sprintf('. The subject was: "%s"', $other->getSubject() ?? '<empty>');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $message;

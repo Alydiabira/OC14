@@ -38,11 +38,16 @@ class HelpCommand extends Command
             ->setName('help')
             ->setDefinition([
                 new InputArgument('command_name', InputArgument::OPTIONAL, 'The command name', 'help', fn () => array_keys((new ApplicationDescription($this->getApplication()))->getCommands())),
+<<<<<<< HEAD
                 new InputOption('format', null, InputOption::VALUE_REQUIRED, 'The output format (txt, xml, json, or md)', 'txt', fn () => (new DescriptorHelper())->getFormats()),
+=======
+                new InputOption('format', null, InputOption::VALUE_REQUIRED, 'The output format (txt, xml, json, or md)', 'txt', static fn () => (new DescriptorHelper())->getFormats()),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 new InputOption('raw', null, InputOption::VALUE_NONE, 'To output raw command help'),
             ])
             ->setDescription('Display help for a command')
             ->setHelp(<<<'EOF'
+<<<<<<< HEAD
 The <info>%command.name%</info> command displays help for a given command:
 
   <info>%command.full_name% list</info>
@@ -53,6 +58,18 @@ You can also output the help in other formats by using the <comment>--format</co
 
 To display the list of available commands, please use the <info>list</info> command.
 EOF
+=======
+                The <info>%command.name%</info> command displays help for a given command:
+
+                  <info>%command.full_name% list</info>
+
+                You can also output the help in other formats by using the <comment>--format</comment> option:
+
+                  <info>%command.full_name% --format=xml list</info>
+
+                To display the list of available commands, please use the <info>list</info> command.
+                EOF
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }

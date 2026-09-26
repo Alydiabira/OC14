@@ -59,18 +59,30 @@ final class CodeExtension extends AbstractExtension
         $parts = explode('\\', $class);
         $short = array_pop($parts);
 
+<<<<<<< HEAD
         return sprintf('<abbr title="%s">%s</abbr>', $class, $short);
+=======
+        return \sprintf('<abbr title="%s">%s</abbr>', $class, $short);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function abbrMethod(string $method): string
     {
         if (str_contains($method, '::')) {
             [$class, $method] = explode('::', $method, 2);
+<<<<<<< HEAD
             $result = sprintf('%s::%s()', $this->abbrClass($class), $method);
         } elseif ('Closure' === $method) {
             $result = sprintf('<abbr title="%s">%1$s</abbr>', $method);
         } else {
             $result = sprintf('<abbr title="%s">%1$s</abbr>()', $method);
+=======
+            $result = \sprintf('%s::%s()', $this->abbrClass($class), $method);
+        } elseif ('Closure' === $method) {
+            $result = \sprintf('<abbr title="%s">%1$s</abbr>', $method);
+        } else {
+            $result = \sprintf('<abbr title="%s">%1$s</abbr>()', $method);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $result;
@@ -87,9 +99,15 @@ final class CodeExtension extends AbstractExtension
                 $item[1] = htmlspecialchars($item[1], \ENT_COMPAT | \ENT_SUBSTITUTE, $this->charset);
                 $parts = explode('\\', $item[1]);
                 $short = array_pop($parts);
+<<<<<<< HEAD
                 $formattedValue = sprintf('<em>object</em>(<abbr title="%s">%s</abbr>)', $item[1], $short);
             } elseif ('array' === $item[0]) {
                 $formattedValue = sprintf('<em>array</em>(%s)', \is_array($item[1]) ? $this->formatArgs($item[1]) : htmlspecialchars(var_export($item[1], true), \ENT_COMPAT | \ENT_SUBSTITUTE, $this->charset));
+=======
+                $formattedValue = \sprintf('<em>object</em>(<abbr title="%s">%s</abbr>)', $item[1], $short);
+            } elseif ('array' === $item[0]) {
+                $formattedValue = \sprintf('<em>array</em>(%s)', \is_array($item[1]) ? $this->formatArgs($item[1]) : htmlspecialchars(var_export($item[1], true), \ENT_COMPAT | \ENT_SUBSTITUTE, $this->charset));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } elseif ('null' === $item[0]) {
                 $formattedValue = '<em>null</em>';
             } elseif ('boolean' === $item[0]) {
@@ -102,7 +120,11 @@ final class CodeExtension extends AbstractExtension
                 $formattedValue = str_replace("\n", '', htmlspecialchars(var_export($item[1], true), \ENT_COMPAT | \ENT_SUBSTITUTE, $this->charset));
             }
 
+<<<<<<< HEAD
             $result[] = \is_int($key) ? $formattedValue : sprintf("'%s' => %s", htmlspecialchars($key, \ENT_COMPAT | \ENT_SUBSTITUTE, $this->charset), $formattedValue);
+=======
+            $result[] = \is_int($key) ? $formattedValue : \sprintf("'%s' => %s", htmlspecialchars($key, \ENT_COMPAT | \ENT_SUBSTITUTE, $this->charset), $formattedValue);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return implode(', ', $result);
@@ -121,6 +143,7 @@ final class CodeExtension extends AbstractExtension
      */
     public function fileExcerpt(string $file, int $line, int $srcContext = 3): ?string
     {
+<<<<<<< HEAD
         if (is_file($file) && is_readable($file)) {
             // highlight_file could throw warnings
             // see https://bugs.php.net/25725
@@ -154,6 +177,87 @@ final class CodeExtension extends AbstractExtension
         }
 
         return null;
+=======
+        if (!is_file($file) || !is_readable($file)) {
+            return null;
+        }
+
+        $contents = file_get_contents($file);
+
+        if (!str_contains($contents, '<?php') && !str_contains($contents, '<?=')) {
+            $lines = explode("\n", htmlspecialchars($contents, \ENT_QUOTES | \ENT_SUBSTITUTE, $this->charset));
+
+            if (0 > $srcContext) {
+                $srcContext = \count($lines);
+            }
+
+            return $this->formatFileExcerpt(
+                $this->extractExcerptLines($lines, $line, $srcContext),
+                $line,
+                $srcContext
+            );
+        }
+
+        // highlight_string could throw warnings
+        // see https://bugs.php.net/25725
+        $code = @highlight_string($contents, true);
+
+        if (\PHP_VERSION_ID >= 80300) {
+            // remove main pre/code tags
+            $code = preg_replace('#^<pre.*?>\s*<code.*?>(.*)</code>\s*</pre>#s', '\\1', $code);
+            // split multiline span tags
+            $code = preg_replace_callback(
+                '#<span ([^>]++)>((?:[^<\\n]*+\\n)++[^<]*+)</span>#',
+                static fn (array $m): string => "<span $m[1]>".str_replace("\n", "</span>\n<span $m[1]>", $m[2]).'</span>',
+                $code
+            );
+            $lines = explode("\n", $code);
+        } else {
+            // remove main code/span tags
+            $code = preg_replace('#^<code.*?>\s*<span.*?>(.*)</span>\s*</code>#s', '\\1', $code);
+            // split multiline spans
+            $code = preg_replace_callback(
+                '#<span ([^>]++)>((?:[^<]*+<br \/>)++[^<]*+)</span>#',
+                static fn (array $m): string => "<span $m[1]>".str_replace('<br />', "</span><br /><span $m[1]>", $m[2]).'</span>',
+                $code
+            );
+            $lines = explode('<br />', $code);
+        }
+
+        if (0 > $srcContext) {
+            $srcContext = \count($lines);
+        }
+
+        return $this->formatFileExcerpt(
+            array_map(
+                self::fixCodeMarkup(...),
+                $this->extractExcerptLines($lines, $line, $srcContext),
+            ),
+            $line,
+            $srcContext
+        );
+    }
+
+    private function extractExcerptLines(array $lines, int $selectedLine, int $srcContext): array
+    {
+        return \array_slice(
+            $lines,
+            max($selectedLine - $srcContext, 0),
+            min($srcContext * 2 + 1, \count($lines) - $selectedLine + $srcContext),
+            true
+        );
+    }
+
+    private function formatFileExcerpt(array $lines, int $selectedLine, int $srcContext): string
+    {
+        $start = max($selectedLine - $srcContext, 1);
+
+        return "<ol start=\"{$start}\">".implode("\n", array_map(
+            static fn (string $line, int $num): string => '<li'.(++$num === $selectedLine ? ' class="selected"' : '')."><a class=\"anchor\" id=\"line{$num}\"></a><code>{$line}</code></li>",
+            $lines,
+            array_keys($lines),
+        )).'</ol>';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -166,7 +270,11 @@ final class CodeExtension extends AbstractExtension
         if (null === $text) {
             if (null !== $rel = $this->getFileRelative($file)) {
                 $rel = explode('/', htmlspecialchars($rel, \ENT_COMPAT | \ENT_SUBSTITUTE, $this->charset), 2);
+<<<<<<< HEAD
                 $text = sprintf('<abbr title="%s%2$s">%s</abbr>%s', htmlspecialchars($this->projectDir, \ENT_COMPAT | \ENT_SUBSTITUTE, $this->charset), $rel[0], '/'.($rel[1] ?? ''));
+=======
+                $text = \sprintf('<abbr title="%s%2$s">%s</abbr>%s', htmlspecialchars($this->projectDir, \ENT_COMPAT | \ENT_SUBSTITUTE, $this->charset), $rel[0], '/'.($rel[1] ?? ''));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } else {
                 $text = htmlspecialchars($file, \ENT_COMPAT | \ENT_SUBSTITUTE, $this->charset);
             }
@@ -179,7 +287,11 @@ final class CodeExtension extends AbstractExtension
         }
 
         if (false !== $link = $this->getFileLink($file, $line)) {
+<<<<<<< HEAD
             return sprintf('<a href="%s" title="Click to open this file" class="file_link">%s</a>', htmlspecialchars($link, \ENT_COMPAT | \ENT_SUBSTITUTE, $this->charset), $text);
+=======
+            return \sprintf('<a href="%s" title="Click to open this file" class="file_link">%s</a>', htmlspecialchars($link, \ENT_COMPAT | \ENT_SUBSTITUTE, $this->charset), $text);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $text;
@@ -243,7 +355,11 @@ final class CodeExtension extends AbstractExtension
         // missing </span> tag at the end of line
         $opening = strpos($line, '<span');
         $closing = strpos($line, '</span>');
+<<<<<<< HEAD
         if (false !== $opening && (false === $closing || $closing > $opening)) {
+=======
+        if (false !== $opening && (false === $closing || $closing < $opening)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $line .= '</span>';
         }
 

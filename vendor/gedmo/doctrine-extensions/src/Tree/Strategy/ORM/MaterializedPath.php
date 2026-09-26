@@ -10,6 +10,10 @@
 namespace Gedmo\Tree\Strategy\ORM;
 
 use Doctrine\ORM\EntityManagerInterface;
+<<<<<<< HEAD
+=======
+use Doctrine\ORM\Mapping\ClassMetadata;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Gedmo\Tool\Wrapper\AbstractWrapper;
 use Gedmo\Tree\Strategy\AbstractMaterializedPath;
 
@@ -25,10 +29,17 @@ class MaterializedPath extends AbstractMaterializedPath
 {
     /**
      * @param EntityManagerInterface $om
+<<<<<<< HEAD
      */
     public function removeNode($om, $meta, $config, $node)
     {
         $uow = $om->getUnitOfWork();
+=======
+     * @param ClassMetadata<object>  $meta
+     */
+    public function removeNode($om, $meta, $config, $node)
+    {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $wrapped = AbstractWrapper::wrap($node, $om);
 
         $path = addcslashes($wrapped->getPropertyValue($config['path']), '%');
@@ -53,12 +64,20 @@ class MaterializedPath extends AbstractMaterializedPath
             ->toIterable();
 
         foreach ($results as $node) {
+<<<<<<< HEAD
             $uow->scheduleForDelete($node);
+=======
+            $om->remove($node);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
     /**
      * @param EntityManagerInterface $om
+<<<<<<< HEAD
+=======
+     * @param ClassMetadata<object>  $meta
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getChildren($om, $meta, $config, $path)
     {

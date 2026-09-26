@@ -7,11 +7,15 @@ use LogicException;
 
 use function sprintf;
 
+<<<<<<< HEAD
 /**
  * @internal
  *
  * @psalm-immutable
  */
+=======
+/** @internal */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 class MissingPositionalParameter extends LogicException implements Exception
 {
     public static function new(int $index): self

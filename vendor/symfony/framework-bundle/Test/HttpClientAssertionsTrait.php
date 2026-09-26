@@ -14,10 +14,16 @@ namespace Symfony\Bundle\FrameworkBundle\Test;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\HttpClient\DataCollector\HttpClientDataCollector;
 
+<<<<<<< HEAD
 /*
  * @author Mathieu Santostefano <msantostefano@protonmail.com>
  */
 
+=======
+/**
+ * @author Mathieu Santostefano <msantostefano@protonmail.com>
+ */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 trait HttpClientAssertionsTrait
 {
     public static function assertHttpClientRequest(string $expectedUrl, string $expectedMethod = 'GET', string|array|null $expectedBody = null, array $expectedHeaders = [], string $httpClientId = 'http_client'): void
@@ -34,7 +40,11 @@ trait HttpClientAssertionsTrait
         $expectedRequestHasBeenFound = false;
 
         if (!\array_key_exists($httpClientId, $httpClientDataCollector->getClients())) {
+<<<<<<< HEAD
             static::fail(sprintf('HttpClient "%s" is not registered.', $httpClientId));
+=======
+            static::fail(\sprintf('HttpClient "%s" is not registered.', $httpClientId));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         foreach ($httpClientDataCollector->getClients()[$httpClientId]['traces'] as $trace) {
@@ -102,7 +112,11 @@ trait HttpClientAssertionsTrait
         $unexpectedUrlHasBeenFound = false;
 
         if (!\array_key_exists($httpClientId, $httpClientDataCollector->getClients())) {
+<<<<<<< HEAD
             static::fail(sprintf('HttpClient "%s" is not registered.', $httpClientId));
+=======
+            static::fail(\sprintf('HttpClient "%s" is not registered.', $httpClientId));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         foreach ($httpClientDataCollector->getClients()[$httpClientId]['traces'] as $trace) {
@@ -114,7 +128,11 @@ trait HttpClientAssertionsTrait
             }
         }
 
+<<<<<<< HEAD
         self::assertFalse($unexpectedUrlHasBeenFound, sprintf('Unexpected URL called: "%s" - "%s"', $expectedMethod, $unexpectedUrl));
+=======
+        self::assertFalse($unexpectedUrlHasBeenFound, \sprintf('Unexpected URL called: "%s" - "%s"', $expectedMethod, $unexpectedUrl));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public static function assertHttpClientRequestCount(int $count, string $httpClientId = 'http_client'): void

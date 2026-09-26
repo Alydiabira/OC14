@@ -66,7 +66,11 @@ class ImportMapAuditor
         ]);
 
         if (200 !== $response->getStatusCode()) {
+<<<<<<< HEAD
             throw new RuntimeException(sprintf('Error %d auditing packages. Response: '.$response->getContent(false), $response->getStatusCode()));
+=======
+            throw new RuntimeException(\sprintf('Error %d auditing packages. Response: '.$response->getContent(false), $response->getStatusCode()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         foreach ($response->toArray() as $advisory) {

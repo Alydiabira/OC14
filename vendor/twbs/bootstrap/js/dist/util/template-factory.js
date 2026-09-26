@@ -1,6 +1,11 @@
 /*!
+<<<<<<< HEAD
   * Bootstrap template-factory.js v5.3.3 (https://getbootstrap.com/)
   * Copyright 2011-2024 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+=======
+  * Bootstrap template-factory.js v5.3.8 (https://getbootstrap.com/)
+  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
@@ -133,7 +138,11 @@
       return this._config.sanitize ? sanitizer_js.sanitizeHtml(arg, this._config.allowList, this._config.sanitizeFn) : arg;
     }
     _resolvePossibleFunction(arg) {
+<<<<<<< HEAD
       return index_js.execute(arg, [this]);
+=======
+      return index_js.execute(arg, [undefined, this]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
     _putElementInTemplate(element, templateElement) {
       if (this._config.html) {

@@ -9,6 +9,10 @@
  */
 namespace PHPUnit\Util\Log;
 
+<<<<<<< HEAD
+=======
+use const PHP_EOL;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function class_exists;
 use function count;
 use function explode;

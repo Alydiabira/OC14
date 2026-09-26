@@ -211,7 +211,11 @@ class ExceptionListener
         if (!$response instanceof Response) {
             $given = get_debug_type($response);
 
+<<<<<<< HEAD
             throw new \LogicException(sprintf('The "%s::start()" method must return a Response object ("%s" returned).', get_debug_type($this->authenticationEntryPoint), $given));
+=======
+            throw new \LogicException(\sprintf('The "%s::start()" method must return a Response object ("%s" returned).', get_debug_type($this->authenticationEntryPoint), $given));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $response;
@@ -227,7 +231,11 @@ class ExceptionListener
 
     private function throwUnauthorizedException(AuthenticationException $authException): never
     {
+<<<<<<< HEAD
         $this->logger?->notice(sprintf('No Authentication entry point configured, returning a %s HTTP response. Configure "entry_point" on the firewall "%s" if you want to modify the response.', Response::HTTP_UNAUTHORIZED, $this->firewallName));
+=======
+        $this->logger?->notice(\sprintf('No Authentication entry point configured, returning a %s HTTP response. Configure "entry_point" on the firewall "%s" if you want to modify the response.', Response::HTTP_UNAUTHORIZED, $this->firewallName));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         throw new HttpException(Response::HTTP_UNAUTHORIZED, $authException->getMessage(), $authException, [], $authException->getCode());
     }

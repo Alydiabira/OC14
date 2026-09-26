@@ -65,26 +65,42 @@ final class CachePoolInvalidateTagsCommand extends Command
         $errors = false;
 
         foreach ($pools as $name) {
+<<<<<<< HEAD
             $io->comment(sprintf('Invalidating tag(s): <info>%s</info> from pool <comment>%s</comment>.', $tagList, $name));
+=======
+            $io->comment(\sprintf('Invalidating tag(s): <info>%s</info> from pool <comment>%s</comment>.', $tagList, $name));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             try {
                 $pool = $this->pools->get($name);
             } catch (ServiceNotFoundException) {
+<<<<<<< HEAD
                 $io->error(sprintf('Pool "%s" not found.', $name));
+=======
+                $io->error(\sprintf('Pool "%s" not found.', $name));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $errors = true;
 
                 continue;
             }
 
             if (!$pool instanceof TagAwareCacheInterface) {
+<<<<<<< HEAD
                 $io->error(sprintf('Pool "%s" is not taggable.', $name));
+=======
+                $io->error(\sprintf('Pool "%s" is not taggable.', $name));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $errors = true;
 
                 continue;
             }
 
             if (!$pool->invalidateTags($tags)) {
+<<<<<<< HEAD
                 $io->error(sprintf('Cache tag(s) "%s" could not be invalidated for pool "%s".', $tagList, $name));
+=======
+                $io->error(\sprintf('Cache tag(s) "%s" could not be invalidated for pool "%s".', $tagList, $name));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $errors = true;
             }
         }

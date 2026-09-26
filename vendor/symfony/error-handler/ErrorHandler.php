@@ -55,7 +55,10 @@ class ErrorHandler
         \E_USER_DEPRECATED => 'User Deprecated',
         \E_NOTICE => 'Notice',
         \E_USER_NOTICE => 'User Notice',
+<<<<<<< HEAD
         \E_STRICT => 'Runtime Notice',
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         \E_WARNING => 'Warning',
         \E_USER_WARNING => 'User Warning',
         \E_COMPILE_WARNING => 'Compile Warning',
@@ -73,7 +76,10 @@ class ErrorHandler
         \E_USER_DEPRECATED => [null, LogLevel::INFO],
         \E_NOTICE => [null, LogLevel::WARNING],
         \E_USER_NOTICE => [null, LogLevel::WARNING],
+<<<<<<< HEAD
         \E_STRICT => [null, LogLevel::WARNING],
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         \E_WARNING => [null, LogLevel::WARNING],
         \E_USER_WARNING => [null, LogLevel::WARNING],
         \E_COMPILE_WARNING => [null, LogLevel::WARNING],
@@ -147,6 +153,14 @@ class ErrorHandler
                 $prev[0]->setExceptionHandler($p);
             }
         } else {
+<<<<<<< HEAD
+=======
+            if (!$handlerIsRegistered && null === $prev) {
+                // another error handler is in charge and there is no exception handler to decorate
+                restore_exception_handler();
+            }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $handler->setExceptionHandler($prev ?? [$handler, 'renderException']);
         }
 
@@ -181,6 +195,14 @@ class ErrorHandler
 
     public function __construct(?BufferingLogger $bootstrappingLogger = null, bool $debug = false)
     {
+<<<<<<< HEAD
+=======
+        if (\PHP_VERSION_ID < 80400) {
+            $this->levels[\E_STRICT] = 'Runtime Notice';
+            $this->loggers[\E_STRICT] = [null, LogLevel::WARNING];
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ($bootstrappingLogger) {
             $this->bootstrappingLogger = $bootstrappingLogger;
             $this->setDefaultLogger($bootstrappingLogger);
@@ -190,7 +212,11 @@ class ErrorHandler
             $traceReflector->setValue($e, $trace);
             $e->file = $file ?? $e->file;
             $e->line = $line ?? $e->line;
+<<<<<<< HEAD
         }, null, new class() extends \Exception {
+=======
+        }, null, new class extends \Exception {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         });
         $this->debug = $debug;
     }
@@ -432,7 +458,11 @@ class ErrorHandler
                 return true;
             }
         } else {
+<<<<<<< HEAD
             if (PHP_VERSION_ID < 80303 && str_contains($message, '@anonymous')) {
+=======
+            if (\PHP_VERSION_ID < 80303 && str_contains($message, '@anonymous')) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $backtrace = debug_backtrace(false, 5);
 
                 for ($i = 1; isset($backtrace[$i]); ++$i) {
@@ -448,7 +478,11 @@ class ErrorHandler
                 }
             }
 
+<<<<<<< HEAD
             if (false !== strpos($message, "@anonymous\0")) {
+=======
+            if (str_contains($message, "@anonymous\0")) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $message = $this->parseAnonymousClass($message);
                 $logMessage = $this->levels[$type].': '.$message;
             }
@@ -596,7 +630,11 @@ class ErrorHandler
         }
         if (!$handler) {
             if (null === $error && $exitCode = self::$exitCode) {
+<<<<<<< HEAD
                 register_shutdown_function('register_shutdown_function', function () use ($exitCode) { exit($exitCode); });
+=======
+                register_shutdown_function('register_shutdown_function', static function () use ($exitCode) { exit($exitCode); });
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return;
@@ -635,7 +673,11 @@ class ErrorHandler
         }
 
         if ($exit && $exitCode = self::$exitCode) {
+<<<<<<< HEAD
             register_shutdown_function('register_shutdown_function', function () use ($exitCode) { exit($exitCode); });
+=======
+            register_shutdown_function('register_shutdown_function', static function () use ($exitCode) { exit($exitCode); });
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -739,6 +781,10 @@ class ErrorHandler
      */
     private function parseAnonymousClass(string $message): string
     {
+<<<<<<< HEAD
         return preg_replace_callback('/[a-zA-Z_\x7f-\xff][\\\\a-zA-Z0-9_\x7f-\xff]*+@anonymous\x00.*?\.php(?:0x?|:[0-9]++\$)[0-9a-fA-F]++/', static fn ($m) => class_exists($m[0], false) ? (get_parent_class($m[0]) ?: key(class_implements($m[0])) ?: 'class').'@anonymous' : $m[0], $message);
+=======
+        return preg_replace_callback('/[a-zA-Z_\x7f-\xff][\\\\a-zA-Z0-9_\x7f-\xff]*+@anonymous\x00.*?\.php(?:0x?|:[0-9]++\$)?[0-9a-fA-F]++/', static fn ($m) => class_exists($m[0], false) ? (get_parent_class($m[0]) ?: key(class_implements($m[0])) ?: 'class').'@anonymous' : $m[0], $message);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

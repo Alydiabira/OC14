@@ -165,17 +165,29 @@ class MergeExtensionConfigurationContainerBuilder extends ContainerBuilder
 
     public function addCompilerPass(CompilerPassInterface $pass, string $type = PassConfig::TYPE_BEFORE_OPTIMIZATION, int $priority = 0): static
     {
+<<<<<<< HEAD
         throw new LogicException(sprintf('You cannot add compiler pass "%s" from extension "%s". Compiler passes must be registered before the container is compiled.', get_debug_type($pass), $this->extensionClass));
+=======
+        throw new LogicException(\sprintf('You cannot add compiler pass "%s" from extension "%s". Compiler passes must be registered before the container is compiled.', get_debug_type($pass), $this->extensionClass));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function registerExtension(ExtensionInterface $extension)
     {
+<<<<<<< HEAD
         throw new LogicException(sprintf('You cannot register extension "%s" from "%s". Extensions must be registered before the container is compiled.', get_debug_type($extension), $this->extensionClass));
+=======
+        throw new LogicException(\sprintf('You cannot register extension "%s" from "%s". Extensions must be registered before the container is compiled.', get_debug_type($extension), $this->extensionClass));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function compile(bool $resolveEnvPlaceholders = false)
     {
+<<<<<<< HEAD
         throw new LogicException(sprintf('Cannot compile the container in extension "%s".', $this->extensionClass));
+=======
+        throw new LogicException(\sprintf('Cannot compile the container in extension "%s".', $this->extensionClass));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function resolveEnvPlaceholders(mixed $value, string|bool|null $format = null, ?array &$usedEnvs = null): mixed
@@ -197,7 +209,11 @@ class MergeExtensionConfigurationContainerBuilder extends ContainerBuilder
             }
             foreach ($placeholders as $placeholder) {
                 if (false !== stripos($value, $placeholder)) {
+<<<<<<< HEAD
                     throw new RuntimeException(sprintf('Using a cast in "env(%s)" is incompatible with resolution at compile time in "%s". The logic in the extension should be moved to a compiler pass, or an env parameter with no cast should be used instead.', $env, $this->extensionClass));
+=======
+                    throw new RuntimeException(\sprintf('Using a cast in "env(%s)" is incompatible with resolution at compile time in "%s". The logic in the extension should be moved to a compiler pass, or an env parameter with no cast should be used instead.', $env, $this->extensionClass));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
         }

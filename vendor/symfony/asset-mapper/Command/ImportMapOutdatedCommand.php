@@ -46,6 +46,7 @@ final class ImportMapOutdatedCommand extends Command
             ->addOption(
                 name: 'format',
                 mode: InputOption::VALUE_REQUIRED,
+<<<<<<< HEAD
                 description: sprintf('The output format ("%s")', implode(', ', $this->getAvailableFormatOptions())),
                 default: 'txt',
             )
@@ -60,6 +61,22 @@ Or specific packages only:
 
    <info>php %command.full_name% <packages></info>
 EOT
+=======
+                description: \sprintf('The output format ("%s")', implode(', ', $this->getAvailableFormatOptions())),
+                default: 'txt',
+            )
+            ->setHelp(<<<'EOT'
+                The <info>%command.name%</info> command will list the latest updates available for the 3rd party packages in <comment>importmap.php</comment>.
+                Versions showing in <fg=red>red</> are semver compatible versions and you should upgrading.
+                Versions showing in <fg=yellow>yellow</> are major updates that include backward compatibility breaks according to semver.
+
+                   <info>php %command.full_name%</info>
+
+                Or specific packages only:
+
+                   <info>php %command.full_name% <packages></info>
+                EOT
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
     }
 
@@ -68,12 +85,20 @@ EOT
         $io = new SymfonyStyle($input, $output);
         $packages = $input->getArgument('packages');
         $packagesUpdateInfos = $this->updateChecker->getAvailableUpdates($packages);
+<<<<<<< HEAD
         $packagesUpdateInfos = array_filter($packagesUpdateInfos, fn ($packageUpdateInfo) => $packageUpdateInfo->hasUpdate());
+=======
+        $packagesUpdateInfos = array_filter($packagesUpdateInfos, static fn ($packageUpdateInfo) => $packageUpdateInfo->hasUpdate());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (0 === \count($packagesUpdateInfos)) {
             return Command::SUCCESS;
         }
 
+<<<<<<< HEAD
         $displayData = array_map(fn (string $importName, PackageUpdateInfo $packageUpdateInfo) => [
+=======
+        $displayData = array_map(static fn (string $importName, PackageUpdateInfo $packageUpdateInfo) => [
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'name' => $importName,
             'current' => $packageUpdateInfo->currentVersion,
             'latest' => $packageUpdateInfo->latestVersion,
@@ -88,9 +113,15 @@ EOT
             foreach ($displayData as $datum) {
                 $color = self::COLOR_MAPPING[$datum['latest-status']] ?? 'default';
                 $table->addRow([
+<<<<<<< HEAD
                     sprintf('<fg=%s>%s</>', $color, $datum['name']),
                     $datum['current'],
                     sprintf('<fg=%s>%s</>', $color, $datum['latest']),
+=======
+                    \sprintf('<fg=%s>%s</>', $color, $datum['name']),
+                    $datum['current'],
+                    \sprintf('<fg=%s>%s</>', $color, $datum['latest']),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ]);
             }
             $table->render();

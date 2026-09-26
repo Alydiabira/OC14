@@ -19,7 +19,11 @@ use Twig\Node\Node;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  *
+<<<<<<< HEAD
  * @deprecated since 3.9 (to be removed in 4.0)
+=======
+ * @deprecated since Twig 3.9 (to be removed in 4.0)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 abstract class AbstractNodeVisitor implements NodeVisitorInterface
 {

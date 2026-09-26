@@ -49,7 +49,11 @@ class TimezoneType extends AbstractType
 
                 if ($options['intl']) {
                     if (!class_exists(Intl::class)) {
+<<<<<<< HEAD
                         throw new LogicException(sprintf('The "symfony/intl" component is required to use "%s" with option "intl=true". Try running "composer require symfony/intl".', static::class));
+=======
+                        throw new LogicException(\sprintf('The "symfony/intl" component is required to use "%s" with option "intl=true". Try running "composer require symfony/intl".', static::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
 
                     $choiceTranslationLocale = $options['choice_translation_locale'];

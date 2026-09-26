@@ -35,7 +35,11 @@ class ParametersConfigurator extends AbstractConfigurator
     final public function set(string $name, mixed $value): static
     {
         if ($value instanceof Expression) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Using an expression in parameter "%s" is not allowed.', $name));
+=======
+            throw new InvalidArgumentException(\sprintf('Using an expression in parameter "%s" is not allowed.', $name));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->container->setParameter($name, static::processValue($value, true));

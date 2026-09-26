@@ -18,7 +18,11 @@ class Company extends \Faker\Provider\Company
      *
      * @see https://en.wikipedia.org/wiki/VAT_identification_number#VAT_numbers_by_country
      */
+<<<<<<< HEAD
     public static function vat(string $type = null): string
+=======
+    public static function vat(?string $type = null): string
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         switch ($type) {
             case static::VAT_TYPE_BRANCH:

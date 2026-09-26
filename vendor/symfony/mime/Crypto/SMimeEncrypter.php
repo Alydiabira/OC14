@@ -24,7 +24,11 @@ final class SMimeEncrypter extends SMime
 
     /**
      * @param string|string[] $certificate The path (or array of paths) of the file(s) containing the X.509 certificate(s)
+<<<<<<< HEAD
      * @param int|null        $cipher      A set of algorithms used to encrypt the message. Must be one of these PHP constants: https://www.php.net/manual/en/openssl.ciphers.php
+=======
+     * @param int|null        $cipher      A set of algorithms used to encrypt the message. Must be one of these PHP constants: https://php.net/openssl.ciphers
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct(string|array $certificate, ?int $cipher = null)
     {
@@ -49,7 +53,11 @@ final class SMimeEncrypter extends SMime
         $this->iteratorToFile($message->toIterable(), $bufferFile);
 
         if (!@openssl_pkcs7_encrypt(stream_get_meta_data($bufferFile)['uri'], stream_get_meta_data($outputFile)['uri'], $this->certs, [], 0, $this->cipher)) {
+<<<<<<< HEAD
             throw new RuntimeException(sprintf('Failed to encrypt S/Mime message. Error: "%s".', openssl_error_string()));
+=======
+            throw new RuntimeException(\sprintf('Failed to encrypt S/Mime message. Error: "%s".', openssl_error_string()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $mimePart = $this->convertMessageToSMimePart($outputFile, 'application', 'pkcs7-mime');

@@ -26,7 +26,11 @@
 
 {% block datetime_widget -%}
     {%- if widget != 'single_text' and not valid -%}
+<<<<<<< HEAD
         {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control is-invalid')|trim}) -%}
+=======
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' is-invalid')|trim}) -%}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         {% set valid = true %}
     {%- endif -%}
     {{- parent() -}}
@@ -34,7 +38,11 @@
 
 {% block date_widget -%}
     {%- if widget != 'single_text' and not valid -%}
+<<<<<<< HEAD
         {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control is-invalid')|trim}) -%}
+=======
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' is-invalid')|trim}) -%}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         {% set valid = true %}
     {%- endif -%}
     {{- parent() -}}
@@ -42,7 +50,11 @@
 
 {% block time_widget -%}
     {%- if widget != 'single_text' and not valid -%}
+<<<<<<< HEAD
         {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control is-invalid')|trim}) -%}
+=======
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' is-invalid')|trim}) -%}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         {% set valid = true %}
     {%- endif -%}
     {{- parent() -}}
@@ -50,7 +62,11 @@
 
 {% block dateinterval_widget -%}
     {%- if widget != 'single_text' and not valid -%}
+<<<<<<< HEAD
         {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control is-invalid')|trim}) -%}
+=======
+        {% set attr = attr|merge({class: (attr.class|default('') ~ ' is-invalid')|trim}) -%}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         {% set valid = true %}
     {%- endif -%}
     {%- if widget == 'single_text' -%}
@@ -235,7 +251,12 @@
         {%- endif -%}
         <{{ element|default('label') }}{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>
         {{- block('form_label_content') -}}
+<<<<<<< HEAD
         {% block form_label_errors %}{{- form_errors(form) -}}{% endblock form_label_errors %}</{{ element|default('label') }}>
+=======
+        </{{ element|default('label') }}>
+        {% block form_label_errors %}{{- form_errors(form) -}}{% endblock form_label_errors %}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {%- else -%}
         {%- if errors|length > 0 -%}
         <div id="{{ id }}_errors" class="mb-2">
@@ -271,8 +292,13 @@
             {%- if label is not same as(false) -%}
                 {{- block('form_label_content') -}}
             {%- endif -%}
+<<<<<<< HEAD
             {{- form_errors(form) -}}
         </label>
+=======
+        </label>
+        {{- form_errors(form) -}}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {%- endif -%}
 {%- endblock checkbox_radio_label %}
 
@@ -297,7 +323,11 @@
 
 {% block form_errors -%}
     {%- if errors|length > 0 -%}
+<<<<<<< HEAD
         <span class="{% if form is not rootform %}invalid-feedback{% else %}alert alert-danger{% endif %} d-block">
+=======
+        <span class="{% if form is not rootform %}invalid-feedback{% else %}alert alert-danger{% endif %} d-block mb-1">
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             {%- for error in errors -%}
                 <span class="d-block">
                     <span class="form-error-icon badge badge-danger text-uppercase">{{ 'Error'|trans({}, 'validators') }}</span> <span class="form-error-message">{{ error.message }}</span>

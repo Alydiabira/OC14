@@ -82,7 +82,11 @@ class Serializer
         $indent      = str_repeat($this->indentString, $this->indent);
         $firstIndent = $this->isFirstLineIndented ? $indent : '';
         // 3 === strlen(' * ')
+<<<<<<< HEAD
         $wrapLength = $this->lineLength ? $this->lineLength - strlen($indent) - 3 : null;
+=======
+        $wrapLength = $this->lineLength !== null ? $this->lineLength - strlen($indent) - 3 : null;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $text = $this->removeTrailingSpaces(
             $indent,

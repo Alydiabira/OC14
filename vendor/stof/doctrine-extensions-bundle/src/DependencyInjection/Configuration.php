@@ -6,6 +6,12 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+<<<<<<< HEAD
+=======
+/**
+ * @internal
+ */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
@@ -17,6 +23,10 @@ class Configuration implements ConfigurationInterface
             ->append($this->getVendorNode('orm'))
             ->append($this->getVendorNode('mongodb'))
             ->append($this->getClassNode())
+<<<<<<< HEAD
+=======
+            ->append($this->getSoftDeleteableNode())
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->append($this->getUploadableNode())
             ->children()
                 ->scalarNode('default_locale')
@@ -114,6 +124,24 @@ class Configuration implements ConfigurationInterface
         return $node;
     }
 
+<<<<<<< HEAD
+=======
+    private function getSoftDeleteableNode(): ArrayNodeDefinition
+    {
+        $treeBuilder = new TreeBuilder('softdeleteable');
+        $node = $treeBuilder->getRootNode();
+
+        $node
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->booleanNode('handle_post_flush_event')->defaultFalse()->end()
+            ->end()
+        ;
+
+        return $node;
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private function getUploadableNode(): ArrayNodeDefinition
     {
         $treeBuilder = new TreeBuilder('uploadable');

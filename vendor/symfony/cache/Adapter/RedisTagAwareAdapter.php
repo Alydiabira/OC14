@@ -14,6 +14,10 @@ namespace Symfony\Component\Cache\Adapter;
 use Predis\Connection\Aggregate\ClusterInterface;
 use Predis\Connection\Aggregate\PredisCluster;
 use Predis\Connection\Aggregate\ReplicationInterface;
+<<<<<<< HEAD
+=======
+use Predis\Connection\Replication\ReplicationInterface as Predis2ReplicationInterface;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Predis\Response\ErrorInterface;
 use Predis\Response\Status;
 use Relay\Relay;
@@ -63,7 +67,11 @@ class RedisTagAwareAdapter extends AbstractTagAwareAdapter
     public function __construct(\Redis|Relay|\RedisArray|\RedisCluster|\Predis\ClientInterface $redis, string $namespace = '', int $defaultLifetime = 0, ?MarshallerInterface $marshaller = null)
     {
         if ($redis instanceof \Predis\ClientInterface && $redis->getConnection() instanceof ClusterInterface && !$redis->getConnection() instanceof PredisCluster) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Unsupported Predis cluster connection: only "%s" is, "%s" given.', PredisCluster::class, get_debug_type($redis->getConnection())));
+=======
+            throw new InvalidArgumentException(\sprintf('Unsupported Predis cluster connection: only "%s" is, "%s" given.', PredisCluster::class, get_debug_type($redis->getConnection())));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $isRelay = $redis instanceof Relay;
@@ -72,7 +80,11 @@ class RedisTagAwareAdapter extends AbstractTagAwareAdapter
 
             foreach (\is_array($compression) ? $compression : [$compression] as $c) {
                 if ($isRelay ? Relay::COMPRESSION_NONE : \Redis::COMPRESSION_NONE !== $c) {
+<<<<<<< HEAD
                     throw new InvalidArgumentException(sprintf('redis compression must be disabled when using "%s", use "%s" instead.', static::class, DeflateMarshaller::class));
+=======
+                    throw new InvalidArgumentException(\sprintf('redis compression must be disabled when using "%s", use "%s" instead.', static::class, DeflateMarshaller::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
         }
@@ -85,7 +97,11 @@ class RedisTagAwareAdapter extends AbstractTagAwareAdapter
     {
         $eviction = $this->getRedisEvictionPolicy();
         if ('noeviction' !== $eviction && !str_starts_with($eviction, 'volatile-')) {
+<<<<<<< HEAD
             throw new LogicException(sprintf('Redis maxmemory-policy setting "%s" is *not* supported by RedisTagAwareAdapter, use "noeviction" or "volatile-*" eviction policies.', $eviction));
+=======
+            throw new LogicException(\sprintf('Redis maxmemory-policy setting "%s" is *not* supported by RedisTagAwareAdapter, use "noeviction" or "volatile-*" eviction policies.', $eviction));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         // serialize values
@@ -135,6 +151,7 @@ class RedisTagAwareAdapter extends AbstractTagAwareAdapter
     protected function doDeleteYieldTags(array $ids): iterable
     {
         $lua = <<<'EOLUA'
+<<<<<<< HEAD
             local v = redis.call('GET', KEYS[1])
             local e = redis.pcall('UNLINK', KEYS[1])
 
@@ -148,6 +165,21 @@ class RedisTagAwareAdapter extends AbstractTagAwareAdapter
 
             return v:sub(14, 13 + v:byte(13) + v:byte(12) * 256 + v:byte(11) * 65536)
 EOLUA;
+=======
+                        local v = redis.call('GET', KEYS[1])
+                        local e = redis.pcall('UNLINK', KEYS[1])
+
+                        if type(e) ~= 'number' then
+                            redis.call('DEL', KEYS[1])
+                        end
+
+                        if not v or v:len() <= 13 or v:byte(1) ~= 0x9D or v:byte(6) ~= 0 or v:byte(10) ~= 0x5F then
+                            return ''
+                        end
+
+                        return v:sub(14, 13 + v:byte(13) + v:byte(12) * 256 + v:byte(11) * 65536)
+            EOLUA;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $results = $this->pipeline(function () use ($ids, $lua) {
             foreach ($ids as $id) {
@@ -194,6 +226,7 @@ EOLUA;
         // garbage collect that set from the client side.
 
         $lua = <<<'EOLUA'
+<<<<<<< HEAD
             redis.replicate_commands()
 
             local cursor = '0'
@@ -219,6 +252,33 @@ EOLUA;
 
             return redis.call('SSCAN', '{'..id..'}'..id, '0', 'COUNT', 5000)
 EOLUA;
+=======
+                        redis.replicate_commands()
+
+                        local cursor = '0'
+                        local id = KEYS[1]
+                        repeat
+                            local result = redis.call('SSCAN', id, cursor, 'COUNT', 5000);
+                            cursor = result[1];
+                            local rems = {}
+
+                            for _, v in ipairs(result[2]) do
+                                local ok, _ = pcall(redis.call, 'DEL', ARGV[1]..v)
+                                if ok then
+                                    table.insert(rems, v)
+                                end
+                            end
+                            if 0 < #rems then
+                                redis.call('SREM', id, unpack(rems))
+                            end
+                        until '0' == cursor;
+
+                        redis.call('SUNIONSTORE', '{'..id..'}'..id, id)
+                        redis.call('DEL', id)
+
+                        return redis.call('SSCAN', '{'..id..'}'..id, '0', 'COUNT', 5000)
+            EOLUA;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $results = $this->pipeline(function () use ($tagIds, $lua) {
             if ($this->redis instanceof \Predis\ClientInterface) {
@@ -233,6 +293,7 @@ EOLUA;
         });
 
         $lua = <<<'EOLUA'
+<<<<<<< HEAD
             redis.replicate_commands()
 
             local id = KEYS[1]
@@ -241,6 +302,16 @@ EOLUA;
 
             return redis.call('SSCAN', '{'..id..'}'..id, cursor, 'COUNT', 5000)
 EOLUA;
+=======
+                        redis.replicate_commands()
+
+                        local id = KEYS[1]
+                        local cursor = table.remove(ARGV)
+                        redis.call('SREM', '{'..id..'}'..id, unpack(ARGV))
+
+                        return redis.call('SSCAN', '{'..id..'}'..id, cursor, 'COUNT', 5000)
+            EOLUA;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $success = true;
         foreach ($results as $id => $values) {
@@ -265,7 +336,11 @@ EOLUA;
                     $evalArgs = [$lua, $evalArgs, 1];
                 }
 
+<<<<<<< HEAD
                 $results = $this->pipeline(function () use ($evalArgs) {
+=======
+                $results = $this->pipeline(static function () use ($evalArgs) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     yield 'eval' => $evalArgs;
                 });
 
@@ -286,9 +361,22 @@ EOLUA;
 
         $hosts = $this->getHosts();
         $host = reset($hosts);
+<<<<<<< HEAD
         if ($host instanceof \Predis\Client && $host->getConnection() instanceof ReplicationInterface) {
             // Predis supports info command only on the master in replication environments
             $hosts = [$host->getClientFor('master')];
+=======
+        if ($host instanceof \Predis\Client) {
+            $connection = $host->getConnection();
+
+            // Predis supports info command only on the master in replication environments
+            if ($connection instanceof ReplicationInterface) {
+                $hosts = [$host->getClientFor('master')];
+            } elseif ($connection instanceof Predis2ReplicationInterface) {
+                $connection->switchToMaster();
+                $hosts = [$host];
+            }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         foreach ($hosts as $host) {

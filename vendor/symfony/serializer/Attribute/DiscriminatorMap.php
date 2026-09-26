@@ -30,11 +30,19 @@ class DiscriminatorMap
         private readonly array $mapping,
     ) {
         if (empty($typeProperty)) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Parameter "typeProperty" given to "%s" cannot be empty.', static::class));
         }
 
         if (empty($mapping)) {
             throw new InvalidArgumentException(sprintf('Parameter "mapping" given to "%s" cannot be empty.', static::class));
+=======
+            throw new InvalidArgumentException(\sprintf('Parameter "typeProperty" given to "%s" cannot be empty.', static::class));
+        }
+
+        if (empty($mapping)) {
+            throw new InvalidArgumentException(\sprintf('Parameter "mapping" given to "%s" cannot be empty.', static::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 

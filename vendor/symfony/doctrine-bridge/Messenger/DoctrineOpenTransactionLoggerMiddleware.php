@@ -41,11 +41,19 @@ class DoctrineOpenTransactionLoggerMiddleware extends AbstractDoctrineMiddleware
         }
 
         $this->isHandling = true;
+<<<<<<< HEAD
+=======
+        $initialTransactionLevel = $entityManager->getConnection()->getTransactionNestingLevel();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         try {
             return $stack->next()->handle($envelope, $stack);
         } finally {
+<<<<<<< HEAD
             if ($entityManager->getConnection()->isTransactionActive()) {
+=======
+            if ($entityManager->getConnection()->getTransactionNestingLevel() > $initialTransactionLevel) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $this->logger?->error('A handler opened a transaction but did not close it.', [
                     'message' => $envelope->getMessage(),
                 ]);

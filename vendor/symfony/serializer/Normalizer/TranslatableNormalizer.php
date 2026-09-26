@@ -37,7 +37,11 @@ final class TranslatableNormalizer implements NormalizerInterface
     public function normalize(mixed $object, ?string $format = null, array $context = []): string
     {
         if (!$object instanceof TranslatableInterface) {
+<<<<<<< HEAD
             throw NotNormalizableValueException::createForUnexpectedDataType(sprintf('The object must implement the "%s".', TranslatableInterface::class), $object, [TranslatableInterface::class]);
+=======
+            throw NotNormalizableValueException::createForUnexpectedDataType(\sprintf('The object must implement the "%s".', TranslatableInterface::class), $object, [TranslatableInterface::class]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $object->trans($this->translator, $context[self::NORMALIZATION_LOCALE_KEY] ?? $this->defaultContext[self::NORMALIZATION_LOCALE_KEY]);

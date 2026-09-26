@@ -16,9 +16,18 @@ use Symfony\Bundle\MakerBundle\DependencyBuilder;
 use Symfony\Bundle\MakerBundle\Generator;
 use Symfony\Bundle\MakerBundle\InputConfiguration;
 use Symfony\Bundle\MakerBundle\Str;
+<<<<<<< HEAD
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+=======
+use Symfony\Bundle\MakerBundle\Util\ClassSource\Model\ClassData;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Validator\Validation;
 
 /**
@@ -42,13 +51,18 @@ final class MakeValidator extends AbstractMaker
     {
         $command
             ->addArgument('name', InputArgument::OPTIONAL, 'The name of the validator class (e.g. <fg=yellow>EnabledValidator</>)')
+<<<<<<< HEAD
             ->setHelp(file_get_contents(__DIR__.'/../Resources/help/MakeValidator.txt'))
+=======
+            ->setHelp($this->getHelpFileContents('MakeValidator.txt'))
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ;
     }
 
     /** @return void */
     public function generate(InputInterface $input, ConsoleStyle $io, Generator $generator)
     {
+<<<<<<< HEAD
         $validatorClassNameDetails = $generator->createClassNameDetails(
             $input->getArgument('name'),
             'Validator\\',
@@ -69,6 +83,33 @@ final class MakeValidator extends AbstractMaker
             $constraintFullClassName,
             'validator/Constraint.tpl.php',
             []
+=======
+        $validatorClassData = ClassData::create(
+            class: \sprintf('Validator\\%s', $input->getArgument('name')),
+            suffix: 'Validator',
+            extendsClass: ConstraintValidator::class,
+            useStatements: [
+                Constraint::class,
+            ],
+        );
+
+        $constraintDataClass = ClassData::create(
+            class: \sprintf('Validator\\%s', Str::removeSuffix($validatorClassData->getClassName(), 'Validator')),
+            extendsClass: Constraint::class,
+        );
+
+        $generator->generateClassFromClassData(
+            $validatorClassData,
+            'validator/Validator.tpl.php',
+            [
+                'constraint_class_name' => $constraintDataClass->getClassName(),
+            ]
+        );
+
+        $generator->generateClassFromClassData(
+            $constraintDataClass,
+            'validator/Constraint.tpl.php',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         );
 
         $generator->writeChanges();

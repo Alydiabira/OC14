@@ -10,6 +10,10 @@
 namespace Gedmo\Translatable\Mapping\Event;
 
 use Doctrine\Persistence\Mapping\ClassMetadata;
+<<<<<<< HEAD
+=======
+use Doctrine\Persistence\ObjectManager;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Gedmo\Mapping\Event\AdapterInterface;
 use Gedmo\Tool\Wrapper\AbstractWrapper;
 
@@ -63,7 +67,11 @@ interface TranslatableAdapter extends AdapterInterface
      * @param string $translationClass
      * @param string $objectClass
      *
+<<<<<<< HEAD
      * @phpstan-param AbstractWrapper<ClassMetadata<object>> $wrapped
+=======
+     * @phpstan-param AbstractWrapper<ClassMetadata<object>, object, ObjectManager> $wrapped
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @phpstan-param class-string $translationClass
      * @phpstan-param class-string $objectClass
      *
@@ -77,7 +85,11 @@ interface TranslatableAdapter extends AdapterInterface
      * @param string $transClass
      * @param string $objectClass
      *
+<<<<<<< HEAD
      * @phpstan-param AbstractWrapper<ClassMetadata<object>> $wrapped
+=======
+     * @phpstan-param AbstractWrapper<ClassMetadata<object>, object, ObjectManager> $wrapped
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @phpstan-param class-string $transClass
      * @phpstan-param class-string $objectClass
      *

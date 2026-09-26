@@ -31,10 +31,15 @@ class QueryAnalyzer implements SQLLogger
 
     /**
      * Start time of currently executed query
+<<<<<<< HEAD
      *
      * @var float
      */
     private $queryStartTime;
+=======
+     */
+    private ?float $queryStartTime = null;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Total execution time of all queries
@@ -46,7 +51,11 @@ class QueryAnalyzer implements SQLLogger
      *
      * @var string[]
      */
+<<<<<<< HEAD
     private $queries = [];
+=======
+    private array $queries = [];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Query execution times indexed
@@ -54,7 +63,11 @@ class QueryAnalyzer implements SQLLogger
      *
      * @var float[]
      */
+<<<<<<< HEAD
     private $queryExecutionTimes = [];
+=======
+    private array $queryExecutionTimes = [];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Initialize log listener with database

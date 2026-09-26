@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const fixtureId = 'fixture'
 
 export const getFixture = () => {
@@ -6,6 +7,16 @@ export const getFixture = () => {
   if (!fixtureElement) {
     fixtureElement = document.createElement('div')
     fixtureElement.setAttribute('id', fixtureId)
+=======
+const FIXTURE_ID = 'fixture'
+
+export const getFixture = () => {
+  let fixtureElement = document.getElementById(FIXTURE_ID)
+
+  if (!fixtureElement) {
+    fixtureElement = document.createElement('div')
+    fixtureElement.setAttribute('id', FIXTURE_ID)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     fixtureElement.style.position = 'absolute'
     fixtureElement.style.top = '-10000px'
     fixtureElement.style.left = '-10000px'

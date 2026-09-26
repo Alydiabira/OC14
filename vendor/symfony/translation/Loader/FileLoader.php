@@ -24,11 +24,19 @@ abstract class FileLoader extends ArrayLoader
     public function load(mixed $resource, string $locale, string $domain = 'messages'): MessageCatalogue
     {
         if (!stream_is_local($resource)) {
+<<<<<<< HEAD
             throw new InvalidResourceException(sprintf('This is not a local file "%s".', $resource));
         }
 
         if (!file_exists($resource)) {
             throw new NotFoundResourceException(sprintf('File "%s" not found.', $resource));
+=======
+            throw new InvalidResourceException(\sprintf('This is not a local file "%s".', $resource));
+        }
+
+        if (!file_exists($resource)) {
+            throw new NotFoundResourceException(\sprintf('File "%s" not found.', $resource));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $messages = $this->loadResource($resource);
@@ -38,7 +46,11 @@ abstract class FileLoader extends ArrayLoader
 
         // not an array
         if (!\is_array($messages)) {
+<<<<<<< HEAD
             throw new InvalidResourceException(sprintf('Unable to load file "%s".', $resource));
+=======
+            throw new InvalidResourceException(\sprintf('Unable to load file "%s".', $resource));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $catalogue = parent::load($messages, $locale, $domain);

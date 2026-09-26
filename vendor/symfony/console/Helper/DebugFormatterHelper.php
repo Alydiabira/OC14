@@ -31,7 +31,11 @@ class DebugFormatterHelper extends Helper
     {
         $this->started[$id] = ['border' => ++$this->count % \count(self::COLORS)];
 
+<<<<<<< HEAD
         return sprintf("%s<bg=blue;fg=white> %s </> <fg=blue>%s</>\n", $this->getBorder($id), $prefix, $message);
+=======
+        return \sprintf("%s<bg=blue;fg=white> %s </> <fg=blue>%s</>\n", $this->getBorder($id), $prefix, $message);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -47,22 +51,38 @@ class DebugFormatterHelper extends Helper
                 unset($this->started[$id]['out']);
             }
             if (!isset($this->started[$id]['err'])) {
+<<<<<<< HEAD
                 $message .= sprintf('%s<bg=red;fg=white> %s </> ', $this->getBorder($id), $errorPrefix);
                 $this->started[$id]['err'] = true;
             }
 
             $message .= str_replace("\n", sprintf("\n%s<bg=red;fg=white> %s </> ", $this->getBorder($id), $errorPrefix), $buffer);
+=======
+                $message .= \sprintf('%s<bg=red;fg=white> %s </> ', $this->getBorder($id), $errorPrefix);
+                $this->started[$id]['err'] = true;
+            }
+
+            $message .= str_replace("\n", \sprintf("\n%s<bg=red;fg=white> %s </> ", $this->getBorder($id), $errorPrefix), $buffer);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } else {
             if (isset($this->started[$id]['err'])) {
                 $message .= "\n";
                 unset($this->started[$id]['err']);
             }
             if (!isset($this->started[$id]['out'])) {
+<<<<<<< HEAD
                 $message .= sprintf('%s<bg=green;fg=white> %s </> ', $this->getBorder($id), $prefix);
                 $this->started[$id]['out'] = true;
             }
 
             $message .= str_replace("\n", sprintf("\n%s<bg=green;fg=white> %s </> ", $this->getBorder($id), $prefix), $buffer);
+=======
+                $message .= \sprintf('%s<bg=green;fg=white> %s </> ', $this->getBorder($id), $prefix);
+                $this->started[$id]['out'] = true;
+            }
+
+            $message .= str_replace("\n", \sprintf("\n%s<bg=green;fg=white> %s </> ", $this->getBorder($id), $prefix), $buffer);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $message;
@@ -76,10 +96,17 @@ class DebugFormatterHelper extends Helper
         $trailingEOL = isset($this->started[$id]['out']) || isset($this->started[$id]['err']) ? "\n" : '';
 
         if ($successful) {
+<<<<<<< HEAD
             return sprintf("%s%s<bg=green;fg=white> %s </> <fg=green>%s</>\n", $trailingEOL, $this->getBorder($id), $prefix, $message);
         }
 
         $message = sprintf("%s%s<bg=red;fg=white> %s </> <fg=red>%s</>\n", $trailingEOL, $this->getBorder($id), $prefix, $message);
+=======
+            return \sprintf("%s%s<bg=green;fg=white> %s </> <fg=green>%s</>\n", $trailingEOL, $this->getBorder($id), $prefix, $message);
+        }
+
+        $message = \sprintf("%s%s<bg=red;fg=white> %s </> <fg=red>%s</>\n", $trailingEOL, $this->getBorder($id), $prefix, $message);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         unset($this->started[$id]['out'], $this->started[$id]['err']);
 
@@ -88,7 +115,11 @@ class DebugFormatterHelper extends Helper
 
     private function getBorder(string $id): string
     {
+<<<<<<< HEAD
         return sprintf('<bg=%s> </>', self::COLORS[$this->started[$id]['border']]);
+=======
+        return \sprintf('<bg=%s> </>', self::COLORS[$this->started[$id]['border']]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getName(): string

@@ -45,7 +45,11 @@ class TemplateManager
         $templates = $this->getNames($profile);
 
         if (!isset($templates[$panel])) {
+<<<<<<< HEAD
             throw new NotFoundHttpException(sprintf('Panel "%s" is not registered in profiler or is not present in viewed profile.', $panel));
+=======
+            throw new NotFoundHttpException(\sprintf('Panel "%s" is not registered in profiler or is not present in viewed profile.', $panel));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $templates[$panel];
@@ -77,7 +81,11 @@ class TemplateManager
             }
 
             if (!$loader->exists($template.'.html.twig')) {
+<<<<<<< HEAD
                 throw new \UnexpectedValueException(sprintf('The profiler template "%s.html.twig" for data collector "%s" does not exist.', $template, $name));
+=======
+                throw new \UnexpectedValueException(\sprintf('The profiler template "%s.html.twig" for data collector "%s" does not exist.', $template, $name));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $templates[$name] = $template.'.html.twig';

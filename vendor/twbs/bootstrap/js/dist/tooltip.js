@@ -1,6 +1,11 @@
 /*!
+<<<<<<< HEAD
   * Bootstrap tooltip.js v5.3.3 (https://getbootstrap.com/)
   * Copyright 2011-2024 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+=======
+  * Bootstrap tooltip.js v5.3.8 (https://getbootstrap.com/)
+  * Copyright 2011-2025 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
@@ -115,7 +120,11 @@
   class Tooltip extends BaseComponent {
     constructor(element, config) {
       if (typeof Popper__namespace === 'undefined') {
+<<<<<<< HEAD
         throw new TypeError('Bootstrap\'s tooltips require Popper (https://popper.js.org)');
+=======
+        throw new TypeError('Bootstrap\'s tooltips require Popper (https://popper.js.org/docs/v2/)');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
       }
       super(element, config);
 
@@ -161,7 +170,10 @@
       if (!this._isEnabled) {
         return;
       }
+<<<<<<< HEAD
       this._activeTrigger.click = !this._activeTrigger.click;
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
       if (this._isShown()) {
         this._leave();
         return;
@@ -349,7 +361,11 @@
       return offset;
     }
     _resolvePossibleFunction(arg) {
+<<<<<<< HEAD
       return index_js.execute(arg, [this._element]);
+=======
+      return index_js.execute(arg, [this._element, this._element]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
     _getPopperConfig(attachment) {
       const defaultBsPopperConfig = {
@@ -387,7 +403,11 @@
       };
       return {
         ...defaultBsPopperConfig,
+<<<<<<< HEAD
         ...index_js.execute(this._config.popperConfig, [defaultBsPopperConfig])
+=======
+        ...index_js.execute(this._config.popperConfig, [undefined, defaultBsPopperConfig])
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
       };
     }
     _setListeners() {
@@ -396,6 +416,10 @@
         if (trigger === 'click') {
           EventHandler.on(this._element, this.constructor.eventName(EVENT_CLICK), this._config.selector, event => {
             const context = this._initializeOnDelegatedTarget(event);
+<<<<<<< HEAD
+=======
+            context._activeTrigger[TRIGGER_CLICK] = !(context._isShown() && context._activeTrigger[TRIGGER_CLICK]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             context.toggle();
           });
         } else if (trigger !== TRIGGER_MANUAL) {

@@ -17,7 +17,11 @@ use ArrayAccess;
  * Monolog log record
  *
  * @author Jordi Boggiano <j.boggiano@seld.be>
+<<<<<<< HEAD
  * @template-implements ArrayAccess<'message'|'level'|'context'|'level_name'|'channel'|'datetime'|'extra', int|string|\DateTimeImmutable|array<mixed>>
+=======
+ * @template-implements ArrayAccess<'message'|'level'|'context'|'level_name'|'channel'|'datetime'|'extra'|'formatted', int|string|\DateTimeImmutable|array<mixed>>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 class LogRecord implements ArrayAccess
 {
@@ -42,7 +46,11 @@ class LogRecord implements ArrayAccess
     public function offsetSet(mixed $offset, mixed $value): void
     {
         if ($offset === 'extra') {
+<<<<<<< HEAD
             if (!is_array($value)) {
+=======
+            if (!\is_array($value)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 throw new \InvalidArgumentException('extra must be an array');
             }
 
@@ -76,6 +84,7 @@ class LogRecord implements ArrayAccess
 
     public function &offsetGet(mixed $offset): mixed
     {
+<<<<<<< HEAD
         if ($offset === 'level_name' || $offset === 'level') {
             // avoid returning readonly props by ref as this is illegal
             if ($offset === 'level_name') {
@@ -83,6 +92,18 @@ class LogRecord implements ArrayAccess
             } else {
                 $copy = $this->level->value;
             }
+=======
+        // handle special cases for the level enum
+        if ($offset === 'level_name') {
+            // avoid returning readonly props by ref as this is illegal
+            $copy = $this->level->getName();
+
+            return $copy;
+        }
+        if ($offset === 'level') {
+            // avoid returning readonly props by ref as this is illegal
+            $copy = $this->level->value;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             return $copy;
         }

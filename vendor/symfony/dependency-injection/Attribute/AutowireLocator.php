@@ -28,8 +28,13 @@ class AutowireLocator extends Autowire
     /**
      * @see ServiceSubscriberInterface::getSubscribedServices()
      *
+<<<<<<< HEAD
      * @param string|array<string|SubscribedService> $services An explicit list of services or a tag name
      * @param string|string[]                        $exclude  A service or a list of services to exclude
+=======
+     * @param string|array<string|Autowire|SubscribedService> $services An explicit list of services or a tag name
+     * @param string|string[]                                 $exclude  A service or a list of services to exclude
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct(
         string|array $services,
@@ -58,11 +63,19 @@ class AutowireLocator extends Autowire
             if ($type instanceof SubscribedService) {
                 $key = $type->key ?? $key;
                 $attributes = $type->attributes;
+<<<<<<< HEAD
                 $type = ($type->nullable ? '?' : '').($type->type ?? throw new InvalidArgumentException(sprintf('When "%s" is used, a type must be set.', SubscribedService::class)));
             }
 
             if (!\is_string($type) || !preg_match('/(?(DEFINE)(?<cn>[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*+))(?(DEFINE)(?<fqcn>(?&cn)(?:\\\\(?&cn))*+))^\??(?&fqcn)(?:(?:\|(?&fqcn))*+|(?:&(?&fqcn))*+)$/', $type)) {
                 throw new InvalidArgumentException(sprintf('"%s" is not a PHP type for key "%s".', \is_string($type) ? $type : get_debug_type($type), $key));
+=======
+                $type = ($type->nullable ? '?' : '').($type->type ?? throw new InvalidArgumentException(\sprintf('When "%s" is used, a type must be set.', SubscribedService::class)));
+            }
+
+            if (!\is_string($type) || !preg_match('/(?(DEFINE)(?<cn>[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*+))(?(DEFINE)(?<fqcn>(?&cn)(?:\\\\(?&cn))*+))^\??(?&fqcn)(?:(?:\|(?&fqcn))*+|(?:&(?&fqcn))*+)$/', $type)) {
+                throw new InvalidArgumentException(\sprintf('"%s" is not a PHP type for key "%s".', \is_string($type) ? $type : get_debug_type($type), $key));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $optionalBehavior = ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
             if ('?' === $type[0]) {

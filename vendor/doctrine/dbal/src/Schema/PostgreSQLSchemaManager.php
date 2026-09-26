@@ -287,8 +287,11 @@ SQL,
 
     /**
      * {@inheritDoc}
+<<<<<<< HEAD
      *
      * @link http://ezcomponents.org/docs/api/trunk/DatabaseSchema/ezcDbSchemaPgsqlReader.html
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function _getPortableTableIndexesList($tableIndexes, $tableName = null)
     {
@@ -296,9 +299,22 @@ SQL,
         foreach ($tableIndexes as $row) {
             $colNumbers    = array_map('intval', explode(' ', $row['indkey']));
             $columnNameSql = sprintf(
+<<<<<<< HEAD
                 'SELECT attnum, attname FROM pg_attribute WHERE attrelid=%d AND attnum IN (%s) ORDER BY attnum ASC',
                 $row['indrelid'],
                 implode(' ,', $colNumbers),
+=======
+                <<<'SQL'
+                SELECT attnum,
+                       quote_ident(attname) AS attname
+                FROM pg_attribute
+                WHERE attrelid = %d
+                  AND attnum IN (%s)
+                ORDER BY attnum
+                SQL,
+                $row['indrelid'],
+                implode(', ', $colNumbers),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
 
             $indexColumns = $this->_conn->fetchAllAssociative($columnNameSql);
@@ -604,6 +620,11 @@ WHERE table_catalog = ?
   AND table_name != 'geometry_columns'
   AND table_name != 'spatial_ref_sys'
   AND table_type = 'BASE TABLE'
+<<<<<<< HEAD
+=======
+ORDER BY
+  quote_ident(table_name)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 SQL;
 
         return $this->_conn->executeQuery($sql, [$databaseName]);
@@ -614,10 +635,17 @@ SQL;
         $sql = 'SELECT';
 
         if ($tableName === null) {
+<<<<<<< HEAD
             $sql .= ' c.relname AS table_name, n.nspname AS schema_name,';
         }
 
         $sql .= <<<'SQL'
+=======
+            $sql .= ' quote_ident(c.relname) AS table_name, quote_ident(n.nspname) AS schema_name,';
+        }
+
+        $sql .= sprintf(<<<'SQL'
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             a.attnum,
             quote_ident(a.attname) AS field,
             t.typname AS type,
@@ -633,11 +661,15 @@ SQL;
                 AND pg_index.indkey[0] = a.attnum
                 AND pg_index.indisprimary = 't'
             ) AS pri,
+<<<<<<< HEAD
             (SELECT pg_get_expr(adbin, adrelid)
              FROM pg_attrdef
              WHERE c.oid = pg_attrdef.adrelid
                 AND pg_attrdef.adnum=a.attnum
             ) AS default,
+=======
+            (%s) AS default,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             (SELECT pg_description.description
                 FROM pg_description WHERE pg_description.objoid = c.oid AND a.attnum = pg_description.objsubid
             ) AS comment
@@ -652,7 +684,11 @@ SQL;
                     ON d.objid = c.oid
                         AND d.deptype = 'e'
                         AND d.classid = (SELECT oid FROM pg_class WHERE relname = 'pg_class')
+<<<<<<< HEAD
 SQL;
+=======
+SQL, $this->_platform->getDefaultColumnValueSQLSnippet());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $conditions = array_merge([
             'a.attnum > 0',
@@ -670,7 +706,11 @@ SQL;
         $sql = 'SELECT';
 
         if ($tableName === null) {
+<<<<<<< HEAD
             $sql .= ' tc.relname AS table_name, tn.nspname AS schema_name,';
+=======
+            $sql .= ' quote_ident(tc.relname) AS table_name, quote_ident(tn.nspname) AS schema_name,';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $sql .= <<<'SQL'
@@ -694,7 +734,11 @@ SQL;
             'c.relnamespace = n.oid',
         ], $this->buildQueryConditions($tableName));
 
+<<<<<<< HEAD
         $sql .= ' WHERE ' . implode(' AND ', $conditions) . ')';
+=======
+        $sql .= ' WHERE ' . implode(' AND ', $conditions) . ') ORDER BY quote_ident(ic.relname)';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this->_conn->executeQuery($sql);
     }
@@ -704,7 +748,11 @@ SQL;
         $sql = 'SELECT';
 
         if ($tableName === null) {
+<<<<<<< HEAD
             $sql .= ' tc.relname AS table_name, tn.nspname AS schema_name,';
+=======
+            $sql .= ' quote_ident(tc.relname) AS table_name, quote_ident(tn.nspname) AS schema_name,';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $sql .= <<<'SQL'
@@ -721,7 +769,11 @@ SQL;
 
         $conditions = array_merge(['n.oid = c.relnamespace'], $this->buildQueryConditions($tableName));
 
+<<<<<<< HEAD
         $sql .= ' WHERE ' . implode(' AND ', $conditions) . ") AND r.contype = 'f'";
+=======
+        $sql .= ' WHERE ' . implode(' AND ', $conditions) . ") AND r.contype = 'f' ORDER BY quote_ident(r.conname)";
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this->_conn->executeQuery($sql);
     }
@@ -732,7 +784,12 @@ SQL;
     protected function fetchTableOptionsByTable(string $databaseName, ?string $tableName = null): array
     {
         $sql = <<<'SQL'
+<<<<<<< HEAD
 SELECT c.relname,
+=======
+SELECT n.nspname AS schema_name,
+       c.relname AS table_name,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
        CASE c.relpersistence WHEN 'u' THEN true ELSE false END as unlogged,
        obj_description(c.oid, 'pg_class') AS comment
 FROM pg_class c
@@ -744,7 +801,16 @@ SQL;
 
         $sql .= ' WHERE ' . implode(' AND ', $conditions);
 
+<<<<<<< HEAD
         return $this->_conn->fetchAllAssociativeIndexed($sql);
+=======
+        $tableOptions = [];
+        foreach ($this->_conn->iterateAssociative($sql) as $row) {
+            $tableOptions[$this->_getPortableTableDefinition($row)] = $row;
+        }
+
+        return $tableOptions;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

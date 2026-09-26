@@ -1,15 +1,30 @@
 <?php
 
+<<<<<<< HEAD
 namespace Doctrine\Bundle\DoctrineBundle\Twig;
 
 use Doctrine\SqlFormatter\HtmlHighlighter;
 use Doctrine\SqlFormatter\NullHighlighter;
 use Doctrine\SqlFormatter\SqlFormatter;
 use Symfony\Component\VarDumper\Cloner\Data;
+=======
+declare(strict_types=1);
+
+namespace Doctrine\Bundle\DoctrineBundle\Twig;
+
+use Doctrine\Deprecations\Deprecation;
+use Doctrine\SqlFormatter\HtmlHighlighter;
+use Doctrine\SqlFormatter\NullHighlighter;
+use Doctrine\SqlFormatter\SqlFormatter;
+use Stringable;
+use Symfony\Component\VarDumper\Cloner\Data;
+use Twig\DeprecatedCallableInfo;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
 use function addslashes;
+<<<<<<< HEAD
 use function array_key_exists;
 use function bin2hex;
 use function implode;
@@ -18,12 +33,29 @@ use function is_bool;
 use function is_object;
 use function is_string;
 use function method_exists;
+=======
+use function array_filter;
+use function array_key_exists;
+use function array_keys;
+use function array_merge;
+use function array_values;
+use function bin2hex;
+use function class_exists;
+use function count;
+use function implode;
+use function is_array;
+use function is_bool;
+use function is_string;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function preg_match;
 use function preg_replace_callback;
 use function sprintf;
 use function strtoupper;
 use function substr;
+<<<<<<< HEAD
 use function trigger_deprecation;
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * This class contains the needed functions in order to do the query highlighting
@@ -39,14 +71,32 @@ class DoctrineExtension extends AbstractExtension
      *
      * @return TwigFilter[]
      */
+<<<<<<< HEAD
     public function getFilters()
     {
         return [
             new TwigFilter('doctrine_pretty_query', [$this, 'formatQuery'], ['is_safe' => ['html'], 'deprecated' => true]),
+=======
+    public function getFilters(): array
+    {
+        $out     = [
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             new TwigFilter('doctrine_prettify_sql', [$this, 'prettifySql'], ['is_safe' => ['html']]),
             new TwigFilter('doctrine_format_sql', [$this, 'formatSql'], ['is_safe' => ['html']]),
             new TwigFilter('doctrine_replace_query_parameters', [$this, 'replaceQueryParameters']),
         ];
+<<<<<<< HEAD
+=======
+        $options = ['deprecated' => true];
+        // exists since twig/twig 3.15
+        if (class_exists(DeprecatedCallableInfo::class)) {
+            $options = ['deprecation_info' => new DeprecatedCallableInfo('doctrine/doctrine-bundle', '2.1')];
+        }
+
+        return array_merge($out, [
+            new TwigFilter('doctrine_pretty_query', [$this, 'formatQuery'], ['is_safe' => ['html']] + $options),
+        ]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -55,11 +105,17 @@ class DoctrineExtension extends AbstractExtension
      *
      * @internal
      *
+<<<<<<< HEAD
      * @param mixed $parameter
      *
      * @return string
      */
     public static function escapeFunction($parameter)
+=======
+     * @return string
+     */
+    public static function escapeFunction(mixed $parameter)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $result = $parameter;
 
@@ -81,8 +137,13 @@ class DoctrineExtension extends AbstractExtension
                 $result = implode(', ', $result) ?: 'NULL';
                 break;
 
+<<<<<<< HEAD
             case is_object($result) && method_exists($result, '__toString'):
                 $result = addslashes($result->__toString());
+=======
+            case $result instanceof Stringable:
+                $result = addslashes((string) $result);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 break;
 
             case $result === null:
@@ -100,8 +161,13 @@ class DoctrineExtension extends AbstractExtension
     /**
      * Return a query with the parameters replaced
      *
+<<<<<<< HEAD
      * @param string       $query
      * @param mixed[]|Data $parameters
+=======
+     * @param string                       $query
+     * @param array<array-key, mixed>|Data $parameters
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return string
      */
@@ -111,6 +177,7 @@ class DoctrineExtension extends AbstractExtension
             $parameters = $parameters->getValue(true);
         }
 
+<<<<<<< HEAD
         $i = 0;
 
         if (! array_key_exists(0, $parameters) && array_key_exists(1, $parameters)) {
@@ -131,6 +198,28 @@ class DoctrineExtension extends AbstractExtension
                 $i++;
 
                 return $result;
+=======
+        $keys = array_keys($parameters);
+        if (count(array_filter($keys, 'is_int')) === count($keys)) {
+            $parameters = array_values($parameters);
+        }
+
+        $i = 0;
+
+        return preg_replace_callback(
+            '/(?<!\?)\?(?!\?)|(?<!:)(:[a-z0-9_]+)/i',
+            static function ($matches) use ($parameters, &$i) {
+                $key = substr($matches[0], 1);
+
+                if (! array_key_exists($i, $parameters) && ! array_key_exists($key, $parameters)) {
+                    return $matches[0];
+                }
+
+                $value = array_key_exists($i, $parameters) ? $parameters[$i] : $parameters[$key];
+                $i++;
+
+                return DoctrineExtension::escapeFunction($value);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             },
             $query,
         );
@@ -146,9 +235,15 @@ class DoctrineExtension extends AbstractExtension
      */
     public function formatQuery($sql, $highlightOnly = false)
     {
+<<<<<<< HEAD
         trigger_deprecation(
             'doctrine/doctrine-bundle',
             '2.1',
+=======
+        Deprecation::trigger(
+            'doctrine/doctrine-bundle',
+            'https://github.com/doctrine/DoctrineBundle/pull/1056',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'The "%s()" method is deprecated and will be removed in doctrine-bundle 3.0.',
             __METHOD__,
         );

@@ -15,6 +15,10 @@ use Monolog\Level;
 use Monolog\Logger;
 use Psr\Log\LogLevel;
 use Monolog\LogRecord;
+<<<<<<< HEAD
+=======
+use NoDiscard;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Used for testing purposes.
@@ -23,6 +27,7 @@ use Monolog\LogRecord;
  *
  * @author Jordi Boggiano <j.boggiano@seld.be>
  *
+<<<<<<< HEAD
  * @method bool hasEmergency(string|array $recordAssertions)
  * @method bool hasAlert(string|array $recordAssertions)
  * @method bool hasCritical(string|array $recordAssertions)
@@ -31,6 +36,16 @@ use Monolog\LogRecord;
  * @method bool hasNotice(string|array $recordAssertions)
  * @method bool hasInfo(string|array $recordAssertions)
  * @method bool hasDebug(string|array $recordAssertions)
+=======
+ * @method bool hasEmergency(array{message: string, context?: mixed[]}|string $recordAssertions)
+ * @method bool hasAlert(array{message: string, context?: mixed[]}|string $recordAssertions)
+ * @method bool hasCritical(array{message: string, context?: mixed[]}|string $recordAssertions)
+ * @method bool hasError(array{message: string, context?: mixed[]}|string $recordAssertions)
+ * @method bool hasWarning(array{message: string, context?: mixed[]}|string $recordAssertions)
+ * @method bool hasNotice(array{message: string, context?: mixed[]}|string $recordAssertions)
+ * @method bool hasInfo(array{message: string, context?: mixed[]}|string $recordAssertions)
+ * @method bool hasDebug(array{message: string, context?: mixed[]}|string $recordAssertions)
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @method bool hasEmergencyRecords()
  * @method bool hasAlertRecords()
@@ -79,6 +94,10 @@ class TestHandler extends AbstractProcessingHandler
     /**
      * @return array<LogRecord>
      */
+<<<<<<< HEAD
+=======
+    #[NoDiscard]
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function getRecords(): array
     {
         return $this->records;
@@ -107,6 +126,10 @@ class TestHandler extends AbstractProcessingHandler
      *
      * @phpstan-param value-of<Level::VALUES>|value-of<Level::NAMES>|Level|LogLevel::* $level
      */
+<<<<<<< HEAD
+=======
+    #[NoDiscard]
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function hasRecords(int|string|Level $level): bool
     {
         return isset($this->recordsByLevel[Logger::toMonologLevel($level)->value]);
@@ -117,9 +140,16 @@ class TestHandler extends AbstractProcessingHandler
      *
      * @phpstan-param array{message: string, context?: mixed[]}|string $recordAssertions
      */
+<<<<<<< HEAD
     public function hasRecord(string|array $recordAssertions, Level $level): bool
     {
         if (is_string($recordAssertions)) {
+=======
+    #[NoDiscard]
+    public function hasRecord(string|array $recordAssertions, Level $level): bool
+    {
+        if (\is_string($recordAssertions)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $recordAssertions = ['message' => $recordAssertions];
         }
 
@@ -135,11 +165,19 @@ class TestHandler extends AbstractProcessingHandler
         }, $level);
     }
 
+<<<<<<< HEAD
+=======
+    #[NoDiscard]
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function hasRecordThatContains(string $message, Level $level): bool
     {
         return $this->hasRecordThatPasses(fn (LogRecord $rec) => str_contains($rec->message, $message), $level);
     }
 
+<<<<<<< HEAD
+=======
+    #[NoDiscard]
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function hasRecordThatMatches(string $regex, Level $level): bool
     {
         return $this->hasRecordThatPasses(fn (LogRecord $rec) => preg_match($regex, $rec->message) > 0, $level);
@@ -148,6 +186,10 @@ class TestHandler extends AbstractProcessingHandler
     /**
      * @phpstan-param callable(LogRecord, int): mixed $predicate
      */
+<<<<<<< HEAD
+=======
+    #[NoDiscard]
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function hasRecordThatPasses(callable $predicate, Level $level): bool
     {
         $level = Logger::toMonologLevel($level);
@@ -177,6 +219,7 @@ class TestHandler extends AbstractProcessingHandler
     /**
      * @param mixed[] $args
      */
+<<<<<<< HEAD
     public function __call(string $method, array $args): bool
     {
         if (preg_match('/(.*)(Debug|Info|Notice|Warning|Error|Critical|Alert|Emergency)(.*)/', $method, $matches) > 0) {
@@ -191,5 +234,22 @@ class TestHandler extends AbstractProcessingHandler
         }
 
         throw new \BadMethodCallException('Call to undefined method ' . get_class($this) . '::' . $method . '()');
+=======
+    #[NoDiscard]
+    public function __call(string $method, array $args): bool
+    {
+        if ((bool) preg_match('/(.*)(Debug|Info|Notice|Warning|Error|Critical|Alert|Emergency)(.*)/', $method, $matches)) {
+            $genericMethod = $matches[1] . ('Records' !== $matches[3] ? 'Record' : '') . $matches[3];
+            $level = \constant(Level::class.'::' . $matches[2]);
+            $callback = [$this, $genericMethod];
+            if (\is_callable($callback)) {
+                $args[] = $level;
+
+                return \call_user_func_array($callback, $args);
+            }
+        }
+
+        throw new \BadMethodCallException('Call to undefined method ' . \get_class($this) . '::' . $method . '()');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

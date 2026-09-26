@@ -94,10 +94,17 @@ final class Example implements Tag, Factory\StaticMethod
 
         $filePath = null;
         $fileUri  = null;
+<<<<<<< HEAD
         if ($matches[1] !== '') {
             $filePath = $matches[1];
         } else {
             $fileUri = $matches[2];
+=======
+        if (array_key_exists(1, $matches) && $matches[1] !== '') {
+            $filePath = $matches[1];
+        } else {
+            $fileUri = array_key_exists(2, $matches) ? $matches[2] : '';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $startingLine = 1;

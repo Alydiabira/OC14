@@ -40,7 +40,11 @@ class TagAwareMarshaller implements MarshallerInterface
                     $f = [];
                     $failed[] = $id;
                 } else {
+<<<<<<< HEAD
                     if ([] === $value['tags']) {
+=======
+                    if (!$value['tags']) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $v['tags'] = '';
                     }
 

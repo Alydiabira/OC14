@@ -908,7 +908,11 @@ class SqlitePlatform extends AbstractPlatform
      */
     public function canEmulateSchemas()
     {
+<<<<<<< HEAD
         Deprecation::trigger(
+=======
+        Deprecation::triggerIfCalledFromOutside(
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'doctrine/dbal',
             'https://github.com/doctrine/dbal/pull/4805',
             'SqlitePlatform::canEmulateSchemas() is deprecated.',
@@ -950,11 +954,14 @@ class SqlitePlatform extends AbstractPlatform
         $name    = $index->getQuotedName($this);
         $columns = $index->getColumns();
 
+<<<<<<< HEAD
         if (strpos($table, '.') !== false) {
             [$schema, $table] = explode('.', $table);
             $name             = $schema . '.' . $name;
         }
 
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (count($columns) === 0) {
             throw new InvalidArgumentException(sprintf(
                 'Incomplete or invalid index definition %s on table %s',
@@ -967,6 +974,14 @@ class SqlitePlatform extends AbstractPlatform
             return $this->getCreatePrimaryKeySQL($index, $table);
         }
 
+<<<<<<< HEAD
+=======
+        if (strpos($table, '.') !== false) {
+            [$schema, $table] = explode('.', $table, 2);
+            $name             = $schema . '.' . $name;
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $query  = 'CREATE ' . $this->getCreateIndexSQLFlags($index) . 'INDEX ' . $name . ' ON ' . $table;
         $query .= ' (' . $this->getIndexFieldDeclarationListSQL($index) . ')' . $this->getPartialIndexSQL($index);
 
@@ -1025,7 +1040,11 @@ class SqlitePlatform extends AbstractPlatform
      * {@inheritDoc}
      *
      * @param int|null $createFlags
+<<<<<<< HEAD
      * @psalm-param int-mask-of<AbstractPlatform::CREATE_*>|null $createFlags
+=======
+     * @phpstan-param int-mask-of<AbstractPlatform::CREATE_*>|null $createFlags
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getCreateTableSQL(Table $table, $createFlags = null)
     {
@@ -1150,7 +1169,16 @@ class SqlitePlatform extends AbstractPlatform
         $sql      = [];
         $tableSql = [];
         if (! $this->onSchemaAlterTable($diff, $tableSql)) {
+<<<<<<< HEAD
             $dataTable = new Table('__temp__' . $table->getName());
+=======
+            $tableName = $table->getName();
+            if (strpos($tableName, '.') !== false) {
+                [, $tableName] = explode('.', $tableName, 2);
+            }
+
+            $dataTable = new Table('__temp__' . $tableName);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             $newTable = new Table(
                 $table->getQuotedName($this),

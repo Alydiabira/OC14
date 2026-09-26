@@ -1,4 +1,19 @@
+<<<<<<< HEAD
 branches: ["2.2.x", "3.0.x", "3.1.x", "3.2.x", "3.3.x", "3.4.x"]
 maintained_branches: ["2.2.x", "3.3.x", "3.4.x"]
 doc_dir: "Resources/doc/"
 dev_branch: "3.4.x"
+=======
+branches:
+  - "3.2.x"
+  - "3.3.x"
+  - "3.4.x"
+  - "3.5.x"
+  - "3.6.x"
+  - "3.7.x"
+  - "3.8.x"
+  - "4.0.x"
+maintained_branches: ["3.7.x", "3.8.x", "4.0.x"]
+doc_dir: "docs/"
+dev_branch: "4.0.x"
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96

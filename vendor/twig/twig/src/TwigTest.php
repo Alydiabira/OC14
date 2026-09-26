@@ -20,6 +20,7 @@ use Twig\Node\Expression\TestExpression;
  *
  * @see https://twig.symfony.com/doc/templates.html#test-operator
  */
+<<<<<<< HEAD
 final class TwigTest
 {
     private $name;
@@ -27,11 +28,16 @@ final class TwigTest
     private $options;
     private $arguments = [];
 
+=======
+final class TwigTest extends AbstractTwigCallable
+{
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * @param callable|array{class-string, string}|null $callable A callable implementing the test. If null, you need to overwrite the "node_class" option to customize compilation.
      */
     public function __construct(string $name, $callable = null, array $options = [])
     {
+<<<<<<< HEAD
         $this->name = $name;
         $this->callable = $callable;
         $this->options = array_merge([
@@ -91,10 +97,46 @@ final class TwigTest
     public function getAlternative(): ?string
     {
         return $this->options['alternative'];
+=======
+        parent::__construct($name, $callable, $options);
+
+        $this->options = array_merge([
+            'node_class' => TestExpression::class,
+            'one_mandatory_argument' => false,
+        ], $this->options);
+    }
+
+    public function getType(): string
+    {
+        return 'test';
+    }
+
+    public function needsCharset(): bool
+    {
+        return false;
+    }
+
+    public function needsEnvironment(): bool
+    {
+        return false;
+    }
+
+    public function needsContext(): bool
+    {
+        return false;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function hasOneMandatoryArgument(): bool
     {
         return (bool) $this->options['one_mandatory_argument'];
     }
+<<<<<<< HEAD
+=======
+
+    public function getMinimalNumberOfRequiredArguments(): int
+    {
+        return parent::getMinimalNumberOfRequiredArguments() + 1;
+    }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

@@ -109,7 +109,11 @@ class RedirectController
      */
     public function urlRedirectAction(Request $request, string $path, bool $permanent = false, ?string $scheme = null, ?int $httpPort = null, ?int $httpsPort = null, bool $keepRequestMethod = false): Response
     {
+<<<<<<< HEAD
         if ('' == $path) {
+=======
+        if ('' === $path) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new HttpException($permanent ? 410 : 404);
         }
 
@@ -119,13 +123,25 @@ class RedirectController
             $statusCode = $permanent ? 301 : 302;
         }
 
+<<<<<<< HEAD
+=======
+        $scheme ??= $request->getScheme();
+
+        if (str_starts_with($path, '//')) {
+            $path = $scheme.':'.$path;
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         // redirect if the path is a full URL
         if (parse_url($path, \PHP_URL_SCHEME)) {
             return new RedirectResponse($path, $statusCode);
         }
 
+<<<<<<< HEAD
         $scheme ??= $request->getScheme();
 
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ($qs = $request->server->get('QUERY_STRING') ?: $request->getQueryString()) {
             if (!str_contains($path, '?')) {
                 $qs = '?'.$qs;
@@ -172,7 +188,11 @@ class RedirectController
 
         if (\array_key_exists('route', $p)) {
             if (\array_key_exists('path', $p)) {
+<<<<<<< HEAD
                 throw new \RuntimeException(sprintf('Ambiguous redirection settings, use the "path" or "route" parameter, not both: "%s" and "%s" found respectively in "%s" routing configuration.', $p['path'], $p['route'], $request->attributes->get('_route')));
+=======
+                throw new \RuntimeException(\sprintf('Ambiguous redirection settings, use the "path" or "route" parameter, not both: "%s" and "%s" found respectively in "%s" routing configuration.', $p['path'], $p['route'], $request->attributes->get('_route')));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return $this->redirectAction($request, $p['route'], $p['permanent'] ?? false, $p['ignoreAttributes'] ?? false, $p['keepRequestMethod'] ?? false, $p['keepQueryParams'] ?? false);
@@ -182,6 +202,10 @@ class RedirectController
             return $this->urlRedirectAction($request, $p['path'], $p['permanent'] ?? false, $p['scheme'] ?? null, $p['httpPort'] ?? null, $p['httpsPort'] ?? null, $p['keepRequestMethod'] ?? false);
         }
 
+<<<<<<< HEAD
         throw new \RuntimeException(sprintf('The parameter "path" or "route" is required to configure the redirect action in "%s" routing configuration.', $request->attributes->get('_route')));
+=======
+        throw new \RuntimeException(\sprintf('The parameter "path" or "route" is required to configure the redirect action in "%s" routing configuration.', $request->attributes->get('_route')));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

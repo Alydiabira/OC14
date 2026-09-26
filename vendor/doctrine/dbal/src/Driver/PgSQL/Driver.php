@@ -15,6 +15,10 @@ use function array_values;
 use function func_get_args;
 use function implode;
 use function pg_connect;
+<<<<<<< HEAD
+=======
+use function preg_match;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function restore_error_handler;
 use function set_error_handler;
 use function sprintf;
@@ -64,9 +68,24 @@ final class Driver extends AbstractPostgreSQLDriver
         #[SensitiveParameter]
         array $params
     ): string {
+<<<<<<< HEAD
         $components = array_filter(
             [
                 'host' => $params['host'] ?? null,
+=======
+        // pg_connect used by Doctrine DBAL does not support [...] notation,
+        // but requires the host address in plain form like `aa:bb:99...`
+        $matches = [];
+        if (isset($params['host']) && preg_match('/^\[(.+)\]$/', $params['host'], $matches) === 1) {
+            $params['hostaddr'] = $matches[1];
+            unset($params['host']);
+        }
+
+        $components = array_filter(
+            [
+                'host' => $params['host'] ?? null,
+                'hostaddr' => $params['hostaddr'] ?? null,
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'port' => $params['port'] ?? null,
                 'dbname' => $params['dbname'] ?? 'postgres',
                 'user' => $params['user'] ?? null,

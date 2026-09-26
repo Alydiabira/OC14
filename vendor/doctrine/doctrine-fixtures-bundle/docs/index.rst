@@ -1,9 +1,14 @@
 DoctrineFixturesBundle
 ======================
 
+<<<<<<< HEAD
 Fixtures are used to load a "fake" set of data into a database that can then
 be used for testing or to help give you some interesting data while you're
 developing your application.
+=======
+Fixtures are used to load a sample set of data into a database that can then
+be used for testing or to provide useful data while you're developing your application.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 This bundle is compatible with any database supported by `Doctrine ORM`_
 (MySQL, PostgreSQL, SQLite, etc.). If you are using MongoDB, you must use
@@ -12,24 +17,33 @@ This bundle is compatible with any database supported by `Doctrine ORM`_
 Installation
 ------------
 
+<<<<<<< HEAD
 In Symfony 4 or higher applications that use `Symfony Flex`_, open a command
 console, enter your project directory and run the following command:
+=======
+If you're using `Symfony Flex`_, run this command and you're done:
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 .. code-block:: terminal
 
     $ composer require --dev orm-fixtures
 
+<<<<<<< HEAD
 Starting from Symfony 4.0, Flex should be used by default and register the
 bundle for you, and in that case you can skip to the next section and start
 writing fixtures.
 
 In Symfony 3 applications (or when not using Symfony Flex), run this other
 command instead:
+=======
+If you're not using Flex, run this other command instead:
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 .. code-block:: terminal
 
     $ composer require --dev doctrine/doctrine-fixtures-bundle
 
+<<<<<<< HEAD
 You will also need to enable the bundle. In Symfony 3 and earlier applications,
 update the ``AppKernel`` class::
 
@@ -42,14 +56,21 @@ update the ``AppKernel`` class::
         $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
     }
 
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 Writing Fixtures
 ----------------
 
 Data fixtures are PHP classes where you create objects and persist them to the
 database.
 
+<<<<<<< HEAD
 Imagine that you want to add some ``Product`` objects to your database. No problem!
 Create a fixtures class and start adding products::
+=======
+Imagine that you want to add some ``Product`` objects to your database. To do this,
+create a fixtures class and start adding products::
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     // src/DataFixtures/AppFixtures.php
     namespace App\DataFixtures;
@@ -60,9 +81,15 @@ Create a fixtures class and start adding products::
 
     class AppFixtures extends Fixture
     {
+<<<<<<< HEAD
         public function load(ObjectManager $manager)
         {
             // create 20 products! Bam!
+=======
+        public function load(ObjectManager $manager): void
+        {
+            // create 20 products with random prices
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             for ($i = 0; $i < 20; $i++) {
                 $product = new Product();
                 $product->setName('product '.$i);
@@ -103,8 +130,13 @@ To see other options for the command, run:
 Accessing Services from the Fixtures
 ------------------------------------
 
+<<<<<<< HEAD
 In some cases you may need to access your application's services inside a fixtures
 class. No problem! Your fixtures class is a service, so you can use normal dependency
+=======
+In some cases, you may need to access your application's services inside a fixtures
+class. Your fixtures class is a service, so you can use normal dependency
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 injection::
 
     // src/DataFixtures/AppFixtures.php
@@ -120,7 +152,11 @@ injection::
         }
 
         // ...
+<<<<<<< HEAD
         public function load(ObjectManager $manager)
+=======
+        public function load(ObjectManager $manager): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         {
             $user = new User();
             $user->setUsername('admin');
@@ -138,9 +174,15 @@ injection::
 Splitting Fixtures into Separate Files
 --------------------------------------
 
+<<<<<<< HEAD
 In most applications, creating all your fixtures in just one class is fine.
 This class may end up being a bit long, but it's worth it because having one
 file helps keeping things simple.
+=======
+In many applications, creating all your fixtures in one class is sufficient.
+This class may become very long, but having a single file can help keep related
+things together.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 If you do decide to split your fixtures into separate files, Symfony helps you
 solve the two most common issues: sharing objects between fixtures and loading
@@ -156,7 +198,11 @@ exact same object via its name.
 
 .. note::
 
+<<<<<<< HEAD
     Adding object references only works for ORM entities or ODM documents.
+=======
+    Adding object references only works for ORM entities.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 .. code-block:: php
 
@@ -166,7 +212,11 @@ exact same object via its name.
     {
         public const ADMIN_USER_REFERENCE = 'admin-user';
 
+<<<<<<< HEAD
         public function load(ObjectManager $manager)
+=======
+        public function load(ObjectManager $manager): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         {
             $userAdmin = new User('admin', 'pass_1234');
             $manager->persist($userAdmin);
@@ -183,20 +233,34 @@ exact same object via its name.
     // ...
     class GroupFixtures extends Fixture
     {
+<<<<<<< HEAD
         public function load(ObjectManager $manager)
         {
             $userGroup = new Group('administrators');
             // this reference returns the User object created in UserFixtures
             $userGroup->addUser($this->getReference(UserFixtures::ADMIN_USER_REFERENCE));
+=======
+        public function load(ObjectManager $manager): void
+        {
+            $userGroup = new Group('administrators');
+            // this reference returns the User object created in UserFixtures
+            $userGroup->addUser($this->getReference(UserFixtures::ADMIN_USER_REFERENCE, User::class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             $manager->persist($userGroup);
             $manager->flush();
         }
     }
 
+<<<<<<< HEAD
 The only caveat of using references is that fixtures need to be loaded in a
 certain order (in this example, if the ``Group`` fixtures are load before the
 ``User`` fixtures, you'll see an error). By default Doctrine loads the fixture
+=======
+When using references, you must be careful about the order in which the fixtures
+are loaded (in this example, if the ``Group`` fixtures are loaded before the
+``User`` fixtures, you'll see an error). By default, Doctrine loads the fixture
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 files in alphabetical order, but you can control their order as explained in the
 next section.
 
@@ -215,7 +279,11 @@ an array of the fixture classes that must be loaded before this one::
     // ...
     class UserFixtures extends Fixture
     {
+<<<<<<< HEAD
         public function load(ObjectManager $manager)
+=======
+        public function load(ObjectManager $manager): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         {
             // ...
         }
@@ -229,12 +297,20 @@ an array of the fixture classes that must be loaded before this one::
 
     class GroupFixtures extends Fixture implements DependentFixtureInterface
     {
+<<<<<<< HEAD
         public function load(ObjectManager $manager)
+=======
+        public function load(ObjectManager $manager): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         {
             // ...
         }
 
+<<<<<<< HEAD
         public function getDependencies()
+=======
+        public function getDependencies(): array
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         {
             return [
                 UserFixtures::class,
@@ -301,7 +377,11 @@ fixture using the ``UserFixtures`` group:
 Specifying purging behavior
 ---------------------------
 
+<<<<<<< HEAD
 By default all previously existing data is purged using ``DELETE FROM table`` statements. If you prefer to use
+=======
+By default, all previously existing data is purged using ``DELETE FROM table`` statements. If you prefer to use
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 ``TRUNCATE table`` statements for purging, use ``--purge-with-truncate``.
 
 If you want to exclude a set of tables from being purged, e.g. because your schema comes with pre-populated,
@@ -322,7 +402,11 @@ You can also customize purging behavior significantly more and implement a custo
     // ...
     class CustomPurger implements PurgerInterface
     {
+<<<<<<< HEAD
         public function purge() : void
+=======
+        public function purge(): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         {
             // ...
         }
@@ -376,7 +460,11 @@ The next step is to register our custom purger factory and specify its alias.
 
         use App\Purger\CustomerPurgerFactory;
 
+<<<<<<< HEAD
         return function(ContainerConfigurator $configurator) : void {
+=======
+        return function(ContainerConfigurator $configurator): void {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $services = $configurator->services();
 
             $services->set(CustomerPurgerFactory::class)
@@ -430,7 +518,11 @@ Then, enable Dependency Injection for the ``fixtures`` directory:
         // config/services.php
         namespace Symfony\Component\DependencyInjection\Loader\Configurator;
     
+<<<<<<< HEAD
         return function(ContainerConfigurator $container) : void {
+=======
+        return function(ContainerConfigurator $container): void {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $services = $container->services()
                 ->defaults()
                     ->autowire()

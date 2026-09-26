@@ -20,6 +20,14 @@ class RemoveBuildParametersPass implements CompilerPassInterface
      */
     private array $removedParameters = [];
 
+<<<<<<< HEAD
+=======
+    public function __construct(
+        private bool $preserveArrays = false,
+    ) {
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * @return void
      */
@@ -29,11 +37,23 @@ class RemoveBuildParametersPass implements CompilerPassInterface
         $this->removedParameters = [];
 
         foreach ($parameterBag->all() as $name => $value) {
+<<<<<<< HEAD
             if ('.' === ($name[0] ?? '')) {
                 $this->removedParameters[$name] = $value;
 
                 $parameterBag->remove($name);
                 $container->log($this, sprintf('Removing build parameter "%s".', $name));
+=======
+            if ('.' !== ($name[0] ?? '')) {
+                continue;
+            }
+            if (!$this->preserveArrays || !\is_array($value)) {
+                $this->removedParameters[$name] = $value;
+                $parameterBag->remove($name);
+                $container->log($this, \sprintf('Removing build parameter "%s".', $name));
+            } else {
+                $container->log($this, \sprintf('Keeping array build parameter "%s" for placeholder resolution.', $name));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
     }

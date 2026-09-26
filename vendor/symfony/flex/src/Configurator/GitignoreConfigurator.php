@@ -34,7 +34,11 @@ class GitignoreConfigurator extends AbstractConfigurator
             return;
         }
 
+<<<<<<< HEAD
         $contents = preg_replace(sprintf('{%s*###> %s ###.*###< %s ###%s+}s', "\n", $recipe->getName(), $recipe->getName(), "\n"), "\n", file_get_contents($file), -1, $count);
+=======
+        $contents = preg_replace(\sprintf('{%s*###> %s ###.*###< %s ###%s+}s', "\n", $recipe->getName(), $recipe->getName(), "\n"), "\n", file_get_contents($file), -1, $count);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (!$count) {
             return;
         }

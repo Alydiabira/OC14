@@ -12,7 +12,11 @@ use PhpParser\NodeVisitorAbstract;
 class FindingVisitor extends NodeVisitorAbstract {
     /** @var callable Filter callback */
     protected $filterCallback;
+<<<<<<< HEAD
     /** @var Node[] Found nodes */
+=======
+    /** @var list<Node> Found nodes */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected array $foundNodes;
 
     public function __construct(callable $filterCallback) {
@@ -24,7 +28,11 @@ class FindingVisitor extends NodeVisitorAbstract {
      *
      * Nodes are returned in pre-order.
      *
+<<<<<<< HEAD
      * @return Node[] Found nodes
+=======
+     * @return list<Node> Found nodes
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getFoundNodes(): array {
         return $this->foundNodes;

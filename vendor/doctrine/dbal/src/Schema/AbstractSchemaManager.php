@@ -31,7 +31,11 @@ use function strtolower;
  * Base class for schema managers. Schema managers are used to inspect and/or
  * modify the database schema/structure.
  *
+<<<<<<< HEAD
  * @template T of AbstractPlatform
+=======
+ * @template-covariant T of AbstractPlatform
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 abstract class AbstractSchemaManager
 {
@@ -1740,6 +1744,13 @@ abstract class AbstractSchemaManager
      */
     public function extractDoctrineTypeFromComment($comment, $currentType)
     {
+<<<<<<< HEAD
+=======
+        if ($this->_conn->getConfiguration()->getDisableTypeComments()) {
+            return $currentType;
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ($comment !== null && preg_match('(\(DC2Type:(((?!\)).)+)\))', $comment, $match) === 1) {
             return $match[1];
         }
@@ -1757,6 +1768,13 @@ abstract class AbstractSchemaManager
      */
     public function removeDoctrineTypeFromComment($comment, $type)
     {
+<<<<<<< HEAD
+=======
+        if ($this->_conn->getConfiguration()->getDisableTypeComments()) {
+            return $comment;
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ($comment === null) {
             return null;
         }

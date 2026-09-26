@@ -1,5 +1,10 @@
 <?php
 
+<<<<<<< HEAD
+=======
+declare(strict_types=1);
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 namespace Doctrine\Bundle\DoctrineBundle;
 
 use Closure;
@@ -12,11 +17,18 @@ use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\MiddlewaresPass;
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\RemoveLoggingMiddlewarePass;
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\RemoveProfilerControllerPass;
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\ServiceRepositoryCompilerPass;
+<<<<<<< HEAD
 use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\WellKnownSchemaFilterPass;
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Proxy\Autoloader;
 use Doctrine\ORM\Proxy\DefaultProxyClassNameResolver;
 use Symfony\Bridge\Doctrine\DependencyInjection\CompilerPass\DoctrineValidationPass;
+<<<<<<< HEAD
+=======
+use Symfony\Bridge\Doctrine\DependencyInjection\CompilerPass\RegisterDatePointTypePass;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Bridge\Doctrine\DependencyInjection\CompilerPass\RegisterEventListenersAndSubscribersPass;
 use Symfony\Bridge\Doctrine\DependencyInjection\CompilerPass\RegisterUidTypePass;
 use Symfony\Bridge\Doctrine\DependencyInjection\Security\UserProvider\EntityFactory;
@@ -36,10 +48,16 @@ use function spl_autoload_unregister;
 /** @final since 2.9 */
 class DoctrineBundle extends Bundle
 {
+<<<<<<< HEAD
     private ?Closure $autoloader = null;
 
     /** @return void */
     public function build(ContainerBuilder $container)
+=======
+    private Closure|null $autoloader = null;
+
+    public function build(ContainerBuilder $container): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         parent::build($container);
 
@@ -69,12 +87,16 @@ class DoctrineBundle extends Bundle
         $container->addCompilerPass(new EntityListenerPass());
         $container->addCompilerPass(new ServiceRepositoryCompilerPass());
         $container->addCompilerPass(new IdGeneratorPass());
+<<<<<<< HEAD
         $container->addCompilerPass(new WellKnownSchemaFilterPass());
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $container->addCompilerPass(new DbalSchemaFilterPass());
         $container->addCompilerPass(new CacheSchemaSubscriberPass(), PassConfig::TYPE_BEFORE_REMOVING, -10);
         $container->addCompilerPass(new RemoveProfilerControllerPass());
         $container->addCompilerPass(new RemoveLoggingMiddlewarePass());
         $container->addCompilerPass(new MiddlewaresPass());
+<<<<<<< HEAD
 
         if (! class_exists(RegisterUidTypePass::class)) {
             return;
@@ -88,6 +110,25 @@ class DoctrineBundle extends Bundle
     {
         // Register an autoloader for proxies to avoid issues when unserializing them
         // when the ORM is used.
+=======
+        $container->addCompilerPass(new RegisterUidTypePass());
+
+        if (! class_exists(RegisterDatePointTypePass::class)) {
+            return;
+        }
+
+        $container->addCompilerPass(new RegisterDatePointTypePass());
+    }
+
+    public function boot(): void
+    {
+        // Register an autoloader for proxies when native lazy objects are not in use
+        // to avoid issues when unserializing them when the ORM is used.
+        if ($this->container->hasParameter('doctrine.orm.enable_native_lazy_objects') && $this->container->getParameter('doctrine.orm.enable_native_lazy_objects')) {
+            return;
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (! $this->container->hasParameter('doctrine.orm.proxy_namespace')) {
             return;
         }
@@ -132,8 +173,12 @@ class DoctrineBundle extends Bundle
         $this->autoloader = Autoloader::register($dir, $namespace, $proxyGenerator);
     }
 
+<<<<<<< HEAD
     /** @return void */
     public function shutdown()
+=======
+    public function shutdown(): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if ($this->autoloader !== null) {
             spl_autoload_unregister($this->autoloader);
@@ -165,8 +210,12 @@ class DoctrineBundle extends Bundle
         }
     }
 
+<<<<<<< HEAD
     /** @return void */
     public function registerCommands(Application $application)
+=======
+    public function registerCommands(Application $application): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
     }
 

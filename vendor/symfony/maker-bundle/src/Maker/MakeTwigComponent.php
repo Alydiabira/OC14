@@ -13,13 +13,24 @@ namespace Symfony\Bundle\MakerBundle\Maker;
 
 use Symfony\Bundle\MakerBundle\ConsoleStyle;
 use Symfony\Bundle\MakerBundle\DependencyBuilder;
+<<<<<<< HEAD
 use Symfony\Bundle\MakerBundle\Generator;
 use Symfony\Bundle\MakerBundle\InputConfiguration;
 use Symfony\Bundle\MakerBundle\Str;
+=======
+use Symfony\Bundle\MakerBundle\Exception\RuntimeCommandException;
+use Symfony\Bundle\MakerBundle\FileManager;
+use Symfony\Bundle\MakerBundle\Generator;
+use Symfony\Bundle\MakerBundle\InputConfiguration;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+<<<<<<< HEAD
+=======
+use Symfony\Component\Yaml\Yaml;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
@@ -28,6 +39,15 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
  */
 final class MakeTwigComponent extends AbstractMaker
 {
+<<<<<<< HEAD
+=======
+    private string $namespace = 'Twig\\Components';
+
+    public function __construct(private FileManager $fileManager)
+    {
+    }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public static function getCommandName(): string
     {
         return 'make:twig-component';
@@ -35,15 +55,24 @@ final class MakeTwigComponent extends AbstractMaker
 
     public static function getCommandDescription(): string
     {
+<<<<<<< HEAD
         return 'Create a twig (or live) component';
+=======
+        return 'Create a Twig (or Live) component';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function configureCommand(Command $command, InputConfiguration $inputConfig): void
     {
         $command
             ->setDescription(self::getCommandDescription())
+<<<<<<< HEAD
             ->addArgument('name', InputArgument::OPTIONAL, 'The name of your twig component (ie <fg=yellow>Notification</>)')
             ->addOption('live', null, InputOption::VALUE_NONE, 'Whether to create a live twig component (requires <fg=yellow>symfony/ux-live-component</>)')
+=======
+            ->addArgument('name', InputArgument::OPTIONAL, 'The name of your Twig component (ie <fg=yellow>Notification</>)')
+            ->addOption('live', null, InputOption::VALUE_NONE, 'Whether to create a Live component (requires <fg=yellow>symfony/ux-live-component</>)')
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ;
     }
 
@@ -58,11 +87,16 @@ final class MakeTwigComponent extends AbstractMaker
         $live = $input->getOption('live');
 
         if ($live && !class_exists(AsLiveComponent::class)) {
+<<<<<<< HEAD
             throw new \RuntimeException('You must install symfony/ux-live-component to create a live component (composer require symfony/ux-live-component)');
+=======
+            throw new \RuntimeException('You must install symfony/ux-live-component to create a Live component (composer require symfony/ux-live-component)');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $factory = $generator->createClassNameDetails(
             $name,
+<<<<<<< HEAD
             'Twig\\Components',
         );
 
@@ -71,13 +105,29 @@ final class MakeTwigComponent extends AbstractMaker
         $generator->generateClass(
             $factory->getFullName(),
             sprintf('%s/../Resources/skeleton/twig/%s', __DIR__, $live ? 'LiveComponent.tpl.php' : 'Component.tpl.php'),
+=======
+            str_replace($generator->getRootNamespace().'\\', '', $this->namespace),
+        );
+
+        $templatePath = str_replace('\\', '/', $factory->getRelativeNameWithoutSuffix());
+        $shortName = str_replace('\\', ':', $factory->getRelativeNameWithoutSuffix());
+
+        $generator->generateClass(
+            $factory->getFullName(),
+            \sprintf('%s/templates/twig/%s', \dirname(__DIR__, 2), $live ? 'LiveComponent.tpl.php' : 'Component.tpl.php'),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             [
                 'live' => $live,
             ]
         );
         $generator->generateTemplate(
+<<<<<<< HEAD
             "components/{$shortName}.html.twig",
             sprintf('%s/../Resources/skeleton/twig/%s', __DIR__, 'component_template.tpl.php')
+=======
+            "components/{$templatePath}.html.twig",
+            \sprintf('%s/templates/twig/%s', \dirname(__DIR__, 2), 'component_template.tpl.php')
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         );
 
         $generator->writeChanges();
@@ -91,7 +141,24 @@ final class MakeTwigComponent extends AbstractMaker
     public function interact(InputInterface $input, ConsoleStyle $io, Command $command): void
     {
         if (!$input->getOption('live')) {
+<<<<<<< HEAD
             $input->setOption('live', $io->confirm('Make this a live component?', false));
+=======
+            $input->setOption('live', $io->confirm('Make this a Live component?', false));
+        }
+
+        $path = 'config/packages/twig_component.yaml';
+
+        if (!$this->fileManager->fileExists($path)) {
+            return;
+        }
+
+        try {
+            $value = Yaml::parse($this->fileManager->getFileContents($path));
+            $this->namespace = array_key_first($value['twig_component']['defaults']);
+        } catch (\Throwable $throwable) {
+            throw new RuntimeCommandException(message: 'Unable to parse config/packages/twig_component.yaml', previous: $throwable);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

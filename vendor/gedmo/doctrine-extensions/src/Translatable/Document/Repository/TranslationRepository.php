@@ -28,7 +28,13 @@ use Gedmo\Translatable\TranslatableListener;
  *
  * @author Gediminas Morkevicius <gediminas.morkevicius@gmail.com>
  *
+<<<<<<< HEAD
  * @phpstan-extends DocumentRepository<object>
+=======
+ * @template T of object
+ *
+ * @template-extends DocumentRepository<T>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 class TranslationRepository extends DocumentRepository
 {
@@ -38,6 +44,12 @@ class TranslationRepository extends DocumentRepository
      */
     private ?TranslatableListener $listener = null;
 
+<<<<<<< HEAD
+=======
+    /**
+     * @param ClassMetadata<T> $class
+     */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function __construct(DocumentManager $dm, UnitOfWork $uow, ClassMetadata $class)
     {
         if ($class->getReflectionClass()->isSubclassOf(AbstractPersonalTranslation::class)) {
@@ -69,7 +81,11 @@ class TranslationRepository extends DocumentRepository
             || $listener->getTranslatableLocale($document, $meta, $this->getDocumentManager()) === $locale
         ;
         if ($modRecordValue) {
+<<<<<<< HEAD
             $meta->getReflectionProperty($field)->setValue($document, $value);
+=======
+            $meta->setFieldValue($document, $field, $value);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->dm->persist($document);
         } else {
             if (isset($config['translationClass'])) {
@@ -78,7 +94,11 @@ class TranslationRepository extends DocumentRepository
                 $ea = new TranslatableAdapterODM();
                 $class = $listener->getTranslationClass($ea, $config['useObjectClass']);
             }
+<<<<<<< HEAD
             $foreignKey = $meta->getReflectionProperty($meta->getIdentifier()[0])->getValue($document);
+=======
+            $foreignKey = $meta->getFieldValue($document, $meta->getIdentifier()[0]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $objectClass = $config['useObjectClass'];
             $transMeta = $this->dm->getClassMetadata($class);
             $trans = $this->findOneBy([
@@ -89,15 +109,26 @@ class TranslationRepository extends DocumentRepository
             ]);
             if (!$trans) {
                 $trans = $transMeta->newInstance();
+<<<<<<< HEAD
                 $transMeta->getReflectionProperty('foreignKey')->setValue($trans, $foreignKey);
                 $transMeta->getReflectionProperty('objectClass')->setValue($trans, $objectClass);
                 $transMeta->getReflectionProperty('field')->setValue($trans, $field);
                 $transMeta->getReflectionProperty('locale')->setValue($trans, $locale);
+=======
+                $transMeta->setFieldValue($trans, 'foreignKey', $foreignKey);
+                $transMeta->setFieldValue($trans, 'objectClass', $objectClass);
+                $transMeta->setFieldValue($trans, 'field', $field);
+                $transMeta->setFieldValue($trans, 'locale', $locale);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $mapping = $meta->getFieldMapping($field);
             $type = $this->getType($mapping['type']);
             $transformed = $type->convertToDatabaseValue($value);
+<<<<<<< HEAD
             $transMeta->getReflectionProperty('content')->setValue($trans, $transformed);
+=======
+            $transMeta->setFieldValue($trans, 'content', $transformed);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if ($this->dm->getUnitOfWork()->isInIdentityMap($document)) {
                 $this->dm->persist($trans);
             } else {

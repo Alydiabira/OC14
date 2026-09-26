@@ -145,6 +145,15 @@
             }
 
             addEventListener(toggles[i], 'click', function(e) {
+<<<<<<< HEAD
+=======
+                var toggle = e.currentTarget;
+
+                if (e.target.closest('a, span[data-clipboard-text], .sf-toggle') !== toggle) {
+                    return;
+                }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 e.preventDefault();
 
                 if ('' !== window.getSelection().toString()) {
@@ -152,6 +161,7 @@
                     return;
                 }
 
+<<<<<<< HEAD
                 var toggle = e.target || e.srcElement;
 
                 /* needed because when the toggle contains HTML contents, user can click */
@@ -160,6 +170,8 @@
                     toggle = toggle.parentNode;
                 }
 
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 var element = document.querySelector(toggle.getAttribute('data-toggle-selector'));
 
                 toggleClass(toggle, 'sf-toggle-on');
@@ -182,6 +194,7 @@
                 toggle.innerHTML = currentContent !== altContent ? altContent : originalContent;
             });
 
+<<<<<<< HEAD
             /* Prevents from disallowing clicks on links inside toggles */
             var toggleLinks = toggles[i].querySelectorAll('a');
             for (var j = 0; j < toggleLinks.length; j++) {
@@ -198,6 +211,8 @@
                 });
             }
 
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             toggles[i].setAttribute('data-processed', 'true');
         }
     })();

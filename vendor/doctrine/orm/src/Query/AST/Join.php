@@ -20,7 +20,11 @@ class Join extends Node
 
     public ConditionalExpression|Phase2OptimizableConditional|null $conditionalExpression = null;
 
+<<<<<<< HEAD
     /** @psalm-param self::JOIN_TYPE_* $joinType */
+=======
+    /** @phpstan-param self::JOIN_TYPE_* $joinType */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function __construct(
         public int $joinType,
         public Node|null $joinAssociationDeclaration = null,

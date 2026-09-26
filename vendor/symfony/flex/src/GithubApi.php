@@ -40,8 +40,13 @@ class GithubApi
             return null;
         }
 
+<<<<<<< HEAD
         $recipePath = sprintf('%s/%s', $package, $version);
         $commitsData = $this->requestGitHubApi(sprintf(
+=======
+        $recipePath = \sprintf('%s/%s', $package, $version);
+        $commitsData = $this->requestGitHubApi(\sprintf(
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'https://api.github.com/repos/%s/commits?path=%s&sha=%s',
             $repositoryName,
             $recipePath,
@@ -85,7 +90,11 @@ class GithubApi
             return null;
         }
 
+<<<<<<< HEAD
         $url = sprintf(
+=======
+        $url = \sprintf(
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'https://api.github.com/repos/%s/contents/%s?ref=%s',
             $repositoryName,
             $recipePath,
@@ -111,7 +120,11 @@ class GithubApi
             return [];
         }
 
+<<<<<<< HEAD
         $commitsData = $this->requestGitHubApi(sprintf(
+=======
+        $commitsData = $this->requestGitHubApi(\sprintf(
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'https://api.github.com/repos/%s/commits?path=%s&sha=%s',
             $repositoryName,
             $path,
@@ -142,7 +155,11 @@ class GithubApi
         $bestItem = null;
         foreach ($data['items'] as $item) {
             // make sure the PR referenced isn't from a different repository
+<<<<<<< HEAD
             if (false === strpos($item['html_url'], sprintf('%s/pull', $repositoryName))) {
+=======
+            if (!str_contains($item['html_url'], \sprintf('%s/pull', $repositoryName))) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 continue;
             }
 
@@ -186,7 +203,11 @@ class GithubApi
     private function getRepositoryName(string $repo): ?string
     {
         // only supports public repository placement
+<<<<<<< HEAD
         if (0 !== strpos($repo, 'github.com')) {
+=======
+        if (!str_starts_with($repo, 'github.com')) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return null;
         }
 

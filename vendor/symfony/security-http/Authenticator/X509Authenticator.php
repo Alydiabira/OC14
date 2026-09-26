@@ -48,13 +48,27 @@ class X509Authenticator extends AbstractPreAuthenticatedAuthenticator
             $username = $request->server->get($this->userKey);
         } elseif (
             $request->server->has($this->credentialsKey)
+<<<<<<< HEAD
             && preg_match('#'.preg_quote($this->credentialUserIdentifier, '#').'=([^,/]++)#', $request->server->get($this->credentialsKey), $matches)
+=======
+            && preg_match(
+                'emailAddress' === $this->credentialUserIdentifier
+                    ? '#(?:^|[,/])\s*(?:emailAddress|1\.2\.840\.113549\.1\.9\.1)=([^,/@]++@[^,/]++)#'
+                    : '#(?:^|[,/])\s*'.preg_quote($this->credentialUserIdentifier, '#').'=([^,/]++)#',
+                $request->server->get($this->credentialsKey),
+                $matches,
+            )
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ) {
             $username = trim($matches[1]);
         }
 
         if (null === $username) {
+<<<<<<< HEAD
             throw new BadCredentialsException(sprintf('SSL credentials not found: "%s", "%s".', $this->userKey, $this->credentialsKey));
+=======
+            throw new BadCredentialsException(\sprintf('SSL credentials not found: "%s", "%s".', $this->userKey, $this->credentialsKey));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $username;

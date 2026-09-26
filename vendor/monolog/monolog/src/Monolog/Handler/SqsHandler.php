@@ -44,12 +44,20 @@ class SqsHandler extends AbstractProcessingHandler
      */
     protected function write(LogRecord $record): void
     {
+<<<<<<< HEAD
         if (!isset($record->formatted) || 'string' !== gettype($record->formatted)) {
+=======
+        if (!isset($record->formatted) || 'string' !== \gettype($record->formatted)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new \InvalidArgumentException('SqsHandler accepts only formatted records as a string' . Utils::getRecordMessageForException($record));
         }
 
         $messageBody = $record->formatted;
+<<<<<<< HEAD
         if (strlen($messageBody) >= static::MAX_MESSAGE_SIZE) {
+=======
+        if (\strlen($messageBody) >= static::MAX_MESSAGE_SIZE) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $messageBody = Utils::substr($messageBody, 0, static::HEAD_MESSAGE_SIZE);
         }
 

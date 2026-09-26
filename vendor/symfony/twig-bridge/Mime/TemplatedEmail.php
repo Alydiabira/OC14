@@ -108,6 +108,16 @@ class TemplatedEmail extends Email
      */
     public function __unserialize(array $data): void
     {
+<<<<<<< HEAD
+=======
+        if (($data[0] ?? null) instanceof \Stringable
+            || ($data[1] ?? null) instanceof \Stringable
+            || ($data[4] ?? null) instanceof \Stringable
+        ) {
+            throw new \BadMethodCallException('Cannot unserialize '.self::class);
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         [$this->htmlTemplate, $this->textTemplate, $this->context, $parentData] = $data;
         $this->locale = $data[4] ?? null;
 

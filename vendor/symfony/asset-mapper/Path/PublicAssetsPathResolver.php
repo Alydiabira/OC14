@@ -18,8 +18,13 @@ class PublicAssetsPathResolver implements PublicAssetsPathResolverInterface
     public function __construct(
         string $publicPrefix = '/assets/',
     ) {
+<<<<<<< HEAD
         // ensure that the public prefix always ends with a single slash
         $this->publicPrefix = rtrim($publicPrefix, '/').'/';
+=======
+        // ensure that the public prefix always starts and ends with a single slash
+        $this->publicPrefix = '/'.trim($publicPrefix, '/').'/';
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function resolvePublicPath(string $logicalPath): string

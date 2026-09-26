@@ -23,6 +23,11 @@ namespace Symfony\Component\CssSelector\Parser;
  */
 class Reader
 {
+<<<<<<< HEAD
+=======
+    private static array $anchoredPatterns = [];
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private string $source;
     private int $length;
     private int $position = 0;
@@ -65,9 +70,18 @@ class Reader
 
     public function findPattern(string $pattern): array|false
     {
+<<<<<<< HEAD
         $source = substr($this->source, $this->position);
 
         if (preg_match($pattern, $source, $matches)) {
+=======
+        // Match in place instead of copying the remaining source before every probe.
+        // Combined with an offset, "^" still anchors at the start of the whole subject,
+        // so a leading anchor is turned into "\\G", which anchors at the offset instead.
+        $pattern = self::$anchoredPatterns[$pattern] ??= '^' === ($pattern[1] ?? '') ? $pattern[0].'\\G'.substr($pattern, 2) : $pattern;
+
+        if (preg_match($pattern, $this->source, $matches, 0, $this->position)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return $matches;
         }
 

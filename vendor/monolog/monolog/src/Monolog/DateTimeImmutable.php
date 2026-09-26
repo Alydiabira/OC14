@@ -11,6 +11,7 @@
 
 namespace Monolog;
 
+<<<<<<< HEAD
 use DateTimeZone;
 
 /**
@@ -44,5 +45,16 @@ class DateTimeImmutable extends \DateTimeImmutable implements \JsonSerializable
     public function __toString(): string
     {
         return $this->jsonSerialize();
+=======
+class_alias(JsonSerializableDateTimeImmutable::class, 'Monolog\DateTimeImmutable');
+
+// @phpstan-ignore-next-line
+if (false) {
+    /**
+     * @deprecated Use \Monolog\JsonSerializableDateTimeImmutable instead.
+     */
+    class DateTimeImmutable extends JsonSerializableDateTimeImmutable
+    {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

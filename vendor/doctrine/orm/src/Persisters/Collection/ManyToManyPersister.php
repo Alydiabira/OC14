@@ -9,6 +9,10 @@ use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\Expr\Comparison;
 use Doctrine\DBAL\Exception as DBALException;
 use Doctrine\DBAL\LockMode;
+<<<<<<< HEAD
+=======
+use Doctrine\ORM\Cache\Persister\CompatOrderings;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\Mapping\AssociationMapping;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\InverseSideMapping;
@@ -17,8 +21,15 @@ use Doctrine\ORM\PersistentCollection;
 use Doctrine\ORM\Persisters\SqlValueVisitor;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Utility\PersisterHelper;
+<<<<<<< HEAD
 
 use function array_fill;
+=======
+use SortDirection;
+
+use function array_fill;
+use function array_merge;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function array_pop;
 use function assert;
 use function count;
@@ -32,6 +43,11 @@ use function sprintf;
  */
 class ManyToManyPersister extends AbstractCollectionPersister
 {
+<<<<<<< HEAD
+=======
+    use CompatOrderings;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function delete(PersistentCollection $collection): void
     {
         $mapping = $this->getMapping($collection);
@@ -105,6 +121,10 @@ class ManyToManyPersister extends AbstractCollectionPersister
         );
     }
 
+<<<<<<< HEAD
+=======
+    /** @return non-negative-int */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function count(PersistentCollection $collection): int
     {
         $conditions  = [];
@@ -247,10 +267,24 @@ class ManyToManyPersister extends AbstractCollectionPersister
 
             if ($value === null && ($operator === Comparison::EQ || $operator === Comparison::NEQ)) {
                 $whereClauses[] = sprintf('te.%s %s NULL', $field, $operator === Comparison::EQ ? 'IS' : 'IS NOT');
+<<<<<<< HEAD
             } else {
                 $whereClauses[] = sprintf('te.%s %s ?', $field, $operator);
                 $params[]       = $value;
                 $paramTypes[]   = PersisterHelper::getTypeOfField($name, $targetClass, $this->em)[0];
+=======
+            } elseif ($operator === Comparison::IN || $operator === Comparison::NIN) {
+                $whereClauses[] = sprintf('te.%s %s (%s)', $field, $operator === Comparison::IN ? 'IN' : 'NOT IN', implode(', ', array_fill(0, count($value), '?')));
+                foreach ($value as $item) {
+                    $params     = array_merge($params, PersisterHelper::convertToParameterValue($item, $this->em));
+                    $paramTypes = array_merge($paramTypes, PersisterHelper::inferParameterTypes($name, $item, $targetClass, $this->em));
+                }
+            } else {
+                $whereClauses[] = sprintf('te.%s %s ?', $field, $operator);
+
+                $params     = [...$params, ...PersisterHelper::convertToParameterValue($value, $this->em)];
+                $paramTypes = [...$paramTypes, ...PersisterHelper::inferParameterTypes($name, $value, $targetClass, $this->em)];
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -292,7 +326,11 @@ class ManyToManyPersister extends AbstractCollectionPersister
      * @return string[] ordered tuple:
      *                   - JOIN condition to add to the SQL
      *                   - WHERE condition to add to the SQL
+<<<<<<< HEAD
      * @psalm-return array{0: string, 1: string}
+=======
+     * @phpstan-return array{0: string, 1: string}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getFilterSql(AssociationMapping $mapping): array
     {
@@ -340,7 +378,11 @@ class ManyToManyPersister extends AbstractCollectionPersister
      * Generate ON condition
      *
      * @return string[]
+<<<<<<< HEAD
      * @psalm-return list<string>
+=======
+     * @phpstan-return list<string>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function getOnConditionSQL(AssociationMapping $mapping): array
     {
@@ -412,7 +454,11 @@ class ManyToManyPersister extends AbstractCollectionPersister
      *
      * @return string[]|string[][] ordered tuple containing the SQL to be executed and an array
      *                             of types for bound parameters
+<<<<<<< HEAD
      * @psalm-return array{0: string, 1: list<string>}
+=======
+     * @phpstan-return array{0: string, 1: list<string>}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function getDeleteRowSQL(PersistentCollection $collection): array
     {
@@ -447,7 +493,11 @@ class ManyToManyPersister extends AbstractCollectionPersister
      * Internal note: Order of the parameters must be the same as the order of the columns in getDeleteRowSql.
      *
      * @return mixed[]
+<<<<<<< HEAD
      * @psalm-return list<mixed>
+=======
+     * @phpstan-return list<mixed>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function getDeleteRowSQLParameters(PersistentCollection $collection, object $element): array
     {
@@ -459,7 +509,11 @@ class ManyToManyPersister extends AbstractCollectionPersister
      *
      * @return string[]|string[][] ordered tuple containing the SQL to be executed and an array
      *                             of types for bound parameters
+<<<<<<< HEAD
      * @psalm-return array{0: string, 1: list<string>}
+=======
+     * @phpstan-return array{0: string, 1: list<string>}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function getInsertRowSQL(PersistentCollection $collection): array
     {
@@ -496,7 +550,11 @@ class ManyToManyPersister extends AbstractCollectionPersister
      * Internal note: Order of the parameters must be the same as the order of the columns in getInsertRowSql.
      *
      * @return mixed[]
+<<<<<<< HEAD
      * @psalm-return list<mixed>
+=======
+     * @phpstan-return list<mixed>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function getInsertRowSQLParameters(PersistentCollection $collection, object $element): array
     {
@@ -508,7 +566,11 @@ class ManyToManyPersister extends AbstractCollectionPersister
      * of the join table columns as specified in ManyToManyMapping#joinTableColumns.
      *
      * @return mixed[]
+<<<<<<< HEAD
      * @psalm-return list<mixed>
+=======
+     * @phpstan-return list<mixed>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private function collectJoinTableColumnParameters(
         PersistentCollection $collection,
@@ -557,7 +619,11 @@ class ManyToManyPersister extends AbstractCollectionPersister
      *                - where clauses to be added for filtering
      *                - parameters to be bound for filtering
      *                - types of the parameters to be bound for filtering
+<<<<<<< HEAD
      * @psalm-return array{0: string, 1: list<string>, 2: list<mixed>, 3: list<string>}
+=======
+     * @phpstan-return array{0: string, 1: list<string>, 2: list<mixed>, 3: list<string>}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private function getJoinTableRestrictionsWithKey(
         PersistentCollection $collection,
@@ -647,7 +713,11 @@ class ManyToManyPersister extends AbstractCollectionPersister
      *                - where clauses to be added for filtering
      *                - parameters to be bound for filtering
      *                - types of the parameters to be bound for filtering
+<<<<<<< HEAD
      * @psalm-return array{0: string, 1: list<string>, 2: list<mixed>, 3: list<string>}
+=======
+     * @phpstan-return array{0: string, 1: list<string>, 2: list<mixed>, 3: list<string>}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private function getJoinTableRestrictions(
         PersistentCollection $collection,
@@ -732,16 +802,37 @@ class ManyToManyPersister extends AbstractCollectionPersister
 
     private function getOrderingSql(Criteria $criteria, ClassMetadata $targetClass): string
     {
+<<<<<<< HEAD
         $orderings = $criteria->orderings();
         if ($orderings) {
             $orderBy = [];
             foreach ($orderings as $name => $direction) {
                 $field     = $this->quoteStrategy->getColumnName(
+=======
+        $orderings = $this->getOrderings($criteria);
+
+        if ($orderings) {
+            $orderBy = [];
+            foreach ($orderings as $name => $direction) {
+                $field = $this->quoteStrategy->getColumnName(
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $name,
                     $targetClass,
                     $this->platform,
                 );
+<<<<<<< HEAD
                 $orderBy[] = $field . ' ' . $direction->value;
+=======
+
+                if ($direction instanceof SortDirection) {
+                    $directionString = $direction === SortDirection::Ascending ? 'ASC' : 'DESC';
+                } else {
+                    /** @phpstan-ignore property.deprecatedEnum */
+                    $directionString = $direction->value;
+                }
+
+                $orderBy[] = $field . ' ' . $directionString;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return ' ORDER BY ' . implode(', ', $orderBy);

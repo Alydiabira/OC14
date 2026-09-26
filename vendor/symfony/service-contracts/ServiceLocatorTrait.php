@@ -26,16 +26,25 @@ class_exists(NotFoundExceptionInterface::class);
  */
 trait ServiceLocatorTrait
 {
+<<<<<<< HEAD
     private array $factories;
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private array $loading = [];
     private array $providedTypes;
 
     /**
      * @param array<string, callable> $factories
      */
+<<<<<<< HEAD
     public function __construct(array $factories)
     {
         $this->factories = $factories;
+=======
+    public function __construct(
+        private array $factories,
+    ) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function has(string $id): bool
@@ -91,16 +100,28 @@ trait ServiceLocatorTrait
         } else {
             $last = array_pop($alternatives);
             if ($alternatives) {
+<<<<<<< HEAD
                 $message = sprintf('only knows about the "%s" and "%s" services.', implode('", "', $alternatives), $last);
             } else {
                 $message = sprintf('only knows about the "%s" service.', $last);
+=======
+                $message = \sprintf('only knows about the "%s" and "%s" services.', implode('", "', $alternatives), $last);
+            } else {
+                $message = \sprintf('only knows about the "%s" service.', $last);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
         if ($this->loading) {
+<<<<<<< HEAD
             $message = sprintf('The service "%s" has a dependency on a non-existent service "%s". This locator %s', end($this->loading), $id, $message);
         } else {
             $message = sprintf('Service "%s" not found: the current service locator %s', $id, $message);
+=======
+            $message = \sprintf('The service "%s" has a dependency on a non-existent service "%s". This locator %s', end($this->loading), $id, $message);
+        } else {
+            $message = \sprintf('Service "%s" not found: the current service locator %s', $id, $message);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return new class($message) extends \InvalidArgumentException implements NotFoundExceptionInterface {
@@ -109,7 +130,11 @@ trait ServiceLocatorTrait
 
     private function createCircularReferenceException(string $id, array $path): ContainerExceptionInterface
     {
+<<<<<<< HEAD
         return new class(sprintf('Circular reference detected for service "%s", path: "%s".', $id, implode(' -> ', $path))) extends \RuntimeException implements ContainerExceptionInterface {
+=======
+        return new class(\sprintf('Circular reference detected for service "%s", path: "%s".', $id, implode(' -> ', $path))) extends \RuntimeException implements ContainerExceptionInterface {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         };
     }
 }

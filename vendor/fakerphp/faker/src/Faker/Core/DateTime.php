@@ -72,7 +72,11 @@ final class DateTime implements DateTimeExtension, GeneratorAwareExtension
         return $dateTime->setTimezone(new \DateTimeZone($timezone));
     }
 
+<<<<<<< HEAD
     public function dateTime($until = 'now', string $timezone = null): \DateTime
+=======
+    public function dateTime($until = 'now', ?string $timezone = null): \DateTime
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return $this->setTimezone(
             $this->getTimestampDateTime($this->unixTime($until)),
@@ -80,7 +84,11 @@ final class DateTime implements DateTimeExtension, GeneratorAwareExtension
         );
     }
 
+<<<<<<< HEAD
     public function dateTimeAD($until = 'now', string $timezone = null): \DateTime
+=======
+    public function dateTimeAD($until = 'now', ?string $timezone = null): \DateTime
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $min = (PHP_INT_SIZE > 4) ? -62135597361 : -PHP_INT_MAX;
 
@@ -90,7 +98,11 @@ final class DateTime implements DateTimeExtension, GeneratorAwareExtension
         );
     }
 
+<<<<<<< HEAD
     public function dateTimeBetween($from = '-30 years', $until = 'now', string $timezone = null): \DateTime
+=======
+    public function dateTimeBetween($from = '-30 years', $until = 'now', ?string $timezone = null): \DateTime
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $start = $this->getTimestamp($from);
         $end = $this->getTimestamp($until);
@@ -107,7 +119,11 @@ final class DateTime implements DateTimeExtension, GeneratorAwareExtension
         );
     }
 
+<<<<<<< HEAD
     public function dateTimeInInterval($from = '-30 years', string $interval = '+5 days', string $timezone = null): \DateTime
+=======
+    public function dateTimeInInterval($from = '-30 years', string $interval = '+5 days', ?string $timezone = null): \DateTime
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $intervalObject = \DateInterval::createFromDateString($interval);
         $datetime = $from instanceof \DateTime ? $from : new \DateTime($from);
@@ -120,29 +136,49 @@ final class DateTime implements DateTimeExtension, GeneratorAwareExtension
         return $this->dateTimeBetween($begin, $end, $timezone);
     }
 
+<<<<<<< HEAD
     public function dateTimeThisWeek($until = 'sunday this week', string $timezone = null): \DateTime
+=======
+    public function dateTimeThisWeek($until = 'sunday this week', ?string $timezone = null): \DateTime
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return $this->dateTimeBetween('monday this week', $until, $timezone);
     }
 
+<<<<<<< HEAD
     public function dateTimeThisMonth($until = 'last day of this month', string $timezone = null): \DateTime
+=======
+    public function dateTimeThisMonth($until = 'last day of this month', ?string $timezone = null): \DateTime
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return $this->dateTimeBetween('first day of this month', $until, $timezone);
     }
 
+<<<<<<< HEAD
     public function dateTimeThisYear($until = 'last day of december', string $timezone = null): \DateTime
+=======
+    public function dateTimeThisYear($until = 'last day of december', ?string $timezone = null): \DateTime
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return $this->dateTimeBetween('first day of january', $until, $timezone);
     }
 
+<<<<<<< HEAD
     public function dateTimeThisDecade($until = 'now', string $timezone = null): \DateTime
+=======
+    public function dateTimeThisDecade($until = 'now', ?string $timezone = null): \DateTime
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $year = floor(date('Y') / 10) * 10;
 
         return $this->dateTimeBetween("first day of january $year", $until, $timezone);
     }
 
+<<<<<<< HEAD
     public function dateTimeThisCentury($until = 'now', string $timezone = null): \DateTime
+=======
+    public function dateTimeThisCentury($until = 'now', ?string $timezone = null): \DateTime
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $year = floor(date('Y') / 100) * 100;
 
@@ -204,7 +240,11 @@ final class DateTime implements DateTimeExtension, GeneratorAwareExtension
         return Helper::randomElement($this->centuries);
     }
 
+<<<<<<< HEAD
     public function timezone(string $countryCode = null): string
+=======
+    public function timezone(?string $countryCode = null): string
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if ($countryCode) {
             $timezones = \DateTimeZone::listIdentifiers(\DateTimeZone::PER_COUNTRY, $countryCode);

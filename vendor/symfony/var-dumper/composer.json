@@ -21,13 +21,20 @@
         "symfony/polyfill-mbstring": "~1.0"
     },
     "require-dev": {
+<<<<<<< HEAD
         "ext-iconv": "*",
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         "symfony/console": "^5.4|^6.0|^7.0",
         "symfony/error-handler": "^6.3|^7.0",
         "symfony/http-kernel": "^5.4|^6.0|^7.0",
         "symfony/process": "^5.4|^6.0|^7.0",
         "symfony/uid": "^5.4|^6.0|^7.0",
+<<<<<<< HEAD
         "twig/twig": "^2.13|^3.0.4"
+=======
+        "twig/twig": "^2.13|^3.0.4|^4.0"
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     },
     "conflict": {
         "symfony/console": "<5.4"

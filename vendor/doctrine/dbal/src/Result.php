@@ -184,7 +184,11 @@ class Result
     }
 
     /**
+<<<<<<< HEAD
      * {@inheritDoc}
+=======
+     * @return Traversable<mixed, mixed>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws Exception
      */
@@ -264,7 +268,11 @@ class Result
      *
      * @deprecated Use {@see fetchNumeric()}, {@see fetchAssociative()} or {@see fetchOne()} instead.
      *
+<<<<<<< HEAD
      * @psalm-param FetchMode::* $mode
+=======
+     * @phpstan-param FetchMode::* $mode
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return mixed
      *
@@ -303,7 +311,11 @@ class Result
      *
      * @deprecated Use {@see fetchAllNumeric()}, {@see fetchAllAssociative()} or {@see fetchFirstColumn()} instead.
      *
+<<<<<<< HEAD
      * @psalm-param FetchMode::* $mode
+=======
+     * @phpstan-param FetchMode::* $mode
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return list<mixed>
      *

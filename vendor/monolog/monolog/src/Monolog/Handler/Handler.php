@@ -44,6 +44,7 @@ abstract class Handler implements HandlerInterface
         }
     }
 
+<<<<<<< HEAD
     public function __sleep()
     {
         $this->close();
@@ -58,5 +59,12 @@ abstract class Handler implements HandlerInterface
         }
 
         return $keys;
+=======
+    public function __serialize(): array
+    {
+        $this->close();
+
+        return (array) $this;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

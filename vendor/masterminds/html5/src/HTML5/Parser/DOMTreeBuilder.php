@@ -231,8 +231,11 @@ class DOMTreeBuilder implements EventHandler
      *
      * This is used for handling Processor Instructions as they are
      * inserted. If omitted, PI's are inserted directly into the DOM tree.
+<<<<<<< HEAD
      *
      * @param InstructionProcessor $proc
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function setInstructionProcessor(InstructionProcessor $proc)
     {
@@ -399,9 +402,15 @@ class DOMTreeBuilder implements EventHandler
         // When we are on a void tag, we do not need to care about namesapce nesting.
         if ($pushes > 0 && !Elements::isA($name, Elements::VOID_TAG)) {
             // PHP tends to free the memory used by DOM,
+<<<<<<< HEAD
             // to avoid spl_object_hash collisions whe have to avoid garbage collection of $ele storing it into $pushes
             // see https://bugs.php.net/bug.php?id=67459
             $this->pushes[spl_object_hash($ele)] = array($pushes, $ele);
+=======
+            // to avoid spl_object_id collisions we have to avoid garbage collection of $ele storing it into $pushes
+            // see https://bugs.php.net/bug.php?id=67459
+            $this->pushes[spl_object_id($ele)] = array($pushes, $ele);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         foreach ($attributes as $aName => $aVal) {
@@ -523,7 +532,11 @@ class DOMTreeBuilder implements EventHandler
             $lname = Elements::normalizeSvgElement($lname);
         }
 
+<<<<<<< HEAD
         $cid = spl_object_hash($this->current);
+=======
+        $cid = spl_object_id($this->current);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         // XXX: HTML has no parent. What do we do, though,
         // if this element appears in the wrong place?

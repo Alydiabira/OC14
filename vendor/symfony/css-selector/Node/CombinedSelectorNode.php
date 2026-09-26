@@ -58,6 +58,10 @@ class CombinedSelectorNode extends AbstractNode
     {
         $combinator = ' ' === $this->combinator ? '<followed>' : $this->combinator;
 
+<<<<<<< HEAD
         return sprintf('%s[%s %s %s]', $this->getNodeName(), $this->selector, $combinator, $this->subSelector);
+=======
+        return \sprintf('%s[%s %s %s]', $this->getNodeName(), $this->selector, $combinator, $this->subSelector);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

@@ -52,12 +52,20 @@ class Expression extends Constraint
         ?bool $negate = null,
     ) {
         if (!class_exists(ExpressionLanguage::class)) {
+<<<<<<< HEAD
             throw new LogicException(sprintf('The "symfony/expression-language" component is required to use the "%s" constraint. Try running "composer require symfony/expression-language".', __CLASS__));
+=======
+            throw new LogicException(\sprintf('The "symfony/expression-language" component is required to use the "%s" constraint. Try running "composer require symfony/expression-language".', __CLASS__));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (\is_array($expression)) {
             $options = array_merge($expression, $options);
+<<<<<<< HEAD
         } else {
+=======
+        } elseif (null !== $expression) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $options['value'] = $expression;
         }
 

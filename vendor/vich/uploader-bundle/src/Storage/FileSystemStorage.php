@@ -13,14 +13,24 @@ use Vich\UploaderBundle\Mapping\PropertyMapping;
  */
 final class FileSystemStorage extends AbstractStorage
 {
+<<<<<<< HEAD
+=======
+    private const URI_SEPARATOR = '/';
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected function doUpload(PropertyMapping $mapping, File $file, ?string $dir, string $name): ?File
     {
         $uploadDir = $mapping->getUploadDestination().\DIRECTORY_SEPARATOR.$dir;
 
+<<<<<<< HEAD
         if (!\file_exists($uploadDir)) {
             if (!\mkdir($uploadDir, recursive: true)) {
                 throw new \Exception('Could not create directory "'.$uploadDir.'"');
             }
+=======
+        if (!\file_exists($uploadDir) && !@\mkdir($uploadDir, recursive: true) && !\is_dir($uploadDir)) {
+            throw new \Exception('Could not create directory "'.$uploadDir.'"');
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         if (!\is_dir($uploadDir)) {
             throw new \Exception('Tried to move file to directory "'.$uploadDir.'" but it is a file');
@@ -41,12 +51,29 @@ final class FileSystemStorage extends AbstractStorage
     {
         $file = $this->doResolvePath($mapping, $dir, $name);
 
+<<<<<<< HEAD
         return \file_exists($file) && \unlink($file);
     }
 
     protected function doResolvePath(PropertyMapping $mapping, ?string $dir, string $name, ?bool $relative = false): string
     {
         $path = !empty($dir) ? $dir.\DIRECTORY_SEPARATOR.$name : $name;
+=======
+        if (!\file_exists($file) || !\unlink($file)) {
+            throw new \Exception('Cannot remove file '.$file);
+        }
+
+        return true;
+    }
+
+    protected function doResolvePath(
+        PropertyMapping $mapping,
+        ?string $dir,
+        string $name,
+        ?bool $relative = false
+    ): string {
+        $path = (\is_string($dir) && '' !== $dir) ? $dir.\DIRECTORY_SEPARATOR.$name : $name;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($relative) {
             return $path;
@@ -63,10 +90,17 @@ final class FileSystemStorage extends AbstractStorage
             return null;
         }
 
+<<<<<<< HEAD
         $uploadDir = $this->convertWindowsDirectorySeparator($mapping->getUploadDir($obj));
         $uploadDir = empty($uploadDir) ? '' : $uploadDir.'/';
 
         return \sprintf('%s/%s', $mapping->getUriPrefix(), $uploadDir.$name);
+=======
+        $uploadDir = \trim($this->convertWindowsDirectorySeparator($mapping->getUploadDir($obj)), self::URI_SEPARATOR);
+        $uploadDir = ('' !== $uploadDir) ? $uploadDir.self::URI_SEPARATOR : '';
+
+        return \rtrim($mapping->getUriPrefix(), self::URI_SEPARATOR).self::URI_SEPARATOR.$uploadDir.$name;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function convertWindowsDirectorySeparator(string $string): string

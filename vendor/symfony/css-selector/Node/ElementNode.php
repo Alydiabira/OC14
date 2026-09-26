@@ -51,6 +51,10 @@ class ElementNode extends AbstractNode
     {
         $element = $this->element ?: '*';
 
+<<<<<<< HEAD
         return sprintf('%s[%s]', $this->getNodeName(), $this->namespace ? $this->namespace.'|'.$element : $element);
+=======
+        return \sprintf('%s[%s]', $this->getNodeName(), $this->namespace ? $this->namespace.'|'.$element : $element);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

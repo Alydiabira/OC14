@@ -68,7 +68,11 @@ final class MakeCustomAuthenticator extends AbstractMaker
     public function configureCommand(Command $command, InputConfiguration $inputConfig): void
     {
         $command
+<<<<<<< HEAD
             ->setHelp(file_get_contents(__DIR__.'/../../Resources/help/security/MakeCustom.txt'))
+=======
+            ->setHelp($this->getHelpFileContents('security/MakeCustom.txt'))
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ;
     }
 
@@ -81,7 +85,11 @@ final class MakeCustomAuthenticator extends AbstractMaker
         );
 
         if (!$this->fileManager->fileExists(self::SECURITY_CONFIG_PATH)) {
+<<<<<<< HEAD
             throw new RuntimeCommandException(sprintf('The file "%s" does not exist. PHP & XML configuration formats are currently not supported.', self::SECURITY_CONFIG_PATH));
+=======
+            throw new RuntimeCommandException(\sprintf('The file "%s" does not exist. PHP & XML configuration formats are currently not supported.', self::SECURITY_CONFIG_PATH));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $name = $io->ask(

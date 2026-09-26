@@ -46,7 +46,11 @@ class XliffFileDumper extends FileDumper
             return $this->dumpXliff2($defaultLocale, $messages, $domain);
         }
 
+<<<<<<< HEAD
         throw new InvalidArgumentException(sprintf('No support implemented for dumping XLIFF version "%s".', $xliffVersion));
+=======
+        throw new InvalidArgumentException(\sprintf('No support implemented for dumping XLIFF version "%s".', $xliffVersion));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function getExtension(): string
@@ -156,10 +160,18 @@ class XliffFileDumper extends FileDumper
         }
 
         if ($catalogueMetadata = $messages->getCatalogueMetadata('', $domain) ?? []) {
+<<<<<<< HEAD
             $xliff->setAttribute('xmlns:m', 'urn:oasis:names:tc:xliff:metadata:2.0');
             $xliffMetadata = $xliffFile->appendChild($dom->createElement('m:metadata'));
             foreach ($catalogueMetadata as $key => $value) {
                 $xliffMeta = $xliffMetadata->appendChild($dom->createElement('prop'));
+=======
+            $xliff->setAttribute('xmlns:mda', 'urn:oasis:names:tc:xliff:metadata:2.0');
+            $xliffMetadata = $xliffFile->appendChild($dom->createElement('mda:metadata'));
+            $xliffMetaGroup = $xliffMetadata->appendChild($dom->createElement('mda:metaGroup'));
+            foreach ($catalogueMetadata as $key => $value) {
+                $xliffMeta = $xliffMetaGroup->appendChild($dom->createElement('mda:meta'));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $xliffMeta->setAttribute('type', $key);
                 $xliffMeta->appendChild($dom->createTextNode($value));
             }
@@ -176,7 +188,11 @@ class XliffFileDumper extends FileDumper
             $metadata = $messages->getMetadata($source, $domain);
 
             // Add notes section
+<<<<<<< HEAD
             if ($this->hasMetadataArrayInfo('notes', $metadata)) {
+=======
+            if ($this->hasMetadataArrayInfo('notes', $metadata) && $metadata['notes']) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $notesElement = $dom->createElement('notes');
                 foreach ($metadata['notes'] as $note) {
                     $n = $dom->createElement('note');

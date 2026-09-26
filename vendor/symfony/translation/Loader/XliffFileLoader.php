@@ -36,6 +36,7 @@ class XliffFileLoader implements LoaderInterface
 
         if (!$this->isXmlString($resource)) {
             if (!stream_is_local($resource)) {
+<<<<<<< HEAD
                 throw new InvalidResourceException(sprintf('This is not a local file "%s".', $resource));
             }
 
@@ -45,6 +46,17 @@ class XliffFileLoader implements LoaderInterface
 
             if (!is_file($resource)) {
                 throw new InvalidResourceException(sprintf('This is neither a file nor an XLIFF string "%s".', $resource));
+=======
+                throw new InvalidResourceException(\sprintf('This is not a local file "%s".', $resource));
+            }
+
+            if (!file_exists($resource)) {
+                throw new NotFoundResourceException(\sprintf('File "%s" not found.', $resource));
+            }
+
+            if (!is_file($resource)) {
+                throw new InvalidResourceException(\sprintf('This is neither a file nor an XLIFF string "%s".', $resource));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -55,11 +67,19 @@ class XliffFileLoader implements LoaderInterface
                 $dom = XmlUtils::loadFile($resource);
             }
         } catch (\InvalidArgumentException|XmlParsingException|InvalidXmlException $e) {
+<<<<<<< HEAD
             throw new InvalidResourceException(sprintf('Unable to load "%s": ', $resource).$e->getMessage(), $e->getCode(), $e);
         }
 
         if ($errors = XliffUtils::validateSchema($dom)) {
             throw new InvalidResourceException(sprintf('Invalid resource provided: "%s"; Errors: ', $resource).XliffUtils::getErrorsAsString($errors));
+=======
+            throw new InvalidResourceException(\sprintf('Unable to load "%s": ', $resource).$e->getMessage(), $e->getCode(), $e);
+        }
+
+        if ($errors = XliffUtils::validateSchema($dom)) {
+            throw new InvalidResourceException(\sprintf('Invalid resource provided: "%s"; Errors: ', $resource).XliffUtils::getErrorsAsString($errors));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $catalogue = new MessageCatalogue($locale);
@@ -158,6 +178,15 @@ class XliffFileLoader implements LoaderInterface
         $xml = simplexml_import_dom($dom);
         $encoding = $dom->encoding ? strtoupper($dom->encoding) : null;
 
+<<<<<<< HEAD
+=======
+        $xml->registerXPathNamespace('mda', 'urn:oasis:names:tc:xliff:metadata:2.0');
+
+        foreach ($xml->xpath('//mda:meta') as $meta) {
+            $catalogue->setCatalogueMetadata($meta->attributes()['type'] ?? '', (string) $meta, $domain);
+        }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $xml->registerXPathNamespace('xliff', 'urn:oasis:names:tc:xliff:document:2.0');
 
         foreach ($xml->xpath('//xliff:unit') as $unit) {

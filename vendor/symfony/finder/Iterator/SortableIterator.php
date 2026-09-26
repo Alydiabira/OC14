@@ -87,6 +87,7 @@ class SortableIterator implements \IteratorAggregate
     public function getIterator(): \Traversable
     {
         if (1 === $this->sort) {
+<<<<<<< HEAD
             return $this->iterator;
         }
 
@@ -99,5 +100,31 @@ class SortableIterator implements \IteratorAggregate
         }
 
         return new \ArrayIterator($array);
+=======
+            yield from $this->iterator;
+
+            return;
+        }
+
+        $keys = $values = [];
+        foreach ($this->iterator as $key => $value) {
+            $keys[] = $key;
+            $values[] = $value;
+        }
+
+        if (-1 === $this->sort) {
+            for ($i = \count($values) - 1; $i >= 0; --$i) {
+                yield $keys[$i] => $values[$i];
+            }
+
+            return;
+        }
+
+        uasort($values, $this->sort);
+
+        foreach ($values as $i => $v) {
+            yield $keys[$i] => $v;
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

@@ -45,7 +45,11 @@ class SortFirewallListenersPass implements CompilerPassInterface
         $prioritiesByServiceId = $this->getListenerPriorities($listenerIteratorArgument, $container);
 
         $listeners = $listenerIteratorArgument->getValues();
+<<<<<<< HEAD
         usort($listeners, fn (Reference $a, Reference $b) => $prioritiesByServiceId[(string) $b] <=> $prioritiesByServiceId[(string) $a]);
+=======
+        usort($listeners, static fn (Reference $a, Reference $b) => $prioritiesByServiceId[(string) $b] <=> $prioritiesByServiceId[(string) $a]);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $listenerIteratorArgument->setValues(array_values($listeners));
     }
@@ -62,7 +66,11 @@ class SortFirewallListenersPass implements CompilerPassInterface
             $class = $def->getClass();
 
             if (!$r = $container->getReflectionClass($class)) {
+<<<<<<< HEAD
                 throw new InvalidArgumentException(sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
+=======
+                throw new InvalidArgumentException(\sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $priority = 0;

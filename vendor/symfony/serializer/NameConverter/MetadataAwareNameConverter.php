@@ -80,7 +80,11 @@ final class MetadataAwareNameConverter implements AdvancedNameConverterInterface
         }
 
         if (null !== $attributesMetadata[$propertyName]->getSerializedName() && null !== $attributesMetadata[$propertyName]->getSerializedPath()) {
+<<<<<<< HEAD
             throw new LogicException(sprintf('Found SerializedName and SerializedPath attributes on property "%s" of class "%s".', $propertyName, $class));
+=======
+            throw new LogicException(\sprintf('Found SerializedName and SerializedPath attributes on property "%s" of class "%s".', $propertyName, $class));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $attributesMetadata[$propertyName]->getSerializedName() ?? null;
@@ -115,6 +119,7 @@ final class MetadataAwareNameConverter implements AdvancedNameConverterInterface
             return [];
         }
 
+<<<<<<< HEAD
         $classMetadata = $this->metadataFactory->getMetadataFor($class);
 
         $cache = [];
@@ -139,6 +144,37 @@ final class MetadataAwareNameConverter implements AdvancedNameConverterInterface
             }
 
             $cache[$metadata->getSerializedName()] = $name;
+=======
+        $attributesMetadata = $this->metadataFactory->getMetadataFor($class)->getAttributesMetadata();
+        $contextGroups = (array) ($context[AbstractNormalizer::GROUPS] ?? []);
+
+        $cache = [];
+        foreach ($attributesMetadata as $name => $metadata) {
+            if (null === $serializedName = $metadata->getSerializedName()) {
+                continue;
+            }
+
+            if (null !== $metadata->getSerializedPath()) {
+                throw new LogicException(\sprintf('Found SerializedName and SerializedPath attributes on property "%s" of class "%s".', $name, $class));
+            }
+
+            $metadataGroups = $metadata->getGroups();
+
+            if (!$contextGroups) {
+                $sameNameMetadata = $attributesMetadata[$serializedName] ?? null;
+
+                // without groups to tell them apart, the attribute using that name for itself wins
+                if ($metadataGroups && $sameNameMetadata && null === $sameNameMetadata->getSerializedName()) {
+                    continue;
+                }
+            } elseif (!$metadataGroups) {
+                continue;
+            } elseif (!array_intersect($metadataGroups, $contextGroups) && !\in_array('*', $contextGroups, true)) {
+                continue;
+            }
+
+            $cache[$serializedName] = $name;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $cache;

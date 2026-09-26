@@ -92,9 +92,16 @@ class ImportMapGenerator
         }
 
         $allEntries = [];
+<<<<<<< HEAD
         foreach ($this->importMapConfigReader->getEntries() as $rootEntry) {
             $allEntries[$rootEntry->importName] = $rootEntry;
             $allEntries = $this->addImplicitEntries($rootEntry, $allEntries);
+=======
+        $expandedEntries = [];
+        foreach ($this->importMapConfigReader->getEntries() as $rootEntry) {
+            $allEntries[$rootEntry->importName] = $rootEntry;
+            $allEntries = $this->addImplicitEntries($rootEntry, $allEntries, $expandedEntries);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $rawImportMapData = [];
@@ -121,12 +128,18 @@ class ImportMapGenerator
      */
     public function findEagerEntrypointImports(string $entryName): array
     {
+<<<<<<< HEAD
         if ($this->compiledConfigReader->configExists(sprintf(self::ENTRYPOINT_CACHE_FILENAME_PATTERN, $entryName))) {
             return $this->compiledConfigReader->loadConfig(sprintf(self::ENTRYPOINT_CACHE_FILENAME_PATTERN, $entryName));
+=======
+        if ($this->compiledConfigReader->configExists(\sprintf(self::ENTRYPOINT_CACHE_FILENAME_PATTERN, $entryName))) {
+            return $this->compiledConfigReader->loadConfig(\sprintf(self::ENTRYPOINT_CACHE_FILENAME_PATTERN, $entryName));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $rootImportEntries = $this->importMapConfigReader->getEntries();
         if (!$rootImportEntries->has($entryName)) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('The entrypoint "%s" does not exist in "importmap.php".', $entryName));
         }
 
@@ -136,11 +149,26 @@ class ImportMapGenerator
 
         if ($rootImportEntries->get($entryName)->isRemotePackage()) {
             throw new \InvalidArgumentException(sprintf('The entrypoint "%s" is a remote package and cannot be used as an entrypoint.', $entryName));
+=======
+            throw new \InvalidArgumentException(\sprintf('The entrypoint "%s" does not exist in "importmap.php".', $entryName));
+        }
+
+        if (!$rootImportEntries->get($entryName)->isEntrypoint) {
+            throw new \InvalidArgumentException(\sprintf('The entrypoint "%s" is not an entry point in "importmap.php". Set "entrypoint" => true to make it available as an entrypoint.', $entryName));
+        }
+
+        if ($rootImportEntries->get($entryName)->isRemotePackage()) {
+            throw new \InvalidArgumentException(\sprintf('The entrypoint "%s" is a remote package and cannot be used as an entrypoint.', $entryName));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $asset = $this->findAsset($rootImportEntries->get($entryName)->path);
         if (!$asset) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('The path "%s" of the entrypoint "%s" mentioned in "importmap.php" cannot be found in any asset map paths.', $rootImportEntries->get($entryName)->path, $entryName));
+=======
+            throw new \InvalidArgumentException(\sprintf('The path "%s" of the entrypoint "%s" mentioned in "importmap.php" cannot be found in any asset map paths.', $rootImportEntries->get($entryName)->path, $entryName));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->findEagerImports($asset);
@@ -157,13 +185,25 @@ class ImportMapGenerator
      *
      * @return array<string, ImportMapEntry>
      */
+<<<<<<< HEAD
     private function addImplicitEntries(ImportMapEntry $entry, array $currentImportEntries): array
+=======
+    private function addImplicitEntries(ImportMapEntry $entry, array $currentImportEntries, array &$expandedEntries): array
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         // only process import dependencies for JS files
         if (ImportMapType::JS !== $entry->type) {
             return $currentImportEntries;
         }
 
+<<<<<<< HEAD
+=======
+        if (isset($expandedEntries[$entry->importName])) {
+            return $currentImportEntries;
+        }
+        $expandedEntries[$entry->importName] = true;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (!$asset = $this->findAsset($entry->path)) {
             // should only be possible at this point for root importmap.php entries
             throw $this->createMissingImportMapAssetException($entry);
@@ -181,7 +221,11 @@ class ImportMapGenerator
             if ($javaScriptImport->addImplicitlyToImportMap) {
                 if (!$importedAsset = $this->assetMapper->getAsset($javaScriptImport->assetLogicalPath)) {
                     // should not happen at this point, unless something added a bogus JavaScriptImport to this asset
+<<<<<<< HEAD
                     throw new LogicException(sprintf('Cannot find imported JavaScript asset "%s" in asset mapper.', $javaScriptImport->assetLogicalPath));
+=======
+                    throw new LogicException(\sprintf('Cannot find imported JavaScript asset "%s" in asset mapper.', $javaScriptImport->assetLogicalPath));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 $nextEntry = ImportMapEntry::createLocal(
@@ -198,7 +242,11 @@ class ImportMapGenerator
 
             // unless there was some missing importmap entry, recurse
             if ($nextEntry) {
+<<<<<<< HEAD
                 $currentImportEntries = $this->addImplicitEntries($nextEntry, $currentImportEntries);
+=======
+                $currentImportEntries = $this->addImplicitEntries($nextEntry, $currentImportEntries, $expandedEntries);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -240,7 +288,11 @@ class ImportMapGenerator
                 // Follow its imports!
                 if (!$javaScriptAsset = $this->assetMapper->getAsset($javaScriptImport->assetLogicalPath)) {
                     // should not happen at this point, unless something added a bogus JavaScriptImport to this asset
+<<<<<<< HEAD
                     throw new LogicException(sprintf('Cannot find JavaScript asset "%s" (imported in "%s") in asset mapper.', $javaScriptImport->assetLogicalPath, $asset->logicalPath));
+=======
+                    throw new LogicException(\sprintf('Cannot find JavaScript asset "%s" (imported in "%s") in asset mapper.', $javaScriptImport->assetLogicalPath, $asset->logicalPath));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
                 $queue[] = $javaScriptAsset;
             }
@@ -253,6 +305,7 @@ class ImportMapGenerator
     {
         if ($entry->isRemotePackage()) {
             if (!is_file($entry->path)) {
+<<<<<<< HEAD
                 throw new LogicException(sprintf('The "%s" vendor asset is missing. Try running the "importmap:install" command.', $entry->importName));
             }
 
@@ -260,5 +313,14 @@ class ImportMapGenerator
         }
 
         throw new LogicException(sprintf('The asset "%s" cannot be found in any asset map paths.', $entry->path));
+=======
+                throw new LogicException(\sprintf('The "%s" vendor asset is missing. Try running the "importmap:install" command.', $entry->importName));
+            }
+
+            throw new LogicException(\sprintf('The "%s" vendor file exists locally (%s), but cannot be found in any asset map paths. Be sure the assets vendor directory is an asset mapper path.', $entry->importName, $entry->path));
+        }
+
+        throw new LogicException(\sprintf('The asset "%s" cannot be found in any asset map paths.', $entry->path));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

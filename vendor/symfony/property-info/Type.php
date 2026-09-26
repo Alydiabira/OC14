@@ -79,7 +79,11 @@ class Type
     public function __construct(string $builtinType, bool $nullable = false, ?string $class = null, bool $collection = false, array|self|null $collectionKeyType = null, array|self|null $collectionValueType = null)
     {
         if (!\in_array($builtinType, self::$builtinTypes)) {
+<<<<<<< HEAD
             throw new \InvalidArgumentException(sprintf('"%s" is not a valid PHP type.', $builtinType));
+=======
+            throw new \InvalidArgumentException(\sprintf('"%s" is not a valid PHP type.', $builtinType));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->builtinType = $builtinType;
@@ -99,7 +103,11 @@ class Type
         if (\is_array($collectionArgument)) {
             foreach ($collectionArgument as $type) {
                 if (!$type instanceof self) {
+<<<<<<< HEAD
                     throw new \TypeError(sprintf('"%s()": Argument #%d (%s) must be of type "%s[]", "%s" or "null", array value "%s" given.', __METHOD__, $argumentIndex, $argumentName, self::class, self::class, get_debug_type($collectionArgument)));
+=======
+                    throw new \TypeError(\sprintf('"%s()": Argument #%d (%s) must be of type "%s[]", "%s" or "null", array value "%s" given.', __METHOD__, $argumentIndex, $argumentName, self::class, self::class, get_debug_type($collectionArgument)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
 

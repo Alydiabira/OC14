@@ -168,7 +168,11 @@ class PrototypedArrayNode extends ArrayNode
     protected function finalizeValue(mixed $value): mixed
     {
         if (false === $value) {
+<<<<<<< HEAD
             throw new UnsetKeyException(sprintf('Unsetting key for path "%s", value: %s.', $this->getPath(), json_encode($value)));
+=======
+            throw new UnsetKeyException(\sprintf('Unsetting key for path "%s", value: %s.', $this->getPath(), json_encode($value)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         foreach ($value as $k => $v) {
@@ -181,7 +185,11 @@ class PrototypedArrayNode extends ArrayNode
         }
 
         if (\count($value) < $this->minNumberOfElements) {
+<<<<<<< HEAD
             $ex = new InvalidConfigurationException(sprintf('The path "%s" should have at least %d element(s) defined.', $this->getPath(), $this->minNumberOfElements));
+=======
+            $ex = new InvalidConfigurationException(\sprintf('The path "%s" should have at least %d element(s) defined.', $this->getPath(), $this->minNumberOfElements));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $ex->setPath($this->getPath());
 
             throw $ex;
@@ -206,7 +214,11 @@ class PrototypedArrayNode extends ArrayNode
         foreach ($value as $k => $v) {
             if (null !== $this->keyAttribute && \is_array($v)) {
                 if (!isset($v[$this->keyAttribute]) && \is_int($k) && $isList) {
+<<<<<<< HEAD
                     $ex = new InvalidConfigurationException(sprintf('The attribute "%s" must be set for path "%s".', $this->keyAttribute, $this->getPath()));
+=======
+                    $ex = new InvalidConfigurationException(\sprintf('The attribute "%s" must be set for path "%s".', $this->keyAttribute, $this->getPath()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $ex->setPath($this->getPath());
 
                     throw $ex;
@@ -239,7 +251,11 @@ class PrototypedArrayNode extends ArrayNode
                 }
 
                 if (\array_key_exists($k, $normalized)) {
+<<<<<<< HEAD
                     $ex = new DuplicateKeyException(sprintf('Duplicate key "%s" for path "%s".', $k, $this->getPath()));
+=======
+                    $ex = new DuplicateKeyException(\sprintf('Duplicate key "%s" for path "%s".', $k, $this->getPath()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $ex->setPath($this->getPath());
 
                     throw $ex;
@@ -280,7 +296,11 @@ class PrototypedArrayNode extends ArrayNode
             // no conflict
             if (!\array_key_exists($k, $leftSide)) {
                 if (!$this->allowNewKeys) {
+<<<<<<< HEAD
                     $ex = new InvalidConfigurationException(sprintf('You are not allowed to define new elements for path "%s". Please define all elements for this path in one config file.', $this->getPath()));
+=======
+                    $ex = new InvalidConfigurationException(\sprintf('You are not allowed to define new elements for path "%s". Please define all elements for this path in one config file.', $this->getPath()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $ex->setPath($this->getPath());
 
                     throw $ex;

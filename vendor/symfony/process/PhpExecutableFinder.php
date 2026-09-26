@@ -32,6 +32,7 @@ class PhpExecutableFinder
     public function find(bool $includeArgs = true): string|false
     {
         if ($php = getenv('PHP_BINARY')) {
+<<<<<<< HEAD
             if (!is_executable($php)) {
                 $command = '\\' === \DIRECTORY_SEPARATOR ? 'where' : 'command -v --';
                 if (\function_exists('exec') && $php = strtok(exec($command.' '.escapeshellarg($php)), \PHP_EOL)) {
@@ -41,6 +42,10 @@ class PhpExecutableFinder
                 } else {
                     return false;
                 }
+=======
+            if (!is_executable($php) && !$php = $this->executableFinder->find($php)) {
+                return false;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if (@is_dir($php)) {

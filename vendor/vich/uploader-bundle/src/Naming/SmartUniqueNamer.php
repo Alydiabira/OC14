@@ -6,26 +6,57 @@ use Vich\UploaderBundle\Mapping\PropertyMapping;
 use Vich\UploaderBundle\Util\Transliterator;
 
 /**
+<<<<<<< HEAD
  * This namer makes filename unique by appending a uniqid.
+=======
+ * This namer makes filename unique by appending a uniqueid.
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  * Also, filename is made web-friendly by transliteration.
  *
  * @author Massimiliano Arione <garakkio@gmail.com>
  */
+<<<<<<< HEAD
 final class SmartUniqueNamer implements NamerInterface
 {
+=======
+final class SmartUniqueNamer implements NamerInterface, ConfigurableInterface
+{
+    use Polyfill\FileExtensionTrait;
+
+    private bool $keepExtension = false;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function __construct(private readonly Transliterator $transliterator)
     {
     }
 
+<<<<<<< HEAD
     public function name(object $object, PropertyMapping $mapping): string
+=======
+    public function configure(array $options): void
+    {
+        $this->keepExtension = isset($options['keep_extension']) ? (bool) $options['keep_extension'] : $this->keepExtension;
+    }
+
+    public function name(object|array $object, PropertyMapping $mapping): string
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $file = $mapping->getFile($object);
         $originalName = $file->getClientOriginalName();
         $originalName = $this->transliterator->transliterate($originalName);
+<<<<<<< HEAD
         $originalExtension = \strtolower(\pathinfo($originalName, \PATHINFO_EXTENSION));
         $originalBasename = \pathinfo($originalName, \PATHINFO_FILENAME);
         $uniqId = \str_replace('.', '', \uniqid('-', true));
         $uniqExtension = \sprintf('%s.%s', $uniqId, $originalExtension);
+=======
+        $originalExtension = $this->getExtensionWithOption($file, $this->keepExtension);
+        $originalBasename = \pathinfo($originalName, \PATHINFO_FILENAME);
+        $uniqId = \str_replace('.', '', \uniqid('-', true));
+        $uniqExtension = \is_string($originalExtension) && '' !== $originalExtension
+            ? \sprintf('%s.%s', $uniqId, $originalExtension)
+            : $uniqId;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $smartName = \sprintf('%s%s', $originalBasename, $uniqExtension);
 
         // Check if smartName is an acceptable size (some filesystems accept a max of 255)

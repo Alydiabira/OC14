@@ -50,11 +50,19 @@ final class AssetMapperCompileCommand extends Command
     {
         $this
             ->setHelp(<<<'EOT'
+<<<<<<< HEAD
 The <info>%command.name%</info> command compiles and dumps all the assets in
 the asset mapper into the final public directory (usually <comment>public/assets</comment>).
 
 This command is meant to be run during deployment.
 EOT
+=======
+                The <info>%command.name%</info> command compiles and dumps all the assets in
+                the asset mapper into the final public directory (usually <comment>public/assets</comment>).
+
+                This command is meant to be run during deployment.
+                EOT
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
     }
 
@@ -69,26 +77,45 @@ EOT
         $this->compiledConfigReader->removeConfig(ImportMapGenerator::IMPORT_MAP_CACHE_FILENAME);
         $entrypointFiles = [];
         foreach ($this->importMapGenerator->getEntrypointNames() as $entrypointName) {
+<<<<<<< HEAD
             $path = sprintf(ImportMapGenerator::ENTRYPOINT_CACHE_FILENAME_PATTERN, $entrypointName);
+=======
+            $path = \sprintf(ImportMapGenerator::ENTRYPOINT_CACHE_FILENAME_PATTERN, $entrypointName);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->compiledConfigReader->removeConfig($path);
             $entrypointFiles[$entrypointName] = $path;
         }
 
         $manifest = $this->createManifestAndWriteFiles($io);
         $manifestPath = $this->compiledConfigReader->saveConfig(AssetMapper::MANIFEST_FILE_NAME, $manifest);
+<<<<<<< HEAD
         $io->comment(sprintf('Manifest written to <info>%s</info>', $this->shortenPath($manifestPath)));
 
         $importMapPath = $this->compiledConfigReader->saveConfig(ImportMapGenerator::IMPORT_MAP_CACHE_FILENAME, $this->importMapGenerator->getRawImportMapData());
         $io->comment(sprintf('Import map data written to <info>%s</info>.', $this->shortenPath($importMapPath)));
+=======
+        $io->comment(\sprintf('Manifest written to <info>%s</info>', $this->shortenPath($manifestPath)));
+
+        $importMapPath = $this->compiledConfigReader->saveConfig(ImportMapGenerator::IMPORT_MAP_CACHE_FILENAME, $this->importMapGenerator->getRawImportMapData());
+        $io->comment(\sprintf('Import map data written to <info>%s</info>.', $this->shortenPath($importMapPath)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         foreach ($entrypointFiles as $entrypointName => $path) {
             $this->compiledConfigReader->saveConfig($path, $this->importMapGenerator->findEagerEntrypointImports($entrypointName));
         }
+<<<<<<< HEAD
         $styledEntrypointNames = array_map(fn (string $entrypointName) => sprintf('<info>%s</>', $entrypointName), array_keys($entrypointFiles));
         $io->comment(sprintf('Entrypoint metadata written for <comment>%d</> entrypoints (%s).', \count($entrypointFiles), implode(', ', $styledEntrypointNames)));
 
         if ($this->isDebug) {
             $io->warning(sprintf(
+=======
+        $styledEntrypointNames = array_map(static fn (string $entrypointName) => \sprintf('<info>%s</>', $entrypointName), array_keys($entrypointFiles));
+        $io->comment(\sprintf('Entrypoint metadata written for <comment>%d</> entrypoints (%s).', \count($entrypointFiles), implode(', ', $styledEntrypointNames)));
+
+        if ($this->isDebug) {
+            $io->warning(\sprintf(
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'You are compiling assets in development. Symfony will not serve any changed assets until you delete the files in the "%s" directory.',
                 $this->shortenPath(\dirname($manifestPath))
             ));
@@ -104,7 +131,11 @@ EOT
 
     private function createManifestAndWriteFiles(SymfonyStyle $io): array
     {
+<<<<<<< HEAD
         $io->comment(sprintf('Compiling and writing asset files to <info>%s</info>', $this->shortenPath($this->assetsFilesystem->getDestinationPath())));
+=======
+        $io->comment(\sprintf('Compiling and writing asset files to <info>%s</info>', $this->shortenPath($this->assetsFilesystem->getDestinationPath())));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $manifest = [];
         foreach ($this->assetMapper->allAssets() as $asset) {
             if (null !== $asset->content) {
@@ -117,7 +148,11 @@ EOT
             $manifest[$asset->logicalPath] = $asset->publicPath;
         }
         ksort($manifest);
+<<<<<<< HEAD
         $io->comment(sprintf('Compiled <info>%d</info> assets', \count($manifest)));
+=======
+        $io->comment(\sprintf('Compiled <info>%d</info> assets', \count($manifest)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $manifest;
     }

@@ -13,7 +13,10 @@ namespace Monolog\Handler;
 
 use Closure;
 use Monolog\Level;
+<<<<<<< HEAD
 use Monolog\Logger;
+=======
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Monolog\LogRecord;
 use Monolog\Utils;
 use Monolog\Formatter\FormatterInterface;
@@ -68,20 +71,33 @@ class SymfonyMailerHandler extends MailHandler
     /**
      * Creates instance of Email to be sent
      *
+<<<<<<< HEAD
      * @param  string      $content formatted email body to be sent
      * @param  LogRecord[] $records Log records that formed the content
+=======
+     * @param string      $content formatted email body to be sent
+     * @param LogRecord[] $records Log records that formed the content
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function buildMessage(string $content, array $records): Email
     {
         $message = null;
         if ($this->emailTemplate instanceof Email) {
             $message = clone $this->emailTemplate;
+<<<<<<< HEAD
         } elseif (is_callable($this->emailTemplate)) {
+=======
+        } elseif (\is_callable($this->emailTemplate)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $message = ($this->emailTemplate)($content, $records);
         }
 
         if (!$message instanceof Email) {
             $record = reset($records);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new \InvalidArgumentException('Could not resolve message as instance of Email or a callable returning it' . ($record instanceof LogRecord ? Utils::getRecordMessageForException($record) : ''));
         }
 

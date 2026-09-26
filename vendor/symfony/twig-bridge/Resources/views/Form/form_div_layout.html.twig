@@ -85,7 +85,11 @@
                 {{- block('choice_widget_options') -}}
             </optgroup>
         {%- else -%}
+<<<<<<< HEAD
             <option value="{{ choice.value }}"{% if choice.attr %}{% with { attr: choice.attr } %}{{ block('attributes') }}{% endwith %}{% endif %}{% if not render_preferred_choices|default(false) and choice is selectedchoice(value) %} selected="selected"{% endif %}>{{ choice_translation_domain is same as(false) ? choice.label : choice.label|trans(choice.labelTranslationParameters, choice_translation_domain) }}</option>
+=======
+            <option value="{{ choice.value }}"{% if choice.attr %}{% with { attr: choice.attr } %}{{ block('attributes') }}{% endwith %}{% endif %}{% if (not render_preferred_choices|default(false) or not (duplicate_preferred_choices ?? true)) and choice is selectedchoice(value) %} selected="selected"{% endif %}>{{ choice_translation_domain is same as(false) ? choice.label : choice.label|trans(choice.labelTranslationParameters, choice_translation_domain) }}</option>
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         {%- endif -%}
     {% endfor %}
 {%- endblock choice_widget_options -%}
@@ -222,7 +226,11 @@
 {%- endblock range_widget %}
 
 {%- block button_widget -%}
+<<<<<<< HEAD
     {%- if label is empty -%}
+=======
+    {%- if label is null or label == '' -%}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         {%- if label_format is not empty -%}
             {% set label = label_format|replace({
                 '%name%': name,
@@ -297,13 +305,21 @@
 {%- endblock form_label -%}
 
 {%- block form_label_content -%}
+<<<<<<< HEAD
     {%- if label is empty -%}
+=======
+    {%- if label is null or label == '' -%}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         {%- if label_format is not empty -%}
             {% set label = label_format|replace({
                 '%name%': name,
                 '%id%': id,
             }) %}
+<<<<<<< HEAD
         {%- else -%}
+=======
+        {%- elseif label is not same as(false) -%}
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             {% set label = name|humanize %}
         {%- endif -%}
     {%- endif -%}

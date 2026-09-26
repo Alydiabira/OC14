@@ -20,7 +20,11 @@
         "psr/container": "^1.1|^2.0",
         "symfony/deprecation-contracts": "^2.5|^3",
         "symfony/service-contracts": "^2.5|^3.0",
+<<<<<<< HEAD
         "symfony/var-exporter": "^6.2.10|^7.0"
+=======
+        "symfony/var-exporter": "^6.4.20|^7.2.5"
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     },
     "require-dev": {
         "symfony/yaml": "^5.4|^6.0|^7.0",

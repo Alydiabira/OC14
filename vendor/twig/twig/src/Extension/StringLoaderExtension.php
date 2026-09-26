@@ -29,12 +29,23 @@ final class StringLoaderExtension extends AbstractExtension
      *
      *     {{ include(template_from_string("Hello {{ name }}")) }}
      *
+<<<<<<< HEAD
      * @param string      $template A template as a string or object implementing __toString()
      * @param string|null $name     An optional name of the template to be used in error messages
      *
      * @internal
      */
     public static function templateFromString(Environment $env, $template, ?string $name = null): TemplateWrapper
+=======
+     * Never expose `template_from_string` to untrusted template
+     * authors (like in a sandboxed environment). See the docs for more details.
+     *
+     * @param string|null $name An optional name of the template to be used in error messages
+     *
+     * @internal
+     */
+    public static function templateFromString(Environment $env, string|\Stringable $template, ?string $name = null): TemplateWrapper
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return $env->createTemplate((string) $template, $name);
     }

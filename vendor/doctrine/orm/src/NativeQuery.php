@@ -40,7 +40,19 @@ class NativeQuery extends AbstractQuery
         $types      = [];
 
         foreach ($this->getParameters() as $parameter) {
+<<<<<<< HEAD
             $name  = $parameter->getName();
+=======
+            $name = $parameter->getName();
+
+            if ($parameter->typeWasSpecified()) {
+                $parameters[$name] = $parameter->getValue();
+                $types[$name]      = $parameter->getType();
+
+                continue;
+            }
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $value = $this->processParameterValue($parameter->getValue());
             $type  = $parameter->getValue() === $value
                 ? $parameter->getType()

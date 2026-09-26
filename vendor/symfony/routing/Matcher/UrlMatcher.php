@@ -78,8 +78,14 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
     public function match(string $pathinfo): array
     {
         $this->allow = $this->allowSchemes = [];
+<<<<<<< HEAD
 
         if ($ret = $this->matchCollection(rawurldecode($pathinfo) ?: '/', $this->routes)) {
+=======
+        $pathinfo = '' === ($pathinfo = rawurldecode($pathinfo)) ? '/' : $pathinfo;
+
+        if ($ret = $this->matchCollection($pathinfo, $this->routes)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return $ret;
         }
 
@@ -87,18 +93,34 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
             throw new NoConfigurationException();
         }
 
+<<<<<<< HEAD
         throw 0 < \count($this->allow) ? new MethodNotAllowedException(array_unique($this->allow)) : new ResourceNotFoundException(sprintf('No routes found for "%s".', $pathinfo));
+=======
+        throw 0 < \count($this->allow) ? new MethodNotAllowedException(array_unique($this->allow)) : new ResourceNotFoundException(\sprintf('No routes found for "%s".', $pathinfo));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function matchRequest(Request $request): array
     {
         $this->request = $request;
+<<<<<<< HEAD
 
         $ret = $this->match($request->getPathInfo());
 
         $this->request = null;
 
         return $ret;
+=======
+        $originalContext = $this->context;
+        $this->context = (clone $originalContext)->fromRequest($request);
+
+        try {
+            return $this->match($request->getPathInfo());
+        } finally {
+            $this->context = $originalContext;
+            $this->request = null;
+        }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -125,7 +147,11 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
             $method = 'GET';
         }
         $supportsTrailingSlash = 'GET' === $method && $this instanceof RedirectableUrlMatcherInterface;
+<<<<<<< HEAD
         $trimmedPathinfo = rtrim($pathinfo, '/') ?: '/';
+=======
+        $trimmedPathinfo = '' === ($trimmedPathinfo = rtrim($pathinfo, '/')) ? '/' : $trimmedPathinfo;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         foreach ($routes as $name => $route) {
             $compiledRoute = $route->compile();
@@ -225,7 +251,11 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
             $routeParameters = func_get_arg(3);
 
             if (!\is_array($routeParameters)) {
+<<<<<<< HEAD
                 throw new \TypeError(sprintf('"%s": Argument $routeParameters is expected to be an array, got "%s".', __METHOD__, get_debug_type($routeParameters)));
+=======
+                throw new \TypeError(\sprintf('"%s": Argument $routeParameters is expected to be an array, got "%s".', __METHOD__, get_debug_type($routeParameters)));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 

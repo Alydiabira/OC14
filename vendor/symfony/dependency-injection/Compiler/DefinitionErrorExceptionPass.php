@@ -65,10 +65,20 @@ class DefinitionErrorExceptionPass extends AbstractRecursivePass
         }
 
         if ($value instanceof Reference && $this->currentId !== $targetId = (string) $value) {
+<<<<<<< HEAD
             if (ContainerInterface::RUNTIME_EXCEPTION_ON_INVALID_REFERENCE === $value->getInvalidBehavior()) {
                 $this->sourceReferences[$targetId][$this->currentId] ??= true;
             } else {
                 $this->sourceReferences[$targetId][$this->currentId] = false;
+=======
+            if (
+                ContainerInterface::RUNTIME_EXCEPTION_ON_INVALID_REFERENCE === $value->getInvalidBehavior()
+                || ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE === $value->getInvalidBehavior()
+            ) {
+                $this->sourceReferences[$targetId][$this->currentId ?? ''] ??= true;
+            } else {
+                $this->sourceReferences[$targetId][$this->currentId ?? ''] = false;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return $value;
@@ -78,7 +88,11 @@ class DefinitionErrorExceptionPass extends AbstractRecursivePass
             return parent::processValue($value, $isRoot);
         }
 
+<<<<<<< HEAD
         $this->erroredDefinitions[$this->currentId] = $value;
+=======
+        $this->erroredDefinitions[$this->currentId ?? ''] = $value;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return parent::processValue($value);
     }

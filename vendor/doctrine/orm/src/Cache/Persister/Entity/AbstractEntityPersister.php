@@ -13,6 +13,10 @@ use Doctrine\ORM\Cache\EntityCacheKey;
 use Doctrine\ORM\Cache\EntityHydrator;
 use Doctrine\ORM\Cache\Logging\CacheLogger;
 use Doctrine\ORM\Cache\Persister\CachedPersister;
+<<<<<<< HEAD
+=======
+use Doctrine\ORM\Cache\Persister\CompatOrderings;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\Cache\QueryCacheKey;
 use Doctrine\ORM\Cache\Region;
 use Doctrine\ORM\Cache\TimestampCacheKey;
@@ -24,16 +28,31 @@ use Doctrine\ORM\Mapping\ClassMetadataFactory;
 use Doctrine\ORM\PersistentCollection;
 use Doctrine\ORM\Persisters\Entity\EntityPersister;
 use Doctrine\ORM\Proxy\DefaultProxyClassNameResolver;
+<<<<<<< HEAD
 use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\UnitOfWork;
 
 use function array_merge;
 use function assert;
+=======
+use Doctrine\ORM\Query\FilterCollection;
+use Doctrine\ORM\Query\ResultSetMapping;
+use Doctrine\ORM\UnitOfWork;
+use SortDirection;
+
+use function array_merge;
+use function func_get_args;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function serialize;
 use function sha1;
 
 abstract class AbstractEntityPersister implements CachedEntityPersister
 {
+<<<<<<< HEAD
+=======
+    use CompatOrderings;
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected UnitOfWork $uow;
     protected ClassMetadataFactory $metadataFactory;
 
@@ -44,6 +63,10 @@ abstract class AbstractEntityPersister implements CachedEntityPersister
     protected TimestampCacheKey $timestampKey;
     protected EntityHydrator $hydrator;
     protected Cache $cache;
+<<<<<<< HEAD
+=======
+    protected FilterCollection $filters;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected CacheLogger|null $cacheLogger = null;
     protected string $regionName;
 
@@ -65,6 +88,10 @@ abstract class AbstractEntityPersister implements CachedEntityPersister
         $cacheFactory  = $cacheConfig->getCacheFactory();
 
         $this->cache           = $em->getCache();
+<<<<<<< HEAD
+=======
+        $this->filters         = $em->getFilters();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->regionName      = $region->getName();
         $this->uow             = $em->getUnitOfWork();
         $this->metadataFactory = $em->getMetadataFactory();
@@ -202,12 +229,21 @@ abstract class AbstractEntityPersister implements CachedEntityPersister
     /**
      * Generates a string of currently query
      *
+<<<<<<< HEAD
      * @param string[]|Criteria         $criteria
      * @param array<string, Order>|null $orderBy
+=======
+     * @param string[]|Criteria                                      $criteria
+     * @param array<string, SortDirection>|array<string, Order>|null $orderBy
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function getHash(
         string $query,
         array|Criteria $criteria,
+<<<<<<< HEAD
+=======
+        // @phpstan-ignore parameter.deprecatedEnum
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         array|null $orderBy = null,
         int|null $limit = null,
         int|null $offset = null,
@@ -216,7 +252,11 @@ abstract class AbstractEntityPersister implements CachedEntityPersister
             ? $this->persister->expandCriteriaParameters($criteria)
             : $this->persister->expandParameters($criteria);
 
+<<<<<<< HEAD
         return sha1($query . serialize($params) . serialize($orderBy) . $limit . $offset);
+=======
+        return sha1($query . serialize($params) . serialize($orderBy) . $limit . $offset . $this->filters->getHash());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -427,7 +467,11 @@ abstract class AbstractEntityPersister implements CachedEntityPersister
      */
     public function loadCriteria(Criteria $criteria): array
     {
+<<<<<<< HEAD
         $orderBy     = $criteria->orderings();
+=======
+        $orderBy     = $this->getOrderings($criteria);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $limit       = $criteria->getMaxResults();
         $offset      = $criteria->getFirstResult();
         $query       = $this->persister->getSelectSQL($criteria);
@@ -473,7 +517,11 @@ abstract class AbstractEntityPersister implements CachedEntityPersister
         }
 
         $ownerId = $this->uow->getEntityIdentifier($collection->getOwner());
+<<<<<<< HEAD
         $key     = $this->buildCollectionCacheKey($assoc, $ownerId);
+=======
+        $key     = $this->buildCollectionCacheKey($assoc, $ownerId, $this->filters->getHash());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $list    = $persister->loadCollectionCache($collection, $key);
 
         if ($list !== null) {
@@ -504,7 +552,11 @@ abstract class AbstractEntityPersister implements CachedEntityPersister
         }
 
         $ownerId = $this->uow->getEntityIdentifier($collection->getOwner());
+<<<<<<< HEAD
         $key     = $this->buildCollectionCacheKey($assoc, $ownerId);
+=======
+        $key     = $this->buildCollectionCacheKey($assoc, $ownerId, $this->filters->getHash());
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $list    = $persister->loadCollectionCache($collection, $key);
 
         if ($list !== null) {
@@ -547,11 +599,24 @@ abstract class AbstractEntityPersister implements CachedEntityPersister
     }
 
     /** @param array<string, mixed> $ownerId */
+<<<<<<< HEAD
     protected function buildCollectionCacheKey(AssociationMapping $association, array $ownerId): CollectionCacheKey
     {
         $metadata = $this->metadataFactory->getMetadataFor($association->sourceEntity);
         assert($metadata instanceof ClassMetadata);
 
         return new CollectionCacheKey($metadata->rootEntityName, $association->fieldName, $ownerId);
+=======
+    protected function buildCollectionCacheKey(AssociationMapping $association, array $ownerId, /* string $filterHash */): CollectionCacheKey
+    {
+        $filterHash = (string) (func_get_args()[2] ?? ''); // todo: move to argument in next major release
+
+        return new CollectionCacheKey(
+            $this->metadataFactory->getMetadataFor($association->sourceEntity)->rootEntityName,
+            $association->fieldName,
+            $ownerId,
+            $filterHash,
+        );
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

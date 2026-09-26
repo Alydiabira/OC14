@@ -1,5 +1,10 @@
 <?php
 
+<<<<<<< HEAD
+=======
+declare(strict_types=1);
+
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 namespace Doctrine\Bundle\DoctrineBundle;
 
 use Doctrine\Common\EventManager;
@@ -24,11 +29,18 @@ use function array_merge;
 use function class_exists;
 use function is_subclass_of;
 use function method_exists;
+<<<<<<< HEAD
 use function trigger_deprecation;
 
 use const PHP_EOL;
 
 /** @psalm-import-type Params from DriverManager */
+=======
+
+use const PHP_EOL;
+
+/** @phpstan-import-type Params from DriverManager */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 class ConnectionFactory
 {
     /** @internal */
@@ -44,18 +56,31 @@ class ConnectionFactory
         'sqlite3'    => 'pdo_sqlite',
     ];
 
+<<<<<<< HEAD
     /** @var mixed[][] */
     private array $typesConfig = [];
 
     private DsnParser $dsnParser;
+=======
+    /** @phpstan-ignore property.onlyWritten */
+    private readonly DsnParser $dsnParser;
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     private bool $initialized = false;
 
     /** @param mixed[][] $typesConfig */
+<<<<<<< HEAD
     public function __construct(array $typesConfig, ?DsnParser $dsnParser = null)
     {
         $this->typesConfig = $typesConfig;
         $this->dsnParser   = $dsnParser ?? new DsnParser(self::DEFAULT_SCHEME_MAP);
+=======
+    public function __construct(
+        private readonly array $typesConfig = [],
+        DsnParser|null $dsnParser = null,
+    ) {
+        $this->dsnParser = $dsnParser ?? new DsnParser(self::DEFAULT_SCHEME_MAP);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -63,11 +88,19 @@ class ConnectionFactory
      *
      * @param mixed[]               $params
      * @param array<string, string> $mappingTypes
+<<<<<<< HEAD
      * @psalm-param Params $params
      *
      * @return Connection
      */
     public function createConnection(array $params, ?Configuration $config = null, ?EventManager $eventManager = null, array $mappingTypes = [])
+=======
+     * @phpstan-param Params $params
+     *
+     * @return Connection
+     */
+    public function createConnection(array $params, Configuration|null $config = null, EventManager|null $eventManager = null, array $mappingTypes = [])
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if (! method_exists(Connection::class, 'getEventManager') && $eventManager !== null) {
             throw new InvalidArgumentException('Passing an EventManager instance is not supported with DBAL > 3');
@@ -78,9 +111,19 @@ class ConnectionFactory
         }
 
         $overriddenOptions = [];
+<<<<<<< HEAD
         /** @psalm-suppress InvalidArrayOffset We should adjust when https://github.com/vimeo/psalm/issues/8984 is fixed */
         if (isset($params['connection_override_options'])) {
             trigger_deprecation('doctrine/doctrine-bundle', '2.4', 'The "connection_override_options" connection parameter is deprecated');
+=======
+        /** @phpstan-ignore isset.offset (We should adjust when https://github.com/phpstan/phpstan/issues/12414 is fixed) */
+        if (isset($params['connection_override_options'])) {
+            Deprecation::trigger(
+                'doctrine/doctrine-bundle',
+                'https://github.com/doctrine/DoctrineBundle/pull/1342',
+                'The "connection_override_options" connection parameter is deprecated',
+            );
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $overriddenOptions = $params['connection_override_options'];
             unset($params['connection_override_options']);
         }
@@ -98,7 +141,11 @@ class ConnectionFactory
             }
         }
 
+<<<<<<< HEAD
         /** @psalm-suppress InvalidArrayOffset We should adjust when https://github.com/vimeo/psalm/issues/8984 is fixed */
+=======
+        /** @phpstan-ignore-next-line We should adjust when https://github.com/phpstan/phpstan/issues/12414 is fixed */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (! isset($params['pdo']) && (! isset($params['charset']) || $overriddenOptions || isset($params['dbname_suffix']))) {
             $wrapperClass = null;
 
@@ -108,6 +155,10 @@ class ConnectionFactory
                         throw InvalidWrapperClass::new($params['wrapperClass']);
                     }
 
+<<<<<<< HEAD
+=======
+                    /* @phpstan-ignore staticMethod.notFound */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     throw DBALException::invalidWrapperClass($params['wrapperClass']);
                 }
 
@@ -118,9 +169,18 @@ class ConnectionFactory
             $connection = DriverManager::getConnection(...array_merge([$params, $config], $eventManager ? [$eventManager] : []));
             $params     = $this->addDatabaseSuffix(array_merge($connection->getParams(), $overriddenOptions));
             $driver     = $connection->getDriver();
+<<<<<<< HEAD
             /** @psalm-suppress InvalidScalarArgument Bogus error, StaticServerVersionProvider implements Doctrine\DBAL\ServerVersionProvider  */
             $platform = $driver->getDatabasePlatform(
                 ...(class_exists(StaticServerVersionProvider::class) ? [new StaticServerVersionProvider($params['serverVersion'] ?? '')] : []),
+=======
+            /** @phpstan-ignore arguments.count (DBAL < 4.x doesn't accept an argument) */
+            $platform = $driver->getDatabasePlatform(
+                ...(class_exists(StaticServerVersionProvider::class)
+                    ? [new StaticServerVersionProvider($params['serverVersion'] ?? $params['primary']['serverVersion'] ?? '')]
+                    : []
+                ),
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
 
             if (! isset($params['charset'])) {
@@ -183,6 +243,10 @@ class ConnectionFactory
         } catch (DriverException $driverException) {
             $class = class_exists(DBALException::class) ? DBALException::class : ConnectionException::class;
 
+<<<<<<< HEAD
+=======
+            /* @phpstan-ignore new.interface */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new $class(
                 'An exception occurred while establishing a connection to figure out your platform version.' . PHP_EOL .
                 "You can circumvent this by setting a 'server_version' configuration value" . PHP_EOL . PHP_EOL .
@@ -241,6 +305,7 @@ class ConnectionFactory
      * updated list of parameters.
      *
      * @param mixed[] $params The list of parameters.
+<<<<<<< HEAD
      * @psalm-param Params $params
      *
      * @return mixed[] A modified list of parameters with info from a database
@@ -252,10 +317,29 @@ class ConnectionFactory
     private function parseDatabaseUrl(array $params): array
     {
         /** @psalm-suppress InvalidArrayOffset Need to be compatible with DBAL < 4, which still has `$params['url']` */
+=======
+     * @phpstan-param Params $params
+     *
+     * @return mixed[] A modified list of parameters with info from a database
+     *                 URL extracted into individual parameter parts.
+     * @phpstan-return Params
+     *
+     * @throws DBALException
+     *
+     * @phpstan-ignore throws.unusedType
+     */
+    private function parseDatabaseUrl(array $params): array
+    {
+        /** @phpstan-ignore isset.offset (for DBAL < 4) */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (! isset($params['url'])) {
             return $params;
         }
 
+<<<<<<< HEAD
+=======
+        /** @phpstan-ignore deadCode.unreachable */
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         try {
             $parsedParams = $this->dsnParser->parse($params['url']);
         } catch (MalformedDsnException $e) {

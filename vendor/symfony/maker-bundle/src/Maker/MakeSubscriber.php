@@ -55,7 +55,11 @@ final class MakeSubscriber extends AbstractMaker
         $command
             ->addArgument('name', InputArgument::OPTIONAL, 'Choose a class name for your event subscriber (e.g. <fg=yellow>ExceptionSubscriber</>)')
             ->addArgument('event', InputArgument::OPTIONAL, 'What event do you want to subscribe to?')
+<<<<<<< HEAD
             ->setHelp(file_get_contents(__DIR__.'/../Resources/help/MakeSubscriber.txt'))
+=======
+            ->setHelp($this->getHelpFileContents('MakeSubscriber.txt'))
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ;
 
         $inputConfig->setArgumentAsNonInteractive('event');
@@ -68,7 +72,11 @@ final class MakeSubscriber extends AbstractMaker
 
             $io->writeln(' <fg=green>Suggested Events:</>');
             $io->listing($this->eventRegistry->listActiveEvents($events));
+<<<<<<< HEAD
             $question = new Question(sprintf(' <fg=green>%s</>', $command->getDefinition()->getArgument('event')->getDescription()));
+=======
+            $question = new Question(\sprintf(' <fg=green>%s</>', $command->getDefinition()->getArgument('event')->getDescription()));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $question->setAutocompleterValues($events);
             $question->setValidator(Validator::notBlank(...));
             $event = $io->askQuestion($question);
@@ -97,7 +105,11 @@ final class MakeSubscriber extends AbstractMaker
             $useStatements->addUseStatement(KernelEvents::class);
             $eventName = $eventConstant;
         } else {
+<<<<<<< HEAD
             $eventName = class_exists($event) ? sprintf('%s::class', $eventClassName) : sprintf('\'%s\'', $event);
+=======
+            $eventName = class_exists($event) ? \sprintf('%s::class', $eventClassName) : \sprintf('\'%s\'', $event);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (null !== $eventFullClassName) {
@@ -110,7 +122,11 @@ final class MakeSubscriber extends AbstractMaker
             [
                 'use_statements' => $useStatements,
                 'event' => $eventName,
+<<<<<<< HEAD
                 'event_arg' => $eventClassName ? sprintf('%s $event', $eventClassName) : '$event',
+=======
+                'event_arg' => $eventClassName ? \sprintf('%s $event', $eventClassName) : '$event',
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'method_name' => class_exists($event) ? Str::asEventMethod($eventClassName) : Str::asEventMethod($event),
             ]
         );
@@ -134,7 +150,11 @@ final class MakeSubscriber extends AbstractMaker
         $constants = (new \ReflectionClass(KernelEvents::class))->getConstants();
 
         if (false !== ($name = array_search($event, $constants, true))) {
+<<<<<<< HEAD
             return sprintf('KernelEvents::%s', $name);
+=======
+            return \sprintf('KernelEvents::%s', $name);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return null;

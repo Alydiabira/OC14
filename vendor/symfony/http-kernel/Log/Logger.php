@@ -74,13 +74,22 @@ class Logger extends AbstractLogger implements DebugLoggerInterface
         }
 
         if (!isset(self::LEVELS[$minLevel])) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('The log level "%s" does not exist.', $minLevel));
+=======
+            throw new InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $minLevel));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->minLevelIndex = self::LEVELS[$minLevel];
         $this->formatter = null !== $formatter ? $formatter(...) : $this->format(...);
+<<<<<<< HEAD
         if ($output && false === $this->handle = \is_resource($output) ? $output : @fopen($output, 'a')) {
             throw new InvalidArgumentException(sprintf('Unable to open "%s".', $output));
+=======
+        if ($output && false === $this->handle = \is_string($output) ? @fopen($output, 'a') : $output) {
+            throw new InvalidArgumentException(\sprintf('Unable to open "%s".', $output));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         $this->debug = $debug;
     }
@@ -93,7 +102,11 @@ class Logger extends AbstractLogger implements DebugLoggerInterface
     public function log($level, $message, array $context = []): void
     {
         if (!isset(self::LEVELS[$level])) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('The log level "%s" does not exist.', $level));
+=======
+            throw new InvalidArgumentException(\sprintf('The log level "%s" does not exist.', $level));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (self::LEVELS[$level] < $this->minLevelIndex) {
@@ -155,7 +168,11 @@ class Logger extends AbstractLogger implements DebugLoggerInterface
             $message = strtr($message, $replacements);
         }
 
+<<<<<<< HEAD
         $log = sprintf('[%s] %s', $level, $message);
+=======
+        $log = \sprintf('[%s] %s', $level, $message);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ($prefixDate) {
             $log = date(\DateTimeInterface::RFC3339).' '.$log;
         }

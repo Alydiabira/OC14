@@ -55,7 +55,11 @@ abstract class AbstractSyslogHandler extends AbstractProcessingHandler
     {
         parent::__construct($level, $bubble);
 
+<<<<<<< HEAD
         if (!defined('PHP_WINDOWS_VERSION_BUILD')) {
+=======
+        if (!\defined('PHP_WINDOWS_VERSION_BUILD')) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->facilities['local0'] = \LOG_LOCAL0;
             $this->facilities['local1'] = \LOG_LOCAL1;
             $this->facilities['local2'] = \LOG_LOCAL2;
@@ -76,9 +80,15 @@ abstract class AbstractSyslogHandler extends AbstractProcessingHandler
         }
 
         // convert textual description of facility to syslog constant
+<<<<<<< HEAD
         if (is_string($facility) && array_key_exists(strtolower($facility), $this->facilities)) {
             $facility = $this->facilities[strtolower($facility)];
         } elseif (!in_array($facility, array_values($this->facilities), true)) {
+=======
+        if (\is_string($facility) && \array_key_exists(strtolower($facility), $this->facilities)) {
+            $facility = $this->facilities[strtolower($facility)];
+        } elseif (!\in_array($facility, array_values($this->facilities), true)) {
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new \UnexpectedValueException('Unknown facility value "'.$facility.'" given');
         }
 

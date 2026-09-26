@@ -89,7 +89,13 @@ class FormType extends BaseType
                 $view->vars['attr']['readonly'] = true;
             }
 
+<<<<<<< HEAD
             $helpTranslationParameters = array_merge($view->parent->vars['help_translation_parameters'], $helpTranslationParameters);
+=======
+            if (!$options['help'] instanceof TranslatableInterface) {
+                $helpTranslationParameters = array_merge($view->parent->vars['help_translation_parameters'], $helpTranslationParameters);
+            }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $formConfig = $form->getConfig();

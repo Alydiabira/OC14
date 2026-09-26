@@ -32,19 +32,31 @@ trait FilesystemCommonTrait
         }
         if (isset($namespace[0])) {
             if (preg_match('#[^-+_.A-Za-z0-9]#', $namespace, $match)) {
+<<<<<<< HEAD
                 throw new InvalidArgumentException(sprintf('Namespace contains "%s" but only characters in [-+_.A-Za-z0-9] are allowed.', $match[0]));
+=======
+                throw new InvalidArgumentException(\sprintf('Namespace contains "%s" but only characters in [-+_.A-Za-z0-9] are allowed.', $match[0]));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $directory .= \DIRECTORY_SEPARATOR.$namespace;
         } else {
             $directory .= \DIRECTORY_SEPARATOR.'@';
         }
         if (!is_dir($directory)) {
+<<<<<<< HEAD
             @mkdir($directory, 0777, true);
+=======
+            @mkdir($directory, 0o777, true);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         $directory .= \DIRECTORY_SEPARATOR;
         // On Windows the whole path is limited to 258 chars
         if ('\\' === \DIRECTORY_SEPARATOR && \strlen($directory) > 234) {
+<<<<<<< HEAD
             throw new InvalidArgumentException(sprintf('Cache directory too long (%s).', $directory));
+=======
+            throw new InvalidArgumentException(\sprintf('Cache directory too long (%s).', $directory));
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->directory = $directory;
@@ -109,8 +121,18 @@ trait FilesystemCommonTrait
                 touch($tmp, $expiresAt ?: time() + 31556952); // 1 year in seconds
             }
 
+<<<<<<< HEAD
             $success = rename($tmp, $file);
             $unlink = !$success;
+=======
+            if ('\\' === \DIRECTORY_SEPARATOR) {
+                $success = copy($tmp, $file);
+                $unlink = true;
+            } else {
+                $success = rename($tmp, $file);
+                $unlink = !$success;
+            }
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             return $success;
         } finally {
@@ -129,7 +151,11 @@ trait FilesystemCommonTrait
         $dir = ($directory ?? $this->directory).strtoupper($hash[0].\DIRECTORY_SEPARATOR.$hash[1].\DIRECTORY_SEPARATOR);
 
         if ($mkdir && !is_dir($dir)) {
+<<<<<<< HEAD
             @mkdir($dir, 0777, true);
+=======
+            @mkdir($dir, 0o777, true);
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $dir.substr($hash, 2, 20);
@@ -167,24 +193,36 @@ trait FilesystemCommonTrait
         }
     }
 
+<<<<<<< HEAD
     public function __sleep(): array
+=======
+    public function __serialize(): array
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
     }
 
+<<<<<<< HEAD
     /**
      * @return void
      */
     public function __wakeup()
+=======
+    public function __unserialize(array $data): void
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
     }
 
     public function __destruct()
     {
+<<<<<<< HEAD
         if (method_exists(parent::class, '__destruct')) {
             parent::__destruct();
         }
+=======
+        parent::__destruct();
+>>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (isset($this->tmpSuffix) && is_file($this->directory.$this->tmpSuffix)) {
             unlink($this->directory.$this->tmpSuffix);
         }
