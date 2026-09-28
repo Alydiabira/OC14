@@ -11,39 +11,6 @@
 
 namespace Twig\Node\Expression;
 
-<<<<<<< HEAD
-use Twig\Compiler;
-use Twig\Extension\CoreExtension;
-use Twig\Node\Node;
-
-class FunctionExpression extends CallExpression
-{
-    public function __construct(string $name, Node $arguments, int $lineno)
-    {
-        parent::__construct(['arguments' => $arguments], ['name' => $name, 'is_defined_test' => false], $lineno);
-    }
-
-    public function compile(Compiler $compiler)
-    {
-        $name = $this->getAttribute('name');
-        $function = $compiler->getEnvironment()->getFunction($name);
-
-        $this->setAttribute('name', $name);
-        $this->setAttribute('type', 'function');
-        $this->setAttribute('needs_charset', $function->needsCharset());
-        $this->setAttribute('needs_environment', $function->needsEnvironment());
-        $this->setAttribute('needs_context', $function->needsContext());
-        $this->setAttribute('arguments', $function->getArguments());
-        $callable = $function->getCallable();
-        if ('constant' === $name && $this->getAttribute('is_defined_test')) {
-            $callable = [CoreExtension::class, 'constantIsDefined'];
-        }
-        $this->setAttribute('callable', $callable);
-        $this->setAttribute('is_variadic', $function->isVariadic());
-
-        $this->compileCallable($compiler);
-    }
-=======
 use Twig\Attribute\FirstClassTwigCallableReady;
 use Twig\Compiler;
 use Twig\Node\CoercesChildrenToStringInterface;
@@ -118,5 +85,4 @@ class FunctionExpression extends CallExpression implements SupportDefinedTestInt
         // a function may coerce its arguments to string (the host PHP code is opaque to Twig)
         return ['arguments'];
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

@@ -52,11 +52,7 @@ class PhpProcess extends Process
 
     public static function fromShellCommandline(string $command, ?string $cwd = null, ?array $env = null, mixed $input = null, ?float $timeout = 60): static
     {
-<<<<<<< HEAD
-        throw new LogicException(sprintf('The "%s()" method cannot be called when using "%s".', __METHOD__, self::class));
-=======
         throw new LogicException(\sprintf('The "%s()" method cannot be called when using "%s".', __METHOD__, self::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

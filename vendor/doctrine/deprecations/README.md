@@ -150,8 +150,6 @@ class MyTest extends TestCase
 }
 ```
 
-<<<<<<< HEAD
-=======
 ## Displaying deprecations after running a PHPUnit test suite
 
 It is possible to integrate this library with PHPUnit to display all
@@ -211,7 +209,6 @@ Then, reference that file in your PHPUnit configuration:
 </phpunit>
 ```
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 ## What is a deprecation identifier?
 
 An identifier for deprecations is just a link to any resource, most often a

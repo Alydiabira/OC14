@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace Doctrine\ORM\Query;
 
 use Doctrine\ORM\Internal\NoUnknownNamedArguments;
-<<<<<<< HEAD
-=======
 use SortDirection;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Traversable;
 
 use function implode;
@@ -75,11 +72,7 @@ class Expr
      */
     public function asc(mixed $expr): Expr\OrderBy
     {
-<<<<<<< HEAD
-        return new Expr\OrderBy($expr, 'ASC');
-=======
         return new Expr\OrderBy($expr, SortDirection::Ascending);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -87,11 +80,7 @@ class Expr
      */
     public function desc(mixed $expr): Expr\OrderBy
     {
-<<<<<<< HEAD
-        return new Expr\OrderBy($expr, 'DESC');
-=======
         return new Expr\OrderBy($expr, SortDirection::Descending);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

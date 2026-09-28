@@ -13,11 +13,6 @@
 namespace Twig\Node\Expression;
 
 use Twig\Compiler;
-<<<<<<< HEAD
-
-class AssignNameExpression extends NameExpression
-{
-=======
 use Twig\Error\SyntaxError;
 use Twig\Node\Expression\Variable\AssignContextVariable;
 use Twig\Node\Expression\Variable\ContextVariable;
@@ -38,7 +33,6 @@ class AssignNameExpression extends ContextVariable
         parent::__construct($name, $lineno);
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function compile(Compiler $compiler): void
     {
         $compiler

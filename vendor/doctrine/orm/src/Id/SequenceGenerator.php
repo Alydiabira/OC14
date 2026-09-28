@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace Doctrine\ORM\Id;
 
 use Doctrine\DBAL\Connections\PrimaryReadReplicaConnection;
-<<<<<<< HEAD
-=======
 use Doctrine\Deprecations\Deprecation;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\EntityManagerInterface;
 use Serializable;
 
@@ -69,10 +66,6 @@ class SequenceGenerator extends AbstractIdGenerator implements Serializable
         return $this->nextValue;
     }
 
-<<<<<<< HEAD
-    final public function serialize(): string
-    {
-=======
     /** @deprecated without replacement. */
     final public function serialize(): string
     {
@@ -84,7 +77,6 @@ class SequenceGenerator extends AbstractIdGenerator implements Serializable
             self::class,
         );
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return serialize($this->__serialize());
     }
 
@@ -97,10 +89,6 @@ class SequenceGenerator extends AbstractIdGenerator implements Serializable
         ];
     }
 
-<<<<<<< HEAD
-    final public function unserialize(string $serialized): void
-    {
-=======
     /** @deprecated without replacement. */
     final public function unserialize(string $serialized): void
     {
@@ -112,7 +100,6 @@ class SequenceGenerator extends AbstractIdGenerator implements Serializable
             self::class,
         );
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->__unserialize(unserialize($serialized));
     }
 

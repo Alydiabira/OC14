@@ -11,15 +11,9 @@
 
 namespace Symfony\Component\HttpClient;
 
-<<<<<<< HEAD
-use Symfony\Component\HttpClient\Response\MockResponse;
-use Symfony\Component\HttpClient\Response\ResponseStream;
-use Symfony\Component\HttpFoundation\Request;
-=======
 use Symfony\Component\HttpClient\Internal\OutgoingRequest;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\HttpClient\Response\ResponseStream;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\HttpKernel\HttpCache\HttpCache;
 use Symfony\Component\HttpKernel\HttpCache\StoreInterface;
 use Symfony\Component\HttpKernel\HttpClientKernel;
@@ -48,11 +42,7 @@ class CachingHttpClient implements HttpClientInterface, ResetInterface
     public function __construct(HttpClientInterface $client, StoreInterface $store, array $defaultOptions = [])
     {
         if (!class_exists(HttpClientKernel::class)) {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('Using "%s" requires that the HttpKernel component version 4.3 or higher is installed, try running "composer require symfony/http-kernel:^5.4".', __CLASS__));
-=======
             throw new \LogicException(\sprintf('Using "%s" requires the HttpKernel component, try running "composer require symfony/http-kernel".', __CLASS__));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->client = $client;
@@ -84,21 +74,11 @@ class CachingHttpClient implements HttpClientInterface, ResetInterface
             return $this->client->request($method, $url, $options);
         }
 
-<<<<<<< HEAD
-        $request = Request::create($url, $method);
-=======
         $request = OutgoingRequest::create($url, $method);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $request->attributes->set('http_client_options', $options);
 
         foreach ($options['normalized_headers'] as $name => $values) {
             if ('cookie' !== $name) {
-<<<<<<< HEAD
-                foreach ($values as $value) {
-                    $request->headers->set($name, substr($value, 2 + \strlen($name)), false);
-                }
-
-=======
                 $headerValues = [];
 
                 foreach ($values as $value) {
@@ -107,7 +87,6 @@ class CachingHttpClient implements HttpClientInterface, ResetInterface
 
                 $request->headers->set($name, $headerValues);
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 continue;
             }
 

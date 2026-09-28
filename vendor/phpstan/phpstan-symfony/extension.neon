@@ -22,11 +22,11 @@ parameters:
 			- Symfony\Component\Form\FormTypeInterface
 			- Symfony\Component\OptionsResolver\Options
 			- Symfony\Component\Security\Core\Authorization\Voter\Voter
-			- Symfony\Component\Security\Core\User\PasswordUpgraderInterface
 	stubFiles:
 		- stubs/Psr/Cache/CacheException.stub
 		- stubs/Psr/Cache/CacheItemInterface.stub
 		- stubs/Psr/Cache/InvalidArgumentException.stub
+		- stubs/Symfony/Bundle/FrameworkBundle/Controller/AbstractController.stub
 		- stubs/Symfony/Bundle/FrameworkBundle/KernelBrowser.stub
 		- stubs/Symfony/Bundle/FrameworkBundle/Test/KernelTestCase.stub
 		- stubs/Symfony/Bundle/FrameworkBundle/Test/TestContainer.stub
@@ -65,6 +65,7 @@ parameters:
 		- stubs/Symfony/Component/Messenger/Envelope.stub
 		- stubs/Symfony/Component/OptionsResolver/Exception/InvalidOptionsException.stub
 		- stubs/Symfony/Component/OptionsResolver/Options.stub
+		- stubs/Symfony/Component/Process/Exception/LogicException.stub
 		- stubs/Symfony/Component/Process/Process.stub
 		- stubs/Symfony/Component/PropertyAccess/Exception/AccessException.stub
 		- stubs/Symfony/Component/PropertyAccess/Exception/ExceptionInterface.stub
@@ -96,11 +97,14 @@ parameters:
 		- stubs/Symfony/Component/Serializer/Normalizer/NormalizableInterface.stub
 		- stubs/Symfony/Component/Serializer/Normalizer/NormalizerInterface.stub
 		- stubs/Symfony/Component/Validator/Constraint.stub
+		- stubs/Symfony/Component/Validator/Constraints/Composite.stub
+		- stubs/Symfony/Component/Validator/Constraints/Compound.stub
 		- stubs/Symfony/Component/Validator/ConstraintViolationInterface.stub
 		- stubs/Symfony/Component/Validator/ConstraintViolationListInterface.stub
 		- stubs/Symfony/Contracts/Cache/CacheInterface.stub
 		- stubs/Symfony/Contracts/Cache/CallbackInterface.stub
 		- stubs/Symfony/Contracts/Cache/ItemInterface.stub
+		- stubs/Symfony/Contracts/Service/ServiceSubscriberInterface.stub
 		- stubs/Twig/Node/Node.stub
 
 parametersSchema:
@@ -134,6 +138,13 @@ services:
 		factory: PHPStan\Symfony\XmlParameterMapFactory
 	-
 		factory: @symfony.parameterMapFactory::create()
+
+	# message map
+	symfony.messageMapFactory:
+		class: PHPStan\Symfony\MessageMapFactory
+		factory: PHPStan\Symfony\MessageMapFactory
+	-
+		factory: @symfony.messageMapFactory::create()
 
 	# ControllerTrait::get()/has() return type
 	-
@@ -197,6 +208,11 @@ services:
 	-
 		factory: PHPStan\Type\Symfony\EnvelopeReturnTypeExtension
 		tags: [phpstan.broker.dynamicMethodReturnTypeExtension]
+
+	# Messenger HandleTrait::handle() return type
+	-
+		class: PHPStan\Type\Symfony\MessengerHandleTraitReturnTypeExtension
+		tags: [phpstan.broker.expressionTypeResolverExtension]
 
 	# InputInterface::getArgument() return type
 	-
@@ -317,9 +333,9 @@ services:
 		tags:
 			- phpstan.stubFilesExtension
 	-
-		class: PHPStan\Symfony\PasswordAuthenticatedUserStubFilesExtension
+		class: PHPStan\Symfony\SymfonyDiagnoseExtension
 		tags:
-			- phpstan.stubFilesExtension
+			- phpstan.diagnoseExtension
 
 	# FormInterface::getErrors() return type
 	-

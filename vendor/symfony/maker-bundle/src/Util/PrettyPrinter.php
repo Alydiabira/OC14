@@ -59,10 +59,7 @@ final class PrettyPrinter extends Standard
         if ($node->returnType) {
             $classMethod = str_replace(') :', '):', $classMethod);
         }
-<<<<<<< HEAD
-=======
         $classMethod = str_replace('\x00', '\0', $classMethod);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $classMethod;
     }

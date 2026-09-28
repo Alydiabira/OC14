@@ -28,26 +28,14 @@ final class Instantiator implements InstantiatorInterface
      * Markers used internally by PHP to define whether {@see \unserialize} should invoke
      * the method {@see \Serializable::unserialize()} when dealing with classes implementing
      * the {@see \Serializable} interface.
-<<<<<<< HEAD
-     *
-     * @deprecated This constant will be private in 2.0
-     */
-    private const SERIALIZATION_FORMAT_USE_UNSERIALIZER   = 'C';
-    private const SERIALIZATION_FORMAT_AVOID_UNSERIALIZER = 'O';
-=======
      */
     private const string SERIALIZATION_FORMAT_USE_UNSERIALIZER   = 'C';
     private const string SERIALIZATION_FORMAT_AVOID_UNSERIALIZER = 'O';
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Used to instantiate specific classes, indexed by class name.
      *
-<<<<<<< HEAD
-     * @var callable[]
-=======
      * @var array<class-string, callable(): object>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private static array $cachedInstantiators = [];
 

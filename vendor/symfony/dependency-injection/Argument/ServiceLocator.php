@@ -43,10 +43,6 @@ class ServiceLocator extends BaseServiceLocator
 
     public function getProvidedServices(): array
     {
-<<<<<<< HEAD
-        return $this->serviceTypes ??= array_map(fn () => '?', $this->serviceMap);
-=======
         return $this->serviceTypes ??= array_map(static fn () => '?', $this->serviceMap);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

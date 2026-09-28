@@ -15,11 +15,6 @@ namespace Symfony\Component\PropertyInfo;
  * The write mutator defines how a property can be written.
  *
  * @author Joel Wurtz <jwurtz@jolicode.com>
-<<<<<<< HEAD
- *
- * @internal
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 final class PropertyWriteInfo
 {

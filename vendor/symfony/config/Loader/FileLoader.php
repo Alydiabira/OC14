@@ -72,29 +72,6 @@ abstract class FileLoader extends Loader
      */
     public function import(mixed $resource, ?string $type = null, bool $ignoreErrors = false, ?string $sourceResource = null, string|array|null $exclude = null)
     {
-<<<<<<< HEAD
-        if (\is_string($resource) && \strlen($resource) !== ($i = strcspn($resource, '*?{[')) && !str_contains($resource, "\n")) {
-            $excluded = [];
-            foreach ((array) $exclude as $pattern) {
-                foreach ($this->glob($pattern, true, $_, false, true) as $path => $info) {
-                    // normalize Windows slashes and remove trailing slashes
-                    $excluded[rtrim(str_replace('\\', '/', $path), '/')] = true;
-                }
-            }
-
-            $ret = [];
-            $isSubpath = 0 !== $i && str_contains(substr($resource, 0, $i), '/');
-            foreach ($this->glob($resource, false, $_, $ignoreErrors || !$isSubpath, false, $excluded) as $path => $info) {
-                if (null !== $res = $this->doImport($path, 'glob' === $type ? null : $type, $ignoreErrors, $sourceResource)) {
-                    $ret[] = $res;
-                }
-                $isSubpath = true;
-            }
-
-            if ($isSubpath) {
-                return isset($ret[1]) ? $ret : ($ret[0] ?? null);
-            }
-=======
         $excluded = [];
         foreach ((array) $exclude as $pattern) {
             foreach ($this->glob($pattern, true, $_, false, true) as $path => $info) {
@@ -129,7 +106,6 @@ abstract class FileLoader extends Loader
             }
         } elseif (\is_array($resource) && $excluded) {
             $resource['_excluded'] = $excluded;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->doImport($resource, $type, $ignoreErrors, $sourceResource);

@@ -14,11 +14,7 @@ namespace Gedmo;
  *
  * @author Gediminas Morkevicius <gediminas.morkevicius@gmail.com>
  */
-<<<<<<< HEAD
-interface Exception
-=======
 interface Exception extends \Throwable
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 {
     /*
      * Following best practices for PHP5.3 package exceptions.

@@ -104,11 +104,7 @@ class FullTransformer
 
         // handle unimplemented characters
         if (false !== strpos($this->notImplementedChars, $dateChars[0])) {
-<<<<<<< HEAD
-            throw new NotImplementedException(sprintf('Unimplemented date character "%s" in format "%s".', $dateChars[0], $this->pattern));
-=======
             throw new NotImplementedException(\sprintf('Unimplemented date character "%s" in format "%s".', $dateChars[0], $this->pattern));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return '';
@@ -216,11 +212,7 @@ class FullTransformer
     {
         $specialCharsArray = str_split($specialChars);
 
-<<<<<<< HEAD
-        $specialCharsMatch = implode('|', array_map(function ($char) {
-=======
         $specialCharsMatch = implode('|', array_map(static function ($char) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return $char.'+';
         }, $specialCharsArray));
 

@@ -15,27 +15,15 @@
     "require": {
         "php": ">=7.4",
         "ext-tokenizer": "*",
-<<<<<<< HEAD
-        "ext-json": "*",
-        "ext-ctype": "*"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0",
-=======
         "ext-json": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.0",
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         "ircmaxell/php-yacc": "^0.0.7"
     },
     "extra": {
         "branch-alias": {
-<<<<<<< HEAD
-            "dev-master": "5.0-dev"
-=======
             "dev-master": "5.x-dev"
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     },
     "autoload": {

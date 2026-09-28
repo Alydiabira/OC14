@@ -15,11 +15,7 @@
 
         {%- if download_uri -%}
             <a href="{{ asset_helper is same as(true) ? asset(download_uri) : download_uri }}" download>
-<<<<<<< HEAD
-                {{ translation_domain is same as(false) ? download_label : download_label|trans({}, translation_domain) }}
-=======
                 {{ download_label_translation_domain is same as(false) ? download_label : download_label|trans({}, download_label_translation_domain) }}
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </a>
         {%- endif -%}
     </div>
@@ -47,16 +43,8 @@
         {%- endif -%}
         {%- if download_uri -%}
             <a href="{{ asset_helper is same as(true) ? asset(download_uri) : download_uri }}" download>
-<<<<<<< HEAD
-                {{ translation_domain is same as(false) ? download_label : download_label|trans({}, translation_domain) }}
-=======
                 {{ download_label_translation_domain is same as(false) ? download_label : download_label|trans({}, download_label_translation_domain) }}
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </a>
         {%- endif -%}
     </div>
 {%- endblock -%}
-<<<<<<< HEAD
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96

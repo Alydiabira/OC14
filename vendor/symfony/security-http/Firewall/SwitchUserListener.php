@@ -111,11 +111,7 @@ class SwitchUserListener extends AbstractListener
         }
 
         if (self::EXIT_VALUE === $username) {
-<<<<<<< HEAD
-            $this->tokenStorage->setToken($this->attemptExitUser($request));
-=======
             $this->attemptExitUser($request);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } else {
             try {
                 $this->tokenStorage->setToken($this->attemptSwitchUser($request, $username));
@@ -128,11 +124,7 @@ class SwitchUserListener extends AbstractListener
         if (!$this->stateless) {
             $request->query->remove($this->usernameParameter);
             $request->server->set('QUERY_STRING', http_build_query($request->query->all(), '', '&'));
-<<<<<<< HEAD
-            $response = new RedirectResponse($this->urlGenerator && $this->targetRoute ? $this->urlGenerator->generate($this->targetRoute) : $request->getUri(), 302);
-=======
             $response = new RedirectResponse($this->urlGenerator && $this->targetRoute && self::EXIT_VALUE !== $username ? $this->urlGenerator->generate($this->targetRoute) : $request->getUri(), 302);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             $event->setResponse($response);
         }
@@ -221,11 +213,8 @@ class SwitchUserListener extends AbstractListener
             $original = $switchEvent->getToken();
         }
 
-<<<<<<< HEAD
-=======
         $this->tokenStorage->setToken($original);
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return $original;
     }
 

@@ -40,11 +40,7 @@ class ScalarFormatter extends NormalizerFormatter
     {
         $normalized = $this->normalize($value);
 
-<<<<<<< HEAD
-        if (is_array($normalized)) {
-=======
         if (\is_array($normalized)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return $this->toJson($normalized, true);
         }
 

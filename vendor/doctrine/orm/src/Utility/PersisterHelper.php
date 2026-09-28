@@ -4,13 +4,6 @@ declare(strict_types=1);
 
 namespace Doctrine\ORM\Utility;
 
-<<<<<<< HEAD
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\Query\QueryException;
-use RuntimeException;
-
-=======
 use BackedEnum;
 use DateTimeInterface;
 use Doctrine\DBAL\ArrayParameterType;
@@ -30,7 +23,6 @@ use function in_array;
 use function is_array;
 use function is_object;
 use function is_string;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function sprintf;
 
 /**
@@ -41,8 +33,6 @@ use function sprintf;
  */
 class PersisterHelper
 {
-<<<<<<< HEAD
-=======
     private const DATE_TIME_TYPES = [
         Types::DATE_MUTABLE,
         Types::DATE_IMMUTABLE,
@@ -54,7 +44,6 @@ class PersisterHelper
         Types::TIME_IMMUTABLE,
     ];
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * @return list<string>
      *
@@ -141,8 +130,6 @@ class PersisterHelper
             $class->getName(),
         ));
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Infers field types to be used by parameter type casting.
@@ -287,5 +274,4 @@ class PersisterHelper
 
         return [$em->getUnitOfWork()->getSingleIdentifierValue($value)];
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

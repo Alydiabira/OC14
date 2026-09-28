@@ -19,20 +19,6 @@ namespace Symfony\Component\HttpFoundation;
 class IpUtils
 {
     public const PRIVATE_SUBNETS = [
-<<<<<<< HEAD
-        '127.0.0.0/8',    // RFC1700 (Loopback)
-        '10.0.0.0/8',     // RFC1918
-        '192.168.0.0/16', // RFC1918
-        '172.16.0.0/12',  // RFC1918
-        '169.254.0.0/16', // RFC3927
-        '0.0.0.0/8',      // RFC5735
-        '240.0.0.0/4',    // RFC1112
-        '::1/128',        // Loopback
-        'fc00::/7',       // Unique Local Address
-        'fe80::/10',      // Link Local Address
-        '::ffff:0:0/96',  // IPv4 translations
-        '::/128',         // Unspecified address
-=======
         '127.0.0.0/8',     // RFC1700 (Loopback)
         '10.0.0.0/8',      // RFC1918
         '192.168.0.0/16',  // RFC1918
@@ -57,7 +43,6 @@ class IpUtils
         '2001:0002::/48',  // IPv6 Benchmarking (RFC 5180 and corrections)
         '64:ff9b::/96',    // NAT64 well-known prefix (RFC 6052)
         '64:ff9b:1::/48',  // NAT64 local-use prefix (RFC 8215)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ];
 
     private static array $checkedIps = [];
@@ -129,11 +114,7 @@ class IpUtils
             return self::setCacheResult($cacheKey, false);
         }
 
-<<<<<<< HEAD
-        return self::setCacheResult($cacheKey, 0 === substr_compare(sprintf('%032b', ip2long($requestIp)), sprintf('%032b', ip2long($address)), 0, $netmask));
-=======
         return self::setCacheResult($cacheKey, 0 === substr_compare(\sprintf('%032b', ip2long($requestIp)), \sprintf('%032b', ip2long($address)), 0, $netmask));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -213,8 +194,6 @@ class IpUtils
      */
     public static function anonymize(string $ip): string
     {
-<<<<<<< HEAD
-=======
         /*
          * If the IP contains a % symbol, then it is a local-link address with scoping according to RFC 4007
          * In that case, we only care about the part before the % symbol, as the following functions, can only work with
@@ -225,7 +204,6 @@ class IpUtils
             $ip = substr($ip, 0, strpos($ip, '%'));
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $wrappedIPv6 = false;
         if (str_starts_with($ip, '[') && str_ends_with($ip, ']')) {
             $wrappedIPv6 = true;
@@ -235,9 +213,9 @@ class IpUtils
         $packedAddress = inet_pton($ip);
         if (4 === \strlen($packedAddress)) {
             $mask = '255.255.255.0';
-        } elseif ($ip === inet_ntop($packedAddress & inet_pton('::ffff:ffff:ffff'))) {
+        } elseif (str_starts_with($packedAddress, str_repeat("\0", 10)."\xff\xff")) {
             $mask = '::ffff:ffff:ff00';
-        } elseif ($ip === inet_ntop($packedAddress & inet_pton('::ffff:ffff'))) {
+        } elseif (str_starts_with($packedAddress, str_repeat("\0", 12))) {
             $mask = '::ffff:ff00';
         } else {
             $mask = 'ffff:ffff:ffff:ffff:0000:0000:0000:0000';
@@ -253,11 +231,6 @@ class IpUtils
 
     /**
      * Checks if an IPv4 or IPv6 address is contained in the list of private IP subnets.
-<<<<<<< HEAD
-     */
-    public static function isPrivateIp(string $requestIp): bool
-    {
-=======
      *
      * @throws \ValueError When $requestIp is not a valid IP address
      */
@@ -267,7 +240,6 @@ class IpUtils
             throw new \ValueError(\sprintf('"%s" is not a valid IP address.', $requestIp));
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return self::checkIp($requestIp, self::PRIVATE_SUBNETS);
     }
 

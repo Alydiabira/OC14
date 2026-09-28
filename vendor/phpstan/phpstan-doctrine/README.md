@@ -128,6 +128,11 @@ Queries are analyzed statically and do not require a running database server. Th
 
 Most DQL features are supported, including `GROUP BY`, `DISTINCT`, all flavors of `JOIN`, arithmetic expressions, functions, aggregations, `NEW`, etc. Sub queries and `INDEX BY` are not yet supported (infered type will be `mixed`).
 
+### Query type inference of expressions
+
+Whether e.g. `SUM(e.column)` is fetched as `float`, `numeric-string` or `int` highly [depends on drivers, their setup and PHP version](https://github.com/janedbal/php-database-drivers-fetch-test).
+This extension autodetects your setup and provides quite accurate results for `pdo_mysql`, `mysqli`, `pdo_sqlite`, `sqlite3`, `pdo_pgsql` and `pgsql`.
+
 ### Supported methods
 
 The `getResult` method is supported when called without argument, or with the hydrateMode argument set to `Query::HYDRATE_OBJECT`:
@@ -195,6 +200,10 @@ Type descriptors don't have to deal with nullable types, as these are transparen
 
 If your custom type's `convertToPHPValue()` and `convertToDatabaseValue()` methods have proper typehints, you don't have to write your own descriptor for it. The `PHPStan\Type\Doctrine\Descriptors\ReflectionDescriptor` can analyse the typehints and do the rest for you.
 
+If parent of your type is one of the Doctrine's non-abstract ones, `ReflectionDescriptor` will reuse its descriptor even for expression resolution (e.g. `AVG(t.cost)`).
+For example, if you extend `Doctrine\DBAL\Types\DecimalType`, it will know that sqlite fetches that as `float|int` and other drivers as `numeric-string`.
+If you extend only `Doctrine\DBAL\Types\Type`, you should use custom descriptor and optionally implement even `DoctrineTypeDriverAwareDescriptor` to provide driver-specific resolution.
+
 ### Registering type descriptors
 
 When you write a custom type descriptor, you have to let PHPStan know about it. Add something like this into your `phpstan.neon`:
@@ -209,4 +218,87 @@ services:
 	-
 		factory: PHPStan\Type\Doctrine\Descriptors\ReflectionDescriptor('MyApp\MyCustomTypeName')
 		tags: [phpstan.doctrine.typeDescriptor]
+```
+
+### Ensure types have descriptor
+
+If you want to be sure you never forget descriptor for some custom type, you can enable:
+
+```neon
+parameters:
+	doctrine:
+		reportUnknownTypes: true
+```
+
+This causes failures when your entity uses custom type without descriptor:
+
+```php
+#[Entity]
+abstract class Uuid7Entity
+{
+
+    #[Id]
+    #[Column(type: Uuid7Type::NAME)] // reported when descriptor for such type is missing
+    private Uuid7 $hsCode;
+
+```
+
+## Custom DQL functions
+
+Any [custom DQL function](https://www.doctrine-project.org/projects/doctrine-orm/en/3.2/cookbook/dql-user-defined-functions.html) that implements Doctrine's `TypedExpression` is understood by this extension and is inferred with the type used in its `getReturnType()` method.
+All other custom DQL functions are inferred as `mixed`.
+Please note that you cannot use native `StringType` to cast (and infer) string results (see [ORM issue](https://github.com/doctrine/orm/issues/11537)).
+
+```php
+
+use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Query\AST\TypedExpression;
+use Doctrine\ORM\Query\AST\Functions\FunctionNode;
+use Doctrine\ORM\Query\Parser;
+use Doctrine\ORM\Query\SqlWalker;
+use Doctrine\ORM\Query\TokenType;
+
+class Floor extends FunctionNode implements TypedExpression
+{
+    private AST\Node|string $arithmeticExpression;
+
+    public function getSql(SqlWalker $sqlWalker): string
+    {
+        return 'FLOOR(' . $sqlWalker->walkSimpleArithmeticExpression($this->arithmeticExpression) . ')';
+    }
+
+    public function parse(Parser $parser): void
+    {
+        $parser->match(TokenType::T_IDENTIFIER);
+        $parser->match(TokenType::T_OPEN_PARENTHESIS);
+
+        $this->arithmeticExpression = $parser->SimpleArithmeticExpression();
+
+        $parser->match(TokenType::T_CLOSE_PARENTHESIS);
+    }
+
+
+    public function getReturnType(): Type
+    {
+        return Type::getType(Types::INTEGER);
+    }
+}
+
+```
+
+## Literal strings
+
+Stub files in phpstan-doctrine come with many parameters marked with `literal-string`. This is a security-focused type that only allows literal strings written in code to be passed into these parameters.
+
+This reduces risk of SQL injection because dynamic strings from user input are not accepted in place of `literal-string`.
+
+An example where this type is used is `$sql` parameter in `Doctrine\Dbal\Connection::executeQuery()`.
+
+To enable this advanced type in phpstan-doctrine, use this configuration parameter:
+
+```neon
+parameters:
+	doctrine:
+		literalString: true
 ```

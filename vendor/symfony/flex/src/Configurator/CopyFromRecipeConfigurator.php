@@ -31,9 +31,6 @@ class CopyFromRecipeConfigurator extends AbstractConfigurator
     public function unconfigure(Recipe $recipe, $config, Lock $lock)
     {
         $this->write('Removing files from recipe');
-<<<<<<< HEAD
-        $this->removeFiles($config, $this->getRemovableFilesFromRecipeAndLock($recipe, $lock), $this->options->get('root-dir'));
-=======
         $rootDir = $this->options->get('root-dir');
 
         foreach ($this->options->getRemovableFiles($recipe, $lock) as $file) {
@@ -41,58 +38,22 @@ class CopyFromRecipeConfigurator extends AbstractConfigurator
                 $this->removeFile($this->path->concatenate([$rootDir, $file]));
             }
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function update(RecipeUpdate $recipeUpdate, array $originalConfig, array $newConfig): void
     {
         foreach ($recipeUpdate->getOriginalRecipe()->getFiles() as $filename => $data) {
-<<<<<<< HEAD
-=======
             $filename = $this->resolveTargetFolder($filename, $originalConfig);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $recipeUpdate->setOriginalFile($filename, $data['contents']);
         }
 
         $files = [];
         foreach ($recipeUpdate->getNewRecipe()->getFiles() as $filename => $data) {
-<<<<<<< HEAD
-=======
             $filename = $this->resolveTargetFolder($filename, $newConfig);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $recipeUpdate->setNewFile($filename, $data['contents']);
 
             $files[] = $this->getLocalFilePath($recipeUpdate->getRootDir(), $filename);
         }
-<<<<<<< HEAD
-        $recipeUpdate->getLock()->add($recipeUpdate->getPackageName(), ['files' => $files]);
-    }
-
-    private function getRemovableFilesFromRecipeAndLock(Recipe $recipe, Lock $lock): array
-    {
-        $lockedFiles = array_unique(
-            array_reduce(
-                array_column($lock->all(), 'files'),
-                function (array $carry, array $package) {
-                    return array_merge($carry, $package);
-                },
-                []
-            )
-        );
-
-        $removableFiles = $recipe->getFiles();
-
-        $lockedFiles = array_map('realpath', $lockedFiles);
-
-        // Compare file paths by their real path to abstract OS differences
-        foreach (array_keys($removableFiles) as $file) {
-            if (\in_array(realpath($file), $lockedFiles)) {
-                unset($removableFiles[$file]);
-            }
-        }
-
-        return $removableFiles;
-=======
 
         $recipeUpdate->getLock()->add($recipeUpdate->getPackageName(), ['files' => $files]);
     }
@@ -109,7 +70,6 @@ class CopyFromRecipeConfigurator extends AbstractConfigurator
         }
 
         return $path;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function copyFiles(array $manifest, array $files, array $options): array
@@ -136,11 +96,7 @@ class CopyFromRecipeConfigurator extends AbstractConfigurator
     {
         $copiedFiles = [];
         foreach ($files as $file => $data) {
-<<<<<<< HEAD
-            if (0 === strpos($file, $source)) {
-=======
             if (str_starts_with($file, $source)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $file = $this->path->concatenate([$target, substr($file, \strlen($source))]);
                 $copiedFiles[] = $this->copyFile($file, $data['contents'], $data['executable'], $options);
             }
@@ -151,18 +107,10 @@ class CopyFromRecipeConfigurator extends AbstractConfigurator
 
     private function copyFile(string $to, string $contents, bool $executable, array $options): string
     {
-<<<<<<< HEAD
-        $overwrite = $options['force'] ?? false;
-        $basePath = $options['root-dir'] ?? '.';
-        $copiedFile = $this->getLocalFilePath($basePath, $to);
-
-        if (!$this->options->shouldWriteFile($to, $overwrite)) {
-=======
         $basePath = $options['root-dir'] ?? '.';
         $copiedFile = $this->getLocalFilePath($basePath, $to);
 
         if (!$this->options->shouldWriteFile($to, $options['force'] ?? false, $options['assumeYesForPrompts'] ?? false)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return $copiedFile;
         }
 
@@ -175,40 +123,11 @@ class CopyFromRecipeConfigurator extends AbstractConfigurator
             @chmod($to, fileperms($to) | 0111);
         }
 
-<<<<<<< HEAD
-        $this->write(sprintf('  Created <fg=green>"%s"</>', $this->path->relativize($to)));
-=======
         $this->write(\sprintf('  Created <fg=green>"%s"</>', $this->path->relativize($to)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $copiedFile;
     }
 
-<<<<<<< HEAD
-    private function removeFiles(array $manifest, array $files, string $to)
-    {
-        foreach ($manifest as $source => $target) {
-            $target = $this->options->expandTargetDir($target);
-
-            if ('.git' === $target) {
-                // never remove the main Git directory, even if it was created by a recipe
-                continue;
-            }
-
-            if ('/' === substr($source, -1)) {
-                foreach (array_keys($files) as $file) {
-                    if (0 === strpos($file, $source)) {
-                        $this->removeFile($this->path->concatenate([$to, $target, substr($file, \strlen($source))]));
-                    }
-                }
-            } else {
-                $this->removeFile($this->path->concatenate([$to, $target]));
-            }
-        }
-    }
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private function removeFile(string $to)
     {
         if (!file_exists($to)) {
@@ -216,11 +135,7 @@ class CopyFromRecipeConfigurator extends AbstractConfigurator
         }
 
         @unlink($to);
-<<<<<<< HEAD
-        $this->write(sprintf('  Removed <fg=green>"%s"</>', $this->path->relativize($to)));
-=======
         $this->write(\sprintf('  Removed <fg=green>"%s"</>', $this->path->relativize($to)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (0 === \count(glob(\dirname($to).'/*', \GLOB_NOSORT))) {
             @rmdir(\dirname($to));

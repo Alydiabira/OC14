@@ -45,11 +45,7 @@ class DotenvVault extends AbstractVault
 
         file_put_contents($this->dotenvFile, $content);
 
-<<<<<<< HEAD
-        $this->lastMessage = sprintf('Secret "%s" %s in "%s".', $name, $count ? 'added' : 'updated', $this->getPrettyPath($this->dotenvFile));
-=======
         $this->lastMessage = \sprintf('Secret "%s" %s in "%s".', $name, $count ? 'added' : 'updated', $this->getPrettyPath($this->dotenvFile));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function reveal(string $name): ?string
@@ -59,11 +55,7 @@ class DotenvVault extends AbstractVault
         $v = $_ENV[$name] ?? (str_starts_with($name, 'HTTP_') ? null : ($_SERVER[$name] ?? null));
 
         if ('' === ($v ?? '')) {
-<<<<<<< HEAD
-            $this->lastMessage = sprintf('Secret "%s" not found in "%s".', $name, $this->getPrettyPath($this->dotenvFile));
-=======
             $this->lastMessage = \sprintf('Secret "%s" not found in "%s".', $name, $this->getPrettyPath($this->dotenvFile));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             return null;
         }
@@ -81,20 +73,12 @@ class DotenvVault extends AbstractVault
 
         if ($count) {
             file_put_contents($this->dotenvFile, $content);
-<<<<<<< HEAD
-            $this->lastMessage = sprintf('Secret "%s" removed from file "%s".', $name, $this->getPrettyPath($this->dotenvFile));
-=======
             $this->lastMessage = \sprintf('Secret "%s" removed from file "%s".', $name, $this->getPrettyPath($this->dotenvFile));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             return true;
         }
 
-<<<<<<< HEAD
-        $this->lastMessage = sprintf('Secret "%s" not found in "%s".', $name, $this->getPrettyPath($this->dotenvFile));
-=======
         $this->lastMessage = \sprintf('Secret "%s" not found in "%s".', $name, $this->getPrettyPath($this->dotenvFile));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return false;
     }

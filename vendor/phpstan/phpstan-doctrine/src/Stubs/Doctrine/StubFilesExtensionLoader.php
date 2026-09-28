@@ -9,7 +9,6 @@ use PHPStan\BetterReflection\Reflector\Reflector;
 use PHPStan\PhpDoc\StubFilesExtension;
 use function class_exists;
 use function dirname;
-use function file_exists;
 use function strpos;
 
 class StubFilesExtensionLoader implements StubFilesExtension
@@ -18,39 +17,25 @@ class StubFilesExtensionLoader implements StubFilesExtension
 	/** @var Reflector */
 	private $reflector;
 
-	/** @var bool */
-	private $bleedingEdge;
-
 	public function __construct(
-		Reflector $reflector,
-		bool $bleedingEdge
+		Reflector $reflector
 	)
 	{
 		$this->reflector = $reflector;
-		$this->bleedingEdge = $bleedingEdge;
 	}
 
 	public function getFiles(): array
 	{
 		$stubsDir = dirname(dirname(dirname(__DIR__))) . '/stubs';
-		$path = $stubsDir;
-
-		if ($this->bleedingEdge === true) {
-			$path .= '/bleedingEdge';
-		}
-
 		$files = [];
 
-		if (file_exists($path . '/DBAL/Connection4.stub') && $this->isInstalledVersion('doctrine/dbal', 4)) {
-			$files[] = $path . '/DBAL/Connection4.stub';
-			$files[] = $path . '/DBAL/ArrayParameterType.stub';
-			$files[] = $path . '/DBAL/ParameterType.stub';
+		if ($this->isInstalledVersion('doctrine/dbal', 4)) {
+			$files[] = $stubsDir . '/DBAL/Connection4.stub';
+			$files[] = $stubsDir . '/DBAL/ArrayParameterType.stub';
+			$files[] = $stubsDir . '/DBAL/ParameterType.stub';
 		} else {
-			$files[] = $path . '/DBAL/Connection.stub';
+			$files[] = $stubsDir . '/DBAL/Connection.stub';
 		}
-
-		$files[] = $path . '/ORM/QueryBuilder.stub';
-		$files[] = $path . '/EntityRepository.stub';
 
 		$hasLazyServiceEntityRepositoryAsParent = false;
 
@@ -79,8 +64,10 @@ class StubFilesExtensionLoader implements StubFilesExtension
 			$collectionVersion = null;
 		}
 		if ($collectionVersion !== null && strpos($collectionVersion, '1.') === 0) {
+			$files[] = $stubsDir . '/Collections/ReadableCollection1.stub';
 			$files[] = $stubsDir . '/Collections/Collection1.stub';
 		} else {
+			$files[] = $stubsDir . '/Collections/ReadableCollection.stub';
 			$files[] = $stubsDir . '/Collections/Collection.stub';
 		}
 

@@ -5,11 +5,7 @@ declare(strict_types=1);
 namespace Doctrine\ORM\Decorator;
 
 use DateTimeInterface;
-<<<<<<< HEAD
-use Doctrine\Common\EventManager;
-=======
 use Doctrine\Common\EventManagerInterface;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\Cache;
@@ -116,29 +112,17 @@ abstract class EntityManagerDecorator extends ObjectManagerDecorator implements 
         $this->wrapped->lock($entity, $lockMode, $lockVersion);
     }
 
-<<<<<<< HEAD
-    public function find(string $className, mixed $id, LockMode|int|null $lockMode = null, int|null $lockVersion = null): object|null
-=======
     public function find(string $className, mixed $id, LockMode|int|null $lockMode = LockMode::NONE, int|null $lockVersion = null): object|null
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return $this->wrapped->find($className, $id, $lockMode, $lockVersion);
     }
 
-<<<<<<< HEAD
-    public function refresh(object $object, LockMode|int|null $lockMode = null): void
-=======
     public function refresh(object $object, LockMode|int|null $lockMode = LockMode::NONE): void
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->wrapped->refresh($object, $lockMode);
     }
 
-<<<<<<< HEAD
-    public function getEventManager(): EventManager
-=======
     public function getEventManager(): EventManagerInterface
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return $this->wrapped->getEventManager();
     }

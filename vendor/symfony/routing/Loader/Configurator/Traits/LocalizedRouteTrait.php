@@ -37,19 +37,11 @@ trait LocalizedRouteTrait
             if (null === $prefixes) {
                 $paths = $path;
             } elseif ($missing = array_diff_key($prefixes, $path)) {
-<<<<<<< HEAD
-                throw new \LogicException(sprintf('Route "%s" is missing routes for locale(s) "%s".', $name, implode('", "', array_keys($missing))));
-            } else {
-                foreach ($path as $locale => $localePath) {
-                    if (!isset($prefixes[$locale])) {
-                        throw new \LogicException(sprintf('Route "%s" with locale "%s" is missing a corresponding prefix in its parent collection.', $name, $locale));
-=======
                 throw new \LogicException(\sprintf('Route "%s" is missing routes for locale(s) "%s".', $name, implode('", "', array_keys($missing))));
             } else {
                 foreach ($path as $locale => $localePath) {
                     if (!isset($prefixes[$locale])) {
                         throw new \LogicException(\sprintf('Route "%s" with locale "%s" is missing a corresponding prefix in its parent collection.', $name, $locale));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
 
                     $paths[$locale] = $prefixes[$locale].$localePath;

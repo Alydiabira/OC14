@@ -35,11 +35,7 @@ final class StagingExtension extends AbstractExtension
     public function addFunction(TwigFunction $function): void
     {
         if (isset($this->functions[$function->getName()])) {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('Function "%s" is already registered.', $function->getName()));
-=======
             throw new \LogicException(\sprintf('Function "%s" is already registered.', $function->getName()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->functions[$function->getName()] = $function;
@@ -53,11 +49,7 @@ final class StagingExtension extends AbstractExtension
     public function addFilter(TwigFilter $filter): void
     {
         if (isset($this->filters[$filter->getName()])) {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('Filter "%s" is already registered.', $filter->getName()));
-=======
             throw new \LogicException(\sprintf('Filter "%s" is already registered.', $filter->getName()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->filters[$filter->getName()] = $filter;
@@ -81,11 +73,7 @@ final class StagingExtension extends AbstractExtension
     public function addTokenParser(TokenParserInterface $parser): void
     {
         if (isset($this->tokenParsers[$parser->getTag()])) {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('Tag "%s" is already registered.', $parser->getTag()));
-=======
             throw new \LogicException(\sprintf('Tag "%s" is already registered.', $parser->getTag()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->tokenParsers[$parser->getTag()] = $parser;
@@ -99,11 +87,7 @@ final class StagingExtension extends AbstractExtension
     public function addTest(TwigTest $test): void
     {
         if (isset($this->tests[$test->getName()])) {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('Test "%s" is already registered.', $test->getName()));
-=======
             throw new \LogicException(\sprintf('Test "%s" is already registered.', $test->getName()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->tests[$test->getName()] = $test;

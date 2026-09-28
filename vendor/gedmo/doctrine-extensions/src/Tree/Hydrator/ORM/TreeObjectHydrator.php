@@ -15,10 +15,7 @@ use Doctrine\ORM\Internal\Hydration\ObjectHydrator;
 use Doctrine\ORM\PersistentCollection;
 use Gedmo\Exception\InvalidMappingException;
 use Gedmo\Tool\ORM\Hydration\EntityManagerRetriever;
-<<<<<<< HEAD
-=======
 use Gedmo\Tool\ORM\Hydration\HydratorCompat;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Gedmo\Tree\TreeListener;
 
 /**
@@ -31,12 +28,9 @@ use Gedmo\Tree\TreeListener;
 class TreeObjectHydrator extends ObjectHydrator
 {
     use EntityManagerRetriever;
-<<<<<<< HEAD
-=======
     use HydratorCompat;
 
     private const NO_PARENT_ID = '__no-parent__';
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * @var array<string, mixed>
@@ -68,11 +62,7 @@ class TreeObjectHydrator extends ObjectHydrator
     public function setPropertyValue($object, $property, $value)
     {
         $meta = $this->getEntityManager()->getClassMetadata(get_class($object));
-<<<<<<< HEAD
-        $meta->getReflectionProperty($property)->setValue($object, $value);
-=======
         $meta->setFieldValue($object, $property, $value);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -80,11 +70,7 @@ class TreeObjectHydrator extends ObjectHydrator
      *
      * @return array<int, object>
      */
-<<<<<<< HEAD
-    protected function hydrateAllData()
-=======
     protected function doHydrateAllData()
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $data = parent::hydrateAllData();
 
@@ -124,11 +110,7 @@ class TreeObjectHydrator extends ObjectHydrator
 
         foreach ($nodes as $node) {
             $parentProxy = $this->getPropertyValue($node, $this->config['parent']);
-<<<<<<< HEAD
-            $parentId = null;
-=======
             $parentId = self::NO_PARENT_ID;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             if (null !== $parentProxy) {
                 $parentId = $this->getPropertyValue($parentProxy, $this->idField);
@@ -186,21 +168,13 @@ class TreeObjectHydrator extends ObjectHydrator
 
         foreach ($nodes as $node) {
             $parentProxy = $this->getPropertyValue($node, $this->config['parent']);
-<<<<<<< HEAD
-            $parentId = null;
-=======
             $parentId = self::NO_PARENT_ID;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             if (null !== $parentProxy) {
                 $parentId = $this->getPropertyValue($parentProxy, $this->idField);
             }
 
-<<<<<<< HEAD
-            if (null === $parentId || !array_key_exists($parentId, $idHashmap)) {
-=======
             if (self::NO_PARENT_ID === $parentId || !array_key_exists($parentId, $idHashmap)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $rootNodes[] = $node;
             }
         }
@@ -326,10 +300,6 @@ class TreeObjectHydrator extends ObjectHydrator
     {
         $meta = $this->getEntityManager()->getClassMetadata(get_class($object));
 
-<<<<<<< HEAD
-        return $meta->getReflectionProperty($property)->getValue($object);
-=======
         return $meta->getFieldValue($object, $property);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

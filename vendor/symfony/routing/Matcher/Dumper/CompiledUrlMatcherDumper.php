@@ -37,19 +37,6 @@ class CompiledUrlMatcherDumper extends MatcherDumper
     public function dump(array $options = []): string
     {
         return <<<EOF
-<<<<<<< HEAD
-<?php
-
-/**
- * This file has been auto-generated
- * by the Symfony Routing Component.
- */
-
-return [
-{$this->generateCompiledRoutes()}];
-
-EOF;
-=======
             <?php
 
             /**
@@ -61,7 +48,6 @@ EOF;
             {$this->generateCompiledRoutes()}];
 
             EOF;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -129,21 +115,12 @@ EOF;
             }
 
             $checkConditionCode = <<<EOF
-<<<<<<< HEAD
-    static function (\$condition, \$context, \$request, \$params) { // \$checkCondition
-        switch (\$condition) {
-{$this->indent(implode("\n", $conditions), 3)}
-        }
-    }
-EOF;
-=======
                     static function (\$condition, \$context, \$request, \$params) { // \$checkCondition
                         switch (\$condition) {
                 {$this->indent(implode("\n", $conditions), 3)}
                         }
                     }
                 EOF;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $compiledRoutes[4] = $forDump ? $checkConditionCode.",\n" : eval('return '.$checkConditionCode.';');
         } else {
             $compiledRoutes[4] = $forDump ? "    null, // \$checkCondition\n" : null;
@@ -160,11 +137,7 @@ EOF;
 
         $code .= '[ // $staticRoutes'."\n";
         foreach ($staticRoutes as $path => $routes) {
-<<<<<<< HEAD
-            $code .= sprintf("    %s => [\n", self::export($path));
-=======
             $code .= \sprintf("    %s => [\n", self::export($path));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             foreach ($routes as $route) {
                 $code .= vsprintf("        [%s, %s, %s, %s, %s, %s, %s],\n", array_map([__CLASS__, 'export'], $route));
             }
@@ -172,19 +145,11 @@ EOF;
         }
         $code .= "],\n";
 
-<<<<<<< HEAD
-        $code .= sprintf("[ // \$regexpList%s\n],\n", $regexpCode);
-
-        $code .= '[ // $dynamicRoutes'."\n";
-        foreach ($dynamicRoutes as $path => $routes) {
-            $code .= sprintf("    %s => [\n", self::export($path));
-=======
         $code .= \sprintf("[ // \$regexpList%s\n],\n", $regexpCode);
 
         $code .= '[ // $dynamicRoutes'."\n";
         foreach ($dynamicRoutes as $path => $routes) {
             $code .= \sprintf("    %s => [\n", self::export($path));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             foreach ($routes as $route) {
                 $code .= vsprintf("        [%s, %s, %s, %s, %s, %s, %s],\n", array_map([__CLASS__, 'export'], $route));
             }
@@ -257,16 +222,12 @@ EOF;
         foreach ($staticRoutes as $url => $routes) {
             $compiledRoutes[$url] = [];
             foreach ($routes as $name => [$route, $hasTrailingSlash]) {
-<<<<<<< HEAD
-                $compiledRoutes[$url][] = $this->compileRoute($route, $name, (!$route->compile()->getHostVariables() ? $route->getHost() : $route->compile()->getHostRegex()) ?: null, $hasTrailingSlash, false, $conditions);
-=======
                 if ($route->compile()->getHostVariables()) {
                     $host = $route->compile()->getHostRegex();
                 } elseif ($host = $route->getHost()) {
                     $host = strtolower($host);
                 }
                 $compiledRoutes[$url][] = $this->compileRoute($route, $name, $host ?: null, $hasTrailingSlash, false, $conditions);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -446,11 +407,7 @@ EOF;
 
             $state->mark += 3 + $state->markTail + \strlen($regex) - $prefixLen;
             $state->markTail = 2 + \strlen($state->mark);
-<<<<<<< HEAD
-            $rx = sprintf('|%s(*:%s)', substr($regex, $prefixLen), $state->mark);
-=======
             $rx = \sprintf('|%s(*:%s)', substr($regex, $prefixLen), $state->mark);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $code .= "\n            .".self::export($rx);
             $state->regex .= $rx;
 

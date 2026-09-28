@@ -43,11 +43,7 @@ class LazyFirewallContext extends FirewallContext
     {
         $listeners = [];
         $request = $event->getRequest();
-<<<<<<< HEAD
-        $lazy = $request->isMethodCacheable();
-=======
         $lazy = true;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         foreach (parent::getListeners() as $listener) {
             if (!$lazy || !$listener instanceof FirewallListenerInterface) {
@@ -71,11 +67,7 @@ class LazyFirewallContext extends FirewallContext
             return;
         }
 
-<<<<<<< HEAD
-        $this->tokenStorage->setInitializer(function () use ($event, $listeners) {
-=======
         $this->tokenStorage->setInitializer(static function () use ($event, $listeners) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $event = new LazyResponseEvent($event);
             foreach ($listeners as $listener) {
                 $listener($event);

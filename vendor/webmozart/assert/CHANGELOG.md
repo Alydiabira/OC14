@@ -1,9 +1,6 @@
 Changelog
 =========
 
-<<<<<<< HEAD
-## UNRELEASED
-=======
 ## 2.4.1
 
 ### Fixed
@@ -113,17 +110,12 @@ Changelog
 - Document `void` return type.
 - Prevent UUIDs with trailing newlines from validating.
 - Assert values are strings before ctype checks.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 ## 1.11.0
 
 ### Added
 
-<<<<<<< HEAD
-* Added explicit (non magic) `allNullOr*` methods, with `@psalm-assert` annotations, for better Psalm support.
-=======
 * Added explicit (non-magic) `allNullOr*` methods, with `@psalm-assert` annotations, for better Psalm support.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 ### Changed
 
@@ -133,11 +125,7 @@ Changelog
 
 ### Removed
 
-<<<<<<< HEAD
-* Removed `symfony/polyfill-ctype` as a dependency, and require `ext-cytpe` instead.
-=======
 * Removed `symfony/polyfill-ctype` as a dependency, and require `ext-ctype` instead.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
   * You can still require the `symfony/polyfill-ctype` in your project if you need it, as it provides `ext-ctype`
 
 ## 1.10.0
@@ -171,11 +159,7 @@ Changelog
 ## Changed
 
 * the `all*` & `nullOr*` methods are now declared on an interface, instead of `@method` annotations.
-<<<<<<< HEAD
-This interface is linked to the `Assert` class with a `@mixin` annotation. Most IDE's have supported this
-=======
 This interface is linked to the `Assert` class with a `@mixin` annotation. Most IDEs have supported this
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 for a long time, and you should not lose any autocompletion capabilities. PHPStan has supported this since
 version `0.12.20`. This package is marked incompatible (with a composer conflict) with phpstan version prior to that.
 If you do not use PHPStan than this does not matter.

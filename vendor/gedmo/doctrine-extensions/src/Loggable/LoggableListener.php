@@ -11,15 +11,6 @@ namespace Gedmo\Loggable;
 
 use Doctrine\Common\EventArgs;
 use Doctrine\ORM\Mapping\ClassMetadata as ORMClassMetadata;
-<<<<<<< HEAD
-use Doctrine\Persistence\Event\LoadClassMetadataEventArgs;
-use Doctrine\Persistence\Mapping\ClassMetadata;
-use Doctrine\Persistence\ObjectManager;
-use Gedmo\Exception\InvalidArgumentException;
-use Gedmo\Loggable\Entity\LogEntry;
-use Gedmo\Loggable\Mapping\Event\LoggableAdapter;
-use Gedmo\Mapping\MappedEventSubscriber;
-=======
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Doctrine\Persistence\Event\LoadClassMetadataEventArgs;
 use Doctrine\Persistence\Event\ManagerEventArgs;
@@ -30,7 +21,6 @@ use Gedmo\Exception\UnexpectedValueException;
 use Gedmo\Loggable\Mapping\Event\LoggableAdapter;
 use Gedmo\Mapping\MappedEventSubscriber;
 use Gedmo\Tool\ActorProviderInterface;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Gedmo\Tool\Wrapper\AbstractWrapper;
 
 /**
@@ -46,17 +36,9 @@ use Gedmo\Tool\Wrapper\AbstractWrapper;
  *   versioned?: string[],
  * }
  *
-<<<<<<< HEAD
- * @phpstan-method LoggableConfiguration getConfiguration(ObjectManager $objectManager, $class)
- *
- * @method LoggableAdapter getEventAdapter(EventArgs $args)
- *
- * @phpstan-template T of Loggable|object
-=======
  * @template T of Loggable|object
  *
  * @phpstan-extends MappedEventSubscriber<LoggableConfiguration, LoggableAdapter>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 class LoggableListener extends MappedEventSubscriber
 {
@@ -75,11 +57,8 @@ class LoggableListener extends MappedEventSubscriber
      */
     public const ACTION_REMOVE = LogEntryInterface::ACTION_REMOVE;
 
-<<<<<<< HEAD
-=======
     protected ?ActorProviderInterface $actorProvider = null;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Username for identification
      *
@@ -111,10 +90,6 @@ class LoggableListener extends MappedEventSubscriber
     protected $pendingRelatedObjects = [];
 
     /**
-<<<<<<< HEAD
-     * Set username for identification
-     *
-=======
      * Set an actor provider for the user value.
      */
     public function setActorProvider(ActorProviderInterface $actorProvider): void
@@ -127,7 +102,6 @@ class LoggableListener extends MappedEventSubscriber
      *
      * If an actor provider is also provided, it will take precedence over this value.
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @param mixed $username
      *
      * @throws InvalidArgumentException Invalid username
@@ -179,13 +153,10 @@ class LoggableListener extends MappedEventSubscriber
      * Checks for inserted object to update its logEntry
      * foreign key
      *
-<<<<<<< HEAD
-=======
      * @param LifecycleEventArgs $args
      *
      * @phpstan-param LifecycleEventArgs<ObjectManager> $args
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function postPersist(EventArgs $args)
@@ -202,11 +173,7 @@ class LoggableListener extends MappedEventSubscriber
             $logEntryMeta = $om->getClassMetadata(get_class($logEntry));
 
             $id = $wrapped->getIdentifier(false, true);
-<<<<<<< HEAD
-            $logEntryMeta->getReflectionProperty('objectId')->setValue($logEntry, $id);
-=======
             $logEntryMeta->setFieldValue($logEntry, 'objectId', $id);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $uow->scheduleExtraUpdate($logEntry, [
                 'objectId' => [null, $id],
             ]);
@@ -237,13 +204,10 @@ class LoggableListener extends MappedEventSubscriber
      * Looks for loggable objects being inserted or updated
      * for further processing
      *
-<<<<<<< HEAD
-=======
      * @param ManagerEventArgs $eventArgs
      *
      * @phpstan-param ManagerEventArgs<ObjectManager> $eventArgs
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function onFlush(EventArgs $eventArgs)
@@ -280,8 +244,6 @@ class LoggableListener extends MappedEventSubscriber
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Retrieve the username to use for the log entry.
      *
      * This method will try to fetch a username from the actor provider first, falling back to the {@see $this->username}
@@ -317,24 +279,16 @@ class LoggableListener extends MappedEventSubscriber
     }
 
     /**
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Handle any custom LogEntry functionality that needs to be performed
      * before persisting it
      *
      * @param LogEntryInterface $logEntry The LogEntry being persisted
      * @param object            $object   The object being Logged
      *
-<<<<<<< HEAD
-     * @return void
-     *
-     * @phpstan-param LogEntryInterface<T> $logEntry
-     * @phpstan-param T $object
-=======
      * @phpstan-param LogEntryInterface<T> $logEntry
      * @phpstan-param T $object
      *
      * @return void
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function prePersistLogEntry($logEntry, $object)
     {
@@ -352,17 +306,10 @@ class LoggableListener extends MappedEventSubscriber
      * @param object            $object
      * @param LogEntryInterface $logEntry
      *
-<<<<<<< HEAD
-     * @return array<string, mixed>
-     *
-     * @phpstan-param T $object
-     * @phpstan-param LogEntryInterface<T> $logEntry
-=======
      * @phpstan-param T $object
      * @phpstan-param LogEntryInterface<T> $logEntry
      *
      * @return array<string, mixed>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function getObjectChangeSetData($ea, $object, $logEntry)
     {
@@ -405,19 +352,11 @@ class LoggableListener extends MappedEventSubscriber
      * @param string $action
      * @param object $object
      *
-<<<<<<< HEAD
-     * @return LogEntryInterface|null
-     *
-     * @phpstan-param LogEntryInterface::ACTION_CREATE|LogEntryInterface::ACTION_UPDATE|LogEntryInterface::ACTION_REMOVE $action
-     * @phpstan-param T $object
-     *
-=======
      * @phpstan-param LogEntryInterface::ACTION_CREATE|LogEntryInterface::ACTION_UPDATE|LogEntryInterface::ACTION_REMOVE $action
      * @phpstan-param T $object
      *
      * @return LogEntryInterface|null
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @phpstan-return LogEntryInterface<T>|null
      */
     protected function createLogEntry($action, $object, LoggableAdapter $ea)
@@ -438,11 +377,7 @@ class LoggableListener extends MappedEventSubscriber
             $logEntry = $logEntryMeta->newInstance();
 
             $logEntry->setAction($action);
-<<<<<<< HEAD
-            $logEntry->setUsername($this->username);
-=======
             $logEntry->setUsername($this->getUsername());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $logEntry->setObjectClass($meta->getName());
             $logEntry->setLoggedAt();
 

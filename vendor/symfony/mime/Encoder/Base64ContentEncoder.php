@@ -21,11 +21,7 @@ final class Base64ContentEncoder extends Base64Encoder implements ContentEncoder
     public function encodeByteStream($stream, int $maxLineLength = 0): iterable
     {
         if (!\is_resource($stream)) {
-<<<<<<< HEAD
-            throw new \TypeError(sprintf('Method "%s" takes a stream as a first argument.', __METHOD__));
-=======
             throw new \TypeError(\sprintf('Method "%s" takes a stream as a first argument.', __METHOD__));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $filter = stream_filter_append($stream, 'convert.base64-encode', \STREAM_FILTER_READ, [

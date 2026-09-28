@@ -11,11 +11,8 @@
 
 namespace Twig\Test;
 
-<<<<<<< HEAD
-=======
 use PHPUnit\Framework\Attributes\BeforeClass;
 use PHPUnit\Framework\Attributes\DataProvider;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use PHPUnit\Framework\TestCase;
 use Twig\Compiler;
 use Twig\Environment;
@@ -29,13 +26,6 @@ abstract class NodeTestCase extends TestCase
      */
     private $currentEnv;
 
-<<<<<<< HEAD
-    abstract public function getTests();
-
-    /**
-     * @dataProvider getTests
-     */
-=======
     /**
      * @return iterable<array{0: Node, 1: string, 2?: Environment|null, 3?: bool}>
      */
@@ -63,18 +53,14 @@ abstract class NodeTestCase extends TestCase
      * @return void
      */
     #[DataProvider('provideTests')]
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function testCompile($node, $source, $environment = null, $isPattern = false)
     {
         $this->assertNodeCompilation($source, $node, $environment, $isPattern);
     }
 
-<<<<<<< HEAD
-=======
     /**
      * @return void
      */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function assertNodeCompilation($source, Node $node, ?Environment $environment = null, $isPattern = false)
     {
         $compiler = $this->getCompiler($environment);
@@ -87,35 +73,14 @@ abstract class NodeTestCase extends TestCase
         }
     }
 
-<<<<<<< HEAD
-=======
     /**
      * @return Compiler
      */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected function getCompiler(?Environment $environment = null)
     {
         return new Compiler($environment ?? $this->getEnvironment());
     }
 
-<<<<<<< HEAD
-    protected function getEnvironment()
-    {
-        return $this->currentEnv = new Environment(new ArrayLoader([]));
-    }
-
-    protected function getVariableGetter($name, $line = false)
-    {
-        $line = $line > 0 ? "// line $line\n" : '';
-
-        return sprintf('%s($context["%s"] ?? null)', $line, $name);
-    }
-
-    protected function getAttributeGetter()
-    {
-        return 'CoreExtension::getAttribute($this->env, $this->source, ';
-    }
-=======
     /**
      * @return Environment
      *
@@ -176,5 +141,4 @@ abstract class NodeTestCase extends TestCase
             trigger_deprecation('twig/twig', '3.13', 'Implementing "%s::getTests()" in "%s" is deprecated, implement "provideTests()" instead.', self::class, static::class);
         }
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

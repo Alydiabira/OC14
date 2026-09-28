@@ -37,16 +37,11 @@ final class MakerTestDetails
     private string $skipTestMessage = '';
 
     public function __construct(
-<<<<<<< HEAD
-        private MakerInterface $maker,
-    ) {
-=======
         private ?MakerInterface $maker = null,
     ) {
         if (null !== $this->maker) {
             trigger_deprecation('symfony/maker-bundle', 'v1.66.0', 'Passing a MakerInterface to the %s constructor is deprecated.', __CLASS__);
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function run(\Closure $callback): self
@@ -87,11 +82,7 @@ final class MakerTestDetails
 
     public function setRequiredPhpVersion(int $version): self
     {
-<<<<<<< HEAD
-        @trigger_deprecation('symfony/maker-bundle', 'v1.44.0', 'setRequiredPhpVersion() is no longer used and will be removed in a future version.');
-=======
         trigger_deprecation('symfony/maker-bundle', 'v1.44.0', 'setRequiredPhpVersion() is no longer used and will be removed in a future version.');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $this->requiredPhpVersion = $version;
 
@@ -128,10 +119,6 @@ final class MakerTestDetails
         return 'maker_'.strtolower($this->getRootNamespace()).'_'.md5(serialize($this->getDependencies()));
     }
 
-<<<<<<< HEAD
-    public function getMaker(): MakerInterface
-    {
-=======
     /**
      * @internal
      */
@@ -146,7 +133,6 @@ final class MakerTestDetails
             throw new \LogicException('The maker has not been set.');
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return $this->maker;
     }
 
@@ -169,11 +155,7 @@ final class MakerTestDetails
     public function getDependencyBuilder(): DependencyBuilder
     {
         $depBuilder = new DependencyBuilder();
-<<<<<<< HEAD
-        $this->maker->configureDependencies($depBuilder);
-=======
         $this->getMaker()->configureDependencies($depBuilder);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $depBuilder;
     }
@@ -206,11 +188,7 @@ final class MakerTestDetails
     public function getRunCallback(): \Closure
     {
         if (!$this->runCallback) {
-<<<<<<< HEAD
-            throw new \Exception('Don\'t forget to call ->run()');
-=======
             throw new \Exception('Don\'t forget to call ->run().');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->runCallback;
@@ -229,11 +207,7 @@ final class MakerTestDetails
         @trigger_deprecation(
             'symfony/maker-bundle',
             'v1.53.0',
-<<<<<<< HEAD
-            sprintf('%s() will be removed in a future version, use MakerTestDetails::skipTest() instead.', __METHOD__)
-=======
             \sprintf('%s() will be removed in a future version, use MakerTestDetails::skipTest() instead.', __METHOD__)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         );
 
         $this->skipOnSymfony7 = true;
@@ -246,11 +220,7 @@ final class MakerTestDetails
         @trigger_deprecation(
             'symfony/maker-bundle',
             'v1.53.0',
-<<<<<<< HEAD
-            sprintf('%s() will be removed in a future version, use MakerTestDetails::isTestSkipped() instead.', __METHOD__)
-=======
             \sprintf('%s() will be removed in a future version, use MakerTestDetails::isTestSkipped() instead.', __METHOD__)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         );
 
         return $this->skipOnSymfony7;

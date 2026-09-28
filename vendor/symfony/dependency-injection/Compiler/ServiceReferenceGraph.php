@@ -44,11 +44,7 @@ class ServiceReferenceGraph
     public function getNode(string $id): ServiceReferenceGraphNode
     {
         if (!isset($this->nodes[$id])) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('There is no node with id "%s".', $id));
-=======
             throw new InvalidArgumentException(\sprintf('There is no node with id "%s".', $id));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->nodes[$id];
@@ -78,11 +74,7 @@ class ServiceReferenceGraph
     /**
      * Connects 2 nodes together in the Graph.
      */
-<<<<<<< HEAD
-    public function connect(?string $sourceId, mixed $sourceValue, ?string $destId, mixed $destValue = null, ?Reference $reference = null, bool $lazy = false, bool $weak = false, bool $byConstructor = false): void
-=======
     public function connect(?string $sourceId, mixed $sourceValue, ?string $destId, mixed $destValue = null, ?Reference $reference = null, bool $lazy = false, bool $weak = false, bool $byConstructor = false, bool $byMultiUseArgument = false, bool $fromExpression = false): void
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if (null === $sourceId || null === $destId) {
             return;
@@ -90,11 +82,7 @@ class ServiceReferenceGraph
 
         $sourceNode = $this->createNode($sourceId, $sourceValue);
         $destNode = $this->createNode($destId, $destValue);
-<<<<<<< HEAD
-        $edge = new ServiceReferenceGraphEdge($sourceNode, $destNode, $reference, $lazy, $weak, $byConstructor);
-=======
         $edge = new ServiceReferenceGraphEdge($sourceNode, $destNode, $reference, $lazy, $weak, $byConstructor, $byMultiUseArgument, $fromExpression);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $sourceNode->addOutEdge($edge);
         $destNode->addInEdge($edge);

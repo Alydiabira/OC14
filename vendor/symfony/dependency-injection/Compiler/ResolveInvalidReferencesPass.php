@@ -114,11 +114,7 @@ class ResolveInvalidReferencesPass implements CompilerPassInterface
                 $e = new ServiceNotFoundException($id, $this->currentId);
 
                 // since the error message varies by $id and $this->currentId, so should the id of the dummy errored definition
-<<<<<<< HEAD
-                $this->container->register($id = sprintf('.errored.%s.%s', $this->currentId, $id), $value->getType())
-=======
                 $this->container->register($id = \sprintf('.errored.%s.%s', $this->currentId, $id), $value->getType())
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     ->addError($e->getMessage());
 
                 return new TypedReference($id, $value->getType(), $value->getInvalidBehavior());

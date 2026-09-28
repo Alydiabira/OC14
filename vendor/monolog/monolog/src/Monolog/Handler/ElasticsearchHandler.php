@@ -21,10 +21,7 @@ use InvalidArgumentException;
 use Elasticsearch\Common\Exceptions\RuntimeException as ElasticsearchRuntimeException;
 use Elasticsearch\Client;
 use Monolog\LogRecord;
-<<<<<<< HEAD
-=======
 use Monolog\Utils;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Elastic\Elasticsearch\Exception\InvalidArgumentException as ElasticInvalidArgumentException;
 use Elastic\Elasticsearch\Client as Client8;
 
@@ -118,11 +115,7 @@ class ElasticsearchHandler extends AbstractProcessingHandler
      */
     public function setFormatter(FormatterInterface $formatter): HandlerInterface
     {
-<<<<<<< HEAD
-        if ($formatter instanceof ElasticsearchFormatter) {
-=======
         if (Utils::unwrapFormatter($formatter) instanceof ElasticsearchFormatter) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return parent::setFormatter($formatter);
         }
 
@@ -217,15 +210,11 @@ class ElasticsearchHandler extends AbstractProcessingHandler
             return new ElasticInvalidArgumentException('Elasticsearch failed to index one or more records.');
         }
 
-<<<<<<< HEAD
-        return new ElasticsearchRuntimeException('Elasticsearch failed to index one or more records.');
-=======
         if (class_exists(ElasticsearchRuntimeException::class)) {
             return new ElasticsearchRuntimeException('Elasticsearch failed to index one or more records.');
         }
 
         throw new \LogicException('Unsupported elastic search client version');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -241,14 +230,10 @@ class ElasticsearchHandler extends AbstractProcessingHandler
             return new ElasticInvalidArgumentException($error['type'] . ': ' . $error['reason'], 0, $previous);
         }
 
-<<<<<<< HEAD
-        return new ElasticsearchRuntimeException($error['type'] . ': ' . $error['reason'], 0, $previous);
-=======
         if (class_exists(ElasticsearchRuntimeException::class)) {
             return new ElasticsearchRuntimeException($error['type'].': '.$error['reason'], 0, $previous);
         }
 
         throw new \LogicException('Unsupported elastic search client version');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

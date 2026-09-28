@@ -42,15 +42,9 @@ final class Registry
     }
 
     /**
-<<<<<<< HEAD
-     * @throws Exception
-     *
-     * @psalm-param class-string $class
-=======
      * @psalm-param class-string $class
      *
      * @throws Exception
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function forClassName(string $class): DocBlock
     {
@@ -74,15 +68,9 @@ final class Registry
     }
 
     /**
-<<<<<<< HEAD
-     * @throws Exception
-     *
-     * @psalm-param class-string $classInHierarchy
-=======
      * @psalm-param class-string $classInHierarchy
      *
      * @throws Exception
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function forMethod(string $classInHierarchy, string $method): DocBlock
     {

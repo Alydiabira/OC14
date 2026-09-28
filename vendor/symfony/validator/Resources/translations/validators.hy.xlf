@@ -136,11 +136,7 @@
             </trans-unit>
             <trans-unit id="37" resname="This is not a valid IP address.">
                 <source>This value is not a valid IP address.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Այս արժեքը վավեր IP հասցե չէ։</target>
-=======
                 <target>Այս արժեքը վավեր IP հասցե չէ։</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="38">
                 <source>This value is not a valid language.</source>
@@ -168,11 +164,7 @@
             </trans-unit>
             <trans-unit id="44">
                 <source>The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.</source>
-<<<<<<< HEAD
-                <target>Նկարի լայնությունը չափազանց փոքր է ({{ width }}px). Մինիմալ չափն է {{ min_ width }}px։</target>
-=======
                 <target>Նկարի լայնությունը չափազանց փոքր է ({{ width }}px). Մինիմալ չափն է {{ min_width }}px։</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="45">
                 <source>The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.</source>
@@ -200,11 +192,7 @@
             </trans-unit>
             <trans-unit id="51" resname="No temporary folder was configured in php.ini.">
                 <source>No temporary folder was configured in php.ini, or the configured folder does not exist.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">php.ini-ում չի կարգավորվել ժամանակավոր թղթապանակ, կամ կարգավորված թղթապանակը չկա։</target>
-=======
                 <target>php.ini-ում չի կարգավորվել ժամանակավոր թղթապանակ, կամ կարգավորված թղթապանակը չկա։</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="52">
                 <source>Cannot write temporary file to disk.</source>
@@ -236,11 +224,7 @@
             </trans-unit>
             <trans-unit id="59" resname="This is not a valid International Bank Account Number (IBAN).">
                 <source>This value is not a valid International Bank Account Number (IBAN).</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Այս արժեքը վավեր միջազգային բանկային հաշվի համար (IBAN) չէ։</target>
-=======
                 <target>Այս արժեքը վավեր միջազգային բանկային հաշվի համար (IBAN) չէ։</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="60">
                 <source>This value is not a valid ISBN-10.</source>
@@ -328,11 +312,7 @@
             </trans-unit>
             <trans-unit id="81" resname="This is not a valid Business Identifier Code (BIC).">
                 <source>This value is not a valid Business Identifier Code (BIC).</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Այս արժեքը վավեր բիզնեսի նորմատիվ կոդ (BIC) չէ։</target>
-=======
                 <target>Այս արժեքը վավեր բիզնեսի նորմատիվ կոդ (BIC) չէ։</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="82">
                 <source>Error</source>
@@ -340,11 +320,7 @@
             </trans-unit>
             <trans-unit id="83" resname="This is not a valid UUID.">
                 <source>This value is not a valid UUID.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Այս արժեքը վավեր UUID չէ։</target>
-=======
                 <target>Այս արժեքը վավեր UUID չէ։</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="84">
                 <source>This value should be a multiple of {{ compared_value }}.</source>
@@ -416,57 +392,6 @@
             </trans-unit>
             <trans-unit id="101">
                 <source>This value is not a valid CSS color.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Այս արժեքը վավեր CSS գույն չէ։</target>
-            </trans-unit>
-            <trans-unit id="102">
-                <source>This value is not a valid CIDR notation.</source>
-                <target state="needs-review-translation">Այս արժեքը վավեր CIDR նշում չէ։</target>
-            </trans-unit>
-            <trans-unit id="103">
-                <source>The value of the netmask should be between {{ min }} and {{ max }}.</source>
-                <target state="needs-review-translation">Ցանցային դիմակի արժեքը պետք է լինի {{ min }}-ի և {{ max }}-ի միջև։</target>
-            </trans-unit>
-            <trans-unit id="104">
-                <source>The filename is too long. It should have {{ filename_max_length }} character or less.|The filename is too long. It should have {{ filename_max_length }} characters or less.</source>
-                <target state="needs-review-translation">Ֆայլի անունը շատ երկար է։ Այն պետք է ունենա {{ filename_max_length }} նիշ կամ պակաս։</target>
-            </trans-unit>
-            <trans-unit id="105">
-                <source>The password strength is too low. Please use a stronger password.</source>
-                <target state="needs-review-translation">Գաղտնաբառի անվտանգությունը շատ ցածր է։ Խնդրում ենք գործածել ավելի ամրագույն գաղտնաբառ։</target>
-            </trans-unit>
-            <trans-unit id="106">
-                <source>This value contains characters that are not allowed by the current restriction-level.</source>
-                <target state="needs-review-translation">Այս արժեքը պարունակում է այն նիշերը, որոնք չեն թույլատրվում ըստ ընթացիկ սահմանումների։</target>
-            </trans-unit>
-            <trans-unit id="107">
-                <source>Using invisible characters is not allowed.</source>
-                <target state="needs-review-translation">Անտեսանելի նիշերի օգտագործումը չի թույլատրվում։</target>
-            </trans-unit>
-            <trans-unit id="108">
-                <source>Mixing numbers from different scripts is not allowed.</source>
-                <target state="needs-review-translation">Թվերի խառնուրդը տարբեր սցենարներից չի թույլատրվում։</target>
-            </trans-unit>
-            <trans-unit id="109">
-                <source>Using hidden overlay characters is not allowed.</source>
-                <target state="needs-review-translation">Թաքնված ծածկանիշերի օգտագործումը չի թույլատրվում։</target>
-            </trans-unit>
-            <trans-unit id="110">
-                <source>The extension of the file is invalid ({{ extension }}). Allowed extensions are {{ extensions }}.</source>
-                <target state="needs-review-translation">Ֆայլի ընդլայնումը անվավեր է ({{ extension }})։ Թույլատրվող ընդլայնումներն են՝ {{ extensions }}։</target>
-            </trans-unit>
-            <trans-unit id="111">
-                <source>The detected character encoding is invalid ({{ detected }}). Allowed encodings are {{ encodings }}.</source>
-                <target state="needs-review-translation">Հայտնաբերված նիշագրության կոդը անվավեր է ({{ detected }})։ Թույլատրվող կոդերն են՝ {{ encodings }}։</target>
-            </trans-unit>
-            <trans-unit id="112">
-                <source>This value is not a valid MAC address.</source>
-                <target state="needs-review-translation">Այս արժեքը վավեր MAC հասցե չէ։</target>
-            </trans-unit>
-            <trans-unit id="113">
-                <source>This URL is missing a top-level domain.</source>
-                <target state="needs-review-translation">Այս URL-ը չունի վերին մակարդակի դոմեյն:</target>
-=======
                 <target>Այս արժեքը վավեր CSS գույն չէ։</target>
             </trans-unit>
             <trans-unit id="102">
@@ -652,7 +577,6 @@
             <trans-unit id="148" resname="This is not a valid ULID.">
                 <source>This value is not a valid ULID.</source>
                 <target state="needs-review-translation">Այս արժեքը վավեր ULID չէ։</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
         </body>
     </file>

@@ -31,11 +31,7 @@ class VichFileType extends AbstractType
         protected readonly StorageInterface $storage,
         protected readonly UploadHandler $handler,
         protected readonly PropertyMappingFactory $factory,
-<<<<<<< HEAD
-        PropertyAccessorInterface $propertyAccessor = null
-=======
         ?PropertyAccessorInterface $propertyAccessor = null,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ) {
         $this->propertyAccessor = $propertyAccessor ?: PropertyAccess::createPropertyAccessor();
     }
@@ -48,12 +44,9 @@ class VichFileType extends AbstractType
             'download_uri' => true,
             'download_label' => 'vich_uploader.link.download',
             'delete_label' => 'vich_uploader.form_label.delete_confirm',
-<<<<<<< HEAD
-=======
             'download_label_translation_domain' => null,
             'delete_label_translation_domain' => null,
             'translation_domain' => null,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'error_bubbling' => false,
         ]);
 
@@ -100,11 +93,7 @@ class VichFileType extends AbstractType
             $form->add('delete', Type\CheckboxType::class, [
                 'label' => $options['delete_label'],
                 'mapped' => false,
-<<<<<<< HEAD
-                'translation_domain' => $options['translation_domain'],
-=======
                 'translation_domain' => $options['delete_label_translation_domain'] ?? $options['translation_domain'],
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'required' => false,
             ]);
         });
@@ -131,16 +120,10 @@ class VichFileType extends AbstractType
         $view->vars['download_uri'] = null;
         if ($options['download_uri'] && $object) {
             $view->vars['download_uri'] = $this->resolveUriOption($options['download_uri'], $object, $form);
-<<<<<<< HEAD
-            $view->vars = \array_replace(
-                $view->vars,
-                $this->resolveDownloadLabel($options['download_label'], $object, $form)
-=======
 
             $view->vars = \array_replace(
                 $view->vars,
                 $this->resolveDownloadLabel($options['download_label'], $object, $form, $options)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
         }
 
@@ -170,11 +153,7 @@ class VichFileType extends AbstractType
         return $uriOption;
     }
 
-<<<<<<< HEAD
-    protected function resolveDownloadLabel(mixed $downloadLabel, object $object, FormInterface $form): array
-=======
     protected function resolveDownloadLabel(mixed $downloadLabel, object $object, FormInterface $form, array $options): array
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if (true === $downloadLabel) {
             $fieldName = $this->getFieldName($form);
@@ -183,11 +162,7 @@ class VichFileType extends AbstractType
                 throw new \UnexpectedValueException(\sprintf('Cannot find mapping for "%s" field', $fieldName));
             }
 
-<<<<<<< HEAD
-            return ['download_label' => $mapping->readProperty($object, 'originalName'), 'translation_domain' => false];
-=======
             return ['download_label' => $mapping->readProperty($object, 'originalName'), 'download_label_translation_domain' => false];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (\is_callable($downloadLabel)) {
@@ -195,26 +170,15 @@ class VichFileType extends AbstractType
 
             return [
                 'download_label' => $result['download_label'] ?? $result,
-<<<<<<< HEAD
-                'translation_domain' => $result['translation_domain'] ?? false,
-=======
                 'download_label_translation_domain' => $result['download_label_translation_domain']
                     ?? $result['translation_domain']
                     ?? false,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ];
         }
 
         if ($downloadLabel instanceof PropertyPath) {
             return [
                 'download_label' => $this->propertyAccessor->getValue($object, $downloadLabel),
-<<<<<<< HEAD
-                'translation_domain' => false,
-            ];
-        }
-
-        return ['download_label' => $downloadLabel];
-=======
                 'download_label_translation_domain' => false,
             ];
         }
@@ -225,6 +189,5 @@ class VichFileType extends AbstractType
                 ?? $options['translation_domain']
                 ?? null,
         ];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

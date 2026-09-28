@@ -31,11 +31,7 @@ trait ClassResolverTrait
     {
         if (\is_string($value)) {
             if (!class_exists($value) && !interface_exists($value, false)) {
-<<<<<<< HEAD
-                throw new InvalidArgumentException(sprintf('The class or interface "%s" does not exist.', $value));
-=======
                 throw new InvalidArgumentException(\sprintf('The class or interface "%s" does not exist.', $value));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return ltrim($value, '\\');

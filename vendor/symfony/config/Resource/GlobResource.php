@@ -53,11 +53,7 @@ class GlobResource implements \IteratorAggregate, SelfCheckingResourceInterface
         $this->globBrace = \defined('GLOB_BRACE') ? \GLOB_BRACE : 0;
 
         if (false === $resolvedPrefix) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('The path "%s" does not exist.', $prefix));
-=======
             throw new \InvalidArgumentException(\sprintf('The path "%s" does not exist.', $prefix));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->prefix = $resolvedPrefix;
@@ -81,23 +77,6 @@ class GlobResource implements \IteratorAggregate, SelfCheckingResourceInterface
         return $this->hash === $hash;
     }
 
-<<<<<<< HEAD
-    /**
-     * @internal
-     */
-    public function __sleep(): array
-    {
-        $this->hash ??= $this->computeHash();
-
-        return ['prefix', 'pattern', 'recursive', 'hash', 'forExclusion', 'excludedPrefixes'];
-    }
-
-    /**
-     * @internal
-     */
-    public function __wakeup(): void
-    {
-=======
     public function __serialize(): array
     {
         $this->hash ??= $this->computeHash();
@@ -126,7 +105,6 @@ class GlobResource implements \IteratorAggregate, SelfCheckingResourceInterface
         $this->hash = array_shift($data);
         $this->forExclusion = array_shift($data);
         $this->excludedPrefixes = array_shift($data);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->globBrace = \defined('GLOB_BRACE') ? \GLOB_BRACE : 0;
     }
 
@@ -146,11 +124,7 @@ class GlobResource implements \IteratorAggregate, SelfCheckingResourceInterface
         if (class_exists(Finder::class)) {
             $regex = Glob::toRegex($pattern);
             if ($this->recursive) {
-<<<<<<< HEAD
-                $regex = substr_replace($regex, '(/|$)', -2, 1);
-=======
                 $regex = substr_replace($regex, str_ends_with($pattern, '/') ? '' : '(/|$)', -2, 1);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         } else {
             $regex = null;

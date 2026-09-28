@@ -59,11 +59,7 @@ class Count extends Constraint
         ?string $divisibleByMessage = null,
         ?array $groups = null,
         mixed $payload = null,
-<<<<<<< HEAD
-        array $options = []
-=======
         array $options = [],
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ) {
         if (\is_array($exactly)) {
             $options = array_merge($exactly, $options);
@@ -90,11 +86,7 @@ class Count extends Constraint
         $this->divisibleByMessage = $divisibleByMessage ?? $this->divisibleByMessage;
 
         if (null === $this->min && null === $this->max && null === $this->divisibleBy) {
-<<<<<<< HEAD
-            throw new MissingOptionsException(sprintf('Either option "min", "max" or "divisibleBy" must be given for constraint "%s".', __CLASS__), ['min', 'max', 'divisibleBy']);
-=======
             throw new MissingOptionsException(\sprintf('Either option "min", "max" or "divisibleBy" must be given for constraint "%s".', __CLASS__), ['min', 'max', 'divisibleBy']);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

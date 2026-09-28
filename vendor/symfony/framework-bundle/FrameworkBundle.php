@@ -20,10 +20,7 @@ use Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\ProfilerPass;
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\RemoveUnusedSessionMarshallingHandlerPass;
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\TestServiceContainerRealRefPass;
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\TestServiceContainerWeakRefPass;
-<<<<<<< HEAD
-=======
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\TranslationUpdateCommandPass;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\UnusedTagsPass;
 use Symfony\Bundle\FrameworkBundle\DependencyInjection\VirtualRequestStackPass;
 use Symfony\Component\Cache\Adapter\ApcuAdapter;
@@ -62,10 +59,7 @@ use Symfony\Component\Mime\DependencyInjection\AddMimeTypeGuesserPass;
 use Symfony\Component\PropertyInfo\DependencyInjection\PropertyInfoPass;
 use Symfony\Component\Routing\DependencyInjection\AddExpressionLanguageProvidersPass;
 use Symfony\Component\Routing\DependencyInjection\RoutingResolverPass;
-<<<<<<< HEAD
-=======
 use Symfony\Component\Runtime\SymfonyRuntime;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Scheduler\DependencyInjection\AddScheduleMessengerPass;
 use Symfony\Component\Serializer\DependencyInjection\SerializerPass;
 use Symfony\Component\Translation\DependencyInjection\DataCollectorTranslatorPass;
@@ -107,15 +101,6 @@ class FrameworkBundle extends Bundle
     {
         $_ENV['DOCTRINE_DEPRECATIONS'] = $_SERVER['DOCTRINE_DEPRECATIONS'] ??= 'trigger';
 
-<<<<<<< HEAD
-        $handler = ErrorHandler::register(null, false);
-
-        // When upgrading an existing Symfony application from 6.2 to 6.3, and
-        // the cache is warmed up, the service is not available yet, so we need
-        // to check if it exists.
-        if ($this->container->has('debug.error_handler_configurator')) {
-            $this->container->get('debug.error_handler_configurator')->configure($handler);
-=======
         if (class_exists(SymfonyRuntime::class)) {
             $handler = set_error_handler('var_dump');
             restore_error_handler();
@@ -129,7 +114,6 @@ class FrameworkBundle extends Bundle
             // to check if it exists.
         } elseif (\is_array($handler) && $handler[0] instanceof ErrorHandler) {
             $this->container->get('debug.error_handler_configurator')->configure($handler[0]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($this->container->getParameter('kernel.http_method_override')) {
@@ -139,15 +123,12 @@ class FrameworkBundle extends Bundle
         if ($this->container->hasParameter('kernel.trust_x_sendfile_type_header') && $this->container->getParameter('kernel.trust_x_sendfile_type_header')) {
             BinaryFileResponse::trustXSendfileTypeHeader();
         }
-<<<<<<< HEAD
-=======
 
         // Instantiate the mime_types service so its setDefault() call fires.
         // The service is made public by AddMimeTypeGuesserPass only when custom guessers are tagged.
         if ($this->container->has('mime_types')) {
             $this->container->get('mime_types');
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -219,10 +200,7 @@ class FrameworkBundle extends Bundle
         // must be registered after MonologBundle's LoggerChannelPass
         $container->addCompilerPass(new ErrorLoggerCompilerPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, -32);
         $container->addCompilerPass(new VirtualRequestStackPass());
-<<<<<<< HEAD
-=======
         $container->addCompilerPass(new TranslationUpdateCommandPass(), PassConfig::TYPE_BEFORE_REMOVING);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($container->getParameter('kernel.debug')) {
             $container->addCompilerPass(new AddDebugLogProcessorPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 2);

@@ -17,15 +17,6 @@ use Doctrine\ORM\UnitOfWork;
 use Generator;
 use LogicException;
 use ReflectionClass;
-<<<<<<< HEAD
-
-use function array_map;
-use function array_merge;
-use function count;
-use function end;
-use function in_array;
-use function is_array;
-=======
 use ReflectionEnum;
 
 use function array_key_exists;
@@ -39,17 +30,12 @@ use function in_array;
 use function is_array;
 use function is_object;
 use function ksort;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Base class for all hydrators. A hydrator is a class that provides some form
  * of transformation of an SQL result set into another structure.
  *
-<<<<<<< HEAD
- * @psalm-consistent-constructor
-=======
  * @phpstan-consistent-constructor
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 abstract class AbstractHydrator
 {
@@ -106,11 +92,7 @@ abstract class AbstractHydrator
     /**
      * Initiates a row-by-row hydration.
      *
-<<<<<<< HEAD
-     * @psalm-param array<string, mixed> $hints
-=======
      * @phpstan-param array<string, mixed> $hints
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return Generator<array-key, mixed>
      *
@@ -147,15 +129,10 @@ abstract class AbstractHydrator
                     } else {
                         yield from $result;
                     }
-<<<<<<< HEAD
-                } else {
-                    yield $result;
-=======
                 } elseif (is_object(current($result))) {
                     yield $result;
                 } else {
                     yield array_merge(...$result);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
         } finally {
@@ -184,11 +161,7 @@ abstract class AbstractHydrator
     /**
      * Hydrates all rows returned by the passed statement instance at once.
      *
-<<<<<<< HEAD
-     * @psalm-param array<string, string> $hints
-=======
      * @phpstan-param array<string, string> $hints
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function hydrateAll(Result $stmt, ResultSetMapping $resultSetMapping, array $hints = []): mixed
     {
@@ -277,41 +250,25 @@ abstract class AbstractHydrator
      * the values applied. Scalar values are kept in a specific key 'scalars'.
      *
      * @param mixed[] $data SQL Result Row.
-<<<<<<< HEAD
-     * @psalm-param array<string, string> $id                 Dql-Alias => ID-Hash.
-     * @psalm-param array<string, bool>   $nonemptyComponents Does this DQL-Alias has at least one non NULL value?
-=======
      * @phpstan-param array<string, string> $id                 Dql-Alias => ID-Hash.
      * @phpstan-param array<string, bool>   $nonemptyComponents Does this DQL-Alias has at least one non NULL value?
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return array<string, array<string, mixed>> An array with all the fields
      *                                             (name => value) of the data
      *                                             row, grouped by their
      *                                             component alias.
-<<<<<<< HEAD
-     * @psalm-return array{
-     *                   data: array<array-key, array>,
-     *                   newObjects?: array<array-key, array{
-     *                       class: mixed,
-     *                       args?: array
-=======
      * @phpstan-return array{
      *                   data: array<array-key, array>,
      *                   newObjects?: array<array-key, array{
      *                       class: ReflectionClass,
      *                       args: array,
      *                       obj: object
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *                   }>,
      *                   scalars?: array
      *               }
      */
     protected function gatherRowData(array $data, array &$id, array &$nonemptyComponents): array
     {
-<<<<<<< HEAD
-        $rowData = ['data' => []];
-=======
         $rowData = ['data' => [], 'newObjects' => []];
 
         foreach ($this->rsm->newObjectMappings as $mapping) {
@@ -324,7 +281,6 @@ abstract class AbstractHydrator
             $rowData['newObjects'][$objIndex]['class'] = new ReflectionClass($newObject);
             $rowData['newObjects'][$objIndex]['args']  = [];
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         foreach ($data as $key => $value) {
             $cacheKeyInfo = $this->hydrateColumnInfo($key);
@@ -345,10 +301,6 @@ abstract class AbstractHydrator
                         $value = $this->buildEnum($value, $cacheKeyInfo['enumType']);
                     }
 
-<<<<<<< HEAD
-                    $rowData['newObjects'][$objIndex]['class']           = $cacheKeyInfo['class'];
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $rowData['newObjects'][$objIndex]['args'][$argIndex] = $value;
                     break;
 
@@ -402,11 +354,6 @@ abstract class AbstractHydrator
             }
         }
 
-<<<<<<< HEAD
-        return $rowData;
-    }
-
-=======
         $nestedEntities = [];
         /**@var string $argAlias */
         foreach ($this->resultSetMapping()->nestedNewObjectArguments as ['ownerIndex' => $ownerIndex, 'argIndex' => $argIndex, 'argAlias' => $argAlias]) {
@@ -446,7 +393,6 @@ abstract class AbstractHydrator
         return $data;
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Processes a row of the result set.
      *
@@ -456,17 +402,10 @@ abstract class AbstractHydrator
      * of elements as before.
      *
      * @param mixed[] $data
-<<<<<<< HEAD
-     * @psalm-param array<string, mixed> $data
-     *
-     * @return mixed[] The processed row.
-     * @psalm-return array<string, mixed>
-=======
      * @phpstan-param array<string, mixed> $data
      *
      * @return mixed[] The processed row.
      * @phpstan-return array<string, mixed>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function gatherScalarRowData(array &$data): array
     {
@@ -501,11 +440,7 @@ abstract class AbstractHydrator
      * @param string $key Column name
      *
      * @return mixed[]|null
-<<<<<<< HEAD
-     * @psalm-return array<string, mixed>|null
-=======
      * @phpstan-return array<string, mixed>|null
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function hydrateColumnInfo(string $key): array|null
     {
@@ -554,10 +489,6 @@ abstract class AbstractHydrator
                     'type'                 => Type::getType($this->rsm->typeMappings[$key]),
                     'argIndex'             => $mapping['argIndex'],
                     'objIndex'             => $mapping['objIndex'],
-<<<<<<< HEAD
-                    'class'                => new ReflectionClass($mapping['className']),
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     'enumType'             => $this->rsm->enumMappings[$key] ?? null,
                 ];
 
@@ -605,11 +536,7 @@ abstract class AbstractHydrator
 
     /**
      * @return string[]
-<<<<<<< HEAD
-     * @psalm-return non-empty-list<string>
-=======
      * @phpstan-return non-empty-list<string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private function getDiscriminatorValues(ClassMetadata $classMetadata): array
     {
@@ -671,27 +598,18 @@ abstract class AbstractHydrator
      */
     final protected function buildEnum(mixed $value, string $enumType): BackedEnum|array
     {
-<<<<<<< HEAD
-        if (is_array($value)) {
-            return array_map(
-                static fn ($value) => $enumType::from($value),
-=======
         $reflection  = new ReflectionEnum($enumType);
         $isIntBacked = $reflection->isBacked() && $reflection->getBackingType()->getName() === 'int';
 
         if (is_array($value)) {
             return array_map(
                 static fn ($value) => $enumType::from($isIntBacked ? (int) $value : $value),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $value,
             );
         }
 
-<<<<<<< HEAD
-=======
         $value = $isIntBacked ? (int) $value : $value;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return $enumType::from($value);
     }
 }

@@ -9,33 +9,11 @@
 
 namespace Gedmo\Sluggable\Mapping\Driver;
 
-<<<<<<< HEAD
-=======
 use Doctrine\ORM\Mapping\EmbeddedClassMapping;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Gedmo\Exception\InvalidMappingException;
 use Gedmo\Mapping\Annotation\Slug;
 use Gedmo\Mapping\Annotation\SlugHandler;
-<<<<<<< HEAD
-use Gedmo\Mapping\Driver\AttributeDriverInterface;
-
-/**
- * This is an attribute mapping driver for Sluggable
- * behavioral extension. Used for extraction of extended
- * metadata from attribute specifically for Sluggable
- * extension.
- *
- * @internal
- */
-final class Attribute extends Annotation implements AttributeDriverInterface
-{
-    /**
-     * @return array<string, SlugHandler[]>
-     */
-    protected function getSlugHandlers(\ReflectionProperty $property, Slug $slug, ClassMetadata $meta): array
-    {
-=======
 use Gedmo\Mapping\Annotation\SlugHandlerOption;
 use Gedmo\Mapping\Driver\AbstractAnnotationDriver;
 use Gedmo\Sluggable\Handler\SlugHandlerInterface;
@@ -126,7 +104,6 @@ class Attribute extends AbstractAnnotationDriver
     protected function getSlugHandlers(\ReflectionProperty $property, Slug $slug, ClassMetadata $meta): array
     {
         /** @var list<SlugHandler>|null $attributeHandlers */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $attributeHandlers = $this->reader->getPropertyAnnotation($property, self::HANDLER);
 
         if (null === $attributeHandlers) {
@@ -140,17 +117,11 @@ class Attribute extends AbstractAnnotationDriver
                 throw new InvalidMappingException("SlugHandler class: {$handler->class} should be a valid class name in entity - {$meta->getName()}");
             }
 
-<<<<<<< HEAD
-            $class = $handler->class;
-
-            $handlers[$class] = [];
-=======
             /** @var class-string<SlugHandlerInterface> $class */
             $class = $handler->class;
 
             $handlers[$class] = [];
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             foreach ($handler->options as $name => $value) {
                 $handlers[$class][$name] = $value;
             }
@@ -160,8 +131,6 @@ class Attribute extends AbstractAnnotationDriver
 
         return $handlers;
     }
-<<<<<<< HEAD
-=======
 
     /**
      * @param ClassMetadata<object> $meta
@@ -250,5 +219,4 @@ class Attribute extends AbstractAnnotationDriver
 
         return $config;
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

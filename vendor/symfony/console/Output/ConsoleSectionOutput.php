@@ -76,14 +76,10 @@ class ConsoleSectionOutput extends StreamOutput
             $this->content = [];
         }
 
-<<<<<<< HEAD
-        $this->lines -= $lines;
-=======
         // callers may ask to clear more lines than this section tracks (e.g. ProgressBar
         // counts "\n"-separated lines while addContent() splits on PHP_EOL), so keep the
         // counter from going negative, which would break the max-height bookkeeping
         $this->lines = max(0, $this->lines - $lines);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         parent::doWrite($this->popStreamContentUntilCurrentSection($this->maxHeight ? min($this->maxHeight, $lines) : $lines), false);
     }
@@ -95,10 +91,6 @@ class ConsoleSectionOutput extends StreamOutput
      */
     public function overwrite(string|iterable $message)
     {
-<<<<<<< HEAD
-        $this->clear();
-        $this->writeln($message);
-=======
         if (!$this->content || !$this->isDecorated()) {
             $this->writeln($message);
 
@@ -124,7 +116,6 @@ class ConsoleSectionOutput extends StreamOutput
 
         parent::doWrite($this->getVisibleContent(), false);
         parent::doWrite($erasedContent, false);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getContent(): string
@@ -264,11 +255,7 @@ class ConsoleSectionOutput extends StreamOutput
 
         if ($numberOfLinesToClear > 0) {
             // move cursor up n lines
-<<<<<<< HEAD
-            parent::doWrite(sprintf("\x1b[%dA", $numberOfLinesToClear), false);
-=======
             parent::doWrite(\sprintf("\x1b[%dA", $numberOfLinesToClear), false);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             // erase to end of screen
             parent::doWrite("\x1b[0J", false);
         }

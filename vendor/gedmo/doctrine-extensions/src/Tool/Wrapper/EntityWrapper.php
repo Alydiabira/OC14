@@ -9,28 +9,17 @@
 
 namespace Gedmo\Tool\Wrapper;
 
-<<<<<<< HEAD
-use Doctrine\Common\Util\ClassUtils;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\Persistence\Proxy as PersistenceProxy;
-=======
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Gedmo\Tool\ClassUtils;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Wraps entity or proxy for more convenient
  * manipulation
  *
-<<<<<<< HEAD
- * @phpstan-extends AbstractWrapper<ClassMetadata>
-=======
  * @template TObject of object
  *
  * @template-extends AbstractWrapper<ClassMetadata<TObject>, TObject, EntityManagerInterface>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @author Gediminas Morkevicius <gediminas.morkevicius@gmail.com>
  *
@@ -46,20 +35,9 @@ class EntityWrapper extends AbstractWrapper
     private $identifier;
 
     /**
-<<<<<<< HEAD
-     * True if entity or proxy is loaded
-     */
-    private bool $initialized = false;
-
-    /**
-     * Wrap entity
-     *
-     * @param object $entity
-=======
      * Wrap entity
      *
      * @param TObject $entity
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct($entity, EntityManagerInterface $em)
     {
@@ -72,21 +50,13 @@ class EntityWrapper extends AbstractWrapper
     {
         $this->initialize();
 
-<<<<<<< HEAD
-        return $this->meta->getReflectionProperty($property)->getValue($this->object);
-=======
         return $this->meta->getFieldValue($this->object, $property);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function setPropertyValue($property, $value)
     {
         $this->initialize();
-<<<<<<< HEAD
-        $this->meta->getReflectionProperty($property)->setValue($this->object, $value);
-=======
         $this->meta->setFieldValue($this->object, $property, $value);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this;
     }
@@ -148,17 +118,8 @@ class EntityWrapper extends AbstractWrapper
      */
     protected function initialize()
     {
-<<<<<<< HEAD
-        if (!$this->initialized) {
-            if ($this->object instanceof PersistenceProxy) {
-                if (!$this->object->__isInitialized()) {
-                    $this->object->__load();
-                }
-            }
-=======
         if ($this->om->isUninitializedObject($this->object)) {
             $this->om->initializeObject($this->object);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

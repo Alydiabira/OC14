@@ -49,11 +49,7 @@ class Route
         ?string $format = null,
         ?bool $utf8 = null,
         ?bool $stateless = null,
-<<<<<<< HEAD
-        private ?string $env = null
-=======
         private ?string $env = null,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ) {
         if (\is_array($path)) {
             $this->localizedPaths = $path;

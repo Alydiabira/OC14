@@ -109,11 +109,7 @@ final class AssetMapperDevServerSubscriber implements EventSubscriberInterface
         private readonly ?CacheItemPoolInterface $cacheMapCache = null,
         private readonly ?Profiler $profiler = null,
     ) {
-<<<<<<< HEAD
-        $this->publicPrefix = rtrim($publicPrefix, '/').'/';
-=======
         $this->publicPrefix = '/'.trim($publicPrefix, '/').'/';
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->extensionsMap = array_merge(self::EXTENSIONS_MAP, $extensionsMap);
     }
 
@@ -131,11 +127,7 @@ final class AssetMapperDevServerSubscriber implements EventSubscriberInterface
         $asset = $this->findAssetFromCache($pathInfo);
 
         if (!$asset) {
-<<<<<<< HEAD
-            throw new NotFoundHttpException(sprintf('Asset with public path "%s" not found.', $pathInfo));
-=======
             throw new NotFoundHttpException(\sprintf('Asset with public path "%s" not found.', $pathInfo));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->profiler?->disable();

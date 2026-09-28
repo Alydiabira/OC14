@@ -63,19 +63,11 @@ class ClassBuilder
                 }
                 unset($path[$key]);
             }
-<<<<<<< HEAD
-            $require .= sprintf('require_once __DIR__.\DIRECTORY_SEPARATOR.\'%s\';', implode('\'.\DIRECTORY_SEPARATOR.\'', $path))."\n";
-        }
-        $use = $require ? "\n" : '';
-        foreach (array_keys($this->use) as $statement) {
-            $use .= sprintf('use %s;', $statement)."\n";
-=======
             $require .= \sprintf('require_once __DIR__.\DIRECTORY_SEPARATOR.\'%s\';', implode('\'.\DIRECTORY_SEPARATOR.\'', $path))."\n";
         }
         $use = $require ? "\n" : '';
         foreach (array_keys($this->use) as $statement) {
             $use .= \sprintf('use %s;', $statement)."\n";
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $implements = [] === $this->implements ? '' : 'implements '.implode(', ', $this->implements);
@@ -134,13 +126,8 @@ BODY
             $property->setType($classType);
         }
         $this->properties[] = $property;
-<<<<<<< HEAD
-        $defaultValue = null !== $defaultValue ? sprintf(' = %s', $defaultValue) : '';
-        $property->setContent(sprintf('private $%s%s;', $property->getName(), $defaultValue));
-=======
         $defaultValue = null !== $defaultValue ? \sprintf(' = %s', $defaultValue) : '';
         $property->setContent(\sprintf('private $%s%s;', $property->getName(), $defaultValue));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $property;
     }

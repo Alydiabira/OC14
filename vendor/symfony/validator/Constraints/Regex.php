@@ -49,11 +49,7 @@ class Regex extends Constraint
         ?callable $normalizer = null,
         ?array $groups = null,
         mixed $payload = null,
-<<<<<<< HEAD
-        array $options = []
-=======
         array $options = [],
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ) {
         if (\is_array($pattern)) {
             $options = array_merge($pattern, $options);
@@ -69,11 +65,7 @@ class Regex extends Constraint
         $this->normalizer = $normalizer ?? $this->normalizer;
 
         if (null !== $this->normalizer && !\is_callable($this->normalizer)) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('The "normalizer" option must be a valid callable ("%s" given).', get_debug_type($this->normalizer)));
-=======
             throw new InvalidArgumentException(\sprintf('The "normalizer" option must be a valid callable ("%s" given).', get_debug_type($this->normalizer)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 

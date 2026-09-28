@@ -7,10 +7,7 @@ namespace PhpParser;
  * turn is based on work by Masato Bito.
  */
 
-<<<<<<< HEAD
-=======
 use PhpParser\Node\Arg;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\Cast\Double;
@@ -18,10 +15,7 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\InterpolatedStringPart;
 use PhpParser\Node\Name;
 use PhpParser\Node\Param;
-<<<<<<< HEAD
-=======
 use PhpParser\Node\PropertyHook;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use PhpParser\Node\Scalar\InterpolatedString;
 use PhpParser\Node\Scalar\Int_;
 use PhpParser\Node\Scalar\String_;
@@ -29,10 +23,7 @@ use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassConst;
 use PhpParser\Node\Stmt\ClassMethod;
-<<<<<<< HEAD
-=======
 use PhpParser\Node\Stmt\Const_;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use PhpParser\Node\Stmt\Else_;
 use PhpParser\Node\Stmt\ElseIf_;
 use PhpParser\Node\Stmt\Enum_;
@@ -42,10 +33,7 @@ use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\TryCatch;
 use PhpParser\Node\UseItem;
-<<<<<<< HEAD
-=======
 use PhpParser\Node\VarLikeIdentifier;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use PhpParser\NodeVisitor\CommentAnnotatingVisitor;
 
 abstract class ParserAbstract implements Parser {
@@ -144,14 +132,11 @@ abstract class ParserAbstract implements Parser {
     /** @var \SplObjectStorage<Array_, null>|null Array nodes created during parsing, for postprocessing of empty elements. */
     protected ?\SplObjectStorage $createdArrays;
 
-<<<<<<< HEAD
-=======
     /** @var \SplObjectStorage<Expr\ArrowFunction, null>|null
      *       Arrow functions that are wrapped in parentheses, to enforce the pipe operator parentheses requirements.
      */
     protected ?\SplObjectStorage $parenthesizedArrowFunctions;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /** @var Token[] Tokens for the current parse */
     protected array $tokens;
     /** @var int Current position in token array */
@@ -202,10 +187,7 @@ abstract class ParserAbstract implements Parser {
     public function parse(string $code, ?ErrorHandler $errorHandler = null): ?array {
         $this->errorHandler = $errorHandler ?: new ErrorHandler\Throwing();
         $this->createdArrays = new \SplObjectStorage();
-<<<<<<< HEAD
-=======
         $this->parenthesizedArrowFunctions = new \SplObjectStorage();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $this->tokens = $this->lexer->tokenize($code, $this->errorHandler);
         $result = $this->doParse();
@@ -229,10 +211,7 @@ abstract class ParserAbstract implements Parser {
         $this->semStack = [];
         $this->semValue = null;
         $this->createdArrays = null;
-<<<<<<< HEAD
-=======
         $this->parenthesizedArrowFunctions = null;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($result !== null) {
             $traverser = new NodeTraverser(new CommentAnnotatingVisitor($this->tokens));
@@ -441,11 +420,6 @@ abstract class ParserAbstract implements Parser {
                 $rule = $state - $this->numNonLeafStates;
             }
         }
-<<<<<<< HEAD
-
-        throw new \RuntimeException('Reached end of parser loop');
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function emitError(Error $error): void {
@@ -769,8 +743,6 @@ abstract class ParserAbstract implements Parser {
         return Double::KIND_DOUBLE;
     }
 
-<<<<<<< HEAD
-=======
     protected function getIntCastKind(string $cast): int {
         $cast = strtolower($cast);
         if (strpos($cast, 'integer') !== false) {
@@ -798,7 +770,6 @@ abstract class ParserAbstract implements Parser {
         return Expr\Cast\String_::KIND_STRING;
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /** @param array<string, mixed> $attributes */
     protected function parseLNumber(string $str, array $attributes, bool $allowInvalidOctal = false): Int_ {
         try {
@@ -1039,11 +1010,7 @@ abstract class ParserAbstract implements Parser {
     }
 
     protected function fixupArrayDestructuring(Array_ $node): Expr\List_ {
-<<<<<<< HEAD
-        $this->createdArrays->detach($node);
-=======
         $this->createdArrays->offsetUnset($node);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return new Expr\List_(array_map(function (Node\ArrayItem $item) {
             if ($item->value instanceof Expr\Error) {
                 // We used Error as a placeholder for empty elements, which are legal for destructuring.
@@ -1111,8 +1078,6 @@ abstract class ParserAbstract implements Parser {
                 $node->default->getAttributes()
             ));
         }
-<<<<<<< HEAD
-=======
 
         if ($node->type instanceof Identifier && $node->type->name === 'void') {
             $this->emitError(new Error(
@@ -1120,7 +1085,6 @@ abstract class ParserAbstract implements Parser {
                 $node->type->getAttributes()
             ));
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function checkTryCatch(TryCatch $node): void {
@@ -1216,41 +1180,12 @@ abstract class ParserAbstract implements Parser {
     }
 
     protected function checkClassConst(ClassConst $node, int $modifierPos): void {
-<<<<<<< HEAD
-        if ($node->flags & Modifiers::STATIC) {
-            $this->emitError(new Error(
-                "Cannot use 'static' as constant modifier",
-                $this->getAttributesAt($modifierPos)));
-        }
-        if ($node->flags & Modifiers::ABSTRACT) {
-            $this->emitError(new Error(
-                "Cannot use 'abstract' as constant modifier",
-                $this->getAttributesAt($modifierPos)));
-        }
-        if ($node->flags & Modifiers::READONLY) {
-            $this->emitError(new Error(
-                "Cannot use 'readonly' as constant modifier",
-                $this->getAttributesAt($modifierPos)));
-        }
-    }
-
-    protected function checkProperty(Property $node, int $modifierPos): void {
-        if ($node->flags & Modifiers::ABSTRACT) {
-            $this->emitError(new Error('Properties cannot be declared abstract',
-                $this->getAttributesAt($modifierPos)));
-        }
-
-        if ($node->flags & Modifiers::FINAL) {
-            $this->emitError(new Error('Properties cannot be declared final',
-                $this->getAttributesAt($modifierPos)));
-=======
         foreach ([Modifiers::STATIC, Modifiers::ABSTRACT, Modifiers::READONLY] as $modifier) {
             if ($node->flags & $modifier) {
                 $this->emitError(new Error(
                     "Cannot use '" . Modifiers::toString($modifier) . "' as constant modifier",
                     $this->getAttributesAt($modifierPos)));
             }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -1266,8 +1201,6 @@ abstract class ParserAbstract implements Parser {
         }
     }
 
-<<<<<<< HEAD
-=======
     protected function checkPropertyHooksForMultiProperty(Property $property, int $hookPos): void {
         if (count($property->props) > 1) {
             $this->emitError(new Error(
@@ -1339,7 +1272,7 @@ abstract class ParserAbstract implements Parser {
         }
     }
 
-    /** @param array<Node\Arg|Node\VariadicPlaceholder> $args */
+    /** @param array<Node\Arg|Node\VariadicPlaceholder|Node\ArgPlaceholder> $args */
     private function isSimpleExit(array $args): bool {
         if (\count($args) === 0) {
             return true;
@@ -1353,7 +1286,7 @@ abstract class ParserAbstract implements Parser {
     }
 
     /**
-     * @param array<Node\Arg|Node\VariadicPlaceholder> $args
+     * @param array<Node\Arg|Node\VariadicPlaceholder|Node\ArgPlaceholder> $args
      * @param array<string, mixed> $attrs
      */
     protected function createExitExpr(string $name, int $namePos, array $args, array $attrs): Expr {
@@ -1365,7 +1298,6 @@ abstract class ParserAbstract implements Parser {
         return new Expr\FuncCall(new Name($name, $this->getAttributesAt($namePos)), $args, $attrs);
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Creates the token map.
      *
@@ -1378,44 +1310,6 @@ abstract class ParserAbstract implements Parser {
     protected function createTokenMap(): array {
         $tokenMap = [];
 
-<<<<<<< HEAD
-        for ($i = 0; $i < 1000; ++$i) {
-            if ($i < 256) {
-                // Single-char tokens use an identity mapping.
-                $tokenMap[$i] = $i;
-            } elseif (\T_DOUBLE_COLON === $i) {
-                // T_DOUBLE_COLON is equivalent to T_PAAMAYIM_NEKUDOTAYIM
-                $tokenMap[$i] = static::T_PAAMAYIM_NEKUDOTAYIM;
-            } elseif (\T_OPEN_TAG_WITH_ECHO === $i) {
-                // T_OPEN_TAG_WITH_ECHO with dropped T_OPEN_TAG results in T_ECHO
-                $tokenMap[$i] = static::T_ECHO;
-            } elseif (\T_CLOSE_TAG === $i) {
-                // T_CLOSE_TAG is equivalent to ';'
-                $tokenMap[$i] = ord(';');
-            } elseif ('UNKNOWN' !== $name = token_name($i)) {
-                if (defined($name = static::class . '::' . $name)) {
-                    // Other tokens can be mapped directly
-                    $tokenMap[$i] = constant($name);
-                }
-            }
-        }
-
-        // Assign tokens for which we define compatibility constants, as token_name() does not know them.
-        $tokenMap[\T_FN] = static::T_FN;
-        $tokenMap[\T_COALESCE_EQUAL] = static::T_COALESCE_EQUAL;
-        $tokenMap[\T_NAME_QUALIFIED] = static::T_NAME_QUALIFIED;
-        $tokenMap[\T_NAME_FULLY_QUALIFIED] = static::T_NAME_FULLY_QUALIFIED;
-        $tokenMap[\T_NAME_RELATIVE] = static::T_NAME_RELATIVE;
-        $tokenMap[\T_MATCH] = static::T_MATCH;
-        $tokenMap[\T_NULLSAFE_OBJECT_OPERATOR] = static::T_NULLSAFE_OBJECT_OPERATOR;
-        $tokenMap[\T_ATTRIBUTE] = static::T_ATTRIBUTE;
-        $tokenMap[\T_AMPERSAND_NOT_FOLLOWED_BY_VAR_OR_VARARG] = static::T_AMPERSAND_NOT_FOLLOWED_BY_VAR_OR_VARARG;
-        $tokenMap[\T_AMPERSAND_FOLLOWED_BY_VAR_OR_VARARG] = static::T_AMPERSAND_FOLLOWED_BY_VAR_OR_VARARG;
-        $tokenMap[\T_ENUM] = static::T_ENUM;
-        $tokenMap[\T_READONLY] = static::T_READONLY;
-
-        // We have create a map from PHP token IDs to external symbol IDs.
-=======
         // Single-char tokens use an identity mapping.
         for ($i = 0; $i < 256; ++$i) {
             $tokenMap[$i] = $i;
@@ -1433,7 +1327,6 @@ abstract class ParserAbstract implements Parser {
         $tokenMap[\T_CLOSE_TAG] = ord(';');
 
         // We have created a map from PHP token IDs to external symbol IDs.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         // Now map them to the internal symbol ID.
         $fullTokenMap = [];
         foreach ($tokenMap as $phpToken => $extSymbol) {

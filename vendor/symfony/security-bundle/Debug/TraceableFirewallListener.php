@@ -67,11 +67,7 @@ final class TraceableFirewallListener extends FirewallListener implements ResetI
                             $listeners[] = $listener;
                             $wrappedLazyListeners[] = $listener;
                         } else {
-<<<<<<< HEAD
-                            $listeners[] = function (RequestEvent $event) use ($listener, &$wrappedListeners) {
-=======
                             $listeners[] = static function (RequestEvent $event) use ($listener, &$wrappedListeners) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                                 $wrappedListener = new WrappedListener($listener);
                                 $wrappedListener($event);
                                 $wrappedListeners[] = $wrappedListener->getInfo();

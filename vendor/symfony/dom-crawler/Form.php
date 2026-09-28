@@ -152,11 +152,7 @@ class Form extends Link implements \ArrayAccess
 
                 array_walk_recursive(
                     $expandedValue,
-<<<<<<< HEAD
-                    function (&$value, $key) {
-=======
                     static function (&$value, $key) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         if (ctype_digit($value) && ('size' === $key || 'error' === $key)) {
                             $value = (int) $value;
                         }
@@ -184,14 +180,8 @@ class Form extends Link implements \ArrayAccess
         $uri = parent::getUri();
 
         if (!\in_array($this->getMethod(), ['POST', 'PUT', 'DELETE', 'PATCH'])) {
-<<<<<<< HEAD
-            $query = parse_url($uri, \PHP_URL_QUERY);
-            $currentParameters = [];
-            if ($query) {
-=======
             $currentParameters = [];
             if ($query = parse_url($uri, \PHP_URL_QUERY)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 parse_str($query, $currentParameters);
             }
 
@@ -349,11 +339,7 @@ class Form extends Link implements \ArrayAccess
     public function disableValidation(): static
     {
         foreach ($this->fields->all() as $field) {
-<<<<<<< HEAD
-            if ($field instanceof Field\ChoiceFormField) {
-=======
             if ($field instanceof ChoiceFormField) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $field->disableValidation();
             }
         }
@@ -379,11 +365,7 @@ class Form extends Link implements \ArrayAccess
                 $formId = $node->getAttribute('form');
                 $form = $node->ownerDocument->getElementById($formId);
                 if (null === $form) {
-<<<<<<< HEAD
-                    throw new \LogicException(sprintf('The selected node has an invalid form attribute (%s).', $formId));
-=======
                     throw new \LogicException(\sprintf('The selected node has an invalid form attribute (%s).', $formId));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
                 $this->node = $form;
 
@@ -396,11 +378,7 @@ class Form extends Link implements \ArrayAccess
                 }
             } while ('form' !== $node->nodeName);
         } elseif ('form' !== $node->nodeName) {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('Unable to submit on a "%s" tag.', $node->nodeName));
-=======
             throw new \LogicException(\sprintf('Unable to submit on a "%s" tag.', $node->nodeName));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->node = $node;
@@ -445,11 +423,7 @@ class Form extends Link implements \ArrayAccess
             // corresponding elements are either descendants or have a matching HTML5 form attribute
             $formId = Crawler::xpathLiteral($this->node->getAttribute('id'));
 
-<<<<<<< HEAD
-            $fieldNodes = $xpath->query(sprintf('( descendant::input[@form=%s] | descendant::button[@form=%1$s] | descendant::textarea[@form=%1$s] | descendant::select[@form=%1$s] | //form[@id=%1$s]//input[not(@form)] | //form[@id=%1$s]//button[not(@form)] | //form[@id=%1$s]//textarea[not(@form)] | //form[@id=%1$s]//select[not(@form)] )[( not(ancestor::template) or ancestor::turbo-stream )]', $formId));
-=======
             $fieldNodes = $xpath->query(\sprintf('( descendant::input[@form=%s] | descendant::button[@form=%1$s] | descendant::textarea[@form=%1$s] | descendant::select[@form=%1$s] | //form[@id=%1$s]//input[not(@form)] | //form[@id=%1$s]//button[not(@form)] | //form[@id=%1$s]//textarea[not(@form)] | //form[@id=%1$s]//select[not(@form)] )[( not(ancestor::template) or ancestor::turbo-stream )]', $formId));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             foreach ($fieldNodes as $node) {
                 $this->addField($node);
             }
@@ -475,22 +449,14 @@ class Form extends Link implements \ArrayAccess
 
         $nodeName = $node->nodeName;
         if ('select' == $nodeName || 'input' == $nodeName && 'checkbox' == strtolower($node->getAttribute('type'))) {
-<<<<<<< HEAD
-            $this->set(new Field\ChoiceFormField($node));
-=======
             $this->set(new ChoiceFormField($node));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } elseif ('input' == $nodeName && 'radio' == strtolower($node->getAttribute('type'))) {
             // there may be other fields with the same name that are no choice
             // fields already registered (see https://github.com/symfony/symfony/issues/11689)
             if ($this->has($node->getAttribute('name')) && $this->get($node->getAttribute('name')) instanceof ChoiceFormField) {
                 $this->get($node->getAttribute('name'))->addChoice($node);
             } else {
-<<<<<<< HEAD
-                $this->set(new Field\ChoiceFormField($node));
-=======
                 $this->set(new ChoiceFormField($node));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         } elseif ('input' == $nodeName && 'file' == strtolower($node->getAttribute('type'))) {
             $this->set(new Field\FileFormField($node));

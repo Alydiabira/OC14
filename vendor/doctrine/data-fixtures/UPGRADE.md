@@ -6,8 +6,6 @@ awareness about deprecated code.
 - Use of our low-overhead runtime deprecation API, details:
   https://github.com/doctrine/deprecations/
 
-<<<<<<< HEAD
-=======
 # Upgrade to 2.0
 
 You need PHP 8.1 or newer to use this library.
@@ -55,7 +53,6 @@ The following classes are now final, each of them has an interface you can imple
 Executor and Purger classes are final, they cannot be extended.
 `AbstractExecutor` is internal. It cannot be extended or used as typehint.
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 # Upgrade to 1.6
 
 ## BC BREAK: `CircularReferenceException` no longer extends `Doctrine\Common\CommonException`

@@ -79,11 +79,7 @@ class Length extends Constraint
         ?string $charsetMessage = null,
         ?array $groups = null,
         mixed $payload = null,
-<<<<<<< HEAD
-        array $options = []
-=======
         array $options = [],
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ) {
         if (\is_array($exactly)) {
             $options = array_merge($exactly, $options);
@@ -112,17 +108,6 @@ class Length extends Constraint
         $this->charsetMessage = $charsetMessage ?? $this->charsetMessage;
 
         if (null === $this->min && null === $this->max) {
-<<<<<<< HEAD
-            throw new MissingOptionsException(sprintf('Either option "min" or "max" must be given for constraint "%s".', __CLASS__), ['min', 'max']);
-        }
-
-        if (null !== $this->normalizer && !\is_callable($this->normalizer)) {
-            throw new InvalidArgumentException(sprintf('The "normalizer" option must be a valid callable ("%s" given).', get_debug_type($this->normalizer)));
-        }
-
-        if (!\in_array($this->countUnit, self::VALID_COUNT_UNITS)) {
-            throw new InvalidArgumentException(sprintf('The "countUnit" option must be one of the "%s"::COUNT_* constants ("%s" given).', __CLASS__, $this->countUnit));
-=======
             throw new MissingOptionsException(\sprintf('Either option "min" or "max" must be given for constraint "%s".', __CLASS__), ['min', 'max']);
         }
 
@@ -132,7 +117,6 @@ class Length extends Constraint
 
         if (!\in_array($this->countUnit, self::VALID_COUNT_UNITS)) {
             throw new InvalidArgumentException(\sprintf('The "countUnit" option must be one of the "%s"::COUNT_* constants ("%s" given).', __CLASS__, $this->countUnit));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

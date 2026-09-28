@@ -21,19 +21,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Finder\Finder;
-<<<<<<< HEAD
-use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\UX\TwigComponent\Attribute\ExposeInTemplate;
 use Symfony\UX\TwigComponent\ComponentFactory;
 use Symfony\UX\TwigComponent\ComponentMetadata;
 use Symfony\UX\TwigComponent\Twig\PropsNode;
 use Twig\Environment;
-<<<<<<< HEAD
-=======
 use Twig\Loader\FilesystemLoader;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 #[AsCommand(name: 'debug:twig-component', description: 'Display components and them usages for an application')]
 class TwigComponentDebugCommand extends Command
@@ -59,18 +52,6 @@ class TwigComponentDebugCommand extends Command
             ])
             ->setHelp(
                 <<<'EOF'
-<<<<<<< HEAD
-The <info>%command.name%</info> display all the Twig components in your application.
-
-To list all components:
-
-    <info>php %command.full_name%</info>
-
-To get specific information about a component, specify its name (or a part of it):
-
-    <info>php %command.full_name% Alert</info>
-EOF
-=======
                     The <info>%command.name%</info> display all the Twig components in your application.
 
                     To list all components:
@@ -81,7 +62,6 @@ EOF
 
                         <info>php %command.full_name% Alert</info>
                     EOF
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
     }
 
@@ -93,11 +73,7 @@ EOF
         if (\is_string($name)) {
             $component = $this->findComponentName($io, $name, $input->isInteractive());
             if (null === $component) {
-<<<<<<< HEAD
-                $io->error(sprintf('Unknown component "%s".', $name));
-=======
                 $io->error(\sprintf('Unknown component "%s".', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 return Command::FAILURE;
             }
@@ -172,17 +148,6 @@ EOF
      */
     private function findAnonymousComponents(): array
     {
-<<<<<<< HEAD
-        $components = [];
-        $anonymousPath = $this->twigTemplatesPath.'/'.$this->anonymousDirectory;
-        $finderTemplates = new Finder();
-        $finderTemplates->files()->in($anonymousPath)->notPath('/_');
-        foreach ($finderTemplates as $template) {
-            $component = str_replace('/', ':', $template->getRelativePathname());
-            if (str_ends_with($component, '.html.twig')) {
-                $component = substr($component, 0, -10);
-            }
-=======
         $componentsDir = $this->twigTemplatesPath.'/'.$this->anonymousDirectory;
         $dirs = [$componentsDir => FilesystemLoader::MAIN_NAMESPACE];
         $twigLoader = $this->twig->getLoader();
@@ -228,7 +193,6 @@ EOF
                 $component = $dirs[$path].':'.$component;
             }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $components[$component] = $component;
         }
 
@@ -249,11 +213,7 @@ EOF
         ]);
 
         // Anonymous Component
-<<<<<<< HEAD
-        if (null === $metadata->get('class')) {
-=======
         if ($metadata->isAnonymous()) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $table->addRows([
                 ['Type', '<comment>Anonymous</comment>'],
                 new TableSeparator(),
@@ -268,29 +228,6 @@ EOF
             ['Type', $metadata->get('live') ? '<info>Live</info>' : ''],
             new TableSeparator(),
             // ['Attributes Var', $metadata->get('attributes_var')],
-<<<<<<< HEAD
-            ['Public Props', $metadata->get('expose_public_props') ? 'Yes' : 'No'],
-            ['Properties', implode("\n", $this->getComponentProperties($metadata))],
-        ]);
-
-        $logMethod = function (\ReflectionMethod $m) {
-            $params = array_map(
-                fn (\ReflectionParameter $p) => '$'.$p->getName(),
-                $m->getParameters(),
-            );
-
-            return sprintf('%s(%s)', $m->getName(), implode(', ', $params));
-        };
-        $hooks = [];
-        if ($method = AsTwigComponent::mountMethod($metadata->getClass())) {
-            $hooks[] = ['Mount', $logMethod($method)];
-        }
-        foreach (AsTwigComponent::preMountMethods($metadata->getClass()) as $method) {
-            $hooks[] = ['PreMount', $logMethod($method)];
-        }
-        foreach (AsTwigComponent::postMountMethods($metadata->getClass()) as $method) {
-            $hooks[] = ['PostMount', $logMethod($method)];
-=======
             ['Public Props', $metadata->isPublicPropsExposed() ? 'Yes' : 'No'],
             ['Properties', implode("\n", $this->getComponentProperties($metadata))],
         ]);
@@ -313,7 +250,6 @@ EOF
         }
         foreach ($metadata->getPostMounts() as $method) {
             $hooks[] = ['PostMount', $logMethod($reflector->getMethod($method))];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         if ($hooks) {
             $table->addRows([
@@ -362,11 +298,7 @@ EOF
                 } else {
                     $typeName = (string) $type;
                 }
-<<<<<<< HEAD
-                $value = $property->getDefaultValue();
-=======
                 $value = $property->hasDefaultValue() ? $property->getDefaultValue() : null;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $propertyDisplay = $typeName.' $'.$propertyName.(null !== $value ? ' = '.json_encode($value) : '');
                 $properties[$property->name] = $propertyDisplay;
             }

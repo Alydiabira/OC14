@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace Doctrine\Common\Collections;
 
 use Closure;
-<<<<<<< HEAD
-=======
 use Doctrine\Deprecations\Deprecation;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use LogicException;
 use ReturnTypeWillChange;
 use Traversable;
@@ -16,29 +13,17 @@ use Traversable;
 /**
  * Lazy collection that is backed by a concrete collection
  *
-<<<<<<< HEAD
- * @psalm-template TKey of array-key
- * @psalm-template T
- * @template-implements Collection<TKey,T>
- */
-abstract class AbstractLazyCollection implements Collection
-=======
  * @phpstan-template TKey of array-key
  * @phpstan-template T
  * @template-implements Collection<TKey,T>
  * @template-implements Selectable<TKey,T>
  */
 abstract class AbstractLazyCollection implements Collection, Selectable
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 {
     /**
      * The backed collection to use
      *
-<<<<<<< HEAD
-     * @psalm-var Collection<TKey,T>|null
-=======
      * @phpstan-var Collection<TKey,T>|null
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @var Collection<mixed>|null
      */
     protected Collection|null $collection;
@@ -322,11 +307,7 @@ abstract class AbstractLazyCollection implements Collection, Selectable
      * {@inheritDoc}
      *
      * @return Traversable<int|string, mixed>
-<<<<<<< HEAD
-     * @psalm-return Traversable<TKey,T>
-=======
      * @phpstan-return Traversable<TKey,T>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     #[ReturnTypeWillChange]
     public function getIterator()
@@ -398,11 +379,7 @@ abstract class AbstractLazyCollection implements Collection, Selectable
      *
      * @return bool
      *
-<<<<<<< HEAD
-     * @psalm-assert-if-true Collection<TKey,T> $this->collection
-=======
      * @phpstan-assert-if-true Collection<TKey,T> $this->collection
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function isInitialized()
     {
@@ -414,11 +391,7 @@ abstract class AbstractLazyCollection implements Collection, Selectable
      *
      * @return void
      *
-<<<<<<< HEAD
-     * @psalm-assert Collection<TKey,T> $this->collection
-=======
      * @phpstan-assert Collection<TKey,T> $this->collection
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function initialize()
     {
@@ -432,8 +405,6 @@ abstract class AbstractLazyCollection implements Collection, Selectable
         if ($this->collection === null) {
             throw new LogicException('You must initialize the collection property in the doInitialize() method.');
         }
-<<<<<<< HEAD
-=======
 
         if ($this->collection instanceof Selectable) {
             return;
@@ -446,7 +417,6 @@ abstract class AbstractLazyCollection implements Collection, Selectable
             self::class,
             Selectable::class,
         );
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -455,8 +425,6 @@ abstract class AbstractLazyCollection implements Collection, Selectable
      * @return void
      */
     abstract protected function doInitialize();
-<<<<<<< HEAD
-=======
 
     /**
      * {@inheritDoc}
@@ -471,5 +439,4 @@ abstract class AbstractLazyCollection implements Collection, Selectable
 
         return $this->collection->matching($criteria);
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

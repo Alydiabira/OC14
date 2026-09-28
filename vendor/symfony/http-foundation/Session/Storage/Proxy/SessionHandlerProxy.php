@@ -64,8 +64,6 @@ class SessionHandlerProxy extends AbstractProxy implements \SessionHandlerInterf
         return $this->handler->gc($maxlifetime);
     }
 
-<<<<<<< HEAD
-=======
     /**
      * @return string
      */
@@ -74,7 +72,6 @@ class SessionHandlerProxy extends AbstractProxy implements \SessionHandlerInterf
         return session_create_id() ?: throw new \RuntimeException('Unable to create a session ID.');
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function validateId(#[\SensitiveParameter] string $sessionId): bool
     {
         return !$this->handler instanceof \SessionUpdateTimestampHandlerInterface || $this->handler->validateId($sessionId);

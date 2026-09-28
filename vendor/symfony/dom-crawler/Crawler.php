@@ -124,11 +124,7 @@ class Crawler implements \Countable, \IteratorAggregate
         } elseif (\is_string($node)) {
             $this->addContent($node);
         } elseif (null !== $node) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('Expecting a DOMNodeList or DOMNode instance, an array, a string, or null, but got "%s".', get_debug_type($node)));
-=======
             throw new \InvalidArgumentException(\sprintf('Expecting a DOMNodeList or DOMNode instance, an array, a string, or null, but got "%s".', get_debug_type($node)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -156,11 +152,7 @@ class Crawler implements \Countable, \IteratorAggregate
 
         // http://www.w3.org/TR/encoding/#encodings
         // http://www.w3.org/TR/REC-xml/#NT-EncName
-<<<<<<< HEAD
-        $content = preg_replace_callback('/(charset *= *["\']?)([a-zA-Z\-0-9_:.]+)/i', function ($m) use (&$charset) {
-=======
         $content = preg_replace_callback('/(<meta[^>]+charset *= *["\']?)([a-zA-Z\-0-9_:.]+)/i', function ($m) use (&$charset) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if ('charset=' === $this->convertToHtmlEntities('charset=', $m[2])) {
                 $charset = $m[2];
             }
@@ -233,10 +225,6 @@ class Crawler implements \Countable, \IteratorAggregate
         $internalErrors = libxml_use_internal_errors(true);
 
         $dom = new \DOMDocument('1.0', $charset);
-<<<<<<< HEAD
-        $dom->validateOnParse = true;
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ('' !== trim($content)) {
             @$dom->loadXML($content, $options);
@@ -421,12 +409,6 @@ class Crawler implements \Countable, \IteratorAggregate
             return false;
         }
 
-<<<<<<< HEAD
-        $converter = $this->createCssSelectorConverter();
-        $xpath = $converter->toXPath($selector, 'self::');
-
-        return 0 !== $this->filterRelativeXPath($xpath)->count();
-=======
         $node = $this->getNode(0);
 
         foreach ($this->matchingNodes($selector, $this->rootNode($node)) as $candidate) {
@@ -436,7 +418,6 @@ class Crawler implements \Countable, \IteratorAggregate
         }
 
         return false;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -453,16 +434,6 @@ class Crawler implements \Countable, \IteratorAggregate
         }
 
         $domNode = $this->getNode(0);
-<<<<<<< HEAD
-
-        while (\XML_ELEMENT_NODE === $domNode->nodeType) {
-            $node = $this->createSubCrawler($domNode);
-            if ($node->matches($selector)) {
-                return $node;
-            }
-
-            $domNode = $node->getNode(0)->parentNode;
-=======
         $matching = $this->matchingNodes($selector, $this->rootNode($domNode));
 
         while (null !== $domNode && \XML_ELEMENT_NODE === $domNode->nodeType) {
@@ -473,7 +444,6 @@ class Crawler implements \Countable, \IteratorAggregate
             }
 
             $domNode = $domNode->parentNode;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return null;
@@ -543,12 +513,6 @@ class Crawler implements \Countable, \IteratorAggregate
         }
 
         if (null !== $selector) {
-<<<<<<< HEAD
-            $converter = $this->createCssSelectorConverter();
-            $xpath = $converter->toXPath($selector, 'child::');
-
-            return $this->filterRelativeXPath($xpath);
-=======
             $parents = [];
             $roots = [];
             foreach ($this->nodes as $node) {
@@ -567,7 +531,6 @@ class Crawler implements \Countable, \IteratorAggregate
             }
 
             return $crawler;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $node = $this->getNode(0)->firstChild;
@@ -812,11 +775,7 @@ class Crawler implements \Countable, \IteratorAggregate
     public function selectLink(string $value): static
     {
         return $this->filterRelativeXPath(
-<<<<<<< HEAD
-            sprintf('descendant-or-self::a[contains(concat(\' \', normalize-space(string(.)), \' \'), %1$s) or ./img[contains(concat(\' \', normalize-space(string(@alt)), \' \'), %1$s)]]', static::xpathLiteral(' '.$value.' '))
-=======
             \sprintf('descendant-or-self::a[contains(concat(\' \', normalize-space(string(.)), \' \'), %1$s) or ./img[contains(concat(\' \', normalize-space(string(@alt)), \' \'), %1$s)]]', static::xpathLiteral(' '.$value.' '))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         );
     }
 
@@ -825,30 +784,18 @@ class Crawler implements \Countable, \IteratorAggregate
      */
     public function selectImage(string $value): static
     {
-<<<<<<< HEAD
-        $xpath = sprintf('descendant-or-self::img[contains(normalize-space(string(@alt)), %s)]', static::xpathLiteral($value));
-=======
         $xpath = \sprintf('descendant-or-self::img[contains(normalize-space(string(@alt)), %s)]', static::xpathLiteral($value));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this->filterRelativeXPath($xpath);
     }
 
     /**
-<<<<<<< HEAD
-     * Selects a button by name or alt value for images.
-=======
      * Selects a button by its text content, id, value, name or alt attribute.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function selectButton(string $value): static
     {
         return $this->filterRelativeXPath(
-<<<<<<< HEAD
-            sprintf('descendant-or-self::input[((contains(%1$s, "submit") or contains(%1$s, "button")) and contains(concat(\' \', normalize-space(string(@value)), \' \'), %2$s)) or (contains(%1$s, "image") and contains(concat(\' \', normalize-space(string(@alt)), \' \'), %2$s)) or @id=%3$s or @name=%3$s] | descendant-or-self::button[contains(concat(\' \', normalize-space(string(.)), \' \'), %2$s) or @id=%3$s or @name=%3$s]', 'translate(@type, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")', static::xpathLiteral(' '.$value.' '), static::xpathLiteral($value))
-=======
             \sprintf('descendant-or-self::input[((contains(%1$s, "submit") or contains(%1$s, "button")) and contains(concat(\' \', normalize-space(string(@value)), \' \'), %2$s)) or (contains(%1$s, "image") and contains(concat(\' \', normalize-space(string(@alt)), \' \'), %2$s)) or @id=%3$s or @name=%3$s] | descendant-or-self::button[contains(concat(\' \', normalize-space(string(.)), \' \'), %2$s) or contains(concat(\' \', normalize-space(string(@value)), \' \'), %2$s) or @id=%3$s or @name=%3$s]', 'translate(@type, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")', static::xpathLiteral(' '.$value.' '), static::xpathLiteral($value))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         );
     }
 
@@ -866,11 +813,7 @@ class Crawler implements \Countable, \IteratorAggregate
         $node = $this->getNode(0);
 
         if (!$node instanceof \DOMElement) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('The selected node should be instance of DOMElement, got "%s".', get_debug_type($node)));
-=======
             throw new \InvalidArgumentException(\sprintf('The selected node should be instance of DOMElement, got "%s".', get_debug_type($node)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return new Link($node, $this->baseHref, $method);
@@ -888,11 +831,7 @@ class Crawler implements \Countable, \IteratorAggregate
         $links = [];
         foreach ($this->nodes as $node) {
             if (!$node instanceof \DOMElement) {
-<<<<<<< HEAD
-                throw new \InvalidArgumentException(sprintf('The current node list should contain only DOMElement instances, "%s" found.', get_debug_type($node)));
-=======
                 throw new \InvalidArgumentException(\sprintf('The current node list should contain only DOMElement instances, "%s" found.', get_debug_type($node)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $links[] = new Link($node, $this->baseHref, 'get');
@@ -915,11 +854,7 @@ class Crawler implements \Countable, \IteratorAggregate
         $node = $this->getNode(0);
 
         if (!$node instanceof \DOMElement) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('The selected node should be instance of DOMElement, got "%s".', get_debug_type($node)));
-=======
             throw new \InvalidArgumentException(\sprintf('The selected node should be instance of DOMElement, got "%s".', get_debug_type($node)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return new Image($node, $this->baseHref);
@@ -935,11 +870,7 @@ class Crawler implements \Countable, \IteratorAggregate
         $images = [];
         foreach ($this as $node) {
             if (!$node instanceof \DOMElement) {
-<<<<<<< HEAD
-                throw new \InvalidArgumentException(sprintf('The current node list should contain only DOMElement instances, "%s" found.', get_debug_type($node)));
-=======
                 throw new \InvalidArgumentException(\sprintf('The current node list should contain only DOMElement instances, "%s" found.', get_debug_type($node)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $images[] = new Image($node, $this->baseHref);
@@ -962,11 +893,7 @@ class Crawler implements \Countable, \IteratorAggregate
         $node = $this->getNode(0);
 
         if (!$node instanceof \DOMElement) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('The selected node should be instance of DOMElement, got "%s".', get_debug_type($node)));
-=======
             throw new \InvalidArgumentException(\sprintf('The selected node should be instance of DOMElement, got "%s".', get_debug_type($node)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $form = new Form($node, $this->uri, $method, $this->baseHref);
@@ -1015,30 +942,18 @@ class Crawler implements \Countable, \IteratorAggregate
     public static function xpathLiteral(string $s): string
     {
         if (!str_contains($s, "'")) {
-<<<<<<< HEAD
-            return sprintf("'%s'", $s);
-        }
-
-        if (!str_contains($s, '"')) {
-            return sprintf('"%s"', $s);
-=======
             return \sprintf("'%s'", $s);
         }
 
         if (!str_contains($s, '"')) {
             return \sprintf('"%s"', $s);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $string = $s;
         $parts = [];
         while (true) {
             if (false !== $pos = strpos($string, "'")) {
-<<<<<<< HEAD
-                $parts[] = sprintf("'%s'", substr($string, 0, $pos));
-=======
                 $parts[] = \sprintf("'%s'", substr($string, 0, $pos));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $parts[] = "\"'\"";
                 $string = substr($string, $pos + 1);
             } else {
@@ -1047,11 +962,7 @@ class Crawler implements \Countable, \IteratorAggregate
             }
         }
 
-<<<<<<< HEAD
-        return sprintf('concat(%s)', implode(', ', $parts));
-=======
         return \sprintf('concat(%s)', implode(', ', $parts));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -1291,11 +1202,7 @@ class Crawler implements \Countable, \IteratorAggregate
         }
 
         // ask for one namespace, otherwise we'd get a collection with an item for each node
-<<<<<<< HEAD
-        $namespaces = $domxpath->query(sprintf('(//namespace::*[name()="%s"])[last()]', $this->defaultNamespacePrefix === $prefix ? '' : $prefix));
-=======
         $namespaces = $domxpath->query(\sprintf('(//namespace::*[name()="%s"])[last()]', $this->defaultNamespacePrefix === $prefix ? '' : $prefix));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this->cachedNamespaces[$prefix] = ($node = $namespaces->item(0)) ? $node->nodeValue : null;
     }
@@ -1339,8 +1246,6 @@ class Crawler implements \Countable, \IteratorAggregate
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Returns every node matching the selector in the tree the given node belongs to.
      *
      * The whole tree is searched because a selector can constrain the ancestors or
@@ -1375,7 +1280,6 @@ class Crawler implements \Countable, \IteratorAggregate
     }
 
     /**
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Parse string into DOMDocument object using HTML5 parser if the content is HTML5 and the library is available.
      * Use libxml parser otherwise.
      */

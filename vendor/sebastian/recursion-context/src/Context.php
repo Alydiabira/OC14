@@ -158,19 +158,11 @@ final class Context
      */
     private function addObject($object): string
     {
-<<<<<<< HEAD
-        if (!$this->objects->contains($object)) {
-            $this->objects->attach($object);
-        }
-
-        return spl_object_hash($object);
-=======
         if (!$this->objects->offsetExists($object)) {
             $this->objects->offsetSet($object);
         }
 
         return @spl_object_hash($object);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -190,13 +182,8 @@ final class Context
      */
     private function containsObject($value)
     {
-<<<<<<< HEAD
-        if ($this->objects->contains($value)) {
-            return spl_object_hash($value);
-=======
         if ($this->objects->offsetExists($value)) {
             return @spl_object_hash($value);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return false;

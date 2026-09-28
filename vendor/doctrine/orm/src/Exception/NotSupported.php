@@ -8,10 +8,7 @@ use LogicException;
 
 use function sprintf;
 
-<<<<<<< HEAD
-=======
 /** @deprecated */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 final class NotSupported extends LogicException implements ORMException
 {
     public static function create(): self

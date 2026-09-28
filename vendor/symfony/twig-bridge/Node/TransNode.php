@@ -11,20 +11,14 @@
 
 namespace Symfony\Bridge\Twig\Node;
 
-<<<<<<< HEAD
-=======
 use Twig\Attribute\FirstClassTwigCallableReady;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Twig\Attribute\YieldReady;
 use Twig\Compiler;
 use Twig\Node\Expression\AbstractExpression;
 use Twig\Node\Expression\ArrayExpression;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\NameExpression;
-<<<<<<< HEAD
-=======
 use Twig\Node\Expression\Variable\ContextVariable;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Twig\Node\Node;
 use Twig\Node\TextNode;
 
@@ -50,15 +44,11 @@ final class TransNode extends Node
             $nodes['locale'] = $locale;
         }
 
-<<<<<<< HEAD
-        parent::__construct($nodes, [], $lineno, $tag);
-=======
         if (class_exists(FirstClassTwigCallableReady::class)) {
             parent::__construct($nodes, [], $lineno);
         } else {
             parent::__construct($nodes, [], $lineno, $tag);
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function compile(Compiler $compiler): void
@@ -137,11 +127,7 @@ final class TransNode extends Node
                 if ('count' === $var && $this->hasNode('count')) {
                     $vars->addElement($this->getNode('count'), $key);
                 } else {
-<<<<<<< HEAD
-                    $varExpr = new NameExpression($var, $body->getTemplateLine());
-=======
                     $varExpr = class_exists(ContextVariable::class) ? new ContextVariable($var, $body->getTemplateLine()) : new NameExpression($var, $body->getTemplateLine());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $varExpr->setAttribute('ignore_strict_check', $ignoreStrictCheck);
                     $vars->addElement($varExpr, $key);
                 }

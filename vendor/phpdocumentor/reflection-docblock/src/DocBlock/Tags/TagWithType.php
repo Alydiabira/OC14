@@ -71,8 +71,6 @@ abstract class TagWithType extends BaseTag
 
         return [$type, $description];
     }
-<<<<<<< HEAD
-=======
 
     public function __toString(): string
     {
@@ -86,5 +84,4 @@ abstract class TagWithType extends BaseTag
 
         return $type . ($description !== '' ? ($type !== '' ? ' ' : '') . $description : '');
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

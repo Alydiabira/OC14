@@ -31,13 +31,9 @@ abstract class TypeTestCase extends FormIntegrationTestCase
     {
         parent::setUp();
 
-<<<<<<< HEAD
-        $this->dispatcher = $this->createMock(EventDispatcherInterface::class);
-=======
         if (!isset($this->dispatcher)) {
             $this->dispatcher = $this->createMock(EventDispatcherInterface::class);
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->builder = new FormBuilder('', null, $this->dispatcher, $this->factory);
     }
 

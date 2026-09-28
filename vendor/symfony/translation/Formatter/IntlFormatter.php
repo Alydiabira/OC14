@@ -37,11 +37,7 @@ class IntlFormatter implements IntlFormatterInterface
             try {
                 $this->cache[$locale][$message] = $formatter = new \MessageFormatter($locale, $message);
             } catch (\IntlException $e) {
-<<<<<<< HEAD
-                throw new InvalidArgumentException(sprintf('Invalid message format (error #%d): ', intl_get_error_code()).intl_get_error_message(), 0, $e);
-=======
                 throw new InvalidArgumentException(\sprintf('Invalid message format (error #%d): ', intl_get_error_code()).intl_get_error_message(), 0, $e);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -53,11 +49,7 @@ class IntlFormatter implements IntlFormatterInterface
         }
 
         if (false === $message = $formatter->format($parameters)) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('Unable to format message (error #%s): ', $formatter->getErrorCode()).$formatter->getErrorMessage());
-=======
             throw new InvalidArgumentException(\sprintf('Unable to format message (error #%s): ', $formatter->getErrorCode()).$formatter->getErrorMessage());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $message;

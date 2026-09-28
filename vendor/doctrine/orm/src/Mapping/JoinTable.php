@@ -25,11 +25,8 @@ final class JoinTable implements MappingAttribute
         public readonly string|null $schema = null,
         array|JoinColumn $joinColumns = [],
         array|JoinColumn $inverseJoinColumns = [],
-<<<<<<< HEAD
-=======
         public readonly string|null $foreignKeyName = null,
         public readonly string|null $inverseForeignKeyName = null,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         public readonly array $options = [],
     ) {
         $this->joinColumns        = $joinColumns instanceof JoinColumn ? [$joinColumns] : $joinColumns;

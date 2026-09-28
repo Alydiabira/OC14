@@ -52,11 +52,7 @@ interface QuoteStrategy
     /**
      * Gets the (possibly quoted) identifier column names for safe use in an SQL statement.
      *
-<<<<<<< HEAD
-     * @psalm-return list<string>
-=======
      * @phpstan-return list<string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getIdentifierColumnNames(ClassMetadata $class, AbstractPlatform $platform): array;
 

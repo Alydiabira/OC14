@@ -30,11 +30,8 @@ class PoFileDumper extends FileDumper
         $output .= "\n";
 
         $newLine = false;
-<<<<<<< HEAD
-=======
         $isIntlDomain = str_ends_with($domain, MessageCatalogue::INTL_DOMAIN_SUFFIX);
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         foreach ($messages->all($domain) as $source => $target) {
             if ($newLine) {
                 $output .= "\n";
@@ -53,19 +50,6 @@ class PoFileDumper extends FileDumper
                 $output .= $this->formatComments(implode(' ', (array) $metadata['sources']), ':');
             }
 
-<<<<<<< HEAD
-            $sourceRules = $this->getStandardRules($source);
-            $targetRules = $this->getStandardRules($target);
-            if (2 == \count($sourceRules) && [] !== $targetRules) {
-                $output .= sprintf('msgid "%s"'."\n", $this->escape($sourceRules[0]));
-                $output .= sprintf('msgid_plural "%s"'."\n", $this->escape($sourceRules[1]));
-                foreach ($targetRules as $i => $targetRule) {
-                    $output .= sprintf('msgstr[%d] "%s"'."\n", $i, $this->escape($targetRule));
-                }
-            } else {
-                $output .= sprintf('msgid "%s"'."\n", $this->escape($source));
-                $output .= sprintf('msgstr "%s"'."\n", $this->escape($target));
-=======
             // in an ICU domain the pipe is an ordinary character, pluralization is expressed by the message itself
             $sourceRules = $isIntlDomain ? [] : $this->getStandardRules($source);
             $targetRules = $isIntlDomain ? [] : $this->getStandardRules($target);
@@ -78,7 +62,6 @@ class PoFileDumper extends FileDumper
             } else {
                 $output .= \sprintf('msgid "%s"'."\n", $this->escape($source));
                 $output .= \sprintf('msgstr "%s"'."\n", $this->escape($target));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -96,24 +79,6 @@ class PoFileDumper extends FileDumper
         }
 
         $intervalRegexp = <<<'EOF'
-<<<<<<< HEAD
-/^(?P<interval>
-    ({\s*
-        (\-?\d+(\.\d+)?[\s*,\s*\-?\d+(\.\d+)?]*)
-    \s*})
-
-        |
-
-    (?P<left_delimiter>[\[\]])
-        \s*
-        (?P<left>-Inf|\-?\d+(\.\d+)?)
-        \s*,\s*
-        (?P<right>\+?Inf|\-?\d+(\.\d+)?)
-        \s*
-    (?P<right_delimiter>[\[\]])
-)\s*(?P<message>.*?)$/xs
-EOF;
-=======
             /^(?P<interval>
                 ({\s*
                     (\-?\d+(\.\d+)?[\s*,\s*\-?\d+(\.\d+)?]*)
@@ -130,7 +95,6 @@ EOF;
                 (?P<right_delimiter>[\[\]])
             )\s*(?P<message>.*?)$/xs
             EOF;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $standardRules = [];
         foreach ($parts as $part) {
@@ -139,14 +103,8 @@ EOF;
             if (preg_match($intervalRegexp, $part)) {
                 // Explicit rule is not a standard rule.
                 return [];
-<<<<<<< HEAD
-            } else {
-                $standardRules[] = $part;
-            }
-=======
             }
             $standardRules[] = $part;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $standardRules;
@@ -167,11 +125,7 @@ EOF;
         $output = null;
 
         foreach ((array) $comments as $comment) {
-<<<<<<< HEAD
-            $output .= sprintf('#%s %s'."\n", $prefix, $comment);
-=======
             $output .= \sprintf('#%s %s'."\n", $prefix, $comment);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $output;

@@ -37,21 +37,13 @@ class EarlyExpirationDispatcher
     /**
      * @return mixed
      */
-<<<<<<< HEAD
-    public function __invoke(callable $callback, CacheItem $item, bool &$save, AdapterInterface $pool, \Closure $setMetadata, ?LoggerInterface $logger = null)
-=======
     public function __invoke(callable $callback, CacheItem $item, bool &$save, AdapterInterface $pool, \Closure $setMetadata, ?LoggerInterface $logger = null, ?float $beta = null)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if (!$item->isHit() || null === $message = EarlyExpirationMessage::create($this->reverseContainer, $callback, $item, $pool)) {
             // The item is stale or the callback cannot be reversed: we must compute the value now
             $logger?->info('Computing item "{key}" online: '.($item->isHit() ? 'callback cannot be reversed' : 'item is stale'), ['key' => $item->getKey()]);
 
-<<<<<<< HEAD
-            return null !== $this->callbackWrapper ? ($this->callbackWrapper)($callback, $item, $save, $pool, $setMetadata, $logger) : $callback($item, $save);
-=======
             return null !== $this->callbackWrapper ? ($this->callbackWrapper)($callback, $item, $save, $pool, $setMetadata, $logger, $beta) : $callback($item, $save);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $envelope = $this->bus->dispatch($message);

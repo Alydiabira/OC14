@@ -65,22 +65,14 @@ final class LockRegistry
     /**
      * Defines a set of existing files that will be used as keys to acquire locks.
      *
-<<<<<<< HEAD
-     * @return array The previously defined set of files
-=======
      * @param list<string> $files A list of existing files
      *
      * @return list<string> The previously defined set of files
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public static function setFiles(array $files): array
     {
         $previousFiles = self::$files;
-<<<<<<< HEAD
-        self::$files = $files;
-=======
         self::$files = array_values($files);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         foreach (self::$openedFiles as $file) {
             if ($file) {
@@ -93,11 +85,7 @@ final class LockRegistry
         return $previousFiles;
     }
 
-<<<<<<< HEAD
-    public static function compute(callable $callback, ItemInterface $item, bool &$save, CacheInterface $pool, ?\Closure $setMetadata = null, ?LoggerInterface $logger = null): mixed
-=======
     public static function compute(callable $callback, ItemInterface $item, bool &$save, CacheInterface $pool, ?\Closure $setMetadata = null, ?LoggerInterface $logger = null, ?float $beta = null): mixed
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if ('\\' === \DIRECTORY_SEPARATOR && null === self::$lockedFiles) {
             // disable locking on Windows by default
@@ -106,17 +94,12 @@ final class LockRegistry
 
         $key = self::$files ? abs(crc32($item->getKey())) % \count(self::$files) : -1;
 
-        if ($key < 0 || self::$lockedFiles || !$lock = self::open($key)) {
+        if ($key < 0 || self::$lockedFiles || !$lock = self::open($file = self::$files[$key])) {
             return $callback($item, $save);
         }
 
-<<<<<<< HEAD
-        self::$signalingException ??= unserialize("O:9:\"Exception\":1:{s:16:\"\0Exception\0trace\";a:0:{}}");
-        self::$signalingCallback ??= fn () => throw self::$signalingException;
-=======
         self::$signalingException ??= unserialize("O:9:\"Exception\":1:{s:16:\"\0Exception\0trace\";a:0:{}}", ['allowed_classes' => [\Exception::class]]);
         self::$signalingCallback ??= static fn () => throw self::$signalingException;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         while (true) {
             try {
@@ -124,12 +107,8 @@ final class LockRegistry
                 $locked = flock($lock, \LOCK_EX | \LOCK_NB, $wouldBlock);
 
                 if ($locked || !$wouldBlock) {
-<<<<<<< HEAD
-                    $logger?->info(sprintf('Lock %s, now computing item "{key}"', $locked ? 'acquired' : 'not supported'), ['key' => $item->getKey()]);
-=======
                     $logger?->info(\sprintf('Lock %s, now computing item "{key}"', $locked ? 'acquired' : 'not supported'), ['key' => $item->getKey()]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
-                    self::$lockedFiles[$key] = true;
+                    self::$lockedFiles[$file] = true;
 
                     $value = $callback($item, $save);
 
@@ -146,11 +125,6 @@ final class LockRegistry
                 }
                 // if we failed the race, retry locking in blocking mode to wait for the winner
                 $logger?->info('Item "{key}" is locked, waiting for it to be released', ['key' => $item->getKey()]);
-<<<<<<< HEAD
-                flock($lock, \LOCK_SH);
-            } finally {
-                flock($lock, \LOCK_UN);
-=======
 
                 $deadline = microtime(true) + 30.0;
 
@@ -174,8 +148,12 @@ final class LockRegistry
 
                 if (!$acquired) {
                     $logger?->warning('Lock on item "{key}" timed out, evicting slot', ['key' => $item->getKey()]);
-                    unset(self::$files[$key]);
-                    self::setFiles(self::$files);
+
+                    // don't close the handle: a parent call to compute() might still use it
+                    if (false !== $key = array_search($file, self::$files, true)) {
+                        unset(self::$files[$key]);
+                        self::$files = array_values(self::$files);
+                    }
                     $lock = null;
 
                     return self::compute($callback, $item, $save, $pool, $setMetadata, $logger, $beta);
@@ -189,8 +167,7 @@ final class LockRegistry
                 if ($lock) {
                     flock($lock, \LOCK_UN);
                 }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
-                unset(self::$lockedFiles[$key]);
+                unset(self::$lockedFiles[$file]);
             }
 
             try {
@@ -213,18 +190,18 @@ final class LockRegistry
     /**
      * @return resource|false
      */
-    private static function open(int $key)
+    private static function open(string $file)
     {
-        if (null !== $h = self::$openedFiles[$key] ?? null) {
+        if (null !== $h = self::$openedFiles[$file] ?? null) {
             return $h;
         }
         set_error_handler(static fn () => null);
         try {
-            $h = fopen(self::$files[$key], 'r+');
+            $h = fopen($file, 'r+');
         } finally {
             restore_error_handler();
         }
 
-        return self::$openedFiles[$key] = $h ?: @fopen(self::$files[$key], 'r');
+        return self::$openedFiles[$file] = $h ?: @fopen($file, 'r');
     }
 }

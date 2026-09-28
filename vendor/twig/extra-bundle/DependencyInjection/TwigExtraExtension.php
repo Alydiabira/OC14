@@ -18,8 +18,6 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Twig\Extra\TwigExtraBundle\Extensions;
 
-<<<<<<< HEAD
-=======
 if (!method_exists(ContainerBuilder::class, 'getAutoconfiguredAttributes')) {
     /** @internal */
     trait TwigExtraExtensionTrait
@@ -41,20 +39,14 @@ if (!method_exists(ContainerBuilder::class, 'getAutoconfiguredAttributes')) {
     }
 }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  */
 class TwigExtraExtension extends Extension
 {
-<<<<<<< HEAD
-    /** @return void */
-    public function load(array $configs, ContainerBuilder $container)
-=======
     use TwigExtraExtensionTrait;
 
     private function doLoad(array $configs, ContainerBuilder $container): void
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $loader = new PhpFileLoader($container, new FileLocator(\dirname(__DIR__).'/Resources/config'));
         $configuration = $this->getConfiguration($configs, $container);
@@ -70,15 +62,12 @@ class TwigExtraExtension extends Extension
 
                 if ('markdown' === $extension && class_exists(CommonMarkConverter::class)) {
                     $loader->load('markdown_league.php');
-<<<<<<< HEAD
-=======
 
                     if ($container->hasDefinition('twig.markdown.league_common_mark_converter_factory')) {
                         $container
                             ->getDefinition('twig.markdown.league_common_mark_converter_factory')
                             ->setArgument('$config', $config['commonmark'] ?? []);
                     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
         }

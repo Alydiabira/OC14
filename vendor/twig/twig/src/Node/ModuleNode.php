@@ -21,34 +21,28 @@ use Twig\Source;
 /**
  * Represents a module node.
  *
-<<<<<<< HEAD
- * Consider this class as being final. If you need to customize the behavior of
- * the generated class, consider adding nodes to the following nodes: display_start,
- * display_end, constructor_start, constructor_end, and class_end.
-=======
  * If you need to customize the behavior of the generated class, add nodes to
  * the following nodes: display_start, display_end, constructor_start,
  * constructor_end, and class_end.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
 #[YieldReady]
-<<<<<<< HEAD
-final class ModuleNode extends Node
-{
-    public function __construct(Node $body, ?AbstractExpression $parent, Node $blocks, Node $macros, Node $traits, $embeddedTemplates, Source $source)
-    {
-=======
 final class ModuleNode extends Node implements CoercesChildrenToStringInterface
 {
     /**
-     * @param BodyNode $body
+     * @param BodyNode   $body
+     * @param MacrosNode $macros
      */
     public function __construct(Node $body, ?AbstractExpression $parent, Node $blocks, Node $macros, Node $traits, $embeddedTemplates, Source $source)
     {
         if (!$body instanceof BodyNode) {
             trigger_deprecation('twig/twig', '3.12', \sprintf('Not passing a "%s" instance as the "body" argument of the "%s" constructor is deprecated.', BodyNode::class, static::class));
+        }
+        if (!$macros instanceof MacrosNode) {
+            trigger_deprecation('twig/twig', '3.29', \sprintf('Not passing a "%s" instance as the "macros" argument of the "%s" constructor is deprecated.', MacrosNode::class, static::class));
+
+            $macros = new MacrosNode(iterator_to_array($macros));
         }
         if (!$embeddedTemplates instanceof Node) {
             trigger_deprecation('twig/twig', '3.21', \sprintf('Not passing a "%s" instance as the "embedded_templates" argument of the "%s" constructor is deprecated.', Node::class, static::class));
@@ -60,25 +54,16 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
             }
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $nodes = [
             'body' => $body,
             'blocks' => $blocks,
             'macros' => $macros,
             'traits' => $traits,
-<<<<<<< HEAD
-            'display_start' => new Node(),
-            'display_end' => new Node(),
-            'constructor_start' => new Node(),
-            'constructor_end' => new Node(),
-            'class_end' => new Node(),
-=======
             'display_start' => new Nodes(),
             'display_end' => new Nodes(),
             'constructor_start' => new Nodes(),
             'constructor_end' => new Nodes(),
             'class_end' => new Nodes(),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ];
         if (null !== $parent) {
             $nodes['parent'] = $parent;
@@ -88,19 +73,15 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
         parent::__construct($nodes, [
             'index' => null,
             'embedded_templates' => $embeddedTemplates,
+            'strategy' => false,
+            'escaper' => false,
         ], 1);
 
         // populate the template name of all node children
         $this->setSourceContext($source);
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * @return void
-     */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
-    public function setIndex($index)
+    public function setIndex($index): void
     {
         $this->setAttribute('index', $index);
     }
@@ -114,19 +95,13 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
         }
     }
 
-<<<<<<< HEAD
-=======
     public function getStringCoercedChildNames(): array
     {
         // the parent expression is resolved through the loader, which coerces it to a string
         return $this->hasNode('parent') ? ['parent'] : [];
     }
 
-    /**
-     * @return void
-     */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
-    protected function compileTemplate(Compiler $compiler)
+    protected function compileTemplate(Compiler $compiler): void
     {
         if (!$this->getAttribute('index')) {
             $compiler->write('<?php');
@@ -148,6 +123,8 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
 
         $this->compileIsTraitable($compiler);
 
+        $this->compileGetDefaultEscapeStrategy($compiler);
+
         $this->compileDebugInfo($compiler);
 
         $this->compileGetSourceContext($compiler);
@@ -155,13 +132,7 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
         $this->compileClassFooter($compiler);
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * @return void
-     */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
-    protected function compileGetParent(Compiler $compiler)
+    protected function compileGetParent(Compiler $compiler): void
     {
         if (!$this->hasNode('parent')) {
             return;
@@ -169,35 +140,24 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
         $parent = $this->getNode('parent');
 
         $compiler
-<<<<<<< HEAD
-            ->write("protected function doGetParent(array \$context)\n", "{\n")
-=======
             ->write("protected function doGetParent(array \$context): bool|string|Template|TemplateWrapper\n", "{\n")
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->indent()
             ->addDebugInfo($parent)
             ->write('return ')
         ;
 
         if ($parent instanceof ConstantExpression) {
-            $compiler->subcompile($parent);
-        } else {
-            $compiler
-<<<<<<< HEAD
-                ->raw('$this->loadTemplate(')
-                ->subcompile($parent)
-                ->raw(', ')
-                ->repr($this->getSourceContext()->getName())
-                ->raw(', ')
-=======
-                ->raw('$this->load(')
-                ->subcompile($parent)
-                ->raw(', ')
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
-                ->repr($parent->getTemplateLine())
-                ->raw(')')
-            ;
+            // a constant parent never depends on the context, so resolve it once
+            $compiler->raw('$this->parent ??= ');
         }
+
+        $compiler
+            ->raw('$this->load(')
+            ->subcompile($parent)
+            ->raw(', ')
+            ->repr($parent->getTemplateLine())
+            ->raw(')')
+        ;
 
         $compiler
             ->raw(";\n")
@@ -206,13 +166,7 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
         ;
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * @return void
-     */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
-    protected function compileClassHeader(Compiler $compiler)
+    protected function compileClassHeader(Compiler $compiler): void
     {
         $compiler
             ->write("\n\n")
@@ -224,21 +178,17 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
                 ->write("use Twig\Error\RuntimeError;\n")
                 ->write("use Twig\Extension\CoreExtension;\n")
                 ->write("use Twig\Extension\SandboxExtension;\n")
+                ->write("use Twig\MacroNamespace;\n")
                 ->write("use Twig\Markup;\n")
                 ->write("use Twig\Sandbox\SecurityError;\n")
                 ->write("use Twig\Sandbox\SecurityNotAllowedTagError;\n")
                 ->write("use Twig\Sandbox\SecurityNotAllowedFilterError;\n")
                 ->write("use Twig\Sandbox\SecurityNotAllowedFunctionError;\n")
-<<<<<<< HEAD
-                ->write("use Twig\Source;\n")
-                ->write("use Twig\Template;\n\n")
-=======
                 ->write("use Twig\Sandbox\SecurityNotAllowedTestError;\n")
                 ->write("use Twig\Source;\n")
                 ->write("use Twig\Template;\n")
                 ->write("use Twig\TemplateWrapper;\n")
                 ->write("\n")
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ;
         }
         $compiler
@@ -248,26 +198,21 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
             ->raw(" extends Template\n")
             ->write("{\n")
             ->indent()
-<<<<<<< HEAD
-            ->write("private \$source;\n")
-            ->write("private \$macros = [];\n\n")
-        ;
-    }
-
-=======
             ->write("private Source \$source;\n")
             ->write("/**\n")
-            ->write(" * @var array<string, Template>\n")
+            ->write(" * @var array<string, MacroNamespace>\n")
             ->write(" */\n")
-            ->write("private array \$macros = [];\n\n")
+            ->write("private array \$macros = [];\n")
         ;
+
+        if ($this->getAttribute('escaper')) {
+            $compiler->write("private \\Twig\\Runtime\\EscaperRuntime \$escaper;\n");
+        }
+
+        $compiler->raw("\n");
     }
 
-    /**
-     * @return void
-     */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
-    protected function compileConstructor(Compiler $compiler)
+    protected function compileConstructor(Compiler $compiler): void
     {
         $compiler
             ->write("public function __construct(Environment \$env)\n", "{\n")
@@ -277,6 +222,10 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
             ->write("\$this->source = \$this->getSourceContext();\n\n")
         ;
 
+        if ($this->getAttribute('escaper')) {
+            $compiler->write("\$this->escaper = \$env->getRuntime('Twig\\Runtime\\EscaperRuntime');\n\n");
+        }
+
         // parent
         if (!$this->hasNode('parent')) {
             $compiler->write("\$this->parent = false;\n\n");
@@ -284,29 +233,19 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
 
         $countTraits = \count($this->getNode('traits'));
         if ($countTraits) {
-            // traits
+            $compiler->write("\$this->ensureTraitsAllowed();\n\n");
+
             foreach ($this->getNode('traits') as $i => $trait) {
                 $node = $trait->getNode('template');
 
                 $compiler
                     ->addDebugInfo($node)
-<<<<<<< HEAD
-                    ->write(sprintf('$_trait_%s = $this->loadTemplate(', $i))
-                    ->subcompile($node)
-                    ->raw(', ')
-                    ->repr($node->getTemplateName())
-                    ->raw(', ')
-                    ->repr($node->getTemplateLine())
-                    ->raw(");\n")
-                    ->write(sprintf("if (!\$_trait_%s->unwrap()->isTraitable()) {\n", $i))
-=======
                     ->write(\sprintf('$_trait_%s = $this->load(', $i))
                     ->subcompile($node)
                     ->raw(', ')
                     ->repr($node->getTemplateLine())
                     ->raw(");\n")
                     ->write(\sprintf("if (!\$_trait_%s->unwrap()->isTraitable()) {\n", $i))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     ->indent()
                     ->write("throw new RuntimeError('Template \"'.")
                     ->subcompile($trait->getNode('template'))
@@ -315,26 +254,11 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
                     ->raw(", \$this->source);\n")
                     ->outdent()
                     ->write("}\n")
-<<<<<<< HEAD
-                    ->write(sprintf("\$_trait_%s_blocks = \$_trait_%s->unwrap()->getBlocks();\n\n", $i, $i))
-=======
                     ->write(\sprintf("\$_trait_%s_blocks = \$_trait_%s->unwrap()->getBlocks();\n\n", $i, $i))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ;
 
                 foreach ($trait->getNode('targets') as $key => $value) {
                     $compiler
-<<<<<<< HEAD
-                        ->write(sprintf('if (!isset($_trait_%s_blocks[', $i))
-                        ->string($key)
-                        ->raw("])) {\n")
-                        ->indent()
-                        ->write("throw new RuntimeError('Block ")
-                        ->string($key)
-                        ->raw(' is not defined in trait ')
-                        ->subcompile($trait->getNode('template'))
-                        ->raw(".', ")
-=======
                         ->write(\sprintf('if (!isset($_trait_%s_blocks[', $i))
                         ->string($key)
                         ->raw("])) {\n")
@@ -344,21 +268,11 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
                         ->raw(', ')
                         ->subcompile($trait->getNode('template'))
                         ->raw('), ')
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         ->repr($node->getTemplateLine())
                         ->raw(", \$this->source);\n")
                         ->outdent()
                         ->write("}\n\n")
 
-<<<<<<< HEAD
-                        ->write(sprintf('$_trait_%s_blocks[', $i))
-                        ->subcompile($value)
-                        ->raw(sprintf('] = $_trait_%s_blocks[', $i))
-                        ->string($key)
-                        ->raw(sprintf(']; unset($_trait_%s_blocks[', $i))
-                        ->string($key)
-                        ->raw("]);\n\n")
-=======
                         ->write(\sprintf('$_trait_%s_blocks[', $i))
                         ->subcompile($value)
                         ->raw(\sprintf('] = $_trait_%s_blocks[', $i))
@@ -370,7 +284,6 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
                         ->raw('] = ')
                         ->string($key)
                         ->raw(";\n\n")
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     ;
                 }
             }
@@ -383,11 +296,7 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
 
                 for ($i = 0; $i < $countTraits; ++$i) {
                     $compiler
-<<<<<<< HEAD
-                        ->write(sprintf('$_trait_%s_blocks'.($i == $countTraits - 1 ? '' : ',')."\n", $i))
-=======
                         ->write(\sprintf('$_trait_%s_blocks'.($i == $countTraits - 1 ? '' : ',')."\n", $i))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     ;
                 }
 
@@ -420,11 +329,7 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
 
         foreach ($this->getNode('blocks') as $name => $node) {
             $compiler
-<<<<<<< HEAD
-                ->write(sprintf("'%s' => [\$this, 'block_%s'],\n", $name, $name))
-=======
                 ->write(\sprintf("'%s' => [\$this, 'block_%s'],\n", $name, $name))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ;
         }
 
@@ -449,20 +354,10 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
         ;
     }
 
-<<<<<<< HEAD
-    protected function compileDisplay(Compiler $compiler)
-    {
-        $compiler
-            ->write("protected function doDisplay(array \$context, array \$blocks = [])\n", "{\n")
-=======
-    /**
-     * @return void
-     */
-    protected function compileDisplay(Compiler $compiler)
+    protected function compileDisplay(Compiler $compiler): void
     {
         $compiler
             ->write("protected function doDisplay(array \$context, array \$blocks = []): iterable\n", "{\n")
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->indent()
             ->write("\$macros = \$this->macros;\n")
             ->subcompile($this->getNode('display_start'))
@@ -475,17 +370,9 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
             $compiler->addDebugInfo($parent);
             if ($parent instanceof ConstantExpression) {
                 $compiler
-<<<<<<< HEAD
-                    ->write('$this->parent = $this->loadTemplate(')
-                    ->subcompile($parent)
-                    ->raw(', ')
-                    ->repr($this->getSourceContext()->getName())
-                    ->raw(', ')
-=======
                     ->write('$this->parent = $this->load(')
                     ->subcompile($parent)
                     ->raw(', ')
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     ->repr($parent->getTemplateLine())
                     ->raw(");\n")
                 ;
@@ -503,11 +390,7 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
         $compiler->subcompile($this->getNode('display_end'));
 
         if (!$this->hasNode('parent')) {
-<<<<<<< HEAD
-            $compiler->write("return; yield '';\n"); // ensure at least one yield call even for templates with no output
-=======
-            $compiler->write("yield from [];\n");
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
+            $compiler->write("return; yield;\n");
         }
 
         $compiler
@@ -516,13 +399,7 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
         ;
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * @return void
-     */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
-    protected function compileClassFooter(Compiler $compiler)
+    protected function compileClassFooter(Compiler $compiler): void
     {
         $compiler
             ->subcompile($this->getNode('class_end'))
@@ -531,34 +408,18 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
         ;
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * @return void
-     */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
-    protected function compileMacros(Compiler $compiler)
+    protected function compileMacros(Compiler $compiler): void
     {
         $compiler->subcompile($this->getNode('macros'));
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * @return void
-     */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
-    protected function compileGetTemplateName(Compiler $compiler)
+    protected function compileGetTemplateName(Compiler $compiler): void
     {
         $compiler
             ->write("/**\n")
             ->write(" * @codeCoverageIgnore\n")
             ->write(" */\n")
-<<<<<<< HEAD
-            ->write("public function getTemplateName()\n", "{\n")
-=======
             ->write("public function getTemplateName(): string\n", "{\n")
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->indent()
             ->write('return ')
             ->repr($this->getSourceContext()->getName())
@@ -568,13 +429,7 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
         ;
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * @return void
-     */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
-    protected function compileIsTraitable(Compiler $compiler)
+    protected function compileIsTraitable(Compiler $compiler): void
     {
         // A template can be used as a trait if:
         //   * it has no parent
@@ -592,11 +447,7 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
             }
 
             if (!\count($nodes)) {
-<<<<<<< HEAD
-                $nodes = new Node([$nodes]);
-=======
                 $nodes = new Nodes([$nodes]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             foreach ($nodes as $node) {
@@ -604,17 +455,6 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
                     continue;
                 }
 
-<<<<<<< HEAD
-                if ($node instanceof TextNode && ctype_space($node->getAttribute('data'))) {
-                    continue;
-                }
-
-                if ($node instanceof BlockReferenceNode) {
-                    continue;
-                }
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $traitable = false;
                 break;
             }
@@ -628,11 +468,7 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
             ->write("/**\n")
             ->write(" * @codeCoverageIgnore\n")
             ->write(" */\n")
-<<<<<<< HEAD
-            ->write("public function isTraitable()\n", "{\n")
-=======
             ->write("public function isTraitable(): bool\n", "{\n")
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->indent()
             ->write("return false;\n")
             ->outdent()
@@ -640,46 +476,44 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
         ;
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * @return void
-     */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
-    protected function compileDebugInfo(Compiler $compiler)
+    protected function compileGetDefaultEscapeStrategy(Compiler $compiler): void
     {
+        if (false === $strategy = $this->getAttribute('strategy')) {
+            return;
+        }
+
         $compiler
             ->write("/**\n")
             ->write(" * @codeCoverageIgnore\n")
             ->write(" */\n")
-<<<<<<< HEAD
-            ->write("public function getDebugInfo()\n", "{\n")
+            ->write("public function getDefaultEscapeStrategy(): string|false\n", "{\n")
             ->indent()
-            ->write(sprintf("return %s;\n", str_replace("\n", '', var_export(array_reverse($compiler->getDebugInfo(), true), true))))
-=======
-            ->write("public function getDebugInfo(): array\n", "{\n")
-            ->indent()
-            ->write(\sprintf("return %s;\n", str_replace("\n", '', var_export(array_reverse($compiler->getDebugInfo(), true), true))))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
+            ->write('return ')
+            ->repr($strategy)
+            ->raw(";\n")
             ->outdent()
             ->write("}\n\n")
         ;
     }
 
-<<<<<<< HEAD
-    protected function compileGetSourceContext(Compiler $compiler)
+    protected function compileDebugInfo(Compiler $compiler): void
     {
         $compiler
-            ->write("public function getSourceContext()\n", "{\n")
-=======
-    /**
-     * @return void
-     */
-    protected function compileGetSourceContext(Compiler $compiler)
+            ->write("/**\n")
+            ->write(" * @codeCoverageIgnore\n")
+            ->write(" */\n")
+            ->write("public function getDebugInfo(): array\n", "{\n")
+            ->indent()
+            ->write(\sprintf("return %s;\n", str_replace("\n", '', var_export(array_reverse($compiler->getDebugInfo(), true), true))))
+            ->outdent()
+            ->write("}\n\n")
+        ;
+    }
+
+    protected function compileGetSourceContext(Compiler $compiler): void
     {
         $compiler
             ->write("public function getSourceContext(): Source\n", "{\n")
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->indent()
             ->write('return new Source(')
             ->string($compiler->getEnvironment()->isDebug() ? $this->getSourceContext()->getCode() : '')
@@ -692,39 +526,4 @@ final class ModuleNode extends Node implements CoercesChildrenToStringInterface
             ->write("}\n")
         ;
     }
-<<<<<<< HEAD
-
-    protected function compileLoadTemplate(Compiler $compiler, $node, $var)
-    {
-        if ($node instanceof ConstantExpression) {
-            $compiler
-                ->write(sprintf('%s = $this->loadTemplate(', $var))
-                ->subcompile($node)
-                ->raw(', ')
-                ->repr($node->getTemplateName())
-                ->raw(', ')
-                ->repr($node->getTemplateLine())
-                ->raw(");\n")
-            ;
-        } else {
-            throw new \LogicException('Trait templates can only be constant nodes.');
-        }
-    }
-
-    private function hasNodeOutputNodes(Node $node): bool
-    {
-        if ($node instanceof NodeOutputInterface) {
-            return true;
-        }
-
-        foreach ($node as $child) {
-            if ($this->hasNodeOutputNodes($child)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

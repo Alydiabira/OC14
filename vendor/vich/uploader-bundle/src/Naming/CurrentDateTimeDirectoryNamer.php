@@ -7,11 +7,7 @@ use Vich\UploaderBundle\Mapping\PropertyMapping;
 use Vich\UploaderBundle\Util\PropertyPathUtils;
 
 /**
-<<<<<<< HEAD
- * Directory namer wich can create subfolder depends on current datetime.
-=======
  * Directory namer that can create subfolder depends on current datetime.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @author Vyacheslav Startsev <vyacheslav.startsev@gmail.com>
  */

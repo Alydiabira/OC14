@@ -20,11 +20,8 @@ use Gedmo\Sluggable\SluggableListener;
  * Sluggable extension and should not be used elsewhere.
  *
  * @author Gediminas Morkevicius <gediminas.morkevicius@gmail.com>
-<<<<<<< HEAD
-=======
  *
  * @phpstan-import-type SlugConfiguration from SluggableListener
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 interface SlugHandlerInterface
 {
@@ -42,11 +39,8 @@ interface SlugHandlerInterface
      * @param string               $slug
      * @param bool                 $needToChangeSlug
      *
-<<<<<<< HEAD
-=======
      * @phpstan-param SlugConfiguration $config
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function onChangeDecision(SluggableAdapter $ea, array &$config, $object, &$slug, &$needToChangeSlug);
@@ -58,11 +52,8 @@ interface SlugHandlerInterface
      * @param object               $object
      * @param string               $slug
      *
-<<<<<<< HEAD
-=======
      * @phpstan-param SlugConfiguration $config
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function postSlugBuild(SluggableAdapter $ea, array &$config, $object, &$slug);
@@ -74,11 +65,8 @@ interface SlugHandlerInterface
      * @param object               $object
      * @param string               $slug
      *
-<<<<<<< HEAD
-=======
      * @phpstan-param SlugConfiguration $config
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function onSlugCompletion(SluggableAdapter $ea, array &$config, $object, &$slug);
@@ -91,12 +79,8 @@ interface SlugHandlerInterface
     /**
      * Validates the options for the handler.
      *
-<<<<<<< HEAD
-     * @param array<string, mixed> $options
-=======
      * @param array<string, mixed>  $options
      * @param ClassMetadata<object> $meta
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws InvalidMappingException if the configuration is invalid
      *

@@ -10,20 +10,6 @@
 namespace Gedmo\Uploadable\Mapping\Driver;
 
 use Gedmo\Mapping\Annotation\Uploadable;
-<<<<<<< HEAD
-use Gedmo\Mapping\Driver\AttributeDriverInterface;
-
-/**
- * This is an attribute mapping driver for Uploadable
- * behavioral extension. Used for extraction of extended
- * metadata from attribute specifically for Uploadable
- * extension.
- *
- * @internal
- */
-class Attribute extends Annotation implements AttributeDriverInterface
-{
-=======
 use Gedmo\Mapping\Annotation\UploadableFileMimeType;
 use Gedmo\Mapping\Annotation\UploadableFileName;
 use Gedmo\Mapping\Annotation\UploadableFilePath;
@@ -142,5 +128,4 @@ class Attribute extends AbstractAnnotationDriver
 
         return $config;
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

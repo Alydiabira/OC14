@@ -80,11 +80,7 @@ class UserBadge implements BadgeInterface
         }
 
         if (null === $this->userLoader) {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('No user loader is configured, did you forget to register the "%s" listener?', UserProviderListener::class));
-=======
             throw new \LogicException(\sprintf('No user loader is configured, did you forget to register the "%s" listener?', UserProviderListener::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (null === $this->getAttributes()) {
@@ -102,11 +98,7 @@ class UserBadge implements BadgeInterface
         }
 
         if (!$user instanceof UserInterface) {
-<<<<<<< HEAD
-            throw new AuthenticationServiceException(sprintf('The user provider must return a UserInterface object, "%s" given.', get_debug_type($user)));
-=======
             throw new AuthenticationServiceException(\sprintf('The user provider must return a UserInterface object, "%s" given.', get_debug_type($user)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->user = $user;

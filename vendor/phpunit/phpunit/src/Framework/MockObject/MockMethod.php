@@ -19,10 +19,7 @@ use function preg_replace;
 use function sprintf;
 use function strlen;
 use function strpos;
-<<<<<<< HEAD
-=======
 use function strtolower;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function substr;
 use function substr_count;
 use function trim;
@@ -192,11 +189,7 @@ final class MockMethod
     {
         if ($this->static) {
             $templateFile = 'mocked_static_method.tpl';
-<<<<<<< HEAD
-        } elseif ($this->returnType->isNever() || $this->returnType->isVoid()) {
-=======
         } elseif ($this->returnType->isNever() || $this->returnType->isVoid() || $this->mustNotReturnValue()) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $templateFile = sprintf(
                 '%s_method_never_or_void.tpl',
                 $this->callOriginalMethod ? 'proxied' : 'mocked',
@@ -272,8 +265,6 @@ final class MockMethod
     }
 
     /**
-<<<<<<< HEAD
-=======
      * @see https://wiki.php.net/rfc/deprecate-return-value-from-construct
      */
     private function mustNotReturnValue(): bool
@@ -284,7 +275,6 @@ final class MockMethod
     }
 
     /**
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Returns the parameters of a function or method.
      *
      * @throws RuntimeException

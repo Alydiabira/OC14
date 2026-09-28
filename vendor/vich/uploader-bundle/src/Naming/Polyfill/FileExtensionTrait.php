@@ -8,8 +8,6 @@ use Vich\UploaderBundle\FileAbstraction\ReplacingFile;
 
 trait FileExtensionTrait
 {
-<<<<<<< HEAD
-=======
     // extensions safe to keep
     private static array $keep = [
         'txt' => ['csv', 'srt', 'vtt'],
@@ -17,24 +15,11 @@ trait FileExtensionTrait
         'xlsx' => ['xlsb'],
     ];
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Guess the extension of the given file.
      */
     private function getExtension(File $file): ?string
     {
-<<<<<<< HEAD
-        if (!$file instanceof UploadedFile && !$file instanceof ReplacingFile) {
-            throw new \InvalidArgumentException('Unexpected type for $file: '.$file::class);
-        }
-        $originalName = $file->getClientOriginalName();
-
-        if ('' !== ($extension = \pathinfo($originalName, \PATHINFO_EXTENSION))) {
-            return $extension;
-        }
-
-        if ('' !== ($extension = $file->guessExtension())) {
-=======
         return $this->getExtensionWithOption($file, false);
     }
 
@@ -73,7 +58,6 @@ trait FileExtensionTrait
                 }
             }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return $extension;
         }
 

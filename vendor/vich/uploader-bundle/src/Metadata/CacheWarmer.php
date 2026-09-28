@@ -13,11 +13,7 @@ final class CacheWarmer implements CacheWarmerInterface
     {
     }
 
-<<<<<<< HEAD
-    public function warmUp(string $cacheDir, string $buildDir = null): array
-=======
     public function warmUp(string $cacheDir, ?string $buildDir = null): array
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if (empty($this->dir)) {
             return [];
@@ -33,10 +29,7 @@ final class CacheWarmer implements CacheWarmerInterface
             $this->metadataReader->getUploadableFields($class);
             $files[] = $class;
         }
-<<<<<<< HEAD
-=======
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         // TODO it could be nice if we return $files, to allow to exploit preloading...
         return [];
     }

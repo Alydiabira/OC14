@@ -107,11 +107,7 @@ class PseudoClassExtension extends AbstractExtension
     {
         $element = $xpath->getElement();
 
-<<<<<<< HEAD
-        return $xpath->addCondition(sprintf('count(preceding-sibling::%s)=0 and count(following-sibling::%s)=0', $element, $element));
-=======
         return $xpath->addCondition(\sprintf('count(preceding-sibling::%s)=0 and count(following-sibling::%s)=0', $element, $element));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function translateEmpty(XPathExpr $xpath): XPathExpr

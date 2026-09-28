@@ -78,7 +78,7 @@
         <parameter key="namespace">Vich\UploaderBundle</parameter>
       </parameter>
       <parameter key="MonologBundle" type="collection">
-        <parameter key="path">/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/symfony/monolog-bundle</parameter>
+        <parameter key="path">/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/symfony/monolog-bundle/src</parameter>
         <parameter key="namespace">Symfony\Bundle\MonologBundle</parameter>
       </parameter>
       <parameter key="DAMADoctrineTestBundle" type="collection">
@@ -144,6 +144,7 @@
       <parameter key="cookie_samesite">lax</parameter>
       <parameter key="gc_probability">1</parameter>
     </parameter>
+    <parameter key="session.metadata.cookie_lifetime">null</parameter>
     <parameter key="session.save_path">null</parameter>
     <parameter key="session.metadata.update_threshold">0</parameter>
     <parameter key="form.type_extension.csrf.enabled">true</parameter>
@@ -193,8 +194,8 @@
     <parameter key="doctrine.orm.metadata.annotation.class">Doctrine\ORM\Mapping\Driver\AnnotationDriver</parameter>
     <parameter key="doctrine.orm.metadata.xml.class">Doctrine\ORM\Mapping\Driver\SimplifiedXmlDriver</parameter>
     <parameter key="doctrine.orm.metadata.yml.class">Doctrine\ORM\Mapping\Driver\SimplifiedYamlDriver</parameter>
-    <parameter key="doctrine.orm.metadata.php.class">Doctrine\ORM\Mapping\Driver\PHPDriver</parameter>
-    <parameter key="doctrine.orm.metadata.staticphp.class">Doctrine\ORM\Mapping\Driver\StaticPHPDriver</parameter>
+    <parameter key="doctrine.orm.metadata.php.class">Doctrine\Persistence\Mapping\Driver\PHPDriver</parameter>
+    <parameter key="doctrine.orm.metadata.staticphp.class">Doctrine\Persistence\Mapping\Driver\StaticPHPDriver</parameter>
     <parameter key="doctrine.orm.metadata.attribute.class">Doctrine\ORM\Mapping\Driver\AttributeDriver</parameter>
     <parameter key="doctrine.orm.proxy_cache_warmer.class">Symfony\Bridge\Doctrine\CacheWarmer\ProxyCacheWarmer</parameter>
     <parameter key="form.type_guesser.doctrine.class">Symfony\Bridge\Doctrine\Form\DoctrineOrmTypeGuesser</parameter>
@@ -207,6 +208,7 @@
     <parameter key="doctrine.orm.naming_strategy.underscore.class">Doctrine\ORM\Mapping\UnderscoreNamingStrategy</parameter>
     <parameter key="doctrine.orm.quote_strategy.default.class">Doctrine\ORM\Mapping\DefaultQuoteStrategy</parameter>
     <parameter key="doctrine.orm.quote_strategy.ansi.class">Doctrine\ORM\Mapping\AnsiQuoteStrategy</parameter>
+    <parameter key="doctrine.orm.typed_field_mapper.default.class">Doctrine\ORM\Mapping\DefaultTypedFieldMapper</parameter>
     <parameter key="doctrine.orm.entity_listener_resolver.class">Doctrine\Bundle\DoctrineBundle\Mapping\ContainerEntityListenerResolver</parameter>
     <parameter key="doctrine.orm.second_level_cache.default_cache_factory.class">Doctrine\ORM\Cache\DefaultCacheFactory</parameter>
     <parameter key="doctrine.orm.second_level_cache.default_region.class">Doctrine\ORM\Cache\Region\DefaultRegion</parameter>
@@ -217,6 +219,7 @@
     <parameter key="doctrine.orm.second_level_cache.regions_configuration.class">Doctrine\ORM\Cache\RegionsConfiguration</parameter>
     <parameter key="doctrine.orm.auto_generate_proxy_classes">true</parameter>
     <parameter key="doctrine.orm.enable_lazy_ghost_objects">true</parameter>
+    <parameter key="doctrine.orm.enable_native_lazy_objects">false</parameter>
     <parameter key="doctrine.orm.proxy_dir">/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/var/cache/test/doctrine/orm/Proxies</parameter>
     <parameter key="doctrine.orm.proxy_namespace">Proxies</parameter>
     <parameter key="doctrine.migrations.preferred_em">null</parameter>
@@ -269,10 +272,12 @@
           <parameter key="service">null</parameter>
           <parameter key="options">null</parameter>
         </parameter>
+        <parameter key="erase_fields">true</parameter>
+        <parameter key="namer_keep_extension">false</parameter>
         <parameter key="db_driver">orm</parameter>
       </parameter>
     </parameter>
-    <parameter key="vich_uploader.file_injector.class">Vich\UploaderBundle\Injector\FileInjector</parameter>
+    <parameter key="vich_uploader.use_flysystem_to_resolve_uri">false</parameter>
     <parameter key="monolog.use_microseconds">true</parameter>
     <parameter key="monolog.swift_mailer.handlers" type="collection"/>
     <parameter key="monolog.handlers_to_channels" type="collection">
@@ -505,10 +510,10 @@
       <tag priority="100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestAttributeValueResolver">controller.argument_value_resolver</tag>
     </service>
     <service id="argument_resolver.request" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestValueResolver">
-      <tag priority="50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestValueResolver">controller.argument_value_resolver</tag>
+      <tag priority="120" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestValueResolver">controller.argument_value_resolver</tag>
     </service>
     <service id="argument_resolver.session" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\SessionValueResolver">
-      <tag priority="50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\SessionValueResolver">controller.argument_value_resolver</tag>
+      <tag priority="120" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\SessionValueResolver">controller.argument_value_resolver</tag>
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
@@ -582,7 +587,9 @@
       <argument type="service" id="debug.argument_resolver"/>
       <argument>true</argument>
     </service>
-    <service id="request_stack" class="Symfony\Component\HttpFoundation\RequestStack" public="true"/>
+    <service id="request_stack" class="Symfony\Component\HttpFoundation\RequestStack" public="true">
+      <tag name="kernel.reset" method="resetRequestFormats" on_invalid="ignore"/>
+    </service>
     <service id="http_cache" class="Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache">
       <tag name="container.hot_path"/>
       <argument type="service" id="kernel"/>
@@ -627,6 +634,7 @@
     </service>
     <service id="services_resetter" class="Symfony\Component\HttpKernel\DependencyInjection\ServicesResetter" public="true">
       <argument type="iterator">
+        <argument key="request_stack" type="service" id="request_stack" on-invalid="ignore_uninitialized"/>
         <argument key="cache.app" type="service" id="cache.app" on-invalid="ignore_uninitialized"/>
         <argument key="cache.system" type="service" id="cache.system" on-invalid="ignore_uninitialized"/>
         <argument key="cache.validator" type="service" id="cache.validator" on-invalid="ignore_uninitialized"/>
@@ -634,7 +642,9 @@
         <argument key="cache.annotations" type="service" id="cache.annotations" on-invalid="ignore_uninitialized"/>
         <argument key="cache.property_info" type="service" id="cache.property_info" on-invalid="ignore_uninitialized"/>
         <argument key="cache.asset_mapper" type="service" id="cache.asset_mapper" on-invalid="ignore_uninitialized"/>
+        <argument key="asset_mapper.cached_mapped_asset_factory" type="service" id="asset_mapper.cached_mapped_asset_factory" on-invalid="ignore_uninitialized"/>
         <argument key="http_client.transport" type="service" id="http_client.transport" on-invalid="ignore_uninitialized"/>
+        <argument key="http_client" type="service" id=".debug.http_client" on-invalid="ignore_uninitialized"/>
         <argument key="translation.locale_switcher" type="service" id="translation.locale_switcher" on-invalid="ignore_uninitialized"/>
         <argument key="debug.stopwatch" type="service" id="debug.stopwatch" on-invalid="ignore_uninitialized"/>
         <argument key="debug.event_dispatcher" type="service" id="debug.event_dispatcher" on-invalid="ignore_uninitialized"/>
@@ -647,16 +657,24 @@
         <argument key="doctrine.debug_data_holder" type="service" id="doctrine.debug_data_holder" on-invalid="ignore_uninitialized"/>
         <argument key="form.type.entity" type="service" id="form.type.entity" on-invalid="ignore_uninitialized"/>
         <argument key="security.token_storage" type="service" id="security.token_storage" on-invalid="ignore_uninitialized"/>
+        <argument key="security.logout_url_generator" type="service" id="security.logout_url_generator" on-invalid="ignore_uninitialized"/>
         <argument key="cache.security_expression_language" type="service" id="cache.security_expression_language" on-invalid="ignore_uninitialized"/>
         <argument key="cache.security_is_granted_attribute_expression_language" type="service" id="cache.security_is_granted_attribute_expression_language" on-invalid="ignore_uninitialized"/>
         <argument key="debug.security.firewall" type="service" id="debug.security.firewall" on-invalid="ignore_uninitialized"/>
         <argument key="cache.security_token_verifier" type="service" id="cache.security_token_verifier" on-invalid="ignore_uninitialized"/>
         <argument key="debug.security.firewall.authenticator.main" type="service" id="debug.security.firewall.authenticator.main" on-invalid="ignore_uninitialized"/>
+        <argument key="twig" type="service" id="twig" on-invalid="ignore_uninitialized"/>
         <argument key="twig.form.engine" type="service" id="twig.form.engine" on-invalid="ignore_uninitialized"/>
+        <argument key="ux.twig_component.component_factory" type="service" id="ux.twig_component.component_factory" on-invalid="ignore_uninitialized"/>
+        <argument key="ux.twig_component.component_renderer" type="service" id="ux.twig_component.component_renderer" on-invalid="ignore_uninitialized"/>
+        <argument key="cache.ux.twig_component" type="service" id="cache.ux.twig_component" on-invalid="ignore_uninitialized"/>
         <argument key="monolog.handler.main" type="service" id="monolog.handler.main" on-invalid="ignore_uninitialized"/>
         <argument key=".debug.http_client" type="service" id=".debug.http_client" on-invalid="ignore_uninitialized"/>
       </argument>
       <argument type="collection">
+        <argument key="request_stack" type="collection">
+          <argument>?resetRequestFormats</argument>
+        </argument>
         <argument key="cache.app" type="collection">
           <argument>reset</argument>
         </argument>
@@ -678,7 +696,13 @@
         <argument key="cache.asset_mapper" type="collection">
           <argument>reset</argument>
         </argument>
+        <argument key="asset_mapper.cached_mapped_asset_factory" type="collection">
+          <argument>?reset</argument>
+        </argument>
         <argument key="http_client.transport" type="collection">
+          <argument>?reset</argument>
+        </argument>
+        <argument key="http_client" type="collection">
           <argument>?reset</argument>
         </argument>
         <argument key="translation.locale_switcher" type="collection">
@@ -718,6 +742,9 @@
           <argument>disableUsageTracking</argument>
           <argument>setToken</argument>
         </argument>
+        <argument key="security.logout_url_generator" type="collection">
+          <argument>?reset</argument>
+        </argument>
         <argument key="cache.security_expression_language" type="collection">
           <argument>reset</argument>
         </argument>
@@ -733,7 +760,19 @@
         <argument key="debug.security.firewall.authenticator.main" type="collection">
           <argument>reset</argument>
         </argument>
+        <argument key="twig" type="collection">
+          <argument>resetGlobals</argument>
+        </argument>
         <argument key="twig.form.engine" type="collection">
+          <argument>reset</argument>
+        </argument>
+        <argument key="ux.twig_component.component_factory" type="collection">
+          <argument>reset</argument>
+        </argument>
+        <argument key="ux.twig_component.component_renderer" type="collection">
+          <argument>reset</argument>
+        </argument>
+        <argument key="cache.ux.twig_component" type="collection">
           <argument>reset</argument>
         </argument>
         <argument key="monolog.handler.main" type="collection">
@@ -907,6 +946,7 @@
         <argument>cache.security_expression_language</argument>
         <argument>cache.security_is_granted_attribute_expression_language</argument>
         <argument>cache.security_token_verifier</argument>
+        <argument>cache.ux.twig_component</argument>
       </argument>
       <call method="setName">
         <argument>cache:pool:clear</argument>
@@ -955,6 +995,7 @@
         <argument>cache.security_expression_language</argument>
         <argument>cache.security_is_granted_attribute_expression_language</argument>
         <argument>cache.security_token_verifier</argument>
+        <argument>cache.ux.twig_component</argument>
       </argument>
       <call method="setName">
         <argument>cache:pool:delete</argument>
@@ -980,6 +1021,7 @@
         <argument>cache.security_expression_language</argument>
         <argument>cache.security_is_granted_attribute_expression_language</argument>
         <argument>cache.security_token_verifier</argument>
+        <argument>cache.ux.twig_component</argument>
       </argument>
       <call method="setName">
         <argument>cache:pool:list</argument>
@@ -1002,6 +1044,7 @@
     <service id="console.command.config_debug" class="Symfony\Bundle\FrameworkBundle\Command\ConfigDebugCommand">
       <tag name="console.command"/>
       <tag name="container.no_preload"/>
+      <argument type="service" id=".service_locator.w7.f4fT"/>
       <call method="setName">
         <argument>debug:config</argument>
       </call>
@@ -1350,7 +1393,7 @@
       <argument type="service" id="console.messenger.application"/>
     </service>
     <service id="cache.app" class="Symfony\Component\Cache\Adapter\TraceableAdapter" public="true">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable="1"/>
       <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="cache.app.recorder_inner"/>
     </service>
@@ -1359,32 +1402,32 @@
       <argument type="service" id="cache.app"/>
     </service>
     <service id="cache.system" class="Symfony\Component\Cache\Adapter\TraceableAdapter" public="true">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable=""/>
       <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="cache.system.recorder_inner"/>
     </service>
     <service id="cache.validator" class="Symfony\Component\Cache\Adapter\TraceableAdapter">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable=""/>
       <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="cache.validator.recorder_inner"/>
     </service>
     <service id="cache.serializer" class="Symfony\Component\Cache\Adapter\TraceableAdapter">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable=""/>
       <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="cache.serializer.recorder_inner"/>
     </service>
     <service id="cache.annotations" class="Symfony\Component\Cache\Adapter\TraceableAdapter">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable=""/>
       <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="cache.annotations.recorder_inner"/>
     </service>
     <service id="cache.property_info" class="Symfony\Component\Cache\Adapter\TraceableAdapter">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable=""/>
       <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="cache.property_info.recorder_inner"/>
     </service>
     <service id="cache.asset_mapper" class="Symfony\Component\Cache\Adapter\TraceableAdapter">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable=""/>
       <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="cache.asset_mapper.recorder_inner"/>
     </service>
@@ -1502,7 +1545,6 @@
     </service>
     <service id="cache.system_clearer" class="Symfony\Component\HttpKernel\CacheClearer\Psr6CacheClearer" public="true">
       <tag name="cache.pool.clearer"/>
-      <tag name="kernel.cache_clearer"/>
       <argument type="collection">
         <argument key="cache.system" type="service" id="cache.system" on-invalid="ignore_uninitialized"/>
         <argument key="cache.validator" type="service" id="cache.validator" on-invalid="ignore_uninitialized"/>
@@ -1514,6 +1556,7 @@
         <argument key="cache.security_expression_language" type="service" id="cache.security_expression_language" on-invalid="ignore_uninitialized"/>
         <argument key="cache.security_is_granted_attribute_expression_language" type="service" id="cache.security_is_granted_attribute_expression_language" on-invalid="ignore_uninitialized"/>
         <argument key="cache.security_token_verifier" type="service" id="cache.security_token_verifier" on-invalid="ignore_uninitialized"/>
+        <argument key="cache.ux.twig_component" type="service" id="cache.ux.twig_component" on-invalid="ignore_uninitialized"/>
       </argument>
     </service>
     <service id="cache.global_clearer" class="Symfony\Component\HttpKernel\CacheClearer\Psr6CacheClearer" public="true">
@@ -1532,6 +1575,7 @@
         <argument key="cache.security_expression_language" type="service" id="cache.security_expression_language" on-invalid="ignore_uninitialized"/>
         <argument key="cache.security_is_granted_attribute_expression_language" type="service" id="cache.security_is_granted_attribute_expression_language" on-invalid="ignore_uninitialized"/>
         <argument key="cache.security_token_verifier" type="service" id="cache.security_token_verifier" on-invalid="ignore_uninitialized"/>
+        <argument key="cache.ux.twig_component" type="service" id="cache.ux.twig_component" on-invalid="ignore_uninitialized"/>
       </argument>
     </service>
     <service id="identity_translator" class="Symfony\Component\Translation\IdentityTranslator"/>
@@ -1679,11 +1723,14 @@
         <argument key="assets.empty_package" type="service_closure" id="assets.empty_package" on-invalid="ignore_uninitialized"/>
         <argument key="assets.context" type="service_closure" id="assets.context" on-invalid="ignore_uninitialized"/>
         <argument key="assets.empty_version_strategy" type="service_closure" id="assets.empty_version_strategy" on-invalid="ignore_uninitialized"/>
+        <argument key="assets._default_package_without_version" type="service_closure" id="assets._default_package_without_version" on-invalid="ignore_uninitialized"/>
         <argument key="asset_mapper" type="service_closure" id="asset_mapper" on-invalid="ignore_uninitialized"/>
+        <argument key="asset_mapper.cached_mapped_asset_factory.inner" type="service_closure" id="asset_mapper.cached_mapped_asset_factory.inner" on-invalid="ignore_uninitialized"/>
         <argument key="asset_mapper.cached_mapped_asset_factory" type="service_closure" id="asset_mapper.cached_mapped_asset_factory" on-invalid="ignore_uninitialized"/>
         <argument key="asset_mapper.repository" type="service_closure" id="asset_mapper.repository" on-invalid="ignore_uninitialized"/>
         <argument key="asset_mapper.local_public_assets_filesystem" type="service_closure" id="asset_mapper.local_public_assets_filesystem" on-invalid="ignore_uninitialized"/>
         <argument key="asset_mapper.compiled_asset_mapper_config_reader" type="service_closure" id="asset_mapper.compiled_asset_mapper_config_reader" on-invalid="ignore_uninitialized"/>
+        <argument key="asset_mapper.asset_package.inner" type="service_closure" id="asset_mapper.asset_package.inner" on-invalid="ignore_uninitialized"/>
         <argument key="asset_mapper.asset_package" type="service_closure" id="asset_mapper.asset_package" on-invalid="ignore_uninitialized"/>
         <argument key="asset_mapper.dev_server_subscriber" type="service_closure" id="asset_mapper.dev_server_subscriber" on-invalid="ignore_uninitialized"/>
         <argument key="asset_mapper.command.compile" type="service_closure" id="asset_mapper.command.compile" on-invalid="ignore_uninitialized"/>
@@ -1753,8 +1800,11 @@
         <argument key="translation.provider_factory.null" type="service_closure" id="translation.provider_factory.null" on-invalid="ignore_uninitialized"/>
         <argument key="debug.debug_handlers_listener" type="service_closure" id="debug.debug_handlers_listener" on-invalid="ignore_uninitialized"/>
         <argument key="debug.file_link_formatter" type="service_closure" id="debug.file_link_formatter" on-invalid="ignore_uninitialized"/>
+        <argument key="debug.event_dispatcher.inner" type="service_closure" id="debug.event_dispatcher.inner" on-invalid="ignore_uninitialized"/>
         <argument key="debug.event_dispatcher" type="service_closure" id="debug.event_dispatcher" on-invalid="ignore_uninitialized"/>
+        <argument key="debug.controller_resolver.inner" type="service_closure" id="debug.controller_resolver.inner" on-invalid="ignore_uninitialized"/>
         <argument key="debug.controller_resolver" type="service_closure" id="debug.controller_resolver" on-invalid="ignore_uninitialized"/>
+        <argument key="debug.argument_resolver.inner" type="service_closure" id="debug.argument_resolver.inner" on-invalid="ignore_uninitialized"/>
         <argument key="debug.argument_resolver" type="service_closure" id="debug.argument_resolver" on-invalid="ignore_uninitialized"/>
         <argument key="argument_resolver.not_tagged_controller" type="service_closure" id="argument_resolver.not_tagged_controller" on-invalid="ignore_uninitialized"/>
         <argument key="debug.log_processor" type="service_closure" id="debug.log_processor" on-invalid="ignore_uninitialized"/>
@@ -1877,6 +1927,7 @@
         <argument key="form.type_extension.form.data_collector" type="service_closure" id="form.type_extension.form.data_collector" on-invalid="ignore_uninitialized"/>
         <argument key="data_collector.form.extractor" type="service_closure" id="data_collector.form.extractor" on-invalid="ignore_uninitialized"/>
         <argument key="data_collector.form" type="service_closure" id="data_collector.form" on-invalid="ignore_uninitialized"/>
+        <argument key="debug.validator.inner" type="service_closure" id="debug.validator.inner" on-invalid="ignore_uninitialized"/>
         <argument key="debug.validator" type="service_closure" id="debug.validator" on-invalid="ignore_uninitialized"/>
         <argument key="data_collector.validator" type="service_closure" id="data_collector.validator" on-invalid="ignore_uninitialized"/>
         <argument key="translator.data_collector" type="service_closure" id="translator.data_collector" on-invalid="ignore_uninitialized"/>
@@ -1897,6 +1948,7 @@
         <argument key="doctrine.dbal.default_connection.configuration" type="service_closure" id="doctrine.dbal.default_connection.configuration" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine.dbal.default_connection.event_manager" type="service_closure" id="doctrine.dbal.default_connection.event_manager" on-invalid="ignore_uninitialized"/>
         <argument key="Doctrine\Bundle\DoctrineBundle\Dbal\ManagerRegistryAwareConnectionProvider" type="service_closure" id="Doctrine\Bundle\DoctrineBundle\Dbal\ManagerRegistryAwareConnectionProvider" on-invalid="ignore_uninitialized"/>
+        <argument key="doctrine.dbal.connection_expiries" type="service_closure" id="doctrine.dbal.connection_expiries" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine.debug_data_holder" type="service_closure" id="doctrine.debug_data_holder" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine.orm.proxy_cache_warmer" type="service_closure" id="doctrine.orm.proxy_cache_warmer" on-invalid="ignore_uninitialized"/>
         <argument key="form.type_guesser.doctrine" type="service_closure" id="form.type_guesser.doctrine" on-invalid="ignore_uninitialized"/>
@@ -1914,6 +1966,7 @@
         <argument key="doctrine.orm.naming_strategy.underscore_number_aware" type="service_closure" id="doctrine.orm.naming_strategy.underscore_number_aware" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine.orm.quote_strategy.default" type="service_closure" id="doctrine.orm.quote_strategy.default" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine.orm.quote_strategy.ansi" type="service_closure" id="doctrine.orm.quote_strategy.ansi" on-invalid="ignore_uninitialized"/>
+        <argument key="doctrine.orm.typed_field_mapper.default" type="service_closure" id="doctrine.orm.typed_field_mapper.default" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine.ulid_generator" type="service_closure" id="doctrine.ulid_generator" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine.uuid_generator" type="service_closure" id="doctrine.uuid_generator" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine.orm.command.entity_manager_provider" type="service_closure" id="doctrine.orm.command.entity_manager_provider" on-invalid="ignore_uninitialized"/>
@@ -1926,6 +1979,7 @@
         <argument key="doctrine.schema_drop_command" type="service_closure" id="doctrine.schema_drop_command" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine.clear_entity_region_command" type="service_closure" id="doctrine.clear_entity_region_command" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine.mapping_info_command" type="service_closure" id="doctrine.mapping_info_command" on-invalid="ignore_uninitialized"/>
+        <argument key="doctrine.mapping_describe_command" type="service_closure" id="doctrine.mapping_describe_command" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine.clear_query_region_command" type="service_closure" id="doctrine.clear_query_region_command" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine.query_dql_command" type="service_closure" id="doctrine.query_dql_command" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine.schema_update_command" type="service_closure" id="doctrine.schema_update_command" on-invalid="ignore_uninitialized"/>
@@ -1947,6 +2001,7 @@
         <argument key="doctrine.migrations.entity_manager_registry_loader" type="service_closure" id="doctrine.migrations.entity_manager_registry_loader" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine.migrations.connection_registry_loader" type="service_closure" id="doctrine.migrations.connection_registry_loader" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine.migrations.configuration" type="service_closure" id="doctrine.migrations.configuration" on-invalid="ignore_uninitialized"/>
+        <argument key="doctrine.migrations.container_aware_migrations_factory.inner" type="service_closure" id="doctrine.migrations.container_aware_migrations_factory.inner" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine.migrations.container_aware_migrations_factory" type="service_closure" id="doctrine.migrations.container_aware_migrations_factory" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine_migrations.diff_command" type="service_closure" id="doctrine_migrations.diff_command" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine_migrations.sync_metadata_command" type="service_closure" id="doctrine_migrations.sync_metadata_command" on-invalid="ignore_uninitialized"/>
@@ -1961,6 +2016,7 @@
         <argument key="doctrine_migrations.status_command" type="service_closure" id="doctrine_migrations.status_command" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine_migrations.up_to_date_command" type="service_closure" id="doctrine_migrations.up_to_date_command" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine_migrations.version_command" type="service_closure" id="doctrine_migrations.version_command" on-invalid="ignore_uninitialized"/>
+        <argument key="doctrine_migrations.schema_filter_listener" type="service_closure" id="doctrine_migrations.schema_filter_listener" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine.migrations.storage.table_storage" type="service_closure" id="doctrine.migrations.storage.table_storage" on-invalid="ignore_uninitialized"/>
         <argument key="security.authorization_checker" type="service_closure" id="security.authorization_checker" on-invalid="ignore_uninitialized"/>
         <argument key="security.token_storage" type="service_closure" id="security.token_storage" on-invalid="ignore_uninitialized"/>
@@ -1972,6 +2028,7 @@
         <argument key="security.authentication.session_strategy" type="service_closure" id="security.authentication.session_strategy" on-invalid="ignore_uninitialized"/>
         <argument key="security.authentication.session_strategy_noop" type="service_closure" id="security.authentication.session_strategy_noop" on-invalid="ignore_uninitialized"/>
         <argument key="security.user_checker" type="service_closure" id="security.user_checker" on-invalid="ignore_uninitialized"/>
+        <argument key="security.user_checker_locator" type="service_closure" id="security.user_checker_locator" on-invalid="ignore_uninitialized"/>
         <argument key="security.authentication_utils" type="service_closure" id="security.authentication_utils" on-invalid="ignore_uninitialized"/>
         <argument key="security.role_hierarchy" type="service_closure" id="security.role_hierarchy" on-invalid="ignore_uninitialized"/>
         <argument key="security.access.simple_role_voter" type="service_closure" id="security.access.simple_role_voter" on-invalid="ignore_uninitialized"/>
@@ -2008,6 +2065,7 @@
         <argument key="twig.extension.logout_url" type="service_closure" id="twig.extension.logout_url" on-invalid="ignore_uninitialized"/>
         <argument key="twig.extension.security" type="service_closure" id="twig.extension.security" on-invalid="ignore_uninitialized"/>
         <argument key="data_collector.security" type="service_closure" id="data_collector.security" on-invalid="ignore_uninitialized"/>
+        <argument key="debug.security.access.decision_manager.inner" type="service_closure" id="debug.security.access.decision_manager.inner" on-invalid="ignore_uninitialized"/>
         <argument key="debug.security.access.decision_manager" type="service_closure" id="debug.security.access.decision_manager" on-invalid="ignore_uninitialized"/>
         <argument key="debug.security.voter.vote_listener" type="service_closure" id="debug.security.voter.vote_listener" on-invalid="ignore_uninitialized"/>
         <argument key="debug.security.firewall" type="service_closure" id="debug.security.firewall" on-invalid="ignore_uninitialized"/>
@@ -2036,6 +2094,7 @@
         <argument key="security.listener.remember_me.main" type="service_closure" id="security.listener.remember_me.main" on-invalid="ignore_uninitialized"/>
         <argument key="security.authenticator.remember_me.main" type="service_closure" id="security.authenticator.remember_me.main" on-invalid="ignore_uninitialized"/>
         <argument key="security.authenticator.manager.main" type="service_closure" id="security.authenticator.manager.main" on-invalid="ignore_uninitialized"/>
+        <argument key="debug.security.firewall.authenticator.main.inner" type="service_closure" id="debug.security.firewall.authenticator.main.inner" on-invalid="ignore_uninitialized"/>
         <argument key="debug.security.firewall.authenticator.main" type="service_closure" id="debug.security.firewall.authenticator.main" on-invalid="ignore_uninitialized"/>
         <argument key="security.listener.user_checker.main" type="service_closure" id="security.listener.user_checker.main" on-invalid="ignore_uninitialized"/>
         <argument key="security.exception_listener.main" type="service_closure" id="security.exception_listener.main" on-invalid="ignore_uninitialized"/>
@@ -2080,25 +2139,34 @@
         <argument key="twig.extension.importmap" type="service_closure" id="twig.extension.importmap" on-invalid="ignore_uninitialized"/>
         <argument key="twig.missing_extension_suggestor" type="service_closure" id="twig.missing_extension_suggestor" on-invalid="ignore_uninitialized"/>
         <argument key="twig.extension.string" type="service_closure" id="twig.extension.string" on-invalid="ignore_uninitialized"/>
+        <argument key="stof_doctrine_extensions.tool.actor_provider" type="service_closure" id="stof_doctrine_extensions.tool.actor_provider" on-invalid="ignore_uninitialized"/>
+        <argument key="stof_doctrine_extensions.tool.ip_address_provider" type="service_closure" id="stof_doctrine_extensions.tool.ip_address_provider" on-invalid="ignore_uninitialized"/>
         <argument key="stof_doctrine_extensions.metadata_cache" type="service_closure" id="stof_doctrine_extensions.metadata_cache" on-invalid="ignore_uninitialized"/>
         <argument key="ux.twig_component.component_template_finder" type="service_closure" id="ux.twig_component.component_template_finder" on-invalid="ignore_uninitialized"/>
         <argument key="ux.twig_component.component_factory" type="service_closure" id="ux.twig_component.component_factory" on-invalid="ignore_uninitialized"/>
         <argument key="ux.twig_component.component_stack" type="service_closure" id="ux.twig_component.component_stack" on-invalid="ignore_uninitialized"/>
+        <argument key="ux.twig_component.component_properties" type="service_closure" id="ux.twig_component.component_properties" on-invalid="ignore_uninitialized"/>
         <argument key="ux.twig_component.component_renderer" type="service_closure" id="ux.twig_component.component_renderer" on-invalid="ignore_uninitialized"/>
         <argument key="ux.twig_component.twig.component_extension" type="service_closure" id="ux.twig_component.twig.component_extension" on-invalid="ignore_uninitialized"/>
+        <argument key="ux.twig_component.twig.component_runtime" type="service_closure" id="ux.twig_component.twig.component_runtime" on-invalid="ignore_uninitialized"/>
         <argument key="ux.twig_component.twig.lexer" type="service_closure" id="ux.twig_component.twig.lexer" on-invalid="ignore_uninitialized"/>
+        <argument key="ux.twig_component.twig.environment_configurator.inner" type="service_closure" id="ux.twig_component.twig.environment_configurator.inner" on-invalid="ignore_uninitialized"/>
         <argument key="ux.twig_component.twig.environment_configurator" type="service_closure" id="ux.twig_component.twig.environment_configurator" on-invalid="ignore_uninitialized"/>
         <argument key="ux.twig_component.command.debug" type="service_closure" id="ux.twig_component.command.debug" on-invalid="ignore_uninitialized"/>
         <argument key="ux.twig_component.component_logger_listener" type="service_closure" id="ux.twig_component.component_logger_listener" on-invalid="ignore_uninitialized"/>
         <argument key="ux.twig_component.data_collector" type="service_closure" id="ux.twig_component.data_collector" on-invalid="ignore_uninitialized"/>
+        <argument key="cache.ux.twig_component" type="service_closure" id="cache.ux.twig_component" on-invalid="ignore_uninitialized"/>
+        <argument key="ux.twig_component.cache_warmer" type="service_closure" id="ux.twig_component.cache_warmer" on-invalid="ignore_uninitialized"/>
         <argument key="sass.builder" type="service_closure" id="sass.builder" on-invalid="ignore_uninitialized"/>
         <argument key="sass.command.build" type="service_closure" id="sass.command.build" on-invalid="ignore_uninitialized"/>
         <argument key="sass.css_asset_compiler" type="service_closure" id="sass.css_asset_compiler" on-invalid="ignore_uninitialized"/>
+        <argument key="sass.public_asset_path_resolver.inner" type="service_closure" id="sass.public_asset_path_resolver.inner" on-invalid="ignore_uninitialized"/>
         <argument key="sass.public_asset_path_resolver" type="service_closure" id="sass.public_asset_path_resolver" on-invalid="ignore_uninitialized"/>
         <argument key="sass.listener.pre_assets_compile" type="service_closure" id="sass.listener.pre_assets_compile" on-invalid="ignore_uninitialized"/>
         <argument key="web_profiler.csp.handler" type="service_closure" id="web_profiler.csp.handler" on-invalid="ignore_uninitialized"/>
         <argument key="twig.extension.webprofiler" type="service_closure" id="twig.extension.webprofiler" on-invalid="ignore_uninitialized"/>
         <argument key="debug.file_link_formatter.url_format" type="service_closure" id="debug.file_link_formatter.url_format" on-invalid="ignore_uninitialized"/>
+        <argument key="Vich\UploaderBundle\Naming\SmartUniqueNamer.video_games" type="service_closure" id="Vich\UploaderBundle\Naming\SmartUniqueNamer.video_games" on-invalid="ignore_uninitialized"/>
         <argument key="vich_uploader.adapter.mongodb" type="service_closure" id="vich_uploader.adapter.mongodb" on-invalid="ignore_uninitialized"/>
         <argument key="vich_uploader.adapter.orm" type="service_closure" id="vich_uploader.adapter.orm" on-invalid="ignore_uninitialized"/>
         <argument key="vich_uploader.adapter.phpcr" type="service_closure" id="vich_uploader.adapter.phpcr" on-invalid="ignore_uninitialized"/>
@@ -2118,6 +2186,7 @@
         <argument key="vich_uploader.file_injector" type="service_closure" id="vich_uploader.file_injector" on-invalid="ignore_uninitialized"/>
         <argument key="vich_uploader.metadata.file_locator" type="service_closure" id="vich_uploader.metadata.file_locator" on-invalid="ignore_uninitialized"/>
         <argument key="vich_uploader.metadata.attribute_reader" type="service_closure" id="vich_uploader.metadata.attribute_reader" on-invalid="ignore_uninitialized"/>
+        <argument key="vich_uploader.metadata_driver.attribute" type="service_closure" id="vich_uploader.metadata_driver.attribute" on-invalid="ignore_uninitialized"/>
         <argument key="vich_uploader.metadata_driver.annotation" type="service_closure" id="vich_uploader.metadata_driver.annotation" on-invalid="ignore_uninitialized"/>
         <argument key="vich_uploader.metadata_driver.xml" type="service_closure" id="vich_uploader.metadata_driver.xml" on-invalid="ignore_uninitialized"/>
         <argument key="vich_uploader.metadata_driver.yml" type="service_closure" id="vich_uploader.metadata_driver.yml" on-invalid="ignore_uninitialized"/>
@@ -2129,6 +2198,16 @@
         <argument key="Vich\UploaderBundle\Metadata\CacheWarmer" type="service_closure" id="Vich\UploaderBundle\Metadata\CacheWarmer" on-invalid="ignore_uninitialized"/>
         <argument key="vich_uploader.property_mapping_resolver" type="service_closure" id="vich_uploader.property_mapping_resolver" on-invalid="ignore_uninitialized"/>
         <argument key="vich_uploader.property_mapping_factory" type="service_closure" id="vich_uploader.property_mapping_factory" on-invalid="ignore_uninitialized"/>
+        <argument key="Vich\UploaderBundle\Naming\UniqidNamer" type="service_closure" id="Vich\UploaderBundle\Naming\UniqidNamer" on-invalid="ignore_uninitialized"/>
+        <argument key="Vich\UploaderBundle\Naming\PropertyNamer" type="service_closure" id="Vich\UploaderBundle\Naming\PropertyNamer" on-invalid="ignore_uninitialized"/>
+        <argument key="Vich\UploaderBundle\Naming\OrignameNamer" type="service_closure" id="Vich\UploaderBundle\Naming\OrignameNamer" on-invalid="ignore_uninitialized"/>
+        <argument key="Vich\UploaderBundle\Naming\HashNamer" type="service_closure" id="Vich\UploaderBundle\Naming\HashNamer" on-invalid="ignore_uninitialized"/>
+        <argument key="Vich\UploaderBundle\Naming\Base64Namer" type="service_closure" id="Vich\UploaderBundle\Naming\Base64Namer" on-invalid="ignore_uninitialized"/>
+        <argument key="Vich\UploaderBundle\Naming\SubdirDirectoryNamer" type="service_closure" id="Vich\UploaderBundle\Naming\SubdirDirectoryNamer" on-invalid="ignore_uninitialized"/>
+        <argument key="Vich\UploaderBundle\Naming\PropertyDirectoryNamer" type="service_closure" id="Vich\UploaderBundle\Naming\PropertyDirectoryNamer" on-invalid="ignore_uninitialized"/>
+        <argument key="Vich\UploaderBundle\Naming\CurrentDateTimeDirectoryNamer" type="service_closure" id="Vich\UploaderBundle\Naming\CurrentDateTimeDirectoryNamer" on-invalid="ignore_uninitialized"/>
+        <argument key="Vich\UploaderBundle\Naming\ConfigurableDirectoryNamer" type="service_closure" id="Vich\UploaderBundle\Naming\ConfigurableDirectoryNamer" on-invalid="ignore_uninitialized"/>
+        <argument key="Vich\UploaderBundle\Naming\SmartUniqueNamer" type="service_closure" id="Vich\UploaderBundle\Naming\SmartUniqueNamer" on-invalid="ignore_uninitialized"/>
         <argument key="Vich\UploaderBundle\Util\Transliterator" type="service_closure" id="Vich\UploaderBundle\Util\Transliterator" on-invalid="ignore_uninitialized"/>
         <argument key="vich_uploader.command.mapping_debug_class" type="service_closure" id="vich_uploader.command.mapping_debug_class" on-invalid="ignore_uninitialized"/>
         <argument key="vich_uploader.command.mapping_debug" type="service_closure" id="vich_uploader.command.mapping_debug" on-invalid="ignore_uninitialized"/>
@@ -2147,6 +2226,7 @@
         <argument key="monolog.formatter.html" type="service_closure" id="monolog.formatter.html" on-invalid="ignore_uninitialized"/>
         <argument key="monolog.formatter.json" type="service_closure" id="monolog.formatter.json" on-invalid="ignore_uninitialized"/>
         <argument key="monolog.formatter.line" type="service_closure" id="monolog.formatter.line" on-invalid="ignore_uninitialized"/>
+        <argument key="monolog.formatter.syslog" type="service_closure" id="monolog.formatter.syslog" on-invalid="ignore_uninitialized"/>
         <argument key="monolog.formatter.loggly" type="service_closure" id="monolog.formatter.loggly" on-invalid="ignore_uninitialized"/>
         <argument key="monolog.formatter.normalizer" type="service_closure" id="monolog.formatter.normalizer" on-invalid="ignore_uninitialized"/>
         <argument key="monolog.formatter.scalar" type="service_closure" id="monolog.formatter.scalar" on-invalid="ignore_uninitialized"/>
@@ -2157,6 +2237,9 @@
         <argument key="monolog.handler.main" type="service_closure" id="monolog.handler.main" on-invalid="ignore_uninitialized"/>
         <argument key="monolog.processor.psr_log_message" type="service_closure" id="monolog.processor.psr_log_message" on-invalid="ignore_uninitialized"/>
         <argument key="monolog.handler.nested" type="service_closure" id="monolog.handler.nested" on-invalid="ignore_uninitialized"/>
+        <argument key="http_client.uri_template.inner" type="service_closure" id="http_client.uri_template.inner" on-invalid="ignore_uninitialized"/>
+        <argument key=".doctrine.orm.default_metadata_driver.inner" type="service_closure" id=".doctrine.orm.default_metadata_driver.inner" on-invalid="ignore_uninitialized"/>
+        <argument key="doctrine.dbal.default_schema_asset_filter_manager" type="service_closure" id="doctrine.dbal.default_schema_asset_filter_manager" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine.dbal.logging_middleware.default" type="service_closure" id="doctrine.dbal.logging_middleware.default" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine.dbal.debug_middleware.default" type="service_closure" id="doctrine.dbal.debug_middleware.default" on-invalid="ignore_uninitialized"/>
         <argument key="security.listener.csrf_protection" type="service_closure" id="security.listener.csrf_protection" on-invalid="ignore_uninitialized"/>
@@ -2175,23 +2258,10 @@
         <argument key="monolog.logger.doctrine" type="service_closure" id="monolog.logger.doctrine" on-invalid="ignore_uninitialized"/>
         <argument key="monolog.logger.security" type="service_closure" id="monolog.logger.security" on-invalid="ignore_uninitialized"/>
         <argument key="monolog.handler.null_internal" type="service_closure" id="monolog.handler.null_internal" on-invalid="ignore_uninitialized"/>
-        <argument key="dama.doctrine.dbal.middleware" type="service_closure" id="dama.doctrine.dbal.middleware" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine.orm.default_metadata_cache" type="service_closure" id="doctrine.orm.default_metadata_cache" on-invalid="ignore_uninitialized"/>
         <argument key="doctrine.orm.default_query_cache" type="service_closure" id="doctrine.orm.default_query_cache" on-invalid="ignore_uninitialized"/>
-        <argument key="debug.security.event_dispatcher.main" type="service_closure" id="debug.security.event_dispatcher.main" on-invalid="ignore_uninitialized"/>
-        <argument key="debug.validator.inner" type="service_closure" id="debug.validator.inner" on-invalid="ignore_uninitialized"/>
-        <argument key="http_client.uri_template.inner" type="service_closure" id="http_client.uri_template.inner" on-invalid="ignore_uninitialized"/>
-        <argument key="asset_mapper.cached_mapped_asset_factory.inner" type="service_closure" id="asset_mapper.cached_mapped_asset_factory.inner" on-invalid="ignore_uninitialized"/>
-        <argument key="asset_mapper.asset_package.inner" type="service_closure" id="asset_mapper.asset_package.inner" on-invalid="ignore_uninitialized"/>
-        <argument key="debug.event_dispatcher.inner" type="service_closure" id="debug.event_dispatcher.inner" on-invalid="ignore_uninitialized"/>
-        <argument key="debug.controller_resolver.inner" type="service_closure" id="debug.controller_resolver.inner" on-invalid="ignore_uninitialized"/>
-        <argument key="debug.argument_resolver.inner" type="service_closure" id="debug.argument_resolver.inner" on-invalid="ignore_uninitialized"/>
-        <argument key="doctrine.migrations.container_aware_migrations_factory.inner" type="service_closure" id="doctrine.migrations.container_aware_migrations_factory.inner" on-invalid="ignore_uninitialized"/>
-        <argument key="debug.security.access.decision_manager.inner" type="service_closure" id="debug.security.access.decision_manager.inner" on-invalid="ignore_uninitialized"/>
-        <argument key="debug.security.firewall.authenticator.main.inner" type="service_closure" id="debug.security.firewall.authenticator.main.inner" on-invalid="ignore_uninitialized"/>
-        <argument key="ux.twig_component.twig.environment_configurator.inner" type="service_closure" id="ux.twig_component.twig.environment_configurator.inner" on-invalid="ignore_uninitialized"/>
-        <argument key="sass.public_asset_path_resolver.inner" type="service_closure" id="sass.public_asset_path_resolver.inner" on-invalid="ignore_uninitialized"/>
         <argument key="debug.security.event_dispatcher.main.inner" type="service_closure" id="debug.security.event_dispatcher.main.inner" on-invalid="ignore_uninitialized"/>
+        <argument key="debug.security.event_dispatcher.main" type="service_closure" id="debug.security.event_dispatcher.main" on-invalid="ignore_uninitialized"/>
         <argument key="cache.app.recorder_inner" type="service_closure" id="cache.app.recorder_inner" on-invalid="ignore_uninitialized"/>
         <argument key="cache.system.recorder_inner" type="service_closure" id="cache.system.recorder_inner" on-invalid="ignore_uninitialized"/>
         <argument key="cache.validator.recorder_inner" type="service_closure" id="cache.validator.recorder_inner" on-invalid="ignore_uninitialized"/>
@@ -2205,6 +2275,7 @@
         <argument key="cache.security_expression_language.recorder_inner" type="service_closure" id="cache.security_expression_language.recorder_inner" on-invalid="ignore_uninitialized"/>
         <argument key="cache.security_is_granted_attribute_expression_language.recorder_inner" type="service_closure" id="cache.security_is_granted_attribute_expression_language.recorder_inner" on-invalid="ignore_uninitialized"/>
         <argument key="cache.security_token_verifier.recorder_inner" type="service_closure" id="cache.security_token_verifier.recorder_inner" on-invalid="ignore_uninitialized"/>
+        <argument key="cache.ux.twig_component.recorder_inner" type="service_closure" id="cache.ux.twig_component.recorder_inner" on-invalid="ignore_uninitialized"/>
         <argument key="App\Rating\CalculateAverageRating" type="service_closure" id="App\Rating\RatingHandler" on-invalid="ignore_uninitialized"/>
         <argument key="App\Rating\CountRatingsPerValue" type="service_closure" id="App\Rating\RatingHandler" on-invalid="ignore_uninitialized"/>
         <argument key="Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface" type="service_closure" id="parameter_bag" on-invalid="ignore_uninitialized"/>
@@ -2235,6 +2306,7 @@
         <argument key="Symfony\Contracts\Translation\TranslatorInterface" type="service_closure" id="translator.data_collector" on-invalid="ignore_uninitialized"/>
         <argument key="Symfony\Component\Asset\Packages" type="service_closure" id="assets.packages" on-invalid="ignore_uninitialized"/>
         <argument key="Symfony\Component\AssetMapper\AssetMapperInterface" type="service_closure" id="asset_mapper" on-invalid="ignore_uninitialized"/>
+        <argument key="asset_mapper.http_client" type="service_closure" id=".debug.http_client" on-invalid="ignore_uninitialized"/>
         <argument key="Symfony\Component\AssetMapper\ImportMap\ImportMapManager" type="service_closure" id="asset_mapper.importmap.manager" on-invalid="ignore_uninitialized"/>
         <argument key="Symfony\Contracts\HttpClient\HttpClientInterface" type="service_closure" id=".debug.http_client" on-invalid="ignore_uninitialized"/>
         <argument key="Symfony\Component\Translation\Reader\TranslationReaderInterface" type="service_closure" id="translation.reader" on-invalid="ignore_uninitialized"/>
@@ -2325,6 +2397,7 @@
         <argument key="Symfony\Component\Security\Http\RememberMe\RememberMeHandlerInterface" type="service_closure" id="security.authenticator.firewall_aware_remember_me_handler" on-invalid="ignore_uninitialized"/>
         <argument key="security.user_checker.main" type="service_closure" id="security.user_checker" on-invalid="ignore_uninitialized"/>
         <argument key="security.firewall.context_locator" type="service_closure" id=".service_locator.zJyh7qS" on-invalid="ignore_uninitialized"/>
+        <argument key="security.firewall_config_locator" type="service_closure" id=".service_locator.2RLBKUz" on-invalid="ignore_uninitialized"/>
         <argument key="Symfony\Component\Security\Core\User\UserCheckerInterface" type="service_closure" id="security.user_checker" on-invalid="ignore_uninitialized"/>
         <argument key="Twig_Environment" type="service_closure" id="twig" on-invalid="ignore_uninitialized"/>
         <argument key="Twig\Environment" type="service_closure" id="twig" on-invalid="ignore_uninitialized"/>
@@ -2337,6 +2410,16 @@
         <argument key="vich_uploader.metadata.cache" type="service_closure" id="vich_uploader.metadata.cache.file_cache" on-invalid="ignore_uninitialized"/>
         <argument key="Vich\UploaderBundle\Mapping\PropertyMappingResolverInterface" type="service_closure" id="vich_uploader.property_mapping_resolver" on-invalid="ignore_uninitialized"/>
         <argument key="Vich\UploaderBundle\Mapping\PropertyMappingFactory" type="service_closure" id="vich_uploader.property_mapping_factory" on-invalid="ignore_uninitialized"/>
+        <argument key="vich_uploader.namer_uniqid" type="service_closure" id="Vich\UploaderBundle\Naming\UniqidNamer" on-invalid="ignore_uninitialized"/>
+        <argument key="vich_uploader.namer_property" type="service_closure" id="Vich\UploaderBundle\Naming\PropertyNamer" on-invalid="ignore_uninitialized"/>
+        <argument key="vich_uploader.namer_origname" type="service_closure" id="Vich\UploaderBundle\Naming\OrignameNamer" on-invalid="ignore_uninitialized"/>
+        <argument key="vich_uploader.namer_hash" type="service_closure" id="Vich\UploaderBundle\Naming\HashNamer" on-invalid="ignore_uninitialized"/>
+        <argument key="vich_uploader.namer_base64" type="service_closure" id="Vich\UploaderBundle\Naming\Base64Namer" on-invalid="ignore_uninitialized"/>
+        <argument key="vich_uploader.directory_namer_subdir" type="service_closure" id="Vich\UploaderBundle\Naming\SubdirDirectoryNamer" on-invalid="ignore_uninitialized"/>
+        <argument key="vich_uploader.namer_directory_property" type="service_closure" id="Vich\UploaderBundle\Naming\PropertyDirectoryNamer" on-invalid="ignore_uninitialized"/>
+        <argument key="vich_uploader.namer_directory_current_date_time" type="service_closure" id="Vich\UploaderBundle\Naming\CurrentDateTimeDirectoryNamer" on-invalid="ignore_uninitialized"/>
+        <argument key="vich_uploader.namer_directory_configurable" type="service_closure" id="Vich\UploaderBundle\Naming\ConfigurableDirectoryNamer" on-invalid="ignore_uninitialized"/>
+        <argument key="vich_uploader.namer_smart_unique" type="service_closure" id="Vich\UploaderBundle\Naming\SmartUniqueNamer" on-invalid="ignore_uninitialized"/>
         <argument key="Vich\UploaderBundle\Handler\DownloadHandler" type="service_closure" id="vich_uploader.download_handler" on-invalid="ignore_uninitialized"/>
         <argument key="Vich\UploaderBundle\Handler\UploadHandler" type="service_closure" id="vich_uploader.upload_handler" on-invalid="ignore_uninitialized"/>
         <argument key="Vich\UploaderBundle\Form\Type\VichFileType" type="service_closure" id="vich_uploader.form.type.file" on-invalid="ignore_uninitialized"/>
@@ -2417,12 +2500,18 @@
       <argument type="service" id=".debug.http_client" on-invalid="null"/>
       <argument>false</argument>
     </service>
+    <service id="assets._default_package_without_version" class="Symfony\Component\Asset\PathPackage">
+      <argument></argument>
+      <argument type="service" id="assets.empty_version_strategy"/>
+      <argument type="service" id="assets.context"/>
+    </service>
     <service id="asset_mapper" class="Symfony\Component\AssetMapper\AssetMapper">
       <argument type="service" id="asset_mapper.repository"/>
       <argument type="service" id="asset_mapper.cached_mapped_asset_factory"/>
       <argument type="service" id="asset_mapper.compiled_asset_mapper_config_reader"/>
     </service>
     <service id="asset_mapper.cached_mapped_asset_factory" class="Symfony\Component\AssetMapper\Factory\CachedMappedAssetFactory">
+      <tag name="kernel.reset" method="reset" on_invalid="ignore"/>
       <tag name="container.decorator" id="asset_mapper.mapped_asset_factory" inner="asset_mapper.cached_mapped_asset_factory.inner"/>
       <argument type="service" id="asset_mapper.cached_mapped_asset_factory.inner"/>
       <argument>/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/var/cache/test/asset_mapper</argument>
@@ -2450,6 +2539,10 @@
       <tag name="container.decorator" id="assets._default_package" inner="asset_mapper.asset_package.inner"/>
       <argument type="service" id="asset_mapper.asset_package.inner"/>
       <argument type="service" id="asset_mapper"/>
+      <argument type="service" id="request_stack"/>
+      <argument>/assets/</argument>
+      <argument type="service" id="assets._default_package_without_version" on-invalid="null"/>
+      <argument>/assets/</argument>
     </service>
     <service id="asset_mapper.dev_server_subscriber" class="Symfony\Component\AssetMapper\AssetMapperDevServerSubscriber">
       <tag name="kernel.event_subscriber"/>
@@ -3039,7 +3132,7 @@
           <argument>/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/symfony/ux-twig-component/translations</argument>
           <argument>/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/symfonycasts/sass-bundle/src/translations</argument>
           <argument>/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/symfony/web-profiler-bundle/translations</argument>
-          <argument>/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/symfony/monolog-bundle/translations</argument>
+          <argument>/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/symfony/monolog-bundle/src/translations</argument>
           <argument>/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/dama/doctrine-test-bundle/src/DAMA/DoctrineTestBundle/translations</argument>
         </argument>
         <argument key="cache_vary" type="collection">
@@ -3060,7 +3153,7 @@
             <argument>vendor/symfony/ux-twig-component/translations</argument>
             <argument>vendor/symfonycasts/sass-bundle/src/translations</argument>
             <argument>vendor/symfony/web-profiler-bundle/translations</argument>
-            <argument>vendor/symfony/monolog-bundle/translations</argument>
+            <argument>vendor/symfony/monolog-bundle/src/translations</argument>
             <argument>vendor/dama/doctrine-test-bundle/src/DAMA/DoctrineTestBundle/translations</argument>
           </argument>
         </argument>
@@ -3414,6 +3507,14 @@
         <argument type="collection">
           <argument type="service_closure" id="data_collector.router"/>
           <argument>onKernelController</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>console.command</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="doctrine_migrations.schema_filter_listener"/>
+          <argument>onConsoleCommand</argument>
         </argument>
         <argument>0</argument>
       </call>
@@ -3802,38 +3903,6 @@
         <argument>-128</argument>
       </call>
       <call method="addListener">
-        <argument>Symfony\UX\TwigComponent\Event\PreCreateForRenderEvent</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="ux.twig_component.component_logger_listener"/>
-          <argument>onPreCreateForRender</argument>
-        </argument>
-        <argument>255</argument>
-      </call>
-      <call method="addListener">
-        <argument>Symfony\UX\TwigComponent\Event\PreCreateForRenderEvent</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="ux.twig_component.component_logger_listener"/>
-          <argument>onPostCreateForRender</argument>
-        </argument>
-        <argument>-255</argument>
-      </call>
-      <call method="addListener">
-        <argument>Symfony\UX\TwigComponent\Event\PreMountEvent</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="ux.twig_component.component_logger_listener"/>
-          <argument>onPreMount</argument>
-        </argument>
-        <argument>255</argument>
-      </call>
-      <call method="addListener">
-        <argument>Symfony\UX\TwigComponent\Event\PostMountEvent</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="ux.twig_component.component_logger_listener"/>
-          <argument>onPostMount</argument>
-        </argument>
-        <argument>-255</argument>
-      </call>
-      <call method="addListener">
         <argument>Symfony\UX\TwigComponent\Event\PreRenderEvent</argument>
         <argument type="collection">
           <argument type="service_closure" id="ux.twig_component.component_logger_listener"/>
@@ -4082,6 +4151,7 @@
         <argument type="service" id="serializer.encoder.yaml"/>
         <argument type="service" id="serializer.encoder.csv"/>
       </argument>
+      <argument type="collection"/>
     </service>
     <service id="serializer.mapping.class_discriminator_resolver" class="Symfony\Component\Serializer\Mapping\ClassDiscriminatorFromClassMetadata">
       <argument type="service" id="serializer.mapping.class_metadata_factory"/>
@@ -4140,6 +4210,8 @@
       <argument type="service" id="property_info" on-invalid="ignore"/>
       <argument type="service" id="serializer.mapping.class_discriminator_resolver" on-invalid="ignore"/>
       <argument>null</argument>
+      <argument type="collection"/>
+      <argument type="service" id="property_info" on-invalid="ignore"/>
     </service>
     <service id="serializer.normalizer.property" class="Symfony\Component\Serializer\Normalizer\PropertyNormalizer">
       <argument type="service" id="serializer.mapping.class_metadata_factory"/>
@@ -4148,7 +4220,6 @@
       <argument type="service" id="serializer.mapping.class_discriminator_resolver" on-invalid="ignore"/>
       <argument>null</argument>
       <argument type="collection"/>
-      <argument type="service" id="property_info" on-invalid="ignore"/>
     </service>
     <service id="serializer.denormalizer.array" class="Symfony\Component\Serializer\Normalizer\ArrayDenormalizer">
       <tag name="serializer.normalizer" priority="-990"/>
@@ -4298,6 +4369,7 @@
         <service class="Symfony\Component\HttpFoundation\Session\Storage\MetadataBag">
           <argument>_sf2_meta</argument>
           <argument>0</argument>
+          <argument>null</argument>
         </service>
       </argument>
       <argument>true</argument>
@@ -4308,6 +4380,7 @@
         <service class="Symfony\Component\HttpFoundation\Session\Storage\MetadataBag">
           <argument>_sf2_meta</argument>
           <argument>0</argument>
+          <argument>null</argument>
         </service>
       </argument>
       <argument>true</argument>
@@ -4319,6 +4392,7 @@
         <service class="Symfony\Component\HttpFoundation\Session\Storage\MetadataBag">
           <argument>_sf2_meta</argument>
           <argument>0</argument>
+          <argument>null</argument>
         </service>
       </argument>
     </service>
@@ -4770,7 +4844,7 @@
       <argument>null</argument>
     </service>
     <service id="cache.validator_expression_language" class="Symfony\Component\Cache\Adapter\TraceableAdapter" public="true">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable=""/>
       <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="cache.validator_expression_language.recorder_inner"/>
     </service>
@@ -4884,11 +4958,17 @@
     <service id="console_profiler_listener" class="Symfony\Bundle\FrameworkBundle\EventListener\ConsoleProfilerListener">
       <tag name="kernel.event_subscriber"/>
       <tag name="container.no_preload"/>
-      <argument type="service" id="profiler"/>
+      <argument type="service" id=".lazy_profiler"/>
       <argument type="service" id=".virtual_request_stack"/>
       <argument type="service" id="debug.stopwatch"/>
       <argument>%env(not:default:kernel.runtime_mode.web:)%</argument>
       <argument type="service" id="router.default" on-invalid="null"/>
+    </service>
+    <service id=".lazy_profiler" class="Symfony\Component\HttpKernel\Profiler\Profiler" lazy="true">
+      <argument type="collection">
+        <argument type="service" id="profiler"/>
+      </argument>
+      <factory function="current"/>
     </service>
     <service id=".virtual_request_stack" class="Symfony\Component\HttpKernel\Debug\VirtualRequestStack" public="true">
       <argument type="service" id="request_stack"/>
@@ -5000,6 +5080,10 @@
       <call method="addInstance">
         <argument>cache.security_token_verifier</argument>
         <argument type="service" id="cache.security_token_verifier"/>
+      </call>
+      <call method="addInstance">
+        <argument>cache.ux.twig_component</argument>
+        <argument type="service" id="cache.ux.twig_component"/>
       </call>
     </service>
     <service id="cache_pool_clearer.cache_warmer" class="Symfony\Bundle\FrameworkBundle\CacheWarmer\CachePoolClearerCacheWarmer">
@@ -5136,22 +5220,13 @@
       <call method="setSchemaManagerFactory">
         <argument type="service" id="doctrine.dbal.legacy_schema_manager_factory"/>
       </call>
+      <call method="setSchemaAssetsFilter">
+        <argument type="service" id="doctrine.dbal.default_schema_asset_filter_manager"/>
+      </call>
       <call method="setMiddlewares">
         <argument type="collection">
-          <argument type="service">
-            <service class="Doctrine\DBAL\Logging\Middleware">
-              <argument type="service" id="monolog.logger.doctrine"/>
-            </service>
-          </argument>
-          <argument type="service">
-            <service class="Doctrine\Bundle\DoctrineBundle\Middleware\DebugMiddleware">
-              <argument type="service" id="doctrine.debug_data_holder"/>
-              <argument type="service" id="debug.stopwatch" on-invalid="null"/>
-              <call method="setConnectionName">
-                <argument>default</argument>
-              </call>
-            </service>
-          </argument>
+          <argument type="service" id="doctrine.dbal.logging_middleware.default"/>
+          <argument type="service" id="doctrine.dbal.debug_middleware.default"/>
         </argument>
       </call>
     </service>
@@ -5244,6 +5319,7 @@
         <argument key="use_savepoints">true</argument>
         <argument key="dbname_suffix">_test%env(default::TEST_TOKEN)%</argument>
         <argument key="driver">pdo_mysql</argument>
+        <argument key="idle_connection_ttl">600</argument>
         <argument key="host">localhost</argument>
         <argument key="port">null</argument>
         <argument key="user">root</argument>
@@ -5271,6 +5347,7 @@
         </service>
       </argument>
     </service>
+    <service id="doctrine.dbal.connection_expiries" class="ArrayObject"/>
     <service id="doctrine.dbal.logging_middleware" class="Doctrine\DBAL\Logging\Middleware" abstract="true">
       <tag name="monolog.logger" channel="doctrine"/>
       <tag name="doctrine.middleware" connection="default" priority="10"/>
@@ -5286,9 +5363,6 @@
       <tag name="doctrine.middleware" connection="default" priority="10"/>
       <argument type="service" id="doctrine.debug_data_holder"/>
       <argument type="service" id="debug.stopwatch" on-invalid="null"/>
-    </service>
-    <service id=".1_ServiceLocator~3qcZ9Y1" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <argument type="collection"/>
     </service>
     <service id="doctrine.orm.proxy_cache_warmer" class="Symfony\Bridge\Doctrine\CacheWarmer\ProxyCacheWarmer">
       <tag name="kernel.cache_warmer"/>
@@ -5348,6 +5422,7 @@
     </service>
     <service id="doctrine.orm.quote_strategy.default" class="Doctrine\ORM\Mapping\DefaultQuoteStrategy"/>
     <service id="doctrine.orm.quote_strategy.ansi" class="Doctrine\ORM\Mapping\AnsiQuoteStrategy"/>
+    <service id="doctrine.orm.typed_field_mapper.default" class="Doctrine\ORM\Mapping\DefaultTypedFieldMapper"/>
     <service id="doctrine.ulid_generator" class="Symfony\Bridge\Doctrine\IdGenerator\UlidGenerator">
       <tag name="doctrine.id_generator"/>
       <argument>null</argument>
@@ -5360,9 +5435,23 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="doctrine.orm.entity_value_resolver" class="Symfony\Bridge\Doctrine\ArgumentResolver\EntityValueResolver">
-      <tag name="Symfony\Bridge\Doctrine\ArgumentResolver\EntityValueResolver" priority="110">controller.argument_value_resolver</tag>
+      <tag priority="110" name="Symfony\Bridge\Doctrine\ArgumentResolver\EntityValueResolver">controller.argument_value_resolver</tag>
       <argument type="service" id="doctrine"/>
       <argument>null</argument>
+      <argument type="service">
+        <service class="Symfony\Bridge\Doctrine\Attribute\MapEntity">
+          <argument>null</argument>
+          <argument>null</argument>
+          <argument>null</argument>
+          <argument>null</argument>
+          <argument>null</argument>
+          <argument>null</argument>
+          <argument>null</argument>
+          <argument>null</argument>
+          <argument>false</argument>
+        </service>
+      </argument>
+      <argument type="collection"/>
     </service>
     <service id="doctrine.cache_clear_metadata_command" class="Doctrine\ORM\Tools\Console\Command\ClearCache\MetadataCommand">
       <tag name="console.command" command="doctrine:cache:clear-metadata"/>
@@ -5426,6 +5515,14 @@
       <argument type="service" id="doctrine.orm.command.entity_manager_provider"/>
       <call method="setName">
         <argument>doctrine:mapping:info</argument>
+      </call>
+    </service>
+    <service id="doctrine.mapping_describe_command" class="Doctrine\ORM\Tools\Console\Command\MappingDescribeCommand">
+      <tag name="console.command" command="doctrine:mapping:describe"/>
+      <tag name="container.no_preload"/>
+      <argument type="service" id="doctrine.orm.command.entity_manager_provider"/>
+      <call method="setName">
+        <argument>doctrine:mapping:describe</argument>
       </call>
     </service>
     <service id="doctrine.clear_query_region_command" class="Doctrine\ORM\Tools\Console\Command\ClearCache\QueryRegionCommand">
@@ -5504,11 +5601,20 @@
       <call method="setQuoteStrategy">
         <argument type="service" id="doctrine.orm.quote_strategy.default"/>
       </call>
+      <call method="setTypedFieldMapper">
+        <argument type="service" id="doctrine.orm.typed_field_mapper.default"/>
+      </call>
       <call method="setEntityListenerResolver">
         <argument type="service" id="doctrine.orm.default_entity_listener_resolver"/>
       </call>
       <call method="setLazyGhostObjectEnabled">
         <argument>true</argument>
+      </call>
+      <call method="setIdentityGenerationPreferences">
+        <argument type="collection"/>
+      </call>
+      <call method="enableNativeLazyObjects">
+        <argument>false</argument>
       </call>
       <call method="setRepositoryFactory">
         <argument type="service" id="doctrine.orm.container_repository_factory"/>
@@ -5532,11 +5638,11 @@
     </service>
     <service id="cache.doctrine.orm.default.metadata" class="Symfony\Component\Cache\Adapter\ArrayAdapter"/>
     <service id="cache.doctrine.orm.default.result" class="Symfony\Component\Cache\Adapter\TraceableAdapter">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable=""/>
       <argument type="service" id="cache.doctrine.orm.default.result.recorder_inner"/>
     </service>
     <service id="cache.doctrine.orm.default.query" class="Symfony\Component\Cache\Adapter\TraceableAdapter">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable=""/>
       <argument type="service" id="cache.doctrine.orm.default.query.recorder_inner"/>
     </service>
     <service id="doctrine.orm.default_entity_listener_resolver" class="Doctrine\Bundle\DoctrineBundle\Mapping\ContainerEntityListenerResolver" public="true">
@@ -5770,6 +5876,12 @@
         <argument>Manually add and delete migration versions from the version table.</argument>
       </call>
     </service>
+    <service id="doctrine_migrations.schema_filter_listener" class="Doctrine\Bundle\MigrationsBundle\EventListener\SchemaFilterListener">
+      <tag name="doctrine.dbal.schema_filter" connection="default"/>
+      <tag name="kernel.event_listener" event="console.command" method="onConsoleCommand"/>
+      <tag name="container.no_preload"/>
+      <argument>doctrine_migration_versions</argument>
+    </service>
     <service id="doctrine.migrations.storage.table_storage" class="Doctrine\Migrations\Metadata\Storage\TableMetadataStorageConfiguration"/>
     <service id="security.authorization_checker" class="Symfony\Component\Security\Core\Authorization\AuthorizationChecker">
       <argument type="service" id="security.token_storage"/>
@@ -5785,7 +5897,7 @@
     </service>
     <service id="security.untracked_token_storage" class="Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage"/>
     <service id="security.helper" class="Symfony\Bundle\SecurityBundle\Security">
-      <argument type="service" id=".service_locator.LrCXAmX"/>
+      <argument type="service" id=".service_locator.9Sbc0.x"/>
       <argument type="collection">
         <argument key="dev">null</argument>
         <argument key="main" type="service" id=".service_locator.I5Q3J1s"/>
@@ -5808,6 +5920,11 @@
       <argument>none</argument>
     </service>
     <service id="security.user_checker" class="Symfony\Component\Security\Core\User\InMemoryUserChecker"/>
+    <service id="security.user_checker_locator" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <argument type="collection">
+        <argument key="main" type="service_closure" id="security.user_checker"/>
+      </argument>
+    </service>
     <service id="security.authentication_utils" class="Symfony\Component\Security\Http\Authentication\AuthenticationUtils">
       <argument type="service" id="request_stack"/>
     </service>
@@ -5862,6 +5979,7 @@
       <argument>null</argument>
     </service>
     <service id="security.logout_url_generator" class="Symfony\Component\Security\Http\Logout\LogoutUrlGenerator">
+      <tag name="kernel.reset" method="reset" on_invalid="ignore"/>
       <argument type="service" id="request_stack" on-invalid="null"/>
       <argument type="service" id="router.default" on-invalid="null"/>
       <argument type="service" id="security.token_storage" on-invalid="null"/>
@@ -5907,7 +6025,7 @@
       <argument type="service" id="security.password_hasher_factory"/>
     </service>
     <service id="cache.security_expression_language" class="Symfony\Component\Cache\Adapter\TraceableAdapter">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable=""/>
       <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="cache.security_expression_language.recorder_inner"/>
     </service>
@@ -5918,7 +6036,7 @@
       <argument>null</argument>
     </service>
     <service id="cache.security_is_granted_attribute_expression_language" class="Symfony\Component\Cache\Adapter\TraceableAdapter" public="true">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable=""/>
       <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="cache.security_is_granted_attribute_expression_language.recorder_inner"/>
     </service>
@@ -6452,6 +6570,8 @@
       <argument type="abstract">options</argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
       <argument type="abstract">token verifier</argument>
+      <argument type="abstract">signature properties</argument>
+      <argument type="service" id="property_accessor" on-invalid="null"/>
     </service>
     <service id="security.authenticator.firewall_aware_remember_me_handler" class="Symfony\Bundle\SecurityBundle\RememberMe\FirewallAwareRememberMeHandler">
       <argument type="service" id="security.firewall.map"/>
@@ -6476,7 +6596,7 @@
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
     </service>
     <service id="cache.security_token_verifier" class="Symfony\Component\Cache\Adapter\TraceableAdapter">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable=""/>
       <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="cache.security_token_verifier.recorder_inner"/>
     </service>
@@ -6499,9 +6619,7 @@
         <argument key="lifetime">604800</argument>
         <argument key="user_providers" type="collection"/>
         <argument key="catch_exceptions">true</argument>
-        <argument key="signature_properties" type="collection">
-          <argument>password</argument>
-        </argument>
+        <argument key="signature_properties" type="collection"/>
         <argument key="name">REMEMBERME</argument>
         <argument key="path">/</argument>
         <argument key="domain">null</argument>
@@ -6593,6 +6711,13 @@
         <argument key="security.firewall.map.context.main" type="service_closure" id="security.firewall.map.context.main"/>
       </argument>
     </service>
+    <service id=".service_locator.2RLBKUz" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="dev" type="service_closure" id="security.firewall.map.config.dev"/>
+        <argument key="main" type="service_closure" id="security.firewall.map.config.main"/>
+      </argument>
+    </service>
     <service id="security.command.user_password_hash" class="Symfony\Component\PasswordHasher\Command\UserPasswordHashCommand">
       <tag name="console.command"/>
       <tag name="container.no_preload"/>
@@ -6647,9 +6772,11 @@
       <tag name="container.preload" class="Twig\Extension\EscaperExtension"/>
       <tag name="container.preload" class="Twig\Extension\OptimizerExtension"/>
       <tag name="container.preload" class="Twig\Extension\StagingExtension"/>
+      <tag name="container.preload" class="Twig\ExpressionParser\Infix\BinaryOperatorExpressionParser"/>
       <tag name="container.preload" class="Twig\ExtensionSet"/>
       <tag name="container.preload" class="Twig\Template"/>
       <tag name="container.preload" class="Twig\TemplateWrapper"/>
+      <tag name="kernel.reset" method="resetGlobals"/>
       <argument type="service" id="twig.loader.native_filesystem"/>
       <argument type="collection">
         <argument key="strict_variables">true</argument>
@@ -6800,11 +6927,11 @@
         <argument>!Doctrine</argument>
       </call>
       <call method="addPath">
-        <argument>/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/doctrine/doctrine-migrations-bundle/Resources/views</argument>
+        <argument>/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/doctrine/doctrine-migrations-bundle/templates</argument>
         <argument>DoctrineMigrations</argument>
       </call>
       <call method="addPath">
-        <argument>/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/doctrine/doctrine-migrations-bundle/Resources/views</argument>
+        <argument>/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/vendor/doctrine/doctrine-migrations-bundle/templates</argument>
         <argument>!DoctrineMigrations</argument>
       </call>
       <call method="addPath">
@@ -6911,7 +7038,7 @@
       <argument type="service" id="twig"/>
     </service>
     <service id="twig.runtime_loader" class="Twig\RuntimeLoader\ContainerRuntimeLoader">
-      <argument type="service" id=".service_locator.Y1lHLaN"/>
+      <argument type="service" id=".service_locator.CLayvUv"/>
     </service>
     <service id="twig.error_renderer.html" class="Symfony\Bridge\Twig\ErrorRenderer\TwigErrorRenderer">
       <argument type="service" id="twig"/>
@@ -6989,12 +7116,20 @@
     <service id="twig.extension.string" class="Twig\Extra\String\StringExtension">
       <tag name="twig.extension"/>
     </service>
+    <service id="stof_doctrine_extensions.tool.actor_provider" class="Stof\DoctrineExtensionsBundle\Tool\TokenStorageActorProvider">
+      <argument type="service" id="security.token_storage" on-invalid="null"/>
+      <argument type="service" id="security.authorization_checker" on-invalid="null"/>
+    </service>
+    <service id="stof_doctrine_extensions.tool.ip_address_provider" class="Stof\DoctrineExtensionsBundle\Tool\RequestStackIpAddressProvider">
+      <argument type="service" id="request_stack" on-invalid="null"/>
+    </service>
     <service id="stof_doctrine_extensions.metadata_cache" class="Symfony\Component\Cache\Adapter\ArrayAdapter"/>
     <service id="ux.twig_component.component_template_finder" class="Symfony\UX\TwigComponent\ComponentTemplateFinder">
       <argument type="service" id="twig.loader.native_filesystem"/>
       <argument>components/</argument>
     </service>
     <service id="ux.twig_component.component_factory" class="Symfony\UX\TwigComponent\ComponentFactory">
+      <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="ux.twig_component.component_template_finder"/>
       <argument type="service" id=".service_locator.H1CTuvD"/>
       <argument type="service" id="property_accessor"/>
@@ -7007,6 +7142,9 @@
           <argument key="service_id">App\Twig\Components\Alert</argument>
           <argument key="class">App\Twig\Components\Alert</argument>
           <argument key="template">components/Alert.html.twig</argument>
+          <argument key="pre_mount" type="collection"/>
+          <argument key="mount" type="collection"/>
+          <argument key="post_mount" type="collection"/>
         </argument>
         <argument key="Card" type="collection">
           <argument key="expose_public_props">true</argument>
@@ -7015,6 +7153,9 @@
           <argument key="service_id">App\Twig\Components\Card</argument>
           <argument key="class">App\Twig\Components\Card</argument>
           <argument key="template">components/Card.html.twig</argument>
+          <argument key="pre_mount" type="collection"/>
+          <argument key="mount" type="collection"/>
+          <argument key="post_mount" type="collection"/>
         </argument>
         <argument key="Filter" type="collection">
           <argument key="expose_public_props">true</argument>
@@ -7023,6 +7164,9 @@
           <argument key="service_id">App\Twig\Components\Filter</argument>
           <argument key="class">App\Twig\Components\Filter</argument>
           <argument key="template">components/Filter.html.twig</argument>
+          <argument key="pre_mount" type="collection"/>
+          <argument key="mount" type="collection"/>
+          <argument key="post_mount" type="collection"/>
         </argument>
         <argument key="Info" type="collection">
           <argument key="expose_public_props">true</argument>
@@ -7031,6 +7175,9 @@
           <argument key="service_id">App\Twig\Components\Info</argument>
           <argument key="class">App\Twig\Components\Info</argument>
           <argument key="template">components/Info.html.twig</argument>
+          <argument key="pre_mount" type="collection"/>
+          <argument key="mount" type="collection"/>
+          <argument key="post_mount" type="collection"/>
         </argument>
         <argument key="NavBar" type="collection">
           <argument key="expose_public_props">true</argument>
@@ -7039,6 +7186,9 @@
           <argument key="service_id">App\Twig\Components\NavBar</argument>
           <argument key="class">App\Twig\Components\NavBar</argument>
           <argument key="template">components/NavBar.html.twig</argument>
+          <argument key="pre_mount" type="collection"/>
+          <argument key="mount" type="collection"/>
+          <argument key="post_mount" type="collection"/>
         </argument>
         <argument key="Pagination" type="collection">
           <argument key="expose_public_props">true</argument>
@@ -7047,6 +7197,9 @@
           <argument key="service_id">App\Twig\Components\Pagination</argument>
           <argument key="class">App\Twig\Components\Pagination</argument>
           <argument key="template">components/Pagination.html.twig</argument>
+          <argument key="pre_mount" type="collection"/>
+          <argument key="mount" type="collection"/>
+          <argument key="post_mount" type="collection"/>
         </argument>
         <argument key="Progress" type="collection">
           <argument key="expose_public_props">true</argument>
@@ -7055,6 +7208,9 @@
           <argument key="service_id">App\Twig\Components\Progress</argument>
           <argument key="class">App\Twig\Components\Progress</argument>
           <argument key="template">components/Progress.html.twig</argument>
+          <argument key="pre_mount" type="collection"/>
+          <argument key="mount" type="collection"/>
+          <argument key="post_mount" type="collection"/>
         </argument>
         <argument key="Rating" type="collection">
           <argument key="expose_public_props">true</argument>
@@ -7063,6 +7219,9 @@
           <argument key="service_id">App\Twig\Components\Rating</argument>
           <argument key="class">App\Twig\Components\Rating</argument>
           <argument key="template">components/Rating.html.twig</argument>
+          <argument key="pre_mount" type="collection"/>
+          <argument key="mount" type="collection"/>
+          <argument key="post_mount" type="collection"/>
         </argument>
         <argument key="Review" type="collection">
           <argument key="expose_public_props">true</argument>
@@ -7071,6 +7230,9 @@
           <argument key="service_id">App\Twig\Components\Review</argument>
           <argument key="class">App\Twig\Components\Review</argument>
           <argument key="template">components/Review.html.twig</argument>
+          <argument key="pre_mount" type="collection"/>
+          <argument key="mount" type="collection"/>
+          <argument key="post_mount" type="collection"/>
         </argument>
         <argument key="Sorting" type="collection">
           <argument key="expose_public_props">true</argument>
@@ -7079,6 +7241,9 @@
           <argument key="service_id">App\Twig\Components\Sorting</argument>
           <argument key="class">App\Twig\Components\Sorting</argument>
           <argument key="template">components/Sorting.html.twig</argument>
+          <argument key="pre_mount" type="collection"/>
+          <argument key="mount" type="collection"/>
+          <argument key="post_mount" type="collection"/>
         </argument>
         <argument key="Tabs" type="collection">
           <argument key="expose_public_props">true</argument>
@@ -7087,6 +7252,9 @@
           <argument key="service_id">App\Twig\Components\Tabs</argument>
           <argument key="class">App\Twig\Components\Tabs</argument>
           <argument key="template">components/Tabs.html.twig</argument>
+          <argument key="pre_mount" type="collection"/>
+          <argument key="mount" type="collection"/>
+          <argument key="post_mount" type="collection"/>
         </argument>
       </argument>
       <argument type="collection">
@@ -7102,19 +7270,41 @@
         <argument key="App\Twig\Components\Sorting">Sorting</argument>
         <argument key="App\Twig\Components\Tabs">Tabs</argument>
       </argument>
+      <argument type="service" id="twig"/>
     </service>
     <service id="ux.twig_component.component_stack" class="Symfony\UX\TwigComponent\ComponentStack"/>
+    <service id="ux.twig_component.component_properties" class="Symfony\UX\TwigComponent\ComponentProperties">
+      <argument type="service" id="property_accessor"/>
+      <argument type="collection">
+        <argument key="App\Twig\Components\Alert">null</argument>
+        <argument key="App\Twig\Components\Card">null</argument>
+        <argument key="App\Twig\Components\Filter">null</argument>
+        <argument key="App\Twig\Components\Info">null</argument>
+        <argument key="App\Twig\Components\NavBar">null</argument>
+        <argument key="App\Twig\Components\Pagination">null</argument>
+        <argument key="App\Twig\Components\Progress">null</argument>
+        <argument key="App\Twig\Components\Rating">null</argument>
+        <argument key="App\Twig\Components\Review">null</argument>
+        <argument key="App\Twig\Components\Sorting">null</argument>
+        <argument key="App\Twig\Components\Tabs">null</argument>
+      </argument>
+      <argument type="service" id="cache.ux.twig_component" on-invalid="ignore"/>
+    </service>
     <service id="ux.twig_component.component_renderer" class="Symfony\UX\TwigComponent\ComponentRenderer">
+      <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="twig"/>
       <argument type="service" id="debug.event_dispatcher"/>
       <argument type="service" id="ux.twig_component.component_factory"/>
-      <argument type="service" id="property_accessor"/>
+      <argument type="service" id="ux.twig_component.component_properties"/>
       <argument type="service" id="ux.twig_component.component_stack"/>
     </service>
     <service id="ux.twig_component.twig.component_extension" class="Symfony\UX\TwigComponent\Twig\ComponentExtension">
       <tag name="twig.extension"/>
-      <tag name="container.service_subscriber" key="Symfony\UX\TwigComponent\ComponentRenderer" id="ux.twig_component.component_renderer"/>
-      <argument type="service" id=".service_locator.iU8QgVt.ux.twig_component.twig.component_extension"/>
+    </service>
+    <service id="ux.twig_component.twig.component_runtime" class="Symfony\UX\TwigComponent\Twig\ComponentRuntime">
+      <tag name="twig.runtime"/>
+      <argument type="service" id="ux.twig_component.component_renderer"/>
+      <argument type="service" id=".service_locator.Xbsa8iG"/>
     </service>
     <service id="ux.twig_component.twig.lexer" class="Symfony\UX\TwigComponent\Twig\ComponentLexer"/>
     <service id="ux.twig_component.twig.environment_configurator" class="Symfony\UX\TwigComponent\Twig\TwigEnvironmentConfigurator">
@@ -7150,12 +7340,22 @@
     </service>
     <service id="ux.twig_component.component_logger_listener" class="Symfony\UX\TwigComponent\EventListener\TwigComponentLoggerListener">
       <tag name="kernel.event_subscriber"/>
-      <argument type="service" id="debug.stopwatch" on-invalid="ignore"/>
     </service>
     <service id="ux.twig_component.data_collector" class="Symfony\UX\TwigComponent\DataCollector\TwigComponentDataCollector">
       <tag name="data_collector" template="@TwigComponent/Collector/twig_component.html.twig" id="twig_component" priority="256"/>
       <argument type="service" id="ux.twig_component.component_logger_listener"/>
       <argument type="service" id="twig"/>
+      <argument>true</argument>
+    </service>
+    <service id="cache.ux.twig_component" class="Symfony\Component\Cache\Adapter\TraceableAdapter">
+      <tag name="cache.pool" pruneable=""/>
+      <tag name="kernel.reset" method="reset"/>
+      <argument type="service" id="cache.ux.twig_component.recorder_inner"/>
+    </service>
+    <service id="ux.twig_component.cache_warmer" class="Symfony\UX\TwigComponent\CacheWarmer\TwigComponentCacheWarmer">
+      <tag name="kernel.cache_warmer"/>
+      <tag name="container.service_subscriber" id="ux.twig_component.component_properties"/>
+      <argument type="service" id=".service_locator.j7D0Vt4.ux.twig_component.cache_warmer"/>
     </service>
     <service id="sass.builder" class="Symfonycasts\SassBundle\SassBuilder">
       <argument type="collection">
@@ -7244,87 +7444,87 @@
       <argument>?file=%%f&amp;line=%%l#line%%l</argument>
       <factory class="Symfony\Component\ErrorHandler\ErrorRenderer\FileLinkFormatter" method="generateUrlFormat"/>
     </service>
-    <service id="Vich\UploaderBundle\Naming\SmartUniqueNamer.video_games" class="Vich\UploaderBundle\Naming\SmartUniqueNamer" public="true">
+    <service id="Vich\UploaderBundle\Naming\SmartUniqueNamer.video_games" class="Vich\UploaderBundle\Naming\SmartUniqueNamer" autowire="true">
       <argument type="service" id="Vich\UploaderBundle\Util\Transliterator"/>
     </service>
     <service id="vich_uploader.adapter.mongodb" class="Vich\UploaderBundle\Adapter\ODM\MongoDB\MongoDBAdapter"/>
     <service id="vich_uploader.adapter.orm" class="Vich\UploaderBundle\Adapter\ORM\DoctrineORMAdapter"/>
     <service id="vich_uploader.adapter.phpcr" class="Vich\UploaderBundle\Adapter\PHPCR\PHPCRAdapter"/>
     <service id="vich_uploader.listener.doctrine.base" abstract="true">
-      <argument></argument>
-      <argument></argument>
+      <argument>null</argument>
+      <argument>null</argument>
       <argument type="service" id="vich_uploader.metadata_reader"/>
       <argument type="service" id="vich_uploader.upload_handler"/>
     </service>
     <service id="vich_uploader.listener.inject.orm" class="Vich\UploaderBundle\EventListener\Doctrine\InjectListener">
-      <argument></argument>
-      <argument></argument>
+      <argument>null</argument>
+      <argument>null</argument>
       <argument type="service" id="vich_uploader.metadata_reader"/>
       <argument type="service" id="vich_uploader.upload_handler"/>
     </service>
     <service id="vich_uploader.listener.upload.orm" class="Vich\UploaderBundle\EventListener\Doctrine\UploadListener">
-      <argument></argument>
-      <argument></argument>
+      <argument>null</argument>
+      <argument>null</argument>
       <argument type="service" id="vich_uploader.metadata_reader"/>
       <argument type="service" id="vich_uploader.upload_handler"/>
     </service>
     <service id="vich_uploader.listener.clean.orm" class="Vich\UploaderBundle\EventListener\Doctrine\CleanListener">
-      <argument></argument>
-      <argument></argument>
+      <argument>null</argument>
+      <argument>null</argument>
       <argument type="service" id="vich_uploader.metadata_reader"/>
       <argument type="service" id="vich_uploader.upload_handler"/>
     </service>
     <service id="vich_uploader.listener.remove.orm" class="Vich\UploaderBundle\EventListener\Doctrine\RemoveListener">
-      <argument></argument>
-      <argument></argument>
+      <argument>null</argument>
+      <argument>null</argument>
       <argument type="service" id="vich_uploader.metadata_reader"/>
       <argument type="service" id="vich_uploader.upload_handler"/>
     </service>
     <service id="vich_uploader.listener.inject.mongodb" class="Vich\UploaderBundle\EventListener\Doctrine\InjectListener">
-      <argument></argument>
-      <argument></argument>
+      <argument>null</argument>
+      <argument>null</argument>
       <argument type="service" id="vich_uploader.metadata_reader"/>
       <argument type="service" id="vich_uploader.upload_handler"/>
     </service>
     <service id="vich_uploader.listener.upload.mongodb" class="Vich\UploaderBundle\EventListener\Doctrine\UploadListener">
-      <argument></argument>
-      <argument></argument>
+      <argument>null</argument>
+      <argument>null</argument>
       <argument type="service" id="vich_uploader.metadata_reader"/>
       <argument type="service" id="vich_uploader.upload_handler"/>
     </service>
     <service id="vich_uploader.listener.clean.mongodb" class="Vich\UploaderBundle\EventListener\Doctrine\CleanListener">
-      <argument></argument>
-      <argument></argument>
+      <argument>null</argument>
+      <argument>null</argument>
       <argument type="service" id="vich_uploader.metadata_reader"/>
       <argument type="service" id="vich_uploader.upload_handler"/>
     </service>
     <service id="vich_uploader.listener.remove.mongodb" class="Vich\UploaderBundle\EventListener\Doctrine\RemoveListener">
-      <argument></argument>
-      <argument></argument>
+      <argument>null</argument>
+      <argument>null</argument>
       <argument type="service" id="vich_uploader.metadata_reader"/>
       <argument type="service" id="vich_uploader.upload_handler"/>
     </service>
     <service id="vich_uploader.listener.inject.phpcr" class="Vich\UploaderBundle\EventListener\Doctrine\InjectListener">
-      <argument></argument>
-      <argument></argument>
+      <argument>null</argument>
+      <argument>null</argument>
       <argument type="service" id="vich_uploader.metadata_reader"/>
       <argument type="service" id="vich_uploader.upload_handler"/>
     </service>
     <service id="vich_uploader.listener.upload.phpcr" class="Vich\UploaderBundle\EventListener\Doctrine\UploadListener">
-      <argument></argument>
-      <argument></argument>
+      <argument>null</argument>
+      <argument>null</argument>
       <argument type="service" id="vich_uploader.metadata_reader"/>
       <argument type="service" id="vich_uploader.upload_handler"/>
     </service>
     <service id="vich_uploader.listener.clean.phpcr" class="Vich\UploaderBundle\EventListener\Doctrine\CleanListener">
-      <argument></argument>
-      <argument></argument>
+      <argument>null</argument>
+      <argument>null</argument>
       <argument type="service" id="vich_uploader.metadata_reader"/>
       <argument type="service" id="vich_uploader.upload_handler"/>
     </service>
     <service id="vich_uploader.listener.remove.phpcr" class="Vich\UploaderBundle\EventListener\Doctrine\RemoveListener">
-      <argument></argument>
-      <argument></argument>
+      <argument>null</argument>
+      <argument>null</argument>
       <argument type="service" id="vich_uploader.metadata_reader"/>
       <argument type="service" id="vich_uploader.upload_handler"/>
     </service>
@@ -7338,11 +7538,16 @@
       <argument type="collection"/>
     </service>
     <service id="vich_uploader.metadata.attribute_reader" class="Vich\UploaderBundle\Metadata\Driver\AttributeReader"/>
-    <service id="vich_uploader.metadata_driver.annotation" class="Vich\UploaderBundle\Metadata\Driver\AnnotationDriver">
+    <service id="vich_uploader.metadata_driver.attribute" class="Vich\UploaderBundle\Metadata\Driver\AttributeDriver">
       <argument type="service" id="vich_uploader.metadata.reader"/>
       <argument type="collection">
         <argument type="service" id="doctrine"/>
       </argument>
+    </service>
+    <service id="vich_uploader.metadata_driver.annotation" class="Vich\UploaderBundle\Metadata\Driver\AnnotationDriver">
+      <argument type="service" id="vich_uploader.metadata.reader"/>
+      <argument>null</argument>
+      <deprecated package="vich/uploader-bundle" version="2.9">The "%service_id%" service is deprecated, use "vich_uploader.metadata_driver.attribute" instead.</deprecated>
     </service>
     <service id="vich_uploader.metadata_driver.xml" class="Vich\UploaderBundle\Metadata\Driver\XmlDriver">
       <argument type="service" id="vich_uploader.metadata.file_locator"/>
@@ -7357,7 +7562,7 @@
       <argument type="collection">
         <argument type="service" id="vich_uploader.metadata_driver.xml"/>
         <argument type="service">
-          <service class="Vich\UploaderBundle\Metadata\Driver\AnnotationDriver">
+          <service class="Vich\UploaderBundle\Metadata\Driver\AttributeDriver">
             <argument type="service" id="vich_uploader.metadata.reader"/>
             <argument type="collection">
               <argument type="service" id="doctrine"/>
@@ -7388,7 +7593,8 @@
       <argument type="service" id="vich_uploader.metadata_reader"/>
     </service>
     <service id="vich_uploader.property_mapping_resolver" class="Vich\UploaderBundle\Mapping\PropertyMappingResolver">
-      <argument type="service" id="service_container"/>
+      <argument type="tagged_iterator" tag="vich_uploader.namer"/>
+      <argument type="tagged_iterator" tag="vich_uploader.dir_namer"/>
       <argument>%vich_uploader.mappings%</argument>
       <argument>_name</argument>
     </service>
@@ -7396,24 +7602,40 @@
       <argument type="service" id="vich_uploader.metadata_reader"/>
       <argument type="service" id="vich_uploader.property_mapping_resolver"/>
     </service>
-    <service id="Vich\UploaderBundle\Naming\UniqidNamer" class="Vich\UploaderBundle\Naming\UniqidNamer" public="true"/>
-    <service id="Vich\UploaderBundle\Naming\PropertyNamer" class="Vich\UploaderBundle\Naming\PropertyNamer" public="true">
+    <service id="Vich\UploaderBundle\Naming\UniqidNamer" class="Vich\UploaderBundle\Naming\UniqidNamer" autowire="true">
+      <tag name="vich_uploader.namer"/>
+    </service>
+    <service id="Vich\UploaderBundle\Naming\PropertyNamer" class="Vich\UploaderBundle\Naming\PropertyNamer" autowire="true">
+      <tag name="vich_uploader.namer"/>
       <argument type="service" id="Vich\UploaderBundle\Util\Transliterator"/>
     </service>
-    <service id="Vich\UploaderBundle\Naming\OrignameNamer" class="Vich\UploaderBundle\Naming\OrignameNamer" public="true">
+    <service id="Vich\UploaderBundle\Naming\OrignameNamer" class="Vich\UploaderBundle\Naming\OrignameNamer" autowire="true">
+      <tag name="vich_uploader.namer"/>
       <argument type="service" id="Vich\UploaderBundle\Util\Transliterator"/>
     </service>
-    <service id="Vich\UploaderBundle\Naming\HashNamer" class="Vich\UploaderBundle\Naming\HashNamer" public="true"/>
-    <service id="Vich\UploaderBundle\Naming\Base64Namer" class="Vich\UploaderBundle\Naming\Base64Namer" public="true"/>
-    <service id="Vich\UploaderBundle\Naming\SubdirDirectoryNamer" class="Vich\UploaderBundle\Naming\SubdirDirectoryNamer" public="true"/>
-    <service id="Vich\UploaderBundle\Naming\PropertyDirectoryNamer" class="Vich\UploaderBundle\Naming\PropertyDirectoryNamer" public="true">
+    <service id="Vich\UploaderBundle\Naming\HashNamer" class="Vich\UploaderBundle\Naming\HashNamer" autowire="true">
+      <tag name="vich_uploader.namer"/>
+    </service>
+    <service id="Vich\UploaderBundle\Naming\Base64Namer" class="Vich\UploaderBundle\Naming\Base64Namer" autowire="true">
+      <tag name="vich_uploader.namer"/>
+    </service>
+    <service id="Vich\UploaderBundle\Naming\SubdirDirectoryNamer" class="Vich\UploaderBundle\Naming\SubdirDirectoryNamer" autowire="true">
+      <tag name="vich_uploader.dir_namer"/>
+    </service>
+    <service id="Vich\UploaderBundle\Naming\PropertyDirectoryNamer" class="Vich\UploaderBundle\Naming\PropertyDirectoryNamer" autowire="true">
+      <tag name="vich_uploader.dir_namer"/>
       <argument type="service" id="property_accessor" on-invalid="null"/>
       <argument type="service" id="Vich\UploaderBundle\Util\Transliterator"/>
     </service>
-    <service id="Vich\UploaderBundle\Naming\CurrentDateTimeDirectoryNamer" class="Vich\UploaderBundle\Naming\CurrentDateTimeDirectoryNamer" public="true">
+    <service id="Vich\UploaderBundle\Naming\CurrentDateTimeDirectoryNamer" class="Vich\UploaderBundle\Naming\CurrentDateTimeDirectoryNamer" autowire="true">
+      <tag name="vich_uploader.dir_namer"/>
       <argument type="service" id="property_accessor" on-invalid="null"/>
     </service>
-    <service id="Vich\UploaderBundle\Naming\SmartUniqueNamer" class="Vich\UploaderBundle\Naming\SmartUniqueNamer" public="true">
+    <service id="Vich\UploaderBundle\Naming\ConfigurableDirectoryNamer" class="Vich\UploaderBundle\Naming\ConfigurableDirectoryNamer" autowire="true">
+      <tag name="vich_uploader.dir_namer"/>
+    </service>
+    <service id="Vich\UploaderBundle\Naming\SmartUniqueNamer" class="Vich\UploaderBundle\Naming\SmartUniqueNamer" autowire="true">
+      <tag name="vich_uploader.namer"/>
       <argument type="service" id="Vich\UploaderBundle\Util\Transliterator"/>
     </service>
     <service id="Vich\UploaderBundle\Util\Transliterator" class="Vich\UploaderBundle\Util\Transliterator">
@@ -7436,6 +7658,9 @@
       <call method="setName">
         <argument>vich:mapping:debug-class</argument>
       </call>
+      <call method="setDescription">
+        <argument>Debug a class.</argument>
+      </call>
     </service>
     <service id="vich_uploader.command.mapping_debug" class="Vich\UploaderBundle\Command\MappingDebugCommand">
       <tag name="console.command" command="vich:mapping:debug"/>
@@ -7444,6 +7669,9 @@
       <call method="setName">
         <argument>vich:mapping:debug</argument>
       </call>
+      <call method="setDescription">
+        <argument>Debug a mapping.</argument>
+      </call>
     </service>
     <service id="vich_uploader.command.mapping_list_classes" class="Vich\UploaderBundle\Command\MappingListClassesCommand">
       <tag name="console.command" command="vich:mapping:list-classes"/>
@@ -7451,6 +7679,9 @@
       <argument type="service" id="vich_uploader.metadata_reader"/>
       <call method="setName">
         <argument>vich:mapping:list-classes</argument>
+      </call>
+      <call method="setDescription">
+        <argument>Searches for uploadable classes.</argument>
       </call>
     </service>
     <service id="Vich\UploaderBundle\DataCollector\MappingCollector" class="Vich\UploaderBundle\DataCollector\MappingCollector">
@@ -7508,6 +7739,7 @@
       <argument type="service" id="vich_uploader.upload_handler"/>
     </service>
     <service id="monolog.logger" class="Monolog\Logger">
+      <tag name="monolog.channel_logger"/>
       <argument>app</argument>
       <call method="useMicrosecondTimestamps">
         <argument>true</argument>
@@ -7518,16 +7750,21 @@
       <configurator service="debug.debug_logger_configurator" method="pushDebugLogger"/>
     </service>
     <service id="monolog.logger_prototype" class="Monolog\Logger" abstract="true">
-      <argument></argument>
+      <argument type="abstract">channel</argument>
       <configurator service="debug.debug_logger_configurator" method="pushDebugLogger"/>
     </service>
-    <service id="monolog.activation_strategy.not_found" class="Symfony\Bridge\Monolog\Handler\FingersCrossed\NotFoundActivationStrategy" abstract="true"/>
-    <service id="monolog.handler.fingers_crossed.error_level_activation_strategy" class="Monolog\Handler\FingersCrossed\ErrorLevelActivationStrategy" abstract="true"/>
+    <service id="monolog.activation_strategy.not_found" class="Symfony\Bridge\Monolog\Handler\FingersCrossed\NotFoundActivationStrategy" abstract="true">
+      <deprecated package="symfony/monolog-bundle" version="3.11">The "%service_id%" service is deprecated.</deprecated>
+    </service>
+    <service id="monolog.handler.fingers_crossed.error_level_activation_strategy" class="Monolog\Handler\FingersCrossed\ErrorLevelActivationStrategy" abstract="true">
+      <deprecated package="symfony/monolog-bundle" version="3.11">The "%service_id%" service is deprecated.</deprecated>
+    </service>
     <service id="monolog.formatter.chrome_php" class="Monolog\Formatter\ChromePHPFormatter"/>
     <service id="monolog.formatter.gelf_message" class="Monolog\Formatter\GelfMessageFormatter"/>
     <service id="monolog.formatter.html" class="Monolog\Formatter\HtmlFormatter"/>
     <service id="monolog.formatter.json" class="Monolog\Formatter\JsonFormatter"/>
     <service id="monolog.formatter.line" class="Monolog\Formatter\LineFormatter"/>
+    <service id="monolog.formatter.syslog" class="Monolog\Formatter\SyslogFormatter"/>
     <service id="monolog.formatter.loggly" class="Monolog\Formatter\LogglyFormatter"/>
     <service id="monolog.formatter.normalizer" class="Monolog\Formatter\NormalizerFormatter"/>
     <service id="monolog.formatter.scalar" class="Monolog\Formatter\ScalarFormatter"/>
@@ -7623,6 +7860,26 @@
     <service id=".abstract.instanceof.App\Twig\Components\Sorting" class="App\Twig\Components\Sorting" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.App\Twig\Components\Tabs.0.App\Twig\Components\Tabs" class="App\Twig\Components\Tabs" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Twig\Components\Tabs" class="App\Twig\Components\Tabs" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Vich\UploaderBundle\Naming\NamerInterface.0.Vich\UploaderBundle\Naming\UniqidNamer" class="Vich\UploaderBundle\Naming\UniqidNamer" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.Vich\UploaderBundle\Naming\UniqidNamer" class="Vich\UploaderBundle\Naming\UniqidNamer" abstract="true"/>
+    <service id=".instanceof.Vich\UploaderBundle\Naming\NamerInterface.0.Vich\UploaderBundle\Naming\PropertyNamer" class="Vich\UploaderBundle\Naming\PropertyNamer" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.Vich\UploaderBundle\Naming\PropertyNamer" class="Vich\UploaderBundle\Naming\PropertyNamer" abstract="true"/>
+    <service id=".instanceof.Vich\UploaderBundle\Naming\NamerInterface.0.Vich\UploaderBundle\Naming\OrignameNamer" class="Vich\UploaderBundle\Naming\OrignameNamer" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.Vich\UploaderBundle\Naming\OrignameNamer" class="Vich\UploaderBundle\Naming\OrignameNamer" abstract="true"/>
+    <service id=".instanceof.Vich\UploaderBundle\Naming\NamerInterface.0.Vich\UploaderBundle\Naming\HashNamer" class="Vich\UploaderBundle\Naming\HashNamer" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.Vich\UploaderBundle\Naming\HashNamer" class="Vich\UploaderBundle\Naming\HashNamer" abstract="true"/>
+    <service id=".instanceof.Vich\UploaderBundle\Naming\NamerInterface.0.Vich\UploaderBundle\Naming\Base64Namer" class="Vich\UploaderBundle\Naming\Base64Namer" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.Vich\UploaderBundle\Naming\Base64Namer" class="Vich\UploaderBundle\Naming\Base64Namer" abstract="true"/>
+    <service id=".instanceof.Vich\UploaderBundle\Naming\DirectoryNamerInterface.0.Vich\UploaderBundle\Naming\SubdirDirectoryNamer" class="Vich\UploaderBundle\Naming\SubdirDirectoryNamer" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.Vich\UploaderBundle\Naming\SubdirDirectoryNamer" class="Vich\UploaderBundle\Naming\SubdirDirectoryNamer" abstract="true"/>
+    <service id=".instanceof.Vich\UploaderBundle\Naming\DirectoryNamerInterface.0.Vich\UploaderBundle\Naming\PropertyDirectoryNamer" class="Vich\UploaderBundle\Naming\PropertyDirectoryNamer" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.Vich\UploaderBundle\Naming\PropertyDirectoryNamer" class="Vich\UploaderBundle\Naming\PropertyDirectoryNamer" abstract="true"/>
+    <service id=".instanceof.Vich\UploaderBundle\Naming\DirectoryNamerInterface.0.Vich\UploaderBundle\Naming\CurrentDateTimeDirectoryNamer" class="Vich\UploaderBundle\Naming\CurrentDateTimeDirectoryNamer" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.Vich\UploaderBundle\Naming\CurrentDateTimeDirectoryNamer" class="Vich\UploaderBundle\Naming\CurrentDateTimeDirectoryNamer" abstract="true"/>
+    <service id=".instanceof.Vich\UploaderBundle\Naming\DirectoryNamerInterface.0.Vich\UploaderBundle\Naming\ConfigurableDirectoryNamer" class="Vich\UploaderBundle\Naming\ConfigurableDirectoryNamer" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.Vich\UploaderBundle\Naming\ConfigurableDirectoryNamer" class="Vich\UploaderBundle\Naming\ConfigurableDirectoryNamer" abstract="true"/>
+    <service id=".instanceof.Vich\UploaderBundle\Naming\NamerInterface.0.Vich\UploaderBundle\Naming\SmartUniqueNamer" class="Vich\UploaderBundle\Naming\SmartUniqueNamer" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.Vich\UploaderBundle\Naming\SmartUniqueNamer" class="Vich\UploaderBundle\Naming\SmartUniqueNamer" abstract="true"/>
     <service id=".service_locator.w7.f4fT" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -7720,6 +7977,14 @@
         <argument key="inline" type="service_closure" id="fragment.renderer.inline"/>
       </argument>
     </service>
+    <service id=".debug.value_resolver.argument_resolver.request" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\TraceableValueResolver">
+      <argument type="service" id="argument_resolver.request"/>
+      <argument type="service" id="debug.stopwatch"/>
+    </service>
+    <service id=".debug.value_resolver.argument_resolver.session" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\TraceableValueResolver">
+      <argument type="service" id="argument_resolver.session"/>
+      <argument type="service" id="debug.stopwatch"/>
+    </service>
     <service id=".debug.value_resolver.security.user_value_resolver" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\TraceableValueResolver">
       <argument type="service" id="security.user_value_resolver"/>
       <argument type="service" id="debug.stopwatch"/>
@@ -7742,14 +8007,6 @@
     </service>
     <service id=".debug.value_resolver.argument_resolver.request_attribute" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\TraceableValueResolver">
       <argument type="service" id="argument_resolver.request_attribute"/>
-      <argument type="service" id="debug.stopwatch"/>
-    </service>
-    <service id=".debug.value_resolver.argument_resolver.request" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\TraceableValueResolver">
-      <argument type="service" id="argument_resolver.request"/>
-      <argument type="service" id="debug.stopwatch"/>
-    </service>
-    <service id=".debug.value_resolver.argument_resolver.session" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\TraceableValueResolver">
-      <argument type="service" id="argument_resolver.session"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
     <service id=".debug.value_resolver.argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\TraceableValueResolver">
@@ -7840,7 +8097,13 @@
       <argument type="service" id=".doctrine.orm.default_metadata_driver.inner"/>
       <argument type="service" id=".service_locator.KLVvNIq"/>
     </service>
+    <service id="doctrine.dbal.default_schema_asset_filter_manager" class="Doctrine\Bundle\DoctrineBundle\Dbal\SchemaAssetsFilterManager">
+      <argument type="collection">
+        <argument type="service" id="doctrine_migrations.schema_filter_listener"/>
+      </argument>
+    </service>
     <service id="doctrine.dbal.logging_middleware.default" class="Doctrine\DBAL\Logging\Middleware">
+      <tag name="monolog.logger" channel="doctrine"/>
       <argument type="service" id="monolog.logger.doctrine"/>
     </service>
     <service id="doctrine.dbal.debug_middleware.default" class="Doctrine\Bundle\DoctrineBundle\Middleware\DebugMiddleware">
@@ -7873,6 +8136,7 @@
     <service id="security.ldap_locator" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <argument type="collection"/>
     </service>
+    <service id=".stof_doctrine_extensions.reader" class="Gedmo\Mapping\Driver\AttributeReader"/>
     <service id=".service_locator.H1CTuvD" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -7890,6 +8154,7 @@
       </argument>
     </service>
     <service id="monolog.logger.request" class="Monolog\Logger">
+      <tag name="monolog.channel_logger"/>
       <argument>request</argument>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.main"/>
@@ -7897,6 +8162,7 @@
       <configurator service="debug.debug_logger_configurator" method="pushDebugLogger"/>
     </service>
     <service id="monolog.logger.console" class="Monolog\Logger">
+      <tag name="monolog.channel_logger"/>
       <argument>console</argument>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.main"/>
@@ -7904,6 +8170,7 @@
       <configurator service="debug.debug_logger_configurator" method="pushDebugLogger"/>
     </service>
     <service id="monolog.logger.cache" class="Monolog\Logger">
+      <tag name="monolog.channel_logger"/>
       <argument>cache</argument>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.main"/>
@@ -7911,6 +8178,7 @@
       <configurator service="debug.debug_logger_configurator" method="pushDebugLogger"/>
     </service>
     <service id="monolog.logger.asset_mapper" class="Monolog\Logger">
+      <tag name="monolog.channel_logger"/>
       <argument>asset_mapper</argument>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.main"/>
@@ -7918,6 +8186,7 @@
       <configurator service="debug.debug_logger_configurator" method="pushDebugLogger"/>
     </service>
     <service id="monolog.logger.http_client" class="Monolog\Logger">
+      <tag name="monolog.channel_logger"/>
       <argument>http_client</argument>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.main"/>
@@ -7925,6 +8194,7 @@
       <configurator service="debug.debug_logger_configurator" method="pushDebugLogger"/>
     </service>
     <service id="monolog.logger.translation" class="Monolog\Logger">
+      <tag name="monolog.channel_logger"/>
       <argument>translation</argument>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.main"/>
@@ -7932,6 +8202,7 @@
       <configurator service="debug.debug_logger_configurator" method="pushDebugLogger"/>
     </service>
     <service id="monolog.logger.php" class="Monolog\Logger">
+      <tag name="monolog.channel_logger"/>
       <argument>php</argument>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.main"/>
@@ -7939,6 +8210,7 @@
       <configurator service="debug.debug_logger_configurator" method="pushDebugLogger"/>
     </service>
     <service id="monolog.logger.event" class="Monolog\Logger">
+      <tag name="monolog.channel_logger"/>
       <argument>event</argument>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.null_internal"/>
@@ -7946,6 +8218,7 @@
       <configurator service="debug.debug_logger_configurator" method="pushDebugLogger"/>
     </service>
     <service id="monolog.logger.router" class="Monolog\Logger">
+      <tag name="monolog.channel_logger"/>
       <argument>router</argument>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.main"/>
@@ -7953,6 +8226,7 @@
       <configurator service="debug.debug_logger_configurator" method="pushDebugLogger"/>
     </service>
     <service id="monolog.logger.profiler" class="Monolog\Logger">
+      <tag name="monolog.channel_logger"/>
       <argument>profiler</argument>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.main"/>
@@ -7960,6 +8234,7 @@
       <configurator service="debug.debug_logger_configurator" method="pushDebugLogger"/>
     </service>
     <service id="monolog.logger.doctrine" class="Monolog\Logger">
+      <tag name="monolog.channel_logger"/>
       <argument>doctrine</argument>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.main"/>
@@ -7967,6 +8242,7 @@
       <configurator service="debug.debug_logger_configurator" method="pushDebugLogger"/>
     </service>
     <service id="monolog.logger.security" class="Monolog\Logger">
+      <tag name="monolog.channel_logger"/>
       <argument>security</argument>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.main"/>
@@ -7974,6 +8250,7 @@
       <configurator service="debug.debug_logger_configurator" method="pushDebugLogger"/>
     </service>
     <service id="monolog.logger.deprecation" class="Monolog\Logger" public="true">
+      <tag name="monolog.channel_logger"/>
       <argument>deprecation</argument>
       <call method="pushHandler">
         <argument type="service" id="monolog.handler.main"/>
@@ -7981,7 +8258,6 @@
       <configurator service="debug.debug_logger_configurator" method="pushDebugLogger"/>
     </service>
     <service id="monolog.handler.null_internal" class="Monolog\Handler\NullHandler"/>
-    <service id="dama.doctrine.dbal.middleware" class="DAMA\DoctrineTestBundle\Doctrine\DBAL\Middleware"/>
     <service id="doctrine.orm.default_metadata_cache" class="DAMA\DoctrineTestBundle\Doctrine\Cache\Psr6StaticArrayCache">
       <argument>587f9c1a84a2c77aac3086fb62c7450374000626</argument>
     </service>
@@ -8216,19 +8492,19 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.etVElvN" method="withContext"/>
     </service>
-    <service id=".service_locator.iU8QgVt" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.j7D0Vt4" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="Symfony\UX\TwigComponent\ComponentRenderer" type="service_closure" id="ux.twig_component.component_renderer"/>
+        <argument key="ux.twig_component.component_properties" type="service_closure" id="ux.twig_component.component_properties"/>
       </argument>
     </service>
-    <service id=".service_locator.iU8QgVt.ux.twig_component.twig.component_extension" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="ux.twig_component.twig.component_extension"/>
-      <argument>ux.twig_component.twig.component_extension</argument>
+    <service id=".service_locator.j7D0Vt4.ux.twig_component.cache_warmer" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="ux.twig_component.cache_warmer"/>
+      <argument>ux.twig_component.cache_warmer</argument>
       <argument type="service" id="service_container"/>
-      <factory service=".service_locator.iU8QgVt" method="withContext"/>
+      <factory service=".service_locator.j7D0Vt4" method="withContext"/>
     </service>
-    <service id=".service_locator.z4KiP0l" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.ElyyCIj" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="Symfony\Bridge\Doctrine\ArgumentResolver\EntityValueResolver" type="service_closure" id=".debug.value_resolver.doctrine.orm.entity_value_resolver"/>
@@ -8290,7 +8566,7 @@
         <argument key="request_stack" type="service_closure" id="request_stack"/>
       </argument>
     </service>
-    <service id=".service_locator.LrCXAmX" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.9Sbc0.x" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="request_stack" type="service_closure" id="request_stack"/>
@@ -8299,8 +8575,9 @@
         <argument key="security.csrf.token_manager" type="service_closure" id="security.csrf.token_manager" on-invalid="ignore"/>
         <argument key="security.firewall.event_dispatcher_locator" type="service_closure" id="security.firewall.event_dispatcher_locator"/>
         <argument key="security.firewall.map" type="service_closure" id="security.firewall.map"/>
+        <argument key="security.firewall_config_locator" type="service_closure" id=".service_locator.2RLBKUz" on-invalid="ignore"/>
         <argument key="security.token_storage" type="service_closure" id="security.token_storage"/>
-        <argument key="security.user_checker" type="service_closure" id="security.user_checker"/>
+        <argument key="security.user_checker_locator" type="service_closure" id="security.user_checker_locator"/>
       </argument>
     </service>
     <service id=".service_locator.Ar70cHn" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -8350,20 +8627,20 @@
     <service id="debug.argument_resolver.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver">
       <argument type="service" id="argument_metadata_factory"/>
       <argument type="iterator">
+        <argument type="service" id=".debug.value_resolver.argument_resolver.request"/>
+        <argument type="service" id=".debug.value_resolver.argument_resolver.session"/>
         <argument type="service" id=".debug.value_resolver.security.user_value_resolver"/>
         <argument type="service" id=".debug.value_resolver.security.security_token_value_resolver"/>
         <argument type="service" id=".debug.value_resolver.doctrine.orm.entity_value_resolver"/>
         <argument type="service" id=".debug.value_resolver.argument_resolver.backed_enum_resolver"/>
         <argument type="service" id=".debug.value_resolver.argument_resolver.datetime"/>
         <argument type="service" id=".debug.value_resolver.argument_resolver.request_attribute"/>
-        <argument type="service" id=".debug.value_resolver.argument_resolver.request"/>
-        <argument type="service" id=".debug.value_resolver.argument_resolver.session"/>
         <argument type="service" id=".debug.value_resolver.argument_resolver.service"/>
         <argument type="service" id=".debug.value_resolver.argument_resolver.default"/>
         <argument type="service" id=".debug.value_resolver.argument_resolver.variadic"/>
         <argument type="service" id=".debug.value_resolver.argument_resolver.not_tagged_controller"/>
       </argument>
-      <argument type="service" id=".service_locator.z4KiP0l"/>
+      <argument type="service" id=".service_locator.ElyyCIj"/>
     </service>
     <service id="doctrine.migrations.container_aware_migrations_factory.inner" class="Doctrine\Migrations\Version\MigrationFactory">
       <factory service="doctrine.migrations.dependency_factory" method="getMigrationFactory"/>
@@ -8831,9 +9108,30 @@
       <argument>false</argument>
       <argument type="service_closure" id="sass.command.build"/>
     </service>
+    <service id=".vich_uploader.command.mapping_debug_class.lazy" class="Symfony\Component\Console\Command\LazyCommand">
+      <argument>vich:mapping:debug-class</argument>
+      <argument type="collection"/>
+      <argument>Debug a class.</argument>
+      <argument>false</argument>
+      <argument type="service_closure" id="vich_uploader.command.mapping_debug_class"/>
+    </service>
+    <service id=".vich_uploader.command.mapping_debug.lazy" class="Symfony\Component\Console\Command\LazyCommand">
+      <argument>vich:mapping:debug</argument>
+      <argument type="collection"/>
+      <argument>Debug a mapping.</argument>
+      <argument>false</argument>
+      <argument type="service_closure" id="vich_uploader.command.mapping_debug"/>
+    </service>
+    <service id=".vich_uploader.command.mapping_list_classes.lazy" class="Symfony\Component\Console\Command\LazyCommand">
+      <argument>vich:mapping:list-classes</argument>
+      <argument type="collection"/>
+      <argument>Searches for uploadable classes.</argument>
+      <argument>false</argument>
+      <argument type="service_closure" id="vich_uploader.command.mapping_list_classes"/>
+    </service>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <tag name="container.no_preload"/>
-      <argument type="service" id=".service_locator.DZ4m0SL"/>
+      <argument type="service" id=".service_locator.WYvCW7D"/>
       <argument type="collection">
         <argument key="about">console.command.about</argument>
         <argument key="assets:install">console.command.assets_install</argument>
@@ -8888,6 +9186,7 @@
         <argument key="doctrine:schema:drop">doctrine.schema_drop_command</argument>
         <argument key="doctrine:cache:clear-entity-region">doctrine.clear_entity_region_command</argument>
         <argument key="doctrine:mapping:info">doctrine.mapping_info_command</argument>
+        <argument key="doctrine:mapping:describe">doctrine.mapping_describe_command</argument>
         <argument key="doctrine:cache:clear-query-region">doctrine.clear_query_region_command</argument>
         <argument key="doctrine:query:dql">doctrine.query_dql_command</argument>
         <argument key="doctrine:schema:update">doctrine.schema_update_command</argument>
@@ -8917,7 +9216,7 @@
         <argument key="vich:mapping:list-classes">vich_uploader.command.mapping_list_classes</argument>
       </argument>
     </service>
-    <service id=".service_locator.DZ4m0SL" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.WYvCW7D" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="console.command.about" type="service_closure" id=".console.command.about.lazy"/>
@@ -8973,6 +9272,7 @@
         <argument key="doctrine.schema_drop_command" type="service_closure" id="doctrine.schema_drop_command"/>
         <argument key="doctrine.clear_entity_region_command" type="service_closure" id="doctrine.clear_entity_region_command"/>
         <argument key="doctrine.mapping_info_command" type="service_closure" id="doctrine.mapping_info_command"/>
+        <argument key="doctrine.mapping_describe_command" type="service_closure" id="doctrine.mapping_describe_command"/>
         <argument key="doctrine.clear_query_region_command" type="service_closure" id="doctrine.clear_query_region_command"/>
         <argument key="doctrine.query_dql_command" type="service_closure" id="doctrine.query_dql_command"/>
         <argument key="doctrine.schema_update_command" type="service_closure" id="doctrine.schema_update_command"/>
@@ -8997,9 +9297,9 @@
         <argument key="twig.command.lint" type="service_closure" id=".twig.command.lint.lazy"/>
         <argument key="ux.twig_component.command.debug" type="service_closure" id=".ux.twig_component.command.debug.lazy"/>
         <argument key="sass.command.build" type="service_closure" id=".sass.command.build.lazy"/>
-        <argument key="vich_uploader.command.mapping_debug_class" type="service_closure" id="vich_uploader.command.mapping_debug_class"/>
-        <argument key="vich_uploader.command.mapping_debug" type="service_closure" id="vich_uploader.command.mapping_debug"/>
-        <argument key="vich_uploader.command.mapping_list_classes" type="service_closure" id="vich_uploader.command.mapping_list_classes"/>
+        <argument key="vich_uploader.command.mapping_debug_class" type="service_closure" id=".vich_uploader.command.mapping_debug_class.lazy"/>
+        <argument key="vich_uploader.command.mapping_debug" type="service_closure" id=".vich_uploader.command.mapping_debug.lazy"/>
+        <argument key="vich_uploader.command.mapping_list_classes" type="service_closure" id=".vich_uploader.command.mapping_list_classes.lazy"/>
       </argument>
     </service>
     <service id="cache.app.recorder_inner" class="Symfony\Component\Cache\Adapter\FilesystemAdapter">
@@ -9093,7 +9393,15 @@
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
-    <service id=".service_locator.Y1lHLaN" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id="cache.ux.twig_component.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
+      <argument>kKU4NYOBu3</argument>
+      <argument>0</argument>
+      <argument>%container.build_id%</argument>
+      <argument>/Users/diabiraaly/Desktop/Bureau - MacBook Air de DIABIRA/Openclassrooms/OC14/var/cache/test/pools/system</argument>
+      <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+      <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
+    </service>
+    <service id=".service_locator.CLayvUv" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="Symfony\Bridge\Twig\Extension\CsrfRuntime" type="service_closure" id="twig.runtime.security_csrf"/>
@@ -9101,6 +9409,7 @@
         <argument key="Symfony\Bridge\Twig\Extension\SerializerRuntime" type="service_closure" id="twig.runtime.serializer"/>
         <argument key="Symfony\Component\Form\FormRenderer" type="service_closure" id="twig.form.renderer"/>
         <argument key="Symfony\Bridge\Twig\Extension\ImportMapRuntime" type="service_closure" id="twig.runtime.importmap"/>
+        <argument key="Symfony\UX\TwigComponent\Twig\ComponentRuntime" type="service_closure" id="ux.twig_component.twig.component_runtime"/>
         <argument key="Vich\UploaderBundle\Twig\Extension\UploaderExtensionRuntime" type="service_closure" id="Vich\UploaderBundle\Twig\Extension\UploaderExtensionRuntime"/>
       </argument>
     </service>
@@ -9139,6 +9448,7 @@
     <service id="Symfony\Contracts\Translation\TranslatorInterface" alias="translator.data_collector"/>
     <service id="Symfony\Component\Asset\Packages" alias="assets.packages"/>
     <service id="Symfony\Component\AssetMapper\AssetMapperInterface" alias="asset_mapper"/>
+    <service id="asset_mapper.http_client" alias=".debug.http_client"/>
     <service id="Symfony\Component\AssetMapper\ImportMap\ImportMapManager" alias="asset_mapper.importmap.manager"/>
     <service id="Symfony\Contracts\HttpClient\HttpClientInterface" alias=".debug.http_client"/>
     <service id="Symfony\Component\Translation\Reader\TranslationReaderInterface" alias="translation.reader"/>
@@ -9214,11 +9524,12 @@
     <service id="Doctrine\Common\Persistence\ManagerRegistry" alias="doctrine"/>
     <service id="database_connection" alias="doctrine.dbal.default_connection" public="true"/>
     <service id="doctrine.dbal.event_manager" alias="doctrine.dbal.default_connection.event_manager"/>
+    <service id=".Doctrine\DBAL\Connection $default.connection" alias="doctrine.dbal.default_connection"/>
     <service id="Doctrine\DBAL\Connection $defaultConnection" alias="doctrine.dbal.default_connection"/>
     <service id="Doctrine\ORM\EntityManagerInterface" alias="doctrine.orm.default_entity_manager"/>
-    <service id="doctrine.orm.metadata.annotation_reader" alias="annotation_reader"/>
     <service id="doctrine.orm.entity_manager" alias="doctrine.orm.default_entity_manager" public="true"/>
     <service id="doctrine.orm.default_result_cache" alias="cache.doctrine.orm.default.result"/>
+    <service id=".Doctrine\ORM\EntityManagerInterface $default.entity_manager" alias="doctrine.orm.default_entity_manager"/>
     <service id="Doctrine\ORM\EntityManagerInterface $defaultEntityManager" alias="doctrine.orm.default_entity_manager"/>
     <service id="doctrine.orm.default_entity_manager.event_manager" alias="doctrine.dbal.default_connection.event_manager"/>
     <service id="doctrine.migrations.metadata_storage" alias="doctrine.migrations.storage.table_storage"/>
@@ -9246,6 +9557,7 @@
     <service id="Symfony\Component\Security\Http\RememberMe\RememberMeHandlerInterface" alias="security.authenticator.firewall_aware_remember_me_handler"/>
     <service id="security.user_checker.main" alias="security.user_checker"/>
     <service id="security.firewall.context_locator" alias=".service_locator.zJyh7qS"/>
+    <service id="security.firewall_config_locator" alias=".service_locator.2RLBKUz"/>
     <service id="Symfony\Component\Security\Core\User\UserCheckerInterface" alias="security.user_checker"/>
     <service id="Twig_Environment" alias="twig">
       <deprecated package="symfony/twig-bundle" version="6.3">The "%alias_id%" service alias is deprecated, use "Twig\Environment" or "twig" instead.</deprecated>
@@ -9262,15 +9574,16 @@
     <service id="vich_uploader.metadata.cache" alias="vich_uploader.metadata.cache.file_cache"/>
     <service id="Vich\UploaderBundle\Mapping\PropertyMappingResolverInterface" alias="vich_uploader.property_mapping_resolver"/>
     <service id="Vich\UploaderBundle\Mapping\PropertyMappingFactory" alias="vich_uploader.property_mapping_factory"/>
-    <service id="vich_uploader.namer_uniqid" alias="Vich\UploaderBundle\Naming\UniqidNamer" public="true"/>
-    <service id="vich_uploader.namer_property" alias="Vich\UploaderBundle\Naming\PropertyNamer" public="true"/>
-    <service id="vich_uploader.namer_origname" alias="Vich\UploaderBundle\Naming\OrignameNamer" public="true"/>
-    <service id="vich_uploader.namer_hash" alias="Vich\UploaderBundle\Naming\HashNamer" public="true"/>
-    <service id="vich_uploader.namer_base64" alias="Vich\UploaderBundle\Naming\Base64Namer" public="true"/>
-    <service id="vich_uploader.directory_namer_subdir" alias="Vich\UploaderBundle\Naming\SubdirDirectoryNamer" public="true"/>
-    <service id="vich_uploader.namer_directory_property" alias="Vich\UploaderBundle\Naming\PropertyDirectoryNamer" public="true"/>
-    <service id="vich_uploader.namer_directory_current_date_time" alias="Vich\UploaderBundle\Naming\CurrentDateTimeDirectoryNamer" public="true"/>
-    <service id="vich_uploader.namer_smart_unique" alias="Vich\UploaderBundle\Naming\SmartUniqueNamer" public="true"/>
+    <service id="vich_uploader.namer_uniqid" alias="Vich\UploaderBundle\Naming\UniqidNamer"/>
+    <service id="vich_uploader.namer_property" alias="Vich\UploaderBundle\Naming\PropertyNamer"/>
+    <service id="vich_uploader.namer_origname" alias="Vich\UploaderBundle\Naming\OrignameNamer"/>
+    <service id="vich_uploader.namer_hash" alias="Vich\UploaderBundle\Naming\HashNamer"/>
+    <service id="vich_uploader.namer_base64" alias="Vich\UploaderBundle\Naming\Base64Namer"/>
+    <service id="vich_uploader.directory_namer_subdir" alias="Vich\UploaderBundle\Naming\SubdirDirectoryNamer"/>
+    <service id="vich_uploader.namer_directory_property" alias="Vich\UploaderBundle\Naming\PropertyDirectoryNamer"/>
+    <service id="vich_uploader.namer_directory_current_date_time" alias="Vich\UploaderBundle\Naming\CurrentDateTimeDirectoryNamer"/>
+    <service id="vich_uploader.namer_directory_configurable" alias="Vich\UploaderBundle\Naming\ConfigurableDirectoryNamer"/>
+    <service id="vich_uploader.namer_smart_unique" alias="Vich\UploaderBundle\Naming\SmartUniqueNamer"/>
     <service id="Vich\UploaderBundle\Handler\DownloadHandler" alias="vich_uploader.download_handler"/>
     <service id="Vich\UploaderBundle\Handler\UploadHandler" alias="vich_uploader.upload_handler"/>
     <service id="Vich\UploaderBundle\Form\Type\VichFileType" alias="vich_uploader.form.type.file"/>
@@ -9282,20 +9595,31 @@
     <service id="argument_resolver.controller_locator" alias=".service_locator.vfGBZK."/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
+    <service id=".Psr\Log\LoggerInterface $request.logger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
+    <service id=".Psr\Log\LoggerInterface $console.logger" alias="monolog.logger.console"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>
+    <service id=".Psr\Log\LoggerInterface $cache.logger" alias="monolog.logger.cache"/>
     <service id="Psr\Log\LoggerInterface $cacheLogger" alias="monolog.logger.cache"/>
-    <service id=".Psr\Log\LoggerInterface $asset_mapperLogger" alias="monolog.logger.asset_mapper"/>
+    <service id=".Psr\Log\LoggerInterface $asset_mapper.logger" alias="monolog.logger.asset_mapper"/>
     <service id="Psr\Log\LoggerInterface $assetMapperLogger" alias="monolog.logger.asset_mapper"/>
-    <service id=".Psr\Log\LoggerInterface $http_clientLogger" alias="monolog.logger.http_client"/>
+    <service id=".Psr\Log\LoggerInterface $http_client.logger" alias="monolog.logger.http_client"/>
     <service id="Psr\Log\LoggerInterface $httpClientLogger" alias="monolog.logger.http_client"/>
+    <service id=".Psr\Log\LoggerInterface $translation.logger" alias="monolog.logger.translation"/>
     <service id="Psr\Log\LoggerInterface $translationLogger" alias="monolog.logger.translation"/>
+    <service id=".Psr\Log\LoggerInterface $php.logger" alias="monolog.logger.php"/>
     <service id="Psr\Log\LoggerInterface $phpLogger" alias="monolog.logger.php"/>
+    <service id=".Psr\Log\LoggerInterface $event.logger" alias="monolog.logger.event"/>
     <service id="Psr\Log\LoggerInterface $eventLogger" alias="monolog.logger.event"/>
+    <service id=".Psr\Log\LoggerInterface $router.logger" alias="monolog.logger.router"/>
     <service id="Psr\Log\LoggerInterface $routerLogger" alias="monolog.logger.router"/>
+    <service id=".Psr\Log\LoggerInterface $profiler.logger" alias="monolog.logger.profiler"/>
     <service id="Psr\Log\LoggerInterface $profilerLogger" alias="monolog.logger.profiler"/>
+    <service id=".Psr\Log\LoggerInterface $doctrine.logger" alias="monolog.logger.doctrine"/>
     <service id="Psr\Log\LoggerInterface $doctrineLogger" alias="monolog.logger.doctrine"/>
+    <service id=".Psr\Log\LoggerInterface $security.logger" alias="monolog.logger.security"/>
     <service id="Psr\Log\LoggerInterface $securityLogger" alias="monolog.logger.security"/>
+    <service id=".Psr\Log\LoggerInterface $deprecation.logger" alias="monolog.logger.deprecation"/>
     <service id="Psr\Log\LoggerInterface $deprecationLogger" alias="monolog.logger.deprecation"/>
     <service id=".service_locator.bJ.4HC5" alias=".service_locator.w7.f4fT"/>
     <service id=".service_locator.UUm.aRe" alias=".service_locator.qs9EjFc"/>
@@ -9329,7 +9653,7 @@
     <service id=".service_locator.Hu1iPdj" alias=".service_locator.qs9EjFc"/>
     <service id=".service_locator..rPfINt" alias=".service_locator.8hT4VuS"/>
     <service id=".service_locator.Q1z.f9O" alias=".service_locator.O2p6Lk7"/>
-    <service id=".service_locator.dz6BEjf" alias=".service_locator.z4KiP0l"/>
-    <service id=".service_locator.BlxN3Cw" alias=".service_locator.LrCXAmX"/>
+    <service id=".service_locator.dz6BEjf" alias=".service_locator.ElyyCIj"/>
+    <service id=".service_locator.a1R_f7T" alias=".service_locator.9Sbc0.x"/>
   </services>
 </container>

@@ -38,11 +38,7 @@ class InstallRecipesCommand extends BaseCommand
         parent::__construct();
     }
 
-<<<<<<< HEAD
-    protected function configure()
-=======
     protected function configure(): void
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->setName('symfony:recipes:install')
             ->setAliases(['recipes:install', 'symfony:sync-recipes', 'sync-recipes', 'fix-recipes'])
@@ -50,10 +46,7 @@ class InstallRecipesCommand extends BaseCommand
             ->addArgument('packages', InputArgument::IS_ARRAY | InputArgument::OPTIONAL, 'Recipes that should be installed.')
             ->addOption('force', null, InputOption::VALUE_NONE, 'Overwrite existing files when a new version of a recipe is available')
             ->addOption('reset', null, InputOption::VALUE_NONE, 'Reset all recipes back to their initial state (should be combined with --force)')
-<<<<<<< HEAD
-=======
             ->addOption('yes', null, InputOption::VALUE_NONE, "Answer prompt questions with 'yes' for all questions.")
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ;
     }
 
@@ -97,21 +90,13 @@ class InstallRecipesCommand extends BaseCommand
 
         if ($targetPackages = $input->getArgument('packages')) {
             if ($invalidPackages = array_diff($targetPackages, $totalPackages)) {
-<<<<<<< HEAD
-                $io->writeError(sprintf('<warning>Cannot update: some packages are not installed:</warning> %s', implode(', ', $invalidPackages)));
-=======
                 $io->writeError(\sprintf('<warning>Cannot update: some packages are not installed:</warning> %s', implode(', ', $invalidPackages)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 return 1;
             }
 
             if ($packagesRequiringForce = array_diff($targetPackages, $packages)) {
-<<<<<<< HEAD
-                $io->writeError(sprintf('Recipe(s) already installed for: <info>%s</info>', implode(', ', $packagesRequiringForce)));
-=======
                 $io->writeError(\sprintf('Recipe(s) already installed for: <info>%s</info>', implode(', ', $packagesRequiringForce)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $io->writeError('Re-run the command with <info>--force</info> to re-install the recipes.');
                 $io->writeError('');
             }
@@ -131,11 +116,7 @@ class InstallRecipesCommand extends BaseCommand
         $operations = [];
         foreach ($packages as $package) {
             if (null === $pkg = $installedRepo->findPackage($package, '*')) {
-<<<<<<< HEAD
-                $io->writeError(sprintf('<error>Package %s is not installed</>', $package));
-=======
                 $io->writeError(\sprintf('<error>Package %s is not installed</>', $package));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 return 1;
             }
@@ -149,22 +130,13 @@ class InstallRecipesCommand extends BaseCommand
         if ($createEnvLocal = $force && file_exists($dotenvPath) && file_exists($dotenvPath.'.dist') && !file_exists($dotenvPath.'.local')) {
             rename($dotenvPath, $dotenvPath.'.local');
             $pipes = [];
-<<<<<<< HEAD
-            proc_close(proc_open(sprintf('git mv %s %s > %s 2>&1 || %s %1$s %2$s', ProcessExecutor::escape($dotenvFile.'.dist'), ProcessExecutor::escape($dotenvFile), $win ? 'NUL' : '/dev/null', $win ? 'rename' : 'mv'), $pipes, $pipes, $this->rootDir));
-            if (file_exists($this->rootDir.'/phpunit.xml.dist')) {
-=======
             proc_close(proc_open(\sprintf('git mv %s %s > %s 2>&1 || %s %1$s %2$s', ProcessExecutor::escape($dotenvFile.'.dist'), ProcessExecutor::escape($dotenvFile), $win ? 'NUL' : '/dev/null', $win ? 'rename' : 'mv'), $pipes, $pipes, $this->rootDir));
             if (file_exists($this->rootDir.'/phpunit.xml.dist') || file_exists($this->rootDir.'/phpunit.dist.xml')) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 touch($dotenvPath.'.test');
             }
         }
 
-<<<<<<< HEAD
-        $this->flex->update(new UpdateEvent($force, (bool) $input->getOption('reset')), $operations);
-=======
         $this->flex->update(new UpdateEvent($force, (bool) $input->getOption('reset'), (bool) $input->getOption('yes')), $operations);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($force) {
             $output = [
@@ -193,11 +165,7 @@ class InstallRecipesCommand extends BaseCommand
             if ($createEnvLocal) {
                 $root = '.' !== $this->rootDir ? $this->rootDir.'/' : '';
                 $output[] = '    To revert the changes made to .env files, run';
-<<<<<<< HEAD
-                $output[] = sprintf('    <comment>git mv %s %s</> && <comment>%s %s %1$s</>', ProcessExecutor::escape($root.$dotenvFile), ProcessExecutor::escape($root.$dotenvFile.'.dist'), $win ? 'rename' : 'mv', ProcessExecutor::escape($root.$dotenvFile.'.local'));
-=======
                 $output[] = \sprintf('    <comment>git mv %s %s</> && <comment>%s %s %1$s</>', ProcessExecutor::escape($root.$dotenvFile), ProcessExecutor::escape($root.$dotenvFile.'.dist'), $win ? 'rename' : 'mv', ProcessExecutor::escape($root.$dotenvFile.'.local'));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $output[] = '';
             }
 

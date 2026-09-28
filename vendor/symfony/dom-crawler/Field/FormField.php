@@ -11,11 +11,8 @@
 
 namespace Symfony\Component\DomCrawler\Field;
 
-<<<<<<< HEAD
-=======
 use Symfony\Component\DomCrawler\Crawler;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /**
  * FormField is the abstract class for all form fields.
  *
@@ -68,11 +65,7 @@ abstract class FormField
         $xpath = new \DOMXPath($this->node->ownerDocument);
 
         if ($this->node->hasAttribute('id')) {
-<<<<<<< HEAD
-            $labels = $xpath->query(sprintf('descendant::label[@for="%s"]', $this->node->getAttribute('id')));
-=======
             $labels = $xpath->query(\sprintf('descendant::label[@for=%s]', Crawler::xpathLiteral($this->node->getAttribute('id'))));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if ($labels->length > 0) {
                 return $labels->item(0);
             }

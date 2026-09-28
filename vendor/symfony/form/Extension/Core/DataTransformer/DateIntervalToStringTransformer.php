@@ -81,11 +81,7 @@ class DateIntervalToStringTransformer implements DataTransformerInterface
         }
         $valuePattern = '/^'.preg_replace('/%([yYmMdDhHiIsSwW])(\w)/', '(?P<$1>\d+)$2', $this->format).'$/';
         if (!preg_match($valuePattern, $value)) {
-<<<<<<< HEAD
-            throw new TransformationFailedException(sprintf('Value "%s" contains intervals not accepted by format "%s".', $value, $this->format));
-=======
             throw new TransformationFailedException(\sprintf('Value "%s" contains intervals not accepted by format "%s".', $value, $this->format));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         try {
             $dateInterval = new \DateInterval($value);

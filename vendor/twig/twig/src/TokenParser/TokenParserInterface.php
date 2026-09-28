@@ -20,11 +20,8 @@ use Twig\Token;
  * Interface implemented by token parsers.
  *
  * @author Fabien Potencier <fabien@symfony.com>
-<<<<<<< HEAD
-=======
  *
  * @method bool isAlwaysAllowedInSandbox() Whether the tag is always allowed in sandbox mode, even when not explicitly allow-listed. Not implementing this method is deprecated since Twig 3.28, it will be required in 4.0.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 interface TokenParserInterface
 {

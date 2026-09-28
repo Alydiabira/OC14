@@ -29,16 +29,6 @@ use Monolog\LogRecord;
  */
 class IntrospectionProcessor implements ProcessorInterface
 {
-<<<<<<< HEAD
-    private Level $level;
-
-    /** @var string[] */
-    private array $skipClassesPartials;
-
-    private int $skipStackFramesCount;
-
-    private const SKIP_FUNCTIONS = [
-=======
     protected Level $level;
 
     /** @var string[] */
@@ -47,16 +37,10 @@ class IntrospectionProcessor implements ProcessorInterface
     protected int $skipStackFramesCount;
 
     protected const SKIP_FUNCTIONS = [
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         'call_user_func',
         'call_user_func_array',
     ];
 
-<<<<<<< HEAD
-    /**
-     * @param string|int|Level $level               The minimum logging level at which this Processor will be triggered
-     * @param string[]                   $skipClassesPartials
-=======
     protected const SKIP_CLASSES = [
         'Monolog\\',
     ];
@@ -64,18 +48,13 @@ class IntrospectionProcessor implements ProcessorInterface
     /**
      * @param string|int|Level $level               The minimum logging level at which this Processor will be triggered
      * @param string[]         $skipClassesPartials
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @phpstan-param value-of<Level::VALUES>|value-of<Level::NAMES>|Level|LogLevel::* $level
      */
     public function __construct(int|string|Level $level = Level::Debug, array $skipClassesPartials = [], int $skipStackFramesCount = 0)
     {
         $this->level = Logger::toMonologLevel($level);
-<<<<<<< HEAD
-        $this->skipClassesPartials = array_merge(['Monolog\\'], $skipClassesPartials);
-=======
         $this->skipClassesPartials = array_merge(static::SKIP_CLASSES, $skipClassesPartials);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->skipStackFramesCount = $skipStackFramesCount;
     }
 
@@ -107,11 +86,7 @@ class IntrospectionProcessor implements ProcessorInterface
                         continue 2;
                     }
                 }
-<<<<<<< HEAD
-            } elseif (in_array($trace[$i]['function'], self::SKIP_FUNCTIONS, true)) {
-=======
             } elseif (\in_array($trace[$i]['function'], static::SKIP_FUNCTIONS, true)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $i++;
 
                 continue;
@@ -146,10 +121,6 @@ class IntrospectionProcessor implements ProcessorInterface
             return false;
         }
 
-<<<<<<< HEAD
-        return isset($trace[$index]['class']) || in_array($trace[$index]['function'], self::SKIP_FUNCTIONS, true);
-=======
         return isset($trace[$index]['class']) || \in_array($trace[$index]['function'], static::SKIP_FUNCTIONS, true);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

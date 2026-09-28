@@ -20,12 +20,9 @@ class FeatureNotImplemented extends CacheException
     {
         return new self('Second-level cache query supports only select statements.');
     }
-<<<<<<< HEAD
-=======
 
     public static function partialEntities(): self
     {
         return new self('Second level cache does not support partial entities.');
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

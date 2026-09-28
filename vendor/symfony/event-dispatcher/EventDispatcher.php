@@ -226,20 +226,6 @@ class EventDispatcher implements EventDispatcherInterface
      */
     private function sortListeners(string $eventName): void
     {
-<<<<<<< HEAD
-        krsort($this->listeners[$eventName]);
-        $this->sorted[$eventName] = [];
-
-        foreach ($this->listeners[$eventName] as &$listeners) {
-            foreach ($listeners as &$listener) {
-                if (\is_array($listener) && isset($listener[0]) && $listener[0] instanceof \Closure && 2 >= \count($listener)) {
-                    $listener[0] = $listener[0]();
-                    $listener[1] ??= '__invoke';
-                }
-                $this->sorted[$eventName][] = $listener;
-            }
-        }
-=======
         do {
             krsort($this->listeners[$eventName]);
             // Initializing a lazy listener can add listeners for the same event.
@@ -260,7 +246,6 @@ class EventDispatcher implements EventDispatcherInterface
         } while (!isset($this->sorted[$eventName]));
 
         $this->sorted[$eventName] = $sorted;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

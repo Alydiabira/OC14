@@ -43,29 +43,15 @@ abstract class AbstractConfigurator
             return $this->{'set'.$method}(...$args);
         }
 
-<<<<<<< HEAD
-        throw new \BadMethodCallException(sprintf('Call to undefined method "%s::%s()".', static::class, $method));
-    }
-
-    public function __sleep(): array
-=======
         throw new \BadMethodCallException(\sprintf('Call to undefined method "%s::%s()".', static::class, $method));
     }
 
     public function __serialize(): array
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
     }
 
-<<<<<<< HEAD
-    /**
-     * @return void
-     */
-    public function __wakeup()
-=======
     public function __unserialize(array $data): void
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
     }
@@ -91,8 +77,6 @@ abstract class AbstractConfigurator
             $value = (self::$valuePreProcessor)($value, $allowServices);
         }
 
-<<<<<<< HEAD
-=======
         if ($value instanceof ParamConfigurator) {
             return (string) $value;
         }
@@ -105,7 +89,6 @@ abstract class AbstractConfigurator
             throw new InvalidArgumentException(\sprintf('Cannot use values of type "%s" in service configuration files.', get_debug_type($value)));
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ($value instanceof ReferenceConfigurator) {
             $reference = new Reference($value->id, $value->invalidBehavior);
 
@@ -119,46 +102,20 @@ abstract class AbstractConfigurator
             return $def;
         }
 
-<<<<<<< HEAD
-        if ($value instanceof ParamConfigurator) {
-            return (string) $value;
-        }
-
-        if ($value instanceof self) {
-            throw new InvalidArgumentException(sprintf('"%s()" can be used only at the root of service configuration files.', $value::FACTORY));
-        }
-
-        switch (true) {
-            case null === $value:
-            case \is_scalar($value):
-            case $value instanceof \UnitEnum:
-                return $value;
-
-=======
         if ($value instanceof self) {
             throw new InvalidArgumentException(\sprintf('"%s()" can be used only at the root of service configuration files.', $value::FACTORY));
         }
 
         switch (true) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             case $value instanceof ArgumentInterface:
             case $value instanceof Definition:
             case $value instanceof Expression:
             case $value instanceof Parameter:
             case $value instanceof AbstractArgument:
             case $value instanceof Reference:
-<<<<<<< HEAD
-                if ($allowServices) {
-                    return $value;
-                }
-        }
-
-        throw new InvalidArgumentException(sprintf('Cannot use values of type "%s" in service configuration files.', get_debug_type($value)));
-=======
                 return $value;
         }
 
         throw new InvalidArgumentException(\sprintf('Cannot use values of type "%s" in service configuration files.', get_debug_type($value)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

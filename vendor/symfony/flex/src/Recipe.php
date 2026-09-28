@@ -51,11 +51,7 @@ class Recipe
     public function getManifest(): array
     {
         if (!isset($this->data['manifest'])) {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('Manifest is not available for recipe "%s".', $this->name));
-=======
             throw new \LogicException(\sprintf('Manifest is not available for recipe "%s".', $this->name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->data['manifest'];
@@ -82,11 +78,7 @@ class Recipe
             return $this->getOrigin();
         }
 
-<<<<<<< HEAD
-        return sprintf('<info>%s</> (<comment>>=%s</>): From %s', $matches[1], $matches[2], 'auto-generated recipe' === $matches[3] ? '<comment>'.$matches[3].'</>' : $matches[3]);
-=======
         return \sprintf('<info>%s</> (<comment>>=%s</>): From %s', $matches[1], $matches[2], 'auto-generated recipe' === $matches[3] ? '<comment>'.$matches[3].'</>' : $matches[3]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getURL(): string
@@ -101,11 +93,7 @@ class Recipe
             return '';
         }
 
-<<<<<<< HEAD
-        return sprintf('https://%s/tree/%s/%s/%s', $matches[3], $matches[4], $matches[1], $matches[2]);
-=======
         return \sprintf('https://%s/tree/%s/%s/%s', $matches[3], $matches[4], $matches[1], $matches[2]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function isContrib(): bool

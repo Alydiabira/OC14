@@ -100,11 +100,7 @@ class RetryableHttpClient implements HttpClientInterface, ResetInterface
                 if ('' !== $context->getInfo('primary_ip')) {
                     $shouldRetry = $this->strategy->shouldRetry($context, null, $exception);
                     if (null === $shouldRetry) {
-<<<<<<< HEAD
-                        throw new \LogicException(sprintf('The "%s::shouldRetry()" method must not return null when called with an exception.', $this->strategy::class));
-=======
                         throw new \LogicException(\sprintf('The "%s::shouldRetry()" method must not return null when called with an exception.', $this->strategy::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
 
                     if (false === $shouldRetry) {
@@ -135,11 +131,7 @@ class RetryableHttpClient implements HttpClientInterface, ResetInterface
                 }
 
                 if (null === $shouldRetry = $this->strategy->shouldRetry($context, $content, null)) {
-<<<<<<< HEAD
-                    throw new \LogicException(sprintf('The "%s::shouldRetry()" method must not return null when called with a body.', $this->strategy::class));
-=======
                     throw new \LogicException(\sprintf('The "%s::shouldRetry()" method must not return null when called with a body.', $this->strategy::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 if (false === $shouldRetry) {
@@ -209,11 +201,8 @@ class RetryableHttpClient implements HttpClientInterface, ResetInterface
         if ($baseUris) {
             $baseUri = 1 < \count($baseUris) ? array_shift($baseUris) : current($baseUris);
             $options['base_uri'] = \is_array($baseUri) ? $baseUri[array_rand($baseUri)] : $baseUri;
-<<<<<<< HEAD
-=======
         } elseif (\is_array($options['base_uri'] ?? null)) {
             unset($options['base_uri']);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $options;

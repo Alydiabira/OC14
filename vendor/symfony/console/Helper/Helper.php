@@ -48,13 +48,9 @@ abstract class Helper implements HelperInterface
         $string ??= '';
 
         if (preg_match('//u', $string)) {
-<<<<<<< HEAD
-            return (new UnicodeString($string))->width(false);
-=======
             $string = preg_replace('/[\p{Cc}\x7F]++/u', '', $string, -1, $count);
 
             return (new UnicodeString($string))->width(false) + $count;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (false === $encoding = mb_detect_encoding($string, null, true)) {
@@ -90,13 +86,10 @@ abstract class Helper implements HelperInterface
     {
         $string ??= '';
 
-<<<<<<< HEAD
-=======
         if (preg_match('//u', $string)) {
             return (new UnicodeString($string))->slice($from, $length);
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (false === $encoding = mb_detect_encoding($string, null, true)) {
             return substr($string, $from, $length);
         }
@@ -153,20 +146,6 @@ abstract class Helper implements HelperInterface
     public static function formatMemory(int $memory)
     {
         if ($memory >= 1024 * 1024 * 1024) {
-<<<<<<< HEAD
-            return sprintf('%.1f GiB', $memory / 1024 / 1024 / 1024);
-        }
-
-        if ($memory >= 1024 * 1024) {
-            return sprintf('%.1f MiB', $memory / 1024 / 1024);
-        }
-
-        if ($memory >= 1024) {
-            return sprintf('%d KiB', $memory / 1024);
-        }
-
-        return sprintf('%d B', $memory);
-=======
             return \sprintf('%.1f GiB', $memory / 1024 / 1024 / 1024);
         }
 
@@ -179,7 +158,6 @@ abstract class Helper implements HelperInterface
         }
 
         return \sprintf('%d B', $memory);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

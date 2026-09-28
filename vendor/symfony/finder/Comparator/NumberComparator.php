@@ -42,20 +42,12 @@ class NumberComparator extends Comparator
     public function __construct(?string $test)
     {
         if (null === $test || !preg_match('#^\s*(==|!=|[<>]=?)?\s*([0-9\.]+)\s*([kmg]i?)?\s*$#i', $test, $matches)) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('Don\'t understand "%s" as a number test.', $test ?? 'null'));
-=======
             throw new \InvalidArgumentException(\sprintf('Don\'t understand "%s" as a number test.', $test ?? 'null'));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $target = $matches[2];
         if (!is_numeric($target)) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('Invalid number "%s".', $target));
-=======
             throw new \InvalidArgumentException(\sprintf('Invalid number "%s".', $target));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         if (isset($matches[3])) {
             // magnitude

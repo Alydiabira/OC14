@@ -6,11 +6,8 @@ namespace Doctrine\DBAL\Driver\API\OCI;
 
 use Doctrine\DBAL\Driver\API\ExceptionConverter as ExceptionConverterInterface;
 use Doctrine\DBAL\Driver\Exception;
-<<<<<<< HEAD
-=======
 use Doctrine\DBAL\Driver\OCI8\Exception\Error;
 use Doctrine\DBAL\Driver\PDO\PDOException;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\DBAL\Exception\ConnectionException;
 use Doctrine\DBAL\Exception\DatabaseDoesNotExist;
 use Doctrine\DBAL\Exception\DatabaseObjectNotFoundException;
@@ -22,11 +19,6 @@ use Doctrine\DBAL\Exception\NotNullConstraintViolationException;
 use Doctrine\DBAL\Exception\SyntaxErrorException;
 use Doctrine\DBAL\Exception\TableExistsException;
 use Doctrine\DBAL\Exception\TableNotFoundException;
-<<<<<<< HEAD
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
-use Doctrine\DBAL\Query;
-
-=======
 use Doctrine\DBAL\Exception\TransactionRolledBack;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\DBAL\Query;
@@ -34,16 +26,12 @@ use Doctrine\DBAL\Query;
 use function explode;
 use function str_replace;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /** @internal */
 final class ExceptionConverter implements ExceptionConverterInterface
 {
     /** @link http://www.dba-oracle.com/t_error_code_list.htm */
     public function convert(Exception $exception, ?Query $query): DriverException
     {
-<<<<<<< HEAD
-        switch ($exception->getCode()) {
-=======
         /** @phpstan-var int|'HY000' $code */ // @phpstan-ignore varTag.type
         $code = $exception->getCode();
         // @phpstan-ignore property.notFound, property.notFound
@@ -55,7 +43,6 @@ final class ExceptionConverter implements ExceptionConverterInterface
         }
 
         switch ($code) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             case 1:
             case 2299:
             case 38911:
@@ -87,8 +74,6 @@ final class ExceptionConverter implements ExceptionConverterInterface
             case 1918:
                 return new DatabaseDoesNotExist($exception, $query);
 
-<<<<<<< HEAD
-=======
             case 2091:
                 //ORA-02091: transaction rolled back
                 //ORA-00001: unique constraint (DOCTRINE.GH3423_UNIQUE) violated
@@ -105,7 +90,6 @@ final class ExceptionConverter implements ExceptionConverterInterface
 
                 return new TransactionRolledBack($why, $query);
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             case 2289:
             case 2443:
             case 4080:

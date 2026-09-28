@@ -24,15 +24,6 @@ class SymfonyErrorHandler
 {
     public static function register(bool $debug): void
     {
-<<<<<<< HEAD
-        BasicErrorHandler::register($debug);
-
-        if (class_exists(ErrorHandler::class)) {
-            DebugClassLoader::enable();
-            restore_error_handler();
-            ErrorHandler::register(new ErrorHandler(new BufferingLogger(), $debug));
-        }
-=======
         if (!class_exists(ErrorHandler::class)) {
             BasicErrorHandler::register($debug);
 
@@ -59,6 +50,5 @@ class SymfonyErrorHandler
         }
 
         ErrorHandler::register(new ErrorHandler(new BufferingLogger(), $debug));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

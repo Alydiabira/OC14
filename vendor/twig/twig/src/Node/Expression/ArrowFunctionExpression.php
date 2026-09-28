@@ -12,12 +12,9 @@
 namespace Twig\Node\Expression;
 
 use Twig\Compiler;
-<<<<<<< HEAD
-=======
 use Twig\Error\SyntaxError;
 use Twig\Node\Expression\Variable\AssignContextVariable;
 use Twig\Node\Expression\Variable\ContextVariable;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Twig\Node\Node;
 
 /**
@@ -27,11 +24,6 @@ use Twig\Node\Node;
  */
 class ArrowFunctionExpression extends AbstractExpression
 {
-<<<<<<< HEAD
-    public function __construct(AbstractExpression $expr, Node $names, $lineno, $tag = null)
-    {
-        parent::__construct(['expr' => $expr, 'names' => $names], [], $lineno, $tag);
-=======
     public function __construct(AbstractExpression $expr, Node $names, $lineno)
     {
         if ($names instanceof ContextVariable) {
@@ -43,7 +35,6 @@ class ArrowFunctionExpression extends AbstractExpression
         }
 
         parent::__construct(['expr' => $expr, 'names' => $names], [], $lineno);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function compile(Compiler $compiler): void
@@ -51,23 +42,7 @@ class ArrowFunctionExpression extends AbstractExpression
         $compiler
             ->addDebugInfo($this)
             ->raw('function (')
-<<<<<<< HEAD
-        ;
-        foreach ($this->getNode('names') as $i => $name) {
-            if ($i) {
-                $compiler->raw(', ');
-            }
-
-            $compiler
-                ->raw('$__')
-                ->raw($name->getAttribute('name'))
-                ->raw('__')
-            ;
-        }
-        $compiler
-=======
             ->subcompile($this->getNode('names'))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->raw(') use ($context, $macros) { ')
         ;
         foreach ($this->getNode('names') as $name) {

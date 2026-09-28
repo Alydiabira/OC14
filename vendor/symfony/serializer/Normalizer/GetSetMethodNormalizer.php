@@ -11,10 +11,7 @@
 
 namespace Symfony\Component\Serializer\Normalizer;
 
-<<<<<<< HEAD
-=======
 use Symfony\Component\PropertyAccess\Exception\UninitializedPropertyException;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Serializer\Annotation\Ignore as LegacyIgnore;
 use Symfony\Component\Serializer\Attribute\Ignore;
 
@@ -92,14 +89,11 @@ class GetSetMethodNormalizer extends AbstractObjectNormalizer
 
         $reflection = self::$reflectionCache[$class];
 
-<<<<<<< HEAD
-=======
         // Denormalization can also populate an object through its constructor, even when it exposes no setters (immutable value objects).
         if (!$readAttributes && ($constructor = $reflection->getConstructor()) && $constructor->isPublic() && $constructor->getNumberOfParameters() > 0) {
             return true;
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         foreach ($reflection->getMethods(\ReflectionMethod::IS_PUBLIC) as $reflectionMethod) {
             if ($readAttributes ? $this->isGetMethod($reflectionMethod) : $this->isSetMethod($reflectionMethod)) {
                 return true;
@@ -110,25 +104,16 @@ class GetSetMethodNormalizer extends AbstractObjectNormalizer
     }
 
     /**
-<<<<<<< HEAD
-     * Checks if a method's name matches /^(get|is|has).+$/ and can be called non-statically without parameters.
-=======
      * Checks if a method's name matches /^(get|is|has|can).+$/ and can be called non-statically without parameters.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private function isGetMethod(\ReflectionMethod $method): bool
     {
         return !$method->isStatic()
             && !($method->getAttributes(Ignore::class) || $method->getAttributes(LegacyIgnore::class))
             && !$method->getNumberOfRequiredParameters()
-<<<<<<< HEAD
-            && ((2 < ($methodLength = \strlen($method->name)) && str_starts_with($method->name, 'is'))
-                || (3 < $methodLength && (str_starts_with($method->name, 'has') || str_starts_with($method->name, 'get')))
-=======
             && !\in_array((string) $method->getReturnType(), ['void', 'never'], true)
             && ((2 < ($methodLength = \strlen($method->name)) && str_starts_with($method->name, 'is') && !ctype_lower($method->name[2]))
                 || (3 < $methodLength && (str_starts_with($method->name, 'has') || str_starts_with($method->name, 'get') || str_starts_with($method->name, 'can')) && !ctype_lower($method->name[3]))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
     }
 
@@ -139,16 +124,11 @@ class GetSetMethodNormalizer extends AbstractObjectNormalizer
     {
         return !$method->isStatic()
             && !$method->getAttributes(Ignore::class)
-<<<<<<< HEAD
-            && 1 === $method->getNumberOfRequiredParameters()
-            && str_starts_with($method->name, 'set');
-=======
             && 0 < $method->getNumberOfParameters()
             && 3 < \strlen($method->name)
             && str_starts_with($method->name, 'set')
             && !ctype_lower($method->name[3])
         ;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function extractAttributes(object $object, ?string $format = null, array $context = []): array
@@ -174,21 +154,6 @@ class GetSetMethodNormalizer extends AbstractObjectNormalizer
 
     protected function getAttributeValue(object $object, string $attribute, ?string $format = null, array $context = []): mixed
     {
-<<<<<<< HEAD
-        $getter = 'get'.$attribute;
-        if (method_exists($object, $getter) && \is_callable([$object, $getter])) {
-            return $object->$getter();
-        }
-
-        $isser = 'is'.$attribute;
-        if (method_exists($object, $isser) && \is_callable([$object, $isser])) {
-            return $object->$isser();
-        }
-
-        $haser = 'has'.$attribute;
-        if (method_exists($object, $haser) && \is_callable([$object, $haser])) {
-            return $object->$haser();
-=======
         try {
             $getter = 'get'.$attribute;
             if (method_exists($object, $getter) && \is_callable([$object, $getter])) {
@@ -214,7 +179,6 @@ class GetSetMethodNormalizer extends AbstractObjectNormalizer
                 throw new UninitializedPropertyException(\sprintf('The property "%s::$%s" is not initialized.', $object::class, $attribute), 0, $e);
             }
             throw $e;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return null;
@@ -243,15 +207,11 @@ class GetSetMethodNormalizer extends AbstractObjectNormalizer
             return false;
         }
 
-<<<<<<< HEAD
-        $class = \is_object($classOrObject) ? \get_class($classOrObject) : $classOrObject;
-=======
         $class = \is_object($classOrObject) ? $classOrObject::class : $classOrObject;
 
         if ($this->isDiscriminatorTypeProperty($classOrObject, $attribute)) {
             return true;
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (!isset(self::$reflectionCache[$class])) {
             self::$reflectionCache[$class] = new \ReflectionClass($class);
@@ -260,11 +220,7 @@ class GetSetMethodNormalizer extends AbstractObjectNormalizer
         $reflection = self::$reflectionCache[$class];
 
         if ($context['_read_attributes'] ?? true) {
-<<<<<<< HEAD
-            foreach (['get', 'is', 'has'] as $getterPrefix) {
-=======
             foreach (['get', 'is', 'has', 'can'] as $getterPrefix) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $getter = $getterPrefix.$attribute;
                 $reflectionMethod = $reflection->hasMethod($getter) ? $reflection->getMethod($getter) : null;
                 if ($reflectionMethod && $this->isGetMethod($reflectionMethod)) {

@@ -11,16 +11,6 @@
 
 namespace Twig\Node\Expression\Filter;
 
-<<<<<<< HEAD
-use Twig\Compiler;
-use Twig\Node\Expression\ConditionalExpression;
-use Twig\Node\Expression\ConstantExpression;
-use Twig\Node\Expression\FilterExpression;
-use Twig\Node\Expression\GetAttrExpression;
-use Twig\Node\Expression\NameExpression;
-use Twig\Node\Expression\Test\DefinedTest;
-use Twig\Node\Node;
-=======
 use Twig\Attribute\FirstClassTwigCallableReady;
 use Twig\Compiler;
 use Twig\Extension\CoreExtension;
@@ -35,7 +25,6 @@ use Twig\Node\Expression\Variable\ContextVariable;
 use Twig\Node\Node;
 use Twig\TwigFilter;
 use Twig\TwigTest;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Returns the value or the default value when it is undefined or empty.
@@ -46,17 +35,6 @@ use Twig\TwigTest;
  */
 class DefaultFilter extends FilterExpression
 {
-<<<<<<< HEAD
-    public function __construct(Node $node, ConstantExpression $filterName, Node $arguments, int $lineno, ?string $tag = null)
-    {
-        $default = new FilterExpression($node, new ConstantExpression('default', $node->getTemplateLine()), $arguments, $node->getTemplateLine());
-
-        if ('default' === $filterName->getAttribute('value') && ($node instanceof NameExpression || $node instanceof GetAttrExpression)) {
-            $test = new DefinedTest(clone $node, 'defined', new Node(), $node->getTemplateLine());
-            $false = \count($arguments) ? $arguments->getNode('0') : new ConstantExpression('', $node->getTemplateLine());
-
-            $node = new ConditionalExpression($test, $default, $false, $node->getTemplateLine());
-=======
     /**
      * @param AbstractExpression $node
      */
@@ -77,19 +55,14 @@ class DefaultFilter extends FilterExpression
 
         if ('default' === $name && ($node instanceof ContextVariable || $node instanceof GetAttrExpression)) {
             $test = new DefinedTest(clone $node, new TwigTest('defined', null, ['always_allowed_in_sandbox' => true]), new EmptyNode(), $node->getTemplateLine());
-            $false = \count($arguments) ? $arguments->getNode('0') : new ConstantExpression('', $node->getTemplateLine());
+            $false = \count($arguments) ? clone $arguments->getNode('0') : new ConstantExpression('', $node->getTemplateLine());
 
             $node = new ConditionalTernary($test, $default, $false, $node->getTemplateLine());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } else {
             $node = $default;
         }
 
-<<<<<<< HEAD
-        parent::__construct($node, $filterName, $arguments, $lineno, $tag);
-=======
         parent::__construct($node, $filter, $arguments, $lineno);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function compile(Compiler $compiler): void

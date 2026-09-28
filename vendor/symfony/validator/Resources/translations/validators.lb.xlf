@@ -136,11 +136,7 @@
             </trans-unit>
             <trans-unit id="37" resname="This is not a valid IP address.">
                 <source>This value is not a valid IP address.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Dëse Wäert ass keng gülteg IP-Adress.</target>
-=======
                 <target>Dëse Wäert ass keng gülteg IP-Adress.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="38">
                 <source>This value is not a valid language.</source>
@@ -228,11 +224,7 @@
             </trans-unit>
             <trans-unit id="59" resname="This is not a valid International Bank Account Number (IBAN).">
                 <source>This value is not a valid International Bank Account Number (IBAN).</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Dëse Wäert ass keng gülteg International Bankkontonummer (IBAN).</target>
-=======
                 <target>Dëse Wäert ass keng gülteg International Bankkontonummer (IBAN).</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="60">
                 <source>This value is not a valid ISBN-10.</source>
@@ -320,11 +312,7 @@
             </trans-unit>
             <trans-unit id="81" resname="This is not a valid Business Identifier Code (BIC).">
                 <source>This value is not a valid Business Identifier Code (BIC).</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Dëse Wäert ass kee gültege Business Identifier Code (BIC).</target>
-=======
                 <target>Dëse Wäert ass kee gültege Business Identifier Code (BIC).</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="82">
                 <source>Error</source>
@@ -332,11 +320,7 @@
             </trans-unit>
             <trans-unit id="83" resname="This is not a valid UUID.">
                 <source>This value is not a valid UUID.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Dëse Wäert ass keng gülteg UUID.</target>
-=======
                 <target>Dëse Wäert ass keng gülteg UUID.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="84">
                 <source>This value should be a multiple of {{ compared_value }}.</source>
@@ -452,13 +436,6 @@
             </trans-unit>
             <trans-unit id="112">
                 <source>This value is not a valid MAC address.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Dëse Wäert ass keng gülteg MAC-Adress.</target>
-            </trans-unit>
-            <trans-unit id="113">
-                <source>This URL is missing a top-level domain.</source>
-                <target state="needs-review-translation">Dësen URL feelt eng Top-Level-Domain.</target>
-=======
                 <target>Dëse Wäert ass keng gülteg MAC-Adress.</target>
             </trans-unit>
             <trans-unit id="113">
@@ -600,7 +577,6 @@
             <trans-unit id="148" resname="This is not a valid ULID.">
                 <source>This value is not a valid ULID.</source>
                 <target state="needs-review-translation">Dëse Wäert ass keng gülteg ULID.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
         </body>
     </file>

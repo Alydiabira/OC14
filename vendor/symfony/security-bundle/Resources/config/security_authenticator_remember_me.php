@@ -55,11 +55,8 @@ return static function (ContainerConfigurator $container) {
                 abstract_arg('options'),
                 service('logger')->nullOnInvalid(),
                 abstract_arg('token verifier'),
-<<<<<<< HEAD
-=======
                 abstract_arg('signature properties'),
                 service('property_accessor')->nullOnInvalid(),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ])
             ->tag('monolog.logger', ['channel' => 'security'])
 

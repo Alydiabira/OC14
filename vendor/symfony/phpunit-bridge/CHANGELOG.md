@@ -1,8 +1,6 @@
 CHANGELOG
 =========
 
-<<<<<<< HEAD
-=======
 7.4
 ---
 
@@ -21,7 +19,6 @@ CHANGELOG
  * Add `ExpectUserDeprecationMessageTrait` with a polyfill of PHPUnit's `expectUserDeprecationMessage()`
  * Use `total` for asserting deprecation count when a group is not defined
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 6.4
 ---
 

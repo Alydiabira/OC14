@@ -16,14 +16,8 @@ use function in_array;
  */
 final class IncludeGroupFilterIterator extends GroupFilterIterator
 {
-<<<<<<< HEAD
-    protected function doAccept(string $hash): bool
-    {
-        return in_array($hash, $this->groupTests, true);
-=======
     protected function doAccept(int $id): bool
     {
         return in_array($id, $this->groupTests, true);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

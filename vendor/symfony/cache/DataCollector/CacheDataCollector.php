@@ -38,19 +38,7 @@ class CacheDataCollector extends DataCollector implements LateDataCollectorInter
 
     public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
     {
-<<<<<<< HEAD
-        $empty = ['calls' => [], 'adapters' => [], 'config' => [], 'options' => [], 'statistics' => []];
-        $this->data = ['instances' => $empty, 'total' => $empty];
-        foreach ($this->instances as $name => $instance) {
-            $this->data['instances']['calls'][$name] = $instance->getCalls();
-            $this->data['instances']['adapters'][$name] = get_debug_type($instance->getPool());
-        }
-
-        $this->data['instances']['statistics'] = $this->calculateStatistics();
-        $this->data['total']['statistics'] = $this->calculateTotalStatistics();
-=======
         $this->lateCollect();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function reset(): void
@@ -63,8 +51,6 @@ class CacheDataCollector extends DataCollector implements LateDataCollectorInter
 
     public function lateCollect(): void
     {
-<<<<<<< HEAD
-=======
         $empty = ['calls' => [], 'adapters' => [], 'config' => [], 'options' => [], 'statistics' => []];
         $this->data = ['instances' => $empty, 'total' => $empty];
         foreach ($this->instances as $name => $instance) {
@@ -74,7 +60,6 @@ class CacheDataCollector extends DataCollector implements LateDataCollectorInter
 
         $this->data['instances']['statistics'] = $this->calculateStatistics();
         $this->data['total']['statistics'] = $this->calculateTotalStatistics();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->data['instances']['calls'] = $this->cloneVar($this->data['instances']['calls']);
     }
 
@@ -158,11 +143,8 @@ class CacheDataCollector extends DataCollector implements LateDataCollectorInter
                     }
                 } elseif ('save' === $call->name) {
                     ++$statistics[$name]['writes'];
-<<<<<<< HEAD
-=======
                 } elseif ('saveDeferred' === $call->name) {
                     ++$statistics[$name]['writes'];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 } elseif ('deleteItem' === $call->name) {
                     ++$statistics[$name]['deletes'];
                 }

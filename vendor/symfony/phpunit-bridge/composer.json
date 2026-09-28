@@ -2,13 +2,9 @@
     "name": "symfony/phpunit-bridge",
     "type": "symfony-bridge",
     "description": "Provides utilities for PHPUnit, especially user deprecation notices management",
-<<<<<<< HEAD
-    "keywords": [],
-=======
     "keywords": [
         "testing"
     ],
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     "homepage": "https://symfony.com",
     "license": "MIT",
     "authors": [
@@ -22,19 +18,6 @@
         }
     ],
     "require": {
-<<<<<<< HEAD
-        "php": ">=7.2.5 EVEN ON LATEST SYMFONY VERSIONS TO ALLOW USING",
-        "php": "THIS BRIDGE WHEN TESTING LOWEST SYMFONY VERSIONS.",
-        "php": ">=7.2.5"
-    },
-    "require-dev": {
-        "symfony/deprecation-contracts": "^2.5|^3.0",
-        "symfony/error-handler": "^5.4|^6.4|^7.0",
-        "symfony/polyfill-php81": "^1.27"
-    },
-    "conflict": {
-        "phpunit/phpunit": "<7.5|9.1.2"
-=======
         "php": ">=8.1.0 EVEN ON LATEST SYMFONY VERSIONS TO ALLOW USING",
         "php": "THIS BRIDGE WHEN TESTING LOWEST SYMFONY VERSIONS.",
         "php": ">=8.1.0"
@@ -42,18 +25,13 @@
     "require-dev": {
         "symfony/deprecation-contracts": "^2.5|^3",
         "symfony/error-handler": "^6.4.3|^7.0.3|^8.0"
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     },
     "autoload": {
         "files": [ "bootstrap.php" ],
         "psr-4": { "Symfony\\Bridge\\PhpUnit\\": "" },
         "exclude-from-classmap": [
-<<<<<<< HEAD
-            "/Tests/"
-=======
             "/Tests/",
             "/bin/"
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ]
     },
     "bin": [

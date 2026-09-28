@@ -137,11 +137,7 @@ class FormFactoryBuilder implements FormFactoryBuilderInterface
             }
         }
 
-<<<<<<< HEAD
-        if (\count($this->types) > 0 || \count($this->typeExtensions) > 0 || \count($this->typeGuessers) > 0) {
-=======
         if ($this->types || $this->typeExtensions || $this->typeGuessers) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (\count($this->typeGuessers) > 1) {
                 $typeGuesser = new FormTypeGuesserChain($this->typeGuessers);
             } else {

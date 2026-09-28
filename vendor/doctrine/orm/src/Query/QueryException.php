@@ -88,11 +88,6 @@ class QueryException extends Exception implements ORMException
         );
     }
 
-<<<<<<< HEAD
-    /**
-     * @param string[] $assoc
-     * @psalm-param array<string, string> $assoc
-=======
     public static function partialObjectsAreDangerous(): self
     {
         return new self(
@@ -105,7 +100,6 @@ class QueryException extends Exception implements ORMException
     /**
      * @param string[] $assoc
      * @phpstan-param array<string, string> $assoc
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public static function overwritingJoinConditionsNotYetSupported(array $assoc): self
     {

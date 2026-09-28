@@ -16,15 +16,9 @@ class DiffHelper
     public static function removeFilesFromPatch(string $patch, array $files, array &$removedPatches): string
     {
         foreach ($files as $filename) {
-<<<<<<< HEAD
-            $start = strpos($patch, sprintf('diff --git a/%s b/%s', $filename, $filename));
-            if (false === $start) {
-                throw new \LogicException(sprintf('Could not find file "%s" in the patch.', $filename));
-=======
             $start = strpos($patch, \sprintf('diff --git a/%s b/%s', $filename, $filename));
             if (false === $start) {
                 throw new \LogicException(\sprintf('Could not find file "%s" in the patch.', $filename));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $end = strpos($patch, 'diff --git a/', $start + 1);
@@ -43,11 +37,7 @@ class DiffHelper
 
         // valid patches end with a blank line
         if ($patch && "\n" !== substr($patch, \strlen($patch) - 1, 1)) {
-<<<<<<< HEAD
-            $patch = $patch."\n";
-=======
             $patch .= "\n";
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $patch;

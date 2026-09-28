@@ -57,11 +57,7 @@ final class EntityValueResolver implements ValueResolverInterface
         $message = '';
         if (null !== $options->expr) {
             if (null === $object = $this->findViaExpression($manager, $request, $options)) {
-<<<<<<< HEAD
-                $message = sprintf(' The expression "%s" returned null.', $options->expr);
-=======
                 $message = \sprintf(' The expression "%s" returned null.', $options->expr);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         // find by identifier?
         } elseif (false === $object = $this->find($manager, $request, $options, $argument->getName())) {
@@ -77,11 +73,7 @@ final class EntityValueResolver implements ValueResolverInterface
         }
 
         if (null === $object && !$argument->isNullable()) {
-<<<<<<< HEAD
-            throw new NotFoundHttpException(sprintf('"%s" object not found by "%s".', $options->class, self::class).$message);
-=======
             throw new NotFoundHttpException(\sprintf('"%s" object not found by "%s".', $options->class, self::class).$message);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return [$object];
@@ -112,12 +104,9 @@ final class EntityValueResolver implements ValueResolverInterface
         if (false === $id || null === $id) {
             return $id;
         }
-<<<<<<< HEAD
-=======
         if (\is_array($id) && \in_array(null, $id, true)) {
             return null;
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($options->evictCache && $manager instanceof EntityManagerInterface) {
             $cacheProvider = $manager->getCache();
@@ -140,11 +129,7 @@ final class EntityValueResolver implements ValueResolverInterface
             foreach ($options->id as $field) {
                 // Convert "%s_uuid" to "foobar_uuid"
                 if (str_contains($field, '%s')) {
-<<<<<<< HEAD
-                    $field = sprintf($field, $name);
-=======
                     $field = \sprintf($field, $name);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 $id[$field] = $request->attributes->get($field);
@@ -213,11 +198,7 @@ final class EntityValueResolver implements ValueResolverInterface
     private function findViaExpression(ObjectManager $manager, Request $request, MapEntity $options): ?object
     {
         if (!$this->expressionLanguage) {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('You cannot use the "%s" if the ExpressionLanguage component is not available. Try running "composer require symfony/expression-language".', __CLASS__));
-=======
             throw new \LogicException(\sprintf('You cannot use the "%s" if the ExpressionLanguage component is not available. Try running "composer require symfony/expression-language".', __CLASS__));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $repository = $manager->getRepository($options->class);

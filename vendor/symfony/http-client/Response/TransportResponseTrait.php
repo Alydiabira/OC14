@@ -43,16 +43,11 @@ trait TransportResponseTrait
     private int|string $id;
     private ?float $timeout = 0;
     private \InflateContext|bool|null $inflate = null;
-<<<<<<< HEAD
-    private ?array $finalInfo = null;
-    private ?LoggerInterface $logger = null;
-=======
     private int $inflateIn = 0;
     private int $inflateOut = 0;
     private ?array $finalInfo = null;
     private ?LoggerInterface $logger = null;
     private bool $didTimeout = false;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     public function getStatusCode(): int
     {
@@ -100,11 +95,7 @@ trait TransportResponseTrait
     /**
      * Performs all pending non-blocking operations.
      */
-<<<<<<< HEAD
-    abstract protected static function perform(ClientState $multi, array &$responses): void;
-=======
     abstract protected static function perform(ClientState $multi, array $responses): void;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Waits for network activity.
@@ -138,11 +129,7 @@ trait TransportResponseTrait
     {
         $this->shouldBuffer = true;
 
-<<<<<<< HEAD
-        if ($this->initializer && null === $this->info['error']) {
-=======
         if ($this->initializer && null === $this->info['error'] && !$this->didTimeout) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             self::initialize($this);
             $this->checkStatusCode();
         }
@@ -166,12 +153,6 @@ trait TransportResponseTrait
         $lastActivity = hrtime(true) / 1E9;
         $elapsedTimeout = 0;
 
-<<<<<<< HEAD
-        if ($fromLastTimeout = 0.0 === $timeout && '-0' === (string) $timeout) {
-            $timeout = null;
-        } elseif ($fromLastTimeout = 0 > $timeout) {
-            $timeout = -$timeout;
-=======
         if ((0.0 === $timeout && '-0' === (string) $timeout) || 0 > $timeout) {
             $timeout = $timeout ? -$timeout : null;
 
@@ -181,7 +162,6 @@ trait TransportResponseTrait
                     $elapsedTimeout = max($elapsedTimeout, $lastActivity - $multi->lastTimeout);
                 }
             }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         while (true) {
@@ -190,12 +170,7 @@ trait TransportResponseTrait
             $timeoutMin = $timeout ?? \INF;
 
             /** @var ClientState $multi */
-<<<<<<< HEAD
-            foreach ($runningResponses as $i => [$multi]) {
-                $responses = &$runningResponses[$i][1];
-=======
             foreach ($runningResponses as $i => [$multi, &$responses]) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 self::perform($multi, $responses);
 
                 foreach ($responses as $j => $response) {
@@ -203,20 +178,6 @@ trait TransportResponseTrait
                     $timeoutMin = min($timeoutMin, $response->timeout, 1);
                     $chunk = false;
 
-<<<<<<< HEAD
-                    if ($fromLastTimeout && null !== $multi->lastTimeout) {
-                        $elapsedTimeout = hrtime(true) / 1E9 - $multi->lastTimeout;
-                    }
-
-                    if (isset($multi->handlesActivity[$j])) {
-                        $multi->lastTimeout = null;
-                    } elseif (!isset($multi->openHandles[$j])) {
-                        unset($responses[$j]);
-                        continue;
-                    } elseif ($elapsedTimeout >= $timeoutMax) {
-                        $multi->handlesActivity[$j] = [new ErrorChunk($response->offset, sprintf('Idle timeout reached for "%s".', $response->getInfo('url')))];
-                        $multi->lastTimeout ??= $lastActivity;
-=======
                     if (isset($multi->handlesActivity[$j])) {
                         $multi->lastTimeout = null;
                         $elapsedTimeout = 0;
@@ -229,25 +190,10 @@ trait TransportResponseTrait
                         $multi->handlesActivity[$j] = [new ErrorChunk($response->offset, \sprintf('Idle timeout reached for "%s".', $response->getInfo('url')))];
                         $multi->lastTimeout ??= $lastActivity;
                         $elapsedTimeout = $timeoutMax;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     } else {
                         continue;
                     }
 
-<<<<<<< HEAD
-                    while ($multi->handlesActivity[$j] ?? false) {
-                        $hasActivity = true;
-                        $elapsedTimeout = 0;
-
-                        if (\is_string($chunk = array_shift($multi->handlesActivity[$j]))) {
-                            if (null !== $response->inflate && false === $chunk = @inflate_add($response->inflate, $chunk)) {
-                                $multi->handlesActivity[$j] = [null, new TransportException(sprintf('Error while processing content unencoding for "%s".', $response->getInfo('url')))];
-                                continue;
-                            }
-
-                            if ('' !== $chunk && null !== $response->content && \strlen($chunk) !== fwrite($response->content, $chunk)) {
-                                $multi->handlesActivity[$j] = [null, new TransportException(sprintf('Failed writing %d bytes to the response buffer.', \strlen($chunk)))];
-=======
                     $lastActivity = null;
                     $hasActivity = true;
 
@@ -273,7 +219,6 @@ trait TransportResponseTrait
 
                             if ('' !== $chunk && null !== $response->content && \strlen($chunk) !== fwrite($response->content, $chunk)) {
                                 $multi->handlesActivity[$j] = [null, new TransportException(\sprintf('Failed writing %d bytes to the response buffer.', \strlen($chunk)))];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                                 continue;
                             }
 
@@ -302,18 +247,10 @@ trait TransportResponseTrait
                             }
                         } elseif ($chunk instanceof ErrorChunk) {
                             unset($responses[$j]);
-<<<<<<< HEAD
-                            $elapsedTimeout = $timeoutMax;
-                        } elseif ($chunk instanceof FirstChunk) {
-                            if ($response->logger) {
-                                $info = $response->getInfo();
-                                $response->logger->info(sprintf('Response: "%s %s"', $info['http_code'], $info['url']));
-=======
                         } elseif ($chunk instanceof FirstChunk) {
                             if ($response->logger) {
                                 $info = $response->getInfo();
                                 $response->logger->info(\sprintf('Response: "%s %s"', $info['http_code'], $info['url']));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                             }
 
                             $response->inflate = \extension_loaded('zlib') && $response->inflate && 'gzip' === ($response->headers['content-encoding'][0] ?? null) ? inflate_init(\ZLIB_ENCODING_GZIP) : null;
@@ -356,18 +293,12 @@ trait TransportResponseTrait
                     if ($chunk instanceof ErrorChunk && !$chunk->didThrow()) {
                         // Ensure transport exceptions are always thrown
                         $chunk->getContent();
-<<<<<<< HEAD
-=======
                         throw new \LogicException('A transport exception should have been thrown.');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
                 }
 
                 if (!$responses) {
-<<<<<<< HEAD
-=======
                     $hasActivity = true;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     unset($runningResponses[$i]);
                 }
 
@@ -381,19 +312,11 @@ trait TransportResponseTrait
             }
 
             if ($hasActivity) {
-<<<<<<< HEAD
-                $lastActivity = hrtime(true) / 1E9;
-                continue;
-            }
-
-            if (-1 === self::select($multi, min($timeoutMin, $timeoutMax - $elapsedTimeout))) {
-=======
                 $lastActivity ??= hrtime(true) / 1E9;
                 continue;
             }
 
             if (-1 === self::select($multi, min($timeoutMin, max(0, $timeoutMax - $elapsedTimeout)))) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 usleep((int) min(500, 1E6 * $timeoutMin));
             }
 

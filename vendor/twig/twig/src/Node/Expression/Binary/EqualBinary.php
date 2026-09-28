@@ -12,15 +12,10 @@
 namespace Twig\Node\Expression\Binary;
 
 use Twig\Compiler;
-<<<<<<< HEAD
-
-class EqualBinary extends AbstractBinary
-=======
 use Twig\Node\CoercesChildrenToStringInterface;
 use Twig\Node\Expression\ReturnBoolInterface;
 
 class EqualBinary extends AbstractBinary implements ReturnBoolInterface, CoercesChildrenToStringInterface
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 {
     public function compile(Compiler $compiler): void
     {
@@ -43,12 +38,9 @@ class EqualBinary extends AbstractBinary implements ReturnBoolInterface, Coerces
     {
         return $compiler->raw('==');
     }
-<<<<<<< HEAD
-=======
 
     public function getStringCoercedChildNames(): array
     {
         return ['left', 'right'];
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

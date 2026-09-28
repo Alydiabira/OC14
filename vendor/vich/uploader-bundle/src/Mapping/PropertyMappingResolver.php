@@ -1,39 +1,31 @@
 <?php
 
-<<<<<<< HEAD
-declare(strict_types=1);
-
-namespace Vich\UploaderBundle\Mapping;
-
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Vich\UploaderBundle\Exception\MappingNotFoundException;
-use Vich\UploaderBundle\Naming\ConfigurableInterface;
-use Vich\UploaderBundle\Util\ClassUtils;
-
-/**
- * PropertyMappingResolver.
- *
-=======
 namespace Vich\UploaderBundle\Mapping;
 
 use Vich\UploaderBundle\Exception\MappingNotFoundException;
+use Vich\UploaderBundle\Naming\Base64Namer;
+use Vich\UploaderBundle\Naming\ConfigurableDirectoryNamer;
 use Vich\UploaderBundle\Naming\ConfigurableInterface;
+use Vich\UploaderBundle\Naming\CurrentDateTimeDirectoryNamer;
 use Vich\UploaderBundle\Naming\DirectoryNamerInterface;
+use Vich\UploaderBundle\Naming\HashNamer;
 use Vich\UploaderBundle\Naming\NamerInterface;
+use Vich\UploaderBundle\Naming\OrignameNamer;
+use Vich\UploaderBundle\Naming\PropertyDirectoryNamer;
+use Vich\UploaderBundle\Naming\PropertyNamer;
+use Vich\UploaderBundle\Naming\SlugNamer;
+use Vich\UploaderBundle\Naming\SmartUniqueNamer;
+use Vich\UploaderBundle\Naming\SubdirDirectoryNamer;
+use Vich\UploaderBundle\Naming\UniqidNamer;
 use Vich\UploaderBundle\Util\ClassUtils;
 
 /**
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  * @author Dustin Dobervich <ddobervich@gmail.com>
  *
  * @internal
  */
 final class PropertyMappingResolver implements PropertyMappingResolverInterface
 {
-<<<<<<< HEAD
-    public function __construct(
-        private readonly ContainerInterface $container,
-=======
     /**
      * @param iterable<string, NamerInterface>          $namers
      * @param iterable<string, DirectoryNamerInterface> $dirNamers
@@ -41,7 +33,6 @@ final class PropertyMappingResolver implements PropertyMappingResolverInterface
     public function __construct(
         private readonly iterable $namers,
         private readonly iterable $dirNamers,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         private readonly array $mappings,
         private readonly ?string $defaultFilenameAttributeSuffix = '_name'
     ) {
@@ -64,16 +55,7 @@ final class PropertyMappingResolver implements PropertyMappingResolverInterface
 
         if (!empty($config['namer']) && null !== $config['namer']['service']) {
             $namerConfig = $config['namer'];
-<<<<<<< HEAD
-            $namer = $this->container->get($namerConfig['service']);
-
-            if (!empty($namerConfig['options'])) {
-                if (!$namer instanceof ConfigurableInterface) {
-                    throw new \LogicException(\sprintf('Namer %s can not receive options as it does not implement ConfigurableInterface.', $namerConfig['service']));
-                }
-                $namer->configure($namerConfig['options']);
-=======
-            $namer = $this->getNamer($mappingData['mapping'], $namerConfig['service']);
+            $namer = $this->copyBuiltInNamer($this->getNamer($mappingData['mapping'], $namerConfig['service']));
 
             $options = $namerConfig['options'] ?? [];
 
@@ -90,7 +72,6 @@ final class PropertyMappingResolver implements PropertyMappingResolverInterface
                     throw new \LogicException(\sprintf('Namer %s can not receive options as it does not implement ConfigurableInterface.', $namerConfig['service']));
                 }
                 $namer->configure($options);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $mapping->setNamer($namer);
@@ -98,11 +79,7 @@ final class PropertyMappingResolver implements PropertyMappingResolverInterface
 
         if (!empty($config['directory_namer']) && null !== $config['directory_namer']['service']) {
             $namerConfig = $config['directory_namer'];
-<<<<<<< HEAD
-            $namer = $this->container->get($namerConfig['service']);
-=======
-            $namer = $this->getDirectoryNamer($mappingData['mapping'], $namerConfig['service']);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
+            $namer = $this->copyBuiltInNamer($this->getDirectoryNamer($mappingData['mapping'], $namerConfig['service']));
 
             if (!empty($namerConfig['options'])) {
                 if (!$namer instanceof ConfigurableInterface) {
@@ -116,8 +93,37 @@ final class PropertyMappingResolver implements PropertyMappingResolverInterface
 
         return $mapping;
     }
-<<<<<<< HEAD
-=======
+
+    /**
+     * Built-in namers keep their configuration in scalar properties, so a shallow copy preserves
+     * service defaults without sharing mapping options. Copy even when no options are supplied:
+     * a retained mapping must not observe later configuration changes to the service.
+     *
+     * Match concrete classes only. Custom namers, subclasses and decorators have no cloning
+     * contract in 2.x and must retain their existing configuration and service lifecycle.
+     *
+     * @template T of NamerInterface|DirectoryNamerInterface
+     *
+     * @param T $namer
+     *
+     * @return T
+     */
+    private function copyBuiltInNamer(NamerInterface|DirectoryNamerInterface $namer): NamerInterface|DirectoryNamerInterface
+    {
+        return \in_array($namer::class, [
+            Base64Namer::class,
+            ConfigurableDirectoryNamer::class,
+            CurrentDateTimeDirectoryNamer::class,
+            HashNamer::class,
+            OrignameNamer::class,
+            PropertyDirectoryNamer::class,
+            PropertyNamer::class,
+            SlugNamer::class,
+            SmartUniqueNamer::class,
+            SubdirDirectoryNamer::class,
+            UniqidNamer::class,
+        ], true) ? clone $namer : $namer;
+    }
 
     private function getNamer(string $name, string $service): NamerInterface
     {
@@ -142,5 +148,4 @@ final class PropertyMappingResolver implements PropertyMappingResolverInterface
 
         throw new \UnexpectedValueException(\sprintf('Directory namer service "%s" not found.', $service));
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

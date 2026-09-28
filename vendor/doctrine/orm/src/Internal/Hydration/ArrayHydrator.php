@@ -214,14 +214,8 @@ class ArrayHydrator extends AbstractHydrator
             $scalarCount = (isset($rowData['scalars']) ? count($rowData['scalars']) : 0);
 
             foreach ($rowData['newObjects'] as $objIndex => $newObject) {
-<<<<<<< HEAD
-                $class = $newObject['class'];
-                $args  = $newObject['args'];
-                $obj   = $class->newInstanceArgs($args);
-=======
                 $args = $newObject['args'];
                 $obj  = $newObject['obj'];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 if (count($args) === $scalarCount || ($scalarCount === 0 && count($rowData['newObjects']) === 1)) {
                     $result[$resultKey] = $obj;

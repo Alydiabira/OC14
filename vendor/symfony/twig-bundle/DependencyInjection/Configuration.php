@@ -33,13 +33,8 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->getRootNode();
 
         $rootNode->beforeNormalization()
-<<<<<<< HEAD
-            ->ifTrue(fn ($v) => \is_array($v) && \array_key_exists('exception_controller', $v))
-            ->then(function ($v) {
-=======
             ->ifTrue(static fn ($v) => \is_array($v) && \array_key_exists('exception_controller', $v))
             ->then(static function ($v) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if (isset($v['exception_controller'])) {
                     throw new InvalidConfigurationException('Option "exception_controller" under "twig" must be null or unset, use "error_controller" under "framework" instead.');
                 }
@@ -69,13 +64,8 @@ class Configuration implements ConfigurationInterface
                     ->prototype('scalar')->defaultValue('form_div_layout.html.twig')->end()
                     ->example(['@My/form.html.twig'])
                     ->validate()
-<<<<<<< HEAD
-                        ->ifTrue(fn ($v) => !\in_array('form_div_layout.html.twig', $v))
-                        ->then(fn ($v) => array_merge(['form_div_layout.html.twig'], $v))
-=======
                         ->ifTrue(static fn ($v) => !\in_array('form_div_layout.html.twig', $v))
                         ->then(static fn ($v) => array_merge(['form_div_layout.html.twig'], $v))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     ->end()
                 ->end()
             ->end()
@@ -94,13 +84,8 @@ class Configuration implements ConfigurationInterface
                     ->prototype('array')
                         ->normalizeKeys(false)
                         ->beforeNormalization()
-<<<<<<< HEAD
-                            ->ifTrue(fn ($v) => \is_string($v) && str_starts_with($v, '@'))
-                            ->then(function ($v) {
-=======
                             ->ifTrue(static fn ($v) => \is_string($v) && str_starts_with($v, '@'))
                             ->then(static function ($v) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                                 if (str_starts_with($v, '@@')) {
                                     return substr($v, 1);
                                 }
@@ -109,11 +94,7 @@ class Configuration implements ConfigurationInterface
                             })
                         ->end()
                         ->beforeNormalization()
-<<<<<<< HEAD
-                            ->ifTrue(function ($v) {
-=======
                             ->ifTrue(static function ($v) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                                 if (\is_array($v)) {
                                     $keys = array_keys($v);
                                     sort($keys);
@@ -123,11 +104,7 @@ class Configuration implements ConfigurationInterface
 
                                 return true;
                             })
-<<<<<<< HEAD
-                            ->then(fn ($v) => ['value' => $v])
-=======
                             ->then(static fn ($v) => ['value' => $v])
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         ->end()
                         ->children()
                             ->scalarNode('id')->end()
@@ -172,11 +149,7 @@ class Configuration implements ConfigurationInterface
                     ->info('Pattern of file name used for cache warmer and linter')
                     ->beforeNormalization()
                         ->ifString()
-<<<<<<< HEAD
-                            ->then(fn ($value) => [$value])
-=======
                             ->then(static fn ($value) => [$value])
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         ->end()
                     ->prototype('scalar')->end()
                 ->end()
@@ -185,11 +158,7 @@ class Configuration implements ConfigurationInterface
                     ->useAttributeAsKey('paths')
                     ->beforeNormalization()
                         ->ifArray()
-<<<<<<< HEAD
-                        ->then(function ($paths) {
-=======
                         ->then(static function ($paths) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                             $normalized = [];
                             foreach ($paths as $path => $namespace) {
                                 if (\is_array($namespace)) {
@@ -252,11 +221,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('mailer')
                     ->children()
                         ->scalarNode('html_to_text_converter')
-<<<<<<< HEAD
-                            ->info(sprintf('A service implementing the "%s"', HtmlToTextConverterInterface::class))
-=======
                             ->info(\sprintf('A service implementing the "%s"', HtmlToTextConverterInterface::class))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                             ->defaultNull()
                         ->end()
                     ->end()

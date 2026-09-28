@@ -84,11 +84,7 @@ class ContainerConfigurator extends AbstractConfigurator
             }
             foreach ($parameters as $key => $value) {
                 $matches = [];
-<<<<<<< HEAD
-                if (preg_match(sprintf('/^\s+%s\:/', preg_quote($key, '/')), $line, $matches)) {
-=======
                 if (preg_match(\sprintf('/^\s+%s\:/', preg_quote($key, '/')), $line, $matches)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     if ($update) {
                         $lines[$i] = substr($line, 0, \strlen($matches[0])).' '.str_replace("'", "''", $value)."\n";
                     }
@@ -105,17 +101,10 @@ class ContainerConfigurator extends AbstractConfigurator
             }
             foreach ($parameters as $key => $value) {
                 if (\is_array($value)) {
-<<<<<<< HEAD
-                    $parametersLines[] = sprintf("    %s:\n%s", $key, $this->dumpYaml(2, $value));
-                    continue;
-                }
-                $parametersLines[] = sprintf("    %s: '%s'%s", $key, str_replace("'", "''", $value), "\n");
-=======
                     $parametersLines[] = \sprintf("    %s:\n%s", $key, $this->dumpYaml(2, $value));
                     continue;
                 }
                 $parametersLines[] = \sprintf("    %s: '%s'%s", $key, str_replace("'", "''", $value), "\n");
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             if (!$endAt) {
                 $parametersLines[] = "\n";
@@ -145,11 +134,7 @@ class ContainerConfigurator extends AbstractConfigurator
             if (\is_array($value) && $this->removeParameters($level + 1, $value, $line)) {
                 return true;
             }
-<<<<<<< HEAD
-            if (preg_match(sprintf('/^(\s{%d}|\t{%d})+%s\:/', 4 * $level, $level, preg_quote($key, '/')), $line)) {
-=======
             if (preg_match(\sprintf('/^(\s{%d}|\t{%d})+%s\:/', 4 * $level, $level, preg_quote($key, '/')), $line)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 return true;
             }
         }
@@ -163,17 +148,10 @@ class ContainerConfigurator extends AbstractConfigurator
         foreach ($array as $key => $value) {
             $line .= str_repeat('    ', $level);
             if (!\is_array($value)) {
-<<<<<<< HEAD
-                $line .= sprintf("%s: '%s'\n", $key, str_replace("'", "''", $value));
-                continue;
-            }
-            $line .= sprintf("%s:\n", $key).$this->dumpYaml($level + 1, $value);
-=======
                 $line .= \sprintf("%s: '%s'\n", $key, str_replace("'", "''", $value));
                 continue;
             }
             $line .= \sprintf("%s:\n", $key).$this->dumpYaml($level + 1, $value);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $line;

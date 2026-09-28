@@ -173,11 +173,7 @@ class CouchbaseCollectionAdapter extends AbstractAdapter
             }
         }
 
-<<<<<<< HEAD
-        return 0 === \count($idsErrors);
-=======
         return !$idsErrors;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function doSave(array $values, $lifetime): array|bool
@@ -198,10 +194,6 @@ class CouchbaseCollectionAdapter extends AbstractAdapter
             }
         }
 
-<<<<<<< HEAD
-        return [] === $ko ? true : $ko;
-=======
         return !$ko ? true : $ko;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

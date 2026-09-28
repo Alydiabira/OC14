@@ -80,13 +80,9 @@ class XmlFileLoader extends FileLoader
         foreach ($nodes as $node) {
             if (\count($node) > 0) {
                 if (\count($node->value) > 0) {
-<<<<<<< HEAD
-                    $options = $this->parseValues($node->value);
-=======
                     $options = [
                         'value' => $this->parseValues($node->value),
                     ];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 } elseif (\count($node->constraint) > 0) {
                     $options = $this->parseConstraints($node->constraint);
                 } elseif (\count($node->option) > 0) {
@@ -100,13 +96,10 @@ class XmlFileLoader extends FileLoader
                 $options = null;
             }
 
-<<<<<<< HEAD
-=======
             if (isset($options['groups']) && !\is_array($options['groups'])) {
                 $options['groups'] = (array) $options['groups'];
             }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $constraints[] = $this->newConstraint((string) $node['name'], $options);
         }
 

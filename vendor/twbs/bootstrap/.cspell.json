@@ -87,10 +87,7 @@
     "roboto",
     "RTLCSS",
     "ruleset",
-<<<<<<< HEAD
-=======
     "sassrc",
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     "screenreaders",
     "scrollbars",
     "scrollspy",
@@ -123,12 +120,6 @@
     "zindex"
   ],
   "language": "en-US",
-<<<<<<< HEAD
-  "files": [
-    "**/*.md"
-  ],
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
   "ignorePaths": [
     ".cspell.json",
     "dist/",

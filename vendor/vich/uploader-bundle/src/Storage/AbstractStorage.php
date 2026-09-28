@@ -5,10 +5,7 @@ namespace Vich\UploaderBundle\Storage;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Exception\MappingNotFoundException;
-<<<<<<< HEAD
-=======
 use Vich\UploaderBundle\Exception\NotUploadableException;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Vich\UploaderBundle\FileAbstraction\ReplacingFile;
 use Vich\UploaderBundle\Mapping\PropertyMapping;
 use Vich\UploaderBundle\Mapping\PropertyMappingFactory;
@@ -20,11 +17,8 @@ use Vich\UploaderBundle\Mapping\PropertyMappingFactory;
  */
 abstract class AbstractStorage implements StorageInterface
 {
-<<<<<<< HEAD
-=======
     private const URI_SEPARATOR = '/';
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function __construct(protected readonly PropertyMappingFactory $factory)
     {
     }
@@ -55,9 +49,6 @@ abstract class AbstractStorage implements StorageInterface
 
         $dir = $mapping->getUploadDir($obj);
 
-<<<<<<< HEAD
-        $this->doUpload($mapping, $file, $dir, $name);
-=======
         try {
             $this->doUpload($mapping, $file, $dir, $name);
         } catch (\Exception $e) {
@@ -75,7 +66,6 @@ abstract class AbstractStorage implements StorageInterface
         ) {
             \unlink($file->getPathname());
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     abstract protected function doRemove(PropertyMapping $mapping, ?string $dir, string $name): ?bool;
@@ -121,29 +111,16 @@ abstract class AbstractStorage implements StorageInterface
         }
 
         $dir = $mapping->getUploadDir($obj);
-<<<<<<< HEAD
-        $path = !empty($dir) ? $dir.'/'.$filename : $filename;
-
-        return $mapping->getUriPrefix().'/'.$path;
-=======
         $dir = \is_string($dir) ? \trim($dir, self::URI_SEPARATOR) : $dir;
         $path = (\is_string($dir) && '' !== $dir) ? $dir.self::URI_SEPARATOR.$filename : $filename;
 
         return \rtrim($mapping->getUriPrefix(), self::URI_SEPARATOR).self::URI_SEPARATOR.$path;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function resolveStream(object|array $obj, ?string $fieldName = null, ?string $className = null)
     {
         $path = $this->resolvePath($obj, $fieldName, $className);
 
-<<<<<<< HEAD
-        if (empty($path)) {
-            return null;
-        }
-
-        return \fopen($path, 'rb');
-=======
         if (empty($path) || !\is_file($path)) {
             return null;
         }
@@ -155,23 +132,16 @@ abstract class AbstractStorage implements StorageInterface
         }
 
         return $stream;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
      * note: extension point.
      *
-<<<<<<< HEAD
-     * @throws MappingNotFoundException
-     * @throws \RuntimeException
-     * @throws \Vich\UploaderBundle\Exception\NotUploadableException
-=======
      * @return array{0: PropertyMapping, 1: string}
      *
      * @throws MappingNotFoundException
      * @throws NotUploadableException
      * @throws \RuntimeException
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function getFilename(object|array $obj, ?string $fieldName = null, ?string $className = null): array
     {

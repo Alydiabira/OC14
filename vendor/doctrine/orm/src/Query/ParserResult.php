@@ -4,14 +4,10 @@ declare(strict_types=1);
 
 namespace Doctrine\ORM\Query;
 
-<<<<<<< HEAD
-use Doctrine\ORM\Query\Exec\AbstractSqlExecutor;
-=======
 use Doctrine\Deprecations\Deprecation;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Exec\AbstractSqlExecutor;
 use Doctrine\ORM\Query\Exec\SqlFinalizer;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use LogicException;
 
 use function sprintf;
@@ -30,14 +26,11 @@ class ParserResult
     private AbstractSqlExecutor|null $sqlExecutor = null;
 
     /**
-<<<<<<< HEAD
-=======
      * The SQL executor used for executing the SQL.
      */
     private SqlFinalizer|null $sqlFinalizer = null;
 
     /**
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * The ResultSetMapping that describes how to map the SQL result set.
      */
     private ResultSetMapping $resultSetMapping;
@@ -45,11 +38,7 @@ class ParserResult
     /**
      * The mappings of DQL parameter names/positions to SQL parameter positions.
      *
-<<<<<<< HEAD
-     * @psalm-var array<string|int, list<int>>
-=======
      * @phpstan-var array<string|int, list<int>>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private array $parameterMappings = [];
 
@@ -82,11 +71,6 @@ class ParserResult
 
     /**
      * Sets the SQL executor that should be used for this ParserResult.
-<<<<<<< HEAD
-     */
-    public function setSqlExecutor(AbstractSqlExecutor $executor): void
-    {
-=======
      *
      * @deprecated The SqlExecutor will be removed from ParserResult in 4.0. Provide a SqlFinalizer instead that can create the executor.
      */
@@ -100,17 +84,11 @@ class ParserResult
             SqlFinalizer::class,
         );
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->sqlExecutor = $executor;
     }
 
     /**
      * Gets the SQL executor used by this ParserResult.
-<<<<<<< HEAD
-     */
-    public function getSqlExecutor(): AbstractSqlExecutor
-    {
-=======
      *
      * @deprecated The SqlExecutor will be removed from ParserResult in 4.0. Provide a SqlFinalizer instead that can create the executor.
      */
@@ -124,7 +102,6 @@ class ParserResult
             SqlFinalizer::class,
         );
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ($this->sqlExecutor === null) {
             throw new LogicException(sprintf(
                 'Executor not set yet. Call %s::setSqlExecutor() first.',
@@ -135,8 +112,6 @@ class ParserResult
         return $this->sqlExecutor;
     }
 
-<<<<<<< HEAD
-=======
     public function setSqlFinalizer(SqlFinalizer $finalizer): void
     {
         $this->sqlFinalizer = $finalizer;
@@ -155,7 +130,6 @@ class ParserResult
         throw new LogicException('This ParserResult lacks both the SqlFinalizer as well as the (legacy) SqlExecutor');
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Adds a DQL to SQL parameter mapping. One DQL parameter name/position can map to
      * several SQL parameter positions.
@@ -168,11 +142,7 @@ class ParserResult
     /**
      * Gets all DQL to SQL parameter mappings.
      *
-<<<<<<< HEAD
-     * @psalm-return array<int|string, list<int>> The parameter mappings.
-=======
      * @phpstan-return array<int|string, list<int>> The parameter mappings.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getParameterMappings(): array
     {
@@ -185,11 +155,7 @@ class ParserResult
      * @param string|int $dqlPosition The name or position of the DQL parameter.
      *
      * @return int[] The positions of the corresponding SQL parameters.
-<<<<<<< HEAD
-     * @psalm-return list<int>
-=======
      * @phpstan-return list<int>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getSqlParameterPositions(string|int $dqlPosition): array
     {

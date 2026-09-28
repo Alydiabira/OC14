@@ -47,16 +47,6 @@ final class SecretsListCommand extends Command
         $this
             ->addOption('reveal', 'r', InputOption::VALUE_NONE, 'Display decrypted values alongside names')
             ->setHelp(<<<'EOF'
-<<<<<<< HEAD
-The <info>%command.name%</info> command list all stored secrets.
-
-    <info>%command.full_name%</info>
-
-When the option <info>--reveal</info> is provided, the decrypted secrets are also displayed.
-
-    <info>%command.full_name% --reveal</info>
-EOF
-=======
                 The <info>%command.name%</info> command list all stored secrets.
 
                     <info>%command.full_name%</info>
@@ -65,7 +55,6 @@ EOF
 
                     <info>%command.full_name% --reveal</info>
                 EOF
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -77,11 +66,7 @@ EOF
         $io->comment('Use <info>"%env(<name>)%"</info> to reference a secret in a config file.');
 
         if (!$reveal = $input->getOption('reveal')) {
-<<<<<<< HEAD
-            $io->comment(sprintf('To reveal the secrets run <info>php %s %s --reveal</info>', $_SERVER['PHP_SELF'], $this->getName()));
-=======
             $io->comment(\sprintf('To reveal the secrets run <info>php %s %s --reveal</info>', $_SERVER['PHP_SELF'], $this->getName()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $secrets = $this->vault->list($reveal);
@@ -90,11 +75,7 @@ EOF
         $rows = [];
 
         $dump = new Dumper($output);
-<<<<<<< HEAD
-        $dump = fn ($v) => null === $v ? '******' : $dump($v);
-=======
         $dump = static fn ($v) => null === $v ? '******' : $dump($v);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         foreach ($secrets as $name => $value) {
             $rows[$name] = [$name, $dump($value)];

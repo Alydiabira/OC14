@@ -8,11 +8,8 @@ use Doctrine\Common\Cache\Cache;
 use Metadata\ClassMetadata;
 
 /**
-<<<<<<< HEAD
-=======
  * @deprecated use the {@see PsrCacheAdapter} instead
  *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  * @author Henrik Bjornskov <henrik@bjrnskov.dk>
  */
 class DoctrineCacheAdapter implements CacheInterface, ClearableCacheInterface

@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
     "dama/doctrine-test-bundle": {
         "version": "8.0",
         "recipe": {
@@ -19,15 +18,6 @@
             "branch": "main",
             "version": "1.10",
             "ref": "64d8583af5ea57b7afa4aba4b159907f3a148b05"
-=======
-    "doctrine/deprecations": {
-        "version": "1.1",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "main",
-            "version": "1.0",
-            "ref": "fdd756167454623e21f1d769c5b814b243782a67"
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     },
     "doctrine/doctrine-bundle": {
@@ -69,7 +59,6 @@
             "migrations/.gitignore"
         ]
     },
-<<<<<<< HEAD
     "phpstan/phpstan": {
         "version": "1.11",
         "recipe": {
@@ -82,8 +71,6 @@
             "phpstan.dist.neon"
         ]
     },
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {

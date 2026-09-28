@@ -10,10 +10,7 @@
 namespace Gedmo\Uploadable\Event;
 
 use Doctrine\Common\EventArgs;
-<<<<<<< HEAD
-=======
 use Doctrine\Deprecations\Deprecation;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Gedmo\Uploadable\FileInfo\FileInfoInterface;
@@ -96,19 +93,12 @@ abstract class UploadableBaseEventArgs extends EventArgs
      */
     public function getEntityManager()
     {
-<<<<<<< HEAD
-        @trigger_error(sprintf(
-            '"%s()" is deprecated since gedmo/doctrine-extensions 3.14 and will be removed in version 4.0.',
-            __METHOD__
-        ), E_USER_DEPRECATED);
-=======
         Deprecation::trigger(
             'gedmo/doctrine-extensions',
             'https://github.com/doctrine-extensions/DoctrineExtensions/pull/2639',
             '"%s()" is deprecated since gedmo/doctrine-extensions 3.14 and will be removed in version 4.0.',
             __METHOD__
         );
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this->em;
     }
@@ -130,19 +120,12 @@ abstract class UploadableBaseEventArgs extends EventArgs
      */
     public function getEntity()
     {
-<<<<<<< HEAD
-        @trigger_error(sprintf(
-            '"%s()" is deprecated since gedmo/doctrine-extensions 3.14 and will be removed in version 4.0.',
-            __METHOD__
-        ), E_USER_DEPRECATED);
-=======
         Deprecation::trigger(
             'gedmo/doctrine-extensions',
             'https://github.com/doctrine-extensions/DoctrineExtensions/pull/2639',
             '"%s()" is deprecated since gedmo/doctrine-extensions 3.14 and will be removed in version 4.0.',
             __METHOD__
         );
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this->entity;
     }

@@ -184,11 +184,7 @@ class LoggerDataCollector extends DataCollector implements LateDataCollectorInte
 
         $bootTime = filemtime($file);
         $logs = [];
-<<<<<<< HEAD
-        foreach (unserialize($logContent) as $log) {
-=======
         foreach (unserialize($logContent, ['allowed_classes' => false]) as $log) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $log['context'] = ['exception' => new SilencedErrorContext($log['type'], $log['file'], $log['line'], $log['trace'], $log['count'])];
             $log['timestamp'] = $bootTime;
             $log['timestamp_rfc3339'] = (new \DateTimeImmutable())->setTimestamp($bootTime)->format(\DateTimeInterface::RFC3339_EXTENDED);
@@ -238,17 +234,10 @@ class LoggerDataCollector extends DataCollector implements LateDataCollectorInte
             $exception = $log['context']['exception'];
 
             if ($exception instanceof SilencedErrorContext) {
-<<<<<<< HEAD
-                if (isset($silencedLogs[$h = spl_object_hash($exception)])) {
-                    continue;
-                }
-                $silencedLogs[$h] = true;
-=======
                 if (isset($silencedLogs[$id = spl_object_id($exception)])) {
                     continue;
                 }
                 $silencedLogs[$id] = true;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 if (!isset($sanitizedLogs[$message])) {
                     $sanitizedLogs[$message] = $log + [
@@ -317,28 +306,17 @@ class LoggerDataCollector extends DataCollector implements LateDataCollectorInte
                     'name' => $log['priorityName'],
                 ];
             }
-<<<<<<< HEAD
-            if ('WARNING' === $log['priorityName']) {
-=======
             if ('WARNING' === $log['priorityName'] || 'warning' === $log['priorityName']) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ++$count['warning_count'];
             }
 
             if ($this->isSilencedOrDeprecationErrorLog($log)) {
                 $exception = $log['context']['exception'];
                 if ($exception instanceof SilencedErrorContext) {
-<<<<<<< HEAD
-                    if (isset($silencedLogs[$h = spl_object_hash($exception)])) {
-                        continue;
-                    }
-                    $silencedLogs[$h] = true;
-=======
                     if (isset($silencedLogs[$id = spl_object_id($exception)])) {
                         continue;
                     }
                     $silencedLogs[$id] = true;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $count['scream_count'] += $exception->count;
                 } else {
                     ++$count['deprecation_count'];

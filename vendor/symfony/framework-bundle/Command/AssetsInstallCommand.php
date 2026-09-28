@@ -62,26 +62,6 @@ class AssetsInstallCommand extends Command
             ->addOption('relative', null, InputOption::VALUE_NONE, 'Make relative symlinks')
             ->addOption('no-cleanup', null, InputOption::VALUE_NONE, 'Do not remove the assets of the bundles that no longer exist')
             ->setHelp(<<<'EOT'
-<<<<<<< HEAD
-The <info>%command.name%</info> command installs bundle assets into a given
-directory (e.g. the <comment>public</comment> directory).
-
-  <info>php %command.full_name% public</info>
-
-A "bundles" directory will be created inside the target directory and the
-"Resources/public" directory of each bundle will be copied into it.
-
-To create a symlink to each bundle instead of copying its assets, use the
-<info>--symlink</info> option (will fall back to hard copies when symbolic links aren't possible:
-
-  <info>php %command.full_name% public --symlink</info>
-
-To make symlink relative, add the <info>--relative</info> option:
-
-  <info>php %command.full_name% public --symlink --relative</info>
-
-EOT
-=======
                 The <info>%command.name%</info> command installs bundle assets into a given
                 directory (e.g. the <comment>public</comment> directory).
 
@@ -100,7 +80,6 @@ EOT
                   <info>php %command.full_name% public --symlink --relative</info>
 
                 EOT
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -118,11 +97,7 @@ EOT
             $targetArg = $kernel->getProjectDir().'/'.$targetArg;
 
             if (!is_dir($targetArg)) {
-<<<<<<< HEAD
-                throw new InvalidArgumentException(sprintf('The target directory "%s" does not exist.', $targetArg));
-=======
                 throw new InvalidArgumentException(\sprintf('The target directory "%s" does not exist.', $targetArg));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -159,11 +134,7 @@ EOT
             $validAssetDirs[] = $assetDir;
 
             if (OutputInterface::VERBOSITY_VERBOSE <= $output->getVerbosity()) {
-<<<<<<< HEAD
-                $message = sprintf("%s\n-> %s", $bundle->getName(), $targetDir);
-=======
                 $message = \sprintf("%s\n-> %s", $bundle->getName(), $targetDir);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } else {
                 $message = $bundle->getName();
             }
@@ -184,15 +155,6 @@ EOT
                 }
 
                 if ($method === $expectedMethod) {
-<<<<<<< HEAD
-                    $rows[] = [sprintf('<fg=green;options=bold>%s</>', '\\' === \DIRECTORY_SEPARATOR ? 'OK' : "\xE2\x9C\x94" /* HEAVY CHECK MARK (U+2714) */), $message, $method];
-                } else {
-                    $rows[] = [sprintf('<fg=yellow;options=bold>%s</>', '\\' === \DIRECTORY_SEPARATOR ? 'WARNING' : '!'), $message, $method];
-                }
-            } catch (\Exception $e) {
-                $exitCode = 1;
-                $rows[] = [sprintf('<fg=red;options=bold>%s</>', '\\' === \DIRECTORY_SEPARATOR ? 'ERROR' : "\xE2\x9C\x98" /* HEAVY BALLOT X (U+2718) */), $message, $e->getMessage()];
-=======
                     $rows[] = [\sprintf('<fg=green;options=bold>%s</>', '\\' === \DIRECTORY_SEPARATOR ? 'OK' : "\xE2\x9C\x94" /* HEAVY CHECK MARK (U+2714) */), $message, $method];
                 } else {
                     $rows[] = [\sprintf('<fg=yellow;options=bold>%s</>', '\\' === \DIRECTORY_SEPARATOR ? 'WARNING' : '!'), $message, $method];
@@ -200,7 +162,6 @@ EOT
             } catch (\Exception $e) {
                 $exitCode = 1;
                 $rows[] = [\sprintf('<fg=red;options=bold>%s</>', '\\' === \DIRECTORY_SEPARATOR ? 'ERROR' : "\xE2\x9C\x98" /* HEAVY BALLOT X (U+2718) */), $message, $e->getMessage()];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
         // remove the assets of the bundles that no longer exist
@@ -273,11 +234,7 @@ EOT
         }
         $this->filesystem->symlink($originDir, $targetDir);
         if (!file_exists($targetDir)) {
-<<<<<<< HEAD
-            throw new IOException(sprintf('Symbolic link "%s" was created but appears to be broken.', $targetDir), 0, null, $targetDir);
-=======
             throw new IOException(\sprintf('Symbolic link "%s" was created but appears to be broken.', $targetDir), 0, null, $targetDir);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -286,11 +243,7 @@ EOT
      */
     private function hardCopy(string $originDir, string $targetDir): string
     {
-<<<<<<< HEAD
-        $this->filesystem->mkdir($targetDir, 0777);
-=======
         $this->filesystem->mkdir($targetDir, 0o777);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         // We use a custom iterator to ignore VCS files
         $this->filesystem->mirror($originDir, $targetDir, Finder::create()->ignoreDotFiles(false)->in($originDir));
 

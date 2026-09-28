@@ -300,11 +300,7 @@ return array (
   'COP' => 
   array (
     0 => 'COP',
-<<<<<<< HEAD
-    1 => 2,
-=======
     1 => 0,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     2 => 0,
   ),
   'COU' => 
@@ -520,21 +516,13 @@ return array (
   'HUF' => 
   array (
     0 => 'HUF',
-<<<<<<< HEAD
-    1 => 2,
-=======
     1 => 0,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     2 => 0,
   ),
   'IDR' => 
   array (
     0 => 'IDR',
-<<<<<<< HEAD
-    1 => 2,
-=======
     1 => 0,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     2 => 0,
   ),
   'IEP' => 
@@ -904,11 +892,7 @@ return array (
   'PKR' => 
   array (
     0 => 'PKR',
-<<<<<<< HEAD
-    1 => 2,
-=======
     1 => 0,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     2 => 0,
   ),
   'PLN' => 
@@ -948,11 +932,7 @@ return array (
   'RSD' => 
   array (
     0 => 'RSD',
-<<<<<<< HEAD
-    1 => 0,
-=======
     1 => 2,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     2 => 0,
   ),
   'RUB' => 
@@ -1239,13 +1219,10 @@ return array (
   array (
     0 => 'EC$',
   ),
-<<<<<<< HEAD
-=======
   'XCG' => 
   array (
     0 => 'Cg.',
   ),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
   'XEU' => 
   array (
     0 => 'XEU',
@@ -1332,13 +1309,10 @@ return array (
     1 => 0,
     2 => 0,
   ),
-<<<<<<< HEAD
-=======
   'ZWG' => 
   array (
     0 => 'ZWG',
   ),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
   'ZWL' => 
   array (
     0 => 'ZWL',
@@ -1352,8 +1326,6 @@ return array (
     1 => 2,
     2 => 0,
   ),
-<<<<<<< HEAD
-=======
   'XAD' => 
   array (
     1 => 2,
@@ -1364,5 +1336,4 @@ return array (
     1 => 2,
     2 => 0,
   ),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 );

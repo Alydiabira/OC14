@@ -131,11 +131,7 @@ abstract class AbstractTreeRepository extends EntityRepository implements Reposi
     }
 
     /**
-<<<<<<< HEAD
-     * @see \Gedmo\Tree\RepositoryUtilsInterface::childrenHierarchy
-=======
      * @see RepositoryUtilsInterface::childrenHierarchy
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function childrenHierarchy($node = null, $direct = false, array $options = [], $includeNode = false)
     {
@@ -143,11 +139,7 @@ abstract class AbstractTreeRepository extends EntityRepository implements Reposi
     }
 
     /**
-<<<<<<< HEAD
-     * @see \Gedmo\Tree\RepositoryUtilsInterface::buildTree
-=======
      * @see RepositoryUtilsInterface::buildTree
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function buildTree(array $nodes, array $options = [])
     {
@@ -155,11 +147,7 @@ abstract class AbstractTreeRepository extends EntityRepository implements Reposi
     }
 
     /**
-<<<<<<< HEAD
-     * @see \Gedmo\Tree\RepositoryUtilsInterface::buildTreeArray
-=======
      * @see RepositoryUtilsInterface::buildTreeArray
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function buildTreeArray(array $nodes)
     {
@@ -167,11 +155,7 @@ abstract class AbstractTreeRepository extends EntityRepository implements Reposi
     }
 
     /**
-<<<<<<< HEAD
-     * @see \Gedmo\Tree\RepositoryUtilsInterface::setChildrenIndex
-=======
      * @see RepositoryUtilsInterface::setChildrenIndex
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function setChildrenIndex($childrenIndex)
     {
@@ -179,11 +163,7 @@ abstract class AbstractTreeRepository extends EntityRepository implements Reposi
     }
 
     /**
-<<<<<<< HEAD
-     * @see \Gedmo\Tree\RepositoryUtilsInterface::getChildrenIndex
-=======
      * @see RepositoryUtilsInterface::getChildrenIndex
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getChildrenIndex()
     {
@@ -243,15 +223,9 @@ abstract class AbstractTreeRepository extends EntityRepository implements Reposi
      * @param string|string[]      $direction   Sort order ('asc'|'desc'|'ASC'|'DESC'). If $sortByField is an array, this may also be an array with matching number of elements
      * @param bool                 $includeNode Include the root node in results?
      *
-<<<<<<< HEAD
-     * @return QueryBuilder QueryBuilder object
-     *
-     * @phpstan-param 'asc'|'desc'|'ASC'|'DESC'|array<int, 'asc'|'desc'|'ASC'|'DESC'> $direction
-=======
      * @phpstan-param 'asc'|'desc'|'ASC'|'DESC'|array<int, 'asc'|'desc'|'ASC'|'DESC'> $direction
      *
      * @return QueryBuilder QueryBuilder object
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     abstract public function getChildrenQueryBuilder($node = null, $direct = false, $sortByField = null, $direction = 'ASC', $includeNode = false);
 
@@ -264,15 +238,9 @@ abstract class AbstractTreeRepository extends EntityRepository implements Reposi
      * @param string|string[]      $direction   Sort order ('asc'|'desc'|'ASC'|'DESC'). If $sortByField is an array, this may also be an array with matching number of elements
      * @param bool                 $includeNode Include the root node in results?
      *
-<<<<<<< HEAD
-     * @return Query Query object
-     *
-     * @phpstan-param 'asc'|'desc'|'ASC'|'DESC'|array<int, 'asc'|'desc'|'ASC'|'DESC'> $direction
-=======
      * @phpstan-param 'asc'|'desc'|'ASC'|'DESC'|array<int, 'asc'|'desc'|'ASC'|'DESC'> $direction
      *
      * @return Query Query object
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     abstract public function getChildrenQuery($node = null, $direct = false, $sortByField = null, $direction = 'ASC', $includeNode = false);
 

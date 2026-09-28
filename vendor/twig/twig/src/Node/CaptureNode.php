@@ -22,15 +22,9 @@ use Twig\Compiler;
 #[YieldReady]
 class CaptureNode extends Node
 {
-<<<<<<< HEAD
-    public function __construct(Node $body, int $lineno, ?string $tag = null)
-    {
-        parent::__construct(['body' => $body], ['raw' => false], $lineno, $tag);
-=======
     public function __construct(Node $body, int $lineno)
     {
         parent::__construct(['body' => $body], ['raw' => false], $lineno);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function compile(Compiler $compiler): void
@@ -45,11 +39,7 @@ class CaptureNode extends Node
             ->raw("(function () use (&\$context, \$macros, \$blocks) {\n")
             ->indent()
             ->subcompile($this->getNode('body'))
-<<<<<<< HEAD
-            ->write("return; yield '';\n")
-=======
-            ->write("yield from [];\n")
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
+            ->write("return; yield;\n")
             ->outdent()
             ->write('})()')
         ;
@@ -60,11 +50,8 @@ class CaptureNode extends Node
         }
         if (!$this->getAttribute('raw')) {
             $compiler->raw(") ? '' : new Markup(\$tmp, \$this->env->getCharset());");
-<<<<<<< HEAD
-=======
         } else {
             $compiler->raw(';');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

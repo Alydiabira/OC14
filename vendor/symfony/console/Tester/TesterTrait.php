@@ -168,15 +168,11 @@ trait TesterTrait
         $stream = fopen('php://memory', 'r+', false);
 
         foreach ($inputs as $input) {
-<<<<<<< HEAD
-            fwrite($stream, $input.\PHP_EOL);
-=======
             fwrite($stream, $input);
 
             if (!str_ends_with($input, "\x4")) {
                 fwrite($stream, \PHP_EOL);
             }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         rewind($stream);

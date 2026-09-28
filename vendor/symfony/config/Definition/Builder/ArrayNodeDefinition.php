@@ -248,11 +248,7 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
             ->treatNullLike(['enabled' => true])
             ->beforeNormalization()
                 ->ifArray()
-<<<<<<< HEAD
-                ->then(function (array $v) {
-=======
                 ->then(static function (array $v) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $v['enabled'] ??= true;
 
                     return $v;
@@ -335,11 +331,7 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
 
     public function append(NodeDefinition $node): static
     {
-<<<<<<< HEAD
-        $this->children[$node->name] = $node->setParent($this);
-=======
         $this->children[$node->name ?? ''] = $node->setParent($this);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this;
     }
@@ -376,21 +368,13 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
                 $node->setKeyAttribute($this->key, $this->removeKeyItem);
             }
 
-<<<<<<< HEAD
-            if (true === $this->atLeastOne || false === $this->allowEmptyValue) {
-=======
             if ($this->atLeastOne || !$this->allowEmptyValue) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $node->setMinNumberOfElements(1);
             }
 
             if ($this->default) {
                 if (!\is_array($this->defaultValue)) {
-<<<<<<< HEAD
-                    throw new \InvalidArgumentException(sprintf('%s: the default value of an array node has to be an array.', $node->getPath()));
-=======
                     throw new \InvalidArgumentException($node->getPath().': the default value of an array node has to be an array.');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 $node->setDefaultValue($this->defaultValue);
@@ -450,25 +434,6 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
         $path = $node->getPath();
 
         if (null !== $this->key) {
-<<<<<<< HEAD
-            throw new InvalidDefinitionException(sprintf('->useAttributeAsKey() is not applicable to concrete nodes at path "%s".', $path));
-        }
-
-        if (false === $this->allowEmptyValue) {
-            throw new InvalidDefinitionException(sprintf('->cannotBeEmpty() is not applicable to concrete nodes at path "%s".', $path));
-        }
-
-        if (true === $this->atLeastOne) {
-            throw new InvalidDefinitionException(sprintf('->requiresAtLeastOneElement() is not applicable to concrete nodes at path "%s".', $path));
-        }
-
-        if ($this->default) {
-            throw new InvalidDefinitionException(sprintf('->defaultValue() is not applicable to concrete nodes at path "%s".', $path));
-        }
-
-        if (false !== $this->addDefaultChildren) {
-            throw new InvalidDefinitionException(sprintf('->addDefaultChildrenIfNoneSet() is not applicable to concrete nodes at path "%s".', $path));
-=======
             throw new InvalidDefinitionException(\sprintf('->useAttributeAsKey() is not applicable to concrete nodes at path "%s".', $path));
         }
 
@@ -486,7 +451,6 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
 
         if (false !== $this->addDefaultChildren) {
             throw new InvalidDefinitionException(\sprintf('->addDefaultChildrenIfNoneSet() is not applicable to concrete nodes at path "%s".', $path));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -502,26 +466,11 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
         $path = $node->getPath();
 
         if ($this->addDefaults) {
-<<<<<<< HEAD
-            throw new InvalidDefinitionException(sprintf('->addDefaultsIfNotSet() is not applicable to prototype nodes at path "%s".', $path));
-=======
             throw new InvalidDefinitionException(\sprintf('->addDefaultsIfNotSet() is not applicable to prototype nodes at path "%s".', $path));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (false !== $this->addDefaultChildren) {
             if ($this->default) {
-<<<<<<< HEAD
-                throw new InvalidDefinitionException(sprintf('A default value and default children might not be used together at path "%s".', $path));
-            }
-
-            if (null !== $this->key && (null === $this->addDefaultChildren || \is_int($this->addDefaultChildren) && $this->addDefaultChildren > 0)) {
-                throw new InvalidDefinitionException(sprintf('->addDefaultChildrenIfNoneSet() should set default children names as ->useAttributeAsKey() is used at path "%s".', $path));
-            }
-
-            if (null === $this->key && (\is_string($this->addDefaultChildren) || \is_array($this->addDefaultChildren))) {
-                throw new InvalidDefinitionException(sprintf('->addDefaultChildrenIfNoneSet() might not set default children names as ->useAttributeAsKey() is not used at path "%s".', $path));
-=======
                 throw new InvalidDefinitionException(\sprintf('A default value and default children might not be used together at path "%s".', $path));
             }
 
@@ -531,7 +480,6 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
 
             if (null === $this->key && (\is_string($this->addDefaultChildren) || \is_array($this->addDefaultChildren))) {
                 throw new InvalidDefinitionException(\sprintf('->addDefaultChildrenIfNoneSet() might not set default children names as ->useAttributeAsKey() is not used at path "%s".', $path));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
     }
@@ -556,11 +504,7 @@ class ArrayNodeDefinition extends NodeDefinition implements ParentNodeDefinition
             : substr($nodePath, 0, $pathSeparatorPos);
 
         if (null === $node = ($this->children[$firstPathSegment] ?? null)) {
-<<<<<<< HEAD
-            throw new \RuntimeException(sprintf('Node with name "%s" does not exist in the current node "%s".', $firstPathSegment, $this->name));
-=======
             throw new \RuntimeException(\sprintf('Node with name "%s" does not exist in the current node "%s".', $firstPathSegment, $this->name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (false === $pathSeparatorPos) {

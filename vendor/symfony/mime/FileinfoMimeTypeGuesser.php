@@ -26,11 +26,7 @@ class FileinfoMimeTypeGuesser implements MimeTypeGuesserInterface
     /**
      * @param string|null $magicFile A magic file to use with the finfo instance
      *
-<<<<<<< HEAD
-     * @see http://www.php.net/manual/en/function.finfo-open.php
-=======
      * @see https://php.net/finfo-open
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct(?string $magicFile = null)
     {
@@ -45,19 +41,11 @@ class FileinfoMimeTypeGuesser implements MimeTypeGuesserInterface
     public function guessMimeType(string $path): ?string
     {
         if (!is_file($path) || !is_readable($path)) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('The "%s" file does not exist or is not readable.', $path));
-        }
-
-        if (!$this->isGuesserSupported()) {
-            throw new LogicException(sprintf('The "%s" guesser is not supported.', __CLASS__));
-=======
             throw new InvalidArgumentException(\sprintf('The "%s" file does not exist or is not readable.', $path));
         }
 
         if (!$this->isGuesserSupported()) {
             throw new LogicException(\sprintf('The "%s" guesser is not supported.', __CLASS__));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (false === $finfo = new \finfo(\FILEINFO_MIME_TYPE, $this->magicFile)) {

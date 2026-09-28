@@ -82,26 +82,11 @@ enum Level: int
     case Emergency = 600;
 
     /**
-<<<<<<< HEAD
-     * @param value-of<self::NAMES>|LogLevel::*|'Debug'|'Info'|'Notice'|'Warning'|'Error'|'Critical'|'Alert'|'Emergency' $name
-=======
      * @param  value-of<self::NAMES>|LogLevel::*|'Debug'|'Info'|'Notice'|'Warning'|'Error'|'Critical'|'Alert'|'Emergency' $name
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return static
      */
     public static function fromName(string $name): self
     {
-<<<<<<< HEAD
-        return match ($name) {
-            'debug', 'Debug', 'DEBUG' => self::Debug,
-            'info', 'Info', 'INFO' => self::Info,
-            'notice', 'Notice', 'NOTICE' => self::Notice,
-            'warning', 'Warning', 'WARNING' => self::Warning,
-            'error', 'Error', 'ERROR' => self::Error,
-            'critical', 'Critical', 'CRITICAL' => self::Critical,
-            'alert', 'Alert', 'ALERT' => self::Alert,
-            'emergency', 'Emergency', 'EMERGENCY' => self::Emergency,
-=======
         return match (strtolower($name)) {
             'debug' => self::Debug,
             'info' => self::Info,
@@ -111,16 +96,11 @@ enum Level: int
             'critical' => self::Critical,
             'alert' => self::Alert,
             'emergency' => self::Emergency,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         };
     }
 
     /**
-<<<<<<< HEAD
-     * @param value-of<self::VALUES> $value
-=======
      * @param  value-of<self::VALUES> $value
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return static
      */
     public static function fromValue(int $value): self

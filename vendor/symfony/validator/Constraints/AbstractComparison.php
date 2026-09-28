@@ -42,17 +42,6 @@ abstract class AbstractComparison extends Constraint
         $this->propertyPath = $propertyPath ?? $this->propertyPath;
 
         if (null === $this->value && null === $this->propertyPath) {
-<<<<<<< HEAD
-            throw new ConstraintDefinitionException(sprintf('The "%s" constraint requires either the "value" or "propertyPath" option to be set.', static::class));
-        }
-
-        if (null !== $this->value && null !== $this->propertyPath) {
-            throw new ConstraintDefinitionException(sprintf('The "%s" constraint requires only one of the "value" or "propertyPath" options to be set, not both.', static::class));
-        }
-
-        if (null !== $this->propertyPath && !class_exists(PropertyAccess::class)) {
-            throw new LogicException(sprintf('The "%s" constraint requires the Symfony PropertyAccess component to use the "propertyPath" option. Try running "composer require symfony/property-access".', static::class));
-=======
             throw new ConstraintDefinitionException(\sprintf('The "%s" constraint requires either the "value" or "propertyPath" option to be set.', static::class));
         }
 
@@ -62,7 +51,6 @@ abstract class AbstractComparison extends Constraint
 
         if (null !== $this->propertyPath && !class_exists(PropertyAccess::class)) {
             throw new LogicException(\sprintf('The "%s" constraint requires the Symfony PropertyAccess component to use the "propertyPath" option. Try running "composer require symfony/property-access".', static::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 

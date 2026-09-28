@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
     colors="true"
@@ -15,19 +14,6 @@
         <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled" />
         <env name="SYMFONY_PHPUNIT_LOCALE" value="fr_FR" />
         <env name="KERNEL_CLASS" value="App\Kernel" />
-=======
-
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-    bootstrap="vendor/autoload.php"
-    colors="true"
-    stopOnFailure="false">
-
-    <php>
-        <env name="KERNEL_CLASS" value="App\Kernel" />
-        <env name="APP_ENV" value="test" />
-        <env name="APP_DEBUG" value="1" />
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     </php>
 
     <testsuites>
@@ -42,7 +28,6 @@
         </include>
     </coverage>
 
-<<<<<<< HEAD
     <extensions>
         <extension class="DAMA\DoctrineTestBundle\PHPUnit\PHPUnitExtension" />
     </extensions>
@@ -50,6 +35,4 @@
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
     </listeners>
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 </phpunit>

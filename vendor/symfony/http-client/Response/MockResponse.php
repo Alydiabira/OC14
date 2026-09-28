@@ -167,11 +167,7 @@ class MockResponse implements ResponseInterface, StreamableInterface
         $runningResponses[0][1][$response->id] = $response;
     }
 
-<<<<<<< HEAD
-    protected static function perform(ClientState $multi, array &$responses): void
-=======
     protected static function perform(ClientState $multi, array $responses): void
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         foreach ($responses as $response) {
             $id = $response->id;
@@ -244,11 +240,7 @@ class MockResponse implements ResponseInterface, StreamableInterface
         } elseif ($body instanceof \Closure) {
             while ('' !== $data = $body(16372)) {
                 if (!\is_string($data)) {
-<<<<<<< HEAD
-                    throw new TransportException(sprintf('Return value of the "body" option callback must be string, "%s" returned.', get_debug_type($data)));
-=======
                     throw new TransportException(\sprintf('Return value of the "body" option callback must be string, "%s" returned.', get_debug_type($data)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 // "notify" upload progress
@@ -304,11 +296,7 @@ class MockResponse implements ResponseInterface, StreamableInterface
 
                     if ('' === $chunk = (string) $chunk) {
                         // simulate an idle timeout
-<<<<<<< HEAD
-                        $response->body[] = new ErrorChunk($offset, sprintf('Idle timeout reached for "%s".', $response->info['url']));
-=======
                         $response->body[] = new ErrorChunk($offset, \sprintf('Idle timeout reached for "%s".', $response->info['url']));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     } else {
                         $response->body[] = $chunk;
                         $offset += \strlen($chunk);
@@ -332,11 +320,7 @@ class MockResponse implements ResponseInterface, StreamableInterface
         $onProgress($offset, $dlSize, $response->info);
 
         if ($dlSize && $offset !== $dlSize) {
-<<<<<<< HEAD
-            throw new TransportException(sprintf('Transfer closed with %d bytes remaining to read.', $dlSize - $offset));
-=======
             throw new TransportException(\sprintf('Transfer closed with %d bytes remaining to read.', $dlSize - $offset));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

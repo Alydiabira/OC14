@@ -12,13 +12,9 @@ namespace Gedmo\Tree;
 use Doctrine\Common\EventArgs;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ORM\EntityManagerInterface;
-<<<<<<< HEAD
-use Doctrine\Persistence\Event\LoadClassMetadataEventArgs;
-=======
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Doctrine\Persistence\Event\LoadClassMetadataEventArgs;
 use Doctrine\Persistence\Event\ManagerEventArgs;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\ObjectManager;
 use Gedmo\Exception\InvalidArgumentException;
@@ -56,13 +52,7 @@ use Gedmo\Tree\Mapping\Event\TreeAdapter;
  *   level_base?: int,
  * }
  *
-<<<<<<< HEAD
- * @phpstan-method TreeConfiguration getConfiguration(ObjectManager $objectManager, $class)
- *
- * @method TreeAdapter getEventAdapter(EventArgs $args)
-=======
  * @phpstan-extends MappedEventSubscriber<TreeConfiguration, TreeAdapter>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 class TreeListener extends MappedEventSubscriber
 {
@@ -150,13 +140,10 @@ class TreeListener extends MappedEventSubscriber
      * Looks for Tree objects being updated
      * for further processing
      *
-<<<<<<< HEAD
-=======
      * @param ManagerEventArgs $args
      *
      * @phpstan-param ManagerEventArgs<ObjectManager> $args
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function onFlush(EventArgs $args)
@@ -199,13 +186,10 @@ class TreeListener extends MappedEventSubscriber
     /**
      * Updates tree on Node removal
      *
-<<<<<<< HEAD
-=======
      * @param LifecycleEventArgs $args
      *
      * @phpstan-param LifecycleEventArgs<ObjectManager> $args
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function preRemove(EventArgs $args)
@@ -223,13 +207,10 @@ class TreeListener extends MappedEventSubscriber
     /**
      * Checks for persisted Nodes
      *
-<<<<<<< HEAD
-=======
      * @param LifecycleEventArgs $args
      *
      * @phpstan-param LifecycleEventArgs<ObjectManager> $args
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function prePersist(EventArgs $args)
@@ -247,13 +228,10 @@ class TreeListener extends MappedEventSubscriber
     /**
      * Checks for updated Nodes
      *
-<<<<<<< HEAD
-=======
      * @param LifecycleEventArgs $args
      *
      * @phpstan-param LifecycleEventArgs<ObjectManager> $args
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function preUpdate(EventArgs $args)
@@ -272,13 +250,10 @@ class TreeListener extends MappedEventSubscriber
      * Checks for pending Nodes to fully synchronize
      * the tree
      *
-<<<<<<< HEAD
-=======
      * @param LifecycleEventArgs $args
      *
      * @phpstan-param LifecycleEventArgs<ObjectManager> $args
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function postPersist(EventArgs $args)
@@ -297,13 +272,10 @@ class TreeListener extends MappedEventSubscriber
      * Checks for pending Nodes to fully synchronize
      * the tree
      *
-<<<<<<< HEAD
-=======
      * @param LifecycleEventArgs $args
      *
      * @phpstan-param LifecycleEventArgs<ObjectManager> $args
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function postUpdate(EventArgs $args)
@@ -322,13 +294,10 @@ class TreeListener extends MappedEventSubscriber
      * Checks for pending Nodes to fully synchronize
      * the tree
      *
-<<<<<<< HEAD
-=======
      * @param LifecycleEventArgs $args
      *
      * @phpstan-param LifecycleEventArgs<ObjectManager> $args
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function postRemove(EventArgs $args)
@@ -344,11 +313,7 @@ class TreeListener extends MappedEventSubscriber
     }
 
     /**
-<<<<<<< HEAD
-     * Mapps additional metadata
-=======
      * Maps additional metadata
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @param LoadClassMetadataEventArgs $eventArgs
      *

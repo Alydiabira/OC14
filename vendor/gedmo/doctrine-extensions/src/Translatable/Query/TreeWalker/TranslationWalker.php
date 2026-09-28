@@ -10,28 +10,12 @@
 namespace Gedmo\Translatable\Query\TreeWalker;
 
 use Doctrine\DBAL\Connection;
-<<<<<<< HEAD
-use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Platforms\MySQLPlatform;
-=======
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query;
-<<<<<<< HEAD
-use Doctrine\ORM\Query\AST\FromClause;
-use Doctrine\ORM\Query\AST\Join;
-use Doctrine\ORM\Query\AST\Node;
-use Doctrine\ORM\Query\AST\RangeVariableDeclaration;
-use Doctrine\ORM\Query\AST\SelectStatement;
-use Doctrine\ORM\Query\AST\SubselectFromClause;
-use Doctrine\ORM\Query\Exec\SingleSelectExecutor;
-use Doctrine\ORM\Query\SqlWalker;
-use Gedmo\Exception\RuntimeException;
-=======
 use Doctrine\ORM\Query\AST\DeleteStatement;
 use Doctrine\ORM\Query\AST\FromClause;
 use Doctrine\ORM\Query\AST\GroupByClause;
@@ -53,7 +37,6 @@ use Doctrine\ORM\Query\Exec\SqlFinalizer;
 use Doctrine\ORM\Query\SqlOutputWalker;
 use Gedmo\Exception\RuntimeException;
 use Gedmo\Tool\ORM\Walker\SqlWalkerCompat;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Gedmo\Translatable\Hydrator\ORM\ObjectHydrator;
 use Gedmo\Translatable\Hydrator\ORM\SimpleObjectHydrator;
 use Gedmo\Translatable\Mapping\Event\Adapter\ORM as TranslatableEventAdapter;
@@ -73,15 +56,10 @@ use Gedmo\Translatable\TranslatableListener;
  *
  * @final since gedmo/doctrine-extensions 3.11
  */
-<<<<<<< HEAD
-class TranslationWalker extends SqlWalker
-{
-=======
 class TranslationWalker extends SqlOutputWalker
 {
     use SqlWalkerCompat;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Name for translation fallback hint
      *
@@ -108,29 +86,12 @@ class TranslationWalker extends SqlOutputWalker
      *
      * @var array<string, array<string, mixed>>
      *
-<<<<<<< HEAD
-     * @phpstan-var array<string, array{metadata: ClassMetadata}>
-=======
      * @phpstan-var array<string, array{metadata: ClassMetadata<object>}>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private array $translatedComponents = [];
 
     /**
      * DBAL database platform
-<<<<<<< HEAD
-     *
-     * @var AbstractPlatform
-     */
-    private $platform;
-
-    /**
-     * DBAL database connection
-     *
-     * @var Connection
-     */
-    private $conn;
-=======
      */
     private AbstractPlatform $platform;
 
@@ -138,7 +99,6 @@ class TranslationWalker extends SqlOutputWalker
      * DBAL database connection
      */
     private Connection $conn;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * List of aliases to replace with translation
@@ -167,28 +127,6 @@ class TranslationWalker extends SqlOutputWalker
     }
 
     /**
-<<<<<<< HEAD
-     * @return Query\Exec\AbstractSqlExecutor
-     */
-    public function getExecutor($AST)
-    {
-        // If it's not a Select, the TreeWalker ought to skip it, and just return the parent.
-        // @see https://github.com/Atlantic18/DoctrineExtensions/issues/2013
-        if (!$AST instanceof SelectStatement) {
-            return parent::getExecutor($AST);
-        }
-        $this->prepareTranslatedComponents();
-
-        return new SingleSelectExecutor($AST, $this);
-    }
-
-    /**
-     * @return string
-     */
-    public function walkSelectStatement(SelectStatement $AST)
-    {
-        $result = parent::walkSelectStatement($AST);
-=======
      * Gets an executor that can be used to execute the result of this walker.
      *
      * @param SelectStatement|UpdateStatement|DeleteStatement $statement
@@ -223,7 +161,6 @@ class TranslationWalker extends SqlOutputWalker
     protected function createSqlForFinalizer(SelectStatement $selectStatement): string
     {
         $result = parent::createSqlForFinalizer($selectStatement);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ([] === $this->translatedComponents) {
             return $result;
         }
@@ -248,96 +185,6 @@ class TranslationWalker extends SqlOutputWalker
         return $result;
     }
 
-<<<<<<< HEAD
-    /**
-     * @return string
-     */
-    public function walkSelectClause($selectClause)
-    {
-        $result = parent::walkSelectClause($selectClause);
-
-        return $this->replace($this->replacements, $result);
-    }
-
-    /**
-     * @return string
-     */
-    public function walkFromClause($fromClause)
-    {
-        $result = parent::walkFromClause($fromClause);
-        $result .= $this->joinTranslations($fromClause);
-
-        return $result;
-    }
-
-    /**
-     * @return string
-     */
-    public function walkWhereClause($whereClause)
-    {
-        $result = parent::walkWhereClause($whereClause);
-
-        return $this->replace($this->replacements, $result);
-    }
-
-    /**
-     * @return string
-     */
-    public function walkHavingClause($havingClause)
-    {
-        $result = parent::walkHavingClause($havingClause);
-
-        return $this->replace($this->replacements, $result);
-    }
-
-    /**
-     * @return string
-     */
-    public function walkOrderByClause($orderByClause)
-    {
-        $result = parent::walkOrderByClause($orderByClause);
-
-        return $this->replace($this->replacements, $result);
-    }
-
-    /**
-     * @return string
-     */
-    public function walkSubselect($subselect)
-    {
-        return parent::walkSubselect($subselect);
-    }
-
-    /**
-     * @return string
-     */
-    public function walkSubselectFromClause($subselectFromClause)
-    {
-        $result = parent::walkSubselectFromClause($subselectFromClause);
-        $result .= $this->joinTranslations($subselectFromClause);
-
-        return $result;
-    }
-
-    /**
-     * @return string
-     */
-    public function walkSimpleSelectClause($simpleSelectClause)
-    {
-        $result = parent::walkSimpleSelectClause($simpleSelectClause);
-
-        return $this->replace($this->replacements, $result);
-    }
-
-    /**
-     * @return string
-     */
-    public function walkGroupByClause($groupByClause)
-    {
-        $result = parent::walkGroupByClause($groupByClause);
-
-        return $this->replace($this->replacements, $result);
-=======
     protected function doWalkSelectClauseWithCompat(SelectClause $selectClause): string
     {
         return $this->replace($this->replacements, parent::walkSelectClause($selectClause));
@@ -376,7 +223,6 @@ class TranslationWalker extends SqlOutputWalker
     protected function doWalkGroupByClauseWithCompat(GroupByClause $groupByClause): string
     {
         return $this->replace($this->replacements, parent::walkGroupByClause($groupByClause));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -443,11 +289,7 @@ class TranslationWalker extends SqlOutputWalker
         $joinStrategy = $q->getHint(TranslatableListener::HINT_INNER_JOIN) ? 'INNER' : 'LEFT';
 
         foreach ($this->translatedComponents as $dqlAlias => $comp) {
-<<<<<<< HEAD
-            /** @var ClassMetadata $meta */
-=======
             /** @var ClassMetadata<object> $meta */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $meta = $comp['metadata'];
             $config = $this->listener->getConfiguration($em, $meta->getName());
             $transClass = $this->listener->getTranslationClass($ea, $meta->getName());
@@ -472,11 +314,7 @@ class TranslationWalker extends SqlOutputWalker
 
                     $mappingFK = $transMeta->getFieldMapping('foreignKey');
                     $mappingPK = $meta->getFieldMapping($identifier);
-<<<<<<< HEAD
-                    $fkColName = $this->getCastedForeignKey($compTblAlias.'.'.$idColName, $mappingFK['type'], $mappingPK['type']);
-=======
                     $fkColName = $this->getCastedForeignKey($compTblAlias.'.'.$idColName, $mappingFK->type ?? $mappingFK['type'], $mappingPK->type ?? $mappingPK['type']);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $sql .= ' AND '.$tblAlias.'.'.$quoteStrategy->getColumnName('foreignKey', $transMeta, $this->platform)
                         .' = '.$fkColName;
                 }
@@ -487,14 +325,6 @@ class TranslationWalker extends SqlOutputWalker
 
                 // Treat translation as original field type
                 $fieldMapping = $meta->getFieldMapping($field);
-<<<<<<< HEAD
-                if ((($this->platform instanceof MySQLPlatform)
-                    && in_array($fieldMapping['type'], ['decimal'], true))
-                    || (!($this->platform instanceof MySQLPlatform)
-                    && !in_array($fieldMapping['type'], ['datetime', 'datetimetz', 'date', 'time'], true))) {
-                    $type = Type::getType($fieldMapping['type']);
-                    $substituteField = 'CAST('.$substituteField.' AS '.$type->getSQLDeclaration($fieldMapping, $this->platform).')';
-=======
                 if ((($this->platform instanceof AbstractMySQLPlatform)
                     && in_array($fieldMapping->type ?? $fieldMapping['type'], ['decimal'], true))
                     || (!($this->platform instanceof AbstractMySQLPlatform)
@@ -503,7 +333,6 @@ class TranslationWalker extends SqlOutputWalker
 
                     // In ORM 2.x, $fieldMapping is an array. In ORM 3.x, it's a data object. Always cast to an array for compatibility across versions.
                     $substituteField = 'CAST('.$substituteField.' AS '.$type->getSQLDeclaration((array) $fieldMapping, $this->platform).')';
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 // Fallback to original if was asked for
@@ -537,15 +366,9 @@ class TranslationWalker extends SqlOutputWalker
     /**
      * Search for translated components in the select clause
      *
-<<<<<<< HEAD
-     * @param array<string, array<string, ClassMetadata>> $queryComponents
-     *
-     * @phpstan-param array<string, array{metadata: ClassMetadata}> $queryComponents
-=======
      * @param array<string, array<string, ClassMetadata<object>>> $queryComponents
      *
      * @phpstan-param array<string, array{metadata: ClassMetadata<object>}> $queryComponents
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private function extractTranslatedComponents(array $queryComponents): void
     {

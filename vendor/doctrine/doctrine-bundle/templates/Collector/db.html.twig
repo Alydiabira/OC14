@@ -44,13 +44,10 @@
                 <b>Invalid entities</b>
                 <span class="sf-toolbar-status {{ collector.invalidEntityCount > 0 ? 'sf-toolbar-status-red' : '' }}">{{ collector.invalidEntityCount }}</span>
             </div>
-<<<<<<< HEAD
-=======
             <div class="sf-toolbar-info-piece">
                 <b>Managed entities</b>
                 <span class="sf-toolbar-status">{{ collector.managedEntityCount }}</span>
             </div>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             {% if collector.cacheEnabled %}
                 <div class="sf-toolbar-info-piece">
                     <b>Cache hits</b>
@@ -104,11 +101,6 @@
 
 {% block queries %}
     <style>
-<<<<<<< HEAD
-        .time-container { position: relative; }
-        .time-container .nowrap { position: relative; z-index: 1; text-shadow: 0 0 2px #fff; }
-        .time-bar { display: block; position: absolute; top: 0; left: 0; bottom: 0; background: #e0e0e0; }
-=======
         :root {
             --query-time-bar-color: var(--gray-200);
         }
@@ -118,7 +110,6 @@
         .time-container { position: relative; }
         .time-container .nowrap { position: relative; z-index: 1; text-shadow: 0 0 2px var(--page-background); }
         .time-bar { display: block; position: absolute; top: 0; left: 0; bottom: 0; background: var(--query-time-bar-color); }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         .sql-runnable.sf-toggle-content.sf-toggle-visible { display: flex; flex-direction: column; }
         .sql-runnable button { align-self: end; }
         {% if profiler_markup_version >= 3 %}
@@ -156,14 +147,11 @@
                 <span class="value">{{ collector.invalidEntityCount }}</span>
                 <span class="label">Invalid entities</span>
             </div>
-<<<<<<< HEAD
-=======
 
             <div class="metric">
                 <span class="value">{{ collector.managedEntityCount }}</span>
                 <span class="label">Managed entities</span>
             </div>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         </div>
 
         {% if collector.cacheEnabled %}
@@ -305,21 +293,12 @@
                                                                 <td>{{ loop.index }}</td>
                                                                 <td>
                                                                             <span class="text-small">
-<<<<<<< HEAD
-                                                                                {% set line_number = trace.line|default(1) %}
-                                                                                {% if trace.file is defined %}
-                                                                                    <a href="{{ trace.file|file_link(line_number) }}">
-                                                                                {% endif %}
-                                                                                        {{- trace.class|default ~ (trace.class is defined ? trace.type|default('::')) -}}
-                                                                                    <span class="status-warning">{{ trace.function }}</span>
-=======
                                                                                 {% set line_number = trace.line|default(query.backtrace[loop.index].line|default(1)) %}
                                                                                 {% if trace.file is defined %}
                                                                                     <a href="{{ trace.file|file_link(line_number) }}">
                                                                                 {% endif %}
                                                                                         {{- query.backtrace[loop.index].class|default ~ (query.backtrace[loop.index].class is defined ? trace.type|default('::')) -}}
                                                                                     <span class="status-warning">{{ query.backtrace[loop.index].function|default(trace.function) }}</span>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                                                                                 {% if trace.file is defined %}
                                                                                     </a>
                                                                                 {% endif %}
@@ -420,8 +399,6 @@
             </div>
         </div>
 
-<<<<<<< HEAD
-=======
         <div class="tab">
             <h3 class="tab-title">Managed Entities</h3>
             <div class="tab-content">
@@ -438,7 +415,6 @@
             </div>
         </div>
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         <div class="tab {{ not collector.entities ? 'disabled' }}">
             <h3 class="tab-title">Entities Mapping</h3>
             <div class="tab-content">
@@ -450,11 +426,7 @@
                 {% else %}
                     {% for manager, classes in collector.entities %}
                         {% if collector.managers|length > 1 %}
-<<<<<<< HEAD
-                            <h3>{{ manager }} <small>entity manager</small></h3>
-=======
                             <h4>{{ manager }} <small>entity manager</small></h4>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         {% endif %}
 
                         {% if classes is empty %}
@@ -474,13 +446,8 @@
                                     {% set contains_errors = collector.mappingErrors[manager] is defined and collector.mappingErrors[manager][class.class] is defined %}
                                     <tr class="{{ contains_errors ? 'status-error' }}">
                                         <td>
-<<<<<<< HEAD
-                                <a href="{{ class.file|file_link(class.line) }}">{{ class. class}}</a>
-                            </td>
-=======
                                             <a href="{{ class.file|file_link(class.line) }}">{{ class. class}}</a>
                                         </td>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                                         <td class="font-normal">
                                             {% if contains_errors %}
                                                 <ul>

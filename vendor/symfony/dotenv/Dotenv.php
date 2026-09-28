@@ -14,10 +14,7 @@ namespace Symfony\Component\Dotenv;
 use Symfony\Component\Dotenv\Exception\FormatException;
 use Symfony\Component\Dotenv\Exception\FormatExceptionContext;
 use Symfony\Component\Dotenv\Exception\PathException;
-<<<<<<< HEAD
-=======
 use Symfony\Component\Dotenv\Exception\VariableCircularReferenceException;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Process\Exception\ExceptionInterface as ProcessException;
 use Symfony\Component\Process\Process;
 
@@ -29,11 +26,7 @@ use Symfony\Component\Process\Process;
  */
 final class Dotenv
 {
-<<<<<<< HEAD
-    public const VARNAME_REGEX = '(?i:_?[A-Z][A-Z0-9_]*+)';
-=======
     public const VARNAME_REGEX = '(?i:_*[A-Z][A-Z0-9_]*+)';
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public const STATE_VARNAME = 0;
     public const STATE_VALUE = 1;
 
@@ -43,20 +36,14 @@ final class Dotenv
     private string $data;
     private int $end;
     private array $values = [];
-<<<<<<< HEAD
-=======
     private array $overriddenValues = [];
     private array $loadedRawVars = [];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private string $envKey;
     private string $debugKey;
     private array $prodEnvs = ['prod'];
     private bool $usePutenv = false;
-<<<<<<< HEAD
-=======
     private bool $deferPutenv = false;
     private array $pendingPutenv = [];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     public function __construct(string $envKey = 'APP_ENV', string $debugKey = 'APP_DEBUG')
     {
@@ -98,9 +85,6 @@ final class Dotenv
      */
     public function load(string $path, string ...$extraPaths): void
     {
-<<<<<<< HEAD
-        $this->doLoad(false, \func_get_args());
-=======
         $this->deferPutenv = true;
         try {
             $this->doLoad(false, \func_get_args());
@@ -108,7 +92,6 @@ final class Dotenv
         } finally {
             $this->deferPutenv = false;
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -128,35 +111,6 @@ final class Dotenv
      */
     public function loadEnv(string $path, ?string $envKey = null, string $defaultEnv = 'dev', array $testEnvs = ['test'], bool $overrideExistingVars = false): void
     {
-<<<<<<< HEAD
-        $k = $envKey ?? $this->envKey;
-
-        if (is_file($path) || !is_file($p = "$path.dist")) {
-            $this->doLoad($overrideExistingVars, [$path]);
-        } else {
-            $this->doLoad($overrideExistingVars, [$p]);
-        }
-
-        if (null === $env = $_SERVER[$k] ?? $_ENV[$k] ?? null) {
-            $this->populate([$k => $env = $defaultEnv], $overrideExistingVars);
-        }
-
-        if (!\in_array($env, $testEnvs, true) && is_file($p = "$path.local")) {
-            $this->doLoad($overrideExistingVars, [$p]);
-            $env = $_SERVER[$k] ?? $_ENV[$k] ?? $env;
-        }
-
-        if ('local' === $env) {
-            return;
-        }
-
-        if (is_file($p = "$path.$env")) {
-            $this->doLoad($overrideExistingVars, [$p]);
-        }
-
-        if (is_file($p = "$path.$env.local")) {
-            $this->doLoad($overrideExistingVars, [$p]);
-=======
         $this->deferPutenv = true;
         try {
             $k = $envKey ?? $this->envKey;
@@ -198,7 +152,6 @@ final class Dotenv
             } finally {
                 $this->deferPutenv = false;
             }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -239,9 +192,6 @@ final class Dotenv
      */
     public function overload(string $path, string ...$extraPaths): void
     {
-<<<<<<< HEAD
-        $this->doLoad(true, \func_get_args());
-=======
         $this->deferPutenv = true;
         try {
             $this->doLoad(true, \func_get_args());
@@ -249,7 +199,6 @@ final class Dotenv
         } finally {
             $this->deferPutenv = false;
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -275,15 +224,11 @@ final class Dotenv
             }
 
             if ($this->usePutenv) {
-<<<<<<< HEAD
-                putenv("$name=$value");
-=======
                 if ($this->deferPutenv) {
                     $this->pendingPutenv[$name] = true;
                 } else {
                     putenv("$name=$value");
                 }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $_ENV[$name] = $value;
@@ -326,8 +271,6 @@ final class Dotenv
         $this->values = [];
         $name = '';
 
-<<<<<<< HEAD
-=======
         $loadedVars = array_flip(explode(',', $_SERVER['SYMFONY_DOTENV_VARS'] ?? $_ENV['SYMFONY_DOTENV_VARS'] ?? ''));
         unset($loadedVars['']);
 
@@ -370,7 +313,6 @@ final class Dotenv
         $this->values = [];
         $name = '';
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->skipEmptyLines();
 
         while ($this->cursor < $this->end) {
@@ -395,12 +337,6 @@ final class Dotenv
             return $this->values;
         } finally {
             $this->values = [];
-<<<<<<< HEAD
-            unset($this->path, $this->cursor, $this->lineno, $this->data, $this->end);
-        }
-    }
-
-=======
         }
     }
 
@@ -417,7 +353,6 @@ final class Dotenv
         return str_replace("\x00", '$', $resolved);
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private function lexVarname(): string
     {
         // var name + optional export
@@ -459,11 +394,6 @@ final class Dotenv
             throw $this->createFormatException('Whitespace are not supported before the value');
         }
 
-<<<<<<< HEAD
-        $loadedVars = array_flip(explode(',', $_SERVER['SYMFONY_DOTENV_VARS'] ?? $_ENV['SYMFONY_DOTENV_VARS'] ?? ''));
-        unset($loadedVars['']);
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $v = '';
 
         do {
@@ -478,14 +408,10 @@ final class Dotenv
                     }
                 } while ("'" !== $this->data[$this->cursor + $len]);
 
-<<<<<<< HEAD
-                $v .= substr($this->data, 1 + $this->cursor, $len - 1);
-=======
                 // In single-quoted strings, $ is literal and \ has no special meaning.
                 // Double backslashes so they survive the unescape in resolveValue(),
                 // and mark $ as \x00 so it's not treated as a variable reference.
                 $v .= str_replace(['\\', '$'], ['\\\\', "\x00"], substr($this->data, 1 + $this->cursor, $len - 1));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $this->cursor += 1 + $len;
             } elseif ('"' === $this->data[$this->cursor]) {
                 $value = '';
@@ -504,16 +430,8 @@ final class Dotenv
                 }
                 ++$this->cursor;
                 $value = str_replace(['\\"', '\r', '\n'], ['"', "\r", "\n"], $value);
-<<<<<<< HEAD
-                $resolvedValue = $value;
-                $resolvedValue = $this->resolveCommands($resolvedValue, $loadedVars);
-                $resolvedValue = $this->resolveVariables($resolvedValue, $loadedVars);
-                $resolvedValue = str_replace('\\\\', '\\', $resolvedValue);
-                $v .= $resolvedValue;
-=======
                 // Mark escaped $ (\$) as \x00 so it's treated as literal
                 $v .= $this->protectEscapedDollars($value);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } else {
                 $value = '';
                 $prevChr = $this->data[$this->cursor - 1];
@@ -532,18 +450,9 @@ final class Dotenv
                     ++$this->cursor;
                 }
                 $value = rtrim($value);
-<<<<<<< HEAD
-                $resolvedValue = $value;
-                $resolvedValue = $this->resolveCommands($resolvedValue, $loadedVars);
-                $resolvedValue = $this->resolveVariables($resolvedValue, $loadedVars);
-                $resolvedValue = str_replace('\\\\', '\\', $resolvedValue);
-
-                if ($resolvedValue === $value && preg_match('/\s+/', $value)) {
-=======
                 $resolvedValue = $this->protectEscapedDollars($value);
 
                 if ($resolvedValue === $value && preg_match('/\s+/', $value) && !str_contains($value, '$')) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     throw $this->createFormatException('A value containing spaces must be surrounded by quotes');
                 }
 
@@ -560,8 +469,6 @@ final class Dotenv
         return $v;
     }
 
-<<<<<<< HEAD
-=======
     /**
      * Converts \$ (escaped dollar) to \x00 (literal marker), handling
      * even/odd backslash counts correctly: \$ → \x00, \\$ → \\$ (unchanged).
@@ -582,7 +489,6 @@ final class Dotenv
         }, $value);
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private function lexNestedExpression(): string
     {
         ++$this->cursor;
@@ -658,11 +564,7 @@ final class Dotenv
             try {
                 $process->mustRun();
             } catch (ProcessException) {
-<<<<<<< HEAD
-                throw $this->createFormatException(sprintf('Issue expanding a command (%s)', $process->getErrorOutput()));
-=======
                 throw $this->createFormatException(\sprintf('Issue expanding a command (%s)', $process->getErrorOutput()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return preg_replace('/[\r\n]+$/', '', $process->getOutput());
@@ -682,11 +584,7 @@ final class Dotenv
             (?!\()                             # no opening parenthesis
             (?P<opening_brace>\{)?             # optional brace
             (?P<name>'.self::VARNAME_REGEX.')? # var name
-<<<<<<< HEAD
-            (?P<default_value>:[-=][^\}]++)?   # optional default value
-=======
             (?P<default_value>:[-=][^\}]*+)?   # optional default value
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             (?P<closing_brace>\})?             # optional closing brace
         /x';
 
@@ -706,29 +604,19 @@ final class Dotenv
             }
 
             $name = $matches['name'];
-<<<<<<< HEAD
-=======
             $isExternal = false;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (isset($loadedVars[$name]) && isset($this->values[$name])) {
                 $value = $this->values[$name];
             } elseif (isset($_ENV[$name])) {
                 $value = $_ENV[$name];
-<<<<<<< HEAD
-            } elseif (isset($_SERVER[$name]) && !str_starts_with($name, 'HTTP_')) {
-                $value = $_SERVER[$name];
-=======
                 $isExternal = true;
             } elseif (isset($_SERVER[$name]) && !str_starts_with($name, 'HTTP_')) {
                 $value = $_SERVER[$name];
                 $isExternal = true;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } elseif (isset($this->values[$name])) {
                 $value = $this->values[$name];
             } else {
                 $value = (string) getenv($name);
-<<<<<<< HEAD
-=======
                 $isExternal = true;
             }
 
@@ -738,17 +626,12 @@ final class Dotenv
                     $value = str_replace('\\', '\\\\', $value);
                 }
                 $value = str_replace('$', "\x00", $value);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if ('' === $value && isset($matches['default_value']) && '' !== $matches['default_value']) {
                 $unsupportedChars = strpbrk($matches['default_value'], '\'"{$');
                 if (false !== $unsupportedChars) {
-<<<<<<< HEAD
-                    throw $this->createFormatException(sprintf('Unsupported character "%s" found in the default value of variable "$%s".', $unsupportedChars[0], $name));
-=======
                     throw $this->createFormatException(\sprintf('Unsupported character "%s" found in the default value of variable "$%s".', $unsupportedChars[0], $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 $value = substr($matches['default_value'], 2);
@@ -786,9 +669,6 @@ final class Dotenv
                 throw new PathException($path);
             }
 
-<<<<<<< HEAD
-            $this->populate($this->parse(file_get_contents($path), $path), $overrideExistingVars);
-=======
             $data = file_get_contents($path);
 
             if ("\xEF\xBB\xBF" === substr($data, 0, 3)) {
@@ -981,7 +861,6 @@ final class Dotenv
             $this->overriddenValues = [];
             $this->pendingPutenv = [];
             unset($this->path, $this->data, $this->lineno, $this->cursor, $this->end);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

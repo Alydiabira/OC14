@@ -26,25 +26,17 @@ final class SecurityPolicy implements SecurityPolicyInterface
     private $allowedMethods;
     private $allowedProperties;
     private $allowedFunctions;
-<<<<<<< HEAD
-
-    public function __construct(array $allowedTags = [], array $allowedFilters = [], array $allowedMethods = [], array $allowedProperties = [], array $allowedFunctions = [])
-=======
     private array $allowedTests;
     private bool $strict = false;
 
     public function __construct(array $allowedTags = [], array $allowedFilters = [], array $allowedMethods = [], array $allowedProperties = [], array $allowedFunctions = [], array $allowedTests = [])
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->allowedTags = $allowedTags;
         $this->allowedFilters = $allowedFilters;
         $this->setAllowedMethods($allowedMethods);
         $this->allowedProperties = $allowedProperties;
         $this->allowedFunctions = $allowedFunctions;
-<<<<<<< HEAD
-=======
         $this->allowedTests = $allowedTests;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function setAllowedTags(array $tags): void
@@ -61,11 +53,7 @@ final class SecurityPolicy implements SecurityPolicyInterface
     {
         $this->allowedMethods = [];
         foreach ($methods as $class => $m) {
-<<<<<<< HEAD
-            $this->allowedMethods[$class] = array_map(function ($value) { return strtr($value, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'); }, \is_array($m) ? $m : [$m]);
-=======
             $this->allowedMethods[$class] = array_map('strtolower', \is_array($m) ? $m : [$m]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -79,13 +67,6 @@ final class SecurityPolicy implements SecurityPolicyInterface
         $this->allowedFunctions = $functions;
     }
 
-<<<<<<< HEAD
-    public function checkSecurity($tags, $filters, $functions): void
-    {
-        foreach ($tags as $tag) {
-            if (!\in_array($tag, $this->allowedTags)) {
-                throw new SecurityNotAllowedTagError(sprintf('Tag "%s" is not allowed.', $tag), $tag);
-=======
     public function setAllowedTests(array $tests): void
     {
         $this->allowedTests = $tests;
@@ -106,6 +87,14 @@ final class SecurityPolicy implements SecurityPolicyInterface
         $this->strict = $strict;
     }
 
+    /**
+     * @internal
+     */
+    public function isStrict(): bool
+    {
+        return $this->strict;
+    }
+
     public function checkSecurity($tags, $filters, $functions, array $tests = []): void
     {
         if (\func_num_args() < 4) {
@@ -121,26 +110,16 @@ final class SecurityPolicy implements SecurityPolicyInterface
                 } else {
                     throw new SecurityNotAllowedTagError(\sprintf('Tag "%s" is not allowed.', $tag), $tag);
                 }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
         foreach ($filters as $filter) {
-<<<<<<< HEAD
-            if (!\in_array($filter, $this->allowedFilters)) {
-                throw new SecurityNotAllowedFilterError(sprintf('Filter "%s" is not allowed.', $filter), $filter);
-=======
             if (!\in_array($filter, $this->allowedFilters, true)) {
                 throw new SecurityNotAllowedFilterError(\sprintf('Filter "%s" is not allowed.', $filter), $filter);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
         foreach ($functions as $function) {
-<<<<<<< HEAD
-            if (!\in_array($function, $this->allowedFunctions)) {
-                throw new SecurityNotAllowedFunctionError(sprintf('Function "%s" is not allowed.', $function), $function);
-=======
             if (!\in_array($function, $this->allowedFunctions, true)) {
                 if (!$this->strict && 'parent' === $function) {
                     trigger_deprecation('twig/twig', '3.27', 'The "parent" function is always allowed in sandboxes, but won\'t be in 4.0, please enable it explicitly in your sandbox policy if needed (or enable strict mode on the security policy to opt-in to the 4.0 behavior now).');
@@ -161,7 +140,6 @@ final class SecurityPolicy implements SecurityPolicyInterface
                 } else {
                     throw new SecurityNotAllowedTestError(\sprintf('Test "%s" is not allowed.', $test), $test);
                 }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
     }
@@ -173,28 +151,17 @@ final class SecurityPolicy implements SecurityPolicyInterface
         }
 
         $allowed = false;
-<<<<<<< HEAD
-        $method = strtr($method, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
-        foreach ($this->allowedMethods as $class => $methods) {
-            if ($obj instanceof $class && \in_array($method, $methods)) {
-=======
         $method = strtolower($method);
         foreach ($this->allowedMethods as $class => $methods) {
             if ($obj instanceof $class && \in_array($method, $methods, true)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $allowed = true;
                 break;
             }
         }
 
         if (!$allowed) {
-<<<<<<< HEAD
-            $class = \get_class($obj);
-            throw new SecurityNotAllowedMethodError(sprintf('Calling "%s" method on a "%s" object is not allowed.', $method, $class), $class, $method);
-=======
             $class = $obj::class;
             throw new SecurityNotAllowedMethodError(\sprintf('Calling "%s" method on a "%s" object is not allowed.', $method, $class), $class, $method);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -202,24 +169,15 @@ final class SecurityPolicy implements SecurityPolicyInterface
     {
         $allowed = false;
         foreach ($this->allowedProperties as $class => $properties) {
-<<<<<<< HEAD
-            if ($obj instanceof $class && \in_array($property, \is_array($properties) ? $properties : [$properties])) {
-=======
             if ($obj instanceof $class && \in_array($property, \is_array($properties) ? $properties : [$properties], true)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $allowed = true;
                 break;
             }
         }
 
         if (!$allowed) {
-<<<<<<< HEAD
-            $class = \get_class($obj);
-            throw new SecurityNotAllowedPropertyError(sprintf('Calling "%s" property on a "%s" object is not allowed.', $property, $class), $class, $property);
-=======
             $class = $obj::class;
             throw new SecurityNotAllowedPropertyError(\sprintf('Calling "%s" property on a "%s" object is not allowed.', $property, $class), $class, $property);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

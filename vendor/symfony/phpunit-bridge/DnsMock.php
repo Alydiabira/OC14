@@ -30,10 +30,7 @@ class DnsMock
         'NAPTR' => \DNS_NAPTR,
         'TXT' => \DNS_TXT,
         'HINFO' => \DNS_HINFO,
-<<<<<<< HEAD
-=======
         'CAA' => '\\' !== \DIRECTORY_SEPARATOR ? \DNS_CAA : 0,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ];
 
     /**
@@ -173,11 +170,7 @@ class DnsMock
         if (0 < strpos($class, '\\Tests\\')) {
             $ns = str_replace('\\Tests\\', '\\', $class);
             $mockedNs[] = substr($ns, 0, strrpos($ns, '\\'));
-<<<<<<< HEAD
-        } elseif (0 === strpos($class, 'Tests\\')) {
-=======
         } elseif (str_starts_with($class, 'Tests\\')) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $mockedNs[] = substr($class, 6, strrpos($class, '\\') - 6);
         }
         foreach ($mockedNs as $ns) {

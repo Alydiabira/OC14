@@ -35,30 +35,18 @@ final class HttpHeaderSerializer
                 continue;
             }
 
-<<<<<<< HEAD
-            $attributesParts = ['', sprintf('rel="%s"', implode(' ', $link->getRels()))];
-            foreach ($link->getAttributes() as $key => $value) {
-                if (\is_array($value)) {
-                    foreach ($value as $v) {
-                        $attributesParts[] = sprintf('%s="%s"', $key, preg_replace('/(?<!\\\\)"/', '\"', $v));
-=======
             $attributesParts = ['', \sprintf('rel="%s"', implode(' ', $link->getRels()))];
             foreach ($link->getAttributes() as $key => $value) {
                 if (\is_array($value)) {
                     foreach ($value as $v) {
                         $attributesParts[] = \sprintf('%s="%s"', $key, preg_replace('/(?<!\\\\)"/', '\"', $v));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
 
                     continue;
                 }
 
                 if (!\is_bool($value)) {
-<<<<<<< HEAD
-                    $attributesParts[] = sprintf('%s="%s"', $key, preg_replace('/(?<!\\\\)"/', '\"', $value));
-=======
                     $attributesParts[] = \sprintf('%s="%s"', $key, preg_replace('/(?<!\\\\)"/', '\"', $value));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                     continue;
                 }
@@ -68,11 +56,7 @@ final class HttpHeaderSerializer
                 }
             }
 
-<<<<<<< HEAD
-            $elements[] = sprintf('<%s>%s', $link->getHref(), implode('; ', $attributesParts));
-=======
             $elements[] = \sprintf('<%s>%s', $link->getHref(), implode('; ', $attributesParts));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $elements ? implode(',', $elements) : null;

@@ -41,12 +41,9 @@ class DumpDataCollectorPass implements CompilerPassInterface
         if (!$container->hasParameter('web_profiler.debug_toolbar.mode') || WebDebugToolbarListener::DISABLED === $container->getParameter('web_profiler.debug_toolbar.mode')) {
             $definition->replaceArgument(3, null);
         }
-<<<<<<< HEAD
-=======
 
         if (!$container->hasParameter('kernel.runtime_mode.web')) {
             $definition->replaceArgument(5, null);
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

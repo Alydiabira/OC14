@@ -7,10 +7,7 @@ use Doctrine\DBAL\Driver\AbstractSQLServerDriver\Exception\PortWithoutHost;
 use Doctrine\DBAL\Driver\Exception;
 use Doctrine\DBAL\Driver\PDO\Connection as PDOConnection;
 use Doctrine\DBAL\Driver\PDO\Exception as PDOException;
-<<<<<<< HEAD
-=======
 use Doctrine\DBAL\Driver\PDO\PDOConnect;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use PDO;
 use SensitiveParameter;
 
@@ -19,11 +16,8 @@ use function sprintf;
 
 final class Driver extends AbstractSQLServerDriver
 {
-<<<<<<< HEAD
-=======
     use PDOConnect;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * {@inheritDoc}
      *
@@ -53,11 +47,7 @@ final class Driver extends AbstractSQLServerDriver
         unset($safeParams['password'], $safeParams['url']);
 
         try {
-<<<<<<< HEAD
-            $pdo = new PDO(
-=======
             $pdo = $this->doConnect(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $this->constructDsn($safeParams, $dsnOptions),
                 $params['user'] ?? '',
                 $params['password'] ?? '',

@@ -26,11 +26,7 @@ final class EmailTextBodyContains extends Constraint
 
     public function toString(): string
     {
-<<<<<<< HEAD
-        return sprintf('contains "%s"', $this->expectedText);
-=======
         return \sprintf('contains "%s"', $this->expectedText);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

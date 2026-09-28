@@ -160,21 +160,6 @@
             </trans-unit>
             <trans-unit id="43">
                 <source>The image width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px.</source>
-<<<<<<< HEAD
-                <target>Obrázek je příliš široký ({{ width }}px). Maximální povolená šířka obrázku je {{ max_width }}px.</target>
-            </trans-unit>
-            <trans-unit id="44">
-                <source>The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.</source>
-                <target>Obrázek je příliš úzký ({{ width }}px). Minimální šířka musí být {{ min_width }}px.</target>
-            </trans-unit>
-            <trans-unit id="45">
-                <source>The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.</source>
-                <target>Obrázek je příliš vysoký ({{ height }}px). Maximální povolená výška obrázku je {{ max_height }}px.</target>
-            </trans-unit>
-            <trans-unit id="46">
-                <source>The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.</source>
-                <target>Obrázek je příliš nízký ({{ height }}px). Minimální výška obrázku musí být {{ min_height }}px.</target>
-=======
                 <target>Obrázek je příliš široký ({{ width }}px). Maximální povolená šířka je {{ max_width }}px.</target>
             </trans-unit>
             <trans-unit id="44">
@@ -188,7 +173,6 @@
             <trans-unit id="46">
                 <source>The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.</source>
                 <target>Obrázek je příliš nízký ({{ height }}px). Minimální očekávaná výška je {{ min_height }}px.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="47">
                 <source>This value should be the user's current password.</source>
@@ -296,17 +280,6 @@
             </trans-unit>
             <trans-unit id="73">
                 <source>The image ratio is too big ({{ ratio }}). Allowed maximum ratio is {{ max_ratio }}.</source>
-<<<<<<< HEAD
-                <target>Poměr stran obrázku je příliš velký ({{ ratio }}). Maximální povolený poměr stran obrázku je {{ max_ratio }}.</target>
-            </trans-unit>
-            <trans-unit id="74">
-                <source>The image ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.</source>
-                <target>Poměr stran obrázku je příliš malý ({{ ratio }}). Minimální povolený poměr stran obrázku je {{ min_ratio }}.</target>
-            </trans-unit>
-            <trans-unit id="75">
-                <source>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</source>
-                <target>Strany obrázku jsou čtvercové ({{ width }}x{{ height }}px). Čtvercové obrázky nejsou povolené.</target>
-=======
                 <target>Poměr stran obrázku je příliš velký ({{ ratio }}). Maximální povolený poměr stran je {{ max_ratio }}.</target>
             </trans-unit>
             <trans-unit id="74">
@@ -316,7 +289,6 @@
             <trans-unit id="75">
                 <source>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</source>
                 <target>Obrázek je čtvercový ({{ width }}x{{ height }}px). Čtvercové obrázky nejsou povolené.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="76">
                 <source>The image is landscape oriented ({{ width }}x{{ height }}px). Landscape oriented images are not allowed.</source>
@@ -468,9 +440,6 @@
             </trans-unit>
             <trans-unit id="113">
                 <source>This URL is missing a top-level domain.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Této URL chybí doména nejvyššího řádu.</target>
-=======
                 <target>Této URL není doména nejvyššího řádu.</target>
             </trans-unit>
             <trans-unit id="114">
@@ -608,7 +577,6 @@
             <trans-unit id="148" resname="This is not a valid ULID.">
                 <source>This value is not a valid ULID.</source>
                 <target state="needs-review-translation">Tato hodnota není platným ULID.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
         </body>
     </file>

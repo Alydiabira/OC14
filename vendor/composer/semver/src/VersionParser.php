@@ -82,23 +82,33 @@ class VersionParser
      * @param string $stability
      *
      * @return string
-<<<<<<< HEAD
-=======
      * @phpstan-return 'stable'|'RC'|'beta'|'alpha'|'dev'
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public static function normalizeStability($stability)
     {
         $stability = strtolower((string) $stability);
 
-<<<<<<< HEAD
-=======
         if (!in_array($stability, array('stable', 'rc', 'beta', 'alpha', 'dev'), true)) {
             throw new \InvalidArgumentException('Invalid stability string "'.$stability.'", expected one of stable, RC, beta, alpha or dev');
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return $stability === 'rc' ? 'RC' : $stability;
+    }
+
+    /**
+     * @param string $version
+     *
+     * @return bool
+     */
+    public function isValid($version)
+    {
+        try {
+            $this->normalize($version);
+        } catch (\UnexpectedValueException $e) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -512,7 +522,7 @@ class VersionParser
                 if ($op !== '==' && $op !== '=' && !empty($stabilityModifier) && self::parseStability($version) === 'stable') {
                     $version .= '-' . $stabilityModifier;
                 } elseif ('<' === $op || '>=' === $op) {
-                    if (!preg_match('/-' . self::$modifierRegex . '$/', strtolower($matches[2]))) {
+                    if (!preg_match('/-' . self::$modifierRegex . '$/i', $matches[2])) {
                         if (strpos($matches[2], 'dev-') !== 0) {
                             $version .= '-dev';
                         }

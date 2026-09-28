@@ -17,11 +17,7 @@ namespace Symfony\Component\Routing;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Tobias Schultze <http://tobion.de>
  */
-<<<<<<< HEAD
-class Route implements \Serializable
-=======
 class Route
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 {
     private string $path = '/';
     private string $host = '';
@@ -39,11 +35,7 @@ class Route
      * Available options:
      *
      *  * compiler_class: A class name able to compile this route instance (RouteCompiler by default)
-<<<<<<< HEAD
-     *  * utf8:           Whether UTF-8 matching is enforced ot not
-=======
      *  * utf8:           Whether UTF-8 matching is enforced or not
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @param string                    $path         The path pattern to match
      * @param array                     $defaults     An array of default parameter values
@@ -81,18 +73,6 @@ class Route
         ];
     }
 
-<<<<<<< HEAD
-    /**
-     * @internal
-     */
-    final public function serialize(): string
-    {
-        throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
-    }
-
-    public function __unserialize(array $data): void
-    {
-=======
     public function __unserialize(array $data): void
     {
         if (($data['path'] ?? null) instanceof \Stringable
@@ -102,7 +82,6 @@ class Route
             throw new \BadMethodCallException('Cannot unserialize '.self::class);
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->path = $data['path'];
         $this->host = $data['host'];
         $this->defaults = $data['defaults'];
@@ -119,17 +98,6 @@ class Route
         }
     }
 
-<<<<<<< HEAD
-    /**
-     * @internal
-     */
-    final public function unserialize(string $serialized): void
-    {
-        $this->__unserialize(unserialize($serialized));
-    }
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function getPath(): string
     {
         return $this->path;
@@ -468,11 +436,7 @@ class Route
         }
 
         if ('' === $regex) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('Routing requirement for "%s" cannot be empty.', $key));
-=======
             throw new \InvalidArgumentException(\sprintf('Routing requirement for "%s" cannot be empty.', $key));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $regex;

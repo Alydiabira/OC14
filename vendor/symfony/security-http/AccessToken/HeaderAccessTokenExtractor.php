@@ -26,15 +26,9 @@ final class HeaderAccessTokenExtractor implements AccessTokenExtractorInterface
 
     public function __construct(
         private readonly string $headerParameter = 'Authorization',
-<<<<<<< HEAD
-        private readonly string $tokenType = 'Bearer'
-    ) {
-        $this->regex = sprintf(
-=======
         private readonly string $tokenType = 'Bearer',
     ) {
         $this->regex = \sprintf(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             '/^%s([a-zA-Z0-9\-_\+~\/\.]+=*)$/',
             '' === $this->tokenType ? '' : preg_quote($this->tokenType).'\s+'
         );

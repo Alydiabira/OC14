@@ -82,10 +82,6 @@ class AddAutoMappingConfigurationPass implements CompilerPassInterface
             $regexps[] = '^'.$regex;
         }
 
-<<<<<<< HEAD
-        return sprintf('{%s}', implode('|', $regexps));
-=======
         return \sprintf('{%s}', implode('|', $regexps));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

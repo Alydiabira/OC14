@@ -168,19 +168,11 @@
             </trans-unit>
             <trans-unit id="45">
                 <source>The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.</source>
-<<<<<<< HEAD
-                <target>Mae uchder y ddelwedd yn rhy fawr ({{ width }}px). Yr uchder mwyaf â ganiateir yw {{ max_height }}px.</target>
-            </trans-unit>
-            <trans-unit id="46">
-                <source>The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.</source>
-                <target>Mae uchder y ddelwedd yn rhy fach ({{ width }}px). Yr uchder lleiaf â ganiateir yw {{ min_height }}px.</target>
-=======
                 <target>Mae uchder y ddelwedd yn rhy fawr ({{ height }}px). Yr uchder mwyaf â ganiateir yw {{ max_height }}px.</target>
             </trans-unit>
             <trans-unit id="46">
                 <source>The image height is too small ({{ height }}px). Minimum height expected is {{ min_height }}px.</source>
                 <target>Mae uchder y ddelwedd yn rhy fach ({{ height }}px). Yr uchder lleiaf â ganiateir yw {{ min_height }}px.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="47">
                 <source>This value should be the user's current password.</source>
@@ -450,8 +442,6 @@
                 <source>This URL is missing a top-level domain.</source>
                 <target state="needs-review-translation">Mae'r URL hwn yn colli parth lefel uchaf.</target>
             </trans-unit>
-<<<<<<< HEAD
-=======
             <trans-unit id="114">
                 <source>This value is too short. It should contain at least one word.|This value is too short. It should contain at least {{ min }} words.</source>
                 <target state="needs-review-translation">Mae'r gwerth hwn yn rhy fyr. Dylai gynnwys o leiaf un gair.|Mae'r gwerth hwn yn rhy fyr. Dylai gynnwys o leiaf {{ min }} gair.</target>
@@ -588,7 +578,6 @@
                 <source>This value is not a valid ULID.</source>
                 <target state="needs-review-translation">Nid yw'r gwerth hwn yn ULID dilys.</target>
             </trans-unit>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         </body>
     </file>
 </xliff>

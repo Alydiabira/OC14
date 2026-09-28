@@ -89,21 +89,13 @@ class ReflectionCaster
         // Cannot create ReflectionGenerator based on a terminated Generator
         try {
             $reflectionGenerator = new \ReflectionGenerator($c);
-<<<<<<< HEAD
-=======
 
             return self::castReflectionGenerator($reflectionGenerator, $a, $stub, $isNested);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } catch (\Exception) {
             $a[Caster::PREFIX_VIRTUAL.'closed'] = true;
 
             return $a;
         }
-<<<<<<< HEAD
-
-        return self::castReflectionGenerator($reflectionGenerator, $a, $stub, $isNested);
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -239,11 +231,7 @@ class ReflectionCaster
         if (isset($a[$prefix.'returnType'])) {
             $v = $a[$prefix.'returnType'];
             $v = $v instanceof \ReflectionNamedType ? $v->getName() : (string) $v;
-<<<<<<< HEAD
-            $a[$prefix.'returnType'] = new ClassStub($a[$prefix.'returnType'] instanceof \ReflectionNamedType && $a[$prefix.'returnType']->allowsNull() && 'mixed' !== $v ? '?'.$v : $v, [class_exists($v, false) || interface_exists($v, false) || trait_exists($v, false) ? $v : '', '']);
-=======
             $a[$prefix.'returnType'] = new ClassStub($a[$prefix.'returnType'] instanceof \ReflectionNamedType && $a[$prefix.'returnType']->allowsNull() && !\in_array($v, ['mixed', 'null'], true) ? '?'.$v : $v, [class_exists($v, false) || interface_exists($v, false) || trait_exists($v, false) ? $v : '', '']);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         if (isset($a[$prefix.'class'])) {
             $a[$prefix.'class'] = new ClassStub($a[$prefix.'class']);
@@ -425,11 +413,7 @@ class ReflectionCaster
                     if (!$type instanceof \ReflectionNamedType) {
                         $signature .= $type.' ';
                     } else {
-<<<<<<< HEAD
-                        if ($param->allowsNull() && 'mixed' !== $type->getName()) {
-=======
                         if ($param->allowsNull() && !\in_array($type->getName(), ['mixed', 'null'], true)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                             $signature .= '?';
                         }
                         $signature .= substr(strrchr('\\'.$type->getName(), '\\'), 1).' ';

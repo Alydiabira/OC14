@@ -12,11 +12,7 @@ namespace PHPUnit\Framework;
 use const PHP_VERSION_ID;
 use function array_keys;
 use function get_class;
-<<<<<<< HEAD
-use function spl_object_hash;
-=======
 use function spl_object_id;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use PHPUnit\Util\Filter;
 use Throwable;
 use WeakReference;
@@ -124,11 +120,7 @@ final class ExceptionWrapper extends Exception
         if (PHP_VERSION_ID < 70400) {
             static $originalExceptions;
 
-<<<<<<< HEAD
-            $instanceId = spl_object_hash($this);
-=======
             $instanceId = spl_object_id($this);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             if ($exceptionToStore) {
                 $originalExceptions[$instanceId] = $exceptionToStore;

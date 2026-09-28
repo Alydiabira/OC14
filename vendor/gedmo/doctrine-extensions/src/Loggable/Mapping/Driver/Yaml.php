@@ -11,10 +11,6 @@ namespace Gedmo\Loggable\Mapping\Driver;
 
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use Gedmo\Exception\InvalidMappingException;
-<<<<<<< HEAD
-use Gedmo\Mapping\Driver;
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Gedmo\Mapping\Driver\File;
 
 /**
@@ -128,11 +124,7 @@ class Yaml extends File
         }
 
         if (!$meta->isMappedSuperclass && $config) {
-<<<<<<< HEAD
-            if ($meta instanceof ClassMetadata && is_array($meta->getIdentifier()) && count($meta->getIdentifier()) > 1) {
-=======
             if ($meta instanceof ClassMetadata && count($meta->getIdentifier()) > 1) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 throw new InvalidMappingException("Loggable does not support composite identifiers in class - {$meta->getName()}");
             }
             if (isset($config['versioned']) && !isset($config['loggable'])) {

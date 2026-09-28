@@ -167,11 +167,7 @@ final class AsyncContext
         }
         if (0 < ($info['max_duration'] ?? 0) && 0 < ($info['total_time'] ?? 0)) {
             if (0 >= $options['max_duration'] = $info['max_duration'] - $info['total_time']) {
-<<<<<<< HEAD
-                throw new TransportException(sprintf('Max duration was reached for "%s".', $info['url']));
-=======
                 throw new TransportException(\sprintf('Max duration was reached for "%s".', $info['url']));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 

@@ -37,8 +37,6 @@ class StringUtil
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Converts both CRLF and CR to LF.
      */
     public static function normalizeNewlines(string $string): string
@@ -47,7 +45,6 @@ class StringUtil
     }
 
     /**
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Converts a fully-qualified class name to a block prefix.
      *
      * @param string $fqcn The fully-qualified class name

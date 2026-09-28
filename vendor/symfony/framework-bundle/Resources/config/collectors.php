@@ -56,11 +56,7 @@ return static function (ContainerConfigurator $container) {
         ->set('data_collector.logger', LoggerDataCollector::class)
             ->args([
                 service('logger')->ignoreOnInvalid(),
-<<<<<<< HEAD
-                sprintf('%s/%s', param('kernel.build_dir'), param('kernel.container_class')),
-=======
                 \sprintf('%s/%s', param('kernel.build_dir'), param('kernel.container_class')),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 service('.virtual_request_stack')->ignoreOnInvalid(),
             ])
             ->tag('monolog.logger', ['channel' => 'profiler'])

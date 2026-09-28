@@ -22,11 +22,7 @@ class MethodArgumentNotImplementedException extends NotImplementedException
      */
     public function __construct(string $methodName, string $argName)
     {
-<<<<<<< HEAD
-        $message = sprintf('The %s() method\'s argument $%s behavior is not implemented.', $methodName, $argName);
-=======
         $message = \sprintf('The %s() method\'s argument $%s behavior is not implemented.', $methodName, $argName);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         parent::__construct($message);
     }
 }

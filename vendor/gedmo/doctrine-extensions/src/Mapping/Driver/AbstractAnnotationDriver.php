@@ -10,10 +10,7 @@
 namespace Gedmo\Mapping\Driver;
 
 use Doctrine\Common\Annotations\Reader;
-<<<<<<< HEAD
-=======
 use Doctrine\Deprecations\Deprecation;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 
@@ -23,11 +20,7 @@ use Doctrine\Persistence\Mapping\Driver\MappingDriver;
  *
  * @author Derek J. Lambert <dlambert@dereklambert.com>
  */
-<<<<<<< HEAD
-abstract class AbstractAnnotationDriver implements AnnotationDriverInterface
-=======
 abstract class AbstractAnnotationDriver implements AttributeDriverInterface
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 {
     /**
      * Annotation reader instance
@@ -52,21 +45,6 @@ abstract class AbstractAnnotationDriver implements AttributeDriverInterface
      */
     protected $validTypes = [];
 
-<<<<<<< HEAD
-    public function setAnnotationReader($reader)
-    {
-        if (!$reader instanceof Reader && !$reader instanceof AttributeReader) {
-            trigger_deprecation(
-                'gedmo/doctrine-extensions',
-                '3.11',
-                'Passing an object not implementing "%s" or "%s" as argument 1 to "%s()" is deprecated and'
-                .' will throw an "%s" error in version 4.0. Instance of "%s" given.',
-                Reader::class,
-                AttributeReader::class,
-                __METHOD__,
-                \TypeError::class,
-                get_class($reader)
-=======
     /**
      * Set the annotation reader instance
      *
@@ -102,7 +80,6 @@ abstract class AbstractAnnotationDriver implements AttributeDriverInterface
                 Reader::class,
                 AttributeReader::class,
                 __METHOD__
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
         }
 
@@ -122,17 +99,9 @@ abstract class AbstractAnnotationDriver implements AttributeDriverInterface
     }
 
     /**
-<<<<<<< HEAD
-     * @param ClassMetadata $meta
-     *
-     * @return \ReflectionClass
-     *
-     * @phpstan-return \ReflectionClass<object>
-=======
      * @param ClassMetadata<object> $meta
      *
      * @return \ReflectionClass<covariant object>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getMetaReflectionClass($meta)
     {
@@ -140,12 +109,8 @@ abstract class AbstractAnnotationDriver implements AttributeDriverInterface
     }
 
     /**
-<<<<<<< HEAD
-     * @param array<string, mixed> $config
-=======
      * @param ClassMetadata<object> $meta
      * @param array<string, mixed>  $config
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return void
      */
@@ -156,13 +121,8 @@ abstract class AbstractAnnotationDriver implements AttributeDriverInterface
     /**
      * Checks if $field type is valid
      *
-<<<<<<< HEAD
-     * @param ClassMetadata $meta
-     * @param string        $field
-=======
      * @param ClassMetadata<object> $meta
      * @param string                $field
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return bool
      */
@@ -170,25 +130,12 @@ abstract class AbstractAnnotationDriver implements AttributeDriverInterface
     {
         $mapping = $meta->getFieldMapping($field);
 
-<<<<<<< HEAD
-        return $mapping && in_array($mapping['type'], $this->validTypes, true);
-=======
         return $mapping && in_array($mapping->type ?? $mapping['type'], $this->validTypes, true);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
      * Try to find out related class name out of mapping
      *
-<<<<<<< HEAD
-     * @param ClassMetadata $metadata the mapped class metadata
-     * @param string        $name     the related object class name
-     *
-     * @return string related class name or empty string if does not exist
-     *
-     * @phpstan-param class-string|string $name
-     *
-=======
      * @param ClassMetadata<object> $metadata the mapped class metadata
      * @param string                $name     the related object class name
      *
@@ -196,7 +143,6 @@ abstract class AbstractAnnotationDriver implements AttributeDriverInterface
      *
      * @return string related class name or empty string if does not exist
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @phpstan-return class-string|''
      */
     protected function getRelatedClassName($metadata, $name)

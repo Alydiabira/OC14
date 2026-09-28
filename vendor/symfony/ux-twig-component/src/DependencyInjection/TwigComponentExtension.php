@@ -17,31 +17,21 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Argument\AbstractArgument;
-<<<<<<< HEAD
-use Symfony\Component\DependencyInjection\ChildDefinition;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-=======
 use Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
 use Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\DependencyInjection\Exception\LogicException;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Parameter;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
-<<<<<<< HEAD
-use Symfony\UX\TwigComponent\Command\TwigComponentDebugCommand;
-use Symfony\UX\TwigComponent\ComponentFactory;
-=======
 use Symfony\UX\TwigComponent\CacheWarmer\TwigComponentCacheWarmer;
 use Symfony\UX\TwigComponent\Command\TwigComponentDebugCommand;
 use Symfony\UX\TwigComponent\ComponentFactory;
 use Symfony\UX\TwigComponent\ComponentProperties;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\UX\TwigComponent\ComponentRenderer;
 use Symfony\UX\TwigComponent\ComponentRendererInterface;
 use Symfony\UX\TwigComponent\ComponentStack;
@@ -49,10 +39,7 @@ use Symfony\UX\TwigComponent\ComponentTemplateFinder;
 use Symfony\UX\TwigComponent\DependencyInjection\Compiler\TwigComponentPass;
 use Symfony\UX\TwigComponent\Twig\ComponentExtension;
 use Symfony\UX\TwigComponent\Twig\ComponentLexer;
-<<<<<<< HEAD
-=======
 use Symfony\UX\TwigComponent\Twig\ComponentRuntime;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\UX\TwigComponent\Twig\TwigEnvironmentConfigurator;
 
 /**
@@ -100,13 +87,6 @@ final class TwigComponentExtension extends Extension implements ConfigurationInt
         $container->register('ux.twig_component.component_factory', ComponentFactory::class)
             ->setArguments([
                 new Reference('ux.twig_component.component_template_finder'),
-<<<<<<< HEAD
-                class_exists(AbstractArgument::class) ? new AbstractArgument(sprintf('Added in %s.', TwigComponentPass::class)) : null,
-                new Reference('property_accessor'),
-                new Reference('event_dispatcher'),
-                class_exists(AbstractArgument::class) ? new AbstractArgument(sprintf('Added in %s.', TwigComponentPass::class)) : [],
-            ])
-=======
                 new AbstractArgument(\sprintf('Added in %s.', TwigComponentPass::class)),
                 new Reference('property_accessor'),
                 new Reference('event_dispatcher'),
@@ -115,13 +95,10 @@ final class TwigComponentExtension extends Extension implements ConfigurationInt
                 new Reference('twig'),
             ])
             ->addTag('kernel.reset', ['method' => 'reset'])
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ;
 
         $container->register('ux.twig_component.component_stack', ComponentStack::class);
 
-<<<<<<< HEAD
-=======
         $container->register('ux.twig_component.component_properties', ComponentProperties::class)
             ->setArguments([
                 new Reference('property_accessor'),
@@ -130,29 +107,19 @@ final class TwigComponentExtension extends Extension implements ConfigurationInt
             ])
         ;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $container->register('ux.twig_component.component_renderer', ComponentRenderer::class)
             ->setArguments([
                 new Reference('twig'),
                 new Reference('event_dispatcher'),
                 new Reference('ux.twig_component.component_factory'),
-<<<<<<< HEAD
-                new Reference('property_accessor'),
-                new Reference('ux.twig_component.component_stack'),
-            ])
-=======
                 new Reference('ux.twig_component.component_properties'),
                 new Reference('ux.twig_component.component_stack'),
             ])
             ->addTag('kernel.reset', ['method' => 'reset'])
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ;
 
         $container->register('ux.twig_component.twig.component_extension', ComponentExtension::class)
             ->addTag('twig.extension')
-<<<<<<< HEAD
-            ->addTag('container.service_subscriber', ['key' => ComponentRenderer::class, 'id' => 'ux.twig_component.component_renderer'])
-=======
         ;
 
         $container->register('ux.twig_component.twig.component_runtime', ComponentRuntime::class)
@@ -161,7 +128,6 @@ final class TwigComponentExtension extends Extension implements ConfigurationInt
                 new ServiceLocatorArgument(new TaggedIteratorArgument('ux.twig_component.twig_renderer', indexAttribute: 'key', needsIndexes: true)),
             ])
             ->addTag('twig.runtime')
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ;
 
         $container->register('ux.twig_component.twig.lexer', ComponentLexer::class);
@@ -175,11 +141,7 @@ final class TwigComponentExtension extends Extension implements ConfigurationInt
                 new Parameter('twig.default_path'),
                 new Reference('ux.twig_component.component_factory'),
                 new Reference('twig'),
-<<<<<<< HEAD
-                class_exists(AbstractArgument::class) ? new AbstractArgument(sprintf('Added in %s.', TwigComponentPass::class)) : [],
-=======
                 new AbstractArgument(\sprintf('Added in %s.', TwigComponentPass::class)),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $config['anonymous_template_directory'],
             ])
             ->addTag('console.command')
@@ -188,11 +150,6 @@ final class TwigComponentExtension extends Extension implements ConfigurationInt
         $container->setAlias('console.command.stimulus_component_debug', 'ux.twig_component.command.debug')
             ->setDeprecated('symfony/ux-twig-component', '2.13', '%alias_id%');
 
-<<<<<<< HEAD
-        if ($container->getParameter('kernel.debug')) {
-            $loader->load('debug.php');
-        }
-=======
         if ($this->isConfigEnabled($container, $config['profiler'])) {
             $loader->load('debug.php');
 
@@ -207,7 +164,6 @@ final class TwigComponentExtension extends Extension implements ConfigurationInt
             ->addTag('kernel.cache_warmer')
             ->addTag('container.service_subscriber', ['id' => 'ux.twig_component.component_properties'])
         ;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getConfigTreeBuilder(): TreeBuilder
@@ -218,11 +174,7 @@ final class TwigComponentExtension extends Extension implements ConfigurationInt
 
         $rootNode
             ->validate()
-<<<<<<< HEAD
-            ->always(function ($v) {
-=======
             ->always(static function ($v) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if (!isset($v['anonymous_template_directory'])) {
                     trigger_deprecation('symfony/twig-component-bundle', '2.13', 'Not setting the "twig_component.anonymous_template_directory" config option is deprecated. It will default to "components" in 3.0.');
                     $v['anonymous_template_directory'] = null;
@@ -236,17 +188,10 @@ final class TwigComponentExtension extends Extension implements ConfigurationInt
                     ->defaultValue([self::DEPRECATED_DEFAULT_KEY])
                     ->useAttributeAsKey('namespace')
                     ->validate()
-<<<<<<< HEAD
-                        ->always(function ($v) {
-                            foreach ($v as $namespace => $defaults) {
-                                if (!str_ends_with($namespace, '\\')) {
-                                    throw new InvalidConfigurationException(sprintf('The twig_component.defaults namespace "%s" is invalid: it must end in a "\"', $namespace));
-=======
                         ->always(static function ($v) {
                             foreach ($v as $namespace => $defaults) {
                                 if (!str_ends_with($namespace, '\\')) {
                                     throw new InvalidConfigurationException(\sprintf('The twig_component.defaults namespace "%s" is invalid: it must end in a "\".', $namespace));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                                 }
                             }
 
@@ -256,11 +201,7 @@ final class TwigComponentExtension extends Extension implements ConfigurationInt
                     ->arrayPrototype()
                         ->beforeNormalization()
                             ->ifString()
-<<<<<<< HEAD
-                            ->then(function (string $v) {
-=======
                             ->then(static function (string $v) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                                 return ['template_directory' => $v];
                             })
                         ->end()
@@ -277,10 +218,6 @@ final class TwigComponentExtension extends Extension implements ConfigurationInt
                 ->scalarNode('anonymous_template_directory')
                     ->info('Defaults to `components`')
                 ->end()
-<<<<<<< HEAD
-                ->scalarNode('controllers_json')
-                    ->defaultValue('%kernel.project_dir%/assets/controllers.json')
-=======
                 ->arrayNode('profiler')
                     ->info('Enables the profiler for Twig Component')
                     ->canBeEnabled()
@@ -292,7 +229,6 @@ final class TwigComponentExtension extends Extension implements ConfigurationInt
                 ->scalarNode('controllers_json')
                     ->setDeprecated('symfony/ux-twig-component', '2.18', 'The "twig_component.controllers_json" config option is deprecated, and will be removed in 3.0.')
                     ->defaultNull()
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ->end()
             ->end();
 

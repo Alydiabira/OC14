@@ -41,17 +41,6 @@ final class ImportMapUpdateCommand extends Command
         $this
             ->addArgument('packages', InputArgument::IS_ARRAY | InputArgument::OPTIONAL, 'List of packages\' names')
             ->setHelp(<<<'EOT'
-<<<<<<< HEAD
-The <info>%command.name%</info> command will update all from the 3rd part packages
-in <comment>importmap.php</comment> to their latest version, including downloaded packages.
-
-   <info>php %command.full_name%</info>
-
-Or specific packages only:
-
-    <info>php %command.full_name% <packages></info>
-EOT
-=======
                 The <info>%command.name%</info> command will update all from the 3rd part packages
                 in <comment>importmap.php</comment> to their latest version, including downloaded packages.
 
@@ -61,7 +50,6 @@ EOT
 
                     <info>php %command.full_name% <packages></info>
                 EOT
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -76,11 +64,7 @@ EOT
         $this->renderVersionProblems($this->importMapVersionChecker, $output);
 
         if (0 < \count($packages)) {
-<<<<<<< HEAD
-            $io->success(sprintf(
-=======
             $io->success(\sprintf(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'Updated %s package%s in importmap.php.',
                 implode(', ', array_map(static fn (ImportMapEntry $entry): string => $entry->importName, $updatedPackages)),
                 1 < \count($updatedPackages) ? 's' : '',

@@ -56,12 +56,6 @@ class ChainUserProvider implements UserProviderInterface, PasswordUpgraderInterf
         return $this->loadUserByIdentifier($username);
     }
 
-<<<<<<< HEAD
-    public function loadUserByIdentifier(string $identifier): UserInterface
-    {
-        foreach ($this->providers as $provider) {
-            try {
-=======
     /**
      * @param array $attributes
      */
@@ -74,18 +68,13 @@ class ChainUserProvider implements UserProviderInterface, PasswordUpgraderInterf
                     return $provider->loadUserByIdentifier($identifier, $attributes);
                 }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 return $provider->loadUserByIdentifier($identifier);
             } catch (UserNotFoundException) {
                 // try next one
             }
         }
 
-<<<<<<< HEAD
-        $ex = new UserNotFoundException(sprintf('There is no user with identifier "%s".', $identifier));
-=======
         $ex = new UserNotFoundException(\sprintf('There is no user with identifier "%s".', $identifier));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $ex->setUserIdentifier($identifier);
         throw $ex;
     }
@@ -111,20 +100,11 @@ class ChainUserProvider implements UserProviderInterface, PasswordUpgraderInterf
 
         if ($supportedUserFound) {
             $username = $user->getUserIdentifier();
-<<<<<<< HEAD
-            $e = new UserNotFoundException(sprintf('There is no user with name "%s".', $username));
-            $e->setUserIdentifier($username);
-            throw $e;
-        } else {
-            throw new UnsupportedUserException(sprintf('There is no user provider for user "%s". Shouldn\'t the "supportsClass()" method of your user provider return true for this classname?', get_debug_type($user)));
-        }
-=======
             $e = new UserNotFoundException(\sprintf('There is no user with name "%s".', $username));
             $e->setUserIdentifier($username);
             throw $e;
         }
         throw new UnsupportedUserException(\sprintf('There is no user provider for user "%s". Shouldn\'t the "supportsClass()" method of your user provider return true for this classname?', get_debug_type($user)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function supportsClass(string $class): bool

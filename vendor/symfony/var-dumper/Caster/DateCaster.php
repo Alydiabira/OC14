@@ -104,19 +104,6 @@ class DateCaster
         $dates = [];
         foreach (clone $p as $i => $d) {
             if (self::PERIOD_LIMIT === $i) {
-<<<<<<< HEAD
-                $now = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
-                $dates[] = sprintf('%s more', ($end = $p->getEndDate())
-                    ? ceil(($end->format('U.u') - $d->format('U.u')) / ((int) $now->add($p->getDateInterval())->format('U.u') - (int) $now->format('U.u')))
-                    : $p->recurrences - $i
-                );
-                break;
-            }
-            $dates[] = sprintf('%s) %s', $i + 1, self::formatDateTime($d));
-        }
-
-        $period = sprintf(
-=======
                 if (!$end = $p->getEndDate()) {
                     $dates[] = \sprintf('%s more', $p->recurrences - $i);
                     break;
@@ -135,7 +122,6 @@ class DateCaster
         }
 
         $period = \sprintf(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'every %s, from %s%s %s',
             self::formatInterval($p->getDateInterval()),
             $p->include_start_date ? '[' : ']',
@@ -155,10 +141,6 @@ class DateCaster
 
     private static function formatSeconds(string $s, string $us): string
     {
-<<<<<<< HEAD
-        return sprintf('%02d.%s', $s, 0 === ($len = \strlen($t = rtrim($us, '0'))) ? '0' : ($len <= 3 ? str_pad($t, 3, '0') : $us));
-=======
         return \sprintf('%02d.%s', $s, 0 === ($len = \strlen($t = rtrim($us, '0'))) ? '0' : ($len <= 3 ? str_pad($t, 3, '0') : $us));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

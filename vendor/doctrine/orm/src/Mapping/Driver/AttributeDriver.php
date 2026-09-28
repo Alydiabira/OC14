@@ -10,19 +10,12 @@ use Doctrine\ORM\Mapping\Builder\EntityListenerBuilder;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\MappingException;
 use Doctrine\Persistence\Mapping\ClassMetadata as PersistenceClassMetadata;
-<<<<<<< HEAD
-=======
 use Doctrine\Persistence\Mapping\Driver\ClassLocator;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\Persistence\Mapping\Driver\ColocatedMappingDriver;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use InvalidArgumentException;
 use ReflectionClass;
 use ReflectionMethod;
-<<<<<<< HEAD
-use ReflectionProperty;
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 use function assert;
 use function class_exists;
@@ -43,17 +36,10 @@ class AttributeDriver implements MappingDriver
     private readonly AttributeReader $reader;
 
     /**
-<<<<<<< HEAD
-     * @param array<string> $paths
-     * @param true          $reportFieldsWhereDeclared no-op, to be removed in 4.0
-     */
-    public function __construct(array $paths, bool $reportFieldsWhereDeclared = true)
-=======
      * @param string[]|ClassLocator $paths                     a ClassLocator, or an array of directories.
      * @param true                  $reportFieldsWhereDeclared no-op, to be removed in 4.0
      */
     public function __construct(array|ClassLocator $paths, bool $reportFieldsWhereDeclared = true)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if (! $reportFieldsWhereDeclared) {
             throw new InvalidArgumentException(sprintf(
@@ -63,16 +49,12 @@ class AttributeDriver implements MappingDriver
         }
 
         $this->reader = new AttributeReader();
-<<<<<<< HEAD
-        $this->addPaths($paths);
-=======
 
         if ($paths instanceof ClassLocator) {
             $this->classLocator = $paths;
         } else {
             $this->addPaths($paths);
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function isTransient(string $className): bool
@@ -92,13 +74,8 @@ class AttributeDriver implements MappingDriver
     /**
      * {@inheritDoc}
      *
-<<<<<<< HEAD
-     * @psalm-param class-string<T> $className
-     * @psalm-param ClassMetadata<T> $metadata
-=======
      * @param class-string<T>  $className
      * @param ClassMetadata<T> $metadata
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @template T of object
      */
@@ -301,11 +278,6 @@ class AttributeDriver implements MappingDriver
         }
 
         foreach ($reflectionClass->getProperties() as $property) {
-<<<<<<< HEAD
-            assert($property instanceof ReflectionProperty);
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if ($this->isRepeatedPropertyDeclaration($property, $metadata)) {
                 continue;
             }
@@ -316,11 +288,6 @@ class AttributeDriver implements MappingDriver
             // Evaluate #[Cache] attribute
             $cacheAttribute = $this->reader->getPropertyAttribute($property, Mapping\Cache::class);
             if ($cacheAttribute !== null) {
-<<<<<<< HEAD
-                assert($cacheAttribute instanceof Mapping\Cache);
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $mapping['cache'] = $metadata->getAssociationCacheDefaults(
                     $mapping['fieldName'],
                     [
@@ -351,15 +318,10 @@ class AttributeDriver implements MappingDriver
             if ($columnAttribute !== null) {
                 $mapping = $this->columnToArray($property->name, $columnAttribute);
 
-<<<<<<< HEAD
-                if ($this->reader->getPropertyAttribute($property, Mapping\Id::class)) {
-                    $mapping['id'] = true;
-=======
                 $idAttribute = $this->reader->getPropertyAttribute($property, Mapping\Id::class);
                 if ($idAttribute !== null) {
                     $mapping['id']         = true;
                     $mapping['idPosition'] = $idAttribute->position;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 $generatedValueAttribute = $this->reader->getPropertyAttribute($property, Mapping\GeneratedValue::class);
@@ -398,15 +360,10 @@ class AttributeDriver implements MappingDriver
                     throw MappingException::invalidAttributeOnEmbeddable($metadata->name, Mapping\OneToOne::class);
                 }
 
-<<<<<<< HEAD
-                if ($this->reader->getPropertyAttribute($property, Mapping\Id::class)) {
-                    $mapping['id'] = true;
-=======
                 $idAttribute = $this->reader->getPropertyAttribute($property, Mapping\Id::class);
                 if ($idAttribute !== null) {
                     $mapping['id']         = true;
                     $mapping['idPosition'] = $idAttribute->position;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 $mapping['targetEntity']  = $oneToOneAttribute->targetEntity;
@@ -438,22 +395,14 @@ class AttributeDriver implements MappingDriver
                 $metadata->mapOneToMany($mapping);
             } elseif ($manyToOneAttribute !== null) {
                 if ($metadata->isEmbeddedClass) {
-<<<<<<< HEAD
-                    throw MappingException::invalidAttributeOnEmbeddable($metadata->name, Mapping\OneToMany::class);
-=======
                     throw MappingException::invalidAttributeOnEmbeddable($metadata->name, Mapping\ManyToOne::class);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 $idAttribute = $this->reader->getPropertyAttribute($property, Mapping\Id::class);
 
                 if ($idAttribute !== null) {
-<<<<<<< HEAD
-                    $mapping['id'] = true;
-=======
                     $mapping['id']         = true;
                     $mapping['idPosition'] = $idAttribute->position;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 $mapping['joinColumns']  = $joinColumns;
@@ -480,8 +429,6 @@ class AttributeDriver implements MappingDriver
                         $joinTable['options'] = $joinTableAttribute->options;
                     }
 
-<<<<<<< HEAD
-=======
                     if ($joinTableAttribute->foreignKeyName !== null) {
                         $joinTable['foreignKeyName'] = $joinTableAttribute->foreignKeyName;
                     }
@@ -490,7 +437,6 @@ class AttributeDriver implements MappingDriver
                         $joinTable['inverseForeignKeyName'] = $joinTableAttribute->inverseForeignKeyName;
                     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     foreach ($joinTableAttribute->joinColumns as $joinColumn) {
                         $joinTable['joinColumns'][] = $this->joinColumnToArray($joinColumn);
                     }
@@ -628,10 +574,6 @@ class AttributeDriver implements MappingDriver
                 $listenerClass = new ReflectionClass($listenerClassName);
 
                 foreach ($listenerClass->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
-<<<<<<< HEAD
-                    assert($method instanceof ReflectionMethod);
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     // find method callbacks.
                     $callbacks  = $this->getMethodCallbacks($method);
                     $hasMapping = $hasMapping ?: ! empty($callbacks);
@@ -655,10 +597,6 @@ class AttributeDriver implements MappingDriver
             }
 
             foreach ($reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
-<<<<<<< HEAD
-                assert($method instanceof ReflectionMethod);
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 foreach ($this->getMethodCallbacks($method) as $value) {
                     $metadata->addLifecycleCallback($value[0], $value[1]);
                 }
@@ -703,11 +641,7 @@ class AttributeDriver implements MappingDriver
      * Parses the given method.
      *
      * @return list<array{string, string}>
-<<<<<<< HEAD
-     * @psalm-return list<array{string, (Events::*)}>
-=======
      * @phpstan-return list<array{string, (Events::*)}>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private function getMethodCallbacks(ReflectionMethod $method): array
     {
@@ -755,21 +689,14 @@ class AttributeDriver implements MappingDriver
      * Parse the given JoinColumn as array
      *
      * @return mixed[]
-<<<<<<< HEAD
-     * @psalm-return array{
-=======
      * @phpstan-return array{
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *                   name: string|null,
      *                   unique: bool,
      *                   nullable: bool,
      *                   onDelete: mixed,
      *                   columnDefinition: string|null,
      *                   referencedColumnName: string,
-<<<<<<< HEAD
-=======
      *                   foreignKeyName: string|null,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *                   options?: array<string, mixed>
      *               }
      */
@@ -777,19 +704,13 @@ class AttributeDriver implements MappingDriver
     {
         $mapping = [
             'name' => $joinColumn->name,
-<<<<<<< HEAD
-=======
             'deferrable' => $joinColumn->deferrable,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'unique' => $joinColumn->unique,
             'nullable' => $joinColumn->nullable,
             'onDelete' => $joinColumn->onDelete,
             'columnDefinition' => $joinColumn->columnDefinition,
             'referencedColumnName' => $joinColumn->referencedColumnName,
-<<<<<<< HEAD
-=======
             'foreignKeyName' => $joinColumn->foreignKeyName,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ];
 
         if ($joinColumn->options) {
@@ -803,21 +724,14 @@ class AttributeDriver implements MappingDriver
      * Parse the given Column as array
      *
      * @return mixed[]
-<<<<<<< HEAD
-     * @psalm-return array{
-=======
      * @phpstan-return array{
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *                   fieldName: string,
      *                   type: mixed,
      *                   scale: int,
      *                   length: int,
      *                   unique: bool,
      *                   nullable: bool,
-<<<<<<< HEAD
-=======
      *                   index: bool,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *                   precision: int,
      *                   enumType?: class-string,
      *                   options?: mixed[],
@@ -834,10 +748,7 @@ class AttributeDriver implements MappingDriver
             'length'    => $column->length,
             'unique'    => $column->unique,
             'nullable'  => $column->nullable,
-<<<<<<< HEAD
-=======
             'index'     => $column->index,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'precision' => $column->precision,
         ];
 

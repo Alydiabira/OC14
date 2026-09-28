@@ -55,8 +55,6 @@ abstract class AbstractMaker implements MakerInterface
             $message
         );
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Get the help file contents needed for "setHelp()" of a maker.
@@ -70,5 +68,4 @@ abstract class AbstractMaker implements MakerInterface
     {
         return file_get_contents(\sprintf('%s/config/help/%s', \dirname(__DIR__, 2), $helpFileName));
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

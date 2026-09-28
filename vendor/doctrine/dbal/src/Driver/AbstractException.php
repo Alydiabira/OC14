@@ -11,11 +11,6 @@ use Throwable;
  * Base implementation of the {@see Exception} interface.
  *
  * @internal
-<<<<<<< HEAD
- *
- * @psalm-immutable
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 abstract class AbstractException extends BaseException implements Exception
 {

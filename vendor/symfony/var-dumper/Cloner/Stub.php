@@ -11,11 +11,6 @@
 
 namespace Symfony\Component\VarDumper\Cloner;
 
-<<<<<<< HEAD
-use Symfony\Component\VarDumper\Cloner\Internal\NoDefault;
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /**
  * Represents the main properties of a PHP variable.
  *
@@ -45,37 +40,6 @@ class Stub
     public $position = 0;
     public $attr = [];
 
-<<<<<<< HEAD
-    private static array $defaultProperties = [];
-
-    /**
-     * @internal
-     */
-    public function __sleep(): array
-    {
-        $properties = [];
-
-        if (!isset(self::$defaultProperties[$c = static::class])) {
-            $reflection = new \ReflectionClass($c);
-            self::$defaultProperties[$c] = [];
-
-            foreach ($reflection->getProperties() as $p) {
-                if ($p->isStatic()) {
-                    continue;
-                }
-
-                self::$defaultProperties[$c][$p->name] = $p->hasDefaultValue() ? $p->getDefaultValue() : ($p->hasType() ? NoDefault::NoDefault : null);
-            }
-        }
-
-        foreach (self::$defaultProperties[$c] as $k => $v) {
-            if (NoDefault::NoDefault === $v || $this->$k !== $v) {
-                $properties[] = $k;
-            }
-        }
-
-        return $properties;
-=======
     /**
      * @internal
      */
@@ -108,6 +72,5 @@ class Stub
 
             return $data;
         }, $this, $this::class)();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

@@ -57,27 +57,6 @@ final class DebugFirewallCommand extends Command
 
         $this
             ->setHelp(<<<EOF
-<<<<<<< HEAD
-The <info>%command.name%</info> command displays the firewalls that are configured
-in your application:
-
-  <info>php %command.full_name%</info>
-
-You can pass a firewall name to display more detailed information about
-a specific firewall:
-
-  <info>php %command.full_name% $exampleName</info>
-
-To include all events and event listeners for a specific firewall, use the
-<info>events</info> option:
-
-  <info>php %command.full_name% --events $exampleName</info>
-
-EOF
-            )
-            ->setDefinition([
-                new InputArgument('name', InputArgument::OPTIONAL, sprintf('A firewall name (for example "%s")', $exampleName)),
-=======
                 The <info>%command.name%</info> command displays the firewalls that are configured
                 in your application:
 
@@ -97,7 +76,6 @@ EOF
             )
             ->setDefinition([
                 new InputArgument('name', InputArgument::OPTIONAL, \sprintf('A firewall name (for example "%s")', $exampleName)),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 new InputOption('events', null, InputOption::VALUE_NONE, 'Include a list of event listeners (only available in combination with the "name" argument)'),
             ]);
     }
@@ -114,17 +92,10 @@ EOF
             return 0;
         }
 
-<<<<<<< HEAD
-        $serviceId = sprintf('security.firewall.map.context.%s', $name);
-
-        if (!$this->contexts->has($serviceId)) {
-            $io->error(sprintf('Firewall %s was not found. Available firewalls are: %s', $name, implode(', ', $this->firewallNames)));
-=======
         $serviceId = \sprintf('security.firewall.map.context.%s', $name);
 
         if (!$this->contexts->has($serviceId)) {
             $io->error(\sprintf('Firewall %s was not found. Available firewalls are: %s', $name, implode(', ', $this->firewallNames)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             return 1;
         }
@@ -132,11 +103,7 @@ EOF
         /** @var FirewallContext $context */
         $context = $this->contexts->get($serviceId);
 
-<<<<<<< HEAD
-        $io->title(sprintf('Firewall "%s"', $name));
-=======
         $io->title(\sprintf('Firewall "%s"', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $this->displayFirewallSummary($name, $context, $io);
 
@@ -158,11 +125,7 @@ EOF
 
         $io->listing($this->firewallNames);
 
-<<<<<<< HEAD
-        $io->comment(sprintf('To view details of a specific firewall, re-run this command with a firewall name. (e.g. <comment>debug:firewall %s</comment>)', $this->getExampleName()));
-=======
         $io->comment(\sprintf('To view details of a specific firewall, re-run this command with a firewall name. (e.g. <comment>debug:firewall %s</comment>)', $this->getExampleName()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function displayFirewallSummary(string $name, FirewallContext $context, SymfonyStyle $io): void
@@ -206,15 +169,9 @@ EOF
 
     protected function displayEventListeners(string $name, FirewallContext $context, SymfonyStyle $io): void
     {
-<<<<<<< HEAD
-        $io->title(sprintf('Event listeners for firewall "%s"', $name));
-
-        $dispatcherId = sprintf('security.event_dispatcher.%s', $name);
-=======
         $io->title(\sprintf('Event listeners for firewall "%s"', $name));
 
         $dispatcherId = \sprintf('security.event_dispatcher.%s', $name);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (!$this->eventDispatchers->has($dispatcherId)) {
             $io->text('No event dispatcher has been registered for this firewall.');
@@ -226,20 +183,12 @@ EOF
         $dispatcher = $this->eventDispatchers->get($dispatcherId);
 
         foreach ($dispatcher->getListeners() as $event => $listeners) {
-<<<<<<< HEAD
-            $io->section(sprintf('"%s" event', $event));
-=======
             $io->section(\sprintf('"%s" event', $event));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             $rows = [];
             foreach ($listeners as $order => $listener) {
                 $rows[] = [
-<<<<<<< HEAD
-                    sprintf('#%d', $order + 1),
-=======
                     \sprintf('#%d', $order + 1),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $this->formatCallable($listener),
                     $dispatcher->getListenerPriority($event, $listener),
                 ];
@@ -254,19 +203,11 @@ EOF
 
     private function displayAuthenticators(string $name, SymfonyStyle $io): void
     {
-<<<<<<< HEAD
-        $io->title(sprintf('Authenticators for firewall "%s"', $name));
-
-        $authenticators = $this->authenticators[$name] ?? [];
-
-        if (0 === \count($authenticators)) {
-=======
         $io->title(\sprintf('Authenticators for firewall "%s"', $name));
 
         $authenticators = $this->authenticators[$name] ?? [];
 
         if (!$authenticators) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $io->text('No authenticators have been registered for this firewall.');
 
             return;
@@ -275,11 +216,7 @@ EOF
         $io->table(
             ['Classname'],
             array_map(
-<<<<<<< HEAD
-                fn ($authenticator) => [$authenticator::class],
-=======
                 static fn ($authenticator) => [$authenticator::class],
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $authenticators
             )
         );
@@ -289,16 +226,6 @@ EOF
     {
         if (\is_array($callable)) {
             if (\is_object($callable[0])) {
-<<<<<<< HEAD
-                return sprintf('%s::%s()', $callable[0]::class, $callable[1]);
-            }
-
-            return sprintf('%s::%s()', $callable[0], $callable[1]);
-        }
-
-        if (\is_string($callable)) {
-            return sprintf('%s()', $callable);
-=======
                 return \sprintf('%s::%s()', $callable[0]::class, $callable[1]);
             }
 
@@ -307,7 +234,6 @@ EOF
 
         if (\is_string($callable)) {
             return \sprintf('%s()', $callable);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($callable instanceof \Closure) {
@@ -316,22 +242,14 @@ EOF
                 return 'Closure()';
             }
             if ($class = \PHP_VERSION_ID >= 80111 ? $r->getClosureCalledClass() : $r->getClosureScopeClass()) {
-<<<<<<< HEAD
-                return sprintf('%s::%s()', $class->name, $r->name);
-=======
                 return \sprintf('%s::%s()', $class->name, $r->name);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return $r->name.'()';
         }
 
         if (method_exists($callable, '__invoke')) {
-<<<<<<< HEAD
-            return sprintf('%s::__invoke()', $callable::class);
-=======
             return \sprintf('%s::__invoke()', $callable::class);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         throw new \InvalidArgumentException('Callable is not describable.');

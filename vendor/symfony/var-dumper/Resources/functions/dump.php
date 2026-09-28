@@ -45,11 +45,7 @@ if (!function_exists('dump')) {
 if (!function_exists('dd')) {
     function dd(mixed ...$vars): never
     {
-<<<<<<< HEAD
-        if (!\in_array(\PHP_SAPI, ['cli', 'phpdbg', 'embed'], true) && !headers_sent()) {
-=======
         if (!in_array(\PHP_SAPI, ['cli', 'phpdbg', 'embed'], true) && !headers_sent()) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             header('HTTP/1.1 500 Internal Server Error');
         }
 

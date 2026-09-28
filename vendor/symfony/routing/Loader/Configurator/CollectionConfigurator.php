@@ -38,23 +38,12 @@ class CollectionConfigurator
         $this->parentPrefixes = $parentPrefixes;
     }
 
-<<<<<<< HEAD
-    public function __sleep(): array
-=======
     public function __serialize(): array
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
     }
 
-<<<<<<< HEAD
-    /**
-     * @return void
-     */
-    public function __wakeup()
-=======
     public function __unserialize(array $data): void
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
     }
@@ -92,19 +81,11 @@ class CollectionConfigurator
             if (null === $this->parentPrefixes) {
                 // no-op
             } elseif ($missing = array_diff_key($this->parentPrefixes, $prefix)) {
-<<<<<<< HEAD
-                throw new \LogicException(sprintf('Collection "%s" is missing prefixes for locale(s) "%s".', $this->name, implode('", "', array_keys($missing))));
-            } else {
-                foreach ($prefix as $locale => $localePrefix) {
-                    if (!isset($this->parentPrefixes[$locale])) {
-                        throw new \LogicException(sprintf('Collection "%s" with locale "%s" is missing a corresponding prefix in its parent collection.', $this->name, $locale));
-=======
                 throw new \LogicException(\sprintf('Collection "%s" is missing prefixes for locale(s) "%s".', $this->name, implode('", "', array_keys($missing))));
             } else {
                 foreach ($prefix as $locale => $localePrefix) {
                     if (!isset($this->parentPrefixes[$locale])) {
                         throw new \LogicException(\sprintf('Collection "%s" with locale "%s" is missing a corresponding prefix in its parent collection.', $this->name, $locale));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
 
                     $prefix[$locale] = $this->parentPrefixes[$locale].$localePrefix;

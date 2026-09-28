@@ -13,14 +13,6 @@ namespace Symfony\Component\HttpClient;
 
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerInterface;
-<<<<<<< HEAD
-use Symfony\Component\HttpClient\Exception\InvalidArgumentException;
-use Symfony\Component\HttpClient\Exception\TransportException;
-use Symfony\Component\HttpFoundation\IpUtils;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
-use Symfony\Contracts\HttpClient\ResponseStreamInterface;
-=======
 use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Component\HttpClient\Response\AsyncContext;
 use Symfony\Component\HttpClient\Response\AsyncResponse;
@@ -28,25 +20,12 @@ use Symfony\Component\HttpFoundation\IpUtils;
 use Symfony\Contracts\HttpClient\ChunkInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Contracts\Service\ResetInterface;
 
 /**
  * Decorator that blocks requests to private networks by default.
  *
  * @author Hallison Boaventura <hallisonboaventura@gmail.com>
-<<<<<<< HEAD
- */
-final class NoPrivateNetworkHttpClient implements HttpClientInterface, LoggerAwareInterface, ResetInterface
-{
-    use HttpClientTrait;
-
-    private HttpClientInterface $client;
-    private string|array|null $subnets;
-
-    /**
-     * @param string|array|null $subnets String or array of subnets using CIDR notation that will be used by IpUtils.
-=======
  * @author Nicolas Grekas <p@tchwork.com>
  */
 final class NoPrivateNetworkHttpClient implements HttpClientInterface, LoggerAwareInterface, ResetInterface
@@ -62,19 +41,11 @@ final class NoPrivateNetworkHttpClient implements HttpClientInterface, LoggerAwa
 
     /**
      * @param string|array|null $subnets String or array of subnets using CIDR notation that should be considered private.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *                                   If null is passed, the standard private subnets will be used.
      */
     public function __construct(HttpClientInterface $client, string|array|null $subnets = null)
     {
         if (!class_exists(IpUtils::class)) {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('You cannot use "%s" if the HttpFoundation component is not installed. Try running "composer require symfony/http-foundation".', __CLASS__));
-        }
-
-        $this->client = $client;
-        $this->subnets = $subnets;
-=======
             throw new \LogicException(\sprintf('You cannot use "%s" if the HttpFoundation component is not installed. Try running "composer require symfony/http-foundation".', __CLASS__));
         }
 
@@ -95,27 +66,10 @@ final class NoPrivateNetworkHttpClient implements HttpClientInterface, LoggerAwa
         $this->subnets = null !== $subnets ? (array) $subnets : null;
         $this->ipFlags = $ipFlags;
         $this->dnsCache = new \ArrayObject();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function request(string $method, string $url, array $options = []): ResponseInterface
     {
-<<<<<<< HEAD
-        $onProgress = $options['on_progress'] ?? null;
-        if (null !== $onProgress && !\is_callable($onProgress)) {
-            throw new InvalidArgumentException(sprintf('Option "on_progress" must be callable, "%s" given.', get_debug_type($onProgress)));
-        }
-
-        $subnets = $this->subnets;
-
-        $options['on_progress'] = function (int $dlNow, int $dlSize, array $info) use ($onProgress, $subnets): void {
-            static $lastPrimaryIp = '';
-            if ($info['primary_ip'] !== $lastPrimaryIp) {
-                if ($info['primary_ip'] && IpUtils::checkIp($info['primary_ip'], $subnets ?? IpUtils::PRIVATE_SUBNETS)) {
-                    throw new TransportException(sprintf('IP "%s" is blocked for "%s".', $info['primary_ip'], $info['url']));
-                }
-
-=======
         [$url, $options] = self::prepareRequest($method, $url, $options, $this->defaultOptions, true);
 
         $redirectHeaders = parse_url($url['authority']);
@@ -136,21 +90,12 @@ final class NoPrivateNetworkHttpClient implements HttpClientInterface, LoggerAwa
 
             if (!\in_array($info['primary_ip'] ?? '', ['', $lastPrimaryIp], true)) {
                 self::ipCheck($info['primary_ip'], $subnets, $ipFlags, null, $info['url']);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $lastPrimaryIp = $info['primary_ip'];
             }
 
             null !== $onProgress && $onProgress($dlNow, $dlSize, $info);
         };
 
-<<<<<<< HEAD
-        return $this->client->request($method, $url, $options);
-    }
-
-    public function stream(ResponseInterface|iterable $responses, ?float $timeout = null): ResponseStreamInterface
-    {
-        return $this->client->stream($responses, $timeout);
-=======
         if (0 >= $maxRedirects = $options['max_redirects']) {
             return new AsyncResponse($this->client, $method, $url, $options);
         }
@@ -209,7 +154,6 @@ final class NoPrivateNetworkHttpClient implements HttpClientInterface, LoggerAwa
                 $context->passthru();
             }
         });
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function setLogger(LoggerInterface $logger): void
@@ -223,27 +167,19 @@ final class NoPrivateNetworkHttpClient implements HttpClientInterface, LoggerAwa
     {
         $clone = clone $this;
         $clone->client = $this->client->withOptions($options);
-<<<<<<< HEAD
-=======
         $clone->defaultOptions = self::mergeDefaultOptions($options, $this->defaultOptions);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $clone;
     }
 
     public function reset(): void
     {
-<<<<<<< HEAD
-=======
         $this->dnsCache->exchangeArray([]);
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ($this->client instanceof ResetInterface) {
             $this->client->reset();
         }
     }
-<<<<<<< HEAD
-=======
 
     private static function dnsResolve(\ArrayObject $dnsCache, string $host, int $ipFlags, array &$options): string
     {
@@ -263,7 +199,7 @@ final class NoPrivateNetworkHttpClient implements HttpClientInterface, LoggerAwa
             return $host;
         }
 
-        if ($ip = dns_get_record($host, \DNS_AAAA)) {
+        if ($ip = @dns_get_record($host, \DNS_AAAA)) {
             $ip = $ip[0]['ipv6'];
         } elseif (\extension_loaded('sockets')) {
             if (!$info = socket_addrinfo_lookup($host, 0, ['ai_socktype' => \SOCK_STREAM, 'ai_family' => \AF_INET6])) {
@@ -300,5 +236,4 @@ final class NoPrivateNetworkHttpClient implements HttpClientInterface, LoggerAwa
 
         throw new TransportException($type.\sprintf(' "%s" is blocked for "%s".', $host, $url));
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

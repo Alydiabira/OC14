@@ -21,19 +21,6 @@ use Twig\Error\SyntaxError;
  */
 final class TokenStream
 {
-<<<<<<< HEAD
-    private $tokens;
-    private $current = 0;
-    private $source;
-
-    public function __construct(array $tokens, ?Source $source = null)
-    {
-        $this->tokens = $tokens;
-        $this->source = $source ?: new Source('', '');
-    }
-
-    public function __toString()
-=======
     private $current = 0;
 
     public function __construct(
@@ -48,18 +35,11 @@ final class TokenStream
     }
 
     public function __toString(): string
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return implode("\n", $this->tokens);
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * @return void
-     */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
-    public function injectTokens(array $tokens)
+    public function injectTokens(array $tokens): void
     {
         $this->tokens = array_merge(\array_slice($this->tokens, 0, $this->current), $tokens, \array_slice($this->tokens, $this->current));
     }
@@ -94,15 +74,6 @@ final class TokenStream
         $token = $this->tokens[$this->current];
         if (!$token->test($type, $value)) {
             $line = $token->getLine();
-<<<<<<< HEAD
-            throw new SyntaxError(sprintf('%sUnexpected token "%s"%s ("%s" expected%s).',
-                $message ? $message.'. ' : '',
-                Token::typeToEnglish($token->getType()),
-                $token->getValue() ? sprintf(' of value "%s"', $token->getValue()) : '',
-                Token::typeToEnglish($type), $value ? sprintf(' with value "%s"', $value) : ''),
-                $line,
-                $this->source
-=======
             throw new SyntaxError(\sprintf('%sUnexpected token "%s"%s ("%s" expected%s).',
                 $message ? $message.'. ' : '',
                 $token->toEnglish(),
@@ -111,7 +82,6 @@ final class TokenStream
                 $line,
                 $this->source,
                 columnno: $this->source->getColumn($token->getOffset() ?? -1),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
         }
         $this->next();
@@ -144,11 +114,7 @@ final class TokenStream
      */
     public function isEOF(): bool
     {
-<<<<<<< HEAD
-        return /* Token::EOF_TYPE */ -1 === $this->tokens[$this->current]->getType();
-=======
         return $this->tokens[$this->current]->test(Token::EOF_TYPE);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getCurrent(): Token
@@ -156,14 +122,6 @@ final class TokenStream
         return $this->tokens[$this->current];
     }
 
-<<<<<<< HEAD
-    /**
-     * Gets the source associated with this stream.
-     *
-     * @internal
-     */
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function getSourceContext(): Source
     {
         return $this->source;

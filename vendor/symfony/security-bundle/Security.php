@@ -13,15 +13,10 @@ namespace Symfony\Bundle\SecurityBundle;
 
 use Psr\Container\ContainerInterface;
 use Symfony\Bundle\SecurityBundle\Security\FirewallConfig;
-<<<<<<< HEAD
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-=======
 use Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -126,25 +121,14 @@ class Security extends InternalSecurity implements AuthorizationCheckerInterface
             throw new LogicException('Unable to login without a request context.');
         }
 
-<<<<<<< HEAD
-        $firewallName ??= $this->getFirewallConfig($request)?->getName();
-
-        if (!$firewallName) {
-=======
         $currentFirewallConfig = $this->getFirewallConfig($request);
 
         if (!$firewallName ??= $currentFirewallConfig?->getName()) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new LogicException('Unable to login as the current route is not covered by any firewall.');
         }
 
         $authenticator = $this->getAuthenticator($authenticatorName, $firewallName);
 
-<<<<<<< HEAD
-        $this->container->get('security.user_checker')->checkPreAuth($user);
-
-        return $this->container->get('security.authenticator.managers_locator')->get($firewallName)->authenticateUser($user, $authenticator, $request, $badges);
-=======
         $userCheckerLocator = $this->container->get('security.user_checker_locator');
         $userCheckerLocator->get($firewallName)->checkPreAuth($user);
 
@@ -201,7 +185,6 @@ class Security extends InternalSecurity implements AuthorizationCheckerInterface
         } catch (SessionNotFoundException) {
             return null;
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -233,11 +216,7 @@ class Security extends InternalSecurity implements AuthorizationCheckerInterface
 
         if ($validateCsrfToken) {
             if (!$this->container->has('security.csrf.token_manager') || !$logoutConfig = $firewallConfig->getLogout()) {
-<<<<<<< HEAD
-                throw new LogicException(sprintf('Unable to logout with CSRF token validation. Either make sure that CSRF protection is enabled and "logout" is configured on the "%s" firewall, or bypass CSRF token validation explicitly by passing false to the $validateCsrfToken argument of this method.', $firewallConfig->getName()));
-=======
                 throw new LogicException(\sprintf('Unable to logout with CSRF token validation. Either make sure that CSRF protection is enabled and "logout" is configured on the "%s" firewall, or bypass CSRF token validation explicitly by passing false to the $validateCsrfToken argument of this method.', $firewallConfig->getName()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $csrfToken = ParameterBagUtils::getRequestParameterValue($request, $logoutConfig['csrf_parameter']);
             if (!\is_string($csrfToken) || !$this->container->get('security.csrf.token_manager')->isTokenValid(new CsrfToken($logoutConfig['csrf_token_id'], $csrfToken))) {
@@ -256,33 +235,19 @@ class Security extends InternalSecurity implements AuthorizationCheckerInterface
     private function getAuthenticator(?string $authenticatorName, string $firewallName): AuthenticatorInterface
     {
         if (!isset($this->authenticators[$firewallName])) {
-<<<<<<< HEAD
-            throw new LogicException(sprintf('No authenticators found for firewall "%s".', $firewallName));
-=======
             throw new LogicException(\sprintf('No authenticators found for firewall "%s".', $firewallName));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         /** @var ServiceProviderInterface $firewallAuthenticatorLocator */
         $firewallAuthenticatorLocator = $this->authenticators[$firewallName];
 
         if (!$authenticatorName) {
-<<<<<<< HEAD
-            $authenticatorIds = array_keys($firewallAuthenticatorLocator->getProvidedServices());
-
-            if (!$authenticatorIds) {
-                throw new LogicException(sprintf('No authenticator was found for the firewall "%s".', $firewallName));
-            }
-            if (1 < \count($authenticatorIds)) {
-                throw new LogicException(sprintf('Too many authenticators were found for the current firewall "%s". You must provide an instance of "%s" to login programmatically. The available authenticators for the firewall "%s" are "%s".', $firewallName, AuthenticatorInterface::class, $firewallName, implode('" ,"', $authenticatorIds)));
-=======
             $authenticatorIds = array_filter(array_keys($firewallAuthenticatorLocator->getProvidedServices()), static fn (string $authenticatorId) => $authenticatorId !== \sprintf('security.authenticator.remember_me.%s', $firewallName));
             if (!$authenticatorIds) {
                 throw new LogicException(\sprintf('No authenticator was found for the firewall "%s".', $firewallName));
             }
             if (1 < \count($authenticatorIds)) {
                 throw new LogicException(\sprintf('Too many authenticators were found for the current firewall "%s". You must provide an instance of "%s" to login programmatically. The available authenticators for the firewall "%s" are "%s".', $firewallName, AuthenticatorInterface::class, $firewallName, implode('" ,"', $authenticatorIds)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return $firewallAuthenticatorLocator->get($authenticatorIds[0]);
@@ -295,11 +260,7 @@ class Security extends InternalSecurity implements AuthorizationCheckerInterface
         $authenticatorId = 'security.authenticator.'.$authenticatorName.'.'.$firewallName;
 
         if (!$firewallAuthenticatorLocator->has($authenticatorId)) {
-<<<<<<< HEAD
-            throw new LogicException(sprintf('Unable to find an authenticator named "%s" for the firewall "%s". Available authenticators: "%s".', $authenticatorName, $firewallName, implode('", "', array_keys($firewallAuthenticatorLocator->getProvidedServices()))));
-=======
             throw new LogicException(\sprintf('Unable to find an authenticator named "%s" for the firewall "%s". Available authenticators: "%s".', $authenticatorName, $firewallName, implode('", "', array_keys($firewallAuthenticatorLocator->getProvidedServices()))));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $firewallAuthenticatorLocator->get($authenticatorId);

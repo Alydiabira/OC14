@@ -115,11 +115,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate, \Stringable
     public function getIterator(): \Traversable
     {
         if (!\is_array($value = $this->getValue())) {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('"%s" object holds non-iterable type "%s".', self::class, get_debug_type($value)));
-=======
             throw new \LogicException(\sprintf('"%s" object holds non-iterable type "%s".', self::class, get_debug_type($value)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         yield from $value;
@@ -172,11 +168,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate, \Stringable
             return (string) $value;
         }
 
-<<<<<<< HEAD
-        return sprintf('%s (count=%d)', $this->getType(), \count($value));
-=======
         return \sprintf('%s (count=%d)', $this->getType(), \count($value));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -306,11 +298,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate, \Stringable
         if (!$item instanceof Stub) {
             $cursor->attr = [];
             $type = \gettype($item);
-<<<<<<< HEAD
-            if ($item && 'array' === $type) {
-=======
             if ('array' === $type && $item) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $item = $this->getStub($item);
             }
         } elseif (Stub::TYPE_REF === $item->type) {
@@ -387,11 +375,7 @@ class Data implements \ArrayAccess, \Countable, \IteratorAggregate, \Stringable
                     break;
 
                 default:
-<<<<<<< HEAD
-                    throw new \RuntimeException(sprintf('Unexpected Stub type: "%s".', $item->type));
-=======
                     throw new \RuntimeException(\sprintf('Unexpected Stub type: "%s".', $item->type));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         } elseif ('array' === $type) {
             $dumper->enterHash($cursor, Cursor::HASH_INDEXED, 0, false);

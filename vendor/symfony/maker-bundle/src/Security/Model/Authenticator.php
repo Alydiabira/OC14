@@ -16,11 +16,7 @@ namespace Symfony\Bundle\MakerBundle\Security\Model;
  *
  * @internal
  */
-<<<<<<< HEAD
-final class Authenticator
-=======
 final class Authenticator implements \Stringable
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 {
     public function __construct(
         public AuthenticatorType $type,
@@ -34,11 +30,7 @@ final class Authenticator implements \Stringable
      */
     public function __toString(): string
     {
-<<<<<<< HEAD
-        return sprintf(
-=======
         return \sprintf(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             '"%s" in the "%s" firewall',
             $this->authenticatorClass ?? $this->type->value,
             $this->firewallName,

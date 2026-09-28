@@ -11,10 +11,7 @@
 
 namespace Symfony\Component\HttpClient;
 
-<<<<<<< HEAD
-=======
 use Symfony\Component\HttpClient\Chunk\DataChunk;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\HttpClient\Chunk\ServerSentEvent;
 use Symfony\Component\HttpClient\Exception\EventSourceException;
 use Symfony\Component\HttpClient\Response\AsyncContext;
@@ -56,19 +53,12 @@ final class EventSourceHttpClient implements HttpClientInterface, ResetInterface
 
     public function request(string $method, string $url, array $options = []): ResponseInterface
     {
-<<<<<<< HEAD
-        $state = new class() {
-=======
         $state = new class {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             public ?string $buffer = null;
             public ?string $lastEventId = null;
             public float $reconnectionTime;
             public ?float $lastError = null;
-<<<<<<< HEAD
-=======
             public bool $firstChunkSeen = false;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         };
         $state->reconnectionTime = $this->reconnectionTime;
 
@@ -121,40 +111,19 @@ final class EventSourceHttpClient implements HttpClientInterface, ResetInterface
                 if (preg_match('/^text\/event-stream(;|$)/i', $context->getHeaders()['content-type'][0] ?? '')) {
                     $state->buffer = '';
                 } elseif (null !== $lastError || (null !== $state->buffer && 200 === $context->getStatusCode())) {
-<<<<<<< HEAD
-                    throw new EventSourceException(sprintf('Response content-type is "%s" while "text/event-stream" was expected for "%s".', $context->getHeaders()['content-type'][0] ?? '', $context->getInfo('url')));
-=======
                     throw new EventSourceException(\sprintf('Response content-type is "%s" while "text/event-stream" was expected for "%s".', $context->getHeaders()['content-type'][0] ?? '', $context->getInfo('url')));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 } else {
                     $context->passthru();
                 }
 
-<<<<<<< HEAD
-                if (null === $lastError) {
-=======
                 if (!$state->firstChunkSeen) {
                     $state->firstChunkSeen = true;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     yield $chunk;
                 }
 
                 return;
             }
 
-<<<<<<< HEAD
-            $rx = '/((?:\r\n){2,}|\r{2,}|\n{2,})/';
-            $content = $state->buffer.$chunk->getContent();
-
-            if ($chunk->isLast()) {
-                $rx = substr_replace($rx, '|$', -2, 0);
-            }
-            $events = preg_split($rx, $content, -1, \PREG_SPLIT_DELIM_CAPTURE);
-            $state->buffer = array_pop($events);
-
-            for ($i = 0; isset($events[$i]); $i += 2) {
-                $event = new ServerSentEvent($events[$i].$events[1 + $i]);
-=======
             if ($chunk->isLast()) {
                 if ('' !== $content = $state->buffer) {
                     $state->buffer = '';
@@ -179,7 +148,6 @@ final class EventSourceHttpClient implements HttpClientInterface, ResetInterface
                 }
 
                 $event = new ServerSentEvent($content);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 if ('' !== $event->getId()) {
                     $context->setInfo('last_event_id', $state->lastEventId = $event->getId());
@@ -191,20 +159,6 @@ final class EventSourceHttpClient implements HttpClientInterface, ResetInterface
 
                 yield $event;
             }
-<<<<<<< HEAD
-
-            if (preg_match('/^(?::[^\r\n]*+(?:\r\n|[\r\n]))+$/m', $state->buffer)) {
-                $content = $state->buffer;
-                $state->buffer = '';
-
-                yield $context->createChunk($content);
-            }
-
-            if ($chunk->isLast()) {
-                yield $chunk;
-            }
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         });
     }
 }

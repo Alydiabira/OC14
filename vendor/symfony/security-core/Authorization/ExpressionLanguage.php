@@ -15,11 +15,7 @@ use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage as BaseExpressionLanguage;
 
 if (!class_exists(BaseExpressionLanguage::class)) {
-<<<<<<< HEAD
-    throw new \LogicException(sprintf('The "%s" class requires the "ExpressionLanguage" component. Try running "composer require symfony/expression-language".', ExpressionLanguage::class));
-=======
     throw new \LogicException(\sprintf('The "%s" class requires the "ExpressionLanguage" component. Try running "composer require symfony/expression-language".', ExpressionLanguage::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 } else {
     // Help opcache.preload discover always-needed symbols
     class_exists(ExpressionLanguageProvider::class);

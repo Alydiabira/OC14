@@ -12,11 +12,7 @@
 
 namespace Twig\TokenParser;
 
-<<<<<<< HEAD
-use Twig\Error\SyntaxError;
-=======
 use Twig\Node\ConfigNode;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Twig\Node\Node;
 use Twig\Token;
 
@@ -32,28 +28,10 @@ final class ExtendsTokenParser extends AbstractTokenParser
     public function parse(Token $token): Node
     {
         $stream = $this->parser->getStream();
-<<<<<<< HEAD
-
-        if ($this->parser->peekBlockStack()) {
-            throw new SyntaxError('Cannot use "extend" in a block.', $token->getLine(), $stream->getSourceContext());
-        } elseif (!$this->parser->isMainScope()) {
-            throw new SyntaxError('Cannot use "extend" in a macro.', $token->getLine(), $stream->getSourceContext());
-        }
-
-        if (null !== $this->parser->getParent()) {
-            throw new SyntaxError('Multiple extends tags are forbidden.', $token->getLine(), $stream->getSourceContext());
-        }
-        $this->parser->setParent($this->parser->getExpressionParser()->parseExpression());
-
-        $stream->expect(/* Token::BLOCK_END_TYPE */ 3);
-
-        return new Node();
-=======
         $this->parser->setParent($this->parser->parseExpression(), false);
         $stream->expect(Token::BLOCK_END_TYPE);
 
         return new ConfigNode($token->getLine());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getTag(): string

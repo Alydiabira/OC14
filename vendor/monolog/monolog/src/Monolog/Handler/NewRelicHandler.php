@@ -79,15 +79,9 @@ class NewRelicHandler extends AbstractProcessingHandler
             newrelic_notice_error($record->message);
         }
 
-<<<<<<< HEAD
-        if (isset($record->formatted['context']) && is_array($record->formatted['context'])) {
-            foreach ($record->formatted['context'] as $key => $parameter) {
-                if (is_array($parameter) && $this->explodeArrays) {
-=======
         if (isset($record->formatted['context']) && \is_array($record->formatted['context'])) {
             foreach ($record->formatted['context'] as $key => $parameter) {
                 if (\is_array($parameter) && $this->explodeArrays) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     foreach ($parameter as $paramKey => $paramValue) {
                         $this->setNewRelicParameter('context_' . $key . '_' . $paramKey, $paramValue);
                     }
@@ -97,15 +91,9 @@ class NewRelicHandler extends AbstractProcessingHandler
             }
         }
 
-<<<<<<< HEAD
-        if (isset($record->formatted['extra']) && is_array($record->formatted['extra'])) {
-            foreach ($record->formatted['extra'] as $key => $parameter) {
-                if (is_array($parameter) && $this->explodeArrays) {
-=======
         if (isset($record->formatted['extra']) && \is_array($record->formatted['extra'])) {
             foreach ($record->formatted['extra'] as $key => $parameter) {
                 if (\is_array($parameter) && $this->explodeArrays) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     foreach ($parameter as $paramKey => $paramValue) {
                         $this->setNewRelicParameter('extra_' . $key . '_' . $paramKey, $paramValue);
                     }
@@ -121,11 +109,7 @@ class NewRelicHandler extends AbstractProcessingHandler
      */
     protected function isNewRelicEnabled(): bool
     {
-<<<<<<< HEAD
-        return extension_loaded('newrelic');
-=======
         return \extension_loaded('newrelic');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -179,11 +163,7 @@ class NewRelicHandler extends AbstractProcessingHandler
      */
     protected function setNewRelicParameter(string $key, $value): void
     {
-<<<<<<< HEAD
-        if (null === $value || is_scalar($value)) {
-=======
         if (null === $value || \is_scalar($value)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             newrelic_add_custom_parameter($key, $value);
         } else {
             newrelic_add_custom_parameter($key, Utils::jsonEncode($value, null, true));

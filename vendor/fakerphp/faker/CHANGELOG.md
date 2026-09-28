@@ -1,8 +1,5 @@
 # CHANGELOG
 
-<<<<<<< HEAD
-## [Unreleased](https://github.com/FakerPHP/Faker/compare/v1.23.1...1.23)
-=======
 ## [Unreleased](https://github.com/FakerPHP/Faker/compare/v1.24.0...1.24.1)
 
 - Removed domain `gmail.com.au` from `Provider\en_AU\Internet` (#886)
@@ -14,7 +11,6 @@
 - PHP 8.4 Support by @Jubeki in (#904)
 
 - Added support for PHP 8.4 (#904)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 ## [2023-09-29, v1.23.1](https://github.com/FakerPHP/Faker/compare/v1.23.0..v1.23.1)
 

@@ -75,11 +75,7 @@ abstract class AbstractController implements ServiceSubscriberInterface
     protected function getParameter(string $name): array|bool|string|int|float|\UnitEnum|null
     {
         if (!$this->container->has('parameter_bag')) {
-<<<<<<< HEAD
-            throw new ServiceNotFoundException('parameter_bag.', null, null, [], sprintf('The "%s::getParameter()" method is missing a parameter bag to work properly. Did you forget to register your controller as a service subscriber? This can be fixed either by using autoconfiguration or by manually wiring a "parameter_bag" in the service locator passed to the controller.', static::class));
-=======
             throw new ServiceNotFoundException('parameter_bag.', null, null, [], \sprintf('The "%s::getParameter()" method is missing a parameter bag to work properly. Did you forget to register your controller as a service subscriber? This can be fixed either by using autoconfiguration or by manually wiring a "parameter_bag" in the service locator passed to the controller.', static::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->container->get('parameter_bag')->get($name);
@@ -161,13 +157,10 @@ abstract class AbstractController implements ServiceSubscriberInterface
             return new JsonResponse($json, $status, $headers, true);
         }
 
-<<<<<<< HEAD
-=======
         if (null === $data) {
             return new JsonResponse('null', $status, $headers, true);
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return new JsonResponse($data, $status, $headers);
     }
 
@@ -300,11 +293,7 @@ abstract class AbstractController implements ServiceSubscriberInterface
 
         $twig = $this->container->get('twig');
 
-<<<<<<< HEAD
-        $callback = function () use ($twig, $view, $parameters) {
-=======
         $callback = static function () use ($twig, $view, $parameters) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $twig->display($view, $parameters);
         };
 
@@ -447,11 +436,7 @@ abstract class AbstractController implements ServiceSubscriberInterface
     private function doRenderView(string $view, ?string $block, array $parameters, string $method): string
     {
         if (!$this->container->has('twig')) {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('You cannot use the "%s" method if the Twig Bundle is not available. Try running "composer require symfony/twig-bundle".', $method));
-=======
             throw new \LogicException(\sprintf('You cannot use the "%s" method if the Twig Bundle is not available. Try running "composer require symfony/twig-bundle".', $method));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         foreach ($parameters as $k => $v) {

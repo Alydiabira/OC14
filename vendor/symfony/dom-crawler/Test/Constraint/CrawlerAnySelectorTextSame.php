@@ -27,21 +27,13 @@ final class CrawlerAnySelectorTextSame extends Constraint
 
     public function toString(): string
     {
-<<<<<<< HEAD
-        return sprintf('has at least a node matching selector "%s" with content "%s"', $this->selector, $this->expectedText);
-=======
         return \sprintf('has at least a node matching selector "%s" with content "%s"', $this->selector, $this->expectedText);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function matches($other): bool
     {
         if (!$other instanceof Crawler) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('"%s" constraint expected an argument of type "%s", got "%s".', self::class, Crawler::class, get_debug_type($other)));
-=======
             throw new \InvalidArgumentException(\sprintf('"%s" constraint expected an argument of type "%s", got "%s".', self::class, Crawler::class, get_debug_type($other)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $other = $other->filter($this->selector);
@@ -49,11 +41,7 @@ final class CrawlerAnySelectorTextSame extends Constraint
             return false;
         }
 
-<<<<<<< HEAD
-        $nodes = $other->each(fn (Crawler $node) => trim($node->text(null, true)));
-=======
         $nodes = $other->each(static fn (Crawler $node) => trim($node->text(null, true)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return \in_array($this->expectedText, $nodes, true);
     }
@@ -61,11 +49,7 @@ final class CrawlerAnySelectorTextSame extends Constraint
     protected function failureDescription($other): string
     {
         if (!$other instanceof Crawler) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('"%s" constraint expected an argument of type "%s", got "%s".', self::class, Crawler::class, get_debug_type($other)));
-=======
             throw new \InvalidArgumentException(\sprintf('"%s" constraint expected an argument of type "%s", got "%s".', self::class, Crawler::class, get_debug_type($other)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return 'the Crawler '.$this->toString();

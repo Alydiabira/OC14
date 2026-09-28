@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace Doctrine\ORM\Tools\Console\Command;
 
-<<<<<<< HEAD
-=======
 use Doctrine\Deprecations\Deprecation;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\Tools\Console\MetadataFilter;
 use InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
@@ -16,10 +13,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-<<<<<<< HEAD
-=======
 use function assert;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function file_exists;
 use function is_dir;
 use function is_writable;
@@ -27,11 +21,8 @@ use function mkdir;
 use function realpath;
 use function sprintf;
 
-<<<<<<< HEAD
-=======
 use const PHP_VERSION_ID;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /**
  * Command to (re)generate the proxy classes used by doctrine.
  *
@@ -56,8 +47,6 @@ class GenerateProxiesCommand extends AbstractEntityManagerCommand
 
         $em = $this->getEntityManager($input);
 
-<<<<<<< HEAD
-=======
         if (PHP_VERSION_ID >= 80400) {
             Deprecation::trigger(
                 'doctrine/orm',
@@ -78,7 +67,6 @@ class GenerateProxiesCommand extends AbstractEntityManagerCommand
             }
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $metadatas = $em->getMetadataFactory()->getAllMetadata();
         $metadatas = MetadataFilter::filter($metadatas, $input->getOption('filter'));
 

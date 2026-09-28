@@ -34,11 +34,7 @@ final class EntityRelation
         private string $inverseClass,
     ) {
         if (!\in_array($type, self::getValidRelationTypes())) {
-<<<<<<< HEAD
-            throw new \Exception(sprintf('Invalid relation type "%s"', $type));
-=======
             throw new \Exception(\sprintf('Invalid relation type "%s".', $type));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (self::ONE_TO_MANY === $type) {

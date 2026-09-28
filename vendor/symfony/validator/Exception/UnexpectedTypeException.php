@@ -15,10 +15,6 @@ class UnexpectedTypeException extends ValidatorException
 {
     public function __construct(mixed $value, string $expectedType)
     {
-<<<<<<< HEAD
-        parent::__construct(sprintf('Expected argument of type "%s", "%s" given', $expectedType, get_debug_type($value)));
-=======
         parent::__construct(\sprintf('Expected argument of type "%s", "%s" given', $expectedType, get_debug_type($value)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

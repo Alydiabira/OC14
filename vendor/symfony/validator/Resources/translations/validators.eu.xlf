@@ -328,11 +328,7 @@
             </trans-unit>
             <trans-unit id="85">
                 <source>This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.</source>
-<<<<<<< HEAD
-                <target>Banku Identifikazioko Kode hau ez dago lotuta {{ IBAN }} IBAN-rekin.</target>
-=======
                 <target>Banku Identifikazioko Kode hau ez dago lotuta {{ iban }} IBAN-rekin.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="86">
                 <source>This value should be valid JSON.</source>
@@ -446,8 +442,6 @@
                 <source>This URL is missing a top-level domain.</source>
                 <target state="needs-review-translation">URL honek ez du goi-mailako domeinurik.</target>
             </trans-unit>
-<<<<<<< HEAD
-=======
             <trans-unit id="114">
                 <source>This value is too short. It should contain at least one word.|This value is too short. It should contain at least {{ min }} words.</source>
                 <target state="needs-review-translation">Balio hau oso laburra da. Gutxienez hitz bat izan behar du.|Balio hau oso laburra da. Gutxienez {{ min }} hitz izan behar ditu.</target>
@@ -584,7 +578,6 @@
                 <source>This value is not a valid ULID.</source>
                 <target state="needs-review-translation">Balio hau ez da ULID baliozko bat.</target>
             </trans-unit>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         </body>
     </file>
 </xliff>

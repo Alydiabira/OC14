@@ -97,11 +97,7 @@ abstract class AbstractOperation implements OperationInterface
     public function getMessages(string $domain): array
     {
         if (!\in_array($domain, $this->getDomains())) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('Invalid domain: "%s".', $domain));
-=======
             throw new InvalidArgumentException(\sprintf('Invalid domain: "%s".', $domain));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (!isset($this->messages[$domain][self::ALL_BATCH])) {
@@ -114,11 +110,7 @@ abstract class AbstractOperation implements OperationInterface
     public function getNewMessages(string $domain): array
     {
         if (!\in_array($domain, $this->getDomains())) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('Invalid domain: "%s".', $domain));
-=======
             throw new InvalidArgumentException(\sprintf('Invalid domain: "%s".', $domain));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (!isset($this->messages[$domain][self::NEW_BATCH])) {
@@ -131,11 +123,7 @@ abstract class AbstractOperation implements OperationInterface
     public function getObsoleteMessages(string $domain): array
     {
         if (!\in_array($domain, $this->getDomains())) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('Invalid domain: "%s".', $domain));
-=======
             throw new InvalidArgumentException(\sprintf('Invalid domain: "%s".', $domain));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (!isset($this->messages[$domain][self::OBSOLETE_BATCH])) {
@@ -161,11 +149,7 @@ abstract class AbstractOperation implements OperationInterface
      */
     public function moveMessagesToIntlDomainsIfPossible(string $batch = self::ALL_BATCH): void
     {
-<<<<<<< HEAD
-        // If MessageFormatter class does not exists, intl domains are not supported.
-=======
         // If MessageFormatter class does not exist, intl domains are not supported.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (!class_exists(\MessageFormatter::class)) {
             return;
         }
@@ -176,11 +160,7 @@ abstract class AbstractOperation implements OperationInterface
                 self::OBSOLETE_BATCH => $this->getObsoleteMessages($domain),
                 self::NEW_BATCH => $this->getNewMessages($domain),
                 self::ALL_BATCH => $this->getMessages($domain),
-<<<<<<< HEAD
-                default => throw new \InvalidArgumentException(sprintf('$batch argument must be one of ["%s", "%s", "%s"].', self::ALL_BATCH, self::NEW_BATCH, self::OBSOLETE_BATCH)),
-=======
                 default => throw new \InvalidArgumentException(\sprintf('$batch argument must be one of ["%s", "%s", "%s"].', self::ALL_BATCH, self::NEW_BATCH, self::OBSOLETE_BATCH)),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             };
 
             if (!$messages || (!$this->source->all($intlDomain) && $this->source->all($domain))) {
@@ -192,15 +172,12 @@ abstract class AbstractOperation implements OperationInterface
             $currentMessages = array_diff_key($messages, $result->all($domain));
             $result->replace($currentMessages, $domain);
             $result->replace($allIntlMessages + $messages, $intlDomain);
-<<<<<<< HEAD
-=======
 
             foreach ($result->getCatalogueMetadata('', $domain) ?? [] as $key => $value) {
                 if (null === $this->result->getCatalogueMetadata($key, $intlDomain)) {
                     $result->setCatalogueMetadata($key, $value, $intlDomain);
                 }
             }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 

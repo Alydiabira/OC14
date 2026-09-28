@@ -26,11 +26,7 @@ use function sprintf;
 use function strpos;
 
 /**
-<<<<<<< HEAD
- * Provides the behavior, features and SQL dialect of the IBM DB2 database platform of the oldest supported version.
-=======
  * Provides the behavior, features and SQL dialect of the Db2 database platform of the oldest supported version.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 class DB2Platform extends AbstractPlatform
 {
@@ -108,11 +104,7 @@ class DB2Platform extends AbstractPlatform
      */
     public function getVarcharTypeDeclarationSQL(array $column)
     {
-<<<<<<< HEAD
-        // for IBM DB2, the CHAR max length is less than VARCHAR default length
-=======
         // for Db2, the CHAR max length is less than VARCHAR default length
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (! isset($column['length']) && ! empty($column['fixed'])) {
             $column['length'] = $this->getCharMaxLength();
         }
@@ -183,11 +175,7 @@ class DB2Platform extends AbstractPlatform
             Deprecation::trigger(
                 'doctrine/dbal',
                 'https://github.com/doctrine/dbal/issues/3263',
-<<<<<<< HEAD
-                'Relying on the default string column length on IBM DB2 is deprecated'
-=======
                 'Relying on the default string column length on Db2 is deprecated'
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     . ', specify the length explicitly.',
             );
         }
@@ -205,13 +193,8 @@ class DB2Platform extends AbstractPlatform
             Deprecation::trigger(
                 'doctrine/dbal',
                 'https://github.com/doctrine/dbal/issues/3263',
-<<<<<<< HEAD
-                'Relying on the default binary column length on IBM DB2 is deprecated'
-                . ', specify the length explicitly.',
-=======
                 'Relying on the default binary column length on Db2 is deprecated'
                     . ', specify the length explicitly.',
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
         }
 
@@ -1021,15 +1004,9 @@ class DB2Platform extends AbstractPlatform
     /**
      * {@inheritDoc}
      *
-<<<<<<< HEAD
-     * DB2 supports savepoints, but they work semantically different than on other vendor platforms.
-     *
-     * TODO: We have to investigate how to get DB2 up and running with savepoints.
-=======
      * Db2 supports savepoints, but they work semantically different than on other vendor platforms.
      *
      * TODO: We have to investigate how to get Db2 up and running with savepoints.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function supportsSavepoints()
     {

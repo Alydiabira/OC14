@@ -12,20 +12,13 @@
 namespace Symfony\Component\Form\Extension\Core\Type;
 
 use Symfony\Component\Form\AbstractType;
-<<<<<<< HEAD
-=======
 use Symfony\Component\Form\Event\PreSubmitEvent;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Form\Exception\InvalidConfigurationException;
 use Symfony\Component\Form\Exception\LogicException;
 use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeImmutableToDateTimeTransformer;
 use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeToArrayTransformer;
 use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeToStringTransformer;
 use Symfony\Component\Form\Extension\Core\DataTransformer\DateTimeToTimestampTransformer;
-<<<<<<< HEAD
-use Symfony\Component\Form\Event\PreSubmitEvent;
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -42,6 +35,27 @@ class TimeType extends AbstractType
         'choice' => ChoiceType::class,
     ];
 
+    private const UTC_EQUIVALENT_TIMEZONES = [
+        '+00:00',
+        'Etc/GMT',
+        'Etc/GMT+0',
+        'Etc/GMT-0',
+        'Etc/GMT0',
+        'Etc/Greenwich',
+        'Etc/UCT',
+        'Etc/UTC',
+        'Etc/Universal',
+        'Etc/Zulu',
+        'GMT',
+        'GMT0',
+        'Greenwich',
+        'UCT',
+        'UTC',
+        'Universal',
+        'Z',
+        'Zulu',
+    ];
+
     /**
      * @return void
      */
@@ -55,11 +69,7 @@ class TimeType extends AbstractType
         }
 
         if (null !== $options['reference_date'] && $options['reference_date']->getTimezone()->getName() !== $options['model_timezone']) {
-<<<<<<< HEAD
-            throw new InvalidConfigurationException(sprintf('The configured "model_timezone" (%s) must match the timezone of the "reference_date" (%s).', $options['model_timezone'], $options['reference_date']->getTimezone()->getName()));
-=======
             throw new InvalidConfigurationException(\sprintf('The configured "model_timezone" (%s) must match the timezone of the "reference_date" (%s).', $options['model_timezone'], $options['reference_date']->getTimezone()->getName()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($options['with_minutes']) {
@@ -80,15 +90,9 @@ class TimeType extends AbstractType
                     if ($options['with_seconds']) {
                         // handle seconds ignored by user's browser when with_seconds enabled
                         // https://codereview.chromium.org/450533009/
-<<<<<<< HEAD
-                        $e->setData(sprintf('%s:%s:%s', $matches['hours'], $matches['minutes'], $matches['seconds'] ?? '00'));
-                    } else {
-                        $e->setData(sprintf('%s:%s', $matches['hours'], $matches['minutes']));
-=======
                         $e->setData(\sprintf('%s:%s:%s', $matches['hours'], $matches['minutes'], $matches['seconds'] ?? '00'));
                     } else {
                         $e->setData(\sprintf('%s:%s', $matches['hours'], $matches['minutes']));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
                 }
             });
@@ -236,13 +240,11 @@ class TimeType extends AbstractType
                     return;
                 }
 
-                if ($date->getTimezone()->getName() !== $options['model_timezone']) {
-<<<<<<< HEAD
-                    trigger_deprecation('symfony/form', '6.4', sprintf('Using a "%s" instance with a timezone ("%s") not matching the configured model timezone "%s" is deprecated.', $date::class, $date->getTimezone()->getName(), $options['model_timezone']));
-=======
-                    trigger_deprecation('symfony/form', '6.4', \sprintf('Using a "%s" instance with a timezone ("%s") not matching the configured model timezone "%s" is deprecated.', $date::class, $date->getTimezone()->getName(), $options['model_timezone']));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
-                    // throw new LogicException(sprintf('Using a "%s" instance with a timezone ("%s") not matching the configured model timezone "%s" is not supported.', $date::class, $date->getTimezone()->getName(), $options['model_timezone']));
+                $timezone = $date->getTimezone()->getName();
+
+                if ($timezone !== $options['model_timezone'] && !(\in_array($timezone, self::UTC_EQUIVALENT_TIMEZONES, true) && \in_array($options['model_timezone'], self::UTC_EQUIVALENT_TIMEZONES, true))) {
+                    trigger_deprecation('symfony/form', '6.4', \sprintf('Using a "%s" instance with a timezone ("%s") not matching the configured model timezone "%s" is deprecated.', $date::class, $timezone, $options['model_timezone']));
+                    // throw new LogicException(sprintf('Using a "%s" instance with a timezone ("%s") not matching the configured model timezone "%s" is not supported.', $date::class, $timezone, $options['model_timezone']));
                 }
             });
         }

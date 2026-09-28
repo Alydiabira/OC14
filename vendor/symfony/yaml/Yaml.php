@@ -35,10 +35,7 @@ class Yaml
     public const DUMP_EMPTY_ARRAY_AS_SEQUENCE = 1024;
     public const DUMP_NULL_AS_TILDE = 2048;
     public const DUMP_NUMERIC_KEY_AS_STRING = 4096;
-<<<<<<< HEAD
-=======
     public const PARSE_EXCEPTION_ON_ALIAS = 8192;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Parses a YAML file into a PHP value.
@@ -48,16 +45,6 @@ class Yaml
      *     $array = Yaml::parseFile('config.yml');
      *     print_r($array);
      *
-<<<<<<< HEAD
-     * @param string $filename The path to the YAML file to be parsed
-     * @param int    $flags    A bit field of PARSE_* constants to customize the YAML parser behavior
-     *
-     * @throws ParseException If the file could not be read or the YAML is not valid
-     */
-    public static function parseFile(string $filename, int $flags = 0): mixed
-    {
-        $yaml = new Parser();
-=======
      * @param string $filename                 The path to the YAML file to be parsed
      * @param int    $flags                    A bit field of PARSE_* constants to customize the YAML parser behavior
      * @param int    $maxNestingLevel          The maximum nesting depth for nested YAML blocks
@@ -68,7 +55,6 @@ class Yaml
     public static function parseFile(string $filename, int $flags = 0, int $maxNestingLevel = Parser::DEFAULT_MAX_NESTING_LEVEL, int $maxAliasesForCollections = Parser::DEFAULT_MAX_ALIASES_FOR_COLLECTIONS): mixed
     {
         $yaml = new Parser($maxNestingLevel, $maxAliasesForCollections);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $yaml->parseFile($filename, $flags);
     }
@@ -82,16 +68,6 @@ class Yaml
      *   print_r($array);
      *  </code>
      *
-<<<<<<< HEAD
-     * @param string $input A string containing YAML
-     * @param int    $flags A bit field of PARSE_* constants to customize the YAML parser behavior
-     *
-     * @throws ParseException If the YAML is not valid
-     */
-    public static function parse(string $input, int $flags = 0): mixed
-    {
-        $yaml = new Parser();
-=======
      * @param string $input                    A string containing YAML
      * @param int    $flags                    A bit field of PARSE_* constants to customize the YAML parser behavior
      * @param int    $maxNestingLevel          The maximum nesting depth for nested YAML blocks
@@ -102,7 +78,6 @@ class Yaml
     public static function parse(string $input, int $flags = 0, int $maxNestingLevel = Parser::DEFAULT_MAX_NESTING_LEVEL, int $maxAliasesForCollections = Parser::DEFAULT_MAX_ALIASES_FOR_COLLECTIONS): mixed
     {
         $yaml = new Parser($maxNestingLevel, $maxAliasesForCollections);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $yaml->parse($input, $flags);
     }

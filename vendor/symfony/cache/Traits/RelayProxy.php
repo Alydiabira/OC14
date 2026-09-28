@@ -11,8 +11,6 @@
 
 namespace Symfony\Component\Cache\Traits;
 
-<<<<<<< HEAD
-=======
 use Symfony\Component\Cache\Traits\Relay\BgsaveTrait;
 use Symfony\Component\Cache\Traits\Relay\CopyTrait;
 use Symfony\Component\Cache\Traits\Relay\FtTrait;
@@ -32,8 +30,8 @@ use Symfony\Component\Cache\Traits\Relay\Relay21Trait;
 use Symfony\Component\Cache\Traits\Relay\Relay22Trait;
 use Symfony\Component\Cache\Traits\Relay\Relay30Trait;
 use Symfony\Component\Cache\Traits\Relay\Relay40Trait;
+use Symfony\Component\Cache\Traits\Relay\Relay50Trait;
 use Symfony\Component\Cache\Traits\Relay\SwapdbTrait;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\VarExporter\LazyObjectInterface;
 use Symfony\Component\VarExporter\LazyProxyTrait;
 use Symfony\Contracts\Service\ResetInterface;
@@ -48,11 +46,6 @@ class_exists(\Symfony\Component\VarExporter\Internal\LazyObjectState::class);
  */
 class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInterface
 {
-<<<<<<< HEAD
-    use LazyProxyTrait {
-        resetLazyObject as reset;
-    }
-=======
     use BgsaveTrait;
     use CopyTrait;
     use FtTrait;
@@ -76,18 +69,14 @@ class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInter
     use Relay22Trait;
     use Relay30Trait;
     use Relay40Trait;
+    use Relay50Trait;
     use SwapdbTrait;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     private const LAZY_OBJECT_PROPERTY_SCOPES = [];
 
     public function __construct($host = null, $port = 6379, $connect_timeout = 0.0, $command_timeout = 0.0, #[\SensitiveParameter] $context = [], $database = 0)
     {
-<<<<<<< HEAD
-        return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->__construct(...\func_get_args());
-=======
         ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->__construct(...\func_get_args());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function connect($host, $port = 6379, $timeout = 0.0, $persistent_id = null, $retry_interval = 0, $read_timeout = 0.0, #[\SensitiveParameter] $context = [], $database = 0): bool
@@ -275,14 +264,6 @@ class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInter
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->rawCommand(...\func_get_args());
     }
 
-<<<<<<< HEAD
-    public function select($db): \Relay\Relay|bool
-    {
-        return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->select(...\func_get_args());
-    }
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function auth(#[\SensitiveParameter] $auth): bool
     {
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->auth(...\func_get_args());
@@ -323,27 +304,16 @@ class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInter
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->dbsize(...\func_get_args());
     }
 
-<<<<<<< HEAD
-    public function dump($key): \Relay\Relay|false|string
-    {
-        return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->dump(...\func_get_args());
-    }
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function replicaof($host = null, $port = 0): \Relay\Relay|bool
     {
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->replicaof(...\func_get_args());
     }
 
-<<<<<<< HEAD
-=======
     public function waitaof($numlocal, $numremote, $timeout): \Relay\Relay|array|false
     {
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->waitaof(...\func_get_args());
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function restore($key, $ttl, $value, $options = null): \Relay\Relay|bool
     {
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->restore(...\func_get_args());
@@ -354,14 +324,6 @@ class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInter
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->migrate(...\func_get_args());
     }
 
-<<<<<<< HEAD
-    public function copy($src, $dst, $options = null): \Relay\Relay|false|int
-    {
-        return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->copy(...\func_get_args());
-    }
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function echo($arg): \Relay\Relay|bool|string
     {
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->echo(...\func_get_args());
@@ -402,14 +364,6 @@ class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInter
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->lcs(...\func_get_args());
     }
 
-<<<<<<< HEAD
-    public function bgsave($schedule = false): \Relay\Relay|bool
-    {
-        return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->bgsave(...\func_get_args());
-    }
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function save(): \Relay\Relay|bool
     {
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->save(...\func_get_args());
@@ -465,14 +419,6 @@ class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInter
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->geoadd(...\func_get_args());
     }
 
-<<<<<<< HEAD
-    public function geodist($key, $src, $dst, $unit = null): \Relay\Relay|false|float
-    {
-        return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->geodist(...\func_get_args());
-    }
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function geohash($key, $member, ...$other_members): \Relay\Relay|array|false
     {
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->geohash(...\func_get_args());
@@ -498,14 +444,6 @@ class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInter
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->georadius_ro(...\func_get_args());
     }
 
-<<<<<<< HEAD
-    public function geosearch($key, $position, $shape, $unit, $options = []): \Relay\Relay|array
-    {
-        return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->geosearch(...\func_get_args());
-    }
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function geosearchstore($dst, $src, $position, $shape, $unit, $options = []): \Relay\Relay|false|int
     {
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->geosearchstore(...\func_get_args());
@@ -521,14 +459,6 @@ class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInter
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->getset(...\func_get_args());
     }
 
-<<<<<<< HEAD
-    public function getrange($key, $start, $end): \Relay\Relay|false|string
-    {
-        return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->getrange(...\func_get_args());
-    }
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function setrange($key, $start, $value): \Relay\Relay|false|int
     {
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->setrange(...\func_get_args());
@@ -609,14 +539,6 @@ class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInter
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->pfadd(...\func_get_args());
     }
 
-<<<<<<< HEAD
-    public function pfcount($key): \Relay\Relay|false|int
-    {
-        return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->pfcount(...\func_get_args());
-    }
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function pfmerge($dst, $srckeys): \Relay\Relay|bool
     {
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->pfmerge(...\func_get_args());
@@ -727,19 +649,6 @@ class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInter
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->type(...\func_get_args());
     }
 
-<<<<<<< HEAD
-    public function lmove($srckey, $dstkey, $srcpos, $dstpos): \Relay\Relay|false|null|string
-    {
-        return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->lmove(...\func_get_args());
-    }
-
-    public function blmove($srckey, $dstkey, $srcpos, $dstpos, $timeout): \Relay\Relay|false|null|string
-    {
-        return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->blmove(...\func_get_args());
-    }
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function lrange($key, $start, $stop): \Relay\Relay|array|false
     {
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->lrange(...\func_get_args());
@@ -895,14 +804,6 @@ class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInter
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->hmget(...\func_get_args());
     }
 
-<<<<<<< HEAD
-    public function hrandfield($hash, $options = null): \Relay\Relay|array|false|string
-    {
-        return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->hrandfield(...\func_get_args());
-    }
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function hmset($hash, $members): \Relay\Relay|bool
     {
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->hmset(...\func_get_args());
@@ -918,14 +819,6 @@ class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInter
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->hsetnx(...\func_get_args());
     }
 
-<<<<<<< HEAD
-    public function hset($key, $mem, $val, ...$kvals): \Relay\Relay|false|int
-    {
-        return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->hset(...\func_get_args());
-    }
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function hdel($key, $mem, ...$mems): \Relay\Relay|false|int
     {
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->hdel(...\func_get_args());
@@ -1056,19 +949,6 @@ class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInter
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->wait(...\func_get_args());
     }
 
-<<<<<<< HEAD
-    public function watch($key, ...$other_keys): \Relay\Relay|bool
-    {
-        return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->watch(...\func_get_args());
-    }
-
-    public function unwatch(): \Relay\Relay|bool
-    {
-        return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->unwatch(...\func_get_args());
-    }
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function discard(): bool
     {
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->discard(...\func_get_args());
@@ -1194,14 +1074,6 @@ class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInter
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->xack(...\func_get_args());
     }
 
-<<<<<<< HEAD
-    public function xadd($key, $id, $values, $maxlen = 0, $approx = false, $nomkstream = false): \Relay\Relay|false|string
-    {
-        return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->xadd(...\func_get_args());
-    }
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function xclaim($key, $group, $consumer, $min_idle, $ids, $options): \Relay\Relay|array|bool
     {
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->xclaim(...\func_get_args());
@@ -1307,19 +1179,6 @@ class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInter
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->zrevrangebylex(...\func_get_args());
     }
 
-<<<<<<< HEAD
-    public function zrank($key, $rank, $withscore = false): \Relay\Relay|array|false|int
-    {
-        return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->zrank(...\func_get_args());
-    }
-
-    public function zrevrank($key, $rank, $withscore = false): \Relay\Relay|array|false|int
-    {
-        return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->zrevrank(...\func_get_args());
-    }
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function zrem($key, ...$args): \Relay\Relay|false|int
     {
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->zrem(...\func_get_args());
@@ -1375,14 +1234,6 @@ class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInter
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->zmscore(...\func_get_args());
     }
 
-<<<<<<< HEAD
-    public function zscore($key, $member): \Relay\Relay|false|float
-    {
-        return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->zscore(...\func_get_args());
-    }
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function zinter($keys, $weights = null, $options = null): \Relay\Relay|array|false
     {
         return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->zinter(...\func_get_args());

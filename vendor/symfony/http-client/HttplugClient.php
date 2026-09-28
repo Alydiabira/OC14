@@ -114,11 +114,7 @@ final class HttplugClient implements ClientInterface, HttpAsyncClient, RequestFa
     public function sendAsyncRequest(RequestInterface $request): HttplugPromise
     {
         if (!$promisePool = $this->promisePool) {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('You cannot use "%s()" as the "guzzlehttp/promises" package is not installed. Try running "composer require guzzlehttp/promises".', __METHOD__));
-=======
             throw new \LogicException(\sprintf('You cannot use "%s()" as the "guzzlehttp/promises" package is not installed. Try running "composer require guzzlehttp/promises".', __METHOD__));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         try {
@@ -169,11 +165,7 @@ final class HttplugClient implements ClientInterface, HttpAsyncClient, RequestFa
         } elseif (class_exists(Request::class)) {
             $request = new Request($method, $uri);
         } else {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('You cannot use "%s()" as no PSR-17 factories have been found. Try running "composer require php-http/discovery psr/http-factory-implementation:*".', __METHOD__));
-=======
             throw new \LogicException(\sprintf('You cannot use "%s()" as no PSR-17 factories have been found. Try running "composer require php-http/discovery psr/http-factory-implementation:*".', __METHOD__));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $request = $request
@@ -206,13 +198,6 @@ final class HttplugClient implements ClientInterface, HttpAsyncClient, RequestFa
         } elseif (\is_resource($content)) {
             $stream = $this->streamFactory->createStreamFromResource($content);
         } else {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('"%s()" expects string, resource or StreamInterface, "%s" given.', __METHOD__, get_debug_type($content)));
-        }
-
-        if ($stream->isSeekable()) {
-            $stream->seek(0);
-=======
             throw new \InvalidArgumentException(\sprintf('"%s()" expects string, resource or StreamInterface, "%s" given.', __METHOD__, get_debug_type($content)));
         }
 
@@ -222,7 +207,6 @@ final class HttplugClient implements ClientInterface, HttpAsyncClient, RequestFa
             } catch (\RuntimeException) {
                 // ignore
             }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $stream;
@@ -263,26 +247,15 @@ final class HttplugClient implements ClientInterface, HttpAsyncClient, RequestFa
             return new Uri($uri);
         }
 
-<<<<<<< HEAD
-        throw new \LogicException(sprintf('You cannot use "%s()" as no PSR-17 factories have been found. Try running "composer require php-http/discovery psr/http-factory-implementation:*".', __METHOD__));
-    }
-
-    public function __sleep(): array
-=======
         throw new \LogicException(\sprintf('You cannot use "%s()" as no PSR-17 factories have been found. Try running "composer require php-http/discovery psr/http-factory-implementation:*".', __METHOD__));
     }
 
     public function __serialize(): array
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
     }
 
-<<<<<<< HEAD
-    public function __wakeup(): void
-=======
     public function __unserialize(array $data): void
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
     }
@@ -305,15 +278,11 @@ final class HttplugClient implements ClientInterface, HttpAsyncClient, RequestFa
             $body = $request->getBody();
 
             if ($body->isSeekable()) {
-<<<<<<< HEAD
-                $body->seek(0);
-=======
                 try {
                     $body->seek(0);
                 } catch (\RuntimeException) {
                     // ignore
                 }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $options = [

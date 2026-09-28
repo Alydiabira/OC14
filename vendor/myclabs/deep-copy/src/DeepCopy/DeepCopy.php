@@ -4,10 +4,7 @@ namespace DeepCopy;
 
 use ArrayObject;
 use DateInterval;
-<<<<<<< HEAD
-=======
 use DatePeriod;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use DateTimeInterface;
 use DateTimeZone;
 use DeepCopy\Exception\CloneException;
@@ -16,10 +13,7 @@ use DeepCopy\Filter\Filter;
 use DeepCopy\Matcher\Matcher;
 use DeepCopy\Reflection\ReflectionHelper;
 use DeepCopy\TypeFilter\Date\DateIntervalFilter;
-<<<<<<< HEAD
-=======
 use DeepCopy\TypeFilter\Date\DatePeriodFilter;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use DeepCopy\TypeFilter\Spl\ArrayObjectFilter;
 use DeepCopy\TypeFilter\Spl\SplDoublyLinkedListFilter;
 use DeepCopy\TypeFilter\TypeFilter;
@@ -27,10 +21,7 @@ use DeepCopy\TypeMatcher\TypeMatcher;
 use ReflectionObject;
 use ReflectionProperty;
 use SplDoublyLinkedList;
-<<<<<<< HEAD
-=======
 use WeakMap;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * @final
@@ -38,15 +29,9 @@ use WeakMap;
 class DeepCopy
 {
     /**
-<<<<<<< HEAD
-     * @var object[] List of objects copied.
-     */
-    private $hashMap = [];
-=======
      * @var WeakMap<object, object> Map of source objects to their copies.
      */
     private $objectMap;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Filters to apply.
@@ -79,17 +64,11 @@ class DeepCopy
     public function __construct($useCloneMethod = false)
     {
         $this->useCloneMethod = $useCloneMethod;
-<<<<<<< HEAD
-
-        $this->addTypeFilter(new ArrayObjectFilter($this), new TypeMatcher(ArrayObject::class));
-        $this->addTypeFilter(new DateIntervalFilter(), new TypeMatcher(DateInterval::class));
-=======
         $this->objectMap = new WeakMap();
 
         $this->addTypeFilter(new ArrayObjectFilter($this), new TypeMatcher(ArrayObject::class));
         $this->addTypeFilter(new DateIntervalFilter(), new TypeMatcher(DateInterval::class));
         $this->addTypeFilter(new DatePeriodFilter(), new TypeMatcher(DatePeriod::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->addTypeFilter(new SplDoublyLinkedListFilter($this), new TypeMatcher(SplDoublyLinkedList::class));
     }
 
@@ -110,15 +89,6 @@ class DeepCopy
     /**
      * Deep copies the given object.
      *
-<<<<<<< HEAD
-     * @param mixed $object
-     *
-     * @return mixed
-     */
-    public function copy($object)
-    {
-        $this->hashMap = [];
-=======
      * @template TObject
      *
      * @param TObject $object
@@ -128,7 +98,6 @@ class DeepCopy
     public function copy($object)
     {
         $this->objectMap = new WeakMap();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this->recursiveCopy($object);
     }
@@ -157,8 +126,6 @@ class DeepCopy
         ];
     }
 
-<<<<<<< HEAD
-=======
     public function prependTypeFilter(TypeFilter $filter, TypeMatcher $matcher)
     {
         array_unshift($this->typeFilters, [
@@ -167,7 +134,6 @@ class DeepCopy
         ]);
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private function recursiveCopy($var)
     {
         // Matches Type Filter
@@ -224,15 +190,8 @@ class DeepCopy
      */
     private function copyObject($object)
     {
-<<<<<<< HEAD
-        $objectHash = spl_object_hash($object);
-
-        if (isset($this->hashMap[$objectHash])) {
-            return $this->hashMap[$objectHash];
-=======
         if (isset($this->objectMap[$object])) {
             return $this->objectMap[$object];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $reflectedObject = new ReflectionObject($object);
@@ -240,11 +199,7 @@ class DeepCopy
 
         if (false === $isCloneable) {
             if ($this->skipUncloneable) {
-<<<<<<< HEAD
-                $this->hashMap[$objectHash] = $object;
-=======
                 $this->objectMap[$object] = $object;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 return $object;
             }
@@ -258,11 +213,7 @@ class DeepCopy
         }
 
         $newObject = clone $object;
-<<<<<<< HEAD
-        $this->hashMap[$objectHash] = $newObject;
-=======
         $this->objectMap[$object] = $newObject;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($this->useCloneMethod && $reflectedObject->hasMethod('__clone')) {
             return $newObject;
@@ -286,14 +237,11 @@ class DeepCopy
             return;
         }
 
-<<<<<<< HEAD
-=======
         // Ignore readonly properties
         if (method_exists($property, 'isReadOnly') && $property->isReadOnly()) {
             return;
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         // Apply the filters
         foreach ($this->filters as $item) {
             /** @var Matcher $matcher */
@@ -319,13 +267,9 @@ class DeepCopy
             }
         }
 
-<<<<<<< HEAD
-        $property->setAccessible(true);
-=======
         if (PHP_VERSION_ID < 80100) {
             $property->setAccessible(true);
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         // Ignore uninitialized properties (for PHP >7.4)
         if (method_exists($property, 'isInitialized') && !$property->isInitialized($object)) {

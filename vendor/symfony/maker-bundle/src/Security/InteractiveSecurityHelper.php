@@ -96,19 +96,11 @@ final class InteractiveSecurityHelper
         }
 
         if (empty($classProperties)) {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('No properties were found in "%s" entity', $userClass));
-        }
-
-        return $io->choice(
-            sprintf('Which field on your <fg=yellow>%s</> class will people enter when logging in?', $userClass),
-=======
             throw new \LogicException(\sprintf('No properties were found in "%s" entity', $userClass));
         }
 
         return $io->choice(
             \sprintf('Which field on your <fg=yellow>%s</> class will people enter when logging in?', $userClass),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $classProperties,
             property_exists($userClass, 'username') ? 'username' : (property_exists($userClass, 'email') ? 'email' : null)
         );
@@ -127,11 +119,7 @@ final class InteractiveSecurityHelper
         }
 
         return $io->choice(
-<<<<<<< HEAD
-            sprintf('Which field on your <fg=yellow>%s</> class holds the email address?', $userClass),
-=======
             \sprintf('Which field on your <fg=yellow>%s</> class holds the email address?', $userClass),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $classProperties
         );
     }
@@ -149,11 +137,7 @@ final class InteractiveSecurityHelper
         }
 
         return $io->choice(
-<<<<<<< HEAD
-            sprintf('Which field on your <fg=yellow>%s</> class holds the encoded password?', $userClass),
-=======
             \sprintf('Which field on your <fg=yellow>%s</> class holds the encoded password?', $userClass),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $classProperties
         );
     }
@@ -165,33 +149,21 @@ final class InteractiveSecurityHelper
         }
 
         return $io->choice(
-<<<<<<< HEAD
-            sprintf('Which method on your <fg=yellow>%s</> class can be used to set the encoded password (e.g. setPassword())?', $userClass),
-=======
             \sprintf('Which method on your <fg=yellow>%s</> class can be used to set the encoded password (e.g. setPassword())?', $userClass),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $methodChoices
         );
     }
 
     public function guessEmailGetter(SymfonyStyle $io, string $userClass, string $emailPropertyName): string
     {
-<<<<<<< HEAD
-        $supposedEmailMethodName = sprintf('get%s', Str::asCamelCase($emailPropertyName));
-=======
         $supposedEmailMethodName = \sprintf('get%s', Str::asCamelCase($emailPropertyName));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (null === ($methodChoices = $this->methodNameGuesser($userClass, $supposedEmailMethodName))) {
             return $supposedEmailMethodName;
         }
 
         return $io->choice(
-<<<<<<< HEAD
-            sprintf('Which method on your <fg=yellow>%s</> class can be used to get the email address (e.g. getEmail())?', $userClass),
-=======
             \sprintf('Which method on your <fg=yellow>%s</> class can be used to get the email address (e.g. getEmail())?', $userClass),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $methodChoices
         );
     }
@@ -203,11 +175,7 @@ final class InteractiveSecurityHelper
         }
 
         return $io->choice(
-<<<<<<< HEAD
-            sprintf('Which method on your <fg=yellow>%s</> class can be used to get the unique user identifier (e.g. getId())?', $userClass),
-=======
             \sprintf('Which method on your <fg=yellow>%s</> class can be used to get the unique user identifier (e.g. getId())?', $userClass),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $methodChoices
         );
     }

@@ -95,11 +95,7 @@ class Person extends \Faker\Provider\Person
      *
      * @return string on format DDMMYYCZZZQ, where DDMMYY is the date of birth, C the century sign, ZZZ the individual number and Q the control character (checksum)
      */
-<<<<<<< HEAD
-    public function personalIdentityNumber(\DateTime $birthdate = null, $gender = null)
-=======
     public function personalIdentityNumber(?\DateTime $birthdate = null, $gender = null)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $checksumCharacters = '0123456789ABCDEFHJKLMNPRSTUVWXY';
 

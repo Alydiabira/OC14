@@ -55,11 +55,7 @@ final class PseudoLocalizationTranslator implements TranslatorInterface
      *  * parse_html:
      *      type: boolean
      *      default: false
-<<<<<<< HEAD
-     *      description: parse the translated string as HTML - looking for HTML tags has a performance impact but allows to preserve them from alterations - it also allows to compute the visible translated string length which is useful to correctly expand ot when it contains HTML
-=======
      *      description: parse the translated string as HTML - looking for HTML tags has a performance impact but allows to preserve them from alterations - it also allows to compute the visible translated string length which is useful to correctly expand or when it contains HTML
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *      warning: unclosed tags are unsupported, they will be fixed (closed) by the parser - eg, "foo <div>bar" => "foo <div>bar</div>"
      *
      *  * localizable_html_attributes:
@@ -367,8 +363,5 @@ final class PseudoLocalizationTranslator implements TranslatorInterface
         return false === ($encoding = mb_detect_encoding($s, null, true)) ? \strlen($s) : mb_strlen($s, $encoding);
     }
 }
-<<<<<<< HEAD
-=======
 
 // @php-cs-fixer-ignore random_api_migration As logic is coupled with mt_srand() in tests
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96

@@ -63,11 +63,7 @@ class IsGrantedAttributeListener implements EventSubscriberInterface
             }
 
             if (!$this->authChecker->isGranted($attribute->attribute, $subject)) {
-<<<<<<< HEAD
-                $message = $attribute->message ?: sprintf('Access Denied by #[IsGranted(%s)] on controller', $this->getIsGrantedString($attribute));
-=======
                 $message = $attribute->message ?: \sprintf('Access Denied by #[IsGranted(%s)] on controller', $this->getIsGrantedString($attribute));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 if ($statusCode = $attribute->statusCode) {
                     throw new HttpException($statusCode, $message, code: $attribute->exceptionCode ?? 0);
@@ -99,11 +95,7 @@ class IsGrantedAttributeListener implements EventSubscriberInterface
         }
 
         if (!\array_key_exists($subjectRef, $arguments)) {
-<<<<<<< HEAD
-            throw new RuntimeException(sprintf('Could not find the subject "%s" for the #[IsGranted] attribute. Try adding a "$%s" argument to your controller method.', $subjectRef, $subjectRef));
-=======
             throw new RuntimeException(\sprintf('Could not find the subject "%s" for the #[IsGranted] attribute. Try adding a "$%s" argument to your controller method.', $subjectRef, $subjectRef));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $arguments[$subjectRef];
@@ -111,26 +103,15 @@ class IsGrantedAttributeListener implements EventSubscriberInterface
 
     private function getIsGrantedString(IsGranted $isGranted): string
     {
-<<<<<<< HEAD
-        $processValue = fn ($value) => sprintf($value instanceof Expression ? 'new Expression("%s")' : '"%s"', $value);
-=======
         $processValue = static fn ($value) => \sprintf($value instanceof Expression ? 'new Expression("%s")' : '"%s"', $value);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $argsString = $processValue($isGranted->attribute);
 
         if (null !== $subject = $isGranted->subject) {
-<<<<<<< HEAD
-            $subject = !\is_array($subject) ? $processValue($subject) : array_map(function ($key, $value) use ($processValue) {
-                $value = $processValue($value);
-
-                return \is_string($key) ? sprintf('"%s" => %s', $key, $value) : $value;
-=======
             $subject = !\is_array($subject) ? $processValue($subject) : array_map(static function ($key, $value) use ($processValue) {
                 $value = $processValue($value);
 
                 return \is_string($key) ? \sprintf('"%s" => %s', $key, $value) : $value;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }, array_keys($subject), $subject);
 
             $argsString .= ', '.(!\is_array($subject) ? $subject : '['.implode(', ', $subject).']');

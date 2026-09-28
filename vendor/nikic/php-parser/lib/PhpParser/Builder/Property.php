@@ -23,11 +23,8 @@ class Property implements PhpParser\Builder {
     protected ?Node $type = null;
     /** @var list<Node\AttributeGroup> */
     protected array $attributeGroups = [];
-<<<<<<< HEAD
-=======
     /** @var list<Node\PropertyHook> */
     protected array $hooks = [];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Creates a property builder.
@@ -94,8 +91,6 @@ class Property implements PhpParser\Builder {
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Makes the property abstract. Requires at least one property hook to be specified as well.
      *
      * @return $this The builder instance (for fluid interface)
@@ -140,7 +135,6 @@ class Property implements PhpParser\Builder {
     }
 
     /**
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Sets default value for the property.
      *
      * @param mixed $value Default value to use
@@ -195,8 +189,6 @@ class Property implements PhpParser\Builder {
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Adds a property hook.
      *
      * @return $this The builder instance (for fluid interface)
@@ -208,19 +200,15 @@ class Property implements PhpParser\Builder {
     }
 
     /**
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Returns the built class node.
      *
      * @return Stmt\Property The built property node
      */
     public function getNode(): PhpParser\Node {
-<<<<<<< HEAD
-=======
         if ($this->flags & Modifiers::ABSTRACT && !$this->hooks) {
             throw new PhpParser\Error('Only hooked properties may be declared abstract');
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return new Stmt\Property(
             $this->flags !== 0 ? $this->flags : Modifiers::PUBLIC,
             [
@@ -228,12 +216,8 @@ class Property implements PhpParser\Builder {
             ],
             $this->attributes,
             $this->type,
-<<<<<<< HEAD
-            $this->attributeGroups
-=======
             $this->attributeGroups,
             $this->hooks
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         );
     }
 }

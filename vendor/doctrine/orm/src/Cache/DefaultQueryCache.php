@@ -16,10 +16,7 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\PersistentCollection;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\ResultSetMapping;
-<<<<<<< HEAD
-=======
 use Doctrine\ORM\Query\SqlWalker;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\UnitOfWork;
 
 use function array_map;
@@ -214,15 +211,11 @@ class DefaultQueryCache implements QueryCache
             throw FeatureNotImplemented::nonSelectStatements();
         }
 
-<<<<<<< HEAD
-        if (! ($key->cacheMode & Cache::MODE_PUT)) {
-=======
         if (($hints[SqlWalker::HINT_PARTIAL] ?? false) === true || ($hints[Query::HINT_FORCE_PARTIAL_LOAD] ?? false) === true) {
             throw FeatureNotImplemented::partialEntities();
         }
 
         if (! ($key->cacheMode & Cache::MODE_PUT) && ! ($key->cacheMode & Cache::MODE_REFRESH)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return false;
         }
 
@@ -238,10 +231,6 @@ class DefaultQueryCache implements QueryCache
         $region = $persister->getCacheRegion();
 
         $cm = $this->em->getClassMetadata($entityName);
-<<<<<<< HEAD
-        assert($cm instanceof ClassMetadata);
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         foreach ($result as $index => $entity) {
             $identifier = $this->uow->getEntityIdentifier($entity);
@@ -307,11 +296,7 @@ class DefaultQueryCache implements QueryCache
 
     /**
      * @return mixed[]|null
-<<<<<<< HEAD
-     * @psalm-return array{targetEntity: class-string, type: mixed, list?: array[], identifier?: array}|null
-=======
      * @phpstan-return array{targetEntity: class-string, type: mixed, list?: array[], identifier?: array}|null
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private function storeAssociationCache(QueryCacheKey $key, AssociationMapping $assoc, mixed $assocValue): array|null
     {
@@ -362,11 +347,7 @@ class DefaultQueryCache implements QueryCache
         ];
     }
 
-<<<<<<< HEAD
-    /** @psalm-return list<mixed>|object|null */
-=======
     /** @phpstan-return list<mixed>|object|null */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private function getAssociationValue(
         ResultSetMapping $rsm,
         string $assocAlias,
@@ -392,15 +373,9 @@ class DefaultQueryCache implements QueryCache
     }
 
     /**
-<<<<<<< HEAD
-     * @psalm-param array<array-key, array{field: string, class: string}> $path
-     *
-     * @psalm-return list<mixed>|object|null
-=======
      * @phpstan-param array<array-key, array{field: string, class: string}> $path
      *
      * @phpstan-return list<mixed>|object|null
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private function getAssociationPathValue(mixed $value, array $path): array|object|null
     {

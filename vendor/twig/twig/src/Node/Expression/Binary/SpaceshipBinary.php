@@ -12,26 +12,18 @@
 namespace Twig\Node\Expression\Binary;
 
 use Twig\Compiler;
-<<<<<<< HEAD
-
-class SpaceshipBinary extends AbstractBinary
-=======
 use Twig\Node\CoercesChildrenToStringInterface;
 use Twig\Node\Expression\ReturnNumberInterface;
 
 class SpaceshipBinary extends AbstractBinary implements ReturnNumberInterface, CoercesChildrenToStringInterface
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 {
     public function operator(Compiler $compiler): Compiler
     {
         return $compiler->raw('<=>');
     }
-<<<<<<< HEAD
-=======
 
     public function getStringCoercedChildNames(): array
     {
         return ['left', 'right'];
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

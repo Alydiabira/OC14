@@ -145,11 +145,7 @@ class NodeDumper {
         } elseif ($node instanceof Comment) {
             $this->res .= \str_replace("\n", $this->nl, $node->getReformattedText());
         } elseif (\is_string($node)) {
-<<<<<<< HEAD
-            $this->res .= \str_replace("\n", $this->nl, (string)$node);
-=======
             $this->res .= \str_replace("\n", $this->nl, $node);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } elseif (\is_int($node) || \is_float($node)) {
             $this->res .= $node;
         } elseif (null === $node) {
@@ -189,8 +185,6 @@ class NodeDumper {
         if ($flags & Modifiers::READONLY) {
             $strs[] = 'READONLY';
         }
-<<<<<<< HEAD
-=======
         if ($flags & Modifiers::PUBLIC_SET) {
             $strs[] = 'PUBLIC_SET';
         }
@@ -200,7 +194,6 @@ class NodeDumper {
         if ($flags & Modifiers::PRIVATE_SET) {
             $strs[] = 'PRIVATE_SET';
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($strs) {
             return implode(' | ', $strs) . ' (' . $flags . ')';

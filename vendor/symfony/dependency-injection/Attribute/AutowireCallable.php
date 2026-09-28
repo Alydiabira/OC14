@@ -42,11 +42,7 @@ class AutowireCallable extends Autowire
 
     public function buildDefinition(mixed $value, ?string $type, \ReflectionParameter $parameter): Definition
     {
-<<<<<<< HEAD
-        return (new Definition($type = \is_string($this->lazy) ? $this->lazy : ($type ?: 'Closure')))
-=======
         return (new Definition($type = \is_array($this->lazy) ? current($this->lazy) : ($type ?: 'Closure')))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->setFactory(['Closure', 'fromCallable'])
             ->setArguments([\is_array($value) ? $value + [1 => '__invoke'] : $value])
             ->setLazy($this->lazy || 'Closure' !== $type && 'callable' !== (string) $parameter->getType());

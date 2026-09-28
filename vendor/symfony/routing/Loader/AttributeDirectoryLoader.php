@@ -37,19 +37,11 @@ class AttributeDirectoryLoader extends AttributeFileLoader
         $files = iterator_to_array(new \RecursiveIteratorIterator(
             new \RecursiveCallbackFilterIterator(
                 new \RecursiveDirectoryIterator($dir, \FilesystemIterator::SKIP_DOTS | \FilesystemIterator::FOLLOW_SYMLINKS),
-<<<<<<< HEAD
-                fn (\SplFileInfo $current) => !str_starts_with($current->getBasename(), '.')
-            ),
-            \RecursiveIteratorIterator::LEAVES_ONLY
-        ));
-        usort($files, fn (\SplFileInfo $a, \SplFileInfo $b) => (string) $a > (string) $b ? 1 : -1);
-=======
                 static fn (\SplFileInfo $current) => !str_starts_with($current->getBasename(), '.')
             ),
             \RecursiveIteratorIterator::LEAVES_ONLY
         ));
         usort($files, static fn (\SplFileInfo $a, \SplFileInfo $b) => (string) $a > (string) $b ? 1 : -1);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         foreach ($files as $file) {
             if (!$file->isFile() || !str_ends_with($file->getFilename(), '.php')) {

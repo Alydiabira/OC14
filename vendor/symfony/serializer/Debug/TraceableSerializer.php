@@ -24,11 +24,7 @@ use Symfony\Component\Serializer\SerializerInterface;
  *
  * @author Mathias Arlaud <mathias.arlaud@gmail.com>
  *
-<<<<<<< HEAD
- * @internal
-=======
  * @final
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 class TraceableSerializer implements SerializerInterface, NormalizerInterface, DenormalizerInterface, EncoderInterface, DecoderInterface
 {
@@ -45,11 +41,7 @@ class TraceableSerializer implements SerializerInterface, NormalizerInterface, D
 
     public function serialize(mixed $data, string $format, array $context = []): string
     {
-<<<<<<< HEAD
-        $context[self::DEBUG_TRACE_ID] = $traceId = uniqid();
-=======
         $context[self::DEBUG_TRACE_ID] = $traceId = uniqid('', true);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $startTime = microtime(true);
         $result = $this->serializer->serialize($data, $format, $context);
@@ -64,11 +56,7 @@ class TraceableSerializer implements SerializerInterface, NormalizerInterface, D
 
     public function deserialize(mixed $data, string $type, string $format, array $context = []): mixed
     {
-<<<<<<< HEAD
-        $context[self::DEBUG_TRACE_ID] = $traceId = uniqid();
-=======
         $context[self::DEBUG_TRACE_ID] = $traceId = uniqid('', true);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $startTime = microtime(true);
         $result = $this->serializer->deserialize($data, $type, $format, $context);
@@ -83,11 +71,7 @@ class TraceableSerializer implements SerializerInterface, NormalizerInterface, D
 
     public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
     {
-<<<<<<< HEAD
-        $context[self::DEBUG_TRACE_ID] = $traceId = uniqid();
-=======
         $context[self::DEBUG_TRACE_ID] = $traceId = uniqid('', true);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $startTime = microtime(true);
         $result = $this->serializer->normalize($object, $format, $context);
@@ -102,11 +86,7 @@ class TraceableSerializer implements SerializerInterface, NormalizerInterface, D
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-<<<<<<< HEAD
-        $context[self::DEBUG_TRACE_ID] = $traceId = uniqid();
-=======
         $context[self::DEBUG_TRACE_ID] = $traceId = uniqid('', true);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $startTime = microtime(true);
         $result = $this->serializer->denormalize($data, $type, $format, $context);
@@ -121,11 +101,7 @@ class TraceableSerializer implements SerializerInterface, NormalizerInterface, D
 
     public function encode(mixed $data, string $format, array $context = []): string
     {
-<<<<<<< HEAD
-        $context[self::DEBUG_TRACE_ID] = $traceId = uniqid();
-=======
         $context[self::DEBUG_TRACE_ID] = $traceId = uniqid('', true);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $startTime = microtime(true);
         $result = $this->serializer->encode($data, $format, $context);
@@ -140,11 +116,7 @@ class TraceableSerializer implements SerializerInterface, NormalizerInterface, D
 
     public function decode(string $data, string $format, array $context = []): mixed
     {
-<<<<<<< HEAD
-        $context[self::DEBUG_TRACE_ID] = $traceId = uniqid();
-=======
         $context[self::DEBUG_TRACE_ID] = $traceId = uniqid('', true);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $startTime = microtime(true);
         $result = $this->serializer->decode($data, $format, $context);
@@ -207,13 +179,8 @@ class TraceableSerializer implements SerializerInterface, NormalizerInterface, D
                 && $method === $trace[$i]['function']
                 && is_a($trace[$i]['class'], $interface, true)
             ) {
-<<<<<<< HEAD
-                $file = $trace[$i]['file'];
-                $line = $trace[$i]['line'];
-=======
                 $file = $trace[$i]['file'] ?? $trace[$i + 1]['file'];
                 $line = $trace[$i]['line'] ?? $trace[$i + 1]['line'];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 break;
             }

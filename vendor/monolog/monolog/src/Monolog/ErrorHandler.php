@@ -41,12 +41,9 @@ class ErrorHandler
 
     private bool $hasFatalErrorHandler = false;
 
-<<<<<<< HEAD
-=======
     /** @var int bitmask of E_* constants to capture stack traces for, 0 to disable */
     private int $captureStackTraceTypes = 0;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private string $fatalLevel = LogLevel::ALERT;
 
     private string|null $reservedMemory = null;
@@ -130,13 +127,8 @@ class ErrorHandler
     }
 
     /**
-<<<<<<< HEAD
-     * @param LogLevel::*|null $level              a LogLevel::* constant, null to use the default LogLevel::ALERT
-     * @param int              $reservedMemorySize Amount of KBs to reserve in memory so that it can be freed when handling fatal errors giving Monolog some room in memory to get its job done
-=======
      * @param  LogLevel::*|null $level              a LogLevel::* constant, null to use the default LogLevel::ALERT
      * @param  int              $reservedMemorySize Amount of KBs to reserve in memory so that it can be freed when handling fatal errors giving Monolog some room in memory to get its job done
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return $this
      */
     public function registerFatalHandler($level = null, int $reservedMemorySize = 20): self
@@ -151,8 +143,6 @@ class ErrorHandler
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Attaches an ErrorException carrying the stack trace of the error to the log record's context
      *
      * PHP does not report where a warning/notice/deprecation came from, so without this the records
@@ -177,7 +167,6 @@ class ErrorHandler
     }
 
     /**
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return array<class-string, LogLevel::*>
      */
     protected function defaultExceptionLevelMap(): array
@@ -205,11 +194,7 @@ class ErrorHandler
             E_USER_ERROR        => LogLevel::ERROR,
             E_USER_WARNING      => LogLevel::WARNING,
             E_USER_NOTICE       => LogLevel::NOTICE,
-<<<<<<< HEAD
-            E_STRICT            => LogLevel::NOTICE,
-=======
             2048                => LogLevel::NOTICE, // E_STRICT
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             E_RECOVERABLE_ERROR => LogLevel::ERROR,
             E_DEPRECATED        => LogLevel::NOTICE,
             E_USER_DEPRECATED   => LogLevel::NOTICE,
@@ -236,14 +221,9 @@ class ErrorHandler
             ($this->previousExceptionHandler)($e);
         }
 
-<<<<<<< HEAD
-        if (!headers_sent() && in_array(strtolower((string) ini_get('display_errors')), ['0', '', 'false', 'off', 'none', 'no'], true)) {
-            http_response_code(500);
-=======
         if (!headers_sent() && \in_array(strtolower((string) \ini_get('display_errors')), ['0', '', 'false', 'off', 'none', 'no'], true)) {
             // PHP 8.5+ warns if header('HTTP/...') already staged a status line, which is undetectable from userland
             @http_response_code(500);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         exit(255);
@@ -255,15 +235,6 @@ class ErrorHandler
             return false;
         }
 
-<<<<<<< HEAD
-        // fatal error codes are ignored if a fatal error handler is present as well to avoid duplicate log entries
-        if (!$this->hasFatalErrorHandler || !in_array($code, self::FATAL_ERRORS, true)) {
-            $level = $this->errorLevelMap[$code] ?? LogLevel::CRITICAL;
-            $this->logger->log($level, self::codeToString($code).': '.$message, ['code' => $code, 'message' => $message, 'file' => $file, 'line' => $line]);
-        } else {
-            $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-            array_shift($trace); // Exclude handleError from trace
-=======
         $isFatal = $this->hasFatalErrorHandler && \in_array($code, self::FATAL_ERRORS, true);
 
         $trace = null;
@@ -281,7 +252,6 @@ class ErrorHandler
             }
             $this->logger->log($level, self::codeToString($code).': '.$message, $context);
         } else {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->lastFatalData = ['type' => $code, 'message' => $message, 'file' => $file, 'line' => $line, 'trace' => $trace];
         }
 
@@ -302,23 +272,11 @@ class ErrorHandler
     {
         $this->reservedMemory = '';
 
-<<<<<<< HEAD
-        if (is_array($this->lastFatalData)) {
-=======
         if (\is_array($this->lastFatalData)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $lastError = $this->lastFatalData;
         } else {
             $lastError = error_get_last();
         }
-<<<<<<< HEAD
-        if (is_array($lastError) && in_array($lastError['type'], self::FATAL_ERRORS, true)) {
-            $trace = $lastError['trace'] ?? null;
-            $this->logger->log(
-                $this->fatalLevel,
-                'Fatal Error ('.self::codeToString($lastError['type']).'): '.$lastError['message'],
-                ['code' => $lastError['type'], 'message' => $lastError['message'], 'file' => $lastError['file'], 'line' => $lastError['line'], 'trace' => $trace]
-=======
         if (\is_array($lastError) && \in_array($lastError['type'], self::FATAL_ERRORS, true)) {
             // PHP 8.5+ reports a trace for fatal errors which never reach the error handler (OOM, timeouts)
             $trace = $lastError['trace'] ?? null;
@@ -331,7 +289,6 @@ class ErrorHandler
                 $this->fatalLevel,
                 'Fatal Error ('.self::codeToString($lastError['type']).'): '.$lastError['message'],
                 $context
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
 
             if ($this->logger instanceof Logger) {
@@ -342,8 +299,6 @@ class ErrorHandler
         }
     }
 
-<<<<<<< HEAD
-=======
     /**
      * @param list<array<string, mixed>> $trace
      */
@@ -358,7 +313,6 @@ class ErrorHandler
         return $e;
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private static function codeToString(int $code): string
     {
         return match ($code) {
@@ -373,11 +327,7 @@ class ErrorHandler
             E_USER_ERROR => 'E_USER_ERROR',
             E_USER_WARNING => 'E_USER_WARNING',
             E_USER_NOTICE => 'E_USER_NOTICE',
-<<<<<<< HEAD
-            E_STRICT => 'E_STRICT',
-=======
             2048 => 'E_STRICT',
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             E_RECOVERABLE_ERROR => 'E_RECOVERABLE_ERROR',
             E_DEPRECATED => 'E_DEPRECATED',
             E_USER_DEPRECATED => 'E_USER_DEPRECATED',

@@ -2,13 +2,8 @@
 **/dist/
 **/vendor/
 /_site/
-<<<<<<< HEAD
-/js/coverage/
-/site/static/sw.js
-=======
 /site/public/
 /js/coverage/
 /site/static/sw.js
 /site/static/docs/**/assets/sw.js
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /site/layouts/partials/

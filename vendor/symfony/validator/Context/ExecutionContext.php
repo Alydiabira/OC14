@@ -268,11 +268,7 @@ class ExecutionContext implements ExecutionContextInterface
     public function generateCacheKey(object $object): string
     {
         if (!isset($this->cachedObjectsRefs[$object])) {
-<<<<<<< HEAD
-            $this->cachedObjectsRefs[$object] = spl_object_hash($object);
-=======
             $this->cachedObjectsRefs[$object] = spl_object_id($object);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->cachedObjectsRefs[$object];

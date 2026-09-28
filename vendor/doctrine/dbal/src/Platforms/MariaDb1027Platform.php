@@ -3,13 +3,7 @@
 namespace Doctrine\DBAL\Platforms;
 
 /**
-<<<<<<< HEAD
- * Provides the behavior, features and SQL dialect of the MariaDB 10.2 (10.2.7 GA) database platform.
- *
- * Note: Should not be used with versions prior to 10.2.7.
-=======
  * Provides the behavior, features and SQL dialect of the MariaDB 10.2 database platform.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @deprecated This class will be merged with {@see MariaDBPlatform} in 4.0 because support for MariaDB
  *             releases prior to 10.4.3 will be dropped.

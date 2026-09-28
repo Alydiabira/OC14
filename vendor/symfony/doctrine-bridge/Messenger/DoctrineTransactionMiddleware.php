@@ -27,27 +27,17 @@ class DoctrineTransactionMiddleware extends AbstractDoctrineMiddleware
     protected function handleForManager(EntityManagerInterface $entityManager, Envelope $envelope, StackInterface $stack): Envelope
     {
         $entityManager->getConnection()->beginTransaction();
-<<<<<<< HEAD
-=======
 
         $success = false;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         try {
             $envelope = $stack->next()->handle($envelope, $stack);
             $entityManager->flush();
             $entityManager->getConnection()->commit();
 
-<<<<<<< HEAD
-            return $envelope;
-        } catch (\Throwable $exception) {
-            $entityManager->getConnection()->rollBack();
-
-=======
             $success = true;
 
             return $envelope;
         } catch (\Throwable $exception) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if ($exception instanceof HandlerFailedException) {
                 // Remove all HandledStamp from the envelope so the retry will execute all handlers again.
                 // When a handler fails, the queries of allegedly successful previous handlers just got rolled back.
@@ -55,15 +45,12 @@ class DoctrineTransactionMiddleware extends AbstractDoctrineMiddleware
             }
 
             throw $exception;
-<<<<<<< HEAD
-=======
         } finally {
             $connection = $entityManager->getConnection();
 
             if (!$success && $connection->isTransactionActive()) {
                 $connection->rollBack();
             }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

@@ -27,11 +27,7 @@ class ColumnTypeGuesser
         switch ($type) {
             case 'boolean':
                 return static function () use ($generator) {
-<<<<<<< HEAD
-                    return $generator->boolean;
-=======
                     return $generator->boolean();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 };
 
             case 'decimal':
@@ -70,22 +66,14 @@ class ColumnTypeGuesser
 
             case 'text':
                 return static function () use ($generator) {
-<<<<<<< HEAD
-                    return $generator->text;
-=======
                     return $generator->text();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 };
 
             case 'datetime':
             case 'date':
             case 'time':
                 return static function () use ($generator) {
-<<<<<<< HEAD
-                    return $generator->datetime;
-=======
                     return $generator->datetime();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 };
 
             case 'datetime_immutable':

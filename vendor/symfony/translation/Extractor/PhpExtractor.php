@@ -323,11 +323,7 @@ class PhpExtractor extends AbstractFileExtractor implements ExtractorInterface
     protected function extractFromDirectory(string|array $directory): iterable
     {
         if (!class_exists(Finder::class)) {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('You cannot use "%s" as the "symfony/finder" package is not installed. Try running "composer require symfony/finder".', static::class));
-=======
             throw new \LogicException(\sprintf('You cannot use "%s" as the "symfony/finder" package is not installed. Try running "composer require symfony/finder".', static::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $finder = new Finder();

@@ -22,11 +22,7 @@ use Symfony\Component\HttpKernel\Controller\ArgumentResolver\QueryParameterValue
 final class MapQueryParameter extends ValueResolver
 {
     /**
-<<<<<<< HEAD
-     * @see https://php.net/filter.filters.validate for filter, flags and options
-=======
      * @see https://php.net/manual/filter.constants for filter, flags and options
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @param string|null $name The name of the query parameter. If null, the name of the argument in the controller will be used.
      */

@@ -17,11 +17,8 @@ use Gedmo\Sluggable\Mapping\Event\SluggableAdapter;
 use Gedmo\Sluggable\SluggableListener;
 use Gedmo\Tool\Wrapper\AbstractWrapper;
 
-<<<<<<< HEAD
-=======
 use function Symfony\Component\String\u;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /**
  * Sluggable handler which slugs all parent nodes
  * recursively and synchronizes on updates. For instance
@@ -45,38 +42,6 @@ class TreeSlugHandler implements SlugHandlerWithUniqueCallbackInterface
      */
     protected $sluggable;
 
-<<<<<<< HEAD
-    /**
-     * @var string
-     */
-    private $prefix;
-
-    /**
-     * @var string
-     */
-    private $suffix;
-
-    /**
-     * True if node is being inserted
-     *
-     * @var bool
-     */
-    private $isInsert = false;
-
-    /**
-     * Transliterated parent slug
-     *
-     * @var string
-     */
-    private $parentSlug;
-
-    /**
-     * Used path separator
-     *
-     * @var string
-     */
-    private $usedPathSeparator;
-=======
     private string $prefix = '';
 
     private string $suffix = '';
@@ -95,7 +60,6 @@ class TreeSlugHandler implements SlugHandlerWithUniqueCallbackInterface
      * Used path separator
      */
     private string $usedPathSeparator = self::SEPARATOR;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     public function __construct(SluggableListener $sluggable)
     {
@@ -132,25 +96,14 @@ class TreeSlugHandler implements SlugHandlerWithUniqueCallbackInterface
 
             // if needed, remove suffix from parentSlug, so we can use it to prepend it to our slug
             if (isset($options['suffix'])) {
-<<<<<<< HEAD
-                $suffix = $options['suffix'];
-
-                if (substr($this->parentSlug, -strlen($suffix)) === $suffix) { // endsWith
-                    $this->parentSlug = substr_replace($this->parentSlug, '', -1 * strlen($suffix));
-                }
-=======
                 $this->parentSlug = u($this->parentSlug)->trimSuffix($options['suffix'])->toString();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
     }
 
-<<<<<<< HEAD
-=======
     /**
      * @param ClassMetadata<object> $meta
      */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public static function validate(array $options, ClassMetadata $meta)
     {
         if (!$meta->isSingleValuedAssociation($options['parentRelationField'])) {
@@ -184,17 +137,10 @@ class TreeSlugHandler implements SlugHandlerWithUniqueCallbackInterface
                         continue;
                     }
 
-<<<<<<< HEAD
-                    $objectSlug = (string) $meta->getReflectionProperty($config['slug'])->getValue($object);
-                    if (preg_match("@^{$target}{$config['pathSeparator']}@smi", $objectSlug)) {
-                        $objectSlug = str_replace($target, $slug, $objectSlug);
-                        $meta->getReflectionProperty($config['slug'])->setValue($object, $objectSlug);
-=======
                     $objectSlug = (string) $meta->getFieldValue($object, $config['slug']);
                     if (preg_match("@^{$target}{$config['pathSeparator']}@smi", $objectSlug)) {
                         $objectSlug = str_replace($target, $slug, $objectSlug);
                         $meta->setFieldValue($object, $config['slug'], $objectSlug);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $ea->setOriginalObjectProperty($uow, $object, $config['slug'], $objectSlug);
                     }
                 }

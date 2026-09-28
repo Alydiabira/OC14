@@ -25,8 +25,6 @@ use Symfony\Component\HttpFoundation\File\File;
  */
 class BinaryFileResponse extends Response
 {
-<<<<<<< HEAD
-=======
     // Values accepted for the "X-Sendfile-Type" header, mapped to the response header to send
     private const SENDFILE_TYPES = [
         'x-sendfile' => 'X-Sendfile',
@@ -34,7 +32,6 @@ class BinaryFileResponse extends Response
         'x-lighttpd-send-file' => 'X-LIGHTTPD-send-file',
     ];
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected static $trustXSendfileTypeHeader = false;
 
     /**
@@ -173,11 +170,7 @@ class BinaryFileResponse extends Response
             for ($i = 0, $filenameLength = mb_strlen($filename, $encoding); $i < $filenameLength; ++$i) {
                 $char = mb_substr($filename, $i, 1, $encoding);
 
-<<<<<<< HEAD
-                if ('%' === $char || \ord($char) < 32 || \ord($char) > 126) {
-=======
                 if ('%' === $char || \ord($char[0]) < 32 || \ord($char[0]) > 126) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $filenameFallback .= '_';
                 } else {
                     $filenameFallback .= $char;
@@ -221,28 +214,16 @@ class BinaryFileResponse extends Response
             $this->headers->set('Accept-Ranges', $request->isMethodSafe() ? 'bytes' : 'none');
         }
 
-<<<<<<< HEAD
-        if (self::$trustXSendfileTypeHeader && $request->headers->has('X-Sendfile-Type')) {
-            // Use X-Sendfile, do not send any content.
-            $type = $request->headers->get('X-Sendfile-Type');
-=======
         $sendfileType = self::$trustXSendfileTypeHeader ? $request->headers->get('X-Sendfile-Type') : null;
         $type = self::SENDFILE_TYPES[strtolower($sendfileType ?? '')] ?? null;
 
         if (null !== $type) {
             // Use X-Sendfile, do not send any content.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $path = $this->file->getRealPath();
             // Fall back to scheme://path for stream wrapped locations.
             if (false === $path) {
                 $path = $this->file->getPathname();
             }
-<<<<<<< HEAD
-            if ('x-accel-redirect' === strtolower($type)) {
-                // Do X-Accel-Mapping substitutions.
-                // @link https://www.nginx.com/resources/wiki/start/topics/examples/x-accel/#x-accel-redirect
-                $parts = HeaderUtils::split($request->headers->get('X-Accel-Mapping', ''), ',=');
-=======
             if ('X-Accel-Redirect' === $type) {
                 // Do X-Accel-Mapping substitutions.
                 // @link https://github.com/rack/rack/blob/main/lib/rack/sendfile.rb
@@ -251,18 +232,13 @@ class BinaryFileResponse extends Response
                     throw new \LogicException('The "X-Accel-Mapping" header must be set when "X-Sendfile-Type" is set to "X-Accel-Redirect".');
                 }
                 $parts = HeaderUtils::split($request->headers->get('X-Accel-Mapping'), ',=');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 foreach ($parts as $part) {
                     [$pathPrefix, $location] = $part;
                     if (str_starts_with($path, $pathPrefix)) {
                         $path = $location.substr($path, \strlen($pathPrefix));
                         // Only set X-Accel-Redirect header if a valid URI can be produced
                         // as nginx does not serve arbitrary file paths.
-<<<<<<< HEAD
-                        $this->headers->set($type, $path);
-=======
                         $this->headers->set($type, rawurlencode($path));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $this->maxlen = 0;
                         break;
                     }
@@ -292,22 +268,13 @@ class BinaryFileResponse extends Response
                         $end = min($end, $fileSize - 1);
                         if ($start < 0 || $start > $end) {
                             $this->setStatusCode(416);
-<<<<<<< HEAD
-                            $this->headers->set('Content-Range', sprintf('bytes */%s', $fileSize));
-                        } elseif ($end - $start < $fileSize - 1) {
-=======
                             $this->headers->set('Content-Range', \sprintf('bytes */%s', $fileSize));
                         } else {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                             $this->maxlen = $end < $fileSize ? $end - $start + 1 : -1;
                             $this->offset = $start;
 
                             $this->setStatusCode(206);
-<<<<<<< HEAD
-                            $this->headers->set('Content-Range', sprintf('bytes %s-%s/%s', $start, $end, $fileSize));
-=======
                             $this->headers->set('Content-Range', \sprintf('bytes %s-%s/%s', $start, $end, $fileSize));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                             $this->headers->set('Content-Length', $end - $start + 1);
                         }
                     }

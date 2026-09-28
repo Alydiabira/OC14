@@ -8,34 +8,23 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\ParameterType;
-<<<<<<< HEAD
-use Doctrine\ORM\Internal\NoUnknownNamedArguments;
-use Doctrine\ORM\Internal\QueryType;
-=======
 use Doctrine\Deprecations\Deprecation;
 use Doctrine\ORM\Cache\Persister\CompatOrderings;
 use Doctrine\ORM\Internal\NoUnknownNamedArguments;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\Query\Parameter;
 use Doctrine\ORM\Query\QueryExpressionVisitor;
 use InvalidArgumentException;
 use RuntimeException;
-<<<<<<< HEAD
-=======
 use SortDirection;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Stringable;
 
 use function array_keys;
 use function array_unshift;
 use function assert;
 use function count;
-<<<<<<< HEAD
-=======
 use function func_num_args;
 use function get_debug_type;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function implode;
 use function in_array;
 use function is_array;
@@ -48,10 +37,7 @@ use function sprintf;
 use function str_starts_with;
 use function strpos;
 use function strrpos;
-<<<<<<< HEAD
-=======
 use function strtolower;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function substr;
 
 /**
@@ -60,20 +46,13 @@ use function substr;
  */
 class QueryBuilder implements Stringable
 {
-<<<<<<< HEAD
-=======
     use CompatOrderings;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     use NoUnknownNamedArguments;
 
     /**
      * The array of DQL parts collected.
      *
-<<<<<<< HEAD
-     * @psalm-var array<string, mixed>
-=======
      * @phpstan-var array<string, mixed>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private array $dqlParts = [
         'distinct' => false,
@@ -97,11 +76,7 @@ class QueryBuilder implements Stringable
     /**
      * The query parameters.
      *
-<<<<<<< HEAD
-     * @psalm-var ArrayCollection<int, Parameter>
-=======
      * @phpstan-var ArrayCollection<int, Parameter>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private ArrayCollection $parameters;
 
@@ -118,11 +93,7 @@ class QueryBuilder implements Stringable
     /**
      * Keeps root entity alias names for join entities.
      *
-<<<<<<< HEAD
-     * @psalm-var array<string, string>
-=======
      * @phpstan-var array<string, string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private array $joinRootAliases = [];
 
@@ -139,19 +110,13 @@ class QueryBuilder implements Stringable
     /**
      * Second level query cache mode.
      *
-<<<<<<< HEAD
-     * @psalm-var Cache::MODE_*|null
-=======
      * @phpstan-var Cache::MODE_*|null
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected int|null $cacheMode = null;
 
     protected int $lifetime = 0;
 
     /**
-<<<<<<< HEAD
-=======
      * The counter of bound parameters.
      *
      * @var int<0, max>
@@ -166,7 +131,6 @@ class QueryBuilder implements Stringable
     private array $hints = [];
 
     /**
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Initializes a new <tt>QueryBuilder</tt> that uses the given <tt>EntityManager</tt>.
      *
      * @param EntityManagerInterface $em The EntityManager to use.
@@ -177,14 +141,11 @@ class QueryBuilder implements Stringable
         $this->parameters = new ArrayCollection();
     }
 
-<<<<<<< HEAD
-=======
     final protected function getType(): QueryType
     {
         return $this->type;
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Gets an ExpressionBuilder used for object-oriented construction of query expressions.
      * This producer method is intended for convenient inline usage. Example:
@@ -260,9 +221,6 @@ class QueryBuilder implements Stringable
         return $this;
     }
 
-<<<<<<< HEAD
-    /** @psalm-return Cache::MODE_*|null */
-=======
     /** @return array<string, string|int|bool|iterable<mixed>|object> */
     public function getHints(): array
     {
@@ -297,18 +255,13 @@ class QueryBuilder implements Stringable
     }
 
     /** @phpstan-return Cache::MODE_*|null */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function getCacheMode(): int|null
     {
         return $this->cacheMode;
     }
 
     /**
-<<<<<<< HEAD
-     * @psalm-param Cache::MODE_* $cacheMode
-=======
      * @phpstan-param Cache::MODE_* $cacheMode
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return $this
      */
@@ -381,13 +334,10 @@ class QueryBuilder implements Stringable
             $query->setCacheRegion($this->cacheRegion);
         }
 
-<<<<<<< HEAD
-=======
         foreach ($this->hints as $name => $value) {
             $query->setHint($name, $value);
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return $query;
     }
 
@@ -406,9 +356,6 @@ class QueryBuilder implements Stringable
         } else {
             // Should never happen with correct joining order. Might be
             // thoughtful to throw exception instead.
-<<<<<<< HEAD
-            $rootAlias = $this->getRootAlias();
-=======
             $aliases = $this->getRootAliases();
 
             if (! isset($aliases[0])) {
@@ -416,7 +363,6 @@ class QueryBuilder implements Stringable
             }
 
             $rootAlias = $aliases[0];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->joinRootAliases[$alias] = $rootAlias;
@@ -464,11 +410,7 @@ class QueryBuilder implements Stringable
      * </code>
      *
      * @return string[]
-<<<<<<< HEAD
-     * @psalm-return list<string>
-=======
      * @phpstan-return list<string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getRootAliases(): array
     {
@@ -478,11 +420,7 @@ class QueryBuilder implements Stringable
             if (is_string($fromClause)) {
                 $spacePos = strrpos($fromClause, ' ');
 
-<<<<<<< HEAD
-                /** @psalm-var class-string $from */
-=======
                 /** @phpstan-var class-string $from */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $from  = substr($fromClause, 0, $spacePos);
                 $alias = substr($fromClause, $spacePos + 1);
 
@@ -509,11 +447,7 @@ class QueryBuilder implements Stringable
      * </code>
      *
      * @return string[]
-<<<<<<< HEAD
-     * @psalm-return list<string>
-=======
      * @phpstan-return list<string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getAllAliases(): array
     {
@@ -533,11 +467,7 @@ class QueryBuilder implements Stringable
      * </code>
      *
      * @return string[]
-<<<<<<< HEAD
-     * @psalm-return list<class-string>
-=======
      * @phpstan-return list<class-string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getRootEntities(): array
     {
@@ -547,11 +477,7 @@ class QueryBuilder implements Stringable
             if (is_string($fromClause)) {
                 $spacePos = strrpos($fromClause, ' ');
 
-<<<<<<< HEAD
-                /** @psalm-var class-string $from */
-=======
                 /** @phpstan-var class-string $from */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $from  = substr($fromClause, 0, $spacePos);
                 $alias = substr($fromClause, $spacePos + 1);
 
@@ -609,11 +535,7 @@ class QueryBuilder implements Stringable
      *        )));
      * </code>
      *
-<<<<<<< HEAD
-     * @psalm-param ArrayCollection<int, Parameter> $parameters
-=======
      * @phpstan-param ArrayCollection<int, Parameter> $parameters
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return $this
      */
@@ -627,11 +549,7 @@ class QueryBuilder implements Stringable
     /**
      * Gets all defined query parameters for the query being constructed.
      *
-<<<<<<< HEAD
-     * @psalm-return ArrayCollection<int, Parameter>
-=======
      * @phpstan-return ArrayCollection<int, Parameter>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getParameters(): ArrayCollection
     {
@@ -646,11 +564,7 @@ class QueryBuilder implements Stringable
         $key = Parameter::normalizeName($key);
 
         $filteredParameters = $this->parameters->filter(
-<<<<<<< HEAD
-            static fn (Parameter $parameter): bool => $key === $parameter->getName()
-=======
             static fn (Parameter $parameter): bool => $key === $parameter->getName(),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         );
 
         return ! $filteredParameters->isEmpty() ? $filteredParameters->first() : null;
@@ -683,13 +597,10 @@ class QueryBuilder implements Stringable
      */
     public function setMaxResults(int|null $maxResults): static
     {
-<<<<<<< HEAD
-=======
         if ($this->type === QueryType::Delete || $this->type === QueryType::Update) {
             throw new RuntimeException('Setting a limit is not supported for delete or update queries.');
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->maxResults = $maxResults;
 
         return $this;
@@ -710,11 +621,7 @@ class QueryBuilder implements Stringable
      * The available parts are: 'select', 'from', 'join', 'set', 'where',
      * 'groupBy', 'having' and 'orderBy'.
      *
-<<<<<<< HEAD
-     * @psalm-param string|object|list<string>|array{join: array<int|string, object>} $dqlPart
-=======
      * @phpstan-param string|object|list<string>|array{join: array<int|string, object>} $dqlPart
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return $this
      */
@@ -735,18 +642,10 @@ class QueryBuilder implements Stringable
             $dqlPart = reset($dqlPart);
         }
 
-<<<<<<< HEAD
-        // This is introduced for backwards compatibility reasons.
-        // TODO: Remove for 3.0
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ($dqlPartName === 'join') {
             $newDqlPart = [];
 
             foreach ($dqlPart as $k => $v) {
-<<<<<<< HEAD
-                $k = is_numeric($k) ? $this->getRootAlias() : $k;
-=======
                 if (is_numeric($k)) {
                     Deprecation::trigger(
                         'doctrine/orm',
@@ -762,7 +661,6 @@ class QueryBuilder implements Stringable
 
                     $k = $aliases[0];
                 }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 $newDqlPart[$k] = $v;
             }
@@ -1008,11 +906,7 @@ class QueryBuilder implements Stringable
      *         ->join('u.Phonenumbers', 'p', Expr\Join::WITH, 'p.is_primary = 1');
      * </code>
      *
-<<<<<<< HEAD
-     * @psalm-param Expr\Join::ON|Expr\Join::WITH|null $conditionType
-=======
      * @phpstan-param Expr\Join::ON|Expr\Join::WITH|null $conditionType
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return $this
      */
@@ -1039,11 +933,7 @@ class QueryBuilder implements Stringable
      *         ->from('User', 'u')
      *         ->innerJoin('u.Phonenumbers', 'p', Expr\Join::WITH, 'p.is_primary = 1');
      *
-<<<<<<< HEAD
-     * @psalm-param Expr\Join::ON|Expr\Join::WITH|null $conditionType
-=======
      * @phpstan-param Expr\Join::ON|Expr\Join::WITH|null $conditionType
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return $this
      */
@@ -1084,11 +974,7 @@ class QueryBuilder implements Stringable
      *         ->leftJoin('u.Phonenumbers', 'p', Expr\Join::WITH, 'p.is_primary = 1');
      * </code>
      *
-<<<<<<< HEAD
-     * @psalm-param Expr\Join::ON|Expr\Join::WITH|null $conditionType
-=======
      * @phpstan-param Expr\Join::ON|Expr\Join::WITH|null $conditionType
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return $this
      */
@@ -1338,11 +1224,6 @@ class QueryBuilder implements Stringable
      *
      * @return $this
      */
-<<<<<<< HEAD
-    public function orderBy(string|Expr\OrderBy $sort, string|null $order = null): static
-    {
-        $orderBy = $sort instanceof Expr\OrderBy ? $sort : new Expr\OrderBy($sort, $order);
-=======
     public function orderBy(string|Expr\OrderBy $sort, SortDirection|string|null $order = null): static
     {
         if (func_num_args() === 1 && is_string($sort)) {
@@ -1353,7 +1234,6 @@ class QueryBuilder implements Stringable
             $sort,
             $this->getSortDirection($order, __METHOD__),
         );
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this->add('orderBy', $orderBy);
     }
@@ -1363,11 +1243,6 @@ class QueryBuilder implements Stringable
      *
      * @return $this
      */
-<<<<<<< HEAD
-    public function addOrderBy(string|Expr\OrderBy $sort, string|null $order = null): static
-    {
-        $orderBy = $sort instanceof Expr\OrderBy ? $sort : new Expr\OrderBy($sort, $order);
-=======
     public function addOrderBy(string|Expr\OrderBy $sort, SortDirection|string|null $order = null): static
     {
         if (func_num_args() === 1 && is_string($sort)) {
@@ -1378,7 +1253,6 @@ class QueryBuilder implements Stringable
             $sort,
             $this->getSortDirection($order, __METHOD__),
         );
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this->add('orderBy', $orderBy, true);
     }
@@ -1411,13 +1285,9 @@ class QueryBuilder implements Stringable
             }
         }
 
-<<<<<<< HEAD
-        foreach ($criteria->orderings() as $sort => $order) {
-=======
         $orderings = $this->getOrderings($criteria);
 
         foreach ($orderings as $sort => $order) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $hasValidAlias = false;
             foreach ($allAliases as $alias) {
                 if (str_starts_with($sort . '.', $alias . '.')) {
@@ -1430,12 +1300,8 @@ class QueryBuilder implements Stringable
                 $sort = $allAliases[0] . '.' . $sort;
             }
 
-<<<<<<< HEAD
-            $this->addOrderBy($sort, $order->value);
-=======
             /** @phpstan-ignore property.deprecatedEnum */
             $this->addOrderBy($sort, $order instanceof SortDirection ? $order : $order->value);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         // Overwrite limits only if they was set in criteria
@@ -1463,11 +1329,7 @@ class QueryBuilder implements Stringable
     /**
      * Gets all query parts.
      *
-<<<<<<< HEAD
-     * @psalm-return array<string, mixed> $dqlParts
-=======
      * @phpstan-return array<string, mixed> $dqlParts
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getDQLParts(): array
     {
@@ -1527,11 +1389,7 @@ class QueryBuilder implements Stringable
         return $dql;
     }
 
-<<<<<<< HEAD
-    /** @psalm-param array<string, mixed> $options */
-=======
     /** @phpstan-param array<string, mixed> $options */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private function getReducedDQLQueryPart(string $queryPartName, array $options = []): string
     {
         $queryPart = $this->getDQLPart($queryPartName);
@@ -1549,11 +1407,7 @@ class QueryBuilder implements Stringable
      * Resets DQL parts.
      *
      * @param string[]|null $parts
-<<<<<<< HEAD
-     * @psalm-param list<string>|null $parts
-=======
      * @phpstan-param list<string>|null $parts
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return $this
      */
@@ -1584,8 +1438,6 @@ class QueryBuilder implements Stringable
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Creates a new named parameter and bind the value $value to it.
      *
      * The parameter $value specifies the value that you want to bind. If
@@ -1621,7 +1473,6 @@ class QueryBuilder implements Stringable
     }
 
     /**
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Gets a string representation of this QueryBuilder which corresponds to
      * the final DQL query being constructed.
      */
@@ -1657,8 +1508,6 @@ class QueryBuilder implements Stringable
 
         $this->parameters = new ArrayCollection($parameters);
     }
-<<<<<<< HEAD
-=======
 
     private function getSortDirection(SortDirection|string|null $order, string $method): SortDirection
     {
@@ -1684,5 +1533,4 @@ class QueryBuilder implements Stringable
             default => throw new InvalidArgumentException(sprintf('Invalid sort direction "%s".', $order)),
         };
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

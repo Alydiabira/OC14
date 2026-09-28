@@ -190,21 +190,13 @@ class NodeBuilder implements NodeParentInterface
         $type = strtolower($type);
 
         if (!isset($this->nodeMapping[$type])) {
-<<<<<<< HEAD
-            throw new \RuntimeException(sprintf('The node type "%s" is not registered.', $type));
-=======
             throw new \RuntimeException(\sprintf('The node type "%s" is not registered.', $type));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $class = $this->nodeMapping[$type];
 
         if (!class_exists($class)) {
-<<<<<<< HEAD
-            throw new \RuntimeException(sprintf('The node class "%s" does not exist.', $class));
-=======
             throw new \RuntimeException(\sprintf('The node class "%s" does not exist.', $class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $class;

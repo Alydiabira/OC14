@@ -39,11 +39,7 @@ class CamelCaseToSnakeCaseNameConverter implements NameConverterInterface
 
     public function denormalize(string $propertyName): string
     {
-<<<<<<< HEAD
-        $camelCasedName = preg_replace_callback('/(^|_|\.)+(.)/', fn ($match) => ('.' === $match[1] ? '_' : '').strtoupper($match[2]), $propertyName);
-=======
         $camelCasedName = preg_replace_callback('/(^|_|\.)+(.)/', static fn ($match) => ('.' === $match[1] ? '_' : '').strtoupper($match[2]), $propertyName);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($this->lowerCamelCase) {
             $camelCasedName = lcfirst($camelCasedName);

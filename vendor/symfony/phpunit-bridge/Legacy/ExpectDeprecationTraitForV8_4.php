@@ -22,11 +22,7 @@ trait ExpectDeprecationTraitForV8_4
     public function expectDeprecation(): void
     {
         if (1 > \func_num_args() || !\is_string($message = func_get_arg(0))) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('The "%s()" method requires the string $message argument.', __FUNCTION__));
-=======
             throw new \InvalidArgumentException(\sprintf('The "%s()" method requires the string $message argument.', __FUNCTION__));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         // Expected deprecations set by isolated tests need to be written to a file
@@ -56,11 +52,7 @@ trait ExpectDeprecationTraitForV8_4
      */
     public function expectDeprecationMessage(string $message): void
     {
-<<<<<<< HEAD
-        throw new \BadMethodCallException(sprintf('The "%s()" method is not supported by Symfony\'s PHPUnit Bridge ExpectDeprecationTrait, pass the message to expectDeprecation() instead.', __FUNCTION__));
-=======
         throw new \BadMethodCallException(\sprintf('The "%s()" method is not supported by Symfony\'s PHPUnit Bridge ExpectDeprecationTrait, pass the message to expectDeprecation() instead.', __FUNCTION__));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -68,10 +60,6 @@ trait ExpectDeprecationTraitForV8_4
      */
     public function expectDeprecationMessageMatches(string $regularExpression): void
     {
-<<<<<<< HEAD
-        throw new \BadMethodCallException(sprintf('The "%s()" method is not supported by Symfony\'s PHPUnit Bridge ExpectDeprecationTrait.', __FUNCTION__));
-=======
         throw new \BadMethodCallException(\sprintf('The "%s()" method is not supported by Symfony\'s PHPUnit Bridge ExpectDeprecationTrait.', __FUNCTION__));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

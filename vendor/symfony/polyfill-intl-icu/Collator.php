@@ -118,28 +118,15 @@ abstract class Collator
     }
 
     /**
-<<<<<<< HEAD
-     * Not supported. Compare two Unicode strings.
-=======
      * Compare two Unicode strings.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return int|false
      *
      * @see https://php.net/collator.compare
-<<<<<<< HEAD
-     *
-     * @throws MethodNotImplementedException
-     */
-    public function compare(string $string1, string $string2)
-    {
-        throw new MethodNotImplementedException(__METHOD__);
-=======
      */
     public function compare(string $string1, string $string2)
     {
         return strcasecmp($string1, $string2) ?: $string2 <=> $string1;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

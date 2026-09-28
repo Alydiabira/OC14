@@ -83,31 +83,6 @@ final class TranslationPushCommand extends Command
                 new InputArgument('provider', null !== $defaultProvider ? InputArgument::OPTIONAL : InputArgument::REQUIRED, 'The provider to push translations to.', $defaultProvider),
                 new InputOption('force', null, InputOption::VALUE_NONE, 'Override existing translations with local ones (it will delete not synchronized messages).'),
                 new InputOption('delete-missing', null, InputOption::VALUE_NONE, 'Delete translations available on provider but not locally.'),
-<<<<<<< HEAD
-                new InputOption('domains', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Specify the domains to push.'),
-                new InputOption('locales', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Specify the locales to push.', $this->enabledLocales),
-            ])
-            ->setHelp(<<<'EOF'
-The <info>%command.name%</> command pushes translations to the given provider. Only new
-translations are pushed, existing ones are not overwritten.
-
-You can overwrite existing translations by using the <comment>--force</> flag:
-
-  <info>php %command.full_name% --force provider</>
-
-You can delete provider translations which are not present locally by using the <comment>--delete-missing</> flag:
-
-  <info>php %command.full_name% --delete-missing provider</>
-
-Full example:
-
-  <info>php %command.full_name% provider --force --delete-missing --domains=messages --domains=validators --locales=en</>
-
-This command pushes all translations associated with the <comment>messages</> and <comment>validators</> domains for the <comment>en</> locale.
-Provider translations for the specified domains and locale are deleted if they're not present locally and overwritten if it's the case.
-Provider translations for others domains and locales are ignored.
-EOF
-=======
                 new InputOption('domains', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Specify the domains to push.'),
                 new InputOption('locales', null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, 'Specify the locales to push.', $this->enabledLocales),
             ])
@@ -131,7 +106,6 @@ EOF
                 Provider translations for the specified domains and locale are deleted if they're not present locally and overwritten if it's the case.
                 Provider translations for others domains and locales are ignored.
                 EOF
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -141,11 +115,7 @@ EOF
         $provider = $this->providers->get($input->getArgument('provider'));
 
         if (!$this->enabledLocales) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('You must define "framework.enabled_locales" or "framework.translator.providers.%s.locales" config key in order to work with translation providers.', parse_url($provider, \PHP_URL_SCHEME)));
-=======
             throw new InvalidArgumentException(\sprintf('You must define "framework.enabled_locales" or "framework.translator.providers.%s.locales" config key in order to work with translation providers.', parse_url($provider, \PHP_URL_SCHEME)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $io = new SymfonyStyle($input, $output);
@@ -169,11 +139,7 @@ EOF
         if (!$deleteMissing && $force) {
             $provider->write($localTranslations);
 
-<<<<<<< HEAD
-            $io->success(sprintf('All local translations has been sent to "%s" (for "%s" locale(s), and "%s" domain(s)).', parse_url($provider, \PHP_URL_SCHEME), implode(', ', $locales), implode(', ', $domains)));
-=======
             $io->success(\sprintf('All local translations has been sent to "%s" (for "%s" locale(s), and "%s" domain(s)).', parse_url($provider, \PHP_URL_SCHEME), implode(', ', $locales), implode(', ', $domains)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             return 0;
         }
@@ -183,11 +149,7 @@ EOF
         if ($deleteMissing) {
             $provider->delete($providerTranslations->diff($localTranslations));
 
-<<<<<<< HEAD
-            $io->success(sprintf('Missing translations on "%s" has been deleted (for "%s" locale(s), and "%s" domain(s)).', parse_url($provider, \PHP_URL_SCHEME), implode(', ', $locales), implode(', ', $domains)));
-=======
             $io->success(\sprintf('Missing translations on "%s" has been deleted (for "%s" locale(s), and "%s" domain(s)).', parse_url($provider, \PHP_URL_SCHEME), implode(', ', $locales), implode(', ', $domains)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             // Read provider translations again, after missing translations deletion,
             // to avoid push freshly deleted translations.
@@ -202,11 +164,7 @@ EOF
 
         $provider->write($translationsToWrite);
 
-<<<<<<< HEAD
-        $io->success(sprintf('%s local translations has been sent to "%s" (for "%s" locale(s), and "%s" domain(s)).', $force ? 'All' : 'New', parse_url($provider, \PHP_URL_SCHEME), implode(', ', $locales), implode(', ', $domains)));
-=======
         $io->success(\sprintf('%s local translations has been sent to "%s" (for "%s" locale(s), and "%s" domain(s)).', $force ? 'All' : 'New', parse_url($provider, \PHP_URL_SCHEME), implode(', ', $locales), implode(', ', $domains)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return 0;
     }
@@ -216,16 +174,9 @@ EOF
         $domains = [];
 
         foreach ($translatorBag->getCatalogues() as $catalogue) {
-<<<<<<< HEAD
-            $domains += $catalogue->getDomains();
-        }
-
-        return array_unique($domains);
-=======
             $domains = array_merge($domains, $catalogue->getDomains());
         }
 
         return array_values(array_unique($domains));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

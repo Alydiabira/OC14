@@ -15,10 +15,7 @@ use Symfony\Component\Config\Resource\ClassExistenceResource;
 use Symfony\Component\Console\Descriptor\DescriptorInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\Alias;
-<<<<<<< HEAD
-=======
 use Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\DependencyInjection\Compiler\AnalyzeServiceReferencesPass;
 use Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphEdge;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -66,11 +63,7 @@ abstract class Descriptor implements DescriptorInterface
             $object instanceof Alias => $this->describeContainerAlias($object, $options),
             $object instanceof EventDispatcherInterface => $this->describeEventDispatcherListeners($object, $options),
             \is_callable($object) => $this->describeCallable($object, $options),
-<<<<<<< HEAD
-            default => throw new \InvalidArgumentException(sprintf('Object of type "%s" is not describable.', get_debug_type($object))),
-=======
             default => throw new \InvalidArgumentException(\sprintf('Object of type "%s" is not describable.', get_debug_type($object))),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         };
 
         if ($object instanceof ContainerBuilder) {
@@ -141,11 +134,7 @@ abstract class Descriptor implements DescriptorInterface
         }
 
         if (\is_object($value)) {
-<<<<<<< HEAD
-            return sprintf('object(%s)', $value::class);
-=======
             return \sprintf('object(%s)', $value::class);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (\is_string($value)) {
@@ -255,11 +244,7 @@ abstract class Descriptor implements DescriptorInterface
                 }
             }
         }
-<<<<<<< HEAD
-        uasort($maxPriority, fn ($a, $b) => $b <=> $a);
-=======
         uasort($maxPriority, static fn ($a, $b) => $b <=> $a);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return array_keys($maxPriority);
     }
@@ -274,11 +259,6 @@ abstract class Descriptor implements DescriptorInterface
         return $sortedTags;
     }
 
-<<<<<<< HEAD
-    protected function sortByPriority(array $tag): array
-    {
-        usort($tag, fn ($a, $b) => ($b['priority'] ?? 0) <=> ($a['priority'] ?? 0));
-=======
     protected function resolvePriorityServiceTags(ContainerBuilder $container, Definition $definition, ?string $tagName = null): array
     {
         $tags = null !== $tagName ? $definition->getTag($tagName) : $definition->getTags();
@@ -319,7 +299,6 @@ abstract class Descriptor implements DescriptorInterface
     protected function sortByPriority(array $tag): array
     {
         usort($tag, static fn ($a, $b) => ($b['priority'] ?? 0) <=> ($a['priority'] ?? 0));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $tag;
     }
@@ -412,11 +391,7 @@ abstract class Descriptor implements DescriptorInterface
     {
         try {
             return array_values(array_unique(array_map(
-<<<<<<< HEAD
-                fn (ServiceReferenceGraphEdge $edge) => $edge->getSourceNode()->getId(),
-=======
                 static fn (ServiceReferenceGraphEdge $edge) => $edge->getSourceNode()->getId(),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $container->getCompiler()->getServiceReferenceGraph()->getNode($serviceId)->getInEdges()
             )));
         } catch (InvalidArgumentException $exception) {

@@ -42,20 +42,8 @@ class FluentdFormatter implements FormatterInterface
      */
     protected bool $levelTag = false;
 
-<<<<<<< HEAD
-    /**
-     * @throws \RuntimeException If the function json_encode does not exist
-     */
     public function __construct(bool $levelTag = false)
     {
-        if (!function_exists('json_encode')) {
-            throw new \RuntimeException('PHP\'s json extension is required to use Monolog\'s FluentdUnixFormatter');
-        }
-
-=======
-    public function __construct(bool $levelTag = false)
-    {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->levelTag = $levelTag;
     }
 

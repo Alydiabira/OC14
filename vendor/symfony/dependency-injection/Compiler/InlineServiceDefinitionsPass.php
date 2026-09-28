@@ -73,12 +73,9 @@ class InlineServiceDefinitionsPass extends AbstractRecursivePass
                     if (!$this->graph->hasNode($id)) {
                         continue;
                     }
-<<<<<<< HEAD
-=======
                     if ($definition->isPublic()) {
                         $this->connectedIds[$id] = true;
                     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     foreach ($this->graph->getNode($id)->getOutEdges() as $edge) {
                         if (isset($notInlinedIds[$edge->getSourceNode()->getId()])) {
                             $this->currentId = $id;
@@ -147,15 +144,9 @@ class InlineServiceDefinitionsPass extends AbstractRecursivePass
             return $value;
         }
 
-<<<<<<< HEAD
-        $this->container->log($this, sprintf('Inlined service "%s" to "%s".', $id, $this->currentId));
-        $this->inlinedIds[$id] = $definition->isPublic() || !$definition->isShared();
-        $this->notInlinedIds[$this->currentId] = true;
-=======
         $this->container->log($this, \sprintf('Inlined service "%s" to "%s".', $id, $this->currentId));
         $this->inlinedIds[$id] = $definition->isPublic() || !$definition->isShared();
         $this->notInlinedIds[$this->currentId ?? ''] = true;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($definition->isShared()) {
             return $definition;
@@ -201,19 +192,6 @@ class InlineServiceDefinitionsPass extends AbstractRecursivePass
             return true;
         }
 
-<<<<<<< HEAD
-        if ($definition->isPublic()) {
-            return false;
-        }
-
-        if (!$this->graph->hasNode($id)) {
-            return true;
-        }
-
-        if ($this->currentId === $id) {
-            return false;
-        }
-=======
         if ($definition->isPublic()
             || $this->currentId === $id
             || !$this->graph->hasNode($id)
@@ -221,7 +199,6 @@ class InlineServiceDefinitionsPass extends AbstractRecursivePass
             return false;
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->connectedIds[$id] = true;
 
         $srcIds = [];
@@ -246,12 +223,8 @@ class InlineServiceDefinitionsPass extends AbstractRecursivePass
             return false;
         }
 
-<<<<<<< HEAD
-        return $this->container->getDefinition($srcId)->isShared();
-=======
         $srcDefinition = $this->container->getDefinition($srcId);
 
         return $srcDefinition->isShared() && !$srcDefinition->isLazy();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

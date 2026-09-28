@@ -134,13 +134,14 @@
                 <source>Please enter a valid week.</source>
                 <target>Prašome įvesti tinkamą savaitę.</target>
             </trans-unit>
-<<<<<<< HEAD
-=======
             <trans-unit id="129">
                 <source>Please enter a valid UUID.</source>
                 <target>Prašome įvesti tinkamą UUID.</target>
             </trans-unit>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
+            <trans-unit id="130">
+                <source>The lower bound must not be greater than the upper bound.</source>
+                <target state="needs-review-translation">Apatinė riba negali būti didesnė už viršutinę ribą.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

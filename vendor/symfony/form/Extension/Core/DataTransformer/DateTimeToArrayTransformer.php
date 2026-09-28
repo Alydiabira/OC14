@@ -122,13 +122,8 @@ class DateTimeToArrayTransformer extends BaseDateTimeTransformer
             }
         }
 
-<<<<<<< HEAD
-        if (\count($emptyFields) > 0) {
-            throw new TransformationFailedException(sprintf('The fields "%s" should not be empty.', implode('", "', $emptyFields)));
-=======
         if ($emptyFields) {
             throw new TransformationFailedException(\sprintf('The fields "%s" should not be empty.', implode('", "', $emptyFields)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (isset($value['month']) && !ctype_digit((string) $value['month'])) {
@@ -143,11 +138,7 @@ class DateTimeToArrayTransformer extends BaseDateTimeTransformer
             throw new TransformationFailedException('This year is invalid.');
         }
 
-<<<<<<< HEAD
-        if (!empty($value['month']) && !empty($value['day']) && !empty($value['year']) && false === checkdate($value['month'], $value['day'], $value['year'])) {
-=======
         if (!empty($value['month']) && !empty($value['day']) && !empty($value['year']) && !checkdate($value['month'], $value['day'], $value['year'])) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new TransformationFailedException('This is an invalid date.');
         }
 
@@ -164,11 +155,7 @@ class DateTimeToArrayTransformer extends BaseDateTimeTransformer
         }
 
         try {
-<<<<<<< HEAD
-            $dateTime = new \DateTime(sprintf(
-=======
             $dateTime = new \DateTime(\sprintf(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 '%s-%s-%s %s:%s:%s',
                 empty($value['year']) ? $this->referenceDate->format('Y') : $value['year'],
                 empty($value['month']) ? $this->referenceDate->format('m') : $value['month'],

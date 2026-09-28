@@ -77,11 +77,7 @@ class MarkdownDescriptor extends Descriptor
 
     protected function describeInputDefinition(InputDefinition $definition, array $options = []): void
     {
-<<<<<<< HEAD
-        if ($showArguments = \count($definition->getArguments()) > 0) {
-=======
         if ($showArguments = $definition->getArguments()) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->write('### Arguments');
             foreach ($definition->getArguments() as $argument) {
                 $this->write("\n\n");
@@ -110,11 +106,7 @@ class MarkdownDescriptor extends Descriptor
                 .str_repeat('-', Helper::width($command->getName()) + 2)."\n\n"
                 .($command->getDescription() ? $command->getDescription()."\n\n" : '')
                 .'### Usage'."\n\n"
-<<<<<<< HEAD
-                .array_reduce($command->getAliases(), fn ($carry, $usage) => $carry.'* `'.$usage.'`'."\n")
-=======
                 .array_reduce($command->getAliases(), static fn ($carry, $usage) => $carry.'* `'.$usage.'`'."\n")
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
 
             return;
@@ -127,11 +119,7 @@ class MarkdownDescriptor extends Descriptor
             .str_repeat('-', Helper::width($command->getName()) + 2)."\n\n"
             .($command->getDescription() ? $command->getDescription()."\n\n" : '')
             .'### Usage'."\n\n"
-<<<<<<< HEAD
-            .array_reduce(array_merge([$command->getSynopsis()], $command->getAliases(), $command->getUsages()), fn ($carry, $usage) => $carry.'* `'.$usage.'`'."\n")
-=======
             .array_reduce(array_merge([$command->getSynopsis()], $command->getAliases(), $command->getUsages()), static fn ($carry, $usage) => $carry.'* `'.$usage.'`'."\n")
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         );
 
         if ($help = $command->getProcessedHelp()) {
@@ -161,11 +149,7 @@ class MarkdownDescriptor extends Descriptor
             }
 
             $this->write("\n\n");
-<<<<<<< HEAD
-            $this->write(implode("\n", array_map(fn ($commandName) => sprintf('* [`%s`](#%s)', $commandName, str_replace(':', '', $description->getCommand($commandName)->getName())), $namespace['commands'])));
-=======
             $this->write(implode("\n", array_map(static fn ($commandName) => \sprintf('* [`%s`](#%s)', $commandName, str_replace(':', '', $description->getCommand($commandName)->getName())), $namespace['commands'])));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         foreach ($description->getCommands() as $command) {
@@ -178,11 +162,7 @@ class MarkdownDescriptor extends Descriptor
     {
         if ('UNKNOWN' !== $application->getName()) {
             if ('UNKNOWN' !== $application->getVersion()) {
-<<<<<<< HEAD
-                return sprintf('%s %s', $application->getName(), $application->getVersion());
-=======
                 return \sprintf('%s %s', $application->getName(), $application->getVersion());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return $application->getName();

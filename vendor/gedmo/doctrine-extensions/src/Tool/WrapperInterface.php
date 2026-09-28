@@ -10,21 +10,14 @@
 namespace Gedmo\Tool;
 
 use Doctrine\Persistence\Mapping\ClassMetadata;
-<<<<<<< HEAD
-=======
 use Doctrine\Persistence\ObjectManager;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Interface for a wrapper of a managed object.
  *
-<<<<<<< HEAD
- * @phpstan-template-covariant TClassMetadata of ClassMetadata
-=======
  * @template-covariant TClassMetadata of ClassMetadata<TObject>
  * @template-covariant TObject        of object
  * @template-covariant TObjectManager of ObjectManager
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @author Gediminas Morkevicius <gediminas.morkevicius@gmail.com>
  */
@@ -33,11 +26,7 @@ interface WrapperInterface
     /**
      * Get the currently wrapped object.
      *
-<<<<<<< HEAD
-     * @return object
-=======
      * @return TObject
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getObject();
 
@@ -81,13 +70,7 @@ interface WrapperInterface
     /**
      * Get the object metadata.
      *
-<<<<<<< HEAD
-     * @return ClassMetadata
-     *
-     * @phpstan-return TClassMetadata
-=======
      * @return TClassMetadata
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getMetadata();
 

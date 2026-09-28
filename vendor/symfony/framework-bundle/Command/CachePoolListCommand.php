@@ -41,13 +41,8 @@ final class CachePoolListCommand extends Command
     {
         $this
             ->setHelp(<<<'EOF'
-<<<<<<< HEAD
-The <info>%command.name%</info> command lists all available cache pools.
-EOF
-=======
                 The <info>%command.name%</info> command lists all available cache pools.
                 EOF
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -56,11 +51,7 @@ EOF
     {
         $io = new SymfonyStyle($input, $output);
 
-<<<<<<< HEAD
-        $io->table(['Pool name'], array_map(fn ($pool) => [$pool], $this->poolNames));
-=======
         $io->table(['Pool name'], array_map(static fn ($pool) => [$pool], $this->poolNames));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return 0;
     }

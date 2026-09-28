@@ -169,19 +169,11 @@ function parseArgs($args) {
                 $operations[] = 'var-dump';
                 break;
             case '--resolve-names':
-<<<<<<< HEAD
-            case '-N';
-                $operations[] = 'resolve-names';
-                break;
-            case '--with-column-info':
-            case '-c';
-=======
             case '-N':
                 $operations[] = 'resolve-names';
                 break;
             case '--with-column-info':
             case '-c':
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $attributes['with-column-info'] = true;
                 break;
             case '--with-positions':
@@ -193,11 +185,7 @@ function parseArgs($args) {
                 $attributes['with-recovery'] = true;
                 break;
             case '--help':
-<<<<<<< HEAD
-            case '-h';
-=======
             case '-h':
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 showHelp();
                 break;
             case '--':

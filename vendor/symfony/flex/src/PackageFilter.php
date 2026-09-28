@@ -30,16 +30,6 @@ class PackageFilter
     private $symfonyConstraints;
     private $downloader;
     private $io;
-<<<<<<< HEAD
-
-    public function __construct(IOInterface $io, string $symfonyRequire, Downloader $downloader)
-    {
-        $this->versionParser = new VersionParser();
-        $this->symfonyRequire = $symfonyRequire;
-        $this->symfonyConstraints = $this->versionParser->parseConstraints($symfonyRequire);
-        $this->downloader = $downloader;
-        $this->io = $io;
-=======
     private $ignorePreleases;
 
     public function __construct(IOInterface $io, string $symfonyRequire, Downloader $downloader, bool $ignorePreleases = false)
@@ -50,7 +40,6 @@ class PackageFilter
         $this->downloader = $downloader;
         $this->io = $io;
         $this->ignorePreleases = $ignorePreleases;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -61,8 +50,6 @@ class PackageFilter
      */
     public function removeLegacyPackages(array $data, RootPackageInterface $rootPackage, array $lockedPackages): array
     {
-<<<<<<< HEAD
-=======
         if ($this->ignorePreleases) {
             $filteredPackages = [];
             foreach ($data as $package) {
@@ -73,7 +60,6 @@ class PackageFilter
             $data = $filteredPackages;
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (!$this->symfonyConstraints || !$data) {
             return $data;
         }
@@ -91,11 +77,7 @@ class PackageFilter
             $rootConstraints[$name] = $link->getConstraint();
         }
 
-<<<<<<< HEAD
-        $knownVersions = $this->getVersions();
-=======
         $knownVersions = null;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $filteredPackages = [];
         $symfonyPackages = [];
         $oneSymfony = false;
@@ -107,13 +89,8 @@ class PackageFilter
             }
 
             if ('symfony/symfony' !== $name && (
-<<<<<<< HEAD
-                !isset($knownVersions['splits'][$name])
-                || array_intersect($versions, $lockedVersions[$name] ?? [])
-=======
                 array_intersect($versions, $lockedVersions[$name] ?? [])
                 || (($knownVersions ??= $this->getVersions()) && !isset($knownVersions['splits'][$name]))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 || (isset($rootConstraints[$name]) && !Intervals::haveIntersections($this->symfonyConstraints, $rootConstraints[$name]))
                 || ('symfony/psr-http-message-bridge' === $name && 6.4 > $versions[0])
             )) {
@@ -136,11 +113,7 @@ class PackageFilter
             if ('symfony/symfony' === $name) {
                 $symfonyPackages[] = $package;
             } elseif (null !== $this->io) {
-<<<<<<< HEAD
-                $this->io->writeError(sprintf('<info>Restricting packages listed in "symfony/symfony" to "%s"</>', $this->symfonyRequire));
-=======
                 $this->io->writeError(\sprintf('<info>Restricting packages listed in "symfony/symfony" to "%s"</>', $this->symfonyRequire));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $this->io = null;
             }
         }

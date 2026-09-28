@@ -12,12 +12,6 @@
 namespace Symfony\Component\Validator\Mapping\Factory;
 
 use Psr\Cache\CacheItemPoolInterface;
-<<<<<<< HEAD
-use Symfony\Component\Validator\Exception\NoSuchMetadataException;
-use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Mapping\Loader\LoaderInterface;
-use Symfony\Component\Validator\Mapping\MetadataInterface;
-=======
 use Symfony\Component\Validator\Constraints\DisableAutoMapping;
 use Symfony\Component\Validator\Constraints\EnableAutoMapping;
 use Symfony\Component\Validator\Exception\NoSuchMetadataException;
@@ -28,7 +22,6 @@ use Symfony\Component\Validator\Mapping\Loader\LoaderInterface;
 use Symfony\Component\Validator\Mapping\MemberMetadata;
 use Symfony\Component\Validator\Mapping\MetadataInterface;
 use Symfony\Component\Validator\Mapping\PropertyMetadata;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Creates new {@link ClassMetadataInterface} instances.
@@ -84,11 +77,7 @@ class LazyLoadingMetadataFactory implements MetadataFactoryInterface
     public function getMetadataFor(mixed $value): MetadataInterface
     {
         if (!\is_object($value) && !\is_string($value)) {
-<<<<<<< HEAD
-            throw new NoSuchMetadataException(sprintf('Cannot create metadata for non-objects. Got: "%s".', get_debug_type($value)));
-=======
             throw new NoSuchMetadataException(\sprintf('Cannot create metadata for non-objects. Got: "%s".', get_debug_type($value)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $class = ltrim(\is_object($value) ? $value::class : $value, '\\');
@@ -98,11 +87,7 @@ class LazyLoadingMetadataFactory implements MetadataFactoryInterface
         }
 
         if (!class_exists($class) && !interface_exists($class, false)) {
-<<<<<<< HEAD
-            throw new NoSuchMetadataException(sprintf('The class or interface "%s" does not exist.', $class));
-=======
             throw new NoSuchMetadataException(\sprintf('The class or interface "%s" does not exist.', $class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $cacheItem = $this->cache?->getItem($this->escapeClassName($class));
@@ -117,9 +102,6 @@ class LazyLoadingMetadataFactory implements MetadataFactoryInterface
 
         $metadata = new ClassMetadata($class);
 
-<<<<<<< HEAD
-        $this->loader?->loadClassMetadata($metadata);
-=======
         if (null !== $this->loader) {
             // Loaders that map constraints automatically need to know about the strategies declared in parent classes
             $placeholders = $this->inheritAutoMappingStrategies($metadata);
@@ -128,7 +110,6 @@ class LazyLoadingMetadataFactory implements MetadataFactoryInterface
 
             $this->removeUnusedPlaceholders($metadata, $placeholders);
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (null !== $cacheItem) {
             $this->cache->save($cacheItem->set($metadata));
@@ -177,8 +158,6 @@ class LazyLoadingMetadataFactory implements MetadataFactoryInterface
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Copies the auto-mapping strategies declared on the parent's properties.
      *
      * @return array<string, array{PropertyMetadata, int}> the property metadata created to carry them
@@ -244,7 +223,6 @@ class LazyLoadingMetadataFactory implements MetadataFactoryInterface
     }
 
     /**
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Replaces backslashes by dots in a class name.
      */
     private function escapeClassName(string $class): string

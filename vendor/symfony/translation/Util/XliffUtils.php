@@ -41,11 +41,7 @@ class XliffUtils
             $namespace = $xliff->attributes->getNamedItem('xmlns');
             if ($namespace) {
                 if (0 !== substr_compare('urn:oasis:names:tc:xliff:document:', $namespace->nodeValue, 0, 34)) {
-<<<<<<< HEAD
-                    throw new InvalidArgumentException(sprintf('Not a valid XLIFF namespace "%s".', $namespace));
-=======
                     throw new InvalidArgumentException(\sprintf('Not a valid XLIFF namespace "%s".', $namespace));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 return substr($namespace, 34);
@@ -87,8 +83,6 @@ class XliffUtils
         return [];
     }
 
-<<<<<<< HEAD
-=======
     public static function getErrorsAsString(array $xmlErrors): string
     {
         $errorsAsString = '';
@@ -107,7 +101,6 @@ class XliffUtils
         return $errorsAsString;
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private static function shouldEnableEntityLoader(): bool
     {
         static $dom, $schema;
@@ -121,11 +114,7 @@ class XliffUtils
             });
             $schema = '<?xml version="1.0" encoding="utf-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-<<<<<<< HEAD
-  <xsd:include schemaLocation="file:///'.str_replace('\\', '/', $tmpfile).'" />
-=======
   <xsd:include schemaLocation="'.self::getFileUrl($tmpfile).'" />
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 </xsd:schema>';
             file_put_contents($tmpfile, '<?xml version="1.0" encoding="utf-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -137,24 +126,6 @@ class XliffUtils
         return !@$dom->schemaValidateSource($schema);
     }
 
-<<<<<<< HEAD
-    public static function getErrorsAsString(array $xmlErrors): string
-    {
-        $errorsAsString = '';
-
-        foreach ($xmlErrors as $error) {
-            $errorsAsString .= sprintf("[%s %s] %s (in %s - line %d, column %d)\n",
-                \LIBXML_ERR_WARNING === $error['level'] ? 'WARNING' : 'ERROR',
-                $error['code'],
-                $error['message'],
-                $error['file'],
-                $error['line'],
-                $error['column']
-            );
-        }
-
-        return $errorsAsString;
-=======
     private static function getFileUrl(string $path): string
     {
         if ('\\' === \DIRECTORY_SEPARATOR) {
@@ -166,7 +137,6 @@ class XliffUtils
         }
 
         return 'file:///'.$drive.implode('/', array_map('rawurlencode', $parts));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private static function getSchema(string $xliffVersion): string
@@ -178,11 +148,7 @@ class XliffUtils
             $schemaSource = file_get_contents(__DIR__.'/../Resources/schemas/xliff-core-2.0.xsd');
             $xmlUri = 'informativeCopiesOf3rdPartySchemas/w3c/xml.xsd';
         } else {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('No support implemented for loading XLIFF version "%s".', $xliffVersion));
-=======
             throw new InvalidArgumentException(\sprintf('No support implemented for loading XLIFF version "%s".', $xliffVersion));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return self::fixXmlLocation($schemaSource, $xmlUri);
@@ -193,25 +159,6 @@ class XliffUtils
      */
     private static function fixXmlLocation(string $schemaSource, string $xmlUri): string
     {
-<<<<<<< HEAD
-        $newPath = str_replace('\\', '/', __DIR__).'/../Resources/schemas/xml.xsd';
-        $parts = explode('/', $newPath);
-        $locationstart = 'file:///';
-        if (0 === stripos($newPath, 'phar://')) {
-            $tmpfile = tempnam(sys_get_temp_dir(), 'symfony');
-            if ($tmpfile) {
-                copy($newPath, $tmpfile);
-                $parts = explode('/', str_replace('\\', '/', $tmpfile));
-            } else {
-                array_shift($parts);
-                $locationstart = 'phar:///';
-            }
-        }
-
-        $drive = '\\' === \DIRECTORY_SEPARATOR ? array_shift($parts).'/' : '';
-        $newPath = $locationstart.$drive.implode('/', array_map('rawurlencode', $parts));
-
-=======
         static $newPath;
 
         if (null === $newPath) {
@@ -233,7 +180,6 @@ class XliffUtils
             }
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return str_replace($xmlUri, $newPath, $schemaSource);
     }
 

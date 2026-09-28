@@ -30,11 +30,7 @@ class RemotePackageStorage
     public function isDownloaded(ImportMapEntry $entry): bool
     {
         if (!$entry->isRemotePackage()) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('The entry "%s" is not a remote package.', $entry->importName));
-=======
             throw new \InvalidArgumentException(\sprintf('The entry "%s" is not a remote package.', $entry->importName));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return is_file($this->getDownloadPath($entry->packageModuleSpecifier, $entry->type));
@@ -43,11 +39,7 @@ class RemotePackageStorage
     public function isExtraFileDownloaded(ImportMapEntry $entry, string $extraFilename): bool
     {
         if (!$entry->isRemotePackage()) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('The entry "%s" is not a remote package.', $entry->importName));
-=======
             throw new \InvalidArgumentException(\sprintf('The entry "%s" is not a remote package.', $entry->importName));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return is_file($this->getExtraFileDownloadPath($entry, $extraFilename));
@@ -56,48 +48,28 @@ class RemotePackageStorage
     public function save(ImportMapEntry $entry, string $contents): void
     {
         if (!$entry->isRemotePackage()) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('The entry "%s" is not a remote package.', $entry->importName));
-=======
             throw new \InvalidArgumentException(\sprintf('The entry "%s" is not a remote package.', $entry->importName));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $vendorPath = $this->getDownloadPath($entry->packageModuleSpecifier, $entry->type);
 
-<<<<<<< HEAD
-        @mkdir(\dirname($vendorPath), 0777, true);
-        if (false === @file_put_contents($vendorPath, $contents)) {
-            throw new RuntimeException(error_get_last()['message'] ?? sprintf('Failed to write file "%s".', $vendorPath));
-=======
         @mkdir(\dirname($vendorPath), 0o777, true);
         if (false === @file_put_contents($vendorPath, $contents)) {
             throw new RuntimeException(error_get_last()['message'] ?? \sprintf('Failed to write file "%s".', $vendorPath));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
     public function saveExtraFile(ImportMapEntry $entry, string $extraFilename, string $contents): void
     {
         if (!$entry->isRemotePackage()) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('The entry "%s" is not a remote package.', $entry->importName));
-=======
             throw new \InvalidArgumentException(\sprintf('The entry "%s" is not a remote package.', $entry->importName));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $vendorPath = $this->getExtraFileDownloadPath($entry, $extraFilename);
 
-<<<<<<< HEAD
-        @mkdir(\dirname($vendorPath), 0777, true);
-        if (false === @file_put_contents($vendorPath, $contents)) {
-            throw new RuntimeException(error_get_last()['message'] ?? sprintf('Failed to write file "%s".', $vendorPath));
-=======
         @mkdir(\dirname($vendorPath), 0o777, true);
         if (false === @file_put_contents($vendorPath, $contents)) {
             throw new RuntimeException(error_get_last()['message'] ?? \sprintf('Failed to write file "%s".', $vendorPath));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 

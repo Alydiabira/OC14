@@ -12,12 +12,6 @@
 namespace Symfony\Component\Form\Extension\Core\Type;
 
 use Symfony\Component\Form\AbstractType;
-<<<<<<< HEAD
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
-
-class TextareaType extends AbstractType
-=======
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -25,13 +19,10 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Util\StringUtil;
 
 class TextareaType extends AbstractType implements DataTransformerInterface
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 {
     /**
      * @return void
      */
-<<<<<<< HEAD
-=======
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->addViewTransformer($this);
@@ -40,7 +31,6 @@ class TextareaType extends AbstractType implements DataTransformerInterface
     /**
      * @return void
      */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['pattern'] = null;
@@ -56,8 +46,6 @@ class TextareaType extends AbstractType implements DataTransformerInterface
     {
         return 'textarea';
     }
-<<<<<<< HEAD
-=======
 
     public function transform(mixed $value): mixed
     {
@@ -80,5 +68,4 @@ class TextareaType extends AbstractType implements DataTransformerInterface
 
         return StringUtil::normalizeNewlines($value);
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

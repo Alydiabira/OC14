@@ -90,11 +90,7 @@ final class MakeWebhook extends AbstractMaker implements InputAwareMakerInterfac
     {
         $command
             ->addArgument('name', InputArgument::OPTIONAL, 'Name of the webhook to create (e.g. <fg=yellow>github, stripe, ...</>)')
-<<<<<<< HEAD
-            ->setHelp(file_get_contents(__DIR__.'/../Resources/help/MakeWebhook.txt'))
-=======
             ->setHelp($this->getHelpFileContents('MakeWebhook.txt'))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ;
 
         $inputConfig->setArgumentAsNonInteractive('name');
@@ -304,11 +300,7 @@ final class MakeWebhook extends AbstractMaker implements InputAwareMakerInterfac
             IsJsonRequestMatcher::class => '',
             MethodRequestMatcher::class => '\'POST\'',
             PortRequestMatcher::class => '443',
-<<<<<<< HEAD
-            SchemeRequestMatcher::class => 'https',
-=======
             SchemeRequestMatcher::class => '\'https\'',
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             default => '[]',
         };
     }

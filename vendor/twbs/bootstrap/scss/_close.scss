@@ -12,10 +12,6 @@
   --#{$prefix}btn-close-focus-shadow: #{$btn-close-focus-shadow};
   --#{$prefix}btn-close-focus-opacity: #{$btn-close-focus-opacity};
   --#{$prefix}btn-close-disabled-opacity: #{$btn-close-disabled-opacity};
-<<<<<<< HEAD
-  --#{$prefix}btn-close-white-filter: #{$btn-close-white-filter};
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
   // scss-docs-end close-css-vars
 
   box-sizing: content-box;
@@ -24,10 +20,7 @@
   padding: $btn-close-padding-y $btn-close-padding-x;
   color: var(--#{$prefix}btn-close-color);
   background: transparent var(--#{$prefix}btn-close-bg) center / $btn-close-width auto no-repeat; // include transparent for button elements
-<<<<<<< HEAD
-=======
   filter: var(--#{$prefix}btn-close-filter);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
   border: 0; // for button elements
   @include border-radius();
   opacity: var(--#{$prefix}btn-close-opacity);
@@ -54,24 +47,13 @@
 }
 
 @mixin btn-close-white() {
-<<<<<<< HEAD
-  filter: var(--#{$prefix}btn-close-white-filter);
-=======
   --#{$prefix}btn-close-filter: #{$btn-close-filter-dark};
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }
 
 .btn-close-white {
   @include btn-close-white();
 }
 
-<<<<<<< HEAD
-@if $enable-dark-mode {
-  @include color-mode(dark) {
-    .btn-close {
-      @include btn-close-white();
-    }
-=======
 :root,
 [data-bs-theme="light"] {
   --#{$prefix}btn-close-filter: #{$btn-close-filter};
@@ -80,6 +62,5 @@
 @if $enable-dark-mode {
   @include color-mode(dark, true) {
     @include btn-close-white();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
   }
 }

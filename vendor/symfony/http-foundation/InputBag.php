@@ -29,21 +29,13 @@ final class InputBag extends ParameterBag
     public function get(string $key, mixed $default = null): string|int|float|bool|null
     {
         if (null !== $default && !\is_scalar($default) && !$default instanceof \Stringable) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('Expected a scalar value as a 2nd argument to "%s()", "%s" given.', __METHOD__, get_debug_type($default)));
-=======
             throw new \InvalidArgumentException(\sprintf('Expected a scalar value as a 2nd argument to "%s()", "%s" given.', __METHOD__, get_debug_type($default)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $value = parent::get($key, $this);
 
         if (null !== $value && $this !== $value && !\is_scalar($value) && !$value instanceof \Stringable) {
-<<<<<<< HEAD
-            throw new BadRequestException(sprintf('Input value "%s" contains a non-scalar value.', $key));
-=======
             throw new BadRequestException(\sprintf('Input value "%s" contains a non-scalar value.', $key));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this === $value ? $default : $value;
@@ -76,11 +68,7 @@ final class InputBag extends ParameterBag
     public function set(string $key, mixed $value): void
     {
         if (null !== $value && !\is_scalar($value) && !\is_array($value) && !$value instanceof \Stringable) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('Expected a scalar, or an array as a 2nd argument to "%s()", "%s" given.', __METHOD__, get_debug_type($value)));
-=======
             throw new \InvalidArgumentException(\sprintf('Expected a scalar, or an array as a 2nd argument to "%s()", "%s" given.', __METHOD__, get_debug_type($value)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->parameters[$key] = $value;
@@ -124,19 +112,11 @@ final class InputBag extends ParameterBag
         }
 
         if (\is_array($value) && !(($options['flags'] ?? 0) & (\FILTER_REQUIRE_ARRAY | \FILTER_FORCE_ARRAY))) {
-<<<<<<< HEAD
-            throw new BadRequestException(sprintf('Input value "%s" contains an array, but "FILTER_REQUIRE_ARRAY" or "FILTER_FORCE_ARRAY" flags were not set.', $key));
-        }
-
-        if ((\FILTER_CALLBACK & $filter) && !(($options['options'] ?? null) instanceof \Closure)) {
-            throw new \InvalidArgumentException(sprintf('A Closure must be passed to "%s()" when FILTER_CALLBACK is used, "%s" given.', __METHOD__, get_debug_type($options['options'] ?? null)));
-=======
             throw new BadRequestException(\sprintf('Input value "%s" contains an array, but "FILTER_REQUIRE_ARRAY" or "FILTER_FORCE_ARRAY" flags were not set.', $key));
         }
 
         if ((\FILTER_CALLBACK & $filter) && !(($options['options'] ?? null) instanceof \Closure)) {
             throw new \InvalidArgumentException(\sprintf('A Closure must be passed to "%s()" when FILTER_CALLBACK is used, "%s" given.', __METHOD__, get_debug_type($options['options'] ?? null)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $options['flags'] ??= 0;

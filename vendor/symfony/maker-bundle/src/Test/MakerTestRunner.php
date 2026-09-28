@@ -35,9 +35,6 @@ class MakerTestRunner
     {
         $this->executedMakerProcess = $this->environment->runMaker($inputs, $argumentsString, $allowedToFail, $envVars);
 
-<<<<<<< HEAD
-        return $this->executedMakerProcess->getOutput();
-=======
         $output = $this->executedMakerProcess->getOutput();
 
         // Allows for debugging the actual CLI output from within a test process. E.g. Manually viewing the output of the
@@ -48,7 +45,6 @@ class MakerTestRunner
         }
 
         return $output;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -56,17 +52,10 @@ class MakerTestRunner
      */
     public function copy(string $source, string $destination)
     {
-<<<<<<< HEAD
-        $path = __DIR__.'/../../tests/fixtures/'.$source;
-
-        if (!file_exists($path)) {
-            throw new \Exception(sprintf('Cannot find file "%s"', $path));
-=======
         $path = $this->environment->getFixturesPath($source);
 
         if (!file_exists($path)) {
             throw new \Exception(\sprintf('Cannot find file "%s"', $path));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (is_file($path)) {
@@ -87,11 +76,7 @@ class MakerTestRunner
     public function renderTemplateFile(string $source, string $destination, array $variables): void
     {
         $twig = new Environment(
-<<<<<<< HEAD
-            new FilesystemLoader(__DIR__.'/../../tests/fixtures')
-=======
             new FilesystemLoader($this->environment->getFixturesPath())
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         );
 
         $rendered = $twig->render($source, $variables);
@@ -129,11 +114,7 @@ class MakerTestRunner
 
         $newData = $callback($manipulator->getData());
         if (!\is_array($newData)) {
-<<<<<<< HEAD
-            throw new \Exception('The modifyYamlFile() callback must return the final array of data');
-=======
             throw new \Exception('The modifyYamlFile() callback must return the final array of data.');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         $manipulator->setData($newData);
 
@@ -191,11 +172,7 @@ class MakerTestRunner
 
         // Flex includes a recipe to suffix the dbname w/ "_test" - lets keep
         // things simple for these tests and not do that.
-<<<<<<< HEAD
-        $this->modifyYamlFile('config/packages/doctrine.yaml', function (array $config) {
-=======
         $this->modifyYamlFile('config/packages/doctrine.yaml', static function (array $config) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (isset($config['when@test']['doctrine']['dbal']['dbname_suffix'])) {
                 unset($config['when@test']['doctrine']['dbal']['dbname_suffix']);
             }
@@ -230,11 +207,7 @@ class MakerTestRunner
     public function runTests(): void
     {
         $internalTestProcess = MakerTestProcess::create(
-<<<<<<< HEAD
-            sprintf('php %s', $this->getPath('/bin/phpunit')),
-=======
             \sprintf('php %s', $this->getPath('bin/phpunit')),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->environment->getPath())
             ->run(true)
         ;
@@ -243,11 +216,7 @@ class MakerTestRunner
             return;
         }
 
-<<<<<<< HEAD
-        throw new ExpectationFailedException(sprintf("Error while running the PHPUnit tests *in* the project: \n\n %s \n\n Command Output: %s", $internalTestProcess->getErrorOutput()."\n".$internalTestProcess->getOutput(), $this->getExecutedMakerProcess()->getErrorOutput()."\n".$this->getExecutedMakerProcess()->getOutput()));
-=======
         throw new ExpectationFailedException(\sprintf("Error while running the PHPUnit tests *in* the project: \n\n %s \n\n Command Output: %s", $internalTestProcess->getErrorOutput()."\n".$internalTestProcess->getOutput(), $this->getExecutedMakerProcess()->getErrorOutput()."\n".$this->getExecutedMakerProcess()->getOutput()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function writeFile(string $filename, string $contents): void

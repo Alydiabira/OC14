@@ -12,9 +12,6 @@
 namespace Symfony\Bridge\Doctrine\SchemaListener;
 
 use Doctrine\DBAL\Connection;
-<<<<<<< HEAD
-use Doctrine\DBAL\Exception\TableNotFoundException;
-=======
 use Doctrine\DBAL\Driver\Exception as DBALDriverException;
 use Doctrine\DBAL\Exception\DatabaseObjectExistsException;
 use Doctrine\DBAL\Exception\DatabaseObjectNotFoundException;
@@ -24,7 +21,6 @@ use Doctrine\DBAL\Schema\Name\UnqualifiedName;
 use Doctrine\DBAL\Schema\NamedObject;
 use Doctrine\DBAL\Schema\PrimaryKeyConstraint;
 use Doctrine\DBAL\Schema\Schema;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\DBAL\Schema\Table;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Tools\Event\GenerateSchemaEventArgs;
@@ -33,34 +29,6 @@ abstract class AbstractSchemaListener
 {
     abstract public function postGenerateSchema(GenerateSchemaEventArgs $event): void;
 
-<<<<<<< HEAD
-    protected function getIsSameDatabaseChecker(Connection $connection): \Closure
-    {
-        return static function (\Closure $exec) use ($connection): bool {
-            $schemaManager = $connection->createSchemaManager();
-
-            $checkTable = 'schema_subscriber_check_'.bin2hex(random_bytes(7));
-            $table = new Table($checkTable);
-            $table->addColumn('id', Types::INTEGER)
-                ->setAutoincrement(true)
-                ->setNotnull(true);
-            $table->setPrimaryKey(['id']);
-
-            $schemaManager->createTable($table);
-
-            try {
-                $exec(sprintf('DROP TABLE %s', $checkTable));
-            } catch (\Exception) {
-                // ignore
-            }
-
-            try {
-                $schemaManager->dropTable($checkTable);
-
-                return false;
-            } catch (TableNotFoundException) {
-                return true;
-=======
     /**
      * @param callable(): Schema $configurator returns the (possibly new) schema with the table added
      *
@@ -200,7 +168,6 @@ abstract class AbstractSchemaListener
                     } catch (DatabaseObjectNotFoundException) {
                     }
                 }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         };
     }

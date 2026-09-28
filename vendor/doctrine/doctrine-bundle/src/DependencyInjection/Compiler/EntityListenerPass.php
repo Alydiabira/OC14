@@ -1,20 +1,13 @@
 <?php
 
-<<<<<<< HEAD
-=======
 declare(strict_types=1);
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 namespace Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler;
 
 use Doctrine\Bundle\DoctrineBundle\Mapping\ContainerEntityListenerResolver;
 use Doctrine\Bundle\DoctrineBundle\Mapping\EntityListenerServiceResolver;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-<<<<<<< HEAD
-use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -25,10 +18,7 @@ use function is_a;
 use function method_exists;
 use function sprintf;
 use function substr;
-<<<<<<< HEAD
-=======
 use function usort;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Class for Symfony bundles to register entity listeners
@@ -37,69 +27,6 @@ use function usort;
  */
 class EntityListenerPass implements CompilerPassInterface
 {
-<<<<<<< HEAD
-    use PriorityTaggedServiceTrait;
-
-    /** @return void */
-    public function process(ContainerBuilder $container)
-    {
-        $resolvers = $this->findAndSortTaggedServices('doctrine.orm.entity_listener', $container);
-
-        $lazyServiceReferencesByResolver = [];
-
-        foreach ($resolvers as $reference) {
-            $id = $reference->__toString();
-            foreach ($container->getDefinition($id)->getTag('doctrine.orm.entity_listener') as $attributes) {
-                $name          = $attributes['entity_manager'] ?? $container->getParameter('doctrine.default_entity_manager');
-                $entityManager = sprintf('doctrine.orm.%s_entity_manager', $name);
-
-                if (! $container->hasDefinition($entityManager)) {
-                    continue;
-                }
-
-                $resolverId = sprintf('doctrine.orm.%s_entity_listener_resolver', $name);
-
-                if (! $container->has($resolverId)) {
-                    continue;
-                }
-
-                $resolver = $container->findDefinition($resolverId);
-                $resolver->setPublic(true);
-
-                if (isset($attributes['entity'])) {
-                    $this->attachToListener($container, $name, $this->getConcreteDefinitionClass($container->findDefinition($id), $container, $id), $attributes);
-                }
-
-                $resolverClass                 = $this->getResolverClass($resolver, $container, $resolverId);
-                $resolverSupportsLazyListeners = is_a($resolverClass, EntityListenerServiceResolver::class, true);
-
-                $lazyByAttribute = isset($attributes['lazy']) && $attributes['lazy'];
-                if ($lazyByAttribute && ! $resolverSupportsLazyListeners) {
-                    throw new InvalidArgumentException(sprintf(
-                        'Lazy-loaded entity listeners can only be resolved by a resolver implementing %s.',
-                        EntityListenerServiceResolver::class,
-                    ));
-                }
-
-                if (! isset($attributes['lazy']) && $resolverSupportsLazyListeners || $lazyByAttribute) {
-                    $listener = $container->findDefinition($id);
-
-                    $resolver->addMethodCall('registerService', [$this->getConcreteDefinitionClass($listener, $container, $id), $id]);
-
-                    // if the resolver uses the default class we will use a service locator for all listeners
-                    if ($resolverClass === ContainerEntityListenerResolver::class) {
-                        if (! isset($lazyServiceReferencesByResolver[$resolverId])) {
-                            $lazyServiceReferencesByResolver[$resolverId] = [];
-                        }
-
-                        $lazyServiceReferencesByResolver[$resolverId][$id] = new Reference($id);
-                    } else {
-                        $listener->setPublic(true);
-                    }
-                } else {
-                    $resolver->addMethodCall('register', [new Reference($id)]);
-                }
-=======
     /** @return void */
     public function process(ContainerBuilder $container)
     {
@@ -168,7 +95,6 @@ class EntityListenerPass implements CompilerPassInterface
                 }
             } else {
                 $resolver->addMethodCall('register', [new Reference($id)]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 

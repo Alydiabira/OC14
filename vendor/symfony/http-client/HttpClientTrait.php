@@ -13,10 +13,7 @@ namespace Symfony\Component\HttpClient;
 
 use Symfony\Component\HttpClient\Exception\InvalidArgumentException;
 use Symfony\Component\HttpClient\Exception\TransportException;
-<<<<<<< HEAD
-=======
 use Symfony\Component\HttpClient\Internal\Dechunker;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\HttpClient\Response\StreamableInterface;
 use Symfony\Component\HttpClient\Response\StreamWrapper;
 use Symfony\Component\Mime\MimeTypes;
@@ -50,11 +47,7 @@ trait HttpClientTrait
     {
         if (null !== $method) {
             if (\strlen($method) !== strspn($method, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')) {
-<<<<<<< HEAD
-                throw new InvalidArgumentException(sprintf('Invalid HTTP method "%s", only uppercase letters are accepted.', $method));
-=======
                 throw new InvalidArgumentException(\sprintf('Invalid HTTP method "%s", only uppercase letters are accepted.', $method));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             if (!$method) {
                 throw new InvalidArgumentException('The HTTP method cannot be empty.');
@@ -69,19 +62,11 @@ trait HttpClientTrait
             $options['buffer'] = static function (array $headers) use ($buffer) {
                 if (!\is_bool($buffer = $buffer($headers))) {
                     if (!\is_array($bufferInfo = @stream_get_meta_data($buffer))) {
-<<<<<<< HEAD
-                        throw new \LogicException(sprintf('The closure passed as option "buffer" must return bool or stream resource, got "%s".', get_debug_type($buffer)));
-                    }
-
-                    if (false === strpbrk($bufferInfo['mode'], 'acew+')) {
-                        throw new \LogicException(sprintf('The stream returned by the closure passed as option "buffer" must be writeable, got mode "%s".', $bufferInfo['mode']));
-=======
                         throw new \LogicException(\sprintf('The closure passed as option "buffer" must return bool or stream resource, got "%s".', get_debug_type($buffer)));
                     }
 
                     if (false === strpbrk($bufferInfo['mode'], 'acew+')) {
                         throw new \LogicException(\sprintf('The stream returned by the closure passed as option "buffer" must be writeable, got mode "%s".', $bufferInfo['mode']));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
                 }
 
@@ -89,19 +74,11 @@ trait HttpClientTrait
             };
         } elseif (!\is_bool($buffer)) {
             if (!\is_array($bufferInfo = @stream_get_meta_data($buffer))) {
-<<<<<<< HEAD
-                throw new InvalidArgumentException(sprintf('Option "buffer" must be bool, stream resource or Closure, "%s" given.', get_debug_type($buffer)));
-            }
-
-            if (false === strpbrk($bufferInfo['mode'], 'acew+')) {
-                throw new InvalidArgumentException(sprintf('The stream in option "buffer" must be writeable, mode "%s" given.', $bufferInfo['mode']));
-=======
                 throw new InvalidArgumentException(\sprintf('Option "buffer" must be bool, stream resource or Closure, "%s" given.', get_debug_type($buffer)));
             }
 
             if (false === strpbrk($bufferInfo['mode'], 'acew+')) {
                 throw new InvalidArgumentException(\sprintf('The stream in option "buffer" must be writeable, mode "%s" given.', $bufferInfo['mode']));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -152,41 +129,25 @@ trait HttpClientTrait
 
         // Validate on_progress
         if (isset($options['on_progress']) && !\is_callable($onProgress = $options['on_progress'])) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('Option "on_progress" must be callable, "%s" given.', get_debug_type($onProgress)));
-=======
             throw new InvalidArgumentException(\sprintf('Option "on_progress" must be callable, "%s" given.', get_debug_type($onProgress)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (\is_array($options['auth_basic'] ?? null)) {
             $count = \count($options['auth_basic']);
             if ($count <= 0 || $count > 2) {
-<<<<<<< HEAD
-                throw new InvalidArgumentException(sprintf('Option "auth_basic" must contain 1 or 2 elements, "%s" given.', $count));
-=======
                 throw new InvalidArgumentException(\sprintf('Option "auth_basic" must contain 1 or 2 elements, "%s" given.', $count));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $options['auth_basic'] = implode(':', $options['auth_basic']);
         }
 
         if (!\is_string($options['auth_basic'] ?? '')) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('Option "auth_basic" must be string or an array, "%s" given.', get_debug_type($options['auth_basic'])));
-=======
             throw new InvalidArgumentException(\sprintf('Option "auth_basic" must be string or an array, "%s" given.', get_debug_type($options['auth_basic'])));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (isset($options['auth_bearer'])) {
             if (!\is_string($options['auth_bearer'])) {
-<<<<<<< HEAD
-                throw new InvalidArgumentException(sprintf('Option "auth_bearer" must be a string, "%s" given.', get_debug_type($options['auth_bearer'])));
-=======
                 throw new InvalidArgumentException(\sprintf('Option "auth_bearer" must be a string, "%s" given.', get_debug_type($options['auth_bearer'])));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             if (preg_match('{[^\x21-\x7E]}', $options['auth_bearer'])) {
                 throw new InvalidArgumentException('Invalid character found in option "auth_bearer": '.json_encode($options['auth_bearer']).'.');
@@ -210,15 +171,6 @@ trait HttpClientTrait
             unset($options['auth_basic'], $options['auth_bearer']);
 
             // Parse base URI
-<<<<<<< HEAD
-            if (\is_string($options['base_uri'])) {
-                $options['base_uri'] = self::parseUrl($options['base_uri']);
-            }
-
-            // Validate and resolve URL
-            $url = self::parseUrl($url, $options['query']);
-            $url = self::resolveUrl($url, $options['base_uri'], $defaultOptions['query'] ?? []);
-=======
             if (\is_string($baseUri = $options['base_uri'] ?? null)) {
                 $baseUri = self::parseUrl($baseUri);
             }
@@ -227,7 +179,6 @@ trait HttpClientTrait
             // Validate and resolve URL
             $url = self::parseUrl($url, $options['query']);
             $url = self::resolveUrl($url, $baseUri, $defaultOptions['query'] ?? []);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         // Finalize normalization of options
@@ -258,9 +209,6 @@ trait HttpClientTrait
         if ($resolve = $options['resolve'] ?? false) {
             $options['resolve'] = [];
             foreach ($resolve as $k => $v) {
-<<<<<<< HEAD
-                $options['resolve'][substr(self::parseUrl('http://'.$k)['authority'], 2)] = (string) $v;
-=======
                 if ('' === $v = (string) $v) {
                     $v = null;
                 } elseif ('[' === $v[0] && ']' === substr($v, -1) && str_contains($v, ':')) {
@@ -268,7 +216,6 @@ trait HttpClientTrait
                 }
 
                 $options['resolve'][substr(self::parseUrl('http://'.$k)['authority'], 2)] = $v;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -291,9 +238,6 @@ trait HttpClientTrait
 
         if ($resolve = $defaultOptions['resolve'] ?? false) {
             foreach ($resolve as $k => $v) {
-<<<<<<< HEAD
-                $options['resolve'] += [substr(self::parseUrl('http://'.$k)['authority'], 2) => (string) $v];
-=======
                 if ('' === $v = (string) $v) {
                     $v = null;
                 } elseif ('[' === $v[0] && ']' === substr($v, -1) && str_contains($v, ':')) {
@@ -301,7 +245,6 @@ trait HttpClientTrait
                 }
 
                 $options['resolve'] += [substr(self::parseUrl('http://'.$k)['authority'], 2) => $v];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -322,19 +265,11 @@ trait HttpClientTrait
                     $msg = 'try using "%s" instead.';
                 }
 
-<<<<<<< HEAD
-                throw new InvalidArgumentException(sprintf('Option "auth_ntlm" is not supported by "%s", '.$msg, __CLASS__, CurlHttpClient::class));
-            }
-
-            if ('vars' === $name) {
-                throw new InvalidArgumentException(sprintf('Option "vars" is not supported by "%s", try using "%s" instead.', __CLASS__, UriTemplateHttpClient::class));
-=======
                 throw new InvalidArgumentException(\sprintf('Option "auth_ntlm" is not supported by "%s", '.$msg, __CLASS__, CurlHttpClient::class));
             }
 
             if ('vars' === $name) {
                 throw new InvalidArgumentException(\sprintf('Option "vars" is not supported by "%s", try using "%s" instead.', __CLASS__, UriTemplateHttpClient::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $alternatives = [];
@@ -345,11 +280,7 @@ trait HttpClientTrait
                 }
             }
 
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('Unsupported option "%s" passed to "%s", did you mean "%s"?', $name, __CLASS__, implode('", "', $alternatives ?: array_keys($defaultOptions))));
-=======
             throw new InvalidArgumentException(\sprintf('Unsupported option "%s" passed to "%s", did you mean "%s"?', $name, __CLASS__, implode('", "', $alternatives ?: array_keys($defaultOptions))));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $options;
@@ -371,21 +302,13 @@ trait HttpClientTrait
 
             if (\is_int($name)) {
                 if (!\is_string($values)) {
-<<<<<<< HEAD
-                    throw new InvalidArgumentException(sprintf('Invalid value for header "%s": expected string, "%s" given.', $name, get_debug_type($values)));
-=======
                     throw new InvalidArgumentException(\sprintf('Invalid value for header "%s": expected string, "%s" given.', $name, get_debug_type($values)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
                 [$name, $values] = explode(':', $values, 2);
                 $values = [ltrim($values)];
             } elseif (!is_iterable($values)) {
                 if (\is_object($values)) {
-<<<<<<< HEAD
-                    throw new InvalidArgumentException(sprintf('Invalid value for header "%s": expected string, "%s" given.', $name, get_debug_type($values)));
-=======
                     throw new InvalidArgumentException(\sprintf('Invalid value for header "%s": expected string, "%s" given.', $name, get_debug_type($values)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 $values = (array) $values;
@@ -398,11 +321,7 @@ trait HttpClientTrait
                 $normalizedHeaders[$lcName][] = $value = $name.': '.$value;
 
                 if (\strlen($value) !== strcspn($value, "\r\n\0")) {
-<<<<<<< HEAD
-                    throw new InvalidArgumentException(sprintf('Invalid header: CR/LF/NUL found in "%s".', $value));
-=======
                     throw new InvalidArgumentException(\sprintf('Invalid header: CR/LF/NUL found in "%s".', $value));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
         }
@@ -435,15 +354,6 @@ trait HttpClientTrait
                         $v = $vars;
                     } elseif ($v instanceof \Stringable) {
                         $v = (string) $v;
-<<<<<<< HEAD
-                    }
-                }
-            });
-
-            $body = http_build_query($body, '', '&');
-
-            if ('' === $body || !$streams && !str_contains($normalizedHeaders['content-type'][0] ?? '', 'multipart/form-data')) {
-=======
                     } else {
                         $v = [];
                     }
@@ -456,7 +366,6 @@ trait HttpClientTrait
             }
 
             if (!$streams && !str_contains($normalizedHeaders['content-type'][0] ?? '', 'multipart/form-data')) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if (!str_contains($normalizedHeaders['content-type'][0] ?? '', 'application/x-www-form-urlencoded')) {
                     $normalizedHeaders['content-type'] = ['Content-Type: application/x-www-form-urlencoded'];
                 }
@@ -488,17 +397,10 @@ trait HttpClientTrait
                 $v = $streams[$v];
 
                 if (!\is_array($m = @stream_get_meta_data($v))) {
-<<<<<<< HEAD
-                    throw new TransportException(sprintf('Invalid "%s" resource found in body part "%s".', get_resource_type($v), $k));
-                }
-                if (feof($v)) {
-                    throw new TransportException(sprintf('Uploaded stream ended for body part "%s".', $k));
-=======
                     throw new TransportException(\sprintf('Invalid "%s" resource found in body part "%s".', get_resource_type($v), $k));
                 }
                 if (feof($v)) {
                     throw new TransportException(\sprintf('Uploaded stream ended for body part "%s".', $k));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 $m += stream_context_get_options($v)['http'] ?? [];
@@ -554,11 +456,7 @@ trait HttpClientTrait
 
                     while (null !== $h && !feof($h)) {
                         if (false === $part = fread($h, $size)) {
-<<<<<<< HEAD
-                            throw new TransportException(sprintf('Error while reading uploaded stream for body part "%s".', $k));
-=======
                             throw new TransportException(\sprintf('Error while reading uploaded stream for body part "%s".', $k));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         }
 
                         yield $part;
@@ -607,11 +505,7 @@ trait HttpClientTrait
         }
 
         if (!\is_array(@stream_get_meta_data($body))) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('Option "body" must be string, stream resource, iterable or callable, "%s" given.', get_debug_type($body)));
-=======
             throw new InvalidArgumentException(\sprintf('Option "body" must be string, stream resource, iterable or callable, "%s" given.', get_debug_type($body)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $body;
@@ -619,16 +513,6 @@ trait HttpClientTrait
 
     private static function dechunk(string $body): string
     {
-<<<<<<< HEAD
-        $h = fopen('php://temp', 'w+');
-        stream_filter_append($h, 'dechunk', \STREAM_FILTER_WRITE);
-        fwrite($h, $body);
-        $body = stream_get_contents($h, -1, 0);
-        rewind($h);
-        ftruncate($h, 0);
-
-        if (fwrite($h, '-') && '' !== stream_get_contents($h, -1, 0)) {
-=======
         $dechunker = new Dechunker();
 
         try {
@@ -638,7 +522,6 @@ trait HttpClientTrait
         }
 
         if (!$dechunker?->isFinished()) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw new TransportException('Request body has broken chunked encoding.');
         }
 
@@ -656,22 +539,14 @@ trait HttpClientTrait
                 40 => ['sha1' => $fingerprint],
                 44 => ['pin-sha256' => [$fingerprint]],
                 64 => ['sha256' => $fingerprint],
-<<<<<<< HEAD
-                default => throw new InvalidArgumentException(sprintf('Cannot auto-detect fingerprint algorithm for "%s".', $fingerprint)),
-=======
                 default => throw new InvalidArgumentException(\sprintf('Cannot auto-detect fingerprint algorithm for "%s".', $fingerprint)),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             };
         } elseif (\is_array($fingerprint)) {
             foreach ($fingerprint as $algo => $hash) {
                 $fingerprint[$algo] = 'pin-sha256' === $algo ? (array) $hash : str_replace(':', '', $hash);
             }
         } else {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('Option "peer_fingerprint" must be string or array, "%s" given.', get_debug_type($fingerprint)));
-=======
             throw new InvalidArgumentException(\sprintf('Option "peer_fingerprint" must be string or array, "%s" given.', get_debug_type($fingerprint)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $fingerprint;
@@ -702,18 +577,6 @@ trait HttpClientTrait
      */
     private static function resolveUrl(array $url, ?array $base, array $queryDefaults = []): array
     {
-<<<<<<< HEAD
-        if (null !== $base && '' === ($base['scheme'] ?? '').($base['authority'] ?? '')) {
-            throw new InvalidArgumentException(sprintf('Invalid "base_uri" option: host or scheme is missing in "%s".', implode('', $base)));
-        }
-
-        if (null === $url['scheme'] && (null === $base || null === $base['scheme'])) {
-            throw new InvalidArgumentException(sprintf('Invalid URL: scheme is missing in "%s". Did you forget to add "http(s)://"?', implode('', $base ?? $url)));
-        }
-
-        if (null === $base && '' === $url['scheme'].$url['authority']) {
-            throw new InvalidArgumentException(sprintf('Invalid URL: no "base_uri" option was provided and host or scheme is missing in "%s".', implode('', $url)));
-=======
         $givenUrl = $url;
 
         if (null !== $base && '' === ($base['scheme'] ?? '').($base['authority'] ?? '')) {
@@ -726,7 +589,6 @@ trait HttpClientTrait
 
         if (null === $base && '' === $url['scheme'].$url['authority']) {
             throw new InvalidArgumentException(\sprintf('Invalid URL: no "base_uri" option was provided and host or scheme is missing in "%s".', implode('', $url)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (null !== $url['scheme']) {
@@ -770,13 +632,10 @@ trait HttpClientTrait
             $url['query'] = null;
         }
 
-<<<<<<< HEAD
-=======
         if (null !== $url['scheme'] && null === $url['authority']) {
             throw new InvalidArgumentException(\sprintf('Invalid URL: host is missing in "%s".', implode('', $givenUrl)));
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return $url;
     }
 
@@ -787,28 +646,16 @@ trait HttpClientTrait
      */
     private static function parseUrl(string $url, array $query = [], array $allowedSchemes = ['http' => 80, 'https' => 443]): array
     {
-<<<<<<< HEAD
-        if (false === $parts = parse_url($url)) {
-            throw new InvalidArgumentException(sprintf('Malformed URL "%s".', $url));
-=======
         $tail = '';
 
         if (false === $parts = parse_url(\strlen($url) !== strcspn($url, '?#') ? $url : $url.$tail = '#')) {
             throw new InvalidArgumentException(\sprintf('Malformed URL "%s".', $url));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($query) {
             $parts['query'] = self::mergeQueryString($parts['query'] ?? null, $query, true);
         }
 
-<<<<<<< HEAD
-        $port = $parts['port'] ?? 0;
-
-        if (null !== $scheme = $parts['scheme'] ?? null) {
-            if (!isset($allowedSchemes[$scheme = strtolower($scheme)])) {
-                throw new InvalidArgumentException(sprintf('Unsupported scheme in "%s".', $url));
-=======
         $scheme = $parts['scheme'] ?? null;
         $host = $parts['host'] ?? null;
 
@@ -823,22 +670,15 @@ trait HttpClientTrait
         if (null !== $scheme) {
             if (!isset($allowedSchemes[$scheme = strtolower($scheme)])) {
                 throw new InvalidArgumentException(\sprintf('Unsupported scheme in "%s": "%s" expected.', $url, implode('" or "', array_keys($allowedSchemes))));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $port = $allowedSchemes[$scheme] === $port ? 0 : $port;
             $scheme .= ':';
         }
 
-<<<<<<< HEAD
-        if (null !== $host = $parts['host'] ?? null) {
-            if (!\defined('INTL_IDNA_VARIANT_UTS46') && preg_match('/[\x80-\xFF]/', $host)) {
-                throw new InvalidArgumentException(sprintf('Unsupported IDN "%s", try enabling the "intl" PHP extension or running "composer require symfony/polyfill-intl-idn".', $host));
-=======
         if (null !== $host) {
             if (!\defined('INTL_IDNA_VARIANT_UTS46') && preg_match('/[\x80-\xFF]/', $host)) {
                 throw new InvalidArgumentException(\sprintf('Unsupported IDN "%s", try enabling the "intl" PHP extension or running "composer require symfony/polyfill-intl-idn".', $host));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $host = \defined('INTL_IDNA_VARIANT_UTS46') ? idn_to_ascii($host, \IDNA_DEFAULT | \IDNA_USE_STD3_RULES | \IDNA_CHECK_BIDI | \IDNA_CHECK_CONTEXTJ | \IDNA_NONTRANSITIONAL_TO_ASCII, \INTL_IDNA_VARIANT_UTS46) ?: strtolower($host) : strtolower($host);
@@ -852,19 +692,11 @@ trait HttpClientTrait
 
             if (str_contains($parts[$part], '%')) {
                 // https://tools.ietf.org/html/rfc3986#section-2.3
-<<<<<<< HEAD
-                $parts[$part] = preg_replace_callback('/%(?:2[DE]|3[0-9]|[46][1-9A-F]|5F|[57][0-9A]|7E)++/i', fn ($m) => rawurldecode($m[0]), $parts[$part]);
-            }
-
-            // https://tools.ietf.org/html/rfc3986#section-3.3
-            $parts[$part] = preg_replace_callback("#[^-A-Za-z0-9._~!$&/'()[\]*+,;=:@{}%]++#", fn ($m) => rawurlencode($m[0]), $parts[$part]);
-=======
                 $parts[$part] = preg_replace_callback('/%(?:2[DE]|3[0-9]|[46][1-9A-F]|5F|[57][0-9A]|7E)++/i', static fn ($m) => rawurldecode($m[0]), $parts[$part]);
             }
 
             // https://tools.ietf.org/html/rfc3986#section-3.3
             $parts[$part] = preg_replace_callback("#[^-A-Za-z0-9._~!$&/'()[\]*+,;=:@{}%]++#", static fn ($m) => rawurlencode($m[0]), $parts[$part]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return [
@@ -872,11 +704,7 @@ trait HttpClientTrait
             'authority' => null !== $host ? '//'.(isset($parts['user']) ? $parts['user'].(isset($parts['pass']) ? ':'.$parts['pass'] : '').'@' : '').$host : null,
             'path' => isset($parts['path'][0]) ? $parts['path'] : null,
             'query' => isset($parts['query']) ? '?'.$parts['query'] : null,
-<<<<<<< HEAD
-            'fragment' => isset($parts['fragment']) ? '#'.$parts['fragment'] : null,
-=======
             'fragment' => isset($parts['fragment']) && !$tail ? '#'.$parts['fragment'] : null,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ];
     }
 
@@ -989,11 +817,7 @@ trait HttpClientTrait
         } elseif ('https' === $proxy['scheme']) {
             $proxyUrl = 'ssl://'.$proxy['host'].':'.($proxy['port'] ?? '443');
         } else {
-<<<<<<< HEAD
-            throw new TransportException(sprintf('Unsupported proxy scheme "%s": "http" or "https" expected.', $proxy['scheme']));
-=======
             throw new TransportException(\sprintf('Unsupported proxy scheme "%s": "http" or "https" expected.', $proxy['scheme']));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $noProxy ??= $_SERVER['no_proxy'] ?? $_SERVER['NO_PROXY'] ?? '';

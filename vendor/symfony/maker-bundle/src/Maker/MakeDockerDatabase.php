@@ -65,11 +65,7 @@ final class MakeDockerDatabase extends AbstractMaker
     public function configureCommand(Command $command, InputConfiguration $inputConfig): void
     {
         $command
-<<<<<<< HEAD
-            ->setHelp(file_get_contents(__DIR__.'/../Resources/help/MakeDockerDatabase.txt'))
-=======
             ->setHelp($this->getHelpFileContents('MakeDockerDatabase.txt'))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ;
     }
 
@@ -86,11 +82,7 @@ final class MakeDockerDatabase extends AbstractMaker
             ['MySQL', 'MariaDB', 'Postgres']
         ));
 
-<<<<<<< HEAD
-        $io->text([sprintf(
-=======
         $io->text([\sprintf(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'For a list of supported versions, check out https://hub.docker.com/_/%s',
             $this->databaseChoice
         )]);
@@ -98,11 +90,7 @@ final class MakeDockerDatabase extends AbstractMaker
         $this->serviceVersion = $io->ask('What version would you like to use?', DockerDatabaseServices::getSuggestedServiceVersion($this->databaseChoice));
 
         if ($this->composeFileManipulator->serviceExists($this->serviceName)) {
-<<<<<<< HEAD
-            $io->comment(sprintf('A <fg=yellow>"%s"</> service is already defined.', $this->serviceName));
-=======
             $io->comment(\sprintf('A <fg=yellow>"%s"</> service is already defined.', $this->serviceName));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $io->newLine();
 
             $serviceNameMsg[] = 'If you are using the Symfony Binary, it will expose the connection config for';
@@ -114,11 +102,7 @@ final class MakeDockerDatabase extends AbstractMaker
 
             $io->text($serviceNameMsg);
 
-<<<<<<< HEAD
-            $this->serviceName = $io->ask(sprintf('What name should we call the new %s service? (e.g. <fg=yellow>database</>)', $this->serviceName), null, Validator::notBlank(...));
-=======
             $this->serviceName = $io->ask(\sprintf('What name should we call the new %s service? (e.g. <fg=yellow>database</>)', $this->serviceName), null, Validator::notBlank(...));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->checkForPDOSupport($this->databaseChoice, $io);
@@ -138,20 +122,12 @@ final class MakeDockerDatabase extends AbstractMaker
 
         $this->writeSuccessMessage($io);
 
-<<<<<<< HEAD
-        $io->text(sprintf('The new <fg=yellow>"%s"</> service is now ready!', $this->serviceName));
-=======
         $io->text(\sprintf('The new <fg=yellow>"%s"</> service is now ready!', $this->serviceName));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $io->newLine();
 
         $ports = DockerDatabaseServices::getDefaultPorts($this->databaseChoice);
         $closing[] = 'Next:';
-<<<<<<< HEAD
-        $closing[] = sprintf(' A) Run <fg=yellow>docker-compose up -d %s</> to start your database container', $this->serviceName);
-=======
         $closing[] = \sprintf(' A) Run <fg=yellow>docker-compose up -d %s</> to start your database container', $this->serviceName);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $closing[] = '    or <fg=yellow>docker-compose up -d</> to start all of them.';
         $closing[] = '';
         $closing[] = ' B) If you are using the Symfony Binary, it will detect the new service automatically.';
@@ -161,11 +137,7 @@ final class MakeDockerDatabase extends AbstractMaker
         $closing[] = ' C) Run <fg=yellow>docker-compose stop</> will stop all the containers in compose.yaml.';
         $closing[] = '    <fg=yellow>docker-compose down</> will stop and destroy the containers.';
         $closing[] = '';
-<<<<<<< HEAD
-        $closing[] = sprintf(
-=======
         $closing[] = \sprintf(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'Port%s %s will be exposed to %s random port%s on your host machine.',
             1 === \count($ports) ? '' : 's',
             implode(' ', $ports),
@@ -191,11 +163,7 @@ final class MakeDockerDatabase extends AbstractMaker
 
         if (null !== $extension) {
             $io->note(
-<<<<<<< HEAD
-                sprintf('Cannot find PHP\'s pdo_%s extension. Be sure it\'s installed & enabled to talk to the database.', $extension)
-=======
                 \sprintf('Cannot find PHP\'s pdo_%s extension. Be sure it\'s installed & enabled to talk to the database.', $extension)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
         }
     }
@@ -206,31 +174,19 @@ final class MakeDockerDatabase extends AbstractMaker
      */
     private function getComposeFileContents(ConsoleStyle $io): string
     {
-<<<<<<< HEAD
-        $this->composeFilePath = sprintf('%s/compose.yaml', $this->fileManager->getRootDirectory());
-=======
         $this->composeFilePath = \sprintf('%s/compose.yaml', $this->fileManager->getRootDirectory());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $composeFileExists = false;
         $statusMessage = 'Existing compose.yaml not found: a new one will be generated!';
         $contents = '';
 
         foreach (['.yml', '.yaml'] as $extension) {
-<<<<<<< HEAD
-            $composeFilePath = sprintf('%s/compose%s', $this->fileManager->getRootDirectory(), $extension);
-=======
             $composeFilePath = \sprintf('%s/compose%s', $this->fileManager->getRootDirectory(), $extension);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             if (!$composeFileExists && $this->fileManager->fileExists($composeFilePath)) {
                 $composeFileExists = true;
 
-<<<<<<< HEAD
-                $statusMessage = sprintf('We found your existing compose%s: Let\'s update it!', $extension);
-=======
                 $statusMessage = \sprintf('We found your existing compose%s: Let\'s update it!', $extension);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 $this->composeFilePath = $composeFilePath;
                 $contents = $this->fileManager->getFileContents($composeFilePath);

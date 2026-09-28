@@ -3,11 +3,7 @@
 /*!
  * Script to create the built examples zip archive;
  * requires the `zip` command to be present!
-<<<<<<< HEAD
- * Copyright 2020-2024 The Bootstrap Authors
-=======
  * Copyright 2020-2025 The Bootstrap Authors
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 
@@ -15,10 +11,7 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sh from 'shelljs'
-<<<<<<< HEAD
-=======
 import { format } from 'prettier'
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -91,24 +84,13 @@ for (const file of staticJsFiles) {
 sh.rm(`${distFolder}/index.html`)
 
 // get all examples' HTML files
-<<<<<<< HEAD
-for (const file of sh.find(`${distFolder}/**/*.html`)) {
-=======
 const htmlFiles = sh.find(`${distFolder}/**/*.html`)
 
 const formatPromises = htmlFiles.map(async file => {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
   const fileContents = sh.cat(file)
     .toString()
     .replace(new RegExp(`"/docs/${versionShort}/`, 'g'), '"../')
     .replace(/"..\/dist\//g, '"../assets/dist/')
-<<<<<<< HEAD
-    .replace(/(<link href="\.\.\/.*) integrity=".*>/g, '$1>')
-    .replace(/(<script src="\.\.\/.*) integrity=".*>/g, '$1></script>')
-    .replace(/( +)<!-- favicons(.|\n)+<style>/i, '    <style>')
-  new sh.ShellString(fileContents).to(file)
-}
-=======
     .replace(/(<link href="\.\.\/[^"]*"[^>]*) integrity="[^"]*"/g, '$1')
     .replace(/<link[^>]*href="\.\.\/assets\/img\/favicons\/[^"]*"[^>]*>/g, '')
     .replace(/(<script src="\.\.\/[^"]*"[^>]*) integrity="[^"]*"/g, '$1')
@@ -130,7 +112,6 @@ const formatPromises = htmlFiles.map(async file => {
 })
 
 await Promise.all(formatPromises)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 // create the zip file
 sh.exec(`zip -qr9 "${distFolder}.zip" "${distFolder}"`)

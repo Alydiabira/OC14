@@ -86,28 +86,17 @@ class File extends \SplFileInfo
     {
         $target = $this->getTargetFile($directory, $name);
 
-<<<<<<< HEAD
-        set_error_handler(function ($type, $msg) use (&$error) { $error = $msg; });
-=======
         set_error_handler(static function ($type, $msg) use (&$error) { $error = $msg; });
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         try {
             $renamed = rename($this->getPathname(), $target);
         } finally {
             restore_error_handler();
         }
         if (!$renamed) {
-<<<<<<< HEAD
-            throw new FileException(sprintf('Could not move the file "%s" to "%s" (%s).', $this->getPathname(), $target, strip_tags($error)));
-        }
-
-        @chmod($target, 0666 & ~umask());
-=======
             throw new FileException(\sprintf('Could not move the file "%s" to "%s" (%s).', $this->getPathname(), $target, strip_tags($error)));
         }
 
         @chmod($target, 0o666 & ~umask());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $target;
     }
@@ -117,11 +106,7 @@ class File extends \SplFileInfo
         $content = file_get_contents($this->getPathname());
 
         if (false === $content) {
-<<<<<<< HEAD
-            throw new FileException(sprintf('Could not get the content of the file "%s".', $this->getPathname()));
-=======
             throw new FileException(\sprintf('Could not get the content of the file "%s".', $this->getPathname()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $content;
@@ -130,19 +115,11 @@ class File extends \SplFileInfo
     protected function getTargetFile(string $directory, ?string $name = null): self
     {
         if (!is_dir($directory)) {
-<<<<<<< HEAD
-            if (false === @mkdir($directory, 0777, true) && !is_dir($directory)) {
-                throw new FileException(sprintf('Unable to create the "%s" directory.', $directory));
-            }
-        } elseif (!is_writable($directory)) {
-            throw new FileException(sprintf('Unable to write in the "%s" directory.', $directory));
-=======
             if (false === @mkdir($directory, 0o777, true) && !is_dir($directory)) {
                 throw new FileException(\sprintf('Unable to create the "%s" directory.', $directory));
             }
         } elseif (!is_writable($directory)) {
             throw new FileException(\sprintf('Unable to write in the "%s" directory.', $directory));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $target = rtrim($directory, '/\\').\DIRECTORY_SEPARATOR.(null === $name ? $this->getBasename() : $this->getName($name));

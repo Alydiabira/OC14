@@ -54,11 +54,8 @@ return static function (ContainerConfigurator $container) {
             ])
         ->alias(AssetMapperInterface::class, 'asset_mapper')
 
-<<<<<<< HEAD
-=======
         ->alias('asset_mapper.http_client', 'http_client')
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ->set('asset_mapper.mapped_asset_factory', MappedAssetFactory::class)
             ->args([
                 service('asset_mapper.public_assets_path_resolver'),
@@ -73,10 +70,7 @@ return static function (ContainerConfigurator $container) {
                 param('kernel.debug'),
             ])
             ->decorate('asset_mapper.mapped_asset_factory')
-<<<<<<< HEAD
-=======
             ->tag('kernel.reset', ['method' => 'reset', 'on_invalid' => 'ignore'])
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         ->set('asset_mapper.repository', AssetMapperRepository::class)
             ->args([
@@ -107,11 +101,10 @@ return static function (ContainerConfigurator $container) {
             ->args([
                 service('.inner'),
                 service('asset_mapper'),
-<<<<<<< HEAD
-=======
                 service('request_stack'),
                 abstract_arg('dev server public prefix'),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
+                service('assets._default_package_without_version')->nullOnInvalid(),
+                abstract_arg('asset public prefix'),
             ])
 
         ->set('asset_mapper.dev_server_subscriber', AssetMapperDevServerSubscriber::class)
@@ -211,11 +204,7 @@ return static function (ContainerConfigurator $container) {
             ])
 
         ->set('asset_mapper.importmap.resolver', JsDelivrEsmResolver::class)
-<<<<<<< HEAD
-            ->args([service('http_client')])
-=======
             ->args([service('asset_mapper.http_client')])
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         ->set('asset_mapper.importmap.renderer', ImportMapRenderer::class)
             ->args([
@@ -230,20 +219,12 @@ return static function (ContainerConfigurator $container) {
         ->set('asset_mapper.importmap.auditor', ImportMapAuditor::class)
         ->args([
             service('asset_mapper.importmap.config_reader'),
-<<<<<<< HEAD
-            service('http_client'),
-=======
             service('asset_mapper.http_client'),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ])
         ->set('asset_mapper.importmap.update_checker', ImportMapUpdateChecker::class)
         ->args([
             service('asset_mapper.importmap.config_reader'),
-<<<<<<< HEAD
-            service('http_client'),
-=======
             service('asset_mapper.http_client'),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ])
 
         ->set('asset_mapper.importmap.command.require', ImportMapRequireCommand::class)

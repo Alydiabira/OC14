@@ -21,11 +21,7 @@ use function substr;
 use const CASE_LOWER;
 
 /**
-<<<<<<< HEAD
- * IBM Db2 Schema Manager.
-=======
  * Db2 Schema Manager.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @extends AbstractSchemaManager<DB2Platform>
  */

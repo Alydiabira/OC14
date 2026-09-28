@@ -142,11 +142,7 @@ abstract class IntlDateFormatter
      * @throws MethodArgumentValueNotImplementedException When $locale different than "en" or null is passed
      * @throws MethodArgumentValueNotImplementedException When $calendar different than GREGORIAN is passed
      */
-<<<<<<< HEAD
-    public function __construct(?string $locale, ?int $dateType, ?int $timeType, $timezone = null, $calendar = null, ?string $pattern = '')
-=======
     public function __construct(?string $locale, ?int $dateType = IntlDateFormatter::FULL, ?int $timeType = IntlDateFormatter::FULL, $timezone = null, $calendar = null, ?string $pattern = '')
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if ('en' !== $locale && null !== $locale) {
             throw new MethodArgumentValueNotImplementedException(__METHOD__, 'locale', $locale, 'Only the locale "en" is supported');
@@ -197,11 +193,7 @@ abstract class IntlDateFormatter
      * @throws MethodArgumentValueNotImplementedException When $locale different than "en" or null is passed
      * @throws MethodArgumentValueNotImplementedException When $calendar different than GREGORIAN is passed
      */
-<<<<<<< HEAD
-    public static function create(?string $locale, ?int $dateType, ?int $timeType, $timezone = null, int $calendar = null, ?string $pattern = '')
-=======
     public static function create(?string $locale, ?int $dateType = IntlDateFormatter::FULL, ?int $timeType = IntlDateFormatter::FULL, $timezone = null, ?int $calendar = null, ?string $pattern = '')
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return new static($locale, $dateType, $timeType, $timezone, $calendar, $pattern);
     }
@@ -233,11 +225,7 @@ abstract class IntlDateFormatter
         // behave like the intl extension
         $argumentError = null;
         if (!\is_int($datetime) && !$datetime instanceof \DateTimeInterface) {
-<<<<<<< HEAD
-            $argumentError = sprintf('datefmt_format: string \'%s\' is not numeric, which would be required for it to be a valid date', $datetime);
-=======
             $argumentError = \sprintf('datefmt_format: string \'%s\' is not numeric, which would be required for it to be a valid date', $datetime);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (null !== $argumentError) {
@@ -288,11 +276,7 @@ abstract class IntlDateFormatter
      *
      * @throws MethodNotImplementedException
      */
-<<<<<<< HEAD
-    public static function formatObject($datetime, $format = null, string $locale = null)
-=======
     public static function formatObject($datetime, $format = null, ?string $locale = null)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         throw new MethodNotImplementedException(__METHOD__);
     }

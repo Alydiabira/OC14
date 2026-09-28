@@ -65,11 +65,7 @@ class FileManager
         $this->fs->dumpFile($absolutePath, $content);
         $relativePath = $this->relativizePath($filename);
 
-<<<<<<< HEAD
-        $this->io?->comment(sprintf(
-=======
         $this->io?->comment(\sprintf(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             '%s: %s',
             $comment,
             $this->makerFileLinkFormatter->makeLinkedPath($absolutePath, $relativePath)
@@ -109,11 +105,7 @@ class FileManager
     public function getFileContents(string $path): string
     {
         if (!$this->fileExists($path)) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('Cannot find file "%s"', $path));
-=======
             throw new \InvalidArgumentException(\sprintf('Cannot find file "%s"', $path));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return file_get_contents($this->absolutizePath($path));
@@ -138,11 +130,7 @@ class FileManager
             return $path;
         }
 
-<<<<<<< HEAD
-        return sprintf('%s/%s', $this->rootDirectory, $path);
-=======
         return \sprintf('%s/%s', $this->rootDirectory, $path);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -192,11 +180,7 @@ class FileManager
             if ('..' === $pathPart) {
                 // we need to remove the previous entry
                 if (-1 === $currentIndex) {
-<<<<<<< HEAD
-                    throw new \Exception(sprintf('Problem making path relative - is the path "%s" absolute?', $absolutePath));
-=======
                     throw new \Exception(\sprintf('Problem making path relative - is the path "%s" absolute?', $absolutePath));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 unset($finalParts[$currentIndex]);

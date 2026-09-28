@@ -44,16 +44,6 @@ final class SecretsDecryptToLocalCommand extends Command
         $this
             ->addOption('force', 'f', InputOption::VALUE_NONE, 'Force overriding of secrets that already exist in the local vault')
             ->setHelp(<<<'EOF'
-<<<<<<< HEAD
-The <info>%command.name%</info> command decrypts all secrets and copies them in the local vault.
-
-    <info>%command.full_name%</info>
-
-When the option <info>--force</info> is provided, secrets that already exist in the local vault are overriden.
-
-    <info>%command.full_name% --force</info>
-EOF
-=======
                 The <info>%command.name%</info> command decrypts all secrets and copies them in the local vault.
 
                     <info>%command.full_name%</info>
@@ -62,7 +52,6 @@ EOF
 
                     <info>%command.full_name% --force</info>
                 EOF
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -79,11 +68,7 @@ EOF
 
         $secrets = $this->vault->list(true);
 
-<<<<<<< HEAD
-        $io->comment(sprintf('%d secret%s found in the vault.', \count($secrets), 1 !== \count($secrets) ? 's' : ''));
-=======
         $io->comment(\sprintf('%d secret%s found in the vault.', \count($secrets), 1 !== \count($secrets) ? 's' : ''));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $skipped = 0;
         if (!$input->getOption('force')) {
@@ -97,22 +82,14 @@ EOF
 
         if ($skipped > 0) {
             $io->warning([
-<<<<<<< HEAD
-                sprintf('%d secret%s already overridden in the local vault and will be skipped.', $skipped, 1 !== $skipped ? 's are' : ' is'),
-=======
                 \sprintf('%d secret%s already overridden in the local vault and will be skipped.', $skipped, 1 !== $skipped ? 's are' : ' is'),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'Use the --force flag to override these.',
             ]);
         }
 
         foreach ($secrets as $k => $v) {
             if (null === $v) {
-<<<<<<< HEAD
-                $io->error($this->vault->getLastMessage() ?? sprintf('Secret "%s" has been skipped as there was an error reading it.', $k));
-=======
                 $io->error($this->vault->getLastMessage() ?? \sprintf('Secret "%s" has been skipped as there was an error reading it.', $k));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 continue;
             }
 

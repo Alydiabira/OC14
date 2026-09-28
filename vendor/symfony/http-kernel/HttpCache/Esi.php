@@ -44,16 +44,6 @@ class Esi extends AbstractSurrogate
 
     public function renderIncludeTag(string $uri, ?string $alt = null, bool $ignoreErrors = true, string $comment = ''): string
     {
-<<<<<<< HEAD
-        $html = sprintf('<esi:include src="%s"%s%s />',
-            $uri,
-            $ignoreErrors ? ' onerror="continue"' : '',
-            $alt ? sprintf(' alt="%s"', $alt) : ''
-        );
-
-        if (!empty($comment)) {
-            return sprintf("<esi:comment text=\"%s\" />\n%s", $comment, $html);
-=======
         $html = \sprintf('<esi:include src="%s"%s%s />',
             $uri,
             $ignoreErrors ? ' onerror="continue"' : '',
@@ -62,7 +52,6 @@ class Esi extends AbstractSurrogate
 
         if (!empty($comment)) {
             return \sprintf("<esi:comment text=\"%s\" />\n%s", $comment, $html);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $html;

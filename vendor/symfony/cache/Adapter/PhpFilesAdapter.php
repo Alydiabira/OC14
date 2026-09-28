@@ -14,10 +14,7 @@ namespace Symfony\Component\Cache\Adapter;
 use Symfony\Component\Cache\Exception\CacheException;
 use Symfony\Component\Cache\Exception\InvalidArgumentException;
 use Symfony\Component\Cache\PruneableInterface;
-<<<<<<< HEAD
-=======
 use Symfony\Component\Cache\Traits\CachedValueInterface;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Cache\Traits\FilesystemCommonTrait;
 use Symfony\Component\VarExporter\VarExporter;
 
@@ -118,15 +115,10 @@ class PhpFilesAdapter extends AbstractAdapter implements PruneableInterface
                 $values[$id] = null;
             } elseif (!\is_object($value)) {
                 $values[$id] = $value;
-<<<<<<< HEAD
-            } elseif (!$value instanceof LazyValue) {
-                $values[$id] = $value();
-=======
             } elseif ($value instanceof CachedValueInterface) {
                 $values[$id] = $value->getValue();
             } elseif (!$value instanceof LazyValue) {
                 $values[$id] = $value;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } elseif (false === $values[$id] = include $value->file) {
                 unset($values[$id], $this->values[$id]);
                 $missingIds[] = $id;
@@ -163,11 +155,7 @@ class PhpFilesAdapter extends AbstractAdapter implements PruneableInterface
                     if ($now >= $expiresAt) {
                         unset($this->values[$id], $missingIds[$k], self::$valuesCache[$file]);
                     }
-<<<<<<< HEAD
-                } catch (\ErrorException $e) {
-=======
                 } catch (\ErrorException) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     unset($missingIds[$k]);
                 }
             }
@@ -232,11 +220,7 @@ class PhpFilesAdapter extends AbstractAdapter implements PruneableInterface
                 try {
                     $value = VarExporter::export($value, $isStaticValue);
                 } catch (\Exception $e) {
-<<<<<<< HEAD
-                    throw new InvalidArgumentException(sprintf('Cache key "%s" has non-serializable "%s" value.', $key, get_debug_type($value)), 0, $e);
-=======
                     throw new InvalidArgumentException(\sprintf('Cache key "%s" has non-serializable "%s" value.', $key, get_debug_type($value)), 0, $e);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             } elseif (\is_string($value)) {
                 // Wrap "N;" in a closure to not confuse it with an encoded `null`
@@ -245,11 +229,7 @@ class PhpFilesAdapter extends AbstractAdapter implements PruneableInterface
                 }
                 $value = var_export($value, true);
             } elseif (!\is_scalar($value)) {
-<<<<<<< HEAD
-                throw new InvalidArgumentException(sprintf('Cache key "%s" has non-serializable "%s" value.', $key, get_debug_type($value)));
-=======
                 throw new InvalidArgumentException(\sprintf('Cache key "%s" has non-serializable "%s" value.', $key, get_debug_type($value)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } else {
                 $value = var_export($value, true);
             }
@@ -259,11 +239,7 @@ class PhpFilesAdapter extends AbstractAdapter implements PruneableInterface
             if ($isStaticValue) {
                 $value = "return [{$expiry}, {$value}];";
             } elseif ($this->appendOnly) {
-<<<<<<< HEAD
-                $value = "return [{$expiry}, static fn () => {$value}];";
-=======
                 $value = "return [{$expiry}, new class() implements \\".CachedValueInterface::class." { public function getValue(): mixed { return {$value}; } }];";
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } else {
                 // We cannot use a closure here because of https://bugs.php.net/76982
                 $value = str_replace('\Symfony\Component\VarExporter\Internal\\', '', $value);
@@ -282,11 +258,7 @@ class PhpFilesAdapter extends AbstractAdapter implements PruneableInterface
         }
 
         if (!$ok && !is_writable($this->directory)) {
-<<<<<<< HEAD
-            throw new CacheException(sprintf('Cache directory is not writable (%s).', $this->directory));
-=======
             throw new CacheException(\sprintf('Cache directory is not writable (%s).', $this->directory));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $ok;

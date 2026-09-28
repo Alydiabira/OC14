@@ -49,11 +49,7 @@ class SessionHandlerFactory
                 return new PdoSessionHandler($connection);
 
             case !\is_string($connection):
-<<<<<<< HEAD
-                throw new \InvalidArgumentException(sprintf('Unsupported Connection: "%s".', get_debug_type($connection)));
-=======
                 throw new \InvalidArgumentException(\sprintf('Unsupported Connection: "%s".', get_debug_type($connection)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             case str_starts_with($connection, 'file://'):
                 $savePath = substr($connection, 7);
 
@@ -66,10 +62,7 @@ class SessionHandlerFactory
                     throw new \InvalidArgumentException('Unsupported Redis or Memcached DSN. Try running "composer require symfony/cache".');
                 }
                 $handlerClass = str_starts_with($connection, 'memcached:') ? MemcachedSessionHandler::class : RedisSessionHandler::class;
-<<<<<<< HEAD
-=======
                 $connection = preg_replace('/([?&])prefix=[^&]*+&?/', '\1', $connection);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $connection = AbstractAdapter::createConnection($connection, ['lazy' => true]);
 
                 return new $handlerClass($connection, array_intersect_key($options, ['prefix' => 1, 'ttl' => 1]));
@@ -102,10 +95,6 @@ class SessionHandlerFactory
                 return new PdoSessionHandler($connection, $options);
         }
 
-<<<<<<< HEAD
-        throw new \InvalidArgumentException(sprintf('Unsupported Connection: "%s".', $connection));
-=======
         throw new \InvalidArgumentException(\sprintf('Unsupported Connection: "%s".', $connection));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

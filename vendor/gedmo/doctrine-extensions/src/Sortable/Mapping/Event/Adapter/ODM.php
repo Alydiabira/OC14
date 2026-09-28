@@ -9,46 +9,30 @@
 
 namespace Gedmo\Sortable\Mapping\Event\Adapter;
 
-<<<<<<< HEAD
-use Doctrine\Common\Util\ClassUtils;
-use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-use Gedmo\Mapping\Event\Adapter\ODM as BaseAdapterODM;
-use Gedmo\Sortable\Mapping\Event\SortableAdapter;
-=======
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use Gedmo\Mapping\Event\Adapter\ODM as BaseAdapterODM;
 use Gedmo\Sortable\Mapping\Event\SortableAdapter;
 use Gedmo\Sortable\SortableListener;
 use Gedmo\Tool\ClassUtils;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Doctrine event adapter for ODM adapted
  * for sortable behavior
  *
  * @author Lukas Botsch <lukas.botsch@gmail.com>
-<<<<<<< HEAD
-=======
  *
  * @phpstan-import-type SortableConfiguration from SortableListener
  * @phpstan-import-type SortableRelocation from SortableListener
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 final class ODM extends BaseAdapterODM implements SortableAdapter
 {
     /**
      * @param array<string, mixed>    $config
-<<<<<<< HEAD
-     * @param ClassMetadata           $meta
-     * @param iterable<string, mixed> $groups
-     *
-=======
      * @param ClassMetadata<object>   $meta
      * @param iterable<string, mixed> $groups
      *
      * @phpstan-param SortableConfiguration $config
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return int
      */
     public function getMaxPosition(array $config, $meta, $groups)
@@ -67,11 +51,7 @@ final class ODM extends BaseAdapterODM implements SortableAdapter
         $document = $qb->getQuery()->getSingleResult();
 
         if ($document) {
-<<<<<<< HEAD
-            return $meta->getReflectionProperty($config['position'])->getValue($document);
-=======
             return $meta->getFieldValue($document, $config['position']);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return -1;
@@ -82,12 +62,9 @@ final class ODM extends BaseAdapterODM implements SortableAdapter
      * @param array<string, mixed> $delta
      * @param array<string, mixed> $config
      *
-<<<<<<< HEAD
-=======
      * @phpstan-param SortableRelocation    $relocation
      * @phpstan-param SortableConfiguration $config
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function updatePositions($relocation, $delta, $config)

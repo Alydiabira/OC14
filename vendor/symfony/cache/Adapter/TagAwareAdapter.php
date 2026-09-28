@@ -195,9 +195,6 @@ class TagAwareAdapter implements TagAwareAdapterInterface, TagAwareCacheInterfac
         }
         $tagVersions = null;
 
-<<<<<<< HEAD
-        return (self::$setCacheItemTags)($bufferedItems, $itemTags);
-=======
         $items = (self::$setCacheItemTags)($bufferedItems, $itemTags);
 
         foreach ($keys as $key) {
@@ -208,7 +205,6 @@ class TagAwareAdapter implements TagAwareAdapterInterface, TagAwareCacheInterfac
         }
 
         return $items;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function clear(string $prefix = ''): bool
@@ -301,15 +297,6 @@ class TagAwareAdapter implements TagAwareAdapterInterface, TagAwareCacheInterfac
      */
     public function reset()
     {
-<<<<<<< HEAD
-        $this->commit();
-        $this->knownTagVersions = [];
-        $this->pool instanceof ResettableInterface && $this->pool->reset();
-        $this->tags instanceof ResettableInterface && $this->tags->reset();
-    }
-
-    public function __sleep(): array
-=======
         try {
             $this->commit();
         } finally {
@@ -321,19 +308,11 @@ class TagAwareAdapter implements TagAwareAdapterInterface, TagAwareCacheInterfac
     }
 
     public function __serialize(): array
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
     }
 
-<<<<<<< HEAD
-    /**
-     * @return void
-     */
-    public function __wakeup()
-=======
     public function __unserialize(array $data): void
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
     }
@@ -397,18 +376,12 @@ class TagAwareAdapter implements TagAwareAdapterInterface, TagAwareCacheInterfac
             (self::$saveTags)($this->tags, $newTags);
         }
 
-<<<<<<< HEAD
-        while ($now > ($this->knownTagVersions[$tag = array_key_first($this->knownTagVersions)][0] ?? \INF)) {
-=======
         while ($now > ($this->knownTagVersions[$tag = array_key_first($this->knownTagVersions) ?? ''][0] ?? \INF)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             unset($this->knownTagVersions[$tag]);
         }
 
         return $tagVersions;
     }
-<<<<<<< HEAD
-=======
 
     private function yieldRequestedKeys(array $keys, array $items): \Generator
     {
@@ -418,5 +391,4 @@ class TagAwareAdapter implements TagAwareAdapterInterface, TagAwareCacheInterfac
             yield ($keys[$key] ?? $key) => $item;
         }
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

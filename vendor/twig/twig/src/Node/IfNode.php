@@ -14,10 +14,7 @@ namespace Twig\Node;
 
 use Twig\Attribute\YieldReady;
 use Twig\Compiler;
-<<<<<<< HEAD
-=======
 use Twig\Node\Expression\Test\TrueTest;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Represents an if node.
@@ -27,26 +24,17 @@ use Twig\Node\Expression\Test\TrueTest;
 #[YieldReady]
 class IfNode extends Node
 {
-<<<<<<< HEAD
-    public function __construct(Node $tests, ?Node $else, int $lineno, ?string $tag = null)
-    {
-=======
     public function __construct(Node $tests, ?Node $else, int $lineno)
     {
         for ($i = 0, $count = \count($tests); $i < $count; $i += 2) {
             $tests->setNode($i, TrueTest::wrap($tests->getNode((string) $i)));
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $nodes = ['tests' => $tests];
         if (null !== $else) {
             $nodes['else'] = $else;
         }
 
-<<<<<<< HEAD
-        parent::__construct($nodes, [], $lineno, $tag);
-=======
         parent::__construct($nodes, [], $lineno);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function compile(Compiler $compiler): void

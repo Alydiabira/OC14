@@ -15,17 +15,10 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Header\HeaderInterface;
 use Symfony\Component\Mime\Header\Headers;
 use Symfony\Component\Mime\Header\UnstructuredHeader;
-<<<<<<< HEAD
-use Symfony\Component\Mime\Message;
-use Symfony\Component\Mime\Part\AbstractPart;
-use Symfony\Component\Mime\RawMessage;
-use Symfony\Component\Serializer\Exception\LogicException;
-=======
 use Symfony\Component\Mime\Part\AbstractPart;
 use Symfony\Component\Mime\RawMessage;
 use Symfony\Component\Serializer\Exception\LogicException;
 use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Serializer\SerializerAwareInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -54,11 +47,7 @@ final class MimeMessageNormalizer implements NormalizerInterface, DenormalizerIn
         $isCacheable = __CLASS__ === static::class || $this->hasCacheableSupportsMethod();
 
         return [
-<<<<<<< HEAD
-            Message::class => $isCacheable,
-=======
             RawMessage::class => $isCacheable,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             Headers::class => $isCacheable,
             HeaderInterface::class => $isCacheable,
             Address::class => $isCacheable,
@@ -69,11 +58,7 @@ final class MimeMessageNormalizer implements NormalizerInterface, DenormalizerIn
     public function setSerializer(SerializerInterface $serializer): void
     {
         if (!$serializer instanceof NormalizerInterface || !$serializer instanceof DenormalizerInterface) {
-<<<<<<< HEAD
-            throw new LogicException(sprintf('The passed serializer should implement both NormalizerInterface and DenormalizerInterface, "%s" given.', get_debug_type($serializer)));
-=======
             throw new LogicException(\sprintf('The passed serializer should implement both NormalizerInterface and DenormalizerInterface, "%s" given.', get_debug_type($serializer)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         $this->serializer = $serializer;
         $this->normalizer->setSerializer($serializer);
@@ -97,17 +82,12 @@ final class MimeMessageNormalizer implements NormalizerInterface, DenormalizerIn
             unset($ret['seekable'], $ret['cid'], $ret['handle']);
         }
 
-<<<<<<< HEAD
-        if ($object instanceof RawMessage && \array_key_exists('message', $ret) && null === $ret['message']) {
-            unset($ret['message']);
-=======
         if ($object instanceof RawMessage) {
             $ret['class'] = $object::class;
 
             if (\array_key_exists('message', $ret) && null === $ret['message']) {
                 unset($ret['message']);
             }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $ret;
@@ -127,11 +107,6 @@ final class MimeMessageNormalizer implements NormalizerInterface, DenormalizerIn
         }
 
         if (AbstractPart::class === $type) {
-<<<<<<< HEAD
-            $type = $data['class'];
-            unset($data['class']);
-            $data['headers'] = $this->serializer->denormalize($data['headers'], Headers::class, $format, $context);
-=======
             $type = $this->resolveClass($data, AbstractPart::class, $context);
             unset($data['class']);
             $data['headers'] = $this->serializer->denormalize($data['headers'], Headers::class, $format, $context);
@@ -144,7 +119,6 @@ final class MimeMessageNormalizer implements NormalizerInterface, DenormalizerIn
             }
 
             unset($data['class']);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->normalizer->denormalize($data, $type, $format, $context);
@@ -152,20 +126,12 @@ final class MimeMessageNormalizer implements NormalizerInterface, DenormalizerIn
 
     public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-<<<<<<< HEAD
-        return $data instanceof Message || $data instanceof Headers || $data instanceof HeaderInterface || $data instanceof Address || $data instanceof AbstractPart;
-=======
         return $data instanceof RawMessage || $data instanceof Headers || $data instanceof HeaderInterface || $data instanceof Address || $data instanceof AbstractPart;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-<<<<<<< HEAD
-        return is_a($type, Message::class, true) || Headers::class === $type || AbstractPart::class === $type;
-=======
         return is_a($type, RawMessage::class, true) || Headers::class === $type || AbstractPart::class === $type;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -177,8 +143,6 @@ final class MimeMessageNormalizer implements NormalizerInterface, DenormalizerIn
 
         return true;
     }
-<<<<<<< HEAD
-=======
 
     private function resolveClass(mixed $data, string $baseClass, array $context): string
     {
@@ -190,5 +154,4 @@ final class MimeMessageNormalizer implements NormalizerInterface, DenormalizerIn
 
         return $class;
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

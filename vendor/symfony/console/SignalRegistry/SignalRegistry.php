@@ -13,10 +13,6 @@ namespace Symfony\Component\Console\SignalRegistry;
 
 final class SignalRegistry
 {
-<<<<<<< HEAD
-    private array $signalHandlers = [];
-
-=======
     /**
      * @var array<int, array<callable>>
      */
@@ -32,7 +28,6 @@ final class SignalRegistry
      */
     private array $originalHandlers = [];
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function __construct()
     {
         if (\function_exists('pcntl_async_signals')) {
@@ -42,13 +37,6 @@ final class SignalRegistry
 
     public function register(int $signal, callable $signalHandler): void
     {
-<<<<<<< HEAD
-        if (!isset($this->signalHandlers[$signal])) {
-            $previousCallback = pcntl_signal_get_handler($signal);
-
-            if (\is_callable($previousCallback)) {
-                $this->signalHandlers[$signal][] = $previousCallback;
-=======
         $previous = pcntl_signal_get_handler($signal);
 
         if (!isset($this->originalHandlers[$signal])) {
@@ -58,17 +46,12 @@ final class SignalRegistry
         if (!isset($this->signalHandlers[$signal])) {
             if (\is_callable($previous) && [$this, 'handle'] !== $previous) {
                 $this->signalHandlers[$signal][] = $previous;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
         $this->signalHandlers[$signal][] = $signalHandler;
 
-<<<<<<< HEAD
-        pcntl_signal($signal, $this->handle(...));
-=======
         pcntl_signal($signal, [$this, 'handle']);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public static function isSupported(): bool
@@ -88,8 +71,6 @@ final class SignalRegistry
             $signalHandler($signal, $hasNext);
         }
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Pushes the current active handlers onto the stack and clears the active list.
@@ -143,5 +124,4 @@ final class SignalRegistry
 
         $this->signalHandlers = $previous;
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

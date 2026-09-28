@@ -442,8 +442,6 @@
                 <source>This URL is missing a top-level domain.</source>
                 <target state="needs-review-translation">На овој URL недостасува домен од највисоко ниво.</target>
             </trans-unit>
-<<<<<<< HEAD
-=======
             <trans-unit id="114">
                 <source>This value is too short. It should contain at least one word.|This value is too short. It should contain at least {{ min }} words.</source>
                 <target state="needs-review-translation">Оваа вредност е премногу кратка. Треба да содржи барем една збор.|Оваа вредност е премногу кратка. Треба да содржи барем {{ min }} зборови.</target>
@@ -580,7 +578,6 @@
                 <source>This value is not a valid ULID.</source>
                 <target state="needs-review-translation">Оваа вредност не е валиден ULID.</target>
             </trans-unit>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         </body>
     </file>
 </xliff>

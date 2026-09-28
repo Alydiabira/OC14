@@ -16,10 +16,7 @@ use Symfony\Component\HttpClient\Chunk\FirstChunk;
 use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Component\HttpClient\Internal\Canary;
 use Symfony\Component\HttpClient\Internal\ClientState;
-<<<<<<< HEAD
-=======
 use Symfony\Component\HttpClient\Internal\Dechunker;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\HttpClient\Internal\NativeClientState;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -42,15 +39,7 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
     private ?\Closure $onProgress;
     private ?int $remaining = null;
 
-<<<<<<< HEAD
-    /**
-     * @var resource|null
-     */
-    private $buffer;
-
-=======
     private ?Dechunker $dechunker;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private NativeClientState $multi;
     private float $pauseExpiry = 0.0;
 
@@ -70,13 +59,7 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
         $this->onProgress = $onProgress ? $onProgress(...) : null;
         $this->inflate = !isset($options['normalized_headers']['accept-encoding']);
         $this->shouldBuffer = $options['buffer'] ?? true;
-<<<<<<< HEAD
-
-        // Temporary resource to dechunk the response stream
-        $this->buffer = fopen('php://temp', 'w+');
-=======
         $this->dechunker = new Dechunker();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $info['original_url'] = implode('', $info['url']);
         $info['user_data'] = $options['user_data'];
@@ -91,11 +74,7 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
         };
 
         $this->canary = new Canary(static function () use ($multi, $id) {
-<<<<<<< HEAD
-            if (null !== ($host = $multi->openHandles[$id][6] ?? null) && 0 >= --$multi->hosts[$host]) {
-=======
             if (null !== ($host = $multi->openHandles[$id][6] ?? null) && isset($multi->hosts[$host]) && 0 >= --$multi->hosts[$host]) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 unset($multi->hosts[$host]);
             }
             unset($multi->openHandles[$id], $multi->handlesActivity[$id]);
@@ -109,11 +88,7 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
             $info['url'] = implode('', $info['url']);
             unset($info['size_body'], $info['request_header']);
 
-<<<<<<< HEAD
-            if (null === $this->buffer) {
-=======
             if (null === $this->dechunker) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $this->finalInfo = $info;
             }
         }
@@ -143,11 +118,7 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
                 throw new TransportException($msg);
             }
 
-<<<<<<< HEAD
-            $this->logger?->info(sprintf('%s for "%s".', $msg, $url ?? $this->url));
-=======
             $this->logger?->info(\sprintf('%s for "%s".', $msg, $url ?? $this->url));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         });
 
         try {
@@ -166,11 +137,7 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
                     $this->info['request_header'] = $this->info['url']['path'].$this->info['url']['query'];
                 }
 
-<<<<<<< HEAD
-                $this->info['request_header'] = sprintf("> %s %s HTTP/%s \r\n", $context['http']['method'], $this->info['request_header'], $context['http']['protocol_version']);
-=======
                 $this->info['request_header'] = \sprintf("> %s %s HTTP/%s \r\n", $context['http']['method'], $this->info['request_header'], $context['http']['protocol_version']);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $this->info['request_header'] .= implode("\r\n", $context['http']['header'])."\r\n\r\n";
 
                 if (\array_key_exists('peer_name', $context['ssl']) && null === $context['ssl']['peer_name']) {
@@ -187,11 +154,7 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
                     break;
                 }
 
-<<<<<<< HEAD
-                $this->logger?->info(sprintf('Redirecting: "%s %s"', $this->info['http_code'], $url ?? $this->url));
-=======
                 $this->logger?->info(\sprintf('Redirecting: "%s %s"', $this->info['http_code'], $url ?? $this->url));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         } catch (\Throwable $e) {
             $this->close();
@@ -211,17 +174,9 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
         stream_set_blocking($h, false);
         unset($this->context, $this->resolver);
 
-<<<<<<< HEAD
-        // Create dechunk buffers
         if (isset($this->headers['content-length'])) {
             $this->remaining = (int) $this->headers['content-length'][0];
         } elseif ('chunked' === ($this->headers['transfer-encoding'][0] ?? null)) {
-            stream_filter_append($this->buffer, 'dechunk', \STREAM_FILTER_WRITE);
-=======
-        if (isset($this->headers['content-length'])) {
-            $this->remaining = (int) $this->headers['content-length'][0];
-        } elseif ('chunked' === ($this->headers['transfer-encoding'][0] ?? null)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->remaining = -1;
         } else {
             $this->remaining = -2;
@@ -238,22 +193,14 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
 
         $host = parse_url($this->info['redirect_url'] ?? $this->url, \PHP_URL_HOST);
         $this->multi->lastTimeout = null;
-<<<<<<< HEAD
-        $this->multi->openHandles[$this->id] = [&$this->pauseExpiry, $h, $this->buffer, $this->onProgress, &$this->remaining, &$this->info, $host];
-=======
         $this->multi->openHandles[$this->id] = [&$this->pauseExpiry, $h, -1 === $this->remaining ? $this->dechunker : null, $this->onProgress, &$this->remaining, &$this->info, $host];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->multi->hosts[$host] = 1 + ($this->multi->hosts[$host] ?? 0);
     }
 
     private function close(): void
     {
         $this->canary->cancel();
-<<<<<<< HEAD
-        $this->handle = $this->buffer = $this->inflate = $this->onProgress = null;
-=======
         $this->handle = $this->dechunker = $this->inflate = $this->onProgress = null;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private static function schedule(self $response, array &$runningResponses): void
@@ -264,11 +211,7 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
 
         $runningResponses[$i][1][$response->id] = $response;
 
-<<<<<<< HEAD
-        if (null === $response->buffer) {
-=======
         if (null === $response->dechunker) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             // Response already completed
             $response->multi->handlesActivity[$response->id][] = null;
             $response->multi->handlesActivity[$response->id][] = null !== $response->info['error'] ? new TransportException($response->info['error']) : null;
@@ -278,15 +221,9 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
     /**
      * @param NativeClientState $multi
      */
-<<<<<<< HEAD
-    private static function perform(ClientState $multi, ?array &$responses = null): void
-    {
-        foreach ($multi->openHandles as $i => [$pauseExpiry, $h, $buffer, $onProgress]) {
-=======
     private static function perform(ClientState $multi, ?array $responses = null): void
     {
         foreach ($multi->openHandles as $i => [$pauseExpiry, $h, $dechunker, $onProgress]) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if ($pauseExpiry) {
                 if (hrtime(true) / 1E9 < $pauseExpiry) {
                     continue;
@@ -300,55 +237,26 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
             $info = &$multi->openHandles[$i][5];
             $e = null;
 
-<<<<<<< HEAD
-            // Read incoming buffer and write it to the dechunk one
-            try {
-                if ($remaining && '' !== $data = (string) fread($h, 0 > $remaining ? 16372 : $remaining)) {
-                    fwrite($buffer, $data);
-=======
             // Read incoming buffer and dechunk it when needed
             try {
                 if ($remaining && '' !== $data = (string) fread($h, 0 > $remaining ? 16372 : $remaining)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $hasActivity = true;
                     $multi->sleep = false;
 
                     if (-1 !== $remaining) {
                         $remaining -= \strlen($data);
-<<<<<<< HEAD
-=======
                     } else {
                         $data = $dechunker->dechunk($data);
                     }
 
                     if ('' !== $data) {
                         $multi->handlesActivity[$i][] = $data;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
                 }
             } catch (\Throwable $e) {
                 $hasActivity = $onProgress = false;
             }
 
-<<<<<<< HEAD
-            if (!$hasActivity) {
-                if ($onProgress) {
-                    try {
-                        // Notify the progress callback so that it can e.g. cancel
-                        // the request if the stream is inactive for too long
-                        $info['total_time'] = microtime(true) - $info['start_time'];
-                        $onProgress();
-                    } catch (\Throwable $e) {
-                        // no-op
-                    }
-                }
-            } elseif ('' !== $data = stream_get_contents($buffer, -1, 0)) {
-                rewind($buffer);
-                ftruncate($buffer, 0);
-
-                if (null === $e) {
-                    $multi->handlesActivity[$i][] = $data;
-=======
             if (!$hasActivity && $onProgress) {
                 try {
                     // Notify the progress callback so that it can e.g. cancel
@@ -357,7 +265,6 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
                     $onProgress();
                 } catch (\Throwable $e) {
                     // no-op
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
 
@@ -376,24 +283,15 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
 
                 if (null === $e) {
                     if (0 < $remaining) {
-<<<<<<< HEAD
-                        $e = new TransportException(sprintf('Transfer closed with %s bytes remaining to read.', $remaining));
-                    } elseif (-1 === $remaining && fwrite($buffer, '-') && '' !== stream_get_contents($buffer, -1, 0)) {
-=======
                         $e = new TransportException(\sprintf('Transfer closed with %s bytes remaining to read.', $remaining));
                     } elseif (-1 === $remaining && !$dechunker->isFinished()) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $e = new TransportException('Transfer closed with outstanding data remaining from chunked response.');
                     }
                 }
 
                 $multi->handlesActivity[$i][] = null;
                 $multi->handlesActivity[$i][] = $e;
-<<<<<<< HEAD
-                if (null !== ($host = $multi->openHandles[$i][6] ?? null) && 0 >= --$multi->hosts[$host]) {
-=======
                 if (null !== ($host = $multi->openHandles[$i][6] ?? null) && isset($multi->hosts[$host]) && 0 >= --$multi->hosts[$host]) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     unset($multi->hosts[$host]);
                 }
                 unset($multi->openHandles[$i]);
@@ -408,11 +306,7 @@ final class NativeResponse implements ResponseInterface, StreamableInterface
         $maxHosts = $multi->maxHostConnections;
 
         foreach ($responses as $i => $response) {
-<<<<<<< HEAD
-            if (null !== $response->remaining || null === $response->buffer) {
-=======
             if (null !== $response->remaining || null === $response->dechunker) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 continue;
             }
 

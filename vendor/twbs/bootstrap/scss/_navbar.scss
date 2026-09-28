@@ -139,13 +139,8 @@
 // the default flexbox row orientation. Requires the use of `flex-wrap: wrap`
 // on the `.navbar` parent.
 .navbar-collapse {
-<<<<<<< HEAD
-  flex-basis: 100%;
-  flex-grow: 1;
-=======
   flex-grow: 1;
   flex-basis: 100%;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
   // For always expanded or extra full navbars, ensure content aligns itself
   // properly vertically. Can be easily overridden with flex utilities.
   align-items: center;

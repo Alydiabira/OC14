@@ -177,11 +177,7 @@ class ArrayNode extends BaseNode implements PrototypeNodeInterface
     public function getDefaultValue(): mixed
     {
         if (!$this->hasDefaultValue()) {
-<<<<<<< HEAD
-            throw new \RuntimeException(sprintf('The node at path "%s" has no default value.', $this->getPath()));
-=======
             throw new \RuntimeException(\sprintf('The node at path "%s" has no default value.', $this->getPath()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $defaults = [];
@@ -209,11 +205,7 @@ class ArrayNode extends BaseNode implements PrototypeNodeInterface
             throw new \InvalidArgumentException('Child nodes must be named.');
         }
         if (isset($this->children[$name])) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('A child node named "%s" already exists.', $name));
-=======
             throw new \InvalidArgumentException(\sprintf('A child node named "%s" already exists.', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->children[$name] = $node;
@@ -226,25 +218,15 @@ class ArrayNode extends BaseNode implements PrototypeNodeInterface
     protected function finalizeValue(mixed $value): mixed
     {
         if (false === $value) {
-<<<<<<< HEAD
-            throw new UnsetKeyException(sprintf('Unsetting key for path "%s", value: %s.', $this->getPath(), json_encode($value)));
-=======
             throw new UnsetKeyException(\sprintf('Unsetting key for path "%s", value: ', $this->getPath()).json_encode($value).'.');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         foreach ($this->children as $name => $child) {
             if (!\array_key_exists($name, $value)) {
                 if ($child->isRequired()) {
-<<<<<<< HEAD
-                    $message = sprintf('The child config "%s" under "%s" must be configured', $name, $this->getPath());
-                    if ($child->getInfo()) {
-                        $message .= sprintf(': %s', $child->getInfo());
-=======
                     $message = \sprintf('The child config "%s" under "%s" must be configured', $name, $this->getPath());
                     if ($child->getInfo()) {
                         $message .= \sprintf(': %s', $child->getInfo());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     } else {
                         $message .= '.';
                     }
@@ -282,11 +264,7 @@ class ArrayNode extends BaseNode implements PrototypeNodeInterface
     protected function validateType(mixed $value)
     {
         if (!\is_array($value) && (!$this->allowFalse || false !== $value)) {
-<<<<<<< HEAD
-            $ex = new InvalidTypeException(sprintf('Invalid type for path "%s". Expected "array", but got "%s"', $this->getPath(), get_debug_type($value)));
-=======
             $ex = new InvalidTypeException(\sprintf('Invalid type for path "%s". Expected "array", but got "%s"', $this->getPath(), get_debug_type($value)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if ($hint = $this->getInfo()) {
                 $ex->addHint($hint);
             }
@@ -321,11 +299,7 @@ class ArrayNode extends BaseNode implements PrototypeNodeInterface
         }
 
         // if extra fields are present, throw exception
-<<<<<<< HEAD
-        if (\count($value) && !$this->ignoreExtraKeys) {
-=======
         if ($value && !$this->ignoreExtraKeys) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $proposals = array_keys($this->children);
             sort($proposals);
             $guesses = [];
@@ -341,15 +315,6 @@ class ArrayNode extends BaseNode implements PrototypeNodeInterface
                 }
             }
 
-<<<<<<< HEAD
-            $msg = sprintf('Unrecognized option%s "%s" under "%s"', 1 === \count($value) ? '' : 's', implode(', ', array_keys($value)), $this->getPath());
-
-            if (\count($guesses)) {
-                asort($guesses);
-                $msg .= sprintf('. Did you mean "%s"?', implode('", "', array_keys($guesses)));
-            } else {
-                $msg .= sprintf('. Available option%s %s "%s".', 1 === \count($proposals) ? '' : 's', 1 === \count($proposals) ? 'is' : 'are', implode('", "', $proposals));
-=======
             $msg = \sprintf('Unrecognized option%s "%s" under "%s"', 1 === \count($value) ? '' : 's', implode(', ', array_keys($value)), $this->getPath());
 
             if ($guesses) {
@@ -357,7 +322,6 @@ class ArrayNode extends BaseNode implements PrototypeNodeInterface
                 $msg .= \sprintf('. Did you mean "%s"?', implode('", "', array_keys($guesses)));
             } else {
                 $msg .= \sprintf('. Available option%s %s "%s".', 1 === \count($proposals) ? '' : 's', 1 === \count($proposals) ? 'is' : 'are', implode('", "', $proposals));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $ex = new InvalidConfigurationException($msg);
@@ -406,11 +370,7 @@ class ArrayNode extends BaseNode implements PrototypeNodeInterface
             // no conflict
             if (!\array_key_exists($k, $leftSide)) {
                 if (!$this->allowNewKeys) {
-<<<<<<< HEAD
-                    $ex = new InvalidConfigurationException(sprintf('You are not allowed to define new elements for path "%s". Please define all elements for this path in one config file. If you are trying to overwrite an element, make sure you redefine it with the same name.', $this->getPath()));
-=======
                     $ex = new InvalidConfigurationException(\sprintf('You are not allowed to define new elements for path "%s". Please define all elements for this path in one config file. If you are trying to overwrite an element, make sure you redefine it with the same name.', $this->getPath()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $ex->setPath($this->getPath());
 
                     throw $ex;

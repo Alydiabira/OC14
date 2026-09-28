@@ -30,11 +30,7 @@ final class BackedEnumNormalizer implements NormalizerInterface, DenormalizerInt
     public function getSupportedTypes(?string $format): array
     {
         return [
-<<<<<<< HEAD
-           \BackedEnum::class => true,
-=======
             \BackedEnum::class => true,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ];
     }
 
@@ -61,21 +57,6 @@ final class BackedEnumNormalizer implements NormalizerInterface, DenormalizerInt
             throw new InvalidArgumentException('The data must belong to a backed enumeration.');
         }
 
-<<<<<<< HEAD
-        if ($context[self::ALLOW_INVALID_VALUES] ?? false) {
-            if (null === $data || (!\is_int($data) && !\is_string($data))) {
-                return null;
-            }
-
-            try {
-                return $type::tryFrom($data);
-            } catch (\TypeError) {
-                return null;
-            }
-        }
-
-        if (!\is_int($data) && !\is_string($data)) {
-=======
         $allowInvalidValues = $context[self::ALLOW_INVALID_VALUES] ?? false;
 
         if (!\is_int($data) && !\is_string($data)) {
@@ -83,27 +64,17 @@ final class BackedEnumNormalizer implements NormalizerInterface, DenormalizerInt
                 return null;
             }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw NotNormalizableValueException::createForUnexpectedDataType('The data is neither an integer nor a string, you should pass an integer or a string that can be parsed as an enumeration case of type '.$type.'.', $data, [Type::BUILTIN_TYPE_INT, Type::BUILTIN_TYPE_STRING], $context['deserialization_path'] ?? null, true);
         }
 
         try {
             return $type::from($data);
-<<<<<<< HEAD
-        } catch (\ValueError $e) {
-            if (isset($context['has_constructor'])) {
-                throw new InvalidArgumentException('The data must belong to a backed enumeration of type '.$type, 0, $e);
-            }
-
-            throw NotNormalizableValueException::createForUnexpectedDataType('The data must belong to a backed enumeration of type '.$type, $data, [$type], $context['deserialization_path'] ?? null, true, 0, $e);
-=======
         } catch (\ValueError|\TypeError $e) {
             if ($allowInvalidValues) {
                 return null;
             }
 
             throw NotNormalizableValueException::createForUnexpectedDataType('The data must belong to a backed enumeration of type '.$type, $data, [Type::BUILTIN_TYPE_INT, Type::BUILTIN_TYPE_STRING], $context['deserialization_path'] ?? null, true, 0, $e);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 

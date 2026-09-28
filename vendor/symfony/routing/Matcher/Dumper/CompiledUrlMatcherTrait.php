@@ -42,11 +42,7 @@ trait CompiledUrlMatcherTrait
             throw new MethodNotAllowedException(array_keys($allow));
         }
         if (!$this instanceof RedirectableUrlMatcherInterface) {
-<<<<<<< HEAD
-            throw new ResourceNotFoundException(sprintf('No routes found for "%s".', $pathinfo));
-=======
             throw new ResourceNotFoundException(\sprintf('No routes found for "%s".', $pathinfo));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         if (!\in_array($this->context->getMethod(), ['HEAD', 'GET'], true)) {
             // no-op
@@ -61,11 +57,7 @@ trait CompiledUrlMatcherTrait
             } finally {
                 $this->context->setScheme($scheme);
             }
-<<<<<<< HEAD
-        } elseif ('/' !== $trimmedPathinfo = rtrim($pathinfo, '/') ?: '/') {
-=======
         } elseif ('' !== $trimmedPathinfo = rtrim($pathinfo, '/')) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $pathinfo = $trimmedPathinfo === $pathinfo ? $pathinfo.'/' : $trimmedPathinfo;
             if ($ret = $this->doMatch($pathinfo, $allow, $allowSchemes)) {
                 return $this->redirect($pathinfo, $ret['_route']) + $ret;
@@ -75,23 +67,14 @@ trait CompiledUrlMatcherTrait
             }
         }
 
-<<<<<<< HEAD
-        throw new ResourceNotFoundException(sprintf('No routes found for "%s".', $pathinfo));
-=======
         throw new ResourceNotFoundException(\sprintf('No routes found for "%s".', $pathinfo));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function doMatch(string $pathinfo, array &$allow = [], array &$allowSchemes = []): array
     {
         $allow = $allowSchemes = [];
-<<<<<<< HEAD
-        $pathinfo = rawurldecode($pathinfo) ?: '/';
-        $trimmedPathinfo = rtrim($pathinfo, '/') ?: '/';
-=======
         $pathinfo = '' === ($pathinfo = rawurldecode($pathinfo)) ? '/' : $pathinfo;
         $trimmedPathinfo = '' === ($trimmedPathinfo = rtrim($pathinfo, '/')) ? '/' : $trimmedPathinfo;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $context = $this->context;
         $requestMethod = $canonicalMethod = $context->getMethod();
 

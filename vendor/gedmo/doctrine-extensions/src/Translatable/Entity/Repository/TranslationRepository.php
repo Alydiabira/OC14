@@ -9,10 +9,6 @@
 
 namespace Gedmo\Translatable\Entity\Repository;
 
-<<<<<<< HEAD
-use Doctrine\DBAL\Types\Type;
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -72,11 +68,7 @@ class TranslationRepository extends EntityRepository
         }
         $needsPersist = true;
         if ($locale === $listener->getTranslatableLocale($entity, $meta, $this->getEntityManager())) {
-<<<<<<< HEAD
-            $meta->getReflectionProperty($field)->setValue($entity, $value);
-=======
             $meta->setFieldValue($entity, $field, $value);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->getEntityManager()->persist($entity);
         } else {
             if (isset($config['translationClass'])) {
@@ -85,11 +77,7 @@ class TranslationRepository extends EntityRepository
                 $ea = new TranslatableAdapterORM();
                 $class = $listener->getTranslationClass($ea, $config['useObjectClass']);
             }
-<<<<<<< HEAD
-            $foreignKey = $meta->getReflectionProperty($meta->getSingleIdentifierFieldName())->getValue($entity);
-=======
             $foreignKey = $meta->getFieldValue($entity, $meta->getSingleIdentifierFieldName());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $objectClass = $config['useObjectClass'];
             $transMeta = $this->getEntityManager()->getClassMetadata($class);
             $trans = $this->findOneBy([
@@ -100,31 +88,18 @@ class TranslationRepository extends EntityRepository
             ]);
             if (!$trans) {
                 $trans = $transMeta->newInstance();
-<<<<<<< HEAD
-                $transMeta->getReflectionProperty('foreignKey')->setValue($trans, $foreignKey);
-                $transMeta->getReflectionProperty('objectClass')->setValue($trans, $objectClass);
-                $transMeta->getReflectionProperty('field')->setValue($trans, $field);
-                $transMeta->getReflectionProperty('locale')->setValue($trans, $locale);
-=======
                 $transMeta->setFieldValue($trans, 'foreignKey', $foreignKey);
                 $transMeta->setFieldValue($trans, 'objectClass', $objectClass);
                 $transMeta->setFieldValue($trans, 'field', $field);
                 $transMeta->setFieldValue($trans, 'locale', $locale);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             if ($listener->getDefaultLocale() != $listener->getTranslatableLocale($entity, $meta, $this->getEntityManager())
                 && $locale === $listener->getDefaultLocale()) {
                 $listener->setTranslationInDefaultLocale(spl_object_id($entity), $field, $trans);
                 $needsPersist = $listener->getPersistDefaultLocaleTranslation();
             }
-<<<<<<< HEAD
-            $type = Type::getType($meta->getTypeOfField($field));
-            $transformed = $type->convertToDatabaseValue($value, $this->getEntityManager()->getConnection()->getDatabasePlatform());
-            $transMeta->getReflectionProperty('content')->setValue($trans, $transformed);
-=======
             $transformed = $this->getEntityManager()->getConnection()->convertToDatabaseValue($value, $meta->getTypeOfField($field));
             $transMeta->setFieldValue($trans, 'content', $transformed);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if ($needsPersist) {
                 if ($this->getEntityManager()->getUnitOfWork()->isInIdentityMap($entity)) {
                     $this->getEntityManager()->persist($trans);

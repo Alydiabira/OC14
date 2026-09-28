@@ -180,11 +180,7 @@
             </trans-unit>
             <trans-unit id="48">
                 <source>This value should have exactly {{ limit }} character.|This value should have exactly {{ limit }} characters.</source>
-<<<<<<< HEAD
-                <target>Значення повиино бути рівним {{ limit }} символу.|Значення повиино бути рівним {{ limit }} символам.|Значення повиино бути рівним {{ limit }} символам.</target>
-=======
                 <target>Значення повинно бути рівним {{ limit }} символу.|Значення повинно бути рівним {{ limit }} символам.|Значення повинно бути рівним {{ limit }} символам.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="49">
                 <source>The file was only partially uploaded.</source>
@@ -446,8 +442,6 @@
                 <source>This URL is missing a top-level domain.</source>
                 <target>Цьому URL не вистачає домену верхнього рівня.</target>
             </trans-unit>
-<<<<<<< HEAD
-=======
             <trans-unit id="114">
                 <source>This value is too short. It should contain at least one word.|This value is too short. It should contain at least {{ min }} words.</source>
                 <target>Це значення занадто коротке. Воно має містити принаймні одне слово.|Це значення занадто коротке. Мінімальна кількість слів — {{ min }}.</target>
@@ -584,7 +578,6 @@
                 <source>This value is not a valid ULID.</source>
                 <target state="needs-review-translation">Це значення не є дійсним ULID.</target>
             </trans-unit>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         </body>
     </file>
 </xliff>

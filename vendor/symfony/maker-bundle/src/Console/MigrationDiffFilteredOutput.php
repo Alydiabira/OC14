@@ -53,14 +53,11 @@ class MigrationDiffFilteredOutput implements OutputInterface
         return $this->output->getVerbosity();
     }
 
-<<<<<<< HEAD
-=======
     public function isSilent(): bool
     {
         return $this->output->isSilent();
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function isQuiet(): bool
     {
         return $this->output->isQuiet();

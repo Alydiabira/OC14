@@ -55,26 +55,18 @@ class ConstraintViolationListNormalizer implements NormalizerInterface, Cacheabl
             $payloadFieldsToSerialize = [];
         }
 
-<<<<<<< HEAD
-        if (\is_array($payloadFieldsToSerialize) && [] !== $payloadFieldsToSerialize) {
-=======
         if (\is_array($payloadFieldsToSerialize) && $payloadFieldsToSerialize) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $payloadFieldsToSerialize = array_flip($payloadFieldsToSerialize);
         }
 
         $violations = [];
         $messages = [];
         foreach ($object as $violation) {
-<<<<<<< HEAD
-            $propertyPath = $this->nameConverter ? $this->nameConverter->normalize($violation->getPropertyPath(), null, $format, $context) : $violation->getPropertyPath();
-=======
             $propertyPath = $violation->getPropertyPath();
 
             if (null !== $this->nameConverter) {
                 $propertyPath = $this->normalizePropertyPath($propertyPath, \is_object($violation->getRoot()) ? \get_class($violation->getRoot()) : null, $format, $context);
             }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             $violationEntry = [
                 'propertyPath' => $propertyPath,
@@ -83,11 +75,7 @@ class ConstraintViolationListNormalizer implements NormalizerInterface, Cacheabl
                 'parameters' => $violation->getParameters(),
             ];
             if (null !== $code = $violation->getCode()) {
-<<<<<<< HEAD
-                $violationEntry['type'] = sprintf('urn:uuid:%s', $code);
-=======
                 $violationEntry['type'] = \sprintf('urn:uuid:%s', $code);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $constraint = $violation->getConstraint();
@@ -103,11 +91,7 @@ class ConstraintViolationListNormalizer implements NormalizerInterface, Cacheabl
 
             $violations[] = $violationEntry;
 
-<<<<<<< HEAD
-            $prefix = $propertyPath ? sprintf('%s: ', $propertyPath) : '';
-=======
             $prefix = $propertyPath ? \sprintf('%s: ', $propertyPath) : '';
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $messages[] = $prefix.$violation->getMessage();
         }
 
@@ -128,8 +112,6 @@ class ConstraintViolationListNormalizer implements NormalizerInterface, Cacheabl
         return $result + ['violations' => $violations];
     }
 
-<<<<<<< HEAD
-=======
     private function normalizePropertyPath(string $propertyPath, ?string $class, ?string $format, array $context): string
     {
         if (!str_contains($propertyPath, '.')) {
@@ -172,7 +154,6 @@ class ConstraintViolationListNormalizer implements NormalizerInterface, Cacheabl
         return null;
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * @param array $context
      */

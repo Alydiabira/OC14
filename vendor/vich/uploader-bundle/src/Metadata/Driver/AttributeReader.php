@@ -2,41 +2,19 @@
 
 namespace Vich\UploaderBundle\Metadata\Driver;
 
-<<<<<<< HEAD
-use ReflectionAttribute;
-use ReflectionClass;
-use ReflectionMethod;
-use ReflectionProperty;
-use Vich\UploaderBundle\Mapping\AnnotationInterface;
-=======
 use Vich\UploaderBundle\Mapping\AttributeInterface;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * @internal
  */
 final class AttributeReader
 {
-<<<<<<< HEAD
-    /** @return AnnotationInterface[] */
-    public function getClassAnnotations(ReflectionClass $class): array
-=======
     /** @return AttributeInterface[] */
     public function getClassAttributes(\ReflectionClass $class): array
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return $this->convertToAttributeInstances($class->getAttributes());
     }
 
-<<<<<<< HEAD
-    public function getClassAnnotation(ReflectionClass $class, string $annotationName): ?AnnotationInterface
-    {
-        return $this->getClassAnnotations($class)[$annotationName] ?? null;
-    }
-
-    /** @return AnnotationInterface[] */
-    public function getMethodAnnotations(ReflectionMethod $method): array
-=======
     public function getClassAttribute(\ReflectionClass $class, string $attributeName): ?AttributeInterface
     {
         return $this->getClassAttributes($class)[$attributeName] ?? null;
@@ -44,20 +22,10 @@ final class AttributeReader
 
     /** @return AttributeInterface[] */
     public function getMethodAttributes(\ReflectionMethod $method): array
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return $this->convertToAttributeInstances($method->getAttributes());
     }
 
-<<<<<<< HEAD
-    public function getMethodAnnotation(ReflectionMethod $method, string $annotationName): ?AnnotationInterface
-    {
-        return $this->getMethodAnnotations($method)[$annotationName] ?? null;
-    }
-
-    /** @return AnnotationInterface[] */
-    public function getPropertyAnnotations(ReflectionProperty $property): array
-=======
     public function getMethodAttribute(\ReflectionMethod $method, string $attributeName): ?AttributeInterface
     {
         return $this->getMethodAttributes($method)[$attributeName] ?? null;
@@ -65,22 +33,10 @@ final class AttributeReader
 
     /** @return AttributeInterface[] */
     public function getPropertyAttributes(\ReflectionProperty $property): array
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return $this->convertToAttributeInstances($property->getAttributes());
     }
 
-<<<<<<< HEAD
-    public function getPropertyAnnotation(ReflectionProperty $property, string $annotationName): ?AnnotationInterface
-    {
-        return $this->getPropertyAnnotations($property)[$annotationName] ?? null;
-    }
-
-    /**
-     * @param ReflectionAttribute[] $attributes
-     *
-     * @return AnnotationInterface[]
-=======
     public function getPropertyAttribute(\ReflectionProperty $property, string $attributeName): ?AttributeInterface
     {
         return $this->getPropertyAttributes($property)[$attributeName] ?? null;
@@ -156,7 +112,6 @@ final class AttributeReader
      * @param \ReflectionAttribute[] $attributes
      *
      * @return AttributeInterface[]
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private function convertToAttributeInstances(array $attributes): array
     {
@@ -164,22 +119,12 @@ final class AttributeReader
 
         foreach ($attributes as $attribute) {
             $attributeName = $attribute->getName();
-<<<<<<< HEAD
-            $instance = $attribute->newInstance();
-
-            if (!$instance instanceof AnnotationInterface) {
-                continue;
-            }
-
-            $instances[$attributeName] = $instance;
-=======
 
             if (!\is_a($attributeName, AttributeInterface::class, true)) {
                 continue;
             }
 
             $instances[$attributeName] = $attribute->newInstance();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $instances;

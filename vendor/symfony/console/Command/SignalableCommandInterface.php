@@ -30,9 +30,5 @@ interface SignalableCommandInterface
      *
      * @return int|false The exit code to return or false to continue the normal execution
      */
-<<<<<<< HEAD
-    public function handleSignal(int $signal, /* int|false $previousExitCode = 0 */);
-=======
     public function handleSignal(int $signal/* , int|false $previousExitCode = 0 */);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

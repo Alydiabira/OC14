@@ -1,10 +1,7 @@
 <?php
 
-<<<<<<< HEAD
-=======
 declare(strict_types=1);
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 namespace Doctrine\Bundle\DoctrineBundle\Command;
 
 use Doctrine\DBAL\DriverManager;
@@ -30,11 +27,7 @@ class CreateDatabaseDoctrineCommand extends DoctrineCommand
         $this
             ->setName('doctrine:database:create')
             ->setDescription('Creates the configured database')
-<<<<<<< HEAD
-            ->addOption('connection', 'c', InputOption::VALUE_OPTIONAL, 'The connection to use for this command')
-=======
             ->addOption('connection', 'c', InputOption::VALUE_REQUIRED, 'The connection to use for this command')
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->addOption('if-not-exists', null, InputOption::VALUE_NONE, 'Don\'t trigger an error, when the database already exists')
             ->setHelp(<<<'EOT'
 The <info>%command.name%</info> command creates the default connections database:
@@ -72,19 +65,12 @@ EOT);
 
         // Need to get rid of _every_ occurrence of dbname from connection configuration as we have already extracted all relevant info from url
         /** @psalm-suppress InvalidArrayOffset Need to be compatible with DBAL < 4, which still has `$params['url']` */
-<<<<<<< HEAD
-        unset($params['dbname'], $params['path'], $params['url']);
-
-        if ($connection->getDatabasePlatform() instanceof PostgreSQLPlatform) {
-            $params['dbname'] = 'postgres';
-=======
         /** @phpstan-ignore unset.offset */
         unset($params['dbname'], $params['path'], $params['url']);
 
         if ($connection->getDatabasePlatform() instanceof PostgreSQLPlatform) {
             /** @phpstan-ignore nullCoalesce.offset (needed for DBAL < 4) */
             $params['dbname'] = $params['default_dbname'] ?? 'postgres';
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $tmpConnection           = DriverManager::getConnection($params, $connection->getConfiguration());

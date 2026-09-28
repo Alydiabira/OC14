@@ -39,22 +39,14 @@ class Context
         string|array $groups = [],
     ) {
         if (!$context && !$normalizationContext && !$denormalizationContext) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('At least one of the "context", "normalizationContext", or "denormalizationContext" options must be provided as a non-empty array to "%s".', static::class));
-=======
             throw new InvalidArgumentException(\sprintf('At least one of the "context", "normalizationContext", or "denormalizationContext" options must be provided as a non-empty array to "%s".', static::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->groups = (array) $groups;
 
         foreach ($this->groups as $group) {
             if (!\is_string($group)) {
-<<<<<<< HEAD
-                throw new InvalidArgumentException(sprintf('Parameter "groups" given to "%s" must be a string or an array of strings, "%s" given.', static::class, get_debug_type($group)));
-=======
                 throw new InvalidArgumentException(\sprintf('Parameter "groups" given to "%s" must be a string or an array of strings, "%s" given.', static::class, get_debug_type($group)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
     }

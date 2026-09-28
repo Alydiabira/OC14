@@ -32,52 +32,21 @@ final class Php83
         }
 
         if ($depth > self::JSON_MAX_DEPTH) {
-<<<<<<< HEAD
-            throw new \ValueError(sprintf('json_validate(): Argument #2 ($depth) must be less than %d', self::JSON_MAX_DEPTH));
-        }
-
-        json_decode($json, null, $depth, $flags);
-=======
             throw new \ValueError(\sprintf('json_validate(): Argument #2 ($depth) must be less than %d', self::JSON_MAX_DEPTH));
         }
 
         json_decode($json, true, $depth, $flags);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return \JSON_ERROR_NONE === json_last_error();
     }
 
-<<<<<<< HEAD
-    public static function mb_str_pad(string $string, int $length, string $pad_string = ' ', int $pad_type = \STR_PAD_RIGHT, string $encoding = null): string
-    {
-        if (!\in_array($pad_type, [\STR_PAD_RIGHT, \STR_PAD_LEFT, \STR_PAD_BOTH], true)) {
-            throw new \ValueError('mb_str_pad(): Argument #4 ($pad_type) must be STR_PAD_LEFT, STR_PAD_RIGHT, or STR_PAD_BOTH');
-        }
-
-=======
     /** @return string|false */
     public static function mb_str_pad(string $string, int $length, string $pad_string = ' ', int $pad_type = \STR_PAD_RIGHT, ?string $encoding = null)
     {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (null === $encoding) {
             $encoding = mb_internal_encoding();
         }
 
-<<<<<<< HEAD
-        try {
-            $validEncoding = @mb_check_encoding('', $encoding);
-        } catch (\ValueError $e) {
-            throw new \ValueError(sprintf('mb_str_pad(): Argument #5 ($encoding) must be a valid encoding, "%s" given', $encoding));
-        }
-
-        // BC for PHP 7.3 and lower
-        if (!$validEncoding) {
-            throw new \ValueError(sprintf('mb_str_pad(): Argument #5 ($encoding) must be a valid encoding, "%s" given', $encoding));
-        }
-
-        if (mb_strlen($pad_string, $encoding) <= 0) {
-            throw new \ValueError('mb_str_pad(): Argument #3 ($pad_string) must be a non-empty string');
-=======
         $errorToTrigger = null;
         try {
             if (!@mb_check_encoding('', $encoding)) {
@@ -103,7 +72,6 @@ final class Php83
             }
 
             throw new \ValueError($errorToTrigger);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $paddingRequired = $length - mb_strlen($string, $encoding);
@@ -131,40 +99,6 @@ final class Php83
             throw new \ValueError('str_increment(): Argument #1 ($string) cannot be empty');
         }
 
-<<<<<<< HEAD
-        if (!\preg_match("/^[a-zA-Z0-9]+$/", $string)) {
-            throw new \ValueError('str_increment(): Argument #1 ($string) must be composed only of alphanumeric ASCII characters');
-        }
-
-        if (\is_numeric($string)) {
-            $offset = stripos($string, 'e');
-            if ($offset !== false) {
-                $char = $string[$offset];
-                $char++;
-                $string[$offset] = $char;
-                $string++;
-
-                switch ($string[$offset]) {
-                    case 'f':
-                        $string[$offset] = 'e';
-                        break;
-                    case 'F':
-                        $string[$offset] = 'E';
-                        break;
-                    case 'g':
-                        $string[$offset] = 'f';
-                        break;
-                    case 'G':
-                        $string[$offset] = 'F';
-                        break;
-                }
-
-                return $string;
-            }
-        }
-
-        return ++$string;
-=======
         if (!preg_match('/^[a-zA-Z0-9]+$/', $string)) {
             throw new \ValueError('str_increment(): Argument #1 ($string) must be composed only of alphanumeric ASCII characters');
         }
@@ -196,7 +130,6 @@ final class Php83
         }
 
         return '1'.$string;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public static function str_decrement(string $string): string
@@ -205,18 +138,6 @@ final class Php83
             throw new \ValueError('str_decrement(): Argument #1 ($string) cannot be empty');
         }
 
-<<<<<<< HEAD
-        if (!\preg_match("/^[a-zA-Z0-9]+$/", $string)) {
-            throw new \ValueError('str_decrement(): Argument #1 ($string) must be composed only of alphanumeric ASCII characters');
-        }
-
-        if (\preg_match('/\A(?:0[aA0]?|[aA])\z/', $string)) {
-            throw new \ValueError(sprintf('str_decrement(): Argument #1 ($string) "%s" is out of decrement range', $string));
-        }
-
-        if (!\in_array(substr($string, -1), ['A', 'a', '0'], true)) {
-            return join('', array_slice(str_split($string), 0, -1)) . chr(ord(substr($string, -1)) - 1);
-=======
         if (!preg_match('/^[a-zA-Z0-9]+$/', $string)) {
             throw new \ValueError('str_decrement(): Argument #1 ($string) must be composed only of alphanumeric ASCII characters');
         }
@@ -227,27 +148,18 @@ final class Php83
 
         if (!\in_array(substr($string, -1), ['A', 'a', '0'], true)) {
             return implode('', \array_slice(str_split($string), 0, -1)).\chr(\ord(substr($string, -1)) - 1);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $carry = '';
         $decremented = '';
 
-<<<<<<< HEAD
-        for ($i = strlen($string) - 1; $i >= 0; $i--) {
-=======
         for ($i = \strlen($string) - 1; $i >= 0; --$i) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $char = $string[$i];
 
             switch ($char) {
                 case 'A':
                     if ('' !== $carry) {
-<<<<<<< HEAD
-                        $decremented = $carry . $decremented;
-=======
                         $decremented = $carry.$decremented;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $carry = '';
                     }
                     $carry = 'Z';
@@ -255,11 +167,7 @@ final class Php83
                     break;
                 case 'a':
                     if ('' !== $carry) {
-<<<<<<< HEAD
-                        $decremented = $carry . $decremented;
-=======
                         $decremented = $carry.$decremented;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $carry = '';
                     }
                     $carry = 'z';
@@ -267,11 +175,7 @@ final class Php83
                     break;
                 case '0':
                     if ('' !== $carry) {
-<<<<<<< HEAD
-                        $decremented = $carry . $decremented;
-=======
                         $decremented = $carry.$decremented;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $carry = '';
                     }
                     $carry = '9';
@@ -279,31 +183,19 @@ final class Php83
                     break;
                 case '1':
                     if ('' !== $carry) {
-<<<<<<< HEAD
-                        $decremented = $carry . $decremented;
-=======
                         $decremented = $carry.$decremented;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $carry = '';
                     }
 
                     break;
                 default:
                     if ('' !== $carry) {
-<<<<<<< HEAD
-                        $decremented = $carry . $decremented;
-=======
                         $decremented = $carry.$decremented;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $carry = '';
                     }
 
                     if (!\in_array($char, ['A', 'a', '0'], true)) {
-<<<<<<< HEAD
-                        $decremented = chr(ord($char) - 1) . $decremented;
-=======
                         $decremented = \chr(\ord($char) - 1).$decremented;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
             }
         }

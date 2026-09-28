@@ -11,8 +11,6 @@
 
 use Symfony\Polyfill\Intl\Grapheme as p;
 
-<<<<<<< HEAD
-=======
 if (!function_exists('grapheme_str_split')) {
     function grapheme_str_split(string $string, int $length = 1): array|false { return p\Grapheme::grapheme_str_split($string, $length); }
 }
@@ -27,7 +25,6 @@ if (extension_loaded('intl')) {
     return;
 }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 if (!defined('GRAPHEME_EXTR_COUNT')) {
     define('GRAPHEME_EXTR_COUNT', 0);
 }
@@ -41,13 +38,10 @@ if (!defined('GRAPHEME_EXTR_MAXCHARS')) {
 if (!function_exists('grapheme_extract')) {
     function grapheme_extract(?string $haystack, ?int $size, ?int $type = GRAPHEME_EXTR_COUNT, ?int $offset = 0, &$next = null): string|false { return p\Grapheme::grapheme_extract((string) $haystack, (int) $size, (int) $type, (int) $offset, $next); }
 }
-<<<<<<< HEAD
-=======
 if (\PHP_VERSION_ID >= 80500) {
     return require __DIR__.'/bootstrap85.php';
 }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 if (!function_exists('grapheme_stripos')) {
     function grapheme_stripos(?string $haystack, ?string $needle, ?int $offset = 0): int|false { return p\Grapheme::grapheme_stripos((string) $haystack, (string) $needle, (int) $offset); }
 }

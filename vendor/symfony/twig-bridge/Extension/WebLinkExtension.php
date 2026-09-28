@@ -46,11 +46,7 @@ final class WebLinkExtension extends AbstractExtension
     /**
      * Adds a "Link" HTTP header.
      *
-<<<<<<< HEAD
-     * @param string $rel        The relation type (e.g. "preload", "prefetch", "prerender" or "dns-prefetch")
-=======
      * @param string $rel        The relation type (e.g. "preload", "prefetch", or "dns-prefetch")
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @param array  $attributes The attributes of this link (e.g. "['as' => true]", "['pr' => 0.5]")
      *
      * @return string The relation URI
@@ -121,15 +117,11 @@ final class WebLinkExtension extends AbstractExtension
     }
 
     /**
-<<<<<<< HEAD
-     * Indicates to the client that it should prerender this resource .
-=======
      * Indicates to the client that it should prerender this resource.
      *
      * This feature is deprecated and superseded by the Speculation Rules API.
      *
      * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel/prerender
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @param array $attributes The attributes of this link (e.g. "['as' => true]", "['pr' => 0.5]")
      *

@@ -11,28 +11,13 @@
 
 namespace Monolog;
 
-<<<<<<< HEAD
-=======
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\WrappingFormatterInterface;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 final class Utils
 {
     const DEFAULT_JSON_FLAGS = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION | JSON_INVALID_UTF8_SUBSTITUTE | JSON_PARTIAL_OUTPUT_ON_ERROR;
 
-<<<<<<< HEAD
-    public static function getClass(object $object): string
-    {
-        $class = \get_class($object);
-
-        if (false === ($pos = \strpos($class, "@anonymous\0"))) {
-            return $class;
-        }
-
-        if (false === ($parent = \get_parent_class($class))) {
-            return \substr($class, 0, $pos + 10);
-=======
     /** @var array<class-string, array<string, true>> */
     private static array $sensitiveParameterNames = [];
 
@@ -56,21 +41,11 @@ final class Utils
 
         if (false === ($parent = get_parent_class($class))) {
             return substr($class, 0, $pos + 10);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $parent . '@anonymous';
     }
 
-<<<<<<< HEAD
-    public static function substr(string $string, int $start, ?int $length = null): string
-    {
-        if (extension_loaded('mbstring')) {
-            return mb_strcut($string, $start, $length);
-        }
-
-        return substr($string, $start, (null === $length) ? strlen($string) : $length);
-=======
     /**
      * Returns the names of the constructor parameters of a class which are marked #[SensitiveParameter]
      *
@@ -132,7 +107,6 @@ final class Utils
         }
 
         return substr($string, $start, (null === $length) ? \strlen($string) : $length);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -215,15 +189,9 @@ final class Utils
             self::throwEncodeError($code, $data);
         }
 
-<<<<<<< HEAD
-        if (is_string($data)) {
-            self::detectAndCleanUtf8($data);
-        } elseif (is_array($data)) {
-=======
         if (\is_string($data)) {
             self::detectAndCleanUtf8($data);
         } elseif (\is_array($data)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             array_walk_recursive($data, ['Monolog\Utils', 'detectAndCleanUtf8']);
         } else {
             self::throwEncodeError($code, $data);
@@ -243,28 +211,6 @@ final class Utils
     }
 
     /**
-<<<<<<< HEAD
-     * @internal
-     */
-    public static function pcreLastErrorMessage(int $code): string
-    {
-        if (PHP_VERSION_ID >= 80000) {
-            return preg_last_error_msg();
-        }
-
-        $constants = (get_defined_constants(true))['pcre'];
-        $constants = array_filter($constants, function ($key) {
-            return substr($key, -6) == '_ERROR';
-        }, ARRAY_FILTER_USE_KEY);
-
-        $constants = array_flip($constants);
-
-        return $constants[$code] ?? 'UNDEFINED_ERROR';
-    }
-
-    /**
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Throws an exception according to a given code with a customized message
      *
      * @param  int               $code return code of json_last_error function
@@ -301,20 +247,6 @@ final class Utils
      */
     private static function detectAndCleanUtf8(&$data): void
     {
-<<<<<<< HEAD
-        if (is_string($data) && preg_match('//u', $data) !== 1) {
-            $data = preg_replace_callback(
-                '/[\x80-\xFF]+/',
-                function (array $m): string {
-                    return function_exists('mb_convert_encoding') ? mb_convert_encoding($m[0], 'UTF-8', 'ISO-8859-1') : utf8_encode($m[0]);
-                },
-                $data
-            );
-            if (!is_string($data)) {
-                $pcreErrorCode = preg_last_error();
-
-                throw new \RuntimeException('Failed to preg_replace_callback: ' . $pcreErrorCode . ' / ' . self::pcreLastErrorMessage($pcreErrorCode));
-=======
         if (\is_string($data) && preg_match('//u', $data) !== 1) {
             $data = preg_replace_callback(
                 '/[\x80-\xFF]+/',
@@ -329,7 +261,6 @@ final class Utils
                 $pcreErrorCode = preg_last_error();
 
                 throw new \RuntimeException('Failed to preg_replace_callback: ' . $pcreErrorCode . ' / ' . preg_last_error_msg());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $data = str_replace(
                 ['¤', '¦', '¨', '´', '¸', '¼', '½', '¾'],
@@ -347,11 +278,7 @@ final class Utils
      */
     public static function expandIniShorthandBytes($val)
     {
-<<<<<<< HEAD
-        if (!is_string($val)) {
-=======
         if (!\is_string($val)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return false;
         }
 
@@ -360,20 +287,12 @@ final class Utils
             return (int) $val;
         }
 
-<<<<<<< HEAD
-        if (preg_match('/^\s*(?<val>\d+)(?:\.\d+)?\s*(?<unit>[gmk]?)\s*$/i', $val, $match) !== 1) {
-=======
         if (!(bool) preg_match('/^\s*(?<val>\d+)(?:\.\d+)?\s*(?<unit>[gmk]?)\s*$/i', $val, $match)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return false;
         }
 
         $val = (int) $match['val'];
-<<<<<<< HEAD
-        switch (strtolower($match['unit'] ?? '')) {
-=======
         switch (strtolower($match['unit'])) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             case 'g':
                 $val *= 1024;
                 // no break

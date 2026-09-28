@@ -43,11 +43,7 @@ class ImportMapConfigReader
         foreach ($importMapConfig ?? [] as $importName => $data) {
             $validKeys = ['path', 'version', 'type', 'entrypoint', 'url', 'package_specifier', 'downloaded_to', 'preload'];
             if ($invalidKeys = array_diff(array_keys($data), $validKeys)) {
-<<<<<<< HEAD
-                throw new \InvalidArgumentException(sprintf('The following keys are not valid for the importmap entry "%s": "%s". Valid keys are: "%s".', $importName, implode('", "', $invalidKeys), implode('", "', $validKeys)));
-=======
                 throw new \InvalidArgumentException(\sprintf('The following keys are not valid for the importmap entry "%s": "%s". Valid keys are: "%s".', $importName, implode('", "', $invalidKeys), implode('", "', $validKeys)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             // should solve itself when the config is written again
@@ -74,17 +70,10 @@ class ImportMapConfigReader
 
             if (isset($data['path'])) {
                 if (isset($data['version'])) {
-<<<<<<< HEAD
-                    throw new RuntimeException(sprintf('The importmap entry "%s" cannot have both a "path" and "version" option.', $importName));
-                }
-                if (isset($data['package_specifier'])) {
-                    throw new RuntimeException(sprintf('The importmap entry "%s" cannot have both a "path" and "package_specifier" option.', $importName));
-=======
                     throw new RuntimeException(\sprintf('The importmap entry "%s" cannot have both a "path" and "version" option.', $importName));
                 }
                 if (isset($data['package_specifier'])) {
                     throw new RuntimeException(\sprintf('The importmap entry "%s" cannot have both a "path" and "package_specifier" option.', $importName));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 $entries->add(ImportMapEntry::createLocal($importName, $type, $data['path'], $isEntrypoint));
@@ -99,11 +88,7 @@ class ImportMapConfigReader
             }
 
             if (null === $version) {
-<<<<<<< HEAD
-                throw new RuntimeException(sprintf('The importmap entry "%s" must have either a "path" or "version" option.', $importName));
-=======
                 throw new RuntimeException(\sprintf('The importmap entry "%s" must have either a "path" or "version" option.', $importName));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $packageModuleSpecifier = $data['package_specifier'] ?? $importName;
@@ -140,24 +125,6 @@ class ImportMapConfigReader
 
         $map = class_exists(VarExporter::class) ? VarExporter::export($importMapConfig) : var_export($importMapConfig, true);
         file_put_contents($this->importMapConfigPath, <<<EOF
-<<<<<<< HEAD
-        <?php
-
-        /**
-         * Returns the importmap for this application.
-         *
-         * - "path" is a path inside the asset mapper system. Use the
-         *     "debug:asset-map" command to see the full list of paths.
-         *
-         * - "entrypoint" (JavaScript only) set to true for any module that will
-         *     be used as an "entrypoint" (and passed to the importmap() Twig function).
-         *
-         * The "importmap:require" command can be used to add new entries to this file.
-         */
-        return $map;
-
-        EOF);
-=======
             <?php
 
             /**
@@ -174,7 +141,6 @@ class ImportMapConfigReader
             return $map;
 
             EOF);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function findRootImportMapEntry(string $moduleName): ?ImportMapEntry

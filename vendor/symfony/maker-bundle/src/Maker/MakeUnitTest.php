@@ -45,11 +45,7 @@ final class MakeUnitTest extends AbstractMaker
     {
         $command
             ->addArgument('name', InputArgument::OPTIONAL, 'The name of the unit test class (e.g. <fg=yellow>UtilTest</>)')
-<<<<<<< HEAD
-            ->setHelp(file_get_contents(__DIR__.'/../Resources/help/MakeUnitTest.txt'))
-=======
             ->setHelp($this->getHelpFileContents('MakeUnitTest.txt'))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ;
     }
 

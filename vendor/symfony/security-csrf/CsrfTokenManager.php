@@ -59,11 +59,7 @@ class CsrfTokenManager implements CsrfTokenManagerInterface
         } elseif (\is_callable($namespace)) {
             $this->namespace = $namespace(...);
         } else {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('$namespace must be a string, a callable returning a string, null or an instance of "RequestStack". "%s" given.', get_debug_type($namespace)));
-=======
             throw new InvalidArgumentException(\sprintf('$namespace must be a string, a callable returning a string, null or an instance of "RequestStack". "%s" given.', get_debug_type($namespace)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -116,11 +112,7 @@ class CsrfTokenManager implements CsrfTokenManagerInterface
         $key = random_bytes(32);
         $value = $this->xor($value, $key);
 
-<<<<<<< HEAD
-        return sprintf('%s.%s.%s', substr(hash('xxh128', $key), 0, 1 + (\ord($key[0]) % 32)), rtrim(strtr(base64_encode($key), '+/', '-_'), '='), rtrim(strtr(base64_encode($value), '+/', '-_'), '='));
-=======
         return \sprintf('%s.%s.%s', substr(hash('xxh128', $key), 0, 1 + (\ord($key[0]) % 32)), rtrim(strtr(base64_encode($key), '+/', '-_'), '='), rtrim(strtr(base64_encode($value), '+/', '-_'), '='));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function derandomize(string $value): string

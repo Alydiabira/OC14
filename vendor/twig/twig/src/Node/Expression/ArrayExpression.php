@@ -12,11 +12,6 @@
 namespace Twig\Node\Expression;
 
 use Twig\Compiler;
-<<<<<<< HEAD
-
-class ArrayExpression extends AbstractExpression
-{
-=======
 use Twig\Error\SyntaxError;
 use Twig\Node\CoercesChildrenToStringInterface;
 use Twig\Node\Expression\Unary\SpreadUnary;
@@ -26,7 +21,6 @@ class ArrayExpression extends AbstractExpression implements SupportDefinedTestIn
 {
     use SupportDefinedTestTrait;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private $index;
 
     public function __construct(array $elements, int $lineno)
@@ -67,8 +61,6 @@ class ArrayExpression extends AbstractExpression implements SupportDefinedTestIn
         return false;
     }
 
-<<<<<<< HEAD
-=======
     /**
      * Checks if the array is a sequence (keys are sequential integers starting from 0).
      *
@@ -94,7 +86,6 @@ class ArrayExpression extends AbstractExpression implements SupportDefinedTestIn
         return true;
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function addElement(AbstractExpression $value, ?AbstractExpression $key = null): void
     {
         if (null === $key) {
@@ -104,75 +95,6 @@ class ArrayExpression extends AbstractExpression implements SupportDefinedTestIn
         array_push($this->nodes, $key, $value);
     }
 
-<<<<<<< HEAD
-    public function compile(Compiler $compiler): void
-    {
-        $keyValuePairs = $this->getKeyValuePairs();
-        $needsArrayMergeSpread = \PHP_VERSION_ID < 80100 && $this->hasSpreadItem($keyValuePairs);
-
-        if ($needsArrayMergeSpread) {
-            $compiler->raw('CoreExtension::merge(');
-        }
-        $compiler->raw('[');
-        $first = true;
-        $reopenAfterMergeSpread = false;
-        $nextIndex = 0;
-        foreach ($keyValuePairs as $pair) {
-            if ($reopenAfterMergeSpread) {
-                $compiler->raw(', [');
-                $reopenAfterMergeSpread = false;
-            }
-
-            if ($needsArrayMergeSpread && $pair['value']->hasAttribute('spread')) {
-                $compiler->raw('], ')->subcompile($pair['value']);
-                $first = true;
-                $reopenAfterMergeSpread = true;
-                continue;
-            }
-            if (!$first) {
-                $compiler->raw(', ');
-            }
-            $first = false;
-
-            if ($pair['value']->hasAttribute('spread') && !$needsArrayMergeSpread) {
-                $compiler->raw('...')->subcompile($pair['value']);
-                ++$nextIndex;
-            } else {
-                $key = $pair['key'] instanceof ConstantExpression ? $pair['key']->getAttribute('value') : null;
-
-                if ($nextIndex !== $key) {
-                    if (\is_int($key)) {
-                        $nextIndex = $key + 1;
-                    }
-                    $compiler
-                        ->subcompile($pair['key'])
-                        ->raw(' => ')
-                    ;
-                } else {
-                    ++$nextIndex;
-                }
-
-                $compiler->subcompile($pair['value']);
-            }
-        }
-        if (!$reopenAfterMergeSpread) {
-            $compiler->raw(']');
-        }
-        if ($needsArrayMergeSpread) {
-            $compiler->raw(')');
-        }
-    }
-
-    private function hasSpreadItem(array $pairs): bool
-    {
-        foreach ($pairs as $pair) {
-            if ($pair['value']->hasAttribute('spread')) {
-                return true;
-            }
-        }
-
-        return false;
-=======
     public function getStringCoercedChildNames(): array
     {
         // dynamic mapping keys (computed at runtime) are coerced to string;
@@ -239,6 +161,5 @@ class ArrayExpression extends AbstractExpression implements SupportDefinedTestIn
             $compiler->subcompile($pair['value']);
         }
         $compiler->raw(']');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

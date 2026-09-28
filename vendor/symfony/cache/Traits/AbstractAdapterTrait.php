@@ -125,13 +125,10 @@ trait AbstractAdapterTrait
                 $this->namespaceVersion = $namespaceVersion;
                 $this->ids = [];
             }
-<<<<<<< HEAD
-=======
         } elseif (preg_match('#[^-+.:_A-Za-z0-9]#', $prefix)) {
             CacheItem::log($this->logger, 'Failed to clear the cache: Namespace-prefix contains invalid characters.', ['cache-adapter' => get_debug_type($this)]);
 
             return false;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } else {
             $namespaceToClear = $this->namespace.$prefix;
         }
@@ -283,23 +280,12 @@ trait AbstractAdapterTrait
         $this->ids = [];
     }
 
-<<<<<<< HEAD
-    public function __sleep(): array
-=======
     public function __serialize(): array
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
     }
 
-<<<<<<< HEAD
-    /**
-     * @return void
-     */
-    public function __wakeup()
-=======
     public function __unserialize(array $data): void
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
     }
@@ -318,11 +304,7 @@ trait AbstractAdapterTrait
         try {
             foreach ($items as $id => $value) {
                 if (!isset($keys[$id])) {
-<<<<<<< HEAD
-                    throw new InvalidArgumentException(sprintf('Could not match value id "%s" to keys "%s".', $id, implode('", "', $keys)));
-=======
                     throw new InvalidArgumentException(\sprintf('Could not match value id "%s" to keys "%s".', $id, implode('", "', $keys)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
                 $key = $keys[$id];
                 unset($keys[$id]);

@@ -18,11 +18,8 @@ use Symfony\Bundle\MakerBundle\MakerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-<<<<<<< HEAD
-=======
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
@@ -80,18 +77,6 @@ class MakerTestKernel extends Kernel implements CompilerPassInterface
         return $this->testRootDir;
     }
 
-<<<<<<< HEAD
-    /**
-     * @return void
-     */
-    public function process(ContainerBuilder $container)
-    {
-        // makes all makers public to help the tests
-        foreach ($container->findTaggedServiceIds(MakeCommandRegistrationPass::MAKER_TAG) as $id => $tags) {
-            $defn = $container->getDefinition($id);
-            $defn->setPublic(true);
-        }
-=======
     public function process(ContainerBuilder $container): void
     {
         // Add a service locator to find makers by class name
@@ -104,6 +89,5 @@ class MakerTestKernel extends Kernel implements CompilerPassInterface
             ->setPublic(true)
             ->addArgument($makers)
             ->addTag('container.service_locator');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

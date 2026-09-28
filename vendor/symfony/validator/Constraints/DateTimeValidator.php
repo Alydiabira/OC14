@@ -54,11 +54,7 @@ class DateTimeValidator extends DateValidator
         }
 
         if (str_ends_with($constraint->format, '+')) {
-<<<<<<< HEAD
-            $errors['warnings'] = array_filter($errors['warnings'], fn ($warning) => 'Trailing data' !== $warning);
-=======
             $errors['warnings'] = array_filter($errors['warnings'], static fn ($warning) => 'Trailing data' !== $warning);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         foreach ($errors['warnings'] as $warning) {

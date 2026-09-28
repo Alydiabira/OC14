@@ -1,15 +1,10 @@
 <?php
 
-<<<<<<< HEAD
-namespace Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler;
-
-=======
 declare(strict_types=1);
 
 namespace Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler;
 
 use Doctrine\Deprecations\Deprecation;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\ORM\Mapping\Driver\AttributeDriver;
 use Doctrine\ORM\Mapping\Driver\XmlDriver;
@@ -21,11 +16,8 @@ use Symfony\Bridge\Doctrine\DependencyInjection\CompilerPass\RegisterMappingsPas
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
-<<<<<<< HEAD
-=======
 use function method_exists;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /**
  * Class for Symfony bundles to configure mappings for model classes not in the
  * auto-mapped folder.
@@ -87,11 +79,8 @@ class DoctrineOrmMappingsPass extends RegisterMappingsPass
     }
 
     /**
-<<<<<<< HEAD
-=======
      * @deprecated no replacement planned
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @param string[]     $namespaces        Hashmap of directory path to namespace
      * @param string[]     $managerParameters List of parameters that could which object manager name
      *                                        your bundle uses. This compiler pass will automatically
@@ -106,10 +95,6 @@ class DoctrineOrmMappingsPass extends RegisterMappingsPass
      */
     public static function createYamlMappingDriver(array $namespaces, array $managerParameters = [], $enabledParameter = false, array $aliasMap = [])
     {
-<<<<<<< HEAD
-        $locator = new Definition(SymfonyFileLocator::class, [$namespaces, '.orm.yml']);
-        $driver  = new Definition(YamlDriver::class, [$locator]);
-=======
         Deprecation::trigger(
             'doctrine/doctrine-bundle',
             'https://github.com/doctrine/DoctrineBundle/pull/2088',
@@ -119,7 +104,6 @@ class DoctrineOrmMappingsPass extends RegisterMappingsPass
         $locator = new Definition(SymfonyFileLocator::class, [$namespaces, '.orm.yml']);
         /* @phpstan-ignore class.notFound */
         $driver = new Definition(YamlDriver::class, [$locator]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return new DoctrineOrmMappingsPass($driver, $namespaces, $managerParameters, $enabledParameter, $aliasMap);
     }
@@ -146,11 +130,8 @@ class DoctrineOrmMappingsPass extends RegisterMappingsPass
     }
 
     /**
-<<<<<<< HEAD
-=======
      * @deprecated no replacement planned
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @param string[]     $namespaces                List of namespaces that are handled with annotation mapping
      * @param string[]     $directories               List of directories to look for annotated classes
      * @param string[]     $managerParameters         List of parameters that could which object manager name
@@ -167,9 +148,6 @@ class DoctrineOrmMappingsPass extends RegisterMappingsPass
      */
     public static function createAnnotationMappingDriver(array $namespaces, array $directories, array $managerParameters = [], $enabledParameter = false, array $aliasMap = [], bool $reportFieldsWhereDeclared = false)
     {
-<<<<<<< HEAD
-        $reader = new Reference('annotation_reader');
-=======
         Deprecation::trigger(
             'doctrine/doctrine-bundle',
             'https://github.com/doctrine/DoctrineBundle/pull/2088',
@@ -179,7 +157,6 @@ class DoctrineOrmMappingsPass extends RegisterMappingsPass
 
         $reader = new Reference('annotation_reader');
         /* @phpstan-ignore class.notFound */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $driver = new Definition(AnnotationDriver::class, [$reader, $directories, $reportFieldsWhereDeclared]);
 
         return new DoctrineOrmMappingsPass($driver, $namespaces, $managerParameters, $enabledParameter, $aliasMap);
@@ -202,9 +179,6 @@ class DoctrineOrmMappingsPass extends RegisterMappingsPass
      */
     public static function createAttributeMappingDriver(array $namespaces, array $directories, array $managerParameters = [], $enabledParameter = false, array $aliasMap = [], bool $reportFieldsWhereDeclared = false)
     {
-<<<<<<< HEAD
-        $driver = new Definition(AttributeDriver::class, [$directories, $reportFieldsWhereDeclared]);
-=======
         $driverArgs = [$directories];
 
         // Add additional args for ORM <3.0
@@ -213,7 +187,6 @@ class DoctrineOrmMappingsPass extends RegisterMappingsPass
         }
 
         $driver = new Definition(AttributeDriver::class, $driverArgs);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return new DoctrineOrmMappingsPass($driver, $namespaces, $managerParameters, $enabledParameter, $aliasMap);
     }

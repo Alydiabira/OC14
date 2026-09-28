@@ -6,11 +6,6 @@ namespace Doctrine\SqlFormatter;
 
 use function sprintf;
 
-<<<<<<< HEAD
-use const PHP_EOL;
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 final class CliHighlighter implements Highlighter
 {
     public const HIGHLIGHT_FUNCTIONS = 'functions';
@@ -49,10 +44,7 @@ final class CliHighlighter implements Highlighter
         return $prefix . $value . "\x1b[0m";
     }
 
-<<<<<<< HEAD
-=======
     /** @param Token::TOKEN_TYPE_* $type */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private function prefix(int $type): string|null
     {
         if (! isset(self::TOKEN_TYPE_TO_HIGHLIGHT[$type])) {
@@ -66,11 +58,7 @@ final class CliHighlighter implements Highlighter
     {
         return sprintf(
             '%s%s%s%s',
-<<<<<<< HEAD
-            PHP_EOL,
-=======
             "\n",
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->escapeSequences[self::HIGHLIGHT_ERROR],
             $value,
             "\x1b[0m",

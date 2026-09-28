@@ -8,11 +8,7 @@
             </trans-unit>
             <trans-unit id="2">
                 <source>This value should be true.</source>
-<<<<<<< HEAD
-                <target>هذه القيمة يجب أن تكون حقيقية.</target>
-=======
                 <target>هذه القيمة يجب أن تكون صحيحة.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="3">
                 <source>This value should be of type {{ type }}.</source>
@@ -24,11 +20,7 @@
             </trans-unit>
             <trans-unit id="5">
                 <source>The value you selected is not a valid choice.</source>
-<<<<<<< HEAD
-                <target>القيمة المختارة ليست خيارا صحيحا.</target>
-=======
                 <target>القيمة المختارة ليست خيار صحيح.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="6">
                 <source>You must select at least {{ limit }} choice.|You must select at least {{ limit }} choices.</source>
@@ -44,25 +36,6 @@
             </trans-unit>
             <trans-unit id="9">
                 <source>This field was not expected.</source>
-<<<<<<< HEAD
-                <target>لم يكن من المتوقع هذا المجال.</target>
-            </trans-unit>
-            <trans-unit id="10">
-                <source>This field is missing.</source>
-                <target>هذا المجال مفقود.</target>
-            </trans-unit>
-            <trans-unit id="11">
-                <source>This value is not a valid date.</source>
-                <target>هذه القيمة ليست تاريخا صالحا.</target>
-            </trans-unit>
-            <trans-unit id="12">
-                <source>This value is not a valid datetime.</source>
-                <target>هذه القيمة ليست تاريخا و وقتا صالحا.</target>
-            </trans-unit>
-            <trans-unit id="13">
-                <source>This value is not a valid email address.</source>
-                <target>هذه القيمة ليست عنوان بريد إلكتروني صحيح.</target>
-=======
                 <target>لم يكن من المتوقع هذا الحقل.</target>
             </trans-unit>
             <trans-unit id="10">
@@ -80,7 +53,6 @@
             <trans-unit id="13">
                 <source>This value is not a valid email address.</source>
                 <target>هذه القيمة ليست لها عنوان بريد إلكتروني صحيح.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="14">
                 <source>The file could not be found.</source>
@@ -116,19 +88,11 @@
             </trans-unit>
             <trans-unit id="22">
                 <source>This value should not be blank.</source>
-<<<<<<< HEAD
-                <target>هذه القيمة يجب الا تكون فارغة.</target>
-            </trans-unit>
-            <trans-unit id="23">
-                <source>This value should not be null.</source>
-                <target>هذه القيمة يجب الا تكون فارغة.</target>
-=======
                 <target>هذه القيمة يجب لا تكون فارغة.</target>
             </trans-unit>
             <trans-unit id="23">
                 <source>This value should not be null.</source>
                 <target>هذه القيمة يجب لا تكون فارغة.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="24">
                 <source>This value should be null.</source>
@@ -160,11 +124,7 @@
             </trans-unit>
             <trans-unit id="34">
                 <source>The file could not be uploaded.</source>
-<<<<<<< HEAD
-                <target>لم استطع استقبال الملف.</target>
-=======
                 <target>تعذر تحميل الملف.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="35">
                 <source>This value should be a valid number.</source>
@@ -172,11 +132,7 @@
             </trans-unit>
             <trans-unit id="36">
                 <source>This file is not a valid image.</source>
-<<<<<<< HEAD
-                <target>هذا الملف ليس صورة صحيحة.</target>
-=======
                 <target>هذا الملف غير صالح للصورة.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="37" resname="This is not a valid IP address.">
                 <source>This value is not a valid IP address.</source>
@@ -328,11 +284,7 @@
             </trans-unit>
             <trans-unit id="74">
                 <source>The image ratio is too small ({{ ratio }}). Minimum ratio expected is {{ min_ratio }}.</source>
-<<<<<<< HEAD
-                <target>نسبة العرض على الارتفاع للصورة صغيرة جدا ({{ ratio }}). الحد الأدنى للنسبة المسموح به هو {{ max_ratio }}.</target>
-=======
                 <target>نسبة العرض على الارتفاع للصورة صغيرة جدا ({{ ratio }}). الحد الأدنى للنسبة المسموح به هو {{ min_ratio }}.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="75">
                 <source>The image is square ({{ width }}x{{ height }}px). Square images are not allowed.</source>
@@ -490,8 +442,6 @@
                 <source>This URL is missing a top-level domain.</source>
                 <target>هذا الرابط يفتقر إلى نطاق المستوى الأعلى.</target>
             </trans-unit>
-<<<<<<< HEAD
-=======
             <trans-unit id="114">
                 <source>This value is too short. It should contain at least one word.|This value is too short. It should contain at least {{ min }} words.</source>
                 <target>هذه القيمة قصيرة جدًا. يجب أن تحتوي على كلمة واحدة على الأقل.|هذه القيمة قصيرة جدًا. يجب أن تحتوي على {{ min }} كلمة على الأقل.</target>
@@ -622,13 +572,12 @@
             </trans-unit>
             <trans-unit id="147">
                 <source>The referenced entity does not exist.</source>
-                <target state="needs-review-translation">الكيان المشار إليه غير موجود.</target>
+                <target>الكيان المشار إليه غير موجود.</target>
             </trans-unit>
             <trans-unit id="148" resname="This is not a valid ULID.">
                 <source>This value is not a valid ULID.</source>
-                <target state="needs-review-translation">هذه القيمة ليست ULID صالحًا.</target>
+                <target>هذه القيمة ليست ULID صالحًا.</target>
             </trans-unit>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         </body>
     </file>
 </xliff>

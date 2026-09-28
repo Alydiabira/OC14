@@ -30,11 +30,7 @@ class EntityType extends DoctrineType
 
         // Invoke the query builder closure so that we can cache choice lists
         // for equal query builders
-<<<<<<< HEAD
-        $queryBuilderNormalizer = function (Options $options, $queryBuilder) {
-=======
         $queryBuilderNormalizer = static function (Options $options, $queryBuilder) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (\is_callable($queryBuilder)) {
                 $queryBuilder = $queryBuilder($options['em']->getRepository($options['class']));
 
@@ -58,11 +54,7 @@ class EntityType extends DoctrineType
     public function getLoader(ObjectManager $manager, object $queryBuilder, string $class): ORMQueryBuilderLoader
     {
         if (!$queryBuilder instanceof QueryBuilder) {
-<<<<<<< HEAD
-            throw new \TypeError(sprintf('Expected an instance of "%s", but got "%s".', QueryBuilder::class, get_debug_type($queryBuilder)));
-=======
             throw new \TypeError(\sprintf('Expected an instance of "%s", but got "%s".', QueryBuilder::class, get_debug_type($queryBuilder)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return new ORMQueryBuilderLoader($queryBuilder);
@@ -85,11 +77,7 @@ class EntityType extends DoctrineType
     public function getQueryBuilderPartsForCachingHash(object $queryBuilder): ?array
     {
         if (!$queryBuilder instanceof QueryBuilder) {
-<<<<<<< HEAD
-            throw new \TypeError(sprintf('Expected an instance of "%s", but got "%s".', QueryBuilder::class, get_debug_type($queryBuilder)));
-=======
             throw new \TypeError(\sprintf('Expected an instance of "%s", but got "%s".', QueryBuilder::class, get_debug_type($queryBuilder)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return [

@@ -55,11 +55,7 @@ final class TraceableHttpClient implements HttpClientInterface, ResetInterface, 
             $content = false;
         }
 
-<<<<<<< HEAD
-        $options['on_progress'] = function (int $dlNow, int $dlSize, array $info) use (&$traceInfo, $onProgress) {
-=======
         $options['on_progress'] = static function (int $dlNow, int $dlSize, array $info) use (&$traceInfo, $onProgress) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $traceInfo = $info;
 
             if (null !== $onProgress) {

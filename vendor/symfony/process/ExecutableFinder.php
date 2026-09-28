@@ -19,9 +19,6 @@ namespace Symfony\Component\Process;
  */
 class ExecutableFinder
 {
-<<<<<<< HEAD
-    private array $suffixes = ['.exe', '.bat', '.cmd', '.com'];
-=======
     private const CMD_BUILTINS = [
         'assoc', 'break', 'call', 'cd', 'chdir', 'cls', 'color', 'copy', 'date',
         'del', 'dir', 'echo', 'endlocal', 'erase', 'exit', 'for', 'ftype', 'goto',
@@ -31,7 +28,6 @@ class ExecutableFinder
     ];
 
     private array $suffixes = [];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Replaces default suffixes of executable.
@@ -62,28 +58,16 @@ class ExecutableFinder
      */
     public function find(string $name, ?string $default = null, array $extraDirs = []): ?string
     {
-<<<<<<< HEAD
-=======
         // windows built-in commands that are present in cmd.exe should not be resolved using PATH as they do not exist as exes
         if ('\\' === \DIRECTORY_SEPARATOR && \in_array(strtolower($name), self::CMD_BUILTINS, true)) {
             return $name;
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $dirs = array_merge(
             explode(\PATH_SEPARATOR, getenv('PATH') ?: getenv('Path')),
             $extraDirs
         );
 
-<<<<<<< HEAD
-        $suffixes = [''];
-        if ('\\' === \DIRECTORY_SEPARATOR) {
-            $pathExt = getenv('PATHEXT');
-            $suffixes = array_merge($pathExt ? explode(\PATH_SEPARATOR, $pathExt) : $this->suffixes, $suffixes);
-        }
-        foreach ($suffixes as $suffix) {
-            foreach ($dirs as $dir) {
-=======
         $suffixes = [];
         if ('\\' === \DIRECTORY_SEPARATOR) {
             $pathExt = getenv('PATHEXT');
@@ -96,7 +80,6 @@ class ExecutableFinder
                 if ('' === $dir) {
                     $dir = '.';
                 }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if (@is_file($file = $dir.\DIRECTORY_SEPARATOR.$name.$suffix) && ('\\' === \DIRECTORY_SEPARATOR || @is_executable($file))) {
                     return $file;
                 }
@@ -107,10 +90,6 @@ class ExecutableFinder
             }
         }
 
-<<<<<<< HEAD
-        $command = '\\' === \DIRECTORY_SEPARATOR ? 'where' : 'command -v --';
-        if (\function_exists('exec') && ($executablePath = strtok(@exec($command.' '.escapeshellarg($name)), \PHP_EOL)) && @is_executable($executablePath)) {
-=======
         if ('\\' === \DIRECTORY_SEPARATOR || !\function_exists('exec') || \strlen($name) !== strcspn($name, '/'.\DIRECTORY_SEPARATOR)) {
             return $default;
         }
@@ -118,7 +97,6 @@ class ExecutableFinder
         $execResult = exec('command -v -- '.escapeshellarg($name));
 
         if (($executablePath = substr($execResult, 0, strpos($execResult, \PHP_EOL) ?: null)) && @is_executable($executablePath)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return $executablePath;
         }
 

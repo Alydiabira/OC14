@@ -25,8 +25,6 @@ class ManyToManyAssociationBuilder extends OneToManyAssociationBuilder
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Add Join Columns.
      *
      * @return $this
@@ -51,7 +49,6 @@ class ManyToManyAssociationBuilder extends OneToManyAssociationBuilder
     }
 
     /**
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Adds Inverse Join Columns.
      *
      * @return $this
@@ -67,10 +64,6 @@ class ManyToManyAssociationBuilder extends OneToManyAssociationBuilder
         $this->inverseJoinColumns[] = [
             'name' => $columnName,
             'referencedColumnName' => $referencedColumnName,
-<<<<<<< HEAD
-            'nullable' => $nullable,
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'unique' => $unique,
             'onDelete' => $onDelete,
             'columnDefinition' => $columnDef,

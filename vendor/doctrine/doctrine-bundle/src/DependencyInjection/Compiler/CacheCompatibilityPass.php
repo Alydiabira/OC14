@@ -1,17 +1,11 @@
 <?php
 
-<<<<<<< HEAD
-namespace Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler;
-
-use Doctrine\Common\Cache\Psr6\CacheAdapter;
-=======
 declare(strict_types=1);
 
 namespace Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler;
 
 use Doctrine\Common\Cache\Psr6\CacheAdapter;
 use Doctrine\Deprecations\Deprecation;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -23,10 +17,6 @@ use function array_keys;
 use function assert;
 use function in_array;
 use function is_a;
-<<<<<<< HEAD
-use function trigger_deprecation;
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /** @internal  */
 final class CacheCompatibilityPass implements CompilerPassInterface
@@ -75,19 +65,11 @@ final class CacheCompatibilityPass implements CompilerPassInterface
                     continue;
                 }
 
-<<<<<<< HEAD
-                $regionDefinition = $container->getDefinition($factoryMethodCall[1][0]);
-
-                // Get inner service for FileLock
-                if ($regionDefinition->getClass() === '%doctrine.orm.second_level_cache.filelock_region.class%') {
-                    $regionDefinition = $container->getDefinition($regionDefinition->getArgument(0));
-=======
                 $regionDefinition = $container->getDefinition((string) $factoryMethodCall[1][0]);
 
                 // Get inner service for FileLock
                 if ($regionDefinition->getClass() === '%doctrine.orm.second_level_cache.filelock_region.class%') {
                     $regionDefinition = $container->getDefinition((string) $regionDefinition->getArgument(0));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 // We don't know how to adjust custom region classes
@@ -107,11 +89,7 @@ final class CacheCompatibilityPass implements CompilerPassInterface
         }
     }
 
-<<<<<<< HEAD
-    private function createCompatibilityLayerDefinition(ContainerBuilder $container, string $definitionId): ?Definition
-=======
     private function createCompatibilityLayerDefinition(ContainerBuilder $container, string $definitionId): Definition|null
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $definition = $container->getDefinition($definitionId);
 
@@ -123,15 +101,9 @@ final class CacheCompatibilityPass implements CompilerPassInterface
             return null;
         }
 
-<<<<<<< HEAD
-        trigger_deprecation(
-            'doctrine/doctrine-bundle',
-            '2.4',
-=======
         Deprecation::trigger(
             'doctrine/doctrine-bundle',
             'https://github.com/doctrine/DoctrineBundle/pull/1365',
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'Configuring doctrine/cache is deprecated. Please update the cache service "%s" to use a PSR-6 cache.',
             $definitionId,
         );

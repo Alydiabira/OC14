@@ -25,10 +25,6 @@ class MongoDBFormatter implements FormatterInterface
 {
     private bool $exceptionTraceAsString;
     private int $maxNestingLevel;
-<<<<<<< HEAD
-    private bool $isLegacyMongoExt;
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * @param int  $maxNestingLevel        0 means infinite nesting, the $record itself is level 1, $record->context is 2
@@ -38,11 +34,6 @@ class MongoDBFormatter implements FormatterInterface
     {
         $this->maxNestingLevel = max($maxNestingLevel, 0);
         $this->exceptionTraceAsString = $exceptionTraceAsString;
-<<<<<<< HEAD
-
-        $this->isLegacyMongoExt = extension_loaded('mongodb') && version_compare((string) phpversion('mongodb'), '1.1.9', '<=');
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -88,15 +79,9 @@ class MongoDBFormatter implements FormatterInterface
                 $array[$name] = $this->formatDate($value, $nestingLevel + 1);
             } elseif ($value instanceof \Throwable) {
                 $array[$name] = $this->formatException($value, $nestingLevel + 1);
-<<<<<<< HEAD
-            } elseif (is_array($value)) {
-                $array[$name] = $this->formatArray($value, $nestingLevel + 1);
-            } elseif (is_object($value) && !$value instanceof Type) {
-=======
             } elseif (\is_array($value)) {
                 $array[$name] = $this->formatArray($value, $nestingLevel + 1);
             } elseif (\is_object($value) && !$value instanceof Type) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $array[$name] = $this->formatObject($value, $nestingLevel + 1);
             }
         }
@@ -139,38 +124,6 @@ class MongoDBFormatter implements FormatterInterface
 
     protected function formatDate(\DateTimeInterface $value, int $nestingLevel): UTCDateTime
     {
-<<<<<<< HEAD
-        if ($this->isLegacyMongoExt) {
-            return $this->legacyGetMongoDbDateTime($value);
-        }
-
-        return $this->getMongoDbDateTime($value);
-    }
-
-    private function getMongoDbDateTime(\DateTimeInterface $value): UTCDateTime
-    {
         return new UTCDateTime((int) floor(((float) $value->format('U.u')) * 1000));
     }
-
-    /**
-     * This is needed to support MongoDB Driver v1.19 and below
-     *
-     * See https://github.com/mongodb/mongo-php-driver/issues/426
-     *
-     * It can probably be removed in 2.1 or later once MongoDB's 1.2 is released and widely adopted
-     */
-    private function legacyGetMongoDbDateTime(\DateTimeInterface $value): UTCDateTime
-    {
-        $milliseconds = floor(((float) $value->format('U.u')) * 1000);
-
-        $milliseconds = (PHP_INT_SIZE == 8) //64-bit OS?
-            ? (int) $milliseconds
-            : (string) $milliseconds;
-
-        return new UTCDateTime($milliseconds);
-    }
-=======
-        return new UTCDateTime((int) floor(((float) $value->format('U.u')) * 1000));
-    }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

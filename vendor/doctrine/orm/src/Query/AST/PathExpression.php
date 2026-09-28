@@ -21,17 +21,10 @@ class PathExpression extends Node
     final public const TYPE_SINGLE_VALUED_ASSOCIATION     = 4;
     final public const TYPE_STATE_FIELD                   = 8;
 
-<<<<<<< HEAD
-    /** @psalm-var self::TYPE_*|null */
-    public int|null $type = null;
-
-    /** @psalm-param int-mask-of<self::TYPE_*> $expectedType */
-=======
     /** @phpstan-var self::TYPE_*|null */
     public int|null $type = null;
 
     /** @phpstan-param int-mask-of<self::TYPE_*> $expectedType */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function __construct(
         public int $expectedType,
         public string $identificationVariable,

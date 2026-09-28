@@ -40,11 +40,7 @@ final class Dumper
                 return rtrim($dumper->dump(($this->cloner ??= new VarCloner())->cloneVar($var)->withRefHandles(false), true));
             };
         } else {
-<<<<<<< HEAD
-            $this->handler = fn ($var): string => match (true) {
-=======
             $this->handler = static fn ($var): string => match (true) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 null === $var => 'null',
                 true === $var => 'true',
                 false === $var => 'false',

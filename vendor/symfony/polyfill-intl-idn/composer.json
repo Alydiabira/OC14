@@ -20,14 +20,8 @@
         }
     ],
     "require": {
-<<<<<<< HEAD
-        "php": ">=7.1",
-        "symfony/polyfill-intl-normalizer": "^1.10",
-        "symfony/polyfill-php72": "^1.10"
-=======
         "php": ">=7.2",
         "symfony/polyfill-intl-normalizer": "^1.10"
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     },
     "autoload": {
         "psr-4": { "Symfony\\Polyfill\\Intl\\Idn\\": "" },

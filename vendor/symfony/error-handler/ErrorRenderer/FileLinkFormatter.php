@@ -67,22 +67,11 @@ class FileLinkFormatter
         return false;
     }
 
-<<<<<<< HEAD
-    /**
-     * @internal
-     */
-    public function __sleep(): array
-    {
-        $this->fileLinkFormat = $this->getFileLinkFormat();
-
-        return ['fileLinkFormat'];
-=======
     public function __serialize(): array
     {
         $this->fileLinkFormat = $this->getFileLinkFormat();
 
         return ['fileLinkFormat' => $this->fileLinkFormat];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

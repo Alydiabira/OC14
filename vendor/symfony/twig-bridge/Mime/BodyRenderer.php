@@ -45,11 +45,7 @@ final class BodyRenderer implements BodyRendererInterface
             return;
         }
 
-<<<<<<< HEAD
-        if (null === $message->getTextTemplate() && null === $message->getHtmlTemplate()) {
-=======
         if ($message->isRendered()) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             // email has already been rendered
             return;
         }
@@ -58,11 +54,7 @@ final class BodyRenderer implements BodyRendererInterface
             $messageContext = $message->getContext();
 
             if (isset($messageContext['email'])) {
-<<<<<<< HEAD
-                throw new InvalidArgumentException(sprintf('A "%s" context cannot have an "email" entry as this is a reserved variable.', get_debug_type($message)));
-=======
                 throw new InvalidArgumentException(\sprintf('A "%s" context cannot have an "email" entry as this is a reserved variable.', get_debug_type($message)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $vars = array_merge($this->context, $messageContext, [

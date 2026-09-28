@@ -9,20 +9,6 @@
 
 namespace Gedmo\Loggable\Mapping\Driver;
 
-<<<<<<< HEAD
-use Gedmo\Mapping\Driver\AttributeDriverInterface;
-
-/**
- * This is an attribute mapping driver for Loggable
- * behavioral extension. Used for extraction of extended
- * metadata from attributes specifically for Loggable
- * extension.
- *
- * @internal
- */
-final class Attribute extends Annotation implements AttributeDriverInterface
-{
-=======
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata as ClassMetadataODM;
 use Doctrine\ORM\Mapping\ClassMetadata as ClassMetadataORM;
 use Doctrine\ORM\Mapping\EmbeddedClassMapping;
@@ -169,5 +155,4 @@ class Attribute extends AbstractAnnotationDriver
             }
         }
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

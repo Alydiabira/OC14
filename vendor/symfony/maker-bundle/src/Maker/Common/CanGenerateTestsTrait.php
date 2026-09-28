@@ -28,11 +28,7 @@ trait CanGenerateTestsTrait
 
     public function configureCommandWithTestsOption(Command $command): Command
     {
-<<<<<<< HEAD
-        $testsHelp = file_get_contents(\dirname(__DIR__, 2).'/Resources/help/_WithTests.txt');
-=======
         $testsHelp = file_get_contents(\dirname(__DIR__, 3).'/config/help/_WithTests.txt');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $help = $command->getHelp()."\n".$testsHelp;
 
         $command

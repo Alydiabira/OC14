@@ -11,15 +11,12 @@
 
 namespace Twig\TokenParser;
 
-<<<<<<< HEAD
-use Twig\Parser;
-=======
 use Twig\Lexer;
 use Twig\Node\Expression\Variable\AssignContextVariable;
+use Twig\Node\NodeDocumentation;
 use Twig\Node\Nodes;
 use Twig\Parser;
 use Twig\Token;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Base class for all token parsers.
@@ -37,8 +34,6 @@ abstract class AbstractTokenParser implements TokenParserInterface
     {
         $this->parser = $parser;
     }
-<<<<<<< HEAD
-=======
 
     public function isAlwaysAllowedInSandbox(): bool
     {
@@ -60,7 +55,9 @@ abstract class AbstractTokenParser implements TokenParserInterface
             } else {
                 $stream->expect(Token::NAME_TYPE, null, 'Only variables can be assigned to');
             }
-            $targets[] = new AssignContextVariable($token->getValue(), $token->getLine());
+            $target = new AssignContextVariable($token->getValue(), $token->getLine());
+            NodeDocumentation::add($target, $token);
+            $targets[] = $target;
 
             if (!$stream->nextIf(Token::PUNCTUATION_TYPE, ',')) {
                 break;
@@ -69,5 +66,4 @@ abstract class AbstractTokenParser implements TokenParserInterface
 
         return new Nodes($targets);
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

@@ -1487,22 +1487,13 @@ if (!function_exists('PHPUnit\Framework\assertSame')) {
      * Used on objects, it asserts that two variables reference
      * the same object.
      *
-<<<<<<< HEAD
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     *
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @psalm-template ExpectedType
      *
      * @psalm-param ExpectedType $expected
      *
-<<<<<<< HEAD
-=======
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @psalm-assert =ExpectedType $actual
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -1538,24 +1529,14 @@ if (!function_exists('PHPUnit\Framework\assertInstanceOf')) {
     /**
      * Asserts that a variable is of a given type.
      *
-<<<<<<< HEAD
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     * @throws Exception
-     *
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @psalm-template ExpectedType of object
      *
      * @psalm-param class-string<ExpectedType> $expected
      *
-<<<<<<< HEAD
-=======
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws Exception
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @psalm-assert =ExpectedType $actual
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
@@ -1572,24 +1553,14 @@ if (!function_exists('PHPUnit\Framework\assertNotInstanceOf')) {
     /**
      * Asserts that a variable is not of a given type.
      *
-<<<<<<< HEAD
-     * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
-     * @throws Exception
-     *
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @psalm-template ExpectedType of object
      *
      * @psalm-param class-string<ExpectedType> $expected
      *
-<<<<<<< HEAD
-=======
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
      * @throws Exception
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @psalm-assert !ExpectedType $actual
      *
      * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit

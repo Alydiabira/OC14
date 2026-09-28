@@ -113,22 +113,14 @@ class QueryBuilder
     /**
      * The type of query this is. Can be select, update or delete.
      *
-<<<<<<< HEAD
-     * @psalm-var self::SELECT|self::DELETE|self::UPDATE|self::INSERT
-=======
      * @phpstan-var self::SELECT|self::DELETE|self::UPDATE|self::INSERT
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private int $type = self::SELECT;
 
     /**
      * The state of the query object. Can be dirty or clean.
      *
-<<<<<<< HEAD
-     * @psalm-var self::STATE_*
-=======
      * @phpstan-var self::STATE_*
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private int $state = self::STATE_CLEAN;
 
@@ -227,11 +219,7 @@ class QueryBuilder
      * @deprecated The builder state is an internal concern.
      *
      * @return int Either QueryBuilder::STATE_DIRTY or QueryBuilder::STATE_CLEAN.
-<<<<<<< HEAD
-     * @psalm-return self::STATE_*
-=======
      * @phpstan-return self::STATE_*
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getState()
     {
@@ -892,17 +880,10 @@ class QueryBuilder
      *         ->join('u', 'phonenumbers', 'p', 'p.is_primary = 1');
      * </code>
      *
-<<<<<<< HEAD
-     * @param string $fromAlias The alias that points to a from clause.
-     * @param string $join      The table name to join.
-     * @param string $alias     The alias of the join table.
-     * @param string $condition The condition for the join.
-=======
      * @param string      $fromAlias The alias that points to a from clause.
      * @param string      $join      The table name to join.
      * @param string      $alias     The alias of the join table.
      * @param string|null $condition The condition for the join.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return $this This QueryBuilder instance.
      */
@@ -921,17 +902,10 @@ class QueryBuilder
      *         ->innerJoin('u', 'phonenumbers', 'p', 'p.is_primary = 1');
      * </code>
      *
-<<<<<<< HEAD
-     * @param string $fromAlias The alias that points to a from clause.
-     * @param string $join      The table name to join.
-     * @param string $alias     The alias of the join table.
-     * @param string $condition The condition for the join.
-=======
      * @param string      $fromAlias The alias that points to a from clause.
      * @param string      $join      The table name to join.
      * @param string      $alias     The alias of the join table.
      * @param string|null $condition The condition for the join.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return $this This QueryBuilder instance.
      */
@@ -957,17 +931,10 @@ class QueryBuilder
      *         ->leftJoin('u', 'phonenumbers', 'p', 'p.is_primary = 1');
      * </code>
      *
-<<<<<<< HEAD
-     * @param string $fromAlias The alias that points to a from clause.
-     * @param string $join      The table name to join.
-     * @param string $alias     The alias of the join table.
-     * @param string $condition The condition for the join.
-=======
      * @param string      $fromAlias The alias that points to a from clause.
      * @param string      $join      The table name to join.
      * @param string      $alias     The alias of the join table.
      * @param string|null $condition The condition for the join.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return $this This QueryBuilder instance.
      */
@@ -993,17 +960,10 @@ class QueryBuilder
      *         ->rightJoin('u', 'phonenumbers', 'p', 'p.is_primary = 1');
      * </code>
      *
-<<<<<<< HEAD
-     * @param string $fromAlias The alias that points to a from clause.
-     * @param string $join      The table name to join.
-     * @param string $alias     The alias of the join table.
-     * @param string $condition The condition for the join.
-=======
      * @param string      $fromAlias The alias that points to a from clause.
      * @param string      $join      The table name to join.
      * @param string      $alias     The alias of the join table.
      * @param string|null $condition The condition for the join.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return $this This QueryBuilder instance.
      */
@@ -1333,13 +1293,8 @@ class QueryBuilder
      * Specifies an ordering for the query results.
      * Replaces any previously specified orderings, if any.
      *
-<<<<<<< HEAD
-     * @param string $sort  The ordering expression.
-     * @param string $order The ordering direction.
-=======
      * @param string      $sort  The ordering expression.
      * @param string|null $order The ordering direction.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return $this This QueryBuilder instance.
      */
@@ -1351,13 +1306,8 @@ class QueryBuilder
     /**
      * Adds an ordering to the query results.
      *
-<<<<<<< HEAD
-     * @param string $sort  The ordering expression.
-     * @param string $order The ordering direction.
-=======
      * @param string      $sort  The ordering expression.
      * @param string|null $order The ordering direction.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return $this This QueryBuilder instance.
      */

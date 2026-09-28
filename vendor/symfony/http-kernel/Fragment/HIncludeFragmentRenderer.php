@@ -76,17 +76,10 @@ class HIncludeFragmentRenderer extends RoutableFragmentRenderer
             $attributes['id'] = $options['id'];
         }
         $renderedAttributes = '';
-<<<<<<< HEAD
-        if (\count($attributes) > 0) {
-            $flags = \ENT_QUOTES | \ENT_SUBSTITUTE;
-            foreach ($attributes as $attribute => $value) {
-                $renderedAttributes .= sprintf(
-=======
         if ($attributes) {
             $flags = \ENT_QUOTES | \ENT_SUBSTITUTE;
             foreach ($attributes as $attribute => $value) {
                 $renderedAttributes .= \sprintf(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     ' %s="%s"',
                     htmlspecialchars($attribute, $flags, $this->charset, false),
                     htmlspecialchars($value, $flags, $this->charset, false)
@@ -94,11 +87,7 @@ class HIncludeFragmentRenderer extends RoutableFragmentRenderer
             }
         }
 
-<<<<<<< HEAD
-        return new Response(sprintf('<hx:include src="%s"%s>%s</hx:include>', $uri, $renderedAttributes, $content));
-=======
         return new Response(\sprintf('<hx:include src="%s"%s>%s</hx:include>', $uri, $renderedAttributes, $content));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getName(): string

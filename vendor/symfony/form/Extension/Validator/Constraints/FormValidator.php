@@ -42,11 +42,7 @@ class FormValidator extends ConstraintValidator
             return;
         }
 
-<<<<<<< HEAD
-        /* @var FormInterface $form */
-=======
         /** @var FormInterface $form */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $config = $form->getConfig();
 
         $validator = $this->context->getValidator()->inContext($this->context);
@@ -99,11 +95,7 @@ class FormValidator extends ConstraintValidator
                             $fieldFormConstraint = new Form();
                             $fieldFormConstraint->groups = $group;
                             $this->context->setNode($this->context->getValue(), $field, $this->context->getMetadata(), $this->context->getPropertyPath());
-<<<<<<< HEAD
-                            $validator->atPath(sprintf('children[%s]', $field->getName()))->validate($field, $fieldFormConstraint, $group);
-=======
                             $validator->atPath(\sprintf('children[%s]', $field->getName()))->validate($field, $fieldFormConstraint, $group);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         }
                     }
 
@@ -150,11 +142,7 @@ class FormValidator extends ConstraintValidator
                     if ($field->isSubmitted()) {
                         $this->resolvedGroups[$field] = $groups;
                         $this->context->setNode($this->context->getValue(), $field, $this->context->getMetadata(), $this->context->getPropertyPath());
-<<<<<<< HEAD
-                        $validator->atPath(sprintf('children[%s]', $field->getName()))->validate($field, $formConstraint);
-=======
                         $validator->atPath(\sprintf('children[%s]', $field->getName()))->validate($field, $formConstraint);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
                 }
             }
@@ -171,11 +159,7 @@ class FormValidator extends ConstraintValidator
                 if (!$child->isSynchronized()) {
                     $childrenSynchronized = false;
                     $this->context->setNode($this->context->getValue(), $child, $this->context->getMetadata(), $this->context->getPropertyPath());
-<<<<<<< HEAD
-                    $validator->atPath(sprintf('children[%s]', $child->getName()))->validate($child, $formConstraint);
-=======
                     $validator->atPath(\sprintf('children[%s]', $child->getName()))->validate($child, $formConstraint);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
 
@@ -208,11 +192,7 @@ class FormValidator extends ConstraintValidator
         }
 
         // Mark the form with an error if it contains extra fields
-<<<<<<< HEAD
-        if (!$config->getOption('allow_extra_fields') && \count($form->getExtraData()) > 0) {
-=======
         if (!$config->getOption('allow_extra_fields') && $form->getExtraData()) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->context->setConstraint($formConstraint);
             $this->context->buildViolation($config->getOption('extra_fields_message', ''))
                 ->setParameter('{{ extra_fields }}', '"'.implode('", "', array_keys($form->getExtraData())).'"')

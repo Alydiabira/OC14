@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace Doctrine\ORM\Mapping;
 
 use Attribute;
-<<<<<<< HEAD
-=======
 use Doctrine\Deprecations\Deprecation;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 #[Attribute(Attribute::TARGET_CLASS)]
 final class Table implements MappingAttribute
@@ -25,8 +22,6 @@ final class Table implements MappingAttribute
         public readonly array|null $uniqueConstraints = null,
         public readonly array $options = [],
     ) {
-<<<<<<< HEAD
-=======
         if ($this->indexes !== null) {
             Deprecation::trigger(
                 'doctrine/orm',
@@ -46,6 +41,5 @@ final class Table implements MappingAttribute
                 UniqueConstraint::class,
             );
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

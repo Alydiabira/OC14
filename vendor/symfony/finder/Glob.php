@@ -44,12 +44,9 @@ class Glob
         $escaping = false;
         $inCurlies = 0;
         $regex = '';
-<<<<<<< HEAD
-=======
         if ($unanchored = str_starts_with($glob, '**/')) {
             $glob = '/'.$glob;
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $sizeGlob = \strlen($glob);
         for ($i = 0; $i < $sizeGlob; ++$i) {
             $car = $glob[$i];
@@ -110,13 +107,10 @@ class Glob
             $escaping = false;
         }
 
-<<<<<<< HEAD
-=======
         if ($unanchored) {
             $regex = substr_replace($regex, '?', 1 + ('/' === $delimiter) + ($strictLeadingDot ? \strlen('(?=[^\.])') : 0), 0);
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return $delimiter.'^'.$regex.'$'.$delimiter;
     }
 }

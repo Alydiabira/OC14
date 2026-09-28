@@ -37,11 +37,7 @@ class MappedAssetFactory implements MappedAssetFactoryInterface
     public function createMappedAsset(string $logicalPath, string $sourcePath): ?MappedAsset
     {
         if (isset($this->assetsBeingCreated[$logicalPath])) {
-<<<<<<< HEAD
-            throw new CircularAssetsException($this->assetsCache[$logicalPath], sprintf('Circular reference detected while creating asset for "%s": "%s".', $logicalPath, implode(' -> ', $this->assetsBeingCreated).' -> '.$logicalPath));
-=======
             throw new CircularAssetsException($this->assetsCache[$logicalPath], \sprintf('Circular reference detected while creating asset for "%s": "%s".', $logicalPath, implode(' -> ', $this->assetsBeingCreated).' -> '.$logicalPath));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         $this->assetsBeingCreated[$logicalPath] = $logicalPath;
 
@@ -75,15 +71,12 @@ class MappedAssetFactory implements MappedAssetFactoryInterface
         return $this->assetsCache[$logicalPath];
     }
 
-<<<<<<< HEAD
-=======
     public function reset(): void
     {
         $this->assetsCache = [];
         $this->assetsBeingCreated = [];
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Returns an array of "string digest" and "bool predigested".
      *
@@ -110,11 +103,7 @@ class MappedAssetFactory implements MappedAssetFactoryInterface
     private function compileContent(MappedAsset $asset): ?string
     {
         if (!is_file($asset->sourcePath)) {
-<<<<<<< HEAD
-            throw new RuntimeException(sprintf('Asset source path "%s" could not be found.', $asset->sourcePath));
-=======
             throw new RuntimeException(\sprintf('Asset source path "%s" could not be found.', $asset->sourcePath));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (!$this->compiler->supports($asset)) {
@@ -135,11 +124,7 @@ class MappedAssetFactory implements MappedAssetFactoryInterface
             return $this->assetsPathResolver->resolvePublicPath($asset->logicalPath);
         }
 
-<<<<<<< HEAD
-        $digestedPath = preg_replace_callback('/\.(\w+)$/', fn ($matches) => "-{$digest}{$matches[0]}", $asset->logicalPath);
-=======
         $digestedPath = preg_replace_callback('/\.(\w+)$/', static fn ($matches) => "-{$digest}{$matches[0]}", $asset->logicalPath);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this->assetsPathResolver->resolvePublicPath($digestedPath);
     }
@@ -149,10 +134,6 @@ class MappedAssetFactory implements MappedAssetFactoryInterface
         $sourcePath = realpath($sourcePath);
         $vendorDir = realpath($this->vendorDir);
 
-<<<<<<< HEAD
-        return $sourcePath && str_starts_with($sourcePath, $vendorDir);
-=======
         return $sourcePath && $vendorDir && str_starts_with($sourcePath, $vendorDir);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

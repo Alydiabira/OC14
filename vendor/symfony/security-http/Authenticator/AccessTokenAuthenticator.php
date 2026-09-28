@@ -118,16 +118,9 @@ class AccessTokenAuthenticator implements AuthenticatorInterface
             if (null === $v || '' === $v) {
                 continue;
             }
-<<<<<<< HEAD
-            $values[] = sprintf('%s="%s"', $k, $v);
-        }
-
-        return sprintf('Bearer %s', implode(',', $values));
-=======
             $values[] = \sprintf('%s="%s"', $k, $v);
         }
 
         return \sprintf('Bearer %s', implode(',', $values));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

@@ -38,19 +38,11 @@ class TraceableAdapter implements AdapterInterface, CacheInterface, PruneableInt
     public function get(string $key, callable $callback, ?float $beta = null, ?array &$metadata = null): mixed
     {
         if (!$this->pool instanceof CacheInterface) {
-<<<<<<< HEAD
-            throw new \BadMethodCallException(sprintf('Cannot call "%s::get()": this class doesn\'t implement "%s".', get_debug_type($this->pool), CacheInterface::class));
-        }
-
-        $isHit = true;
-        $callback = function (CacheItem $item, bool &$save) use ($callback, &$isHit) {
-=======
             throw new \BadMethodCallException(\sprintf('Cannot call "%s::get()": this class doesn\'t implement "%s".', get_debug_type($this->pool), CacheInterface::class));
         }
 
         $isHit = true;
         $callback = static function (CacheItem $item, bool &$save) use ($callback, &$isHit) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $isHit = $item->isHit();
 
             return $callback($item, $save);
@@ -137,11 +129,7 @@ class TraceableAdapter implements AdapterInterface, CacheInterface, PruneableInt
         } finally {
             $event->end = microtime(true);
         }
-<<<<<<< HEAD
-        $f = function () use ($result, $event) {
-=======
         $f = static function () use ($result, $event) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $event->result = [];
             foreach ($result as $key => $item) {
                 if ($event->result[$key] = $item->isHit()) {

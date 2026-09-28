@@ -3,11 +3,7 @@
 // scss-docs-start progress-keyframes
 @if $enable-transitions {
   @keyframes progress-bar-stripes {
-<<<<<<< HEAD
-    0% { background-position-x: $progress-height; }
-=======
     0% { background-position-x: var(--#{$prefix}progress-height); }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
   }
 }
 // scss-docs-end progress-keyframes

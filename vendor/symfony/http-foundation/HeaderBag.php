@@ -51,11 +51,7 @@ class HeaderBag implements \IteratorAggregate, \Countable, \Stringable
         foreach ($headers as $name => $values) {
             $name = ucwords($name, '-');
             foreach ($values as $value) {
-<<<<<<< HEAD
-                $content .= sprintf("%-{$max}s %s\r\n", $name.':', $value);
-=======
                 $content .= \sprintf("%-{$max}s %s\r\n", $name.':', $value);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -144,21 +140,13 @@ class HeaderBag implements \IteratorAggregate, \Countable, \Stringable
         if (\is_array($values)) {
             $values = array_values($values);
 
-<<<<<<< HEAD
-            if (true === $replace || !isset($this->headers[$key])) {
-=======
             if ($replace || !isset($this->headers[$key])) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $this->headers[$key] = $values;
             } else {
                 $this->headers[$key] = array_merge($this->headers[$key], $values);
             }
         } else {
-<<<<<<< HEAD
-            if (true === $replace || !isset($this->headers[$key])) {
-=======
             if ($replace || !isset($this->headers[$key])) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $this->headers[$key] = [$values];
             } else {
                 $this->headers[$key][] = $values;
@@ -216,11 +204,7 @@ class HeaderBag implements \IteratorAggregate, \Countable, \Stringable
         }
 
         if (false === $date = \DateTimeImmutable::createFromFormat(\DATE_RFC2822, $value)) {
-<<<<<<< HEAD
-            throw new \RuntimeException(sprintf('The "%s" HTTP header is not parseable (%s).', $key, $value));
-=======
             throw new \RuntimeException(\sprintf('The "%s" HTTP header is not parseable (%s).', $key, $value));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $date;

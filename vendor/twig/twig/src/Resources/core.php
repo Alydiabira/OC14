@@ -11,12 +11,9 @@
 
 use Twig\Environment;
 use Twig\Extension\CoreExtension;
-<<<<<<< HEAD
-=======
 use Twig\Extension\SandboxExtension;
 use Twig\Source;
 use Twig\Template;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * @internal
@@ -243,11 +240,7 @@ function twig_sort_filter(Environment $env, $array, $arrow = null)
 {
     trigger_deprecation('twig/twig', '3.9', 'Using the internal "%s" function is deprecated.', __FUNCTION__);
 
-<<<<<<< HEAD
-    return CoreExtension::sort($env, $array, $arrow);
-=======
     return CoreExtension::sort($env, twig_resolve_is_sandboxed($env), $array, $arrow);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }
 
 /**
@@ -451,11 +444,7 @@ function twig_constant_is_defined($constant, $object = null)
 {
     trigger_deprecation('twig/twig', '3.9', 'Using the internal "%s" function is deprecated.', __FUNCTION__);
 
-<<<<<<< HEAD
-    return CoreExtension::constantIsDefined($constant, $object);
-=======
     return CoreExtension::constant($constant, $object, true);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }
 
 /**
@@ -475,19 +464,11 @@ function twig_array_batch($items, $size, $fill = null, $preserveKeys = true)
  *
  * @deprecated since Twig 3.9
  */
-<<<<<<< HEAD
-function twig_array_column($array, $name, $index = null): array
-{
-    trigger_deprecation('twig/twig', '3.9', 'Using the internal "%s" function is deprecated.', __FUNCTION__);
-
-    return CoreExtension::column($array, $name, $index);
-=======
 function twig_array_column(Environment $env, $array, $name, $index = null): array
 {
     trigger_deprecation('twig/twig', '3.9', 'Using the internal "%s" function is deprecated.', __FUNCTION__);
 
     return CoreExtension::column($env, twig_resolve_is_sandboxed($env), $array, $name, $index);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }
 
 /**
@@ -499,11 +480,7 @@ function twig_array_filter(Environment $env, $array, $arrow)
 {
     trigger_deprecation('twig/twig', '3.9', 'Using the internal "%s" function is deprecated.', __FUNCTION__);
 
-<<<<<<< HEAD
-    return CoreExtension::filter($env, $array, $arrow);
-=======
     return CoreExtension::filter($env, twig_resolve_is_sandboxed($env), $array, $arrow);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }
 
 /**
@@ -515,11 +492,7 @@ function twig_array_map(Environment $env, $array, $arrow)
 {
     trigger_deprecation('twig/twig', '3.9', 'Using the internal "%s" function is deprecated.', __FUNCTION__);
 
-<<<<<<< HEAD
-    return CoreExtension::map($env, $array, $arrow);
-=======
     return CoreExtension::map($env, twig_resolve_is_sandboxed($env), $array, $arrow);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }
 
 /**
@@ -531,11 +504,7 @@ function twig_array_reduce(Environment $env, $array, $arrow, $initial = null)
 {
     trigger_deprecation('twig/twig', '3.9', 'Using the internal "%s" function is deprecated.', __FUNCTION__);
 
-<<<<<<< HEAD
-    return CoreExtension::reduce($env, $array, $arrow, $initial);
-=======
     return CoreExtension::reduce($env, twig_resolve_is_sandboxed($env), $array, $arrow, $initial);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }
 
 /**
@@ -547,11 +516,7 @@ function twig_array_some(Environment $env, $array, $arrow)
 {
     trigger_deprecation('twig/twig', '3.9', 'Using the internal "%s" function is deprecated.', __FUNCTION__);
 
-<<<<<<< HEAD
-    return CoreExtension::arraySome($env, $array, $arrow);
-=======
     return CoreExtension::arraySome($env, $array, $arrow, twig_resolve_is_sandboxed($env));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }
 
 /**
@@ -563,11 +528,7 @@ function twig_array_every(Environment $env, $array, $arrow)
 {
     trigger_deprecation('twig/twig', '3.9', 'Using the internal "%s" function is deprecated.', __FUNCTION__);
 
-<<<<<<< HEAD
-    return CoreExtension::arrayEvery($env, $array, $arrow);
-=======
     return CoreExtension::arrayEvery($env, $array, $arrow, twig_resolve_is_sandboxed($env));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }
 
 /**
@@ -575,13 +536,10 @@ function twig_array_every(Environment $env, $array, $arrow)
  *
  * @deprecated since Twig 3.9
  */
-function twig_check_arrow_in_sandbox(Environment $env, $arrow, $thing, $type)
+function twig_check_arrow_in_sandbox(Environment $env, $arrow, $thing, $type): void
 {
     trigger_deprecation('twig/twig', '3.9', 'Using the internal "%s" function is deprecated.', __FUNCTION__);
 
-<<<<<<< HEAD
-    return CoreExtension::checkArrowInSandbox($env, $arrow, $thing, $type);
-=======
     CoreExtension::checkArrow(twig_resolve_is_sandboxed($env), $arrow, $thing, $type);
 }
 
@@ -611,5 +569,4 @@ function twig_resolve_is_sandboxed(Environment $env): bool
     }
 
     return $env->getExtension(SandboxExtension::class)->isSandboxed(twig_resolve_caller_source());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

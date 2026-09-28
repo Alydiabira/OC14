@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace Doctrine\ORM\Mapping;
 
-<<<<<<< HEAD
-=======
 use Doctrine\Deprecations\Deprecation;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function strtolower;
 use function trim;
 
@@ -42,11 +39,7 @@ final class ManyToManyOwningSideMapping extends ToManyOwningSideMapping implemen
 
     /**
      * @param mixed[] $mappingArray
-<<<<<<< HEAD
-     * @psalm-param array{
-=======
      * @phpstan-param array{
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *     fieldName: string,
      *     sourceEntity: class-string,
      *     targetEntity: class-string,
@@ -70,12 +63,6 @@ final class ManyToManyOwningSideMapping extends ToManyOwningSideMapping implemen
     {
         if (isset($mappingArray['joinTable']['joinColumns'])) {
             foreach ($mappingArray['joinTable']['joinColumns'] as $key => $joinColumn) {
-<<<<<<< HEAD
-                if (empty($joinColumn['name'])) {
-                    $mappingArray['joinTable']['joinColumns'][$key]['name'] = $namingStrategy->joinKeyColumnName(
-                        $mappingArray['sourceEntity'],
-                        $joinColumn['referencedColumnName'] ?? null,
-=======
                 if (empty($joinColumn['referencedColumnName'])) {
                     $mappingArray['joinTable']['joinColumns'][$key]['referencedColumnName'] = $namingStrategy->referenceColumnName();
                 }
@@ -84,7 +71,6 @@ final class ManyToManyOwningSideMapping extends ToManyOwningSideMapping implemen
                     $mappingArray['joinTable']['joinColumns'][$key]['name'] = $namingStrategy->joinKeyColumnName(
                         $mappingArray['sourceEntity'],
                         $joinColumn['referencedColumnName'] ?? $namingStrategy->referenceColumnName(),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     );
                 }
             }
@@ -92,12 +78,6 @@ final class ManyToManyOwningSideMapping extends ToManyOwningSideMapping implemen
 
         if (isset($mappingArray['joinTable']['inverseJoinColumns'])) {
             foreach ($mappingArray['joinTable']['inverseJoinColumns'] as $key => $joinColumn) {
-<<<<<<< HEAD
-                if (empty($joinColumn['name'])) {
-                    $mappingArray['joinTable']['inverseJoinColumns'][$key]['name'] = $namingStrategy->joinKeyColumnName(
-                        $mappingArray['targetEntity'],
-                        $joinColumn['referencedColumnName'] ?? null,
-=======
                 if (empty($joinColumn['referencedColumnName'])) {
                     $mappingArray['joinTable']['inverseJoinColumns'][$key]['referencedColumnName'] = $namingStrategy->referenceColumnName();
                 }
@@ -106,7 +86,6 @@ final class ManyToManyOwningSideMapping extends ToManyOwningSideMapping implemen
                     $mappingArray['joinTable']['inverseJoinColumns'][$key]['name'] = $namingStrategy->joinKeyColumnName(
                         $mappingArray['targetEntity'],
                         $joinColumn['referencedColumnName'] ?? $namingStrategy->referenceColumnName(),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     );
                 }
             }
@@ -150,8 +129,6 @@ final class ManyToManyOwningSideMapping extends ToManyOwningSideMapping implemen
         $mapping->joinTableColumns = [];
 
         foreach ($mapping->joinTable->joinColumns as $joinColumn) {
-<<<<<<< HEAD
-=======
             if ($joinColumn->nullable !== null) {
                 Deprecation::trigger(
                     'doctrine/orm',
@@ -168,7 +145,6 @@ final class ManyToManyOwningSideMapping extends ToManyOwningSideMapping implemen
 
             $joinColumn->nullable = false;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (empty($joinColumn->referencedColumnName)) {
                 $joinColumn->referencedColumnName = $namingStrategy->referenceColumnName();
             }
@@ -192,8 +168,6 @@ final class ManyToManyOwningSideMapping extends ToManyOwningSideMapping implemen
         }
 
         foreach ($mapping->joinTable->inverseJoinColumns as $inverseJoinColumn) {
-<<<<<<< HEAD
-=======
             if ($inverseJoinColumn->nullable !== null) {
                 Deprecation::trigger(
                     'doctrine/orm',
@@ -210,7 +184,6 @@ final class ManyToManyOwningSideMapping extends ToManyOwningSideMapping implemen
 
             $inverseJoinColumn->nullable = false;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (empty($inverseJoinColumn->referencedColumnName)) {
                 $inverseJoinColumn->referencedColumnName = $namingStrategy->referenceColumnName();
             }

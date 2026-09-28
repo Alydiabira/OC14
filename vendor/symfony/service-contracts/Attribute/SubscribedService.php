@@ -24,28 +24,17 @@ use Symfony\Contracts\Service\ServiceSubscriberInterface;
  *
  * @author Kevin Bond <kevinbond@gmail.com>
  */
-<<<<<<< HEAD
-#[\Attribute(\Attribute::TARGET_METHOD)]
-=======
 #[\Attribute(\Attribute::TARGET_METHOD | \Attribute::TARGET_PROPERTY)]
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 final class SubscribedService
 {
     /** @var object[] */
     public array $attributes;
 
     /**
-<<<<<<< HEAD
-     * @param string|null       $key        The key to use for the service
-     * @param class-string|null $type       The service class
-     * @param bool              $nullable   Whether the service is optional
-     * @param object|object[]   $attributes One or more dependency injection attributes to use
-=======
      * @param string|null     $key        The key to use for the service
      * @param string|null     $type       The service type (a class name, "string", "iterable", etc.)
      * @param bool            $nullable   Whether the service is optional
      * @param object|object[] $attributes One or more dependency injection attributes to use
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct(
         public ?string $key = null,

@@ -40,11 +40,7 @@ class MarkdownDescriptor extends Descriptor
             }
             $this->describeRoute($route, ['name' => $name]);
             if (($showAliases ??= $options['show_aliases'] ?? false) && $aliases = ($reverseAliases ??= $this->getReverseAliases($routes))[$name] ?? []) {
-<<<<<<< HEAD
-                $this->write(sprintf("- Aliases: \n%s", implode("\n", array_map(static fn (string $alias): string => sprintf('    - %s', $alias), $aliases))));
-=======
                 $this->write(\sprintf("- Aliases: \n%s", implode("\n", array_map(static fn (string $alias): string => \sprintf('    - %s', $alias), $aliases))));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
         $this->write("\n");
@@ -79,19 +75,11 @@ class MarkdownDescriptor extends Descriptor
 
         $this->write("Container parameters\n====================\n");
         foreach ($this->sortParameters($parameters) as $key => $value) {
-<<<<<<< HEAD
-            $this->write(sprintf(
-                "\n- `%s`: `%s`%s",
-                $key,
-                $this->formatParameter($value),
-                isset($deprecatedParameters[$key]) ? sprintf(' *Since %s %s: %s*', $deprecatedParameters[$key][0], $deprecatedParameters[$key][1], sprintf(...\array_slice($deprecatedParameters[$key], 2))) : ''
-=======
             $this->write(\sprintf(
                 "\n- `%s`: `%s`%s",
                 $key,
                 $this->formatParameter($value),
                 isset($deprecatedParameters[$key]) ? \sprintf(' *Since %s %s: %s*', $deprecatedParameters[$key][0], $deprecatedParameters[$key][1], \sprintf(...\array_slice($deprecatedParameters[$key], 2))) : ''
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ));
         }
     }
@@ -123,30 +111,18 @@ class MarkdownDescriptor extends Descriptor
         } elseif ($service instanceof Definition) {
             $this->describeContainerDefinition($service, $childOptions, $container);
         } else {
-<<<<<<< HEAD
-            $this->write(sprintf('**`%s`:** `%s`', $options['id'], $service::class));
-=======
             $this->write(\sprintf('**`%s`:** `%s`', $options['id'], $service::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
     protected function describeContainerDeprecations(ContainerBuilder $container, array $options = []): void
     {
-<<<<<<< HEAD
-        $containerDeprecationFilePath = sprintf('%s/%sDeprecations.log', $container->getParameter('kernel.build_dir'), $container->getParameter('kernel.container_class'));
-=======
         $containerDeprecationFilePath = \sprintf('%s/%sDeprecations.log', $container->getParameter('kernel.build_dir'), $container->getParameter('kernel.container_class'));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (!file_exists($containerDeprecationFilePath)) {
             throw new RuntimeException('The deprecation file does not exist, please try warming the cache first.');
         }
 
-<<<<<<< HEAD
-        $logs = unserialize(file_get_contents($containerDeprecationFilePath));
-=======
         $logs = unserialize(file_get_contents($containerDeprecationFilePath), ['allowed_classes' => false]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (0 === \count($logs)) {
             $this->write("## There are no deprecations in the logs!\n");
 
@@ -156,19 +132,11 @@ class MarkdownDescriptor extends Descriptor
         $formattedLogs = [];
         $remainingCount = 0;
         foreach ($logs as $log) {
-<<<<<<< HEAD
-            $formattedLogs[] = sprintf("- %sx: \"%s\" in %s:%s\n", $log['count'], $log['message'], $log['file'], $log['line']);
-            $remainingCount += $log['count'];
-        }
-
-        $this->write(sprintf("## Remaining deprecations (%s)\n\n", $remainingCount));
-=======
             $formattedLogs[] = \sprintf("- %sx: \"%s\" in %s:%s\n", $log['count'], $log['message'], $log['file'], $log['line']);
             $remainingCount += $log['count'];
         }
 
         $this->write(\sprintf("## Remaining deprecations (%s)\n\n", $remainingCount));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         foreach ($formattedLogs as $formattedLog) {
             $this->write($formattedLog);
         }
@@ -233,11 +201,7 @@ class MarkdownDescriptor extends Descriptor
             $this->write("\n\nServices\n--------\n");
             foreach ($services['services'] as $id => $service) {
                 $this->write("\n");
-<<<<<<< HEAD
-                $this->write(sprintf('- `%s`: `%s`', $id, $service::class));
-=======
                 $this->write(\sprintf('- `%s`: `%s`', $id, $service::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
     }
@@ -280,11 +244,7 @@ class MarkdownDescriptor extends Descriptor
                 if ($factory[0] instanceof Reference) {
                     $output .= "\n".'- Factory Service: `'.$factory[0].'`';
                 } elseif ($factory[0] instanceof Definition) {
-<<<<<<< HEAD
-                    $output .= "\n".sprintf('- Factory Service: inline factory service (%s)', $factory[0]->getClass() ? sprintf('`%s`', $factory[0]->getClass()) : 'not configured');
-=======
                     $output .= "\n".\sprintf('- Factory Service: inline factory service (%s)', $factory[0]->getClass() ? \sprintf('`%s`', $factory[0]->getClass()) : 'not configured');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 } else {
                     $output .= "\n".'- Factory Class: `'.$factory[0].'`';
                 }
@@ -300,11 +260,7 @@ class MarkdownDescriptor extends Descriptor
         }
 
         if (!(isset($options['omit_tags']) && $options['omit_tags'])) {
-<<<<<<< HEAD
-            foreach ($this->sortTagsByPriority($definition->getTags()) as $tagName => $tagData) {
-=======
             foreach ($this->sortTagsByPriority($container ? $this->resolvePriorityServiceTags($container, $definition) : $definition->getTags()) as $tagName => $tagData) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 foreach ($tagData as $parameters) {
                     $output .= "\n".'- Tag: `'.$tagName.'`';
                     foreach ($parameters as $name => $value) {
@@ -317,11 +273,7 @@ class MarkdownDescriptor extends Descriptor
         $inEdges = null !== $container && isset($options['id']) ? $this->getServiceEdges($container, $options['id']) : [];
         $output .= "\n".'- Usages: '.($inEdges ? implode(', ', $inEdges) : 'none');
 
-<<<<<<< HEAD
-        $this->write(isset($options['id']) ? sprintf("### %s\n\n%s\n", $options['id'], $output) : $output);
-=======
         $this->write(isset($options['id']) ? \sprintf("### %s\n\n%s\n", $options['id'], $output) : $output);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function describeContainerAlias(Alias $alias, array $options = [], ?ContainerBuilder $container = null): void
@@ -335,11 +287,7 @@ class MarkdownDescriptor extends Descriptor
             return;
         }
 
-<<<<<<< HEAD
-        $this->write(sprintf("### %s\n\n%s\n", $options['id'], $output));
-=======
         $this->write(\sprintf("### %s\n\n%s\n", $options['id'], $output));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (!$container) {
             return;
@@ -352,11 +300,7 @@ class MarkdownDescriptor extends Descriptor
     protected function describeContainerParameter(mixed $parameter, ?array $deprecation, array $options = []): void
     {
         if (isset($options['parameter'])) {
-<<<<<<< HEAD
-            $this->write(sprintf("%s\n%s\n\n%s%s", $options['parameter'], str_repeat('=', \strlen($options['parameter'])), $this->formatParameter($parameter), $deprecation ? sprintf("\n\n*Since %s %s: %s*", $deprecation[0], $deprecation[1], sprintf(...\array_slice($deprecation, 2))) : ''));
-=======
             $this->write(\sprintf("%s\n%s\n\n%s%s", $options['parameter'], str_repeat('=', \strlen($options['parameter'])), $this->formatParameter($parameter), $deprecation ? \sprintf("\n\n*Since %s %s: %s*", $deprecation[0], $deprecation[1], \sprintf(...\array_slice($deprecation, 2))) : ''));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } else {
             $this->write($parameter);
         }
@@ -375,26 +319,6 @@ class MarkdownDescriptor extends Descriptor
         $title = 'Registered listeners';
 
         if (null !== $dispatcherServiceName) {
-<<<<<<< HEAD
-            $title .= sprintf(' of event dispatcher "%s"', $dispatcherServiceName);
-        }
-
-        if (null !== $event) {
-            $title .= sprintf(' for event `%s` ordered by descending priority', $event);
-            $registeredListeners = $eventDispatcher->getListeners($event);
-        } else {
-            // Try to see if "events" exists
-            $registeredListeners = \array_key_exists('events', $options) ? array_combine($options['events'], array_map(fn ($event) => $eventDispatcher->getListeners($event), $options['events'])) : $eventDispatcher->getListeners();
-        }
-
-        $this->write(sprintf('# %s', $title)."\n");
-
-        if (null !== $event) {
-            foreach ($registeredListeners as $order => $listener) {
-                $this->write("\n".sprintf('## Listener %d', $order + 1)."\n");
-                $this->describeCallable($listener);
-                $this->write(sprintf('- Priority: `%d`', $eventDispatcher->getListenerPriority($event, $listener))."\n");
-=======
             $title .= \sprintf(' of event dispatcher "%s"', $dispatcherServiceName);
         }
 
@@ -413,27 +337,17 @@ class MarkdownDescriptor extends Descriptor
                 $this->write("\n".\sprintf('## Listener %d', $order + 1)."\n");
                 $this->describeCallable($listener);
                 $this->write(\sprintf('- Priority: `%d`', $eventDispatcher->getListenerPriority($event, $listener))."\n");
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         } else {
             ksort($registeredListeners);
 
             foreach ($registeredListeners as $eventListened => $eventListeners) {
-<<<<<<< HEAD
-                $this->write("\n".sprintf('## %s', $eventListened)."\n");
-
-                foreach ($eventListeners as $order => $eventListener) {
-                    $this->write("\n".sprintf('### Listener %d', $order + 1)."\n");
-                    $this->describeCallable($eventListener);
-                    $this->write(sprintf('- Priority: `%d`', $eventDispatcher->getListenerPriority($eventListened, $eventListener))."\n");
-=======
                 $this->write("\n".\sprintf('## %s', $eventListened)."\n");
 
                 foreach ($eventListeners as $order => $eventListener) {
                     $this->write("\n".\sprintf('### Listener %d', $order + 1)."\n");
                     $this->describeCallable($eventListener);
                     $this->write(\sprintf('- Priority: `%d`', $eventDispatcher->getListenerPriority($eventListened, $eventListener))."\n");
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
         }
@@ -447,18 +361,6 @@ class MarkdownDescriptor extends Descriptor
             $string .= "\n- Type: `function`";
 
             if (\is_object($callable[0])) {
-<<<<<<< HEAD
-                $string .= "\n".sprintf('- Name: `%s`', $callable[1]);
-                $string .= "\n".sprintf('- Class: `%s`', $callable[0]::class);
-            } else {
-                if (!str_starts_with($callable[1], 'parent::')) {
-                    $string .= "\n".sprintf('- Name: `%s`', $callable[1]);
-                    $string .= "\n".sprintf('- Class: `%s`', $callable[0]);
-                    $string .= "\n- Static: yes";
-                } else {
-                    $string .= "\n".sprintf('- Name: `%s`', substr($callable[1], 8));
-                    $string .= "\n".sprintf('- Class: `%s`', $callable[0]);
-=======
                 $string .= "\n".\sprintf('- Name: `%s`', $callable[1]);
                 $string .= "\n".\sprintf('- Class: `%s`', $callable[0]::class);
             } else {
@@ -469,7 +371,6 @@ class MarkdownDescriptor extends Descriptor
                 } else {
                     $string .= "\n".\sprintf('- Name: `%s`', substr($callable[1], 8));
                     $string .= "\n".\sprintf('- Class: `%s`', $callable[0]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $string .= "\n- Static: yes";
                     $string .= "\n- Parent: yes";
                 }
@@ -484,21 +385,12 @@ class MarkdownDescriptor extends Descriptor
             $string .= "\n- Type: `function`";
 
             if (!str_contains($callable, '::')) {
-<<<<<<< HEAD
-                $string .= "\n".sprintf('- Name: `%s`', $callable);
-            } else {
-                $callableParts = explode('::', $callable);
-
-                $string .= "\n".sprintf('- Name: `%s`', $callableParts[1]);
-                $string .= "\n".sprintf('- Class: `%s`', $callableParts[0]);
-=======
                 $string .= "\n".\sprintf('- Name: `%s`', $callable);
             } else {
                 $callableParts = explode('::', $callable);
 
                 $string .= "\n".\sprintf('- Name: `%s`', $callableParts[1]);
                 $string .= "\n".\sprintf('- Class: `%s`', $callableParts[0]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $string .= "\n- Static: yes";
             }
 
@@ -516,17 +408,10 @@ class MarkdownDescriptor extends Descriptor
 
                 return;
             }
-<<<<<<< HEAD
-            $string .= "\n".sprintf('- Name: `%s`', $r->name);
-
-            if ($class = \PHP_VERSION_ID >= 80111 ? $r->getClosureCalledClass() : $r->getClosureScopeClass()) {
-                $string .= "\n".sprintf('- Class: `%s`', $class->name);
-=======
             $string .= "\n".\sprintf('- Name: `%s`', $r->name);
 
             if ($class = \PHP_VERSION_ID >= 80111 ? $r->getClosureCalledClass() : $r->getClosureScopeClass()) {
                 $string .= "\n".\sprintf('- Class: `%s`', $class->name);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if (!$r->getClosureThis()) {
                     $string .= "\n- Static: yes";
                 }
@@ -539,11 +424,7 @@ class MarkdownDescriptor extends Descriptor
 
         if (method_exists($callable, '__invoke')) {
             $string .= "\n- Type: `object`";
-<<<<<<< HEAD
-            $string .= "\n".sprintf('- Name: `%s`', $callable::class);
-=======
             $string .= "\n".\sprintf('- Name: `%s`', $callable::class);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             $this->write($string."\n");
 

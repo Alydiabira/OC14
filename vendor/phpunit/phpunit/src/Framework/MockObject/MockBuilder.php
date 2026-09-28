@@ -151,19 +151,11 @@ final class MockBuilder
     /**
      * Creates a mock object for an abstract class using a fluent interface.
      *
-<<<<<<< HEAD
-     * @psalm-return MockObject&MockedType
-     *
-     * @throws Exception
-     * @throws ReflectionException
-     * @throws RuntimeException
-=======
      * @throws Exception
      * @throws ReflectionException
      * @throws RuntimeException
      *
      * @psalm-return MockObject&MockedType
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getMockForAbstractClass(): MockObject
     {
@@ -186,19 +178,11 @@ final class MockBuilder
     /**
      * Creates a mock object for a trait using a fluent interface.
      *
-<<<<<<< HEAD
-     * @psalm-return MockObject&MockedType
-     *
-     * @throws Exception
-     * @throws ReflectionException
-     * @throws RuntimeException
-=======
      * @throws Exception
      * @throws ReflectionException
      * @throws RuntimeException
      *
      * @psalm-return MockObject&MockedType
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getMockForTrait(): MockObject
     {

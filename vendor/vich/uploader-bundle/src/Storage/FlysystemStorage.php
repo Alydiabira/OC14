@@ -6,10 +6,7 @@ use League\Flysystem\FilesystemException;
 use League\Flysystem\FilesystemOperator;
 use League\Flysystem\MountManager;
 use Psr\Container\ContainerInterface;
-<<<<<<< HEAD
-=======
 use Symfony\Component\ErrorHandler\Error\UndefinedMethodError;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\HttpFoundation\File\Exception\CannotWriteFileException;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\PropertyMapping;
@@ -27,11 +24,6 @@ final class FlysystemStorage extends AbstractStorage
     protected MountManager|ContainerInterface $registry;
 
     /**
-<<<<<<< HEAD
-     * @param MountManager|ContainerInterface|mixed $registry
-     */
-    public function __construct(PropertyMappingFactory $factory, $registry)
-=======
      * @var bool use flysystem to resolve the uri
      */
     protected bool $useFlysystemToResolveUri;
@@ -40,7 +32,6 @@ final class FlysystemStorage extends AbstractStorage
      * @param MountManager|ContainerInterface|mixed $registry
      */
     public function __construct(PropertyMappingFactory $factory, mixed $registry, bool $useFlysystemToResolveUri = false)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         parent::__construct($factory);
 
@@ -49,20 +40,13 @@ final class FlysystemStorage extends AbstractStorage
         }
 
         $this->registry = $registry;
-<<<<<<< HEAD
-=======
         $this->useFlysystemToResolveUri = $useFlysystemToResolveUri;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function doUpload(PropertyMapping $mapping, File $file, ?string $dir, string $name): void
     {
         $fs = $this->getFilesystem($mapping);
-<<<<<<< HEAD
-        $path = !empty($dir) ? $dir.'/'.$name : $name;
-=======
         $path = (\is_string($dir) && '' !== $dir) ? $dir.'/'.$name : $name;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $stream = \fopen($file->getRealPath(), 'rb');
         try {
@@ -77,32 +61,16 @@ final class FlysystemStorage extends AbstractStorage
     protected function doRemove(PropertyMapping $mapping, ?string $dir, string $name): ?bool
     {
         $fs = $this->getFilesystem($mapping);
-<<<<<<< HEAD
-        $path = !empty($dir) ? $dir.'/'.$name : $name;
-
-        try {
-            $fs->delete($path);
-
-            return true;
-        } catch (FilesystemException) {
-            return false;
-        }
-=======
         $path = (\is_string($dir) && '' !== $dir) ? $dir.'/'.$name : $name;
 
         $fs->delete($path);
 
         return true;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function doResolvePath(PropertyMapping $mapping, ?string $dir, string $name, ?bool $relative = false): string
     {
-<<<<<<< HEAD
-        $path = !empty($dir) ? $dir.'/'.$name : $name;
-=======
         $path = (\is_string($dir) && '' !== $dir) ? $dir.'/'.$name : $name;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($relative) {
             return $path;
@@ -111,8 +79,6 @@ final class FlysystemStorage extends AbstractStorage
         return $path;
     }
 
-<<<<<<< HEAD
-=======
     public function resolveUri(object|array $obj, ?string $fieldName = null, ?string $className = null): ?string
     {
         if (!$this->useFlysystemToResolveUri) {
@@ -142,7 +108,6 @@ final class FlysystemStorage extends AbstractStorage
         }
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function resolveStream(object|array $obj, ?string $fieldName = null, ?string $className = null)
     {
         $path = $this->resolvePath($obj, $fieldName, $className, true);

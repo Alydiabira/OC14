@@ -71,23 +71,11 @@ class TestContainer extends Container
         $container = $this->getPublicContainer();
         $renamedId = $this->renamedIds[$id] ?? $id;
 
-<<<<<<< HEAD
-        try {
-            $container->set($renamedId, $service);
-        } catch (InvalidArgumentException $e) {
-            if (!str_starts_with($e->getMessage(), "The \"$renamedId\" service is private")) {
-                throw $e;
-            }
-            if (isset($container->privates[$renamedId])) {
-                throw new InvalidArgumentException(sprintf('The "%s" service is already initialized, you cannot replace it.', $id));
-            }
-=======
         if (!$this->getPrivateContainer()->has($renamedId)) {
             $container->set($renamedId, $service);
         } elseif (isset($container->privates[$renamedId])) {
             throw new InvalidArgumentException(\sprintf('The "%s" service is already initialized, you cannot replace it.', $id));
         } else {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $container->privates[$renamedId] = $service;
         }
     }

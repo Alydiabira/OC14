@@ -20,14 +20,6 @@ use Symfony\Component\Filesystem\Path;
 /**
  * Resolves url() paths in CSS files.
  *
-<<<<<<< HEAD
- * Originally sourced from https://github.com/rails/propshaft/blob/main/lib/propshaft/compilers/css_asset_urls.rb
- */
-final class CssAssetUrlCompiler implements AssetCompilerInterface
-{
-    // https://regex101.com/r/BOJ3vG/1
-    public const ASSET_URL_PATTERN = '/url\(\s*["\']?(?!(?:\/|\#|%23|data|http|\/\/))([^"\'\s?#)]+)([#?][^"\')]+)?\s*["\']?\)/';
-=======
  * Originally sourced from https://github.com/rails/propshaft/blob/main/lib/propshaft/compiler/css_asset_urls.rb
  */
 final class CssAssetUrlCompiler implements AssetCompilerInterface
@@ -42,7 +34,6 @@ final class CssAssetUrlCompiler implements AssetCompilerInterface
             )
         }x
         REGEX;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     public function __construct(
         private readonly string $missingImportMode = self::MISSING_IMPORT_WARN,
@@ -52,15 +43,6 @@ final class CssAssetUrlCompiler implements AssetCompilerInterface
 
     public function compile(string $content, MappedAsset $asset, AssetMapperInterface $assetMapper): string
     {
-<<<<<<< HEAD
-        return preg_replace_callback(self::ASSET_URL_PATTERN, function ($matches) use ($asset, $assetMapper) {
-            try {
-                $resolvedSourcePath = Path::join(\dirname($asset->sourcePath), $matches[1]);
-            } catch (RuntimeException $e) {
-                $this->handleMissingImport(sprintf('Error processing import in "%s": ', $asset->sourcePath).$e->getMessage(), $e);
-
-                return $matches[0];
-=======
         preg_match_all('/\/\*|\*\//', $content, $commentMatches, \PREG_OFFSET_CAPTURE);
 
         $start = null;
@@ -93,16 +75,11 @@ final class CssAssetUrlCompiler implements AssetCompilerInterface
                 $this->handleMissingImport(\sprintf('Error processing import in "%s": ', $asset->sourcePath).$e->getMessage(), $e);
 
                 return $matches[0][0];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $dependentAsset = $assetMapper->getAssetFromSourcePath($resolvedSourcePath);
 
             if (null === $dependentAsset) {
-<<<<<<< HEAD
-                $message = sprintf('Unable to find asset "%s" referenced in "%s". The file "%s" ', $matches[1], $asset->sourcePath, $resolvedSourcePath);
-=======
                 $message = \sprintf('Unable to find asset "%s" referenced in "%s". The file "%s" ', $matches[2][0], $asset->sourcePath, $resolvedSourcePath);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if (is_file($resolvedSourcePath)) {
                     $message .= 'exists, but it is not in a mapped asset path. Add it to the "paths" config.';
                 } else {
@@ -111,23 +88,14 @@ final class CssAssetUrlCompiler implements AssetCompilerInterface
                 $this->handleMissingImport($message);
 
                 // return original, unchanged path
-<<<<<<< HEAD
-                return $matches[0];
-=======
                 return $matches[0][0];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $asset->addDependency($dependentAsset);
             $relativePath = Path::makeRelative($dependentAsset->publicPath, \dirname($asset->publicPathWithoutDigest));
 
-<<<<<<< HEAD
-            return 'url("'.$relativePath.'")';
-        }, $content);
-=======
             return $matches[1][0].'"'.$relativePath.'"'.($matches[3][0] ?? '');
         }, $content, -1, $count, \PREG_OFFSET_CAPTURE);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function supports(MappedAsset $asset): bool

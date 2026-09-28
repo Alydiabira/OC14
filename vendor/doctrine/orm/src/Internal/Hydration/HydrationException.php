@@ -64,12 +64,9 @@ class HydrationException extends Exception implements ORMException
             implode('", "', $discrValues),
         ));
     }
-<<<<<<< HEAD
-=======
 
     public static function partialObjectHydrationDisallowed(): self
     {
         return new self('Hydration of entity objects is not allowed when DQL PARTIAL keyword is used.');
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

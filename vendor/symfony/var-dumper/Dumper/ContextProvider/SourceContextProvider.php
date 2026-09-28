@@ -115,11 +115,7 @@ final class SourceContextProvider implements ContextProviderInterface
     {
         $html = '';
 
-<<<<<<< HEAD
-        $dumper = new HtmlDumper(function ($line) use (&$html) { $html .= $line; }, $this->charset);
-=======
         $dumper = new HtmlDumper(static function ($line) use (&$html) { $html .= $line; }, $this->charset);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $dumper->setDumpHeader('');
         $dumper->setDumpBoundaries('', '');
 

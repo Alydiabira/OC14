@@ -17,10 +17,7 @@ use function array_search;
 use function assert;
 use function count;
 use function in_array;
-<<<<<<< HEAD
-=======
 use function is_array;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function key;
 use function reset;
 use function sprintf;
@@ -42,11 +39,8 @@ class SimpleObjectHydrator extends AbstractHydrator
         }
 
         $this->class = $this->getClassMetadata(reset($this->resultSetMapping()->aliasMap));
-<<<<<<< HEAD
-=======
 
         $this->hints['isPartial'] = count($this->rsm->partialAliases) > 0;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function cleanup(): void
@@ -147,11 +141,6 @@ class SimpleObjectHydrator extends AbstractHydrator
             }
 
             if ($value !== null && isset($cacheKeyInfo['enumType'])) {
-<<<<<<< HEAD
-                $originalValue = $value;
-                try {
-                    $value = $this->buildEnum($originalValue, $cacheKeyInfo['enumType']);
-=======
                 $originalValue = $currentValue = $value;
                 try {
                     if (! is_array($originalValue)) {
@@ -162,16 +151,11 @@ class SimpleObjectHydrator extends AbstractHydrator
                             $value[$i] = $this->buildEnum($currentValue, $cacheKeyInfo['enumType']);
                         }
                     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 } catch (ValueError $e) {
                     throw MappingException::invalidEnumValue(
                         $entityName,
                         $cacheKeyInfo['fieldName'],
-<<<<<<< HEAD
-                        (string) $originalValue,
-=======
                         (string) $currentValue,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $cacheKeyInfo['enumType'],
                         $e,
                     );

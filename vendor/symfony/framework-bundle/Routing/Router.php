@@ -53,11 +53,7 @@ class Router extends BaseRouter implements WarmableInterface, ServiceSubscriberI
         } elseif ($container instanceof SymfonyContainerInterface) {
             $this->paramFetcher = $container->getParameter(...);
         } else {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('You should either pass a "%s" instance or provide the $parameters argument of the "%s" method.', SymfonyContainerInterface::class, __METHOD__));
-=======
             throw new \LogicException(\sprintf('You should either pass a "%s" instance or provide the $parameters argument of the "%s" method.', SymfonyContainerInterface::class, __METHOD__));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->defaultLocale = $defaultLocale;
@@ -169,22 +165,15 @@ class Router extends BaseRouter implements WarmableInterface, ServiceSubscriberI
             }
 
             if (preg_match('/^env\((?:\w++:)*+\w++\)$/', $match[1])) {
-<<<<<<< HEAD
-                throw new RuntimeException(sprintf('Using "%%%s%%" is not allowed in routing configuration.', $match[1]));
-=======
                 throw new RuntimeException(\sprintf('Using "%%%s%%" is not allowed in routing configuration.', $match[1]));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $resolved = ($this->paramFetcher)($match[1]);
 
-<<<<<<< HEAD
-=======
             if (\is_string($resolved) && preg_match('/env_[a-f0-9]{16}_\w+_[a-f0-9]{32}/Ui', $resolved)) {
                 throw new RuntimeException(\sprintf('The container parameter "%s" resolves to an env var, which is not allowed in routing configuration.', $match[1]));
             }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (\is_scalar($resolved)) {
                 $this->collectedParameters[$match[1]] = $resolved;
 
@@ -197,11 +186,7 @@ class Router extends BaseRouter implements WarmableInterface, ServiceSubscriberI
                 }
             }
 
-<<<<<<< HEAD
-            throw new RuntimeException(sprintf('The container parameter "%s", used in the route configuration value "%s", must be a string or numeric, but it is of type "%s".', $match[1], $value, get_debug_type($resolved)));
-=======
             throw new RuntimeException(\sprintf('The container parameter "%s", used in the route configuration value "%s", must be a string or numeric, but it is of type "%s".', $match[1], $value, get_debug_type($resolved)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }, $value);
 
         return str_replace('%%', '%', $escapedValue);

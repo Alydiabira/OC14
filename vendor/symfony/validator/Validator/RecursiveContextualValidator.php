@@ -22,10 +22,7 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
-<<<<<<< HEAD
-=======
 use Symfony\Component\Validator\Exception\InvalidArgumentException;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Validator\Exception\NoSuchMetadataException;
 use Symfony\Component\Validator\Exception\RuntimeException;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
@@ -162,11 +159,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
             return $this;
         }
 
-<<<<<<< HEAD
-        throw new RuntimeException(sprintf('Cannot validate values of type "%s" automatically. Please provide a constraint.', get_debug_type($value)));
-=======
         throw new RuntimeException(\sprintf('Cannot validate values of type "%s" automatically. Please provide a constraint.', get_debug_type($value)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function validateProperty(object $object, string $propertyName, string|GroupSequence|array|null $groups = null): static
@@ -174,11 +167,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
         $classMetadata = $this->metadataFactory->getMetadataFor($object);
 
         if (!$classMetadata instanceof ClassMetadataInterface) {
-<<<<<<< HEAD
-            throw new ValidatorException(sprintf('The metadata factory should return instances of "\Symfony\Component\Validator\Mapping\ClassMetadataInterface", got: "%s".', get_debug_type($classMetadata)));
-=======
             throw new ValidatorException(\sprintf('The metadata factory should return instances of "\Symfony\Component\Validator\Mapping\ClassMetadataInterface", got: "%s".', get_debug_type($classMetadata)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $propertyMetadatas = $classMetadata->getPropertyMetadata($propertyName);
@@ -219,11 +208,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
         $classMetadata = $this->metadataFactory->getMetadataFor($objectOrClass);
 
         if (!$classMetadata instanceof ClassMetadataInterface) {
-<<<<<<< HEAD
-            throw new ValidatorException(sprintf('The metadata factory should return instances of "\Symfony\Component\Validator\Mapping\ClassMetadataInterface", got: "%s".', get_debug_type($classMetadata)));
-=======
             throw new ValidatorException(\sprintf('The metadata factory should return instances of "\Symfony\Component\Validator\Mapping\ClassMetadataInterface", got: "%s".', get_debug_type($classMetadata)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $propertyMetadatas = $classMetadata->getPropertyMetadata($propertyName);
@@ -282,13 +267,6 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
      */
     protected function normalizeGroups(string|GroupSequence|array $groups): array
     {
-<<<<<<< HEAD
-        if (\is_array($groups)) {
-            return $groups;
-        }
-
-        return [$groups];
-=======
         if (!\is_array($groups)) {
             return [$groups];
         }
@@ -306,7 +284,6 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
         }
 
         return $groups;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -331,11 +308,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
             $classMetadata = $this->metadataFactory->getMetadataFor($object);
 
             if (!$classMetadata instanceof ClassMetadataInterface) {
-<<<<<<< HEAD
-                throw new UnsupportedMetadataException(sprintf('The metadata factory should return instances of "Symfony\Component\Validator\Mapping\ClassMetadataInterface", got: "%s".', get_debug_type($classMetadata)));
-=======
                 throw new UnsupportedMetadataException(\sprintf('The metadata factory should return instances of "Symfony\Component\Validator\Mapping\ClassMetadataInterface", got: "%s".', get_debug_type($classMetadata)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $this->validateClassNode(
@@ -469,11 +442,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
             // Replace the "Default" group by the group sequence defined
             // for the class, if applicable.
             // This is done after checking the cache, so that
-<<<<<<< HEAD
-            // spl_object_hash() isn't called for this sequence and
-=======
             // spl_object_id() isn't called for this sequence and
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             // "Default" is used instead in the cache. This is useful
             // if the getters below return different group sequences in
             // every call.
@@ -492,11 +461,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
                     } else {
                         // The group sequence is dynamically obtained from the validated
                         // object
-<<<<<<< HEAD
-                        /* @var \Symfony\Component\Validator\GroupSequenceProviderInterface $object */
-=======
                         /** @var \Symfony\Component\Validator\GroupSequenceProviderInterface $object */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $group = $object->getGroupSequence();
                     }
                     $defaultOverridden = true;
@@ -535,11 +500,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
 
         // If no more groups should be validated for the property nodes,
         // we can safely quit
-<<<<<<< HEAD
-        if (0 === \count($groups)) {
-=======
         if (!$groups) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return;
         }
 
@@ -550,11 +511,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
             // returns two metadata objects, not just one
             foreach ($metadata->getPropertyMetadata($propertyName) as $propertyMetadata) {
                 if (!$propertyMetadata instanceof PropertyMetadataInterface) {
-<<<<<<< HEAD
-                    throw new UnsupportedMetadataException(sprintf('The property metadata instances should implement "Symfony\Component\Validator\Mapping\PropertyMetadataInterface", got: "%s".', get_debug_type($propertyMetadata)));
-=======
                     throw new UnsupportedMetadataException(\sprintf('The property metadata instances should implement "Symfony\Component\Validator\Mapping\PropertyMetadataInterface", got: "%s".', get_debug_type($propertyMetadata)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 if ($propertyMetadata instanceof GetterMetadata) {
@@ -595,11 +552,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
 
         // If TRAVERSE, fail if we have no Traversable
         if (!$object instanceof \Traversable) {
-<<<<<<< HEAD
-            throw new ConstraintDefinitionException(sprintf('Traversal was enabled for "%s", but this class does not implement "\Traversable".', get_debug_type($object)));
-=======
             throw new ConstraintDefinitionException(\sprintf('Traversal was enabled for "%s", but this class does not implement "\Traversable".', get_debug_type($object)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->validateEachObjectIn(
@@ -657,11 +610,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
             $this->validateInGroup($value, $cacheKey, $metadata, $group, $context);
         }
 
-<<<<<<< HEAD
-        if (0 === \count($groups)) {
-=======
         if (!$groups) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return;
         }
 
@@ -685,11 +634,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
         // The $cascadedGroups property is set, if the "Default" group is
         // overridden by a group sequence
         // See validateClassNode()
-<<<<<<< HEAD
-        $cascadedGroups = null !== $cascadedGroups && \count($cascadedGroups) > 0 ? $cascadedGroups : $groups;
-=======
         $cascadedGroups = $cascadedGroups ?: $groups;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($value instanceof LazyProperty) {
             $value = $value->getPropertyValue();
@@ -713,11 +658,7 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
         }
 
         if (!\is_object($value)) {
-<<<<<<< HEAD
-            throw new NoSuchMetadataException(sprintf('Cannot create metadata for non-objects. Got: "%s".', \gettype($value)));
-=======
             throw new NoSuchMetadataException(\sprintf('Cannot create metadata for non-objects. Got: "%s".', \gettype($value)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->validateObject(
@@ -835,19 +776,11 @@ class RecursiveContextualValidator implements ContextualValidatorInterface
         if ($this->context instanceof ExecutionContext) {
             $cacheKey = $this->context->generateCacheKey($object);
         } else {
-<<<<<<< HEAD
-            $cacheKey = spl_object_hash($object);
-        }
-
-        if ($dependsOnPropertyPath) {
-            $cacheKey .= $this->context->getPropertyPath();
-=======
             $cacheKey = spl_object_id($object);
         }
 
         if ($dependsOnPropertyPath) {
             $cacheKey .= "\0".$this->context->getPropertyPath();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $cacheKey;

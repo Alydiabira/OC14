@@ -34,13 +34,6 @@ class AmpResolver implements Dns\Resolver
 
     public function resolve(string $name, ?int $typeRestriction = null): Promise
     {
-<<<<<<< HEAD
-        if (!isset($this->dnsMap[$name]) || !\in_array($typeRestriction, [Record::A, null], true)) {
-            return Dns\resolver()->resolve($name, $typeRestriction);
-        }
-
-        return new Success([new Record($this->dnsMap[$name], Record::A, null)]);
-=======
         $recordType = Record::A;
         $ip = $this->dnsMap[$name] ?? null;
 
@@ -52,18 +45,10 @@ class AmpResolver implements Dns\Resolver
         }
 
         return new Success([new Record($ip, $recordType, null)]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function query(string $name, int $type): Promise
     {
-<<<<<<< HEAD
-        if (!isset($this->dnsMap[$name]) || Record::A !== $type) {
-            return Dns\resolver()->query($name, $type);
-        }
-
-        return new Success([new Record($this->dnsMap[$name], Record::A, null)]);
-=======
         $recordType = Record::A;
         $ip = $this->dnsMap[$name] ?? null;
 
@@ -75,6 +60,5 @@ class AmpResolver implements Dns\Resolver
         }
 
         return new Success([new Record($ip, $recordType, null)]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

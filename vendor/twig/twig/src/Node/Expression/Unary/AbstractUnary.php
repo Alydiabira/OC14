@@ -16,13 +16,6 @@ use Twig\Compiler;
 use Twig\Node\Expression\AbstractExpression;
 use Twig\Node\Node;
 
-<<<<<<< HEAD
-abstract class AbstractUnary extends AbstractExpression
-{
-    public function __construct(Node $node, int $lineno)
-    {
-        parent::__construct(['node' => $node], [], $lineno);
-=======
 abstract class AbstractUnary extends AbstractExpression implements UnaryInterface
 {
     /**
@@ -35,16 +28,10 @@ abstract class AbstractUnary extends AbstractExpression implements UnaryInterfac
         }
 
         parent::__construct(['node' => $node], ['with_parentheses' => false], $lineno);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function compile(Compiler $compiler): void
     {
-<<<<<<< HEAD
-        $compiler->raw(' ');
-        $this->operator($compiler);
-        $compiler->subcompile($this->getNode('node'));
-=======
         if ($this->hasExplicitParentheses()) {
             $compiler->raw('(');
         } else {
@@ -55,7 +42,6 @@ abstract class AbstractUnary extends AbstractExpression implements UnaryInterfac
         if ($this->hasExplicitParentheses()) {
             $compiler->raw(')');
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     abstract public function operator(Compiler $compiler): Compiler;

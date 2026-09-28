@@ -13,11 +13,8 @@ namespace Symfony\Component\Serializer\Normalizer;
 
 use Symfony\Component\PropertyAccess\Exception\UninitializedPropertyException;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
-<<<<<<< HEAD
-=======
 use Symfony\Component\Serializer\Exception\LogicException;
 use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Serializer\Mapping\ClassDiscriminatorResolverInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
@@ -121,13 +118,10 @@ class PropertyNormalizer extends AbstractObjectNormalizer
             return false;
         }
 
-<<<<<<< HEAD
-=======
         if ($this->isDiscriminatorTypeProperty($classOrObject, $attribute)) {
             return true;
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         try {
             $reflectionProperty = $this->getReflectionProperty($classOrObject, $attribute);
         } catch (\ReflectionException) {
@@ -182,13 +176,10 @@ class PropertyNormalizer extends AbstractObjectNormalizer
         }
 
         if ($reflectionProperty->hasType()) {
-<<<<<<< HEAD
-=======
             if (!$reflectionProperty->isInitialized($object)) {
                 throw new UninitializedPropertyException(\sprintf('The property "%s::$%s" is not initialized.', $object::class, $reflectionProperty->name));
             }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return $reflectionProperty->getValue($object);
         }
 
@@ -199,11 +190,7 @@ class PropertyNormalizer extends AbstractObjectNormalizer
                 || ($reflectionProperty->isProtected() && !\array_key_exists("\0*\0{$reflectionProperty->name}", $propertyValues))
                 || ($reflectionProperty->isPrivate() && !\array_key_exists("\0{$reflectionProperty->class}\0{$reflectionProperty->name}", $propertyValues))
             ) {
-<<<<<<< HEAD
-                throw new UninitializedPropertyException(sprintf('The property "%s::$%s" is not initialized.', $object::class, $reflectionProperty->name));
-=======
                 throw new UninitializedPropertyException(\sprintf('The property "%s::$%s" is not initialized.', $object::class, $reflectionProperty->name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -225,9 +212,6 @@ class PropertyNormalizer extends AbstractObjectNormalizer
             return;
         }
 
-<<<<<<< HEAD
-        $reflectionProperty->setValue($object, $value);
-=======
         try {
             if (!$reflectionProperty->isReadOnly()) {
                 $reflectionProperty->setValue($object, $value);
@@ -248,7 +232,6 @@ class PropertyNormalizer extends AbstractObjectNormalizer
         if ($reflectionProperty->getValue($object) !== $value) {
             throw new LogicException(\sprintf('Attempting to change readonly property "%s"::$%s.', $object::class, $reflectionProperty->getName()));
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

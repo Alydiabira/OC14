@@ -16,11 +16,8 @@ use Symfony\Component\DependencyInjection\Compiler\ServiceLocatorTagPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\LogicException;
 use Symfony\Component\DependencyInjection\Reference;
-<<<<<<< HEAD
-=======
 use Symfony\UX\TwigComponent\Attribute\PostMount;
 use Symfony\UX\TwigComponent\Attribute\PreMount;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * @author Kevin Bond <kevinbond@gmail.com>
@@ -55,28 +52,16 @@ final class TwigComponentPass implements CompilerPassInterface
                         $name = substr($fqcn, strrpos($fqcn, '\\') + 1);
                     } else {
                         if (null === $defaults) {
-<<<<<<< HEAD
-                            throw new LogicException(sprintf('Could not generate a component name for class "%s": no matching namespace found under the "twig_component.defaults" to use as a root. Check the config or give your component an explicit name.', $fqcn));
-=======
                             throw new LogicException(\sprintf('Could not generate a component name for class "%s": no matching namespace found under the "twig_component.defaults" to use as a root. Check the config or give your component an explicit name.', $fqcn));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         }
 
                         $name = str_replace('\\', ':', substr($fqcn, \strlen($defaults['namespace'])));
                         if ($defaults['name_prefix']) {
-<<<<<<< HEAD
-                            $name = sprintf('%s:%s', $defaults['name_prefix'], $name);
-                        }
-                    }
-                    if (\in_array($name, $componentNames, true)) {
-                        throw new LogicException(sprintf('Failed creating the "%s" component with the automatic name "%s": another component already has this name. To fix this, give the component an explicit name (hint: using "%s" will override the existing component).', $fqcn, $name, $name));
-=======
                             $name = \sprintf('%s:%s', $defaults['name_prefix'], $name);
                         }
                     }
                     if (\in_array($name, $componentNames, true)) {
                         throw new LogicException(\sprintf('Failed creating the "%s" component with the automatic name "%s": another component already has this name. To fix this, give the component an explicit name (hint: using "%s" will override the existing component).', $fqcn, $name, $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
 
                     $tag['key'] = $name;
@@ -84,13 +69,8 @@ final class TwigComponentPass implements CompilerPassInterface
 
                 $tag['service_id'] = $id;
                 $tag['class'] = $definition->getClass();
-<<<<<<< HEAD
-                $tag['template'] = $tag['template'] ?? $this->calculateTemplate($tag['key'], $defaults);
-                $componentConfig[$tag['key']] = $tag;
-=======
                 $tag['template'] ??= $this->calculateTemplate($tag['key'], $defaults);
                 $componentConfig[$tag['key']] = [...$tag, ...$this->getMountMethods($tag['class'])];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $componentReferences[$tag['key']] = new Reference($id);
                 $componentNames[] = $tag['key'];
                 $componentClassMap[$tag['class']] = $tag['key'];
@@ -102,12 +82,9 @@ final class TwigComponentPass implements CompilerPassInterface
         $factoryDefinition->setArgument(4, $componentConfig);
         $factoryDefinition->setArgument(5, $componentClassMap);
 
-<<<<<<< HEAD
-=======
         $componentPropertiesDefinition = $container->findDefinition('ux.twig_component.component_properties');
         $componentPropertiesDefinition->setArgument(1, array_fill_keys(array_keys($componentClassMap), null));
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $debugCommandDefinition = $container->findDefinition('ux.twig_component.command.debug');
         $debugCommandDefinition->setArgument(3, $componentClassMap);
     }
@@ -132,9 +109,6 @@ final class TwigComponentPass implements CompilerPassInterface
             $componentName = substr($componentName, \strlen($defaults['name_prefix']) + 1);
         }
 
-<<<<<<< HEAD
-        return sprintf('%s/%s.html.twig', rtrim($directory, '/'), str_replace(':', '/', $componentName));
-=======
         return \sprintf('%s/%s.html.twig', rtrim($directory, '/'), str_replace(':', '/', $componentName));
     }
 
@@ -167,6 +141,5 @@ final class TwigComponentPass implements CompilerPassInterface
             'mount' => array_keys($mount),
             'post_mount' => array_keys($postMount),
         ];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

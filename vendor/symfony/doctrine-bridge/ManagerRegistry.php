@@ -43,21 +43,13 @@ abstract class ManagerRegistry extends AbstractManagerRegistry
 
         if ($manager instanceof LazyObjectInterface) {
             if (!$manager->resetLazyObject()) {
-<<<<<<< HEAD
-                throw new \LogicException(sprintf('Resetting a non-lazy manager service is not supported. Declare the "%s" service as lazy.', $name));
-=======
                 throw new \LogicException(\sprintf('Resetting a non-lazy manager service is not supported. Declare the "%s" service as lazy.', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return;
         }
         if (!$manager instanceof LazyLoadingInterface) {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('Resetting a non-lazy manager service is not supported. Declare the "%s" service as lazy.', $name));
-=======
             throw new \LogicException(\sprintf('Resetting a non-lazy manager service is not supported. Declare the "%s" service as lazy.', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         if ($manager instanceof GhostObjectInterface) {
             throw new \LogicException('Resetting a lazy-ghost-object manager service is not supported.');
@@ -69,11 +61,8 @@ abstract class ManagerRegistry extends AbstractManagerRegistry
                 }
                 if (isset($this->fileMap[$name])) {
                     $wrappedInstance = $this->load($this->fileMap[$name], false);
-<<<<<<< HEAD
-=======
                 } elseif ((new \ReflectionMethod($this, $this->methodMap[$name]))->isStatic()) {
                     $wrappedInstance = $this->{$this->methodMap[$name]}($this, false);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 } else {
                     $wrappedInstance = $this->{$this->methodMap[$name]}(false);
                 }

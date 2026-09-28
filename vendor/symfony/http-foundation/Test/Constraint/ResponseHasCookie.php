@@ -30,21 +30,12 @@ final class ResponseHasCookie extends Constraint
 
     public function toString(): string
     {
-<<<<<<< HEAD
-        $str = sprintf('has cookie "%s"', $this->name);
-        if ('/' !== $this->path) {
-            $str .= sprintf(' with path "%s"', $this->path);
-        }
-        if ($this->domain) {
-            $str .= sprintf(' for domain "%s"', $this->domain);
-=======
         $str = \sprintf('has cookie "%s"', $this->name);
         if ('/' !== $this->path) {
             $str .= \sprintf(' with path "%s"', $this->path);
         }
         if ($this->domain) {
             $str .= \sprintf(' for domain "%s"', $this->domain);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $str;

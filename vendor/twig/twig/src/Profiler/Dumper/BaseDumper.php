@@ -31,23 +31,16 @@ abstract class BaseDumper
 
     abstract protected function formatTime(Profile $profile, $percent): string;
 
-<<<<<<< HEAD
-=======
     protected function formatRoot(Profile $profile): string
     {
         return $profile->getName();
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private function dumpProfile(Profile $profile, $prefix = '', $sibling = false): string
     {
         if ($profile->isRoot()) {
             $this->root = $profile->getDuration();
-<<<<<<< HEAD
-            $start = $profile->getName();
-=======
             $start = $this->formatRoot($profile);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } else {
             if ($profile->isTemplate()) {
                 $start = $this->formatTemplate($profile, $prefix);
@@ -62,11 +55,7 @@ abstract class BaseDumper
         if ($profile->getDuration() * 1000 < 1) {
             $str = $start."\n";
         } else {
-<<<<<<< HEAD
-            $str = sprintf("%s %s\n", $start, $this->formatTime($profile, $percent));
-=======
             $str = \sprintf("%s %s\n", $start, $this->formatTime($profile, $percent));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $nCount = \count($profile->getProfiles());

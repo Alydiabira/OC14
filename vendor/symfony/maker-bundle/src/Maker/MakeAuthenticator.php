@@ -92,12 +92,8 @@ final class MakeAuthenticator extends AbstractMaker
     public function configureCommand(Command $command, InputConfiguration $inputConfig): void
     {
         $command
-<<<<<<< HEAD
-            ->setHelp(file_get_contents(__DIR__.'/../Resources/help/MakeAuth.txt'));
-=======
             ->setHelp($this->getHelpFileContents('MakeAuth.txt'))
         ;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function interact(InputInterface $input, ConsoleStyle $io, Command $command): void
@@ -382,11 +378,7 @@ final class MakeAuthenticator extends AbstractMaker
         }
 
         if (method_exists($controllerClassNameDetails->getFullName(), 'login')) {
-<<<<<<< HEAD
-            throw new RuntimeCommandException(sprintf('Method "login" already exists on class %s', $controllerClassNameDetails->getFullName()));
-=======
             throw new RuntimeCommandException(\sprintf('Method "login" already exists on class %s', $controllerClassNameDetails->getFullName()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $manipulator = new ClassSourceManipulator(
@@ -437,17 +429,10 @@ final class MakeAuthenticator extends AbstractMaker
         }
 
         if (self::AUTH_TYPE_FORM_LOGIN === $authenticatorType) {
-<<<<<<< HEAD
-            $nextTexts[] = sprintf('- Finish the redirect "TODO" in the <info>%s::onAuthenticationSuccess()</info> method.', $authenticatorClass);
-
-            if (!$this->doctrineHelper->isClassAMappedEntity($userClass)) {
-                $nextTexts[] = sprintf('- Review <info>%s::getUser()</info> to make sure it matches your needs.', $authenticatorClass);
-=======
             $nextTexts[] = \sprintf('- Finish the redirect "TODO" in the <info>%s::onAuthenticationSuccess()</info> method.', $authenticatorClass);
 
             if (!$this->doctrineHelper->isClassAMappedEntity($userClass)) {
                 $nextTexts[] = \sprintf('- Review <info>%s::getUser()</info> to make sure it matches your needs.', $authenticatorClass);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $nextTexts[] = '- Review & adapt the login template: <info>'.$this->fileManager->getPathForTemplate('security/login.html.twig').'</info>.';

@@ -210,13 +210,9 @@ class FileValidator extends ConstraintValidator
                     $v = $mimeTypesHelper->getMimeTypes($k);
                 }
 
-<<<<<<< HEAD
-                $mimeTypes = $mimeTypes ? array_intersect($v, $mimeTypes) : (array) $v;
-=======
                 // when the configured mime types share none with the ones of the matched
                 // extension, keep the configured ones so that the file is still checked
                 $mimeTypes = $mimeTypes ? (array_intersect($v, $mimeTypes) ?: $mimeTypes) : (array) $v;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 break;
             }
 

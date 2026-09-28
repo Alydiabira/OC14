@@ -257,21 +257,13 @@
         {% set embed_label_classes = parent_label_class|split(' ')|filter(class => class in ['checkbox-inline', 'radio-inline']) %}
         {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ embed_label_classes|join(' '))|trim}) -%}
     {% endif %}
-<<<<<<< HEAD
-    {% if label is empty %}
-=======
     {% if label is null or label == '' %}
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         {%- if label_format is not empty -%}
             {% set label = label_format|replace({
                 '%name%': name,
                 '%id%': id,
             }) %}
-<<<<<<< HEAD
-        {%- else -%}
-=======
         {%- elseif label is not same as(false) -%}
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             {% set label = name|humanize %}
         {%- endif -%}
     {% endif %}

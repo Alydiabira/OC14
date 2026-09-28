@@ -25,11 +25,7 @@ class Hour2400Transformer extends HourTransformer
         return $this->padLeft($dateTime->format('G'), $length);
     }
 
-<<<<<<< HEAD
-    public function normalizeHour(int $hour, string $marker = null): int
-=======
     public function normalizeHour(int $hour, ?string $marker = null): int
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if ('AM' === $marker) {
             $hour = 0;

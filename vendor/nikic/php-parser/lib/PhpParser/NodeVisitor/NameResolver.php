@@ -110,23 +110,17 @@ class NameResolver extends NodeVisitorAbstract {
                 $node->type = $this->resolveType($node->type);
             }
             $this->resolveAttrGroups($node);
-<<<<<<< HEAD
-=======
         } elseif ($node instanceof Node\PropertyHook) {
             foreach ($node->params as $param) {
                 $param->type = $this->resolveType($param->type);
                 $this->resolveAttrGroups($param);
             }
             $this->resolveAttrGroups($node);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } elseif ($node instanceof Stmt\Const_) {
             foreach ($node->consts as $const) {
                 $this->addNamespacedName($const);
             }
-<<<<<<< HEAD
-=======
             $this->resolveAttrGroups($node);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } elseif ($node instanceof Stmt\ClassConst) {
             if (null !== $node->type) {
                 $node->type = $this->resolveType($node->type);

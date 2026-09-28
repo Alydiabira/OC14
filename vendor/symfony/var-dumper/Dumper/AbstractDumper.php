@@ -188,20 +188,6 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
             return $s;
         }
 
-<<<<<<< HEAD
-        if (!\function_exists('iconv')) {
-            throw new \RuntimeException('Unable to convert a non-UTF-8 string to UTF-8: required function iconv() does not exist. You should install ext-iconv or symfony/polyfill-iconv.');
-        }
-
-        if (false !== $c = @iconv($this->charset, 'UTF-8', $s)) {
-            return $c;
-        }
-        if ('CP1252' !== $this->charset && false !== $c = @iconv('CP1252', 'UTF-8', $s)) {
-            return $c;
-        }
-
-        return iconv('CP850', 'UTF-8', $s);
-=======
         if (\function_exists('iconv')) {
             if (false !== $c = @iconv($this->charset, 'UTF-8', $s)) {
                 return $c;
@@ -245,6 +231,5 @@ abstract class AbstractDumper implements DataDumperInterface, DumperInterface
             "\xC2\x98" => '˜', "\xC2\x99" => '™', "\xC2\x9A" => 'š', "\xC2\x9B" => '›',
             "\xC2\x9C" => 'œ', "\xC2\x9E" => 'ž',
         ]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

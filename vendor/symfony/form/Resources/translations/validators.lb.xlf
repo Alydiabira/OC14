@@ -134,13 +134,14 @@
                 <source>Please enter a valid week.</source>
                 <target>W.e.g. eng gëlteg Woch aginn.</target>
             </trans-unit>
-<<<<<<< HEAD
-=======
             <trans-unit id="129">
                 <source>Please enter a valid UUID.</source>
                 <target state="needs-review-translation">W.e.g. eng gëlteg UUID aginn.</target>
             </trans-unit>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
+            <trans-unit id="130">
+                <source>The lower bound must not be greater than the upper bound.</source>
+                <target state="needs-review-translation">Déi ënnescht Grenz däerf net méi grouss si wéi déi iewescht Grenz.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

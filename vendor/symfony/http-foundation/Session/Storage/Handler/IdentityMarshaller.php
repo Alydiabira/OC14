@@ -22,11 +22,7 @@ class IdentityMarshaller implements MarshallerInterface
     {
         foreach ($values as $key => $value) {
             if (!\is_string($value)) {
-<<<<<<< HEAD
-                throw new \LogicException(sprintf('%s accepts only string as data.', __METHOD__));
-=======
                 throw new \LogicException(\sprintf('%s accepts only string as data.', __METHOD__));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 

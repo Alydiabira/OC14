@@ -30,11 +30,7 @@ class EnableAutoMapping extends Constraint
     public function __construct(?array $options = null)
     {
         if (\is_array($options) && \array_key_exists('groups', $options)) {
-<<<<<<< HEAD
-            throw new ConstraintDefinitionException(sprintf('The option "groups" is not supported by the constraint "%s".', __CLASS__));
-=======
             throw new ConstraintDefinitionException(\sprintf('The option "groups" is not supported by the constraint "%s".', __CLASS__));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         parent::__construct($options);

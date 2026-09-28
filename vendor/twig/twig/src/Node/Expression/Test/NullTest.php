@@ -15,11 +15,7 @@ use Twig\Compiler;
 use Twig\Node\Expression\TestExpression;
 
 /**
-<<<<<<< HEAD
- * Checks that a variable is null.
-=======
  * Checks that an expression is null.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  *  {{ var is none }}
  *
@@ -35,13 +31,10 @@ class NullTest extends TestExpression
             ->raw(')')
         ;
     }
-<<<<<<< HEAD
-=======
 
     public function getStringCoercedChildNames(): array
     {
         // `=== null` is strict, no coercion
         return [];
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

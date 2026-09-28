@@ -44,11 +44,7 @@ final class MakeSerializerEncoder extends AbstractMaker
         $command
             ->addArgument('name', InputArgument::OPTIONAL, 'Choose a class name for your encoder (e.g. <fg=yellow>YamlEncoder</>)')
             ->addArgument('format', InputArgument::OPTIONAL, 'Pick your format name (e.g. <fg=yellow>yaml</>)')
-<<<<<<< HEAD
-            ->setHelp(file_get_contents(__DIR__.'/../Resources/help/MakeSerializerEncoder.txt'))
-=======
             ->setHelp($this->getHelpFileContents('MakeSerializerEncoder.txt'))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ;
     }
 

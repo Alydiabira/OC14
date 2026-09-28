@@ -5,10 +5,7 @@ namespace Vich\UploaderBundle\Mapping;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
-<<<<<<< HEAD
-=======
 use Symfony\Component\PropertyAccess\PropertyPath;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Vich\UploaderBundle\Naming\DirectoryNamerInterface;
 use Vich\UploaderBundle\Naming\NamerInterface;
 use Vich\UploaderBundle\Util\PropertyPathUtils;
@@ -20,15 +17,12 @@ use Vich\UploaderBundle\Util\PropertyPathUtils;
  */
 final class PropertyMapping
 {
-<<<<<<< HEAD
-=======
     private const UNKNOWN_PROPERTY_MESSAGE = 'Unknown property %s';
     private const SETTER_PREFIX = 'set';
     private const PROPERTY_WORD_SEPARATORS = ['_', '-'];
     private const PROPERTY_WORD_SEPARATOR = ' ';
     private const EMPTY_STRING = '';
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private ?NamerInterface $namer = null;
 
     private ?DirectoryNamerInterface $directoryNamer = null;
@@ -130,11 +124,6 @@ final class PropertyMapping
      */
     public function erase(object $obj): void
     {
-<<<<<<< HEAD
-        foreach (['name', 'size', 'mimeType', 'originalName', 'dimensions'] as $property) {
-            $this->writeProperty($obj, $property, null);
-        }
-=======
         if (\is_array($this->mapping) && isset($this->mapping['erase_fields']) && false === $this->mapping['erase_fields']) {
             return;
         }
@@ -218,7 +207,6 @@ final class PropertyMapping
             self::EMPTY_STRING,
             \ucwords(\str_replace(self::PROPERTY_WORD_SEPARATORS, self::PROPERTY_WORD_SEPARATOR, $string))
         );
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -234,11 +222,7 @@ final class PropertyMapping
     public function readProperty(object|array $obj, string $property): mixed
     {
         if (!\array_key_exists($property, $this->propertyPaths)) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(\sprintf('Unknown property %s', $property));
-=======
             throw new \InvalidArgumentException(\sprintf(self::UNKNOWN_PROPERTY_MESSAGE, $property));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (!$this->propertyPaths[$property]) {
@@ -266,11 +250,7 @@ final class PropertyMapping
     public function writeProperty(object $obj, string $property, mixed $value): void
     {
         if (!\array_key_exists($property, $this->propertyPaths)) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(\sprintf('Unknown property %s', $property));
-=======
             throw new \InvalidArgumentException(\sprintf(self::UNKNOWN_PROPERTY_MESSAGE, $property));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (!$this->propertyPaths[$property]) {
@@ -370,15 +350,8 @@ final class PropertyMapping
 
     /**
      * Sets the configured configuration mapping name.
-<<<<<<< HEAD
-     *
-     * @param string $mappingName
-     */
-    public function setMappingName($mappingName): void
-=======
      */
     public function setMappingName(string $mappingName): void
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->mappingName = $mappingName;
     }
@@ -400,27 +373,15 @@ final class PropertyMapping
     /**
      * Gets the upload directory for a given file (uses the directory namers).
      *
-<<<<<<< HEAD
-     * @param object $obj
-     *
-     * @return string|null The upload directory
-     */
-    public function getUploadDir($obj): ?string
-=======
      * @return string|null The upload directory
      */
     public function getUploadDir(object|array $obj): ?string
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if (!$this->hasDirectoryNamer()) {
             return '';
         }
 
-<<<<<<< HEAD
-        $dir = $this->getDirectoryNamer()->directoryName($obj, $this);
-=======
         $dir = $this->getDirectoryNamer()?->directoryName($obj, $this);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         // strip the trailing directory separator if needed
         return $dir ? \rtrim($dir, '/\\') : $dir;

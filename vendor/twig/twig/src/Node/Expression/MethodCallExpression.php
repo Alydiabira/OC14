@@ -12,16 +12,6 @@
 namespace Twig\Node\Expression;
 
 use Twig\Compiler;
-<<<<<<< HEAD
-
-class MethodCallExpression extends AbstractExpression
-{
-    public function __construct(AbstractExpression $node, string $method, ArrayExpression $arguments, int $lineno)
-    {
-        parent::__construct(['node' => $node, 'arguments' => $arguments], ['method' => $method, 'safe' => false, 'is_defined_test' => false], $lineno);
-
-        if ($node instanceof NameExpression) {
-=======
 use Twig\Node\Expression\Variable\ContextVariable;
 
 class MethodCallExpression extends AbstractExpression implements SupportDefinedTestInterface
@@ -36,54 +26,33 @@ class MethodCallExpression extends AbstractExpression implements SupportDefinedT
         parent::__construct(['node' => $node, 'arguments' => $arguments], ['method' => $method, 'safe' => false], $lineno);
 
         if ($node instanceof ContextVariable) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $node->setAttribute('always_defined', true);
         }
     }
 
     public function compile(Compiler $compiler): void
     {
-<<<<<<< HEAD
-        if ($this->getAttribute('is_defined_test')) {
-=======
         if ($this->definedTest) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $compiler
-                ->raw('method_exists($macros[')
+                ->raw('$macros[')
                 ->repr($this->getNode('node')->getAttribute('name'))
-                ->raw('], ')
-                ->repr($this->getAttribute('method'))
-                ->raw(')')
+                ->raw(']->has(')
+                ->repr(substr($this->getAttribute('method'), \strlen('macro_')))
+                ->raw(', $context)')
             ;
 
             return;
         }
 
         $compiler
-            ->raw('CoreExtension::callMacro($macros[')
+            ->raw('$macros[')
             ->repr($this->getNode('node')->getAttribute('name'))
-            ->raw('], ')
-            ->repr($this->getAttribute('method'))
-<<<<<<< HEAD
-            ->raw(', [')
-        ;
-        $first = true;
-        foreach ($this->getNode('arguments')->getKeyValuePairs() as $pair) {
-            if (!$first) {
-                $compiler->raw(', ');
-            }
-            $first = false;
-
-            $compiler->subcompile($pair['value']);
-        }
-        $compiler
-            ->raw('], ')
-=======
+            ->raw(']->call(')
+            ->repr(substr($this->getAttribute('method'), \strlen('macro_')))
             ->raw(', ')
             ->subcompile($this->getNode('arguments'))
-            ->raw(', ')
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
+            ->raw(', $context, ')
             ->repr($this->getTemplateLine())
-            ->raw(', $context, $this->getSourceContext())');
+            ->raw(', $this->getSourceContext())');
     }
 }

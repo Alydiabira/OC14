@@ -16,10 +16,7 @@ use Symfony\Component\HttpClient\Exception\JsonException;
 use Symfony\Component\HttpClient\Exception\RedirectionException;
 use Symfony\Component\HttpClient\Exception\ServerException;
 use Symfony\Component\HttpClient\Exception\TransportException;
-<<<<<<< HEAD
-=======
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Implements common logic for response classes.
@@ -91,19 +88,11 @@ trait CommonResponseTrait
         try {
             $content = json_decode($content, true, 512, \JSON_BIGINT_AS_STRING | \JSON_THROW_ON_ERROR);
         } catch (\JsonException $e) {
-<<<<<<< HEAD
-            throw new JsonException($e->getMessage().sprintf(' for "%s".', $this->getInfo('url')), $e->getCode());
-        }
-
-        if (!\is_array($content)) {
-            throw new JsonException(sprintf('JSON content was expected to decode to an array, "%s" returned for "%s".', get_debug_type($content), $this->getInfo('url')));
-=======
             throw new JsonException($e->getMessage().\sprintf(' for "%s".', $this->getInfo('url')), $e->getCode());
         }
 
         if (!\is_array($content)) {
             throw new JsonException(\sprintf('JSON content was expected to decode to an array, "%s" returned for "%s".', get_debug_type($content), $this->getInfo('url')));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (null !== $this->content) {
@@ -131,23 +120,12 @@ trait CommonResponseTrait
         return $stream;
     }
 
-<<<<<<< HEAD
-    public function __sleep(): array
-=======
     public function __serialize(): array
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
     }
 
-<<<<<<< HEAD
-    /**
-     * @return void
-     */
-    public function __wakeup()
-=======
     public function __unserialize(array $data): void
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
     }
@@ -185,19 +163,6 @@ trait CommonResponseTrait
     {
         $code = $this->getInfo('http_code');
 
-<<<<<<< HEAD
-        if (500 <= $code) {
-            throw new ServerException($this);
-        }
-
-        if (400 <= $code) {
-            throw new ClientException($this);
-        }
-
-        if (300 <= $code) {
-            throw new RedirectionException($this);
-        }
-=======
         if (300 > $code) {
             return;
         }
@@ -240,6 +205,5 @@ trait CommonResponseTrait
         }
 
         return $body;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

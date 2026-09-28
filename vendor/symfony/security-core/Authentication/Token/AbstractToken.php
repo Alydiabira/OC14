@@ -17,12 +17,6 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Base class for Token instances.
  *
-<<<<<<< HEAD
- * @author Fabien Potencier <fabien@symfony.com>
- * @author Johannes M. Schmitt <schmittjoh@gmail.com>
- */
-abstract class AbstractToken implements TokenInterface, \Serializable
-=======
  * Note that the token's role names are decoupled from the user's roles on purpose: token roles describe
  * the authentication context (e.g. a `SwitchUserToken` adds `ROLE_PREVIOUS_ADMIN`), not the user's
  * permanent role assignment. This is why `setUser()` only updates the user reference and leaves the
@@ -33,7 +27,6 @@ abstract class AbstractToken implements TokenInterface, \Serializable
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
  */
 abstract class AbstractToken implements TokenInterface
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 {
     private ?UserInterface $user = null;
     private array $roleNames = [];
@@ -147,11 +140,7 @@ abstract class AbstractToken implements TokenInterface
     public function getAttribute(string $name): mixed
     {
         if (!\array_key_exists($name, $this->attributes)) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('This token has no "%s" attribute.', $name));
-=======
             throw new \InvalidArgumentException(\sprintf('This token has no "%s" attribute.', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->attributes[$name];
@@ -175,26 +164,6 @@ abstract class AbstractToken implements TokenInterface
             $roles[] = $role;
         }
 
-<<<<<<< HEAD
-        return sprintf('%s(user="%s", roles="%s")', $class, $this->getUserIdentifier(), implode(', ', $roles));
-    }
-
-    /**
-     * @internal
-     */
-    final public function serialize(): string
-    {
-        throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
-    }
-
-    /**
-     * @internal
-     */
-    final public function unserialize(string $serialized): void
-    {
-        $this->__unserialize(unserialize($serialized));
-=======
         return \sprintf('%s(user="%s", roles="%s")', $class, $this->getUserIdentifier(), implode(', ', $roles));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

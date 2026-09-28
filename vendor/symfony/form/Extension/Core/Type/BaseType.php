@@ -18,10 +18,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-<<<<<<< HEAD
-=======
 use Symfony\Contracts\Translation\TranslatableInterface;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Encapsulates common logic of {@link FormType} and {@link ButtonType}.
@@ -56,15 +53,9 @@ abstract class BaseType extends AbstractType
 
         if ($view->parent) {
             if ('' !== ($parentFullName = $view->parent->vars['full_name'])) {
-<<<<<<< HEAD
-                $id = sprintf('%s_%s', $view->parent->vars['id'], $name);
-                $fullName = sprintf('%s[%s]', $parentFullName, $name);
-                $uniqueBlockPrefix = sprintf('%s_%s', $view->parent->vars['unique_block_prefix'], $blockName);
-=======
                 $id = \sprintf('%s_%s', $view->parent->vars['id'], $name);
                 $fullName = \sprintf('%s[%s]', $parentFullName, $name);
                 $uniqueBlockPrefix = \sprintf('%s_%s', $view->parent->vars['unique_block_prefix'], $blockName);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } else {
                 $id = $name;
                 $fullName = $name;
@@ -73,14 +64,10 @@ abstract class BaseType extends AbstractType
 
             $translationDomain ??= $view->parent->vars['translation_domain'];
 
-<<<<<<< HEAD
-            $labelTranslationParameters = array_merge($view->parent->vars['label_translation_parameters'], $labelTranslationParameters);
-=======
             if (!$options['label'] instanceof TranslatableInterface) {
                 $labelTranslationParameters = array_merge($view->parent->vars['label_translation_parameters'], $labelTranslationParameters);
             }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $attrTranslationParameters = array_merge($view->parent->vars['attr_translation_parameters'], $attrTranslationParameters);
 
             if (!$labelFormat) {

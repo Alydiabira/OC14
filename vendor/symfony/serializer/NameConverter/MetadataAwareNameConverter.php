@@ -80,11 +80,7 @@ final class MetadataAwareNameConverter implements AdvancedNameConverterInterface
         }
 
         if (null !== $attributesMetadata[$propertyName]->getSerializedName() && null !== $attributesMetadata[$propertyName]->getSerializedPath()) {
-<<<<<<< HEAD
-            throw new LogicException(sprintf('Found SerializedName and SerializedPath attributes on property "%s" of class "%s".', $propertyName, $class));
-=======
             throw new LogicException(\sprintf('Found SerializedName and SerializedPath attributes on property "%s" of class "%s".', $propertyName, $class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $attributesMetadata[$propertyName]->getSerializedName() ?? null;
@@ -119,32 +115,6 @@ final class MetadataAwareNameConverter implements AdvancedNameConverterInterface
             return [];
         }
 
-<<<<<<< HEAD
-        $classMetadata = $this->metadataFactory->getMetadataFor($class);
-
-        $cache = [];
-        foreach ($classMetadata->getAttributesMetadata() as $name => $metadata) {
-            if (null === $metadata->getSerializedName()) {
-                continue;
-            }
-
-            if (null !== $metadata->getSerializedName() && null !== $metadata->getSerializedPath()) {
-                throw new LogicException(sprintf('Found SerializedName and SerializedPath attributes on property "%s" of class "%s".', $name, $class));
-            }
-
-            $metadataGroups = $metadata->getGroups();
-            $contextGroups = (array) ($context[AbstractNormalizer::GROUPS] ?? []);
-
-            if ($contextGroups && !$metadataGroups) {
-                continue;
-            }
-
-            if ($metadataGroups && !array_intersect($metadataGroups, $contextGroups) && !\in_array('*', $contextGroups, true)) {
-                continue;
-            }
-
-            $cache[$metadata->getSerializedName()] = $name;
-=======
         $attributesMetadata = $this->metadataFactory->getMetadataFor($class)->getAttributesMetadata();
         $contextGroups = (array) ($context[AbstractNormalizer::GROUPS] ?? []);
 
@@ -174,7 +144,6 @@ final class MetadataAwareNameConverter implements AdvancedNameConverterInterface
             }
 
             $cache[$serializedName] = $name;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $cache;

@@ -11,19 +11,6 @@
 
 namespace Twig\Node\Expression\Test;
 
-<<<<<<< HEAD
-use Twig\Compiler;
-use Twig\Error\SyntaxError;
-use Twig\Node\Expression\ArrayExpression;
-use Twig\Node\Expression\BlockReferenceExpression;
-use Twig\Node\Expression\ConstantExpression;
-use Twig\Node\Expression\FunctionExpression;
-use Twig\Node\Expression\GetAttrExpression;
-use Twig\Node\Expression\MethodCallExpression;
-use Twig\Node\Expression\NameExpression;
-use Twig\Node\Expression\TestExpression;
-use Twig\Node\Node;
-=======
 use Twig\Attribute\FirstClassTwigCallableReady;
 use Twig\Compiler;
 use Twig\Error\SyntaxError;
@@ -32,7 +19,6 @@ use Twig\Node\Expression\SupportDefinedTestInterface;
 use Twig\Node\Expression\TestExpression;
 use Twig\Node\Node;
 use Twig\TwigTest;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Checks if a variable is defined in the current context.
@@ -46,38 +32,6 @@ use Twig\TwigTest;
  */
 class DefinedTest extends TestExpression
 {
-<<<<<<< HEAD
-    public function __construct(Node $node, string $name, ?Node $arguments, int $lineno)
-    {
-        if ($node instanceof NameExpression) {
-            $node->setAttribute('is_defined_test', true);
-        } elseif ($node instanceof GetAttrExpression) {
-            $node->setAttribute('is_defined_test', true);
-            $this->changeIgnoreStrictCheck($node);
-        } elseif ($node instanceof BlockReferenceExpression) {
-            $node->setAttribute('is_defined_test', true);
-        } elseif ($node instanceof FunctionExpression && 'constant' === $node->getAttribute('name')) {
-            $node->setAttribute('is_defined_test', true);
-        } elseif ($node instanceof ConstantExpression || $node instanceof ArrayExpression) {
-            $node = new ConstantExpression(true, $node->getTemplateLine());
-        } elseif ($node instanceof MethodCallExpression) {
-            $node->setAttribute('is_defined_test', true);
-        } else {
-            throw new SyntaxError('The "defined" test only works with simple variables.', $lineno);
-        }
-
-        parent::__construct($node, $name, $arguments, $lineno);
-    }
-
-    private function changeIgnoreStrictCheck(GetAttrExpression $node)
-    {
-        $node->setAttribute('optimizable', false);
-        $node->setAttribute('ignore_strict_check', true);
-
-        if ($node->getNode('node') instanceof GetAttrExpression) {
-            $this->changeIgnoreStrictCheck($node->getNode('node'));
-        }
-=======
     /**
      * @param AbstractExpression $node
      */
@@ -99,20 +53,16 @@ class DefinedTest extends TestExpression
         }
 
         parent::__construct($node, $name, $arguments, $lineno);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function compile(Compiler $compiler): void
     {
         $compiler->subcompile($this->getNode('node'));
     }
-<<<<<<< HEAD
-=======
 
     public function getStringCoercedChildNames(): array
     {
         // the `defined` test does not coerce its node to string (it only inspects existence)
         return [];
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

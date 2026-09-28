@@ -18,12 +18,6 @@ use Symfony\Component\Mime\Exception\LogicException;
  */
 class RawMessage
 {
-<<<<<<< HEAD
-    private iterable|string $message;
-    private bool $isGeneratorClosed;
-
-    public function __construct(iterable|string $message)
-=======
     /** @var iterable<string>|string|resource */
     private $message;
     private bool $isGeneratorClosed;
@@ -32,13 +26,10 @@ class RawMessage
      * @param iterable<string>|string|resource $message
      */
     public function __construct(mixed $message)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->message = $message;
     }
 
-<<<<<<< HEAD
-=======
     public function __destruct()
     {
         if (\is_resource($this->message)) {
@@ -46,20 +37,16 @@ class RawMessage
         }
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function toString(): string
     {
         if (\is_string($this->message)) {
             return $this->message;
         }
 
-<<<<<<< HEAD
-=======
         if (\is_resource($this->message)) {
             return stream_get_contents($this->message, -1, 0);
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $message = '';
         foreach ($this->message as $chunk) {
             $message .= $chunk;
@@ -81,12 +68,6 @@ class RawMessage
             return;
         }
 
-<<<<<<< HEAD
-        if ($this->message instanceof \Generator) {
-            $message = '';
-            foreach ($this->message as $chunk) {
-                $message .= $chunk;
-=======
         if (\is_resource($this->message)) {
             rewind($this->message);
             while (false !== $line = fgets($this->message)) {
@@ -100,7 +81,6 @@ class RawMessage
             $message = fopen('php://temp', 'w+');
             foreach ($this->message as $chunk) {
                 fwrite($message, $chunk);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 yield $chunk;
             }
             $this->isGeneratorClosed = !$this->message->valid();

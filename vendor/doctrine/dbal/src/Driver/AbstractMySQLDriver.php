@@ -8,24 +8,16 @@ use Doctrine\DBAL\Driver\API\MySQL;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Platforms\AbstractMySQLPlatform;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-<<<<<<< HEAD
-=======
 use Doctrine\DBAL\Platforms\MariaDb1010Platform;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\DBAL\Platforms\MariaDb1027Platform;
 use Doctrine\DBAL\Platforms\MariaDb1043Platform;
 use Doctrine\DBAL\Platforms\MariaDb1052Platform;
 use Doctrine\DBAL\Platforms\MariaDb1060Platform;
-<<<<<<< HEAD
-use Doctrine\DBAL\Platforms\MySQL57Platform;
-use Doctrine\DBAL\Platforms\MySQL80Platform;
-=======
 use Doctrine\DBAL\Platforms\MariaDb110700Platform;
 use Doctrine\DBAL\Platforms\MariaDb120300Platform;
 use Doctrine\DBAL\Platforms\MySQL57Platform;
 use Doctrine\DBAL\Platforms\MySQL80Platform;
 use Doctrine\DBAL\Platforms\MySQL84Platform;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\DBAL\Platforms\MySQLPlatform;
 use Doctrine\DBAL\Schema\MySQLSchemaManager;
 use Doctrine\DBAL\VersionAwarePlatformDriver;
@@ -52,8 +44,6 @@ abstract class AbstractMySQLDriver implements VersionAwarePlatformDriver
 
         if ($mariadb) {
             $mariaDbVersion = $this->getMariaDbMysqlVersionNumber($version);
-<<<<<<< HEAD
-=======
             if (version_compare($mariaDbVersion, '12.3.0', '>=')) {
                 return new MariaDb120300Platform();
             }
@@ -66,7 +56,6 @@ abstract class AbstractMySQLDriver implements VersionAwarePlatformDriver
                 return new MariaDb1010Platform();
             }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (version_compare($mariaDbVersion, '10.6.0', '>=')) {
                 return new MariaDb1060Platform();
             }
@@ -91,8 +80,6 @@ abstract class AbstractMySQLDriver implements VersionAwarePlatformDriver
             }
         } else {
             $oracleMysqlVersion = $this->getOracleMysqlVersionNumber($version);
-<<<<<<< HEAD
-=======
 
             if (version_compare($oracleMysqlVersion, '8.4.0', '>=')) {
                 if (! version_compare($version, '8.4.0', '>=')) {
@@ -107,7 +94,6 @@ abstract class AbstractMySQLDriver implements VersionAwarePlatformDriver
                 return new MySQL84Platform();
             }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (version_compare($oracleMysqlVersion, '8', '>=')) {
                 if (! version_compare($version, '8.0.0', '>=')) {
                     Deprecation::trigger(
@@ -160,11 +146,7 @@ abstract class AbstractMySQLDriver implements VersionAwarePlatformDriver
                 '/^(?P<major>\d+)(?:\.(?P<minor>\d+)(?:\.(?P<patch>\d+))?)?/',
                 $versionString,
                 $versionParts,
-<<<<<<< HEAD
-            ) === 0
-=======
             ) !== 1
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ) {
             throw Exception::invalidPlatformVersionSpecified(
                 $versionString,
@@ -178,11 +160,8 @@ abstract class AbstractMySQLDriver implements VersionAwarePlatformDriver
 
         if ($majorVersion === '5' && $minorVersion === '7') {
             $patchVersion ??= '9';
-<<<<<<< HEAD
-=======
         } else {
             $patchVersion ??= '0';
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $majorVersion . '.' . $minorVersion . '.' . $patchVersion;
@@ -213,11 +192,7 @@ abstract class AbstractMySQLDriver implements VersionAwarePlatformDriver
                 '/^(?:5\.5\.5-)?(mariadb-)?(?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)/i',
                 $versionString,
                 $versionParts,
-<<<<<<< HEAD
-            ) === 0
-=======
             ) !== 1
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ) {
             throw Exception::invalidPlatformVersionSpecified(
                 $versionString,

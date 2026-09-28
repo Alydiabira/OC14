@@ -31,19 +31,11 @@ final class LintCommand extends BaseLintCommand
             ->setHelp(
                 $this->getHelp().<<<'EOF'
 
-<<<<<<< HEAD
-Or all template files in a bundle:
-
-  <info>php %command.full_name% @AcmeDemoBundle</info>
-
-EOF
-=======
                     Or all template files in a bundle:
 
                       <info>php %command.full_name% @AcmeDemoBundle</info>
 
                     EOF
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }

@@ -12,18 +12,18 @@
 namespace Twig\Node\Expression;
 
 use Twig\Compiler;
-<<<<<<< HEAD
-
-class TempNameExpression extends AbstractExpression
-{
-    public function __construct(string $name, int $lineno)
-    {
-=======
 use Twig\Error\SyntaxError;
 
 class TempNameExpression extends AbstractExpression
 {
+    // 4.0: re-evaluate "varargs" here once the implicit macro varargs bucket is removed
+    // (see MacroNode::VARARGS_NAME); the other names map to compiled variables ($context,
+    // $macros, $blocks, $this) and must stay.
     public const RESERVED_NAMES = ['varargs', 'context', 'macros', 'blocks', 'this'];
+
+    // Prefix applied to reserved names so their compiled PHP variables cannot clash
+    // with the internal ones ($varargs, $context, $macros, $blocks, $this)
+    public const RESERVED_NAME_PREFIX = "\u{035C}";
 
     public function __construct(string|int|null $name, int $lineno)
     {
@@ -39,27 +39,18 @@ class TempNameExpression extends AbstractExpression
         if (null !== $name && (\is_int($name) || ctype_digit($name))) {
             $name = (int) $name;
         } elseif (\in_array($name, self::RESERVED_NAMES, true)) {
-            $name = "\u{035C}".$name;
+            $name = self::RESERVED_NAME_PREFIX.$name;
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         parent::__construct([], ['name' => $name], $lineno);
     }
 
     public function compile(Compiler $compiler): void
     {
-<<<<<<< HEAD
-        $compiler
-            ->raw('$_')
-            ->raw($this->getAttribute('name'))
-            ->raw('_')
-        ;
-=======
         if (null === $this->getAttribute('name')) {
             $this->setAttribute('name', $compiler->getVarName());
         }
 
         $compiler->raw('$'.$this->getAttribute('name'));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

@@ -117,11 +117,7 @@ final class Str
 
     public static function asEventMethod(string $eventName): string
     {
-<<<<<<< HEAD
-        return sprintf('on%s', self::asClassName($eventName));
-=======
         return \sprintf('on%s', self::asClassName($eventName));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public static function getShortClassName(string $fullClassName): string
@@ -221,11 +217,7 @@ final class Str
             'kangaroo',
         ];
 
-<<<<<<< HEAD
-        return sprintf('%s %s', $adjectives[array_rand($adjectives)], $nouns[array_rand($nouns)]);
-=======
         return \sprintf('%s %s', $adjectives[array_rand($adjectives)], $nouns[array_rand($nouns)]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

@@ -82,24 +82,16 @@ final class LoginLinkHandler implements LoginLinkHandlerInterface
     public function consumeLoginLink(Request $request): UserInterface
     {
         $userIdentifier = $request->get('user');
-<<<<<<< HEAD
-=======
         if (null === $userIdentifier || '' === $userIdentifier) {
             throw new InvalidLoginLinkException('Missing "user" parameter.');
         }
         if (!\is_string($userIdentifier)) {
             throw new InvalidLoginLinkException('Invalid "user" parameter.');
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (!$hash = $request->get('hash')) {
             throw new InvalidLoginLinkException('Missing "hash" parameter.');
         }
-<<<<<<< HEAD
-        if (!$expires = $request->get('expires')) {
-            throw new InvalidLoginLinkException('Missing "expires" parameter.');
-        }
-=======
         if (!\is_string($hash)) {
             throw new InvalidLoginLinkException('Invalid "hash" parameter.');
         }
@@ -110,7 +102,6 @@ final class LoginLinkHandler implements LoginLinkHandlerInterface
         if (!\is_string($expires) || !preg_match('/^\d+$/', $expires)) {
             throw new InvalidLoginLinkException('Invalid "expires" parameter.');
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         try {
             $this->signatureHasher->acceptSignatureHash($userIdentifier, $expires, $hash);

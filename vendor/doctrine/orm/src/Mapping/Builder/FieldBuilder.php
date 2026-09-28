@@ -65,8 +65,6 @@ class FieldBuilder
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Sets indexed.
      *
      * @return $this
@@ -79,7 +77,6 @@ class FieldBuilder
     }
 
     /**
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Sets column name.
      *
      * @return $this

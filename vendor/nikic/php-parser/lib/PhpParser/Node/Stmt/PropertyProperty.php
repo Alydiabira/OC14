@@ -1,8 +1,5 @@
 <?php declare(strict_types=1);
 
-<<<<<<< HEAD
-require __DIR__ . '/../PropertyItem.php';
-=======
 namespace PhpParser\Node\Stmt;
 
 use PhpParser\Node\PropertyItem;
@@ -18,4 +15,3 @@ if (false) {
     class PropertyProperty extends PropertyItem {
     }
 }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96

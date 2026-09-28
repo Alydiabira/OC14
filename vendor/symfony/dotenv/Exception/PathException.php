@@ -20,10 +20,6 @@ final class PathException extends \RuntimeException implements ExceptionInterfac
 {
     public function __construct(string $path, int $code = 0, ?\Throwable $previous = null)
     {
-<<<<<<< HEAD
-        parent::__construct(sprintf('Unable to read the "%s" environment file.', $path), $code, $previous);
-=======
         parent::__construct(\sprintf('Unable to read the "%s" environment file.', $path), $code, $previous);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

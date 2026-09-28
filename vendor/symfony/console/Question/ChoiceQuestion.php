@@ -26,19 +26,11 @@ class ChoiceQuestion extends Question
     private string $errorMessage = 'Value "%s" is invalid';
 
     /**
-<<<<<<< HEAD
-     * @param string $question The question to ask to the user
-     * @param array  $choices  The list of available choices
-     * @param mixed  $default  The default answer to return
-     */
-    public function __construct(string $question, array $choices, mixed $default = null)
-=======
      * @param string                                   $question The question to ask to the user
      * @param array<string|bool|int|float|\Stringable> $choices  The list of available choices
      * @param string|bool|int|float|null               $default  The default answer to return
      */
     public function __construct(string $question, array $choices, string|bool|int|float|null $default = null)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if (!$choices) {
             throw new \LogicException('Choice question must have at least 1 choice available.');
@@ -52,11 +44,7 @@ class ChoiceQuestion extends Question
     }
 
     /**
-<<<<<<< HEAD
-     * Returns available choices.
-=======
      * @return array<string|bool|int|float|\Stringable>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getChoices(): array
     {
@@ -132,11 +120,7 @@ class ChoiceQuestion extends Question
             if ($multiselect) {
                 // Check for a separated comma values
                 if (!preg_match('/^[^,]+(?:,[^,]+)*$/', (string) $selected, $matches)) {
-<<<<<<< HEAD
-                    throw new InvalidArgumentException(sprintf($errorMessage, $selected));
-=======
                     throw new InvalidArgumentException(\sprintf($errorMessage, $selected));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 $selectedChoices = explode(',', (string) $selected);
@@ -160,11 +144,7 @@ class ChoiceQuestion extends Question
                 }
 
                 if (\count($results) > 1) {
-<<<<<<< HEAD
-                    throw new InvalidArgumentException(sprintf('The provided answer is ambiguous. Value should be one of "%s".', implode('" or "', $results)));
-=======
                     throw new InvalidArgumentException(\sprintf('The provided answer is ambiguous. Value should be one of "%s".', implode('" or "', $results)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 $result = array_search($value, $choices);
@@ -180,11 +160,7 @@ class ChoiceQuestion extends Question
                 }
 
                 if (false === $result) {
-<<<<<<< HEAD
-                    throw new InvalidArgumentException(sprintf($errorMessage, $value));
-=======
                     throw new InvalidArgumentException(\sprintf($errorMessage, $value));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 // For associative choices, consistently return the key as string:

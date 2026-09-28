@@ -103,11 +103,7 @@ class SamplingHandler extends AbstractHandler implements ProcessableHandlerInter
             return $this;
         }
 
-<<<<<<< HEAD
-        throw new \UnexpectedValueException('The nested handler of type '.get_class($handler).' does not support formatters.');
-=======
         throw new \UnexpectedValueException('The nested handler of type '.\get_class($handler).' does not support formatters.');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -120,10 +116,6 @@ class SamplingHandler extends AbstractHandler implements ProcessableHandlerInter
             return $handler->getFormatter();
         }
 
-<<<<<<< HEAD
-        throw new \UnexpectedValueException('The nested handler of type '.get_class($handler).' does not support formatters.');
-=======
         throw new \UnexpectedValueException('The nested handler of type '.\get_class($handler).' does not support formatters.');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

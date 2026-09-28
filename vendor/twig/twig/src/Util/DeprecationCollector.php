@@ -20,17 +20,9 @@ use Twig\Source;
  */
 final class DeprecationCollector
 {
-<<<<<<< HEAD
-    private $twig;
-
-    public function __construct(Environment $twig)
-    {
-        $this->twig = $twig;
-=======
     public function __construct(
         private Environment $twig,
     ) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -62,19 +54,12 @@ final class DeprecationCollector
     public function collect(\Traversable $iterator): array
     {
         $deprecations = [];
-<<<<<<< HEAD
-        set_error_handler(function ($type, $msg) use (&$deprecations) {
-            if (\E_USER_DEPRECATED === $type) {
-                $deprecations[] = $msg;
-            }
-=======
         set_error_handler(static function ($type, $msg) use (&$deprecations) {
             if (\E_USER_DEPRECATED === $type) {
                 $deprecations[] = $msg;
             }
 
             return false;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         });
 
         foreach ($iterator as $name => $contents) {

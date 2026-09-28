@@ -132,11 +132,7 @@ class ViolationPath implements \IteratorAggregate, PropertyPathInterface
     public function getElement(int $index): string
     {
         if (!isset($this->elements[$index])) {
-<<<<<<< HEAD
-            throw new OutOfBoundsException(sprintf('The index "%s" is not within the violation path.', $index));
-=======
             throw new OutOfBoundsException(\sprintf('The index "%s" is not within the violation path.', $index));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->elements[$index];
@@ -145,11 +141,7 @@ class ViolationPath implements \IteratorAggregate, PropertyPathInterface
     public function isProperty(int $index): bool
     {
         if (!isset($this->isIndex[$index])) {
-<<<<<<< HEAD
-            throw new OutOfBoundsException(sprintf('The index "%s" is not within the violation path.', $index));
-=======
             throw new OutOfBoundsException(\sprintf('The index "%s" is not within the violation path.', $index));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return !$this->isIndex[$index];
@@ -158,11 +150,7 @@ class ViolationPath implements \IteratorAggregate, PropertyPathInterface
     public function isIndex(int $index): bool
     {
         if (!isset($this->isIndex[$index])) {
-<<<<<<< HEAD
-            throw new OutOfBoundsException(sprintf('The index "%s" is not within the violation path.', $index));
-=======
             throw new OutOfBoundsException(\sprintf('The index "%s" is not within the violation path.', $index));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->isIndex[$index];
@@ -188,11 +176,7 @@ class ViolationPath implements \IteratorAggregate, PropertyPathInterface
     public function mapsForm(int $index): bool
     {
         if (!isset($this->mapsForm[$index])) {
-<<<<<<< HEAD
-            throw new OutOfBoundsException(sprintf('The index "%s" is not within the violation path.', $index));
-=======
             throw new OutOfBoundsException(\sprintf('The index "%s" is not within the violation path.', $index));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->mapsForm[$index];

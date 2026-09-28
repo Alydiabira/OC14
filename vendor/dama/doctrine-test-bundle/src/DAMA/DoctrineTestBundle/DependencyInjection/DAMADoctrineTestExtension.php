@@ -3,7 +3,7 @@
 namespace DAMA\DoctrineTestBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\DependencyInjection\Extension\Extension;
 
 class DAMADoctrineTestExtension extends Extension
 {
@@ -23,6 +23,10 @@ class DAMADoctrineTestExtension extends Extension
         $container->setParameter(
             'dama.'.Configuration::ENABLE_STATIC_CONNECTION,
             $config[Configuration::ENABLE_STATIC_CONNECTION]
+        );
+        $container->setParameter(
+            'dama.'.Configuration::CONNECTION_KEYS,
+            $config[Configuration::CONNECTION_KEYS] ?? [],
         );
     }
 }

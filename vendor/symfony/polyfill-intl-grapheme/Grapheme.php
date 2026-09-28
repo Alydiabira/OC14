@@ -11,11 +11,7 @@
 
 namespace Symfony\Polyfill\Intl\Grapheme;
 
-<<<<<<< HEAD
-\define('SYMFONY_GRAPHEME_CLUSTER_RX', ((float) \PCRE_VERSION < 10 ? (float) \PCRE_VERSION >= 8.32 : (float) \PCRE_VERSION >= 10.39) ? '\X' : Grapheme::GRAPHEME_CLUSTER_RX);
-=======
 \define('SYMFONY_GRAPHEME_CLUSTER_RX', ((float) \PCRE_VERSION >= 10.44) ? '\X' : Grapheme::GRAPHEME_CLUSTER_RX);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Partial intl implementation in pure PHP.
@@ -30,12 +26,9 @@ namespace Symfony\Polyfill\Intl\Grapheme;
  * - grapheme_strrpos  - Find position (in grapheme units) of last occurrence of a string
  * - grapheme_strstr   - Returns part of haystack string from the first occurrence of needle to the end of haystack
  * - grapheme_substr   - Return part of a string
-<<<<<<< HEAD
-=======
  * - grapheme_str_split - Splits a string into an array of individual or chunks of graphemes
  * - grapheme_levenshtein - Calculate the grapheme-unit Levenshtein distance between two strings
  * - grapheme_strrev - Reverse a string by grapheme clusters
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @author Nicolas Grekas <p@tchwork.com>
  *
@@ -43,27 +36,18 @@ namespace Symfony\Polyfill\Intl\Grapheme;
  */
 final class Grapheme
 {
-<<<<<<< HEAD
-    // (CRLF|([ZWNJ-ZWJ]|T+|L*(LV?V+|LV|LVT)T*|L+|[^Control])[Extend]*|[Control])
-    // This regular expression is a work around for http://bugs.exim.org/1279
-    public const GRAPHEME_CLUSTER_RX = '(?:\r\n|(?:[ -~\x{200C}\x{200D}]|[ᆨ-ᇹ]+|[ᄀ-ᅟ]*(?:[가개갸걔거게겨계고과괘괴교구궈궤귀규그긔기까깨꺄꺠꺼께껴꼐꼬꽈꽤꾀꾜꾸꿔꿰뀌뀨끄끠끼나내냐냬너네녀녜노놔놰뇌뇨누눠눼뉘뉴느늬니다대댜댸더데뎌뎨도돠돼되됴두둬뒈뒤듀드듸디따때땨떄떠떼뗘뗴또똬뙈뙤뚀뚜뚸뛔뛰뜌뜨띄띠라래랴럐러레려례로롸뢔뢰료루뤄뤠뤼류르릐리마매먀먜머메며몌모뫄뫠뫼묘무뭐뭬뮈뮤므믜미바배뱌뱨버베벼볘보봐봬뵈뵤부붜붸뷔뷰브븨비빠빼뺘뺴뻐뻬뼈뼤뽀뽜뽸뾔뾰뿌뿨쀄쀠쀼쁘쁴삐사새샤섀서세셔셰소솨쇄쇠쇼수숴쉐쉬슈스싀시싸쌔쌰썌써쎄쎠쎼쏘쏴쐐쐬쑈쑤쒀쒜쒸쓔쓰씌씨아애야얘어에여예오와왜외요우워웨위유으의이자재쟈쟤저제져졔조좌좨죄죠주줘줴쥐쥬즈즤지짜째쨔쨰쩌쩨쪄쪠쪼쫘쫴쬐쬬쭈쭤쮀쮜쮸쯔쯰찌차채챠챼처체쳐쳬초촤쵀최쵸추춰췌취츄츠츼치카캐캬컈커케켜켸코콰쾌쾨쿄쿠쿼퀘퀴큐크킈키타태탸턔터테텨톄토톼퇘퇴툐투퉈퉤튀튜트틔티파패퍄퍠퍼페펴폐포퐈퐤푀표푸풔풰퓌퓨프픠피하해햐햬허헤혀혜호화홰회효후훠훼휘휴흐희히]?[ᅠ-ᆢ]+|[가-힣])[ᆨ-ᇹ]*|[ᄀ-ᅟ]+|[^\p{Cc}\p{Cf}\p{Zl}\p{Zp}])[\p{Mn}\p{Me}\x{09BE}\x{09D7}\x{0B3E}\x{0B57}\x{0BBE}\x{0BD7}\x{0CC2}\x{0CD5}\x{0CD6}\x{0D3E}\x{0D57}\x{0DCF}\x{0DDF}\x{200C}\x{200D}\x{1D165}\x{1D16E}-\x{1D172}]*|[\p{Cc}\p{Cf}\p{Zl}\p{Zp}])';
-=======
     // (CRLF|RI RI?|(([ZWNJ-ZWJ]|T+|L*(LV?V+|LV|LVT)T*|L+|[^Control])[Extend]*)(ZWJ([ZWNJ-ZWJ]|T+|L*(LV?V+|LV|LVT)T*|L+|[^Control])[Extend]*)*|[Control])
     // This regular expression is a work around for http://bugs.exim.org/1279
     public const GRAPHEME_CLUSTER_RX = '(?:\r\n|[\x{1F1E6}-\x{1F1FF}][\x{1F1E6}-\x{1F1FF}]?|(?:[ -~\x{200C}\x{200D}]|[ᆨ-ᇹ]+|[ᄀ-ᅟ]*(?:[가개갸걔거게겨계고과괘괴교구궈궤귀규그긔기까깨꺄꺠꺼께껴꼐꼬꽈꽤꾀꾜꾸꿔꿰뀌뀨끄끠끼나내냐냬너네녀녜노놔놰뇌뇨누눠눼뉘뉴느늬니다대댜댸더데뎌뎨도돠돼되됴두둬뒈뒤듀드듸디따때땨떄떠떼뗘뗴또똬뙈뙤뚀뚜뚸뛔뛰뜌뜨띄띠라래랴럐러레려례로롸뢔뢰료루뤄뤠뤼류르릐리마매먀먜머메며몌모뫄뫠뫼묘무뭐뭬뮈뮤므믜미바배뱌뱨버베벼볘보봐봬뵈뵤부붜붸뷔뷰브븨비빠빼뺘뺴뻐뻬뼈뼤뽀뽜뽸뾔뾰뿌뿨쀄쀠쀼쁘쁴삐사새샤섀서세셔셰소솨쇄쇠쇼수숴쉐쉬슈스싀시싸쌔쌰썌써쎄쎠쎼쏘쏴쐐쐬쑈쑤쒀쒜쒸쓔쓰씌씨아애야얘어에여예오와왜외요우워웨위유으의이자재쟈쟤저제져졔조좌좨죄죠주줘줴쥐쥬즈즤지짜째쨔쨰쩌쩨쪄쪠쪼쫘쫴쬐쬬쭈쭤쮀쮜쮸쯔쯰찌차채챠챼처체쳐쳬초촤쵀최쵸추춰췌취츄츠츼치카캐캬컈커케켜켸코콰쾌쾨쿄쿠쿼퀘퀴큐크킈키타태탸턔터테텨톄토톼퇘퇴툐투퉈퉤튀튜트틔티파패퍄퍠퍼페펴폐포퐈퐤푀표푸풔풰퓌퓨프픠피하해햐햬허헤혀혜호화홰회효후훠훼휘휴흐희히]?[ᅠ-ᆢ]+|[가-힣])[ᆨ-ᇹ]*|[ᄀ-ᅟ]+|[^\p{Cc}\p{Cf}\p{Zl}\p{Zp}])[\p{Mn}\p{Mc}\p{Me}\x{09BE}\x{09D7}\x{0B3E}\x{0B57}\x{0BBE}\x{0BD7}\x{0CC2}\x{0CD5}\x{0CD6}\x{0D3E}\x{0D57}\x{0DCF}\x{0DDF}\x{200C}\x{1D165}\x{1D16E}-\x{1D172}\x{1F3FB}-\x{1F3FF}\x{FE0E}-\x{FE0F}\x{E0020}-\x{E007F}]*(?:\x{200D}(?:[\x{1F1E6}-\x{1F1FF}]|[ -~\x{200C}\x{200D}]|[ᆨ-ᇹ]+|[ᄀ-ᅟ]*(?:[가-힣]?[ᅠ-ᆢ]+|[가-힣])[ᆨ-ᇹ]*|[ᄀ-ᅟ]+|[^\p{Cc}\p{Cf}\p{Zl}\p{Zp}])[\p{Mn}\p{Mc}\p{Me}\x{09BE}\x{09D7}\x{0B3E}\x{0B57}\x{0BBE}\x{0BD7}\x{0CC2}\x{0CD5}\x{0CD6}\x{0D3E}\x{0D57}\x{0DCF}\x{0DDF}\x{200C}\x{1D165}\x{1D16E}-\x{1D172}\x{1F3FB}-\x{1F3FF}\x{FE0E}-\x{FE0F}\x{E0020}-\x{E007F}]*)*|[\p{Cc}\p{Cf}\p{Zl}\p{Zp}])';
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     private const CASE_FOLD = [
         ['µ', 'ſ', "\xCD\x85", 'ς', "\xCF\x90", "\xCF\x91", "\xCF\x95", "\xCF\x96", "\xCF\xB0", "\xCF\xB1", "\xCF\xB5", "\xE1\xBA\x9B", "\xE1\xBE\xBE"],
         ['μ', 's', 'ι',        'σ', 'β',        'θ',        'φ',        'π',        'κ',        'ρ',        'ε',        "\xE1\xB9\xA1", 'ι'],
     ];
 
-<<<<<<< HEAD
-=======
     // indexed by the $mode argument of grapheme_position()
     private const POSITION_FUNCTIONS = ['grapheme_strpos', 'grapheme_stripos', 'grapheme_strrpos', 'grapheme_strripos'];
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public static function grapheme_extract($s, $size, $type = \GRAPHEME_EXTR_COUNT, $start = 0, &$next = 0)
     {
         if (0 > $start) {
@@ -72,11 +56,7 @@ final class Grapheme
 
         if (!\is_scalar($s)) {
             $hasError = false;
-<<<<<<< HEAD
-            set_error_handler(function () use (&$hasError) { $hasError = true; });
-=======
             set_error_handler(static function () use (&$hasError) { $hasError = true; });
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $next = substr($s, $start);
             restore_error_handler();
             if ($hasError) {
@@ -217,8 +197,6 @@ final class Grapheme
         return mb_strstr($s, $needle, $beforeNeedle, 'UTF-8');
     }
 
-<<<<<<< HEAD
-=======
     public static function grapheme_str_split($s, $len = 1)
     {
         if (0 > $len || 1073741823 < $len) {
@@ -290,7 +268,6 @@ final class Grapheme
         return $dp[$l1][$l2];
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private static function grapheme_position($s, $needle, $offset, $mode)
     {
         $needle = (string) $needle;
@@ -298,9 +275,6 @@ final class Grapheme
             return false;
         }
         $s = (string) $s;
-<<<<<<< HEAD
-        if (!preg_match('/./us', $s)) {
-=======
         // let the empty string through: it accepts no offset but 0, which is checked below
         if ('' !== $s && !preg_match('/./us', $s)) {
             return false;
@@ -313,18 +287,13 @@ final class Grapheme
             throw new \ValueError(self::POSITION_FUNCTIONS[$mode].'(): Argument #3 ($offset) must be contained in argument #1 ($haystack)');
         }
         if ('' === $s) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return false;
         }
         if ($offset > 0) {
             $s = self::grapheme_substr($s, $offset);
         } elseif ($offset < 0) {
             if (2 > $mode) {
-<<<<<<< HEAD
-                $offset += self::grapheme_strlen($s);
-=======
                 $offset += $len;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $s = self::grapheme_substr($s, $offset);
                 if (0 > $offset) {
                     $offset = 0;
@@ -363,8 +332,6 @@ final class Grapheme
 
         return false !== $needlePos ? self::grapheme_strlen(substr($s, 0, $needlePos)) + $offset : false;
     }
-<<<<<<< HEAD
-=======
 
     public static function grapheme_strrev(string $string)
     {
@@ -380,5 +347,4 @@ final class Grapheme
 
         return implode('', array_reverse($units));
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

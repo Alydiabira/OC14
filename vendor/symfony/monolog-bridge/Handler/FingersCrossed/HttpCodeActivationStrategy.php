@@ -14,11 +14,7 @@ namespace Symfony\Bridge\Monolog\Handler\FingersCrossed;
 use Monolog\Handler\FingersCrossed\ActivationStrategyInterface;
 use Monolog\LogRecord;
 use Symfony\Component\HttpFoundation\RequestStack;
-<<<<<<< HEAD
-use Symfony\Component\HttpKernel\Exception\HttpException;
-=======
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Activation strategy that ignores certain HTTP codes.
@@ -53,11 +49,7 @@ final class HttpCodeActivationStrategy implements ActivationStrategyInterface
         if (
             $isActivated
             && isset($record['context']['exception'])
-<<<<<<< HEAD
-            && $record['context']['exception'] instanceof HttpException
-=======
             && $record['context']['exception'] instanceof HttpExceptionInterface
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             && ($request = $this->requestStack->getMainRequest())
         ) {
             foreach ($this->exclusions as $exclusion) {

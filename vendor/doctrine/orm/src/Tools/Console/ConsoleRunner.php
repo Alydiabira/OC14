@@ -19,11 +19,8 @@ use function class_exists;
  */
 final class ConsoleRunner
 {
-<<<<<<< HEAD
-=======
     use ApplicationCompatibility;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Runs console with the given helper set.
      *
@@ -64,14 +61,10 @@ final class ConsoleRunner
         $connectionProvider = new ConnectionFromManagerProvider($entityManagerProvider);
 
         if (class_exists(DBALConsole\Command\ReservedWordsCommand::class)) {
-<<<<<<< HEAD
-            $cli->add(new DBALConsole\Command\ReservedWordsCommand($connectionProvider));
-=======
             self::addCommandToApplication(
                 $cli,
                 new DBALConsole\Command\ReservedWordsCommand($connectionProvider),
             );
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $cli->addCommands(

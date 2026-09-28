@@ -64,10 +64,6 @@ class RememberMeToken extends AbstractToken
 
     public function __unserialize(array $data): void
     {
-<<<<<<< HEAD
-        [$this->secret, $this->firewallName, $parentData] = $data;
-        $parentData = \is_array($parentData) ? $parentData : unserialize($parentData);
-=======
         if (($data[0] ?? null) instanceof \Stringable
             || ($data[1] ?? null) instanceof \Stringable
         ) {
@@ -75,7 +71,6 @@ class RememberMeToken extends AbstractToken
         }
 
         [$this->secret, $this->firewallName, $parentData] = $data;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         parent::__unserialize($parentData);
     }
 }

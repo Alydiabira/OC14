@@ -42,9 +42,6 @@ class RouteConfigurator
      */
     final public function host(string|array $host): static
     {
-<<<<<<< HEAD
-        $this->addHost($this->route, $host);
-=======
         $previousRoutes = clone $this->route;
         $this->addHost($this->route, $host);
         foreach ($previousRoutes as $name => $route) {
@@ -53,7 +50,6 @@ class RouteConfigurator
             }
         }
         $this->collection->addCollection($this->route);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this;
     }

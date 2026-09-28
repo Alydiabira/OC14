@@ -1,10 +1,7 @@
 <?php
 
-<<<<<<< HEAD
-=======
 declare(strict_types=1);
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 namespace Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler;
 
 use Doctrine\Bundle\DoctrineBundle\Mapping\ClassMetadataFactory;
@@ -35,13 +32,7 @@ final class IdGeneratorPass implements CompilerPassInterface
             return;
         }
 
-<<<<<<< HEAD
-        $generatorRefs = array_map(static function ($id) {
-            return new Reference($id);
-        }, $generatorIds);
-=======
         $generatorRefs = array_map(static fn (string $id): Reference => new Reference($id), $generatorIds);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $ref = ServiceLocatorTagPass::register($container, array_combine($generatorIds, $generatorRefs));
         $container->setAlias('doctrine.id_generator_locator', new Alias((string) $ref, false));

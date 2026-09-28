@@ -54,8 +54,6 @@ final class Events
      * @Event("Vich\UploaderBundle\Event\Event")
      */
     public const POST_REMOVE = 'vich_uploader.post_remove';
-<<<<<<< HEAD
-=======
 
     /**
      * Triggered if writing to storage fails.
@@ -66,5 +64,4 @@ final class Events
      * Triggered if removing the file from storage fails.
      */
     public const REMOVE_ERROR = 'vich_uploader.remove_error';
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

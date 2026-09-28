@@ -21,13 +21,8 @@ use Doctrine\Persistence\ObjectManager;
  *
  * @author Gediminas Morkevicius <gediminas.morkevicius@gmail.com>
  *
-<<<<<<< HEAD
- * @method LifecycleEventArgs createLifecycleEventArgsInstance(object $object, ObjectManager $manager)
- * @method object             getObject()
-=======
  * @method LifecycleEventArgs<ObjectManager> createLifecycleEventArgsInstance(object $object, ObjectManager $manager) @deprecated
  * @method object                            getObject()
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 interface AdapterInterface
 {
@@ -67,11 +62,7 @@ interface AdapterInterface
     /**
      * Get the root object class, handles inheritance
      *
-<<<<<<< HEAD
-     * @param ClassMetadata $meta
-=======
      * @param ClassMetadata<object> $meta
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return string
      *
@@ -111,11 +102,7 @@ interface AdapterInterface
     /**
      * Get the single identifier field name.
      *
-<<<<<<< HEAD
-     * @param ClassMetadata $meta
-=======
      * @param ClassMetadata<object> $meta
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return string
      */
@@ -127,11 +114,7 @@ interface AdapterInterface
      * of work's commit.
      *
      * @param ORMUnitOfWork|MongoDBUnitOfWork $uow    The UnitOfWork as provided by the object manager
-<<<<<<< HEAD
-     * @param ClassMetadata                   $meta
-=======
      * @param ClassMetadata<object>           $meta
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @param object                          $object
      *
      * @return void

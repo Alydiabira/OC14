@@ -45,14 +45,11 @@ abstract class AbstractList implements Type
         $this->keyType        = $keyType;
     }
 
-<<<<<<< HEAD
-=======
     public function getOriginalKeyType(): ?Type
     {
         return $this->keyType;
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Returns the type for the keys of this array.
      */

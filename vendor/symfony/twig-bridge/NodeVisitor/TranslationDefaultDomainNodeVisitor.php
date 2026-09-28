@@ -15,25 +15,17 @@ use Symfony\Bridge\Twig\Node\TransDefaultDomainNode;
 use Symfony\Bridge\Twig\Node\TransNode;
 use Twig\Environment;
 use Twig\Node\BlockNode;
-<<<<<<< HEAD
-=======
 use Twig\Node\EmptyNode;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Twig\Node\Expression\ArrayExpression;
 use Twig\Node\Expression\AssignNameExpression;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\FilterExpression;
 use Twig\Node\Expression\NameExpression;
-<<<<<<< HEAD
-use Twig\Node\ModuleNode;
-use Twig\Node\Node;
-=======
 use Twig\Node\Expression\Variable\AssignContextVariable;
 use Twig\Node\Expression\Variable\ContextVariable;
 use Twig\Node\ModuleNode;
 use Twig\Node\Node;
 use Twig\Node\Nodes;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Twig\Node\SetNode;
 use Twig\NodeVisitor\NodeVisitorInterface;
 
@@ -60,15 +52,6 @@ final class TranslationDefaultDomainNodeVisitor implements NodeVisitorInterface
                 $this->scope->set('domain', $node->getNode('expr'));
 
                 return $node;
-<<<<<<< HEAD
-            } else {
-                $var = $this->getVarName();
-                $name = new AssignNameExpression($var, $node->getTemplateLine());
-                $this->scope->set('domain', new NameExpression($var, $node->getTemplateLine()));
-
-                return new SetNode(false, new Node([$name]), new Node([$node->getNode('expr')]), $node->getTemplateLine());
-            }
-=======
             }
             $var = $this->getVarName();
             $name = class_exists(AssignContextVariable::class) ? new AssignContextVariable($var, $node->getTemplateLine()) : new AssignNameExpression($var, $node->getTemplateLine());
@@ -79,17 +62,12 @@ final class TranslationDefaultDomainNodeVisitor implements NodeVisitorInterface
             }
 
             return new SetNode(false, new Node([$name]), new Node([$node->getNode('expr')]), $node->getTemplateLine());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (!$this->scope->has('domain')) {
             return $node;
         }
 
-<<<<<<< HEAD
-        if ($node instanceof FilterExpression && 'trans' === $node->getNode('filter')->getAttribute('value')) {
-            $arguments = $node->getNode('arguments');
-=======
         if ($node instanceof FilterExpression && 'trans' === ($node->hasAttribute('twig_callable') ? $node->getAttribute('twig_callable')->getName() : $node->getNode('filter')->getAttribute('value'))) {
             $arguments = $node->getNode('arguments');
 
@@ -98,7 +76,6 @@ final class TranslationDefaultDomainNodeVisitor implements NodeVisitorInterface
                 $node->setNode('arguments', $arguments);
             }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if ($this->isNamedArguments($arguments)) {
                 if (!$arguments->hasNode('domain') && !$arguments->hasNode(1)) {
                     $arguments->setNode('domain', $this->scope->get('domain'));
@@ -150,10 +127,6 @@ final class TranslationDefaultDomainNodeVisitor implements NodeVisitorInterface
 
     private function getVarName(): string
     {
-<<<<<<< HEAD
-        return sprintf('__internal_%s', hash('sha256', uniqid(mt_rand(), true), false));
-=======
         return \sprintf('__internal_%s', hash('sha256', uniqid(mt_rand(), true), false));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

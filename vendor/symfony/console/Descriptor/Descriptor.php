@@ -38,11 +38,7 @@ abstract class Descriptor implements DescriptorInterface
             $object instanceof InputDefinition => $this->describeInputDefinition($object, $options),
             $object instanceof Command => $this->describeCommand($object, $options),
             $object instanceof Application => $this->describeApplication($object, $options),
-<<<<<<< HEAD
-            default => throw new InvalidArgumentException(sprintf('Object of type "%s" is not describable.', get_debug_type($object))),
-=======
             default => throw new InvalidArgumentException(\sprintf('Object of type "%s" is not describable.', get_debug_type($object))),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         };
     }
 

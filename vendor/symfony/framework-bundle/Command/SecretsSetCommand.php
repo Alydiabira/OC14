@@ -52,26 +52,6 @@ final class SecretsSetCommand extends Command
             ->addOption('local', 'l', InputOption::VALUE_NONE, 'Update the local vault.')
             ->addOption('random', 'r', InputOption::VALUE_OPTIONAL, 'Generate a random value.', false)
             ->setHelp(<<<'EOF'
-<<<<<<< HEAD
-The <info>%command.name%</info> command stores a secret in the vault.
-
-    <info>%command.full_name% <name></info>
-
-To reference secrets in services.yaml or any other config
-files, use <info>"%env(<name>)%"</info>.
-
-By default, the secret value should be entered interactively.
-Alternatively, provide a file where to read the secret from:
-
-    <info>php %command.full_name% <name> filename</info>
-
-Use "-" as a file name to read from STDIN:
-
-    <info>cat filename | php %command.full_name% <name> -</info>
-
-Use <info>--local</info> to override secrets for local needs.
-EOF
-=======
                 The <info>%command.name%</info> command stores a secret in the vault.
 
                     <info>%command.full_name% <name></info>
@@ -90,7 +70,6 @@ EOF
 
                 Use <info>--local</info> to override secrets for local needs.
                 EOF
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -109,11 +88,7 @@ EOF
         }
 
         if ($this->localVault === $vault && !\array_key_exists($name, $this->vault->list())) {
-<<<<<<< HEAD
-            $io->error(sprintf('Secret "%s" does not exist in the vault, you cannot override it locally.', $name));
-=======
             $io->error(\sprintf('Secret "%s" does not exist in the vault, you cannot override it locally.', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             return 1;
         }
@@ -132,15 +107,9 @@ EOF
         } elseif (is_file($file) && is_readable($file)) {
             $value = file_get_contents($file);
         } elseif (!is_file($file)) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('File not found: "%s".', $file));
-        } elseif (!is_readable($file)) {
-            throw new \InvalidArgumentException(sprintf('File is not readable: "%s".', $file));
-=======
             throw new \InvalidArgumentException(\sprintf('File not found: "%s".', $file));
         } elseif (!is_readable($file)) {
             throw new \InvalidArgumentException(\sprintf('File is not readable: "%s".', $file));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($vault->generateKeys()) {

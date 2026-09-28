@@ -40,11 +40,7 @@ class Registry
 
         try {
             foreach ($serializables as $k => $v) {
-<<<<<<< HEAD
-                $objects[$k] = unserialize($v);
-=======
                 $objects[$k] = unserialize($v, ['allowed_classes' => true]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         } finally {
             ini_set('unserialize_callback_func', $unserializeCallback);
@@ -95,17 +91,6 @@ class Registry
                     $proto = null;
                 } else {
                     try {
-<<<<<<< HEAD
-                        $proto = @unserialize($proto.\strlen($class).':"'.$class.'":0:{}');
-                    } catch (\Exception $e) {
-                        if (__FILE__ !== $e->getFile()) {
-                            throw $e;
-                        }
-                        throw new NotInstantiableTypeException($class, $e);
-                    }
-                    if (false === $proto) {
-                        throw new NotInstantiableTypeException($class);
-=======
                         $proto = @unserialize($proto.\strlen($class).':"'.$class.'":0:{}', ['allowed_classes' => true]);
                     } catch (\Exception $e) {
                         if (method_exists($class, '__unserialize')) {
@@ -123,7 +108,6 @@ class Registry
                             throw new NotInstantiableTypeException($class);
                         }
                         $proto = null;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
                 }
             }

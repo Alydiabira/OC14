@@ -6,8 +6,6 @@ awareness about deprecated code.
 - Use of our low-overhead runtime deprecation API, details:
   https://github.com/doctrine/deprecations/
 
-<<<<<<< HEAD
-=======
 # Upgrade to 2.6
 
 When extending `Doctrine\Common\Collections\AbstractLazyCollection`, the
@@ -47,7 +45,6 @@ to `null` values being read from such objects, which may cause wrong filtering o
 To avoid this issue, use native lazy objects added in PHP 8.4.
 See https://github.com/doctrine/collections/issues/487 for more details on when this may happen.
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 # Upgrade to 2.2
 
 ## Deprecated string representation of sort order

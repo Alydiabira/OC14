@@ -105,17 +105,6 @@ class InputDefinition
     public function addArgument(InputArgument $argument)
     {
         if (isset($this->arguments[$argument->getName()])) {
-<<<<<<< HEAD
-            throw new LogicException(sprintf('An argument with name "%s" already exists.', $argument->getName()));
-        }
-
-        if (null !== $this->lastArrayArgument) {
-            throw new LogicException(sprintf('Cannot add a required argument "%s" after an array argument "%s".', $argument->getName(), $this->lastArrayArgument->getName()));
-        }
-
-        if ($argument->isRequired() && null !== $this->lastOptionalArgument) {
-            throw new LogicException(sprintf('Cannot add a required argument "%s" after an optional one "%s".', $argument->getName(), $this->lastOptionalArgument->getName()));
-=======
             throw new LogicException(\sprintf('An argument with name "%s" already exists.', $argument->getName()));
         }
 
@@ -125,7 +114,6 @@ class InputDefinition
 
         if ($argument->isRequired() && null !== $this->lastOptionalArgument) {
             throw new LogicException(\sprintf('Cannot add a required argument "%s" after an optional one "%s".', $argument->getName(), $this->lastOptionalArgument->getName()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($argument->isArray()) {
@@ -149,11 +137,7 @@ class InputDefinition
     public function getArgument(string|int $name): InputArgument
     {
         if (!$this->hasArgument($name)) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('The "%s" argument does not exist.', $name));
-=======
             throw new InvalidArgumentException(\sprintf('The "%s" argument does not exist.', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $arguments = \is_int($name) ? array_values($this->arguments) : $this->arguments;
@@ -247,27 +231,16 @@ class InputDefinition
     public function addOption(InputOption $option)
     {
         if (isset($this->options[$option->getName()]) && !$option->equals($this->options[$option->getName()])) {
-<<<<<<< HEAD
-            throw new LogicException(sprintf('An option named "%s" already exists.', $option->getName()));
-        }
-        if (isset($this->negations[$option->getName()])) {
-            throw new LogicException(sprintf('An option named "%s" already exists.', $option->getName()));
-=======
             throw new LogicException(\sprintf('An option named "%s" already exists.', $option->getName()));
         }
         if (isset($this->negations[$option->getName()])) {
             throw new LogicException(\sprintf('An option named "%s" already exists.', $option->getName()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($option->getShortcut()) {
             foreach (explode('|', $option->getShortcut()) as $shortcut) {
                 if (isset($this->shortcuts[$shortcut]) && !$option->equals($this->options[$this->shortcuts[$shortcut]])) {
-<<<<<<< HEAD
-                    throw new LogicException(sprintf('An option with shortcut "%s" already exists.', $shortcut));
-=======
                     throw new LogicException(\sprintf('An option with shortcut "%s" already exists.', $shortcut));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
         }
@@ -282,11 +255,7 @@ class InputDefinition
         if ($option->isNegatable()) {
             $negatedName = 'no-'.$option->getName();
             if (isset($this->options[$negatedName])) {
-<<<<<<< HEAD
-                throw new LogicException(sprintf('An option named "%s" already exists.', $negatedName));
-=======
                 throw new LogicException(\sprintf('An option named "%s" already exists.', $negatedName));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $this->negations[$negatedName] = $option->getName();
         }
@@ -300,11 +269,7 @@ class InputDefinition
     public function getOption(string $name): InputOption
     {
         if (!$this->hasOption($name)) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('The "--%s" option does not exist.', $name));
-=======
             throw new InvalidArgumentException(\sprintf('The "--%s" option does not exist.', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->options[$name];
@@ -378,11 +343,7 @@ class InputDefinition
     public function shortcutToName(string $shortcut): string
     {
         if (!isset($this->shortcuts[$shortcut])) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('The "-%s" option does not exist.', $shortcut));
-=======
             throw new InvalidArgumentException(\sprintf('The "-%s" option does not exist.', $shortcut));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->shortcuts[$shortcut];
@@ -398,11 +359,7 @@ class InputDefinition
     public function negationToName(string $negation): string
     {
         if (!isset($this->negations[$negation])) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('The "--%s" option does not exist.', $negation));
-=======
             throw new InvalidArgumentException(\sprintf('The "--%s" option does not exist.', $negation));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->negations[$negation];
@@ -421,11 +378,7 @@ class InputDefinition
             foreach ($this->getOptions() as $option) {
                 $value = '';
                 if ($option->acceptValue()) {
-<<<<<<< HEAD
-                    $value = sprintf(
-=======
                     $value = \sprintf(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         ' %s%s%s',
                         $option->isValueOptional() ? '[' : '',
                         strtoupper($option->getName()),
@@ -433,15 +386,6 @@ class InputDefinition
                     );
                 }
 
-<<<<<<< HEAD
-                $shortcut = $option->getShortcut() ? sprintf('-%s|', $option->getShortcut()) : '';
-                $negation = $option->isNegatable() ? sprintf('|--no-%s', $option->getName()) : '';
-                $elements[] = sprintf('[%s--%s%s%s]', $shortcut, $option->getName(), $value, $negation);
-            }
-        }
-
-        if (\count($elements) && $this->getArguments()) {
-=======
                 $shortcut = $option->getShortcut() ? \sprintf('-%s|', $option->getShortcut()) : '';
                 $negation = $option->isNegatable() ? \sprintf('|--no-%s', $option->getName()) : '';
                 $elements[] = \sprintf('[%s--%s%s%s]', $shortcut, $option->getName(), $value, $negation);
@@ -449,7 +393,6 @@ class InputDefinition
         }
 
         if ($elements && $this->getArguments()) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $elements[] = '[--]';
         }
 

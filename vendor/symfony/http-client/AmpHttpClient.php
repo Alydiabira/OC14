@@ -118,10 +118,7 @@ final class AmpHttpClient implements HttpClientInterface, LoggerAwareInterface, 
         }
 
         $request = new Request(implode('', $url), $method);
-<<<<<<< HEAD
-=======
         $request->setBodySizeLimit(0);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($options['http_version']) {
             $request->setProtocolVersions(match ((float) $options['http_version']) {
@@ -136,15 +133,9 @@ final class AmpHttpClient implements HttpClientInterface, LoggerAwareInterface, 
             $request->addHeader($h[0], $h[1]);
         }
 
-<<<<<<< HEAD
-        $request->setTcpConnectTimeout(1000 * $options['timeout']);
-        $request->setTlsHandshakeTimeout(1000 * $options['timeout']);
-        $request->setTransferTimeout(1000 * $options['max_duration']);
-=======
         $request->setTcpConnectTimeout(ceil(1000 * $options['timeout']));
         $request->setTlsHandshakeTimeout(ceil(1000 * $options['timeout']));
         $request->setTransferTimeout(ceil(1000 * $options['max_duration']));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (method_exists($request, 'setInactivityTimeout')) {
             $request->setInactivityTimeout(0);
         }
@@ -175,11 +166,7 @@ final class AmpHttpClient implements HttpClientInterface, LoggerAwareInterface, 
             foreach ($pushedResponses as [$pushedUrl, $pushDeferred]) {
                 $pushDeferred->fail(new CancelledException());
 
-<<<<<<< HEAD
-                $this->logger?->debug(sprintf('Unused pushed response: "%s"', $pushedUrl));
-=======
                 $this->logger?->debug(\sprintf('Unused pushed response: "%s"', $pushedUrl));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 

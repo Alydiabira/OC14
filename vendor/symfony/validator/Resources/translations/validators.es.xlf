@@ -160,19 +160,11 @@
             </trans-unit>
             <trans-unit id="43">
                 <source>The image width is too big ({{ width }}px). Allowed maximum width is {{ max_width }}px.</source>
-<<<<<<< HEAD
-                <target>El ancho de la imagen es demasiado grande ({{ width }}px). El ancho máximo permitido es de {{ max_width }}px.</target>
-            </trans-unit>
-            <trans-unit id="44">
-                <source>The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.</source>
-                <target>El ancho de la imagen es demasiado pequeño ({{ width }}px). El ancho mínimo requerido es {{ min_width }}px.</target>
-=======
                 <target>La anchura de la imagen es demasiado grande ({{ width }}px). La anchura máxima permitida es de {{ max_width }}px.</target>
             </trans-unit>
             <trans-unit id="44">
                 <source>The image width is too small ({{ width }}px). Minimum width expected is {{ min_width }}px.</source>
                 <target>La anchura de la imagen es demasiado pequeña ({{ width }}px). La anchura mínima requerida es de {{ min_width }}px.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="45">
                 <source>The image height is too big ({{ height }}px). Allowed maximum height is {{ max_height }}px.</source>
@@ -450,8 +442,6 @@
                 <source>This URL is missing a top-level domain.</source>
                 <target>Esta URL no contiene una extensión de dominio (TLD).</target>
             </trans-unit>
-<<<<<<< HEAD
-=======
             <trans-unit id="114">
                 <source>This value is too short. It should contain at least one word.|This value is too short. It should contain at least {{ min }} words.</source>
                 <target>Este valor es demasiado corto. Debe contener al menos una palabra.|Este valor es demasiado corto. Debe contener al menos {{ min }} palabras.</target>
@@ -588,7 +578,6 @@
                 <source>This value is not a valid ULID.</source>
                 <target>Este valor no es un ULID válido.</target>
             </trans-unit>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         </body>
     </file>
 </xliff>

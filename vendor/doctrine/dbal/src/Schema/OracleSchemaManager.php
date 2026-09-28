@@ -107,11 +107,6 @@ class OracleSchemaManager extends AbstractSchemaManager
 
     /**
      * {@inheritDoc}
-<<<<<<< HEAD
-     *
-     * @link http://ezcomponents.org/docs/api/trunk/DatabaseSchema/ezcDbSchemaPgsqlReader.html
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function _getPortableTableIndexesList($tableIndexes, $tableName = null)
     {

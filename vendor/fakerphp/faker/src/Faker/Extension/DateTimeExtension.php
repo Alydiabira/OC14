@@ -25,11 +25,7 @@ interface DateTimeExtension
      *
      * @example DateTime('2005-08-16 20:39:21')
      */
-<<<<<<< HEAD
-    public function dateTime($until = 'now', string $timezone = null): \DateTime;
-=======
     public function dateTime($until = 'now', ?string $timezone = null): \DateTime;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Get a DateTime object for a date between January 1, 0001, and now.
@@ -42,11 +38,7 @@ interface DateTimeExtension
      * @see http://php.net/manual/en/timezones.php
      * @see http://php.net/manual/en/function.date-default-timezone-get.php
      */
-<<<<<<< HEAD
-    public function dateTimeAD($until = 'now', string $timezone = null): \DateTime;
-=======
     public function dateTimeAD($until = 'now', ?string $timezone = null): \DateTime;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Get a DateTime object a random date between `$from` and `$until`.
@@ -60,11 +52,7 @@ interface DateTimeExtension
      * @see http://php.net/manual/en/timezones.php
      * @see http://php.net/manual/en/function.date-default-timezone-get.php
      */
-<<<<<<< HEAD
-    public function dateTimeBetween($from = '-30 years', $until = 'now', string $timezone = null): \DateTime;
-=======
     public function dateTimeBetween($from = '-30 years', $until = 'now', ?string $timezone = null): \DateTime;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Get a DateTime object based on a random date between `$from` and an interval.
@@ -78,11 +66,7 @@ interface DateTimeExtension
      * @see http://php.net/manual/en/timezones.php
      * @see http://php.net/manual/en/function.date-default-timezone-get.php
      */
-<<<<<<< HEAD
-    public function dateTimeInInterval($from = '-30 years', string $interval = '+5 days', string $timezone = null): \DateTime;
-=======
     public function dateTimeInInterval($from = '-30 years', string $interval = '+5 days', ?string $timezone = null): \DateTime;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Get a date time object somewhere inside the current week.
@@ -94,11 +78,7 @@ interface DateTimeExtension
      * @see http://php.net/manual/en/timezones.php
      * @see http://php.net/manual/en/function.date-default-timezone-get.php
      */
-<<<<<<< HEAD
-    public function dateTimeThisWeek($until = 'now', string $timezone = null): \DateTime;
-=======
     public function dateTimeThisWeek($until = 'now', ?string $timezone = null): \DateTime;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Get a date time object somewhere inside the current month.
@@ -110,11 +90,7 @@ interface DateTimeExtension
      * @see http://php.net/manual/en/timezones.php
      * @see http://php.net/manual/en/function.date-default-timezone-get.php
      */
-<<<<<<< HEAD
-    public function dateTimeThisMonth($until = 'now', string $timezone = null): \DateTime;
-=======
     public function dateTimeThisMonth($until = 'now', ?string $timezone = null): \DateTime;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Get a date time object somewhere inside the current year.
@@ -126,11 +102,7 @@ interface DateTimeExtension
      * @see http://php.net/manual/en/timezones.php
      * @see http://php.net/manual/en/function.date-default-timezone-get.php
      */
-<<<<<<< HEAD
-    public function dateTimeThisYear($until = 'now', string $timezone = null): \DateTime;
-=======
     public function dateTimeThisYear($until = 'now', ?string $timezone = null): \DateTime;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Get a date time object somewhere inside the current decade.
@@ -142,11 +114,7 @@ interface DateTimeExtension
      * @see http://php.net/manual/en/timezones.php
      * @see http://php.net/manual/en/function.date-default-timezone-get.php
      */
-<<<<<<< HEAD
-    public function dateTimeThisDecade($until = 'now', string $timezone = null): \DateTime;
-=======
     public function dateTimeThisDecade($until = 'now', ?string $timezone = null): \DateTime;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Get a date time object somewhere inside the current century.
@@ -158,11 +126,7 @@ interface DateTimeExtension
      * @see http://php.net/manual/en/timezones.php
      * @see http://php.net/manual/en/function.date-default-timezone-get.php
      */
-<<<<<<< HEAD
-    public function dateTimeThisCentury($until = 'now', string $timezone = null): \DateTime;
-=======
     public function dateTimeThisCentury($until = 'now', ?string $timezone = null): \DateTime;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Get a date string between January 1, 1970, and `$until`.
@@ -274,9 +238,5 @@ interface DateTimeExtension
      *
      * @example 'Europe/Rome'
      */
-<<<<<<< HEAD
-    public function timezone(string $countryCode = null): string;
-=======
     public function timezone(?string $countryCode = null): string;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

@@ -43,19 +43,11 @@ class TableCellStyle
     public function __construct(array $options = [])
     {
         if ($diff = array_diff(array_keys($options), array_keys($this->options))) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('The TableCellStyle does not support the following options: \'%s\'.', implode('\', \'', $diff)));
-        }
-
-        if (isset($options['align']) && !\array_key_exists($options['align'], self::ALIGN_MAP)) {
-            throw new InvalidArgumentException(sprintf('Wrong align value. Value must be following: \'%s\'.', implode('\', \'', array_keys(self::ALIGN_MAP))));
-=======
             throw new InvalidArgumentException(\sprintf('The TableCellStyle does not support the following options: \'%s\'.', implode('\', \'', $diff)));
         }
 
         if (isset($options['align']) && !\array_key_exists($options['align'], self::ALIGN_MAP)) {
             throw new InvalidArgumentException(\sprintf('Wrong align value. Value must be following: \'%s\'.', implode('\', \'', array_keys(self::ALIGN_MAP))));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->options = array_merge($this->options, $options);

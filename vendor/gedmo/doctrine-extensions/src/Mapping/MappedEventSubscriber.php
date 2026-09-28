@@ -14,10 +14,7 @@ use Doctrine\Common\Annotations\PsrCachedReader;
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\Common\EventArgs;
 use Doctrine\Common\EventSubscriber;
-<<<<<<< HEAD
-=======
 use Doctrine\Deprecations\Deprecation;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata as DocumentClassMetadata;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,16 +26,9 @@ use Doctrine\Persistence\ObjectManager;
 use Gedmo\Exception\InvalidArgumentException;
 use Gedmo\Mapping\Driver\AttributeReader;
 use Gedmo\Mapping\Event\AdapterInterface;
-<<<<<<< HEAD
-use Gedmo\ReferenceIntegrity\Mapping\Validator as ReferenceIntegrityValidator;
-use Gedmo\Uploadable\FilenameGenerator\FilenameGeneratorInterface;
-use Gedmo\Uploadable\Mapping\Validator as MappingValidator;
-use Psr\Cache\CacheItemPoolInterface;
-=======
 use Gedmo\Mapping\Event\ClockAwareAdapterInterface;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Clock\ClockInterface;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 /**
@@ -50,12 +40,9 @@ use Symfony\Component\Cache\Adapter\ArrayAdapter;
  * all extensions who maps additional metadata through
  * extended drivers
  *
-<<<<<<< HEAD
-=======
  * @phpstan-template TConfig of array
  * @phpstan-template TEventAdapter of AdapterInterface
  *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  * @author Gediminas Morkevicius <gediminas.morkevicius@gmail.com>
  */
 abstract class MappedEventSubscriber implements EventSubscriber
@@ -96,13 +83,6 @@ abstract class MappedEventSubscriber implements EventSubscriber
     /**
      * Custom annotation reader
      *
-<<<<<<< HEAD
-     * @var Reader|AttributeReader|object|null
-     */
-    private $annotationReader;
-
-    private static ?PsrCachedReader $defaultAnnotationReader = null;
-=======
      * @var Reader|AttributeReader|object|false|null
      */
     private $annotationReader = false;
@@ -111,18 +91,14 @@ abstract class MappedEventSubscriber implements EventSubscriber
      * @var Reader|AttributeReader|false|null
      */
     private static $defaultAnnotationReader = false;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * @var CacheItemPoolInterface|null
      */
     private $cacheItemPool;
 
-<<<<<<< HEAD
-=======
     private ?ClockInterface $clock = null;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function __construct()
     {
         $parts = explode('\\', $this->getNamespace());
@@ -139,28 +115,7 @@ abstract class MappedEventSubscriber implements EventSubscriber
      *
      * @return array<string, mixed>
      *
-<<<<<<< HEAD
-     * @phpstan-return array{
-     *  useObjectClass?: class-string,
-     *  referenceIntegrity?: array<string, array<string, value-of<ReferenceIntegrityValidator::INTEGRITY_ACTIONS>>>,
-     *  filePathField?: string,
-     *  uploadable?: bool,
-     *  fileNameField?: string,
-     *  allowOverwrite?: bool,
-     *  appendNumber?: bool,
-     *  maxSize?: float,
-     *  path?: string,
-     *  pathMethod?: string,
-     *  allowedTypes?: string[],
-     *  disallowedTypes?: string[],
-     *  filenameGenerator?: MappingValidator::FILENAME_GENERATOR_*|class-string<FilenameGeneratorInterface>,
-     *  fileMimeTypeField?: string,
-     *  fileSizeField?: string,
-     *  callback?: string,
-     * }
-=======
      * @phpstan-return TConfig
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getConfiguration(ObjectManager $objectManager, $class)
     {
@@ -203,13 +158,8 @@ abstract class MappedEventSubscriber implements EventSubscriber
     {
         $oid = spl_object_id($objectManager);
         if (!isset($this->extensionMetadataFactory[$oid])) {
-<<<<<<< HEAD
-            if (null === $this->annotationReader) {
-                // create default annotation reader for extensions
-=======
             if (false === $this->annotationReader) {
                 // create default annotation/attribute reader for extensions
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $this->annotationReader = $this->getDefaultAnnotationReader();
             }
             $this->extensionMetadataFactory[$oid] = new ExtensionMetadataFactory(
@@ -238,16 +188,6 @@ abstract class MappedEventSubscriber implements EventSubscriber
      *
      * @return void
      *
-<<<<<<< HEAD
-     * NOTE Providing any object is deprecated, as of 4.0 a `Doctrine\Common\Annotations\Reader` or `Gedmo\Mapping\Driver\AttributeReader` will be required
-     */
-    public function setAnnotationReader($reader)
-    {
-        if (!$reader instanceof Reader && !$reader instanceof AttributeReader) {
-            trigger_deprecation(
-                'gedmo/doctrine-extensions',
-                '3.11',
-=======
      * @note Providing any object is deprecated, as of 4.0 an {@see AttributeReader} will be required
      */
     public function setAnnotationReader($reader)
@@ -264,7 +204,6 @@ abstract class MappedEventSubscriber implements EventSubscriber
             Deprecation::trigger(
                 'gedmo/doctrine-extensions',
                 'https://github.com/doctrine-extensions/DoctrineExtensions/pull/2558',
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'Providing an annotation reader which does not implement %s or is not an instance of %s to %s() is deprecated.',
                 Reader::class,
                 AttributeReader::class,
@@ -280,23 +219,16 @@ abstract class MappedEventSubscriber implements EventSubscriber
         $this->cacheItemPool = $cacheItemPool;
     }
 
-<<<<<<< HEAD
-=======
     final public function setClock(ClockInterface $clock): void
     {
         $this->clock = $clock;
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Scans the objects for extended annotations
      * event subscribers must subscribe to loadClassMetadata event
      *
-<<<<<<< HEAD
-     * @param ClassMetadata $metadata
-=======
      * @param ClassMetadata<object> $metadata
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return void
      */
@@ -324,11 +256,8 @@ abstract class MappedEventSubscriber implements EventSubscriber
      * @throws InvalidArgumentException if event is not recognized
      *
      * @return AdapterInterface
-<<<<<<< HEAD
-=======
      *
      * @phpstan-return TEventAdapter
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function getEventAdapter(EventArgs $args)
     {
@@ -340,13 +269,10 @@ abstract class MappedEventSubscriber implements EventSubscriber
                     $adapterClass = 'Gedmo\\Mapping\\Event\\Adapter\\'.$m[1];
                 }
                 $this->adapters[$m[1]] = new $adapterClass();
-<<<<<<< HEAD
-=======
 
                 if ($this->adapters[$m[1]] instanceof ClockAwareAdapterInterface && $this->clock instanceof ClockInterface) {
                     $this->adapters[$m[1]]->setClock($this->clock);
                 }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $this->adapters[$m[1]]->setEventArgs($args);
 
@@ -381,24 +307,12 @@ abstract class MappedEventSubscriber implements EventSubscriber
         $meta = $manager->getClassMetadata(get_class($object));
         $uow = $manager->getUnitOfWork();
 
-<<<<<<< HEAD
-        $meta->getReflectionProperty($field)->setValue($object, $newValue);
-=======
         $meta->setFieldValue($object, $field, $newValue);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $uow->propertyChanged($object, $field, $oldValue, $newValue);
         $adapter->recomputeSingleObjectChangeSet($uow, $meta, $object);
     }
 
     /**
-<<<<<<< HEAD
-     * Create default annotation reader for extensions
-     */
-    private function getDefaultAnnotationReader(): Reader
-    {
-        if (null === self::$defaultAnnotationReader) {
-            self::$defaultAnnotationReader = new PsrCachedReader(new AnnotationReader(), new ArrayAdapter());
-=======
      * Get the default annotation or attribute reader for extensions, creating it if necessary.
      *
      * If a reader cannot be created due to missing requirements, no default will be set as the reader is only required for annotation or attribute metadata,
@@ -416,7 +330,6 @@ abstract class MappedEventSubscriber implements EventSubscriber
             } else {
                 self::$defaultAnnotationReader = null;
             }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return self::$defaultAnnotationReader;

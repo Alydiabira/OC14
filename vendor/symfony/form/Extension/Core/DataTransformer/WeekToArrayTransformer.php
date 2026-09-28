@@ -40,11 +40,7 @@ class WeekToArrayTransformer implements DataTransformerInterface
         }
 
         if (!\is_string($value)) {
-<<<<<<< HEAD
-            throw new TransformationFailedException(sprintf('Value is expected to be a string but was "%s".', get_debug_type($value)));
-=======
             throw new TransformationFailedException(\sprintf('Value is expected to be a string but was "%s".', get_debug_type($value)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (0 === preg_match('/^(?P<year>\d{4})-W(?P<week>\d{2})$/', $value, $matches)) {
@@ -74,11 +70,7 @@ class WeekToArrayTransformer implements DataTransformerInterface
         }
 
         if (!\is_array($value)) {
-<<<<<<< HEAD
-            throw new TransformationFailedException(sprintf('Value is expected to be an array, but was "%s".', get_debug_type($value)));
-=======
             throw new TransformationFailedException(\sprintf('Value is expected to be an array, but was "%s".', get_debug_type($value)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (!\array_key_exists('year', $value)) {
@@ -90,11 +82,7 @@ class WeekToArrayTransformer implements DataTransformerInterface
         }
 
         if ($additionalKeys = array_diff(array_keys($value), ['year', 'week'])) {
-<<<<<<< HEAD
-            throw new TransformationFailedException(sprintf('Expected only keys "year" and "week" to be present, but also got ["%s"].', implode('", "', $additionalKeys)));
-=======
             throw new TransformationFailedException(\sprintf('Expected only keys "year" and "week" to be present, but also got ["%s"].', implode('", "', $additionalKeys)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (null === $value['year'] && null === $value['week']) {
@@ -102,33 +90,18 @@ class WeekToArrayTransformer implements DataTransformerInterface
         }
 
         if (!\is_int($value['year'])) {
-<<<<<<< HEAD
-            throw new TransformationFailedException(sprintf('Year is expected to be an integer, but was "%s".', get_debug_type($value['year'])));
-        }
-
-        if (!\is_int($value['week'])) {
-            throw new TransformationFailedException(sprintf('Week is expected to be an integer, but was "%s".', get_debug_type($value['week'])));
-=======
             throw new TransformationFailedException(\sprintf('Year is expected to be an integer, but was "%s".', get_debug_type($value['year'])));
         }
 
         if (!\is_int($value['week'])) {
             throw new TransformationFailedException(\sprintf('Week is expected to be an integer, but was "%s".', get_debug_type($value['week'])));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         // The 28th December is always in the last week of the year
         if (date('W', strtotime('28th December '.$value['year'])) < $value['week']) {
-<<<<<<< HEAD
-            throw new TransformationFailedException(sprintf('Week "%d" does not exist for year "%d".', $value['week'], $value['year']));
-        }
-
-        return sprintf('%d-W%02d', $value['year'], $value['week']);
-=======
             throw new TransformationFailedException(\sprintf('Week "%d" does not exist for year "%d".', $value['week'], $value['year']));
         }
 
         return \sprintf('%d-W%02d', $value['year'], $value['week']);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

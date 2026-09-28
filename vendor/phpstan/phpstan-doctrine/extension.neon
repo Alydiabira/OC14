@@ -1,5 +1,8 @@
 parameters:
 	doctrine:
+		reportDynamicQueryBuilders: false
+		reportUnknownTypes: false
+		allowNullablePropertyForRequiredField: false
 		repositoryClass: null
 		ormRepositoryClass: null
 		odmRepositoryClass: null
@@ -8,6 +11,7 @@ parameters:
 		objectManagerLoader: null
 		searchOtherMethodsForQueryBuilderBeginning: true
 		queryBuilderFastAlgorithm: false
+		literalString: false
 	featureToggles:
 		skipCheckGenericClasses:
 			- Doctrine\ODM\MongoDB\Mapping\ClassMetadata
@@ -30,6 +34,7 @@ parameters:
 		- stubs/EntityManager.stub
 		- stubs/EntityManagerDecorator.stub
 		- stubs/EntityManagerInterface.stub
+		- stubs/EntityRepository.stub
 		- stubs/MongoClassMetadataInfo.stub
 
 		- stubs/Persistence/ManagerRegistry.stub
@@ -38,7 +43,6 @@ parameters:
 		- stubs/Persistence/ObjectRepository.stub
 		- stubs/RepositoryFactory.stub
 		- stubs/Collections/ArrayCollection.stub
-		- stubs/Collections/ReadableCollection.stub
 		- stubs/Collections/Selectable.stub
 		- stubs/ORM/AbstractQuery.stub
 		- stubs/ORM/Exception/ORMException.stub
@@ -57,6 +61,7 @@ parameters:
 		- stubs/ORM/UnexpectedResultException.stub
 		- stubs/ORM/Query/Expr.stub
 		- stubs/ORM/Query.stub
+		- stubs/ORM/QueryBuilder.stub
 		- stubs/ORM/Query/Expr/Comparison.stub
 		- stubs/ORM/Query/Expr/Composite.stub
 		- stubs/ORM/Query/Expr/Func.stub
@@ -75,6 +80,10 @@ parametersSchema:
 		objectManagerLoader: schema(string(), nullable())
 		searchOtherMethodsForQueryBuilderBeginning: bool()
 		queryBuilderFastAlgorithm: bool()
+		reportDynamicQueryBuilders: bool()
+		reportUnknownTypes: bool()
+		allowNullablePropertyForRequiredField: bool()
+		literalString: bool()
 	])
 
 conditionalTags:
@@ -89,6 +98,14 @@ services:
 		class: PHPStan\Type\Doctrine\DefaultDescriptorRegistry
 		factory: @PHPStan\Type\Doctrine\DescriptorRegistryFactory::createRegistry
 
+	-
+		class: PHPStan\Doctrine\Driver\DriverDetector
+	-
+		class: PHPStan\Doctrine\DoctrineDiagnoseExtension
+		tags:
+			- phpstan.diagnoseExtension
+	-
+		class: PHPStan\Type\Doctrine\HydrationModeReturnTypeResolver
 	-
 		class: PHPStan\Reflection\Doctrine\DoctrineSelectableClassReflectionExtension
 	-
@@ -188,8 +205,6 @@ services:
 		class: PHPStan\Stubs\Doctrine\StubFilesExtensionLoader
 		tags:
 			- phpstan.stubFilesExtension
-		arguments:
-			bleedingEdge: %featureToggles.bleedingEdge%
 
 	doctrineQueryBuilderArgumentsProcessor:
 		class: PHPStan\Type\Doctrine\ArgumentsProcessor
@@ -295,6 +310,18 @@ services:
 			argumentsProcessor: @doctrineQueryBuilderArgumentsProcessor
 	-
 		class: PHPStan\Type\Doctrine\DBAL\QueryBuilder\QueryBuilderExecuteMethodExtension
+		tags:
+			- phpstan.broker.dynamicMethodReturnTypeExtension
+	-
+		class: PHPStan\Type\Doctrine\DBAL\RowCountMethodDynamicReturnTypeExtension
+		arguments:
+			class: Doctrine\DBAL\Result
+		tags:
+			- phpstan.broker.dynamicMethodReturnTypeExtension
+	-
+		class: PHPStan\Type\Doctrine\DBAL\RowCountMethodDynamicReturnTypeExtension
+		arguments:
+			class: Doctrine\DBAL\Driver\Result
 		tags:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
 
@@ -423,6 +450,13 @@ services:
 
 	-
 		class: PHPStan\PhpDoc\Doctrine\QueryTypeNodeResolverExtension
+		tags:
+			- phpstan.phpDoc.typeNodeResolverExtension
+
+	-
+		class: PHPStan\PhpDoc\Doctrine\DoctrineLiteralStringTypeNodeResolverExtension
+		arguments:
+			enabled: %doctrine.literalString%
 		tags:
 			- phpstan.phpDoc.typeNodeResolverExtension
 

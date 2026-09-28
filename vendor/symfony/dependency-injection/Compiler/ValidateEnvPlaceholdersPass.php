@@ -49,22 +49,8 @@ class ValidateEnvPlaceholdersPass implements CompilerPassInterface
         $defaultBag = new ParameterBag($resolvingBag->all());
         $envTypes = $resolvingBag->getProvidedTypes();
         foreach ($resolvingBag->getEnvPlaceholders() + $resolvingBag->getUnusedEnvPlaceholders() as $env => $placeholders) {
-<<<<<<< HEAD
-            $values = [];
-            if (false === $i = strpos($env, ':')) {
-                $default = $defaultBag->has("env($env)") ? $defaultBag->get("env($env)") : self::TYPE_FIXTURES['string'];
-                $defaultType = null !== $default ? get_debug_type($default) : 'string';
-                $values[$defaultType] = $default;
-            } else {
-                $prefix = substr($env, 0, $i);
-                foreach ($envTypes[$prefix] ?? ['string'] as $type) {
-                    $values[$type] = self::TYPE_FIXTURES[$type] ?? null;
-                }
-            }
-=======
             $values = $this->getPlaceholderValues($env, $defaultBag, $envTypes);
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             foreach ($placeholders as $placeholder) {
                 BaseNode::setPlaceholder($placeholder, $values);
             }
@@ -105,8 +91,6 @@ class ValidateEnvPlaceholdersPass implements CompilerPassInterface
             $this->extensionConfig = [];
         }
     }
-<<<<<<< HEAD
-=======
 
     /**
      * @param array<string, list<string>> $envTypes
@@ -153,5 +137,4 @@ class ValidateEnvPlaceholdersPass implements CompilerPassInterface
 
         return [$default, $defaultType];
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

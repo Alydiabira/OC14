@@ -136,11 +136,7 @@
             </trans-unit>
             <trans-unit id="37" resname="This is not a valid IP address.">
                 <source>This value is not a valid IP address.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Este valor non é un enderezo IP válido.</target>
-=======
                 <target>Este valor non é un enderezo IP válido.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="38">
                 <source>This value is not a valid language.</source>
@@ -228,11 +224,7 @@
             </trans-unit>
             <trans-unit id="59" resname="This is not a valid International Bank Account Number (IBAN).">
                 <source>This value is not a valid International Bank Account Number (IBAN).</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Este valor non é un Número de Conta Bancaria Internacional (IBAN) válido.</target>
-=======
                 <target>Este valor non é un Número de Conta Bancaria Internacional (IBAN) válido.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="60">
                 <source>This value is not a valid ISBN-10.</source>
@@ -320,11 +312,7 @@
             </trans-unit>
             <trans-unit id="81" resname="This is not a valid Business Identifier Code (BIC).">
                 <source>This value is not a valid Business Identifier Code (BIC).</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Este valor non é un Código de Identificación de Negocios (BIC) válido.</target>
-=======
                 <target>Este valor non é un Código de Identificación de Negocios (BIC) válido.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="82">
                 <source>Error</source>
@@ -332,11 +320,7 @@
             </trans-unit>
             <trans-unit id="83" resname="This is not a valid UUID.">
                 <source>This value is not a valid UUID.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Este valor non é un UUID válido.</target>
-=======
                 <target>Este valor non é un UUID válido.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="84">
                 <source>This value should be a multiple of {{ compared_value }}.</source>
@@ -388,11 +372,7 @@
             </trans-unit>
             <trans-unit id="96">
                 <source>The number of elements in this collection should be a multiple of {{ compared_value }}.</source>
-<<<<<<< HEAD
-                <target>O número de elementos desta colección debería ser múltiplo de {{compare_value}}.</target>
-=======
                 <target>O número de elementos desta colección debería ser múltiplo de {{ compared_value }}.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="97">
                 <source>This value should satisfy at least one of the following constraints:</source>
@@ -424,45 +404,6 @@
             </trans-unit>
             <trans-unit id="104">
                 <source>The filename is too long. It should have {{ filename_max_length }} character or less.|The filename is too long. It should have {{ filename_max_length }} characters or less.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">O nome do ficheiro é demasiado longo. Debe ter {{ filename_max_length }} caracteres ou menos.</target>
-            </trans-unit>
-            <trans-unit id="105">
-                <source>The password strength is too low. Please use a stronger password.</source>
-                <target state="needs-review-translation">A forza do contrasinal é demasiado baixa. Utilice un contrasinal máis forte.</target>
-            </trans-unit>
-            <trans-unit id="106">
-                <source>This value contains characters that are not allowed by the current restriction-level.</source>
-                <target state="needs-review-translation">Este valor contén caracteres que non están permitidos polo nivel de restrición actual.</target>
-            </trans-unit>
-            <trans-unit id="107">
-                <source>Using invisible characters is not allowed.</source>
-                <target state="needs-review-translation">Non se permite usar caracteres invisibles.</target>
-            </trans-unit>
-            <trans-unit id="108">
-                <source>Mixing numbers from different scripts is not allowed.</source>
-                <target state="needs-review-translation">Non se permite mesturar números de diferentes scripts.</target>
-            </trans-unit>
-            <trans-unit id="109">
-                <source>Using hidden overlay characters is not allowed.</source>
-                <target state="needs-review-translation">Non se permite usar caracteres de superposición ocultos.</target>
-            </trans-unit>
-            <trans-unit id="110">
-                <source>The extension of the file is invalid ({{ extension }}). Allowed extensions are {{ extensions }}.</source>
-                <target state="needs-review-translation">A extensión do ficheiro non é válida ({{ extension }}). As extensións permitidas son {{ extensions }}.</target>
-            </trans-unit>
-            <trans-unit id="111">
-                <source>The detected character encoding is invalid ({{ detected }}). Allowed encodings are {{ encodings }}.</source>
-                <target state="needs-review-translation">A codificación de caracteres detectada non é válida ({{ detected }}). As codificacións permitidas son {{ encodings }}.</target>
-            </trans-unit>
-            <trans-unit id="112">
-                <source>This value is not a valid MAC address.</source>
-                <target state="needs-review-translation">Este valor non é un enderezo MAC válido.</target>
-            </trans-unit>
-            <trans-unit id="113">
-                <source>This URL is missing a top-level domain.</source>
-                <target state="needs-review-translation">Esta URL non contén un dominio de nivel superior.</target>
-=======
                 <target>O nome do ficheiro é demasiado longo. Debe ter {{ filename_max_length }} caracteres ou menos.</target>
             </trans-unit>
             <trans-unit id="105">
@@ -636,7 +577,6 @@
             <trans-unit id="148" resname="This is not a valid ULID.">
                 <source>This value is not a valid ULID.</source>
                 <target state="needs-review-translation">Este valor non é un ULID válido.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
         </body>
     </file>

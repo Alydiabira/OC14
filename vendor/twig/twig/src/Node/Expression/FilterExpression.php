@@ -12,16 +12,6 @@
 
 namespace Twig\Node\Expression;
 
-<<<<<<< HEAD
-use Twig\Compiler;
-use Twig\Node\Node;
-
-class FilterExpression extends CallExpression
-{
-    public function __construct(Node $node, ConstantExpression $filterName, Node $arguments, int $lineno, ?string $tag = null)
-    {
-        parent::__construct(['node' => $node, 'filter' => $filterName, 'arguments' => $arguments], [], $lineno, $tag);
-=======
 use Twig\Attribute\FirstClassTwigCallableReady;
 use Twig\Compiler;
 use Twig\Node\CoercesChildrenToStringInterface;
@@ -65,27 +55,10 @@ class FilterExpression extends CallExpression implements CoercesChildrenToString
         $this->deprecateAttribute('callable', new NameDeprecation('twig/twig', '3.12'));
         $this->deprecateAttribute('is_variadic', new NameDeprecation('twig/twig', '3.12'));
         $this->deprecateAttribute('dynamic_name', new NameDeprecation('twig/twig', '3.12'));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function compile(Compiler $compiler): void
     {
-<<<<<<< HEAD
-        $name = $this->getNode('filter')->getAttribute('value');
-        $filter = $compiler->getEnvironment()->getFilter($name);
-
-        $this->setAttribute('name', $name);
-        $this->setAttribute('type', 'filter');
-        $this->setAttribute('needs_charset', $filter->needsCharset());
-        $this->setAttribute('needs_environment', $filter->needsEnvironment());
-        $this->setAttribute('needs_context', $filter->needsContext());
-        $this->setAttribute('arguments', $filter->getArguments());
-        $this->setAttribute('callable', $filter->getCallable());
-        $this->setAttribute('is_variadic', $filter->isVariadic());
-
-        $this->compileCallable($compiler);
-    }
-=======
         $name = $this->getNode('filter', false)->getAttribute('value');
         if ($name !== $this->getAttribute('name')) {
             trigger_deprecation('twig/twig', '3.11', 'Changing the value of a "filter" node in a NodeVisitor class is not supported anymore.');
@@ -111,5 +84,4 @@ class FilterExpression extends CallExpression implements CoercesChildrenToString
         // a filter may coerce its input and arguments to string (e.g. `upper`, `replace`)
         return ['node', 'arguments'];
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

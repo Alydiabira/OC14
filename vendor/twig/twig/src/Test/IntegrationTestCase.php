@@ -11,21 +11,15 @@
 
 namespace Twig\Test;
 
-<<<<<<< HEAD
-=======
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Group;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 use Twig\Error\Error;
 use Twig\Extension\ExtensionInterface;
 use Twig\Loader\ArrayLoader;
 use Twig\RuntimeLoader\RuntimeLoaderInterface;
-<<<<<<< HEAD
-=======
 use Twig\TokenParser\TokenParserInterface;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Twig\TwigFilter;
 use Twig\TwigFunction;
 use Twig\TwigTest;
@@ -39,11 +33,6 @@ use Twig\TwigTest;
 abstract class IntegrationTestCase extends TestCase
 {
     /**
-<<<<<<< HEAD
-     * @return string
-     */
-    abstract protected function getFixturesDir();
-=======
      * @deprecated since Twig 3.13, use getFixturesDirectory() instead.
      *
      * @return string
@@ -57,7 +46,6 @@ abstract class IntegrationTestCase extends TestCase
     {
         throw new \BadMethodCallException('Not implemented.');
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * @return RuntimeLoaderInterface[]
@@ -100,10 +88,6 @@ abstract class IntegrationTestCase extends TestCase
     }
 
     /**
-<<<<<<< HEAD
-     * @dataProvider getTests
-     */
-=======
      * @return array<callable(string): (TwigFilter|false)>
      */
     protected function getUndefinedFilterCallbacks(): array
@@ -143,7 +127,6 @@ abstract class IntegrationTestCase extends TestCase
      * @return void
      */
     #[DataProvider('provideTests')]
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function testIntegration($file, $message, $condition, $templates, $exception, $outputs, $deprecation = '')
     {
         $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation);
@@ -153,24 +136,15 @@ abstract class IntegrationTestCase extends TestCase
      * @dataProvider getLegacyTests
      *
      * @group legacy
-<<<<<<< HEAD
-     */
-=======
      *
      * @return void
      */
     #[DataProvider('provideLegacyTests'), Group('legacy')]
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function testLegacyIntegration($file, $message, $condition, $templates, $exception, $outputs, $deprecation = '')
     {
         $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation);
     }
 
-<<<<<<< HEAD
-    public function getTests($name, $legacyTests = false)
-    {
-        $fixturesDir = realpath($this->getFixturesDir());
-=======
     final public static function provideTests(): iterable
     {
         return self::assembleTests(false, static::getFixturesDirectory());
@@ -201,7 +175,6 @@ abstract class IntegrationTestCase extends TestCase
     private static function assembleTests(bool $legacyTests, string $fixturesDir): array
     {
         $fixturesDir = realpath($fixturesDir);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $tests = [];
 
         foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($fixturesDir), \RecursiveIteratorIterator::LEAVES_ONLY) as $file) {
@@ -230,15 +203,6 @@ abstract class IntegrationTestCase extends TestCase
                 $exception = false;
                 preg_match_all('/--DATA--(.*?)(?:--CONFIG--(.*?))?--EXPECT--(.*?)(?=\-\-DATA\-\-|$)/s', $test, $outputs, \PREG_SET_ORDER);
             } else {
-<<<<<<< HEAD
-                throw new \InvalidArgumentException(sprintf('Test "%s" is not valid.', str_replace($fixturesDir.'/', '', $file)));
-            }
-
-            $tests[] = [str_replace($fixturesDir.'/', '', $file), $message, $condition, $templates, $exception, $outputs, $deprecation];
-        }
-
-        if ($legacyTests && empty($tests)) {
-=======
                 throw new \InvalidArgumentException(\sprintf('Test "%s" is not valid.', str_replace($fixturesDir.'/', '', $file)));
             }
 
@@ -246,7 +210,6 @@ abstract class IntegrationTestCase extends TestCase
         }
 
         if ($legacyTests && !$tests) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             // add a dummy test to avoid a PHPUnit message
             return [['not', '-', '', [], '', []]];
         }
@@ -254,25 +217,16 @@ abstract class IntegrationTestCase extends TestCase
         return $tests;
     }
 
-<<<<<<< HEAD
-=======
     /**
      * @final since Twig 3.13
      *
      * @return iterable
      */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function getLegacyTests()
     {
         return $this->getTests('testLegacyIntegration', true);
     }
 
-<<<<<<< HEAD
-    protected function doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation = '')
-    {
-        if (!$outputs) {
-            $this->markTestSkipped('no tests to run');
-=======
     /**
      * @return void
      */
@@ -283,7 +237,6 @@ abstract class IntegrationTestCase extends TestCase
             $this->expectNotToPerformAssertions();
 
             return;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($condition) {
@@ -294,24 +247,16 @@ abstract class IntegrationTestCase extends TestCase
             }
         }
 
-<<<<<<< HEAD
-        $loader = new ArrayLoader($templates);
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         foreach ($outputs as $i => $match) {
             $config = array_merge([
                 'cache' => false,
                 'strict_variables' => true,
             ], $match[2] ? eval($match[2].';') : []);
-<<<<<<< HEAD
-=======
             // make sure that template are always compiled even if they are the same (useful when testing with more than one data/expect sections)
             foreach ($templateSources as $name => $template) {
                 $templateSources[$name] = $template.str_repeat(' ', $i);
             }
             $loader = new ArrayLoader($templateSources);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $twig = new Environment($loader, $config);
             $twig->addGlobal('global', 'global');
             foreach ($this->getRuntimeLoaders() as $runtimeLoader) {
@@ -334,16 +279,6 @@ abstract class IntegrationTestCase extends TestCase
                 $twig->addFunction($function);
             }
 
-<<<<<<< HEAD
-            // avoid using the same PHP class name for different cases
-            $p = new \ReflectionProperty($twig, 'templateClassPrefix');
-            $p->setAccessible(true);
-            $p->setValue($twig, '__TwigTemplate_'.hash(\PHP_VERSION_ID < 80100 ? 'sha256' : 'xxh128', uniqid((string) mt_rand(), true), false).'_');
-
-            $deprecations = [];
-            try {
-                $prevHandler = set_error_handler(function ($type, $msg, $file, $line, $context = []) use (&$deprecations, &$prevHandler) {
-=======
             foreach ($this->getUndefinedFilterCallbacks() as $callback) {
                 $twig->registerUndefinedFilterCallback($callback);
             }
@@ -364,7 +299,6 @@ abstract class IntegrationTestCase extends TestCase
             $templates = [];
             try {
                 $prevHandler = set_error_handler(static function ($type, $msg, $file, $line, $context = []) use (&$deprecations, &$prevHandler) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     if (\E_USER_DEPRECATED === $type) {
                         $deprecations[] = $msg;
 
@@ -374,13 +308,6 @@ abstract class IntegrationTestCase extends TestCase
                     return $prevHandler ? $prevHandler($type, $msg, $file, $line, $context) : false;
                 });
 
-<<<<<<< HEAD
-                $template = $twig->load('index.twig');
-            } catch (\Exception $e) {
-                if (false !== $exception) {
-                    $message = $e->getMessage();
-                    $this->assertSame(trim($exception), trim(sprintf('%s: %s', \get_class($e), $message)));
-=======
                 foreach (array_keys($templateSources) as $templateName) {
                     $templates[$templateName] = $twig->load($templateName);
                 }
@@ -388,50 +315,48 @@ abstract class IntegrationTestCase extends TestCase
                 if (false !== $exception) {
                     $message = $e->getMessage();
                     $this->assertSame(trim($exception), trim(\sprintf('%s: %s', $e::class, $message)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $last = substr($message, \strlen($message) - 1);
                     $this->assertTrue('.' === $last || '?' === $last, 'Exception message must end with a dot or a question mark.');
 
                     return;
                 }
 
-<<<<<<< HEAD
-                throw new Error(sprintf('%s: %s', \get_class($e), $e->getMessage()), -1, null, $e);
-=======
                 throw new Error(\sprintf('%s: %s', $e::class, $e->getMessage()), -1, null, $e);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } finally {
                 restore_error_handler();
             }
 
-<<<<<<< HEAD
-            $this->assertSame($deprecation, implode("\n", $deprecations));
-=======
             $template = $templates['index.twig'];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
+            $captureRenderDeprecations = '' !== $deprecation;
 
             try {
+                if ($captureRenderDeprecations) {
+                    $prevHandler = set_error_handler(static function ($type, $msg, $file, $line, $context = []) use (&$deprecations, &$prevHandler) {
+                        if (\E_USER_DEPRECATED === $type) {
+                            $deprecations[] = $msg;
+
+                            return true;
+                        }
+
+                        return $prevHandler ? $prevHandler($type, $msg, $file, $line, $context) : false;
+                    });
+                }
+
                 $output = trim($template->render(eval($match[1].';')), "\n ");
             } catch (\Exception $e) {
                 if (false !== $exception) {
-<<<<<<< HEAD
-                    $this->assertSame(trim($exception), trim(sprintf('%s: %s', \get_class($e), $e->getMessage())));
-=======
                     $this->assertStringMatchesFormat(trim($exception), trim(\sprintf('%s: %s', $e::class, $e->getMessage())));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                     return;
                 }
 
-<<<<<<< HEAD
-                $e = new Error(sprintf('%s: %s', \get_class($e), $e->getMessage()), -1, null, $e);
-
-                $output = trim(sprintf('%s: %s', \get_class($e), $e->getMessage()));
-=======
                 $e = new Error(\sprintf('%s: %s', $e::class, $e->getMessage()), -1, null, $e);
 
                 $output = trim(\sprintf('%s: %s', $e::class, $e->getMessage()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
+            } finally {
+                if ($captureRenderDeprecations) {
+                    restore_error_handler();
+                }
             }
 
             if (false !== $exception) {
@@ -445,21 +370,12 @@ abstract class IntegrationTestCase extends TestCase
             if ($expected !== $output) {
                 printf("Compiled templates that failed on case %d:\n", $i + 1);
 
-<<<<<<< HEAD
-                foreach (array_keys($templates) as $name) {
-=======
                 foreach (array_keys($templateSources) as $name) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     echo "Template: $name\n";
                     echo $twig->compile($twig->parse($twig->tokenize($twig->getLoader()->getSourceContext($name))));
                 }
             }
             $this->assertEquals($expected, $output, $message.' (in '.$file.')');
-<<<<<<< HEAD
-        }
-    }
-
-=======
 
             $this->assertSame($deprecation, implode("\n", $deprecations));
         }
@@ -468,7 +384,6 @@ abstract class IntegrationTestCase extends TestCase
     /**
      * @return array<string, string>
      */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected static function parseTemplates($test)
     {
         $templates = [];

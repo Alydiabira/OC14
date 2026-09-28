@@ -29,11 +29,7 @@ final class EmailAddressContains extends Constraint
 
     public function toString(): string
     {
-<<<<<<< HEAD
-        return sprintf('contains address "%s" with value "%s"', $this->headerName, $this->expectedValue);
-=======
         return \sprintf('contains address "%s" with value "%s"', $this->headerName, $this->expectedValue);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -66,10 +62,6 @@ final class EmailAddressContains extends Constraint
      */
     protected function failureDescription($message): string
     {
-<<<<<<< HEAD
-        return sprintf('the Email %s (value is %s)', $this->toString(), $message->getHeaders()->get($this->headerName)->getBodyAsString());
-=======
         return \sprintf('the Email %s (value is %s)', $this->toString(), $message->getHeaders()->get($this->headerName)->getBodyAsString());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

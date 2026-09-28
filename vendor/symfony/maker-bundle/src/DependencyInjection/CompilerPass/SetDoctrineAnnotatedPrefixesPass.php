@@ -46,11 +46,7 @@ class SetDoctrineAnnotatedPrefixesPass implements CompilerPassInterface
                 if ($arguments[0] instanceof Definition) {
                     $class = $arguments[0]->getClass();
 
-<<<<<<< HEAD
-                    $id = sprintf('.%d_doctrine_metadata_driver~%s', $i, ContainerBuilder::hash($arguments));
-=======
                     $id = \sprintf('.%d_doctrine_metadata_driver~%s', $i, ContainerBuilder::hash($arguments));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $container->setDefinition($id, $arguments[0]);
                     $arguments[0] = new Reference($id);
                     $methodCalls[$i] = [$method, $arguments];

@@ -1,20 +1,13 @@
 <?php
 
-<<<<<<< HEAD
-=======
 declare(strict_types=1);
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 namespace Doctrine\Bundle\DoctrineBundle\Mapping;
 
 use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use RuntimeException;
 
-<<<<<<< HEAD
-use function get_class;
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function gettype;
 use function is_object;
 use function sprintf;
@@ -23,11 +16,6 @@ use function trim;
 /** @final */
 class ContainerEntityListenerResolver implements EntityListenerServiceResolver
 {
-<<<<<<< HEAD
-    private ContainerInterface $container;
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /** @var object[] Map to store entity listener instances. */
     private array $instances = [];
 
@@ -35,15 +23,9 @@ class ContainerEntityListenerResolver implements EntityListenerServiceResolver
     private array $serviceIds = [];
 
     /** @param ContainerInterface $container a service locator for listeners */
-<<<<<<< HEAD
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-=======
     public function __construct(
         private readonly ContainerInterface $container,
     ) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -71,11 +53,7 @@ class ContainerEntityListenerResolver implements EntityListenerServiceResolver
             throw new InvalidArgumentException(sprintf('An object was expected, but got "%s".', gettype($object)));
         }
 
-<<<<<<< HEAD
-        $className = $this->normalizeClassName(get_class($object));
-=======
         $className = $this->normalizeClassName($object::class);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $this->instances[$className] = $object;
     }

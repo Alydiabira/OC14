@@ -9,20 +9,6 @@
 
 namespace Gedmo\Blameable\Mapping\Driver;
 
-<<<<<<< HEAD
-use Gedmo\Mapping\Driver\AttributeDriverInterface;
-
-/**
- * This is an attribute mapping driver for Blameable
- * behavioral extension. Used for extraction of extended
- * metadata from attribute specifically for Blameable
- * extension.
- *
- * @internal
- */
-final class Attribute extends Annotation implements AttributeDriverInterface
-{
-=======
 use Gedmo\Exception\InvalidMappingException;
 use Gedmo\Mapping\Annotation\Blameable;
 use Gedmo\Mapping\Driver\AbstractAnnotationDriver;
@@ -114,5 +100,4 @@ class Attribute extends AbstractAnnotationDriver
 
         return $config;
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

@@ -1468,8 +1468,6 @@ SQL
 
         return $result;
     }
-<<<<<<< HEAD
-=======
 
     public function fetchTableOptionsByTable(bool $includeTableName): string
     {
@@ -1496,5 +1494,4 @@ SQL;
 
         return $sql . ' WHERE ' . implode(' AND ', $conditions);
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

@@ -86,20 +86,12 @@ class RegisterListenersPass implements CompilerPassInterface
                     $event['method'] = 'on'.preg_replace_callback([
                         '/(?<=\b|_)[a-z]/i',
                         '/[^a-z0-9]/i',
-<<<<<<< HEAD
-                    ], fn ($matches) => strtoupper($matches[0]), $event['event']);
-=======
                     ], static fn ($matches) => strtoupper($matches[0]), $event['event']);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $event['method'] = preg_replace('/[^a-z0-9]/i', '', $event['method']);
 
                     if (null !== ($class = $container->getDefinition($id)->getClass()) && ($r = $container->getReflectionClass($class, false)) && !$r->hasMethod($event['method'])) {
                         if (!$r->hasMethod('__invoke')) {
-<<<<<<< HEAD
-                            throw new InvalidArgumentException(sprintf('None of the "%s" or "__invoke" methods exist for the service "%s". Please define the "method" attribute on "kernel.event_listener" tags.', $event['method'], $id));
-=======
                             throw new InvalidArgumentException(\sprintf('None of the "%s" or "__invoke" methods exist for the service "%s". Please define the "method" attribute on "kernel.event_listener" tags.', $event['method'], $id));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         }
 
                         $event['method'] = '__invoke';
@@ -134,17 +126,10 @@ class RegisterListenersPass implements CompilerPassInterface
             $class = $def->getClass();
 
             if (!$r = $container->getReflectionClass($class)) {
-<<<<<<< HEAD
-                throw new InvalidArgumentException(sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
-            }
-            if (!$r->isSubclassOf(EventSubscriberInterface::class)) {
-                throw new InvalidArgumentException(sprintf('Service "%s" must implement interface "%s".', $id, EventSubscriberInterface::class));
-=======
                 throw new InvalidArgumentException(\sprintf('Class "%s" used for service "%s" cannot be found.', $class, $id));
             }
             if (!$r->isSubclassOf(EventSubscriberInterface::class)) {
                 throw new InvalidArgumentException(\sprintf('Service "%s" must implement interface "%s".', $id, EventSubscriberInterface::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $class = $r->name;
 
@@ -196,11 +181,7 @@ class RegisterListenersPass implements CompilerPassInterface
             || $type->isBuiltin()
             || Event::class === ($name = $type->getName())
         ) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('Service "%s" must define the "event" attribute on "kernel.event_listener" tags.', $id));
-=======
             throw new InvalidArgumentException(\sprintf('Service "%s" must define the "event" attribute on "kernel.event_listener" tags.', $id));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $name;

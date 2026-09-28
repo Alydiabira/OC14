@@ -8,27 +8,14 @@ use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\PostPersistEventArgs;
 
-<<<<<<< HEAD
-use function get_class;
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /**
  * Reference Listener populates identities for
  * stored references
  */
 final class ORMReferenceListener implements EventSubscriber
 {
-<<<<<<< HEAD
-    private ReferenceRepository $referenceRepository;
-
-    public function __construct(ReferenceRepository $referenceRepository)
-    {
-        $this->referenceRepository = $referenceRepository;
-=======
     public function __construct(private ReferenceRepository $referenceRepository)
     {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -57,11 +44,7 @@ final class ORMReferenceListener implements EventSubscriber
                 ->getUnitOfWork()
                 ->getEntityIdentifier($object);
 
-<<<<<<< HEAD
-            $this->referenceRepository->setReferenceIdentity($name, $identity, get_class($object));
-=======
             $this->referenceRepository->setReferenceIdentity($name, $identity, $object::class);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

@@ -22,10 +22,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\Compiler\CheckTypeDeclarationsPass;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\Compiler\ResolveFactoryClassPass;
-<<<<<<< HEAD
-=======
 use Symfony\Component\DependencyInjection\Compiler\ResolveTaggedIteratorArgumentPass;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
@@ -84,11 +81,7 @@ final class ContainerLintCommand extends Command
 
         if (!$kernel->isDebug() || !$kernelContainer->getParameter('debug.container.dump') || !(new ConfigCache($kernelContainer->getParameter('debug.container.dump'), true))->isFresh()) {
             if (!$kernel instanceof Kernel) {
-<<<<<<< HEAD
-                throw new RuntimeException(sprintf('This command does not support the application kernel: "%s" does not extend "%s".', get_debug_type($kernel), Kernel::class));
-=======
                 throw new RuntimeException(\sprintf('This command does not support the application kernel: "%s" does not extend "%s".', get_debug_type($kernel), Kernel::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $buildContainer = \Closure::bind(function (): ContainerBuilder {
@@ -99,11 +92,7 @@ final class ContainerLintCommand extends Command
             $container = $buildContainer();
         } else {
             if (!$kernelContainer instanceof Container) {
-<<<<<<< HEAD
-                throw new RuntimeException(sprintf('This command does not support the application container: "%s" does not extend "%s".', get_debug_type($kernelContainer), Container::class));
-=======
                 throw new RuntimeException(\sprintf('This command does not support the application container: "%s" does not extend "%s".', get_debug_type($kernelContainer), Container::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             (new XmlFileLoader($container = new ContainerBuilder($parameterBag = new EnvPlaceholderParameterBag()), new FileLocator()))->load($kernelContainer->getParameter('debug.container.dump'));
@@ -112,13 +101,9 @@ final class ContainerLintCommand extends Command
             $refl->setValue($parameterBag, true);
 
             $container->getCompilerPassConfig()->setBeforeOptimizationPasses([]);
-<<<<<<< HEAD
-            $container->getCompilerPassConfig()->setOptimizationPasses([new ResolveFactoryClassPass()]);
-=======
             // the XML dump doesn't keep the services matched by tagged iterators,
             // resolving them again keeps the removing passes from dropping them
             $container->getCompilerPassConfig()->setOptimizationPasses([new ResolveFactoryClassPass(), new ResolveTaggedIteratorArgumentPass()]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $container->getCompilerPassConfig()->setBeforeRemovingPasses([]);
         }
 

@@ -62,16 +62,6 @@ class SodiumMarshaller implements MarshallerInterface
 
     public function unmarshall(string $value): mixed
     {
-<<<<<<< HEAD
-        foreach ($this->decryptionKeys as $k) {
-            if (false !== $decryptedValue = @sodium_crypto_box_seal_open($value, $k)) {
-                $value = $decryptedValue;
-                break;
-            }
-        }
-
-        return $this->marshaller->unmarshall($value);
-=======
         if ('' === $value) {
             // an empty value carries no payload and tells session handlers that no session exists
             return $this->marshaller->unmarshall($value);
@@ -84,6 +74,5 @@ class SodiumMarshaller implements MarshallerInterface
         }
 
         throw new \DomainException('Failed to decrypt value.');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

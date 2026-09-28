@@ -7,20 +7,9 @@ use Doctrine\DBAL\SQL\Parser\Exception\RegularExpressionError;
 use Doctrine\DBAL\SQL\Parser\Visitor;
 
 use function array_merge;
-<<<<<<< HEAD
-use function assert;
-use function current;
-use function implode;
-use function key;
-use function next;
-use function preg_last_error;
-use function preg_match;
-use function reset;
-=======
 use function implode;
 use function preg_last_error;
 use function preg_match;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function sprintf;
 use function strlen;
 
@@ -51,10 +40,7 @@ final class Parser
     private const OTHER                = '[^' . self::SPECIAL_CHARS . ']+';
 
     private string $sqlPattern;
-<<<<<<< HEAD
-=======
     private string $tokenPattern;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     public function __construct(bool $mySQLStringEscaping)
     {
@@ -79,16 +65,12 @@ final class Parser
             self::OTHER,
         ]);
 
-<<<<<<< HEAD
-        $this->sqlPattern = sprintf('(%s)', implode('|', $patterns));
-=======
         $this->sqlPattern   = sprintf('(%s)', implode('|', $patterns));
         $this->tokenPattern = '~\\G'
             . '(?P<named>' . self::NAMED_PARAMETER . ')'
             . '|(?P<positional>' . self::POSITIONAL_PARAMETER . ')'
             . '|(?P<other>' . $this->sqlPattern . '|' . self::SPECIAL . ')'
             . '~s';
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -98,32 +80,6 @@ final class Parser
      */
     public function parse(string $sql, Visitor $visitor): void
     {
-<<<<<<< HEAD
-        /** @var array<string,callable> $patterns */
-        $patterns = [
-            self::NAMED_PARAMETER => static function (string $sql) use ($visitor): void {
-                $visitor->acceptNamedParameter($sql);
-            },
-            self::POSITIONAL_PARAMETER => static function (string $sql) use ($visitor): void {
-                $visitor->acceptPositionalParameter($sql);
-            },
-            $this->sqlPattern => static function (string $sql) use ($visitor): void {
-                $visitor->acceptOther($sql);
-            },
-            self::SPECIAL => static function (string $sql) use ($visitor): void {
-                $visitor->acceptOther($sql);
-            },
-        ];
-
-        $offset = 0;
-
-        while (($handler = current($patterns)) !== false) {
-            if (preg_match('~\G' . key($patterns) . '~s', $sql, $matches, 0, $offset) === 1) {
-                $handler($matches[0]);
-                reset($patterns);
-
-                $offset += strlen($matches[0]);
-=======
         $offset = 0;
         $length = strlen($sql);
         while ($offset < $length) {
@@ -138,22 +94,12 @@ final class Parser
                 }
 
                 $offset += strlen($match);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } elseif (preg_last_error() !== PREG_NO_ERROR) {
                 // @codeCoverageIgnoreStart
                 throw RegularExpressionError::new();
                 // @codeCoverageIgnoreEnd
-<<<<<<< HEAD
-            } else {
-                next($patterns);
             }
         }
-
-        assert($offset === strlen($sql));
-=======
-            }
-        }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function getMySQLStringLiteralPattern(string $delimiter): string

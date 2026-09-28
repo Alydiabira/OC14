@@ -47,30 +47,16 @@ class EntityUserProvider implements UserProviderInterface, PasswordUpgraderInter
     ) {
     }
 
-<<<<<<< HEAD
-    public function loadUserByIdentifier(string $identifier): UserInterface
-=======
     /**
      * @param ?array $attributes
      */
     public function loadUserByIdentifier(string $identifier/* , ?array $attributes = null */): UserInterface
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $repository = $this->getRepository();
         if (null !== $this->property) {
             $user = $repository->findOneBy([$this->property => $identifier]);
         } else {
             if (!$repository instanceof UserLoaderInterface) {
-<<<<<<< HEAD
-                throw new \InvalidArgumentException(sprintf('You must either make the "%s" entity Doctrine Repository ("%s") implement "Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface" or set the "property" option in the corresponding entity provider configuration.', $this->classOrAlias, get_debug_type($repository)));
-            }
-
-            $user = $repository->loadUserByIdentifier($identifier);
-        }
-
-        if (null === $user) {
-            $e = new UserNotFoundException(sprintf('User "%s" not found.', $identifier));
-=======
                 throw new \InvalidArgumentException(\sprintf('You must either make the "%s" entity Doctrine Repository ("%s") implement "Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface" or set the "property" option in the corresponding entity provider configuration.', $this->classOrAlias, get_debug_type($repository)));
             }
 
@@ -83,7 +69,6 @@ class EntityUserProvider implements UserProviderInterface, PasswordUpgraderInter
 
         if (null === $user) {
             $e = new UserNotFoundException(\sprintf('User "%s" not found.', $identifier));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $e->setUserIdentifier($identifier);
 
             throw $e;
@@ -96,11 +81,7 @@ class EntityUserProvider implements UserProviderInterface, PasswordUpgraderInter
     {
         $class = $this->getClass();
         if (!$user instanceof $class) {
-<<<<<<< HEAD
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_debug_type($user)));
-=======
             throw new UnsupportedUserException(\sprintf('Instances of "%s" are not supported.', get_debug_type($user)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $repository = $this->getRepository();
@@ -126,11 +107,8 @@ class EntityUserProvider implements UserProviderInterface, PasswordUpgraderInter
 
         if ($refreshedUser instanceof Proxy && !$refreshedUser->__isInitialized()) {
             $refreshedUser->__load();
-<<<<<<< HEAD
-=======
         } elseif (\PHP_VERSION_ID >= 80400 && ($r = new \ReflectionClass($refreshedUser))->isUninitializedLazyObject($refreshedUser)) {
             $r->initializeLazyObject($refreshedUser);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $refreshedUser;
@@ -148,11 +126,7 @@ class EntityUserProvider implements UserProviderInterface, PasswordUpgraderInter
     {
         $class = $this->getClass();
         if (!$user instanceof $class) {
-<<<<<<< HEAD
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_debug_type($user)));
-=======
             throw new UnsupportedUserException(\sprintf('Instances of "%s" are not supported.', get_debug_type($user)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $repository = $this->getRepository();

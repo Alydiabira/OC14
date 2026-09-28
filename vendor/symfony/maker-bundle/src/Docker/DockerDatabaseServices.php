@@ -28,11 +28,7 @@ final class DockerDatabaseServices
         switch ($name) {
             case 'mariadb':
                 return [
-<<<<<<< HEAD
-                    'image' => sprintf('mariadb:%s', $version),
-=======
                     'image' => \sprintf('mariadb:%s', $version),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     'environment' => [
                         'MYSQL_ROOT_PASSWORD' => 'password',
                         'MYSQL_DATABASE' => 'main',
@@ -40,11 +36,7 @@ final class DockerDatabaseServices
                 ];
             case 'mysql':
                 return [
-<<<<<<< HEAD
-                    'image' => sprintf('mysql:%s', $version),
-=======
                     'image' => \sprintf('mysql:%s', $version),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     'environment' => [
                         'MYSQL_ROOT_PASSWORD' => 'password',
                         'MYSQL_DATABASE' => 'main',
@@ -52,11 +44,7 @@ final class DockerDatabaseServices
                 ];
             case 'postgres':
                 return [
-<<<<<<< HEAD
-                    'image' => sprintf('postgres:%s', $version),
-=======
                     'image' => \sprintf('postgres:%s', $version),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     'environment' => [
                         'POSTGRES_PASSWORD' => 'main',
                         'POSTGRES_USER' => 'main',
@@ -113,10 +101,6 @@ final class DockerDatabaseServices
      */
     private static function throwInvalidDatabase(string $name): never
     {
-<<<<<<< HEAD
-        throw new RuntimeCommandException(sprintf('%s is not a valid / supported docker database type.', $name));
-=======
         throw new RuntimeCommandException(\sprintf('%s is not a valid / supported docker database type.', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

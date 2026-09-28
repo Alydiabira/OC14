@@ -10,17 +10,11 @@
 namespace Gedmo\Mapping\Event\Adapter;
 
 use Doctrine\Common\EventArgs;
-<<<<<<< HEAD
-use Doctrine\ODM\MongoDB\DocumentManager;
-use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
-use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
-=======
 use Doctrine\Deprecations\Deprecation;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use Doctrine\ODM\MongoDB\UnitOfWork;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Gedmo\Exception\RuntimeException;
 use Gedmo\Mapping\Event\AdapterInterface;
 
@@ -36,14 +30,6 @@ class ODM implements AdapterInterface
 
     private ?DocumentManager $dm = null;
 
-<<<<<<< HEAD
-    public function __call($method, $args)
-    {
-        @trigger_error(sprintf(
-            'Using "%s()" method is deprecated since gedmo/doctrine-extensions 3.5 and will be removed in version 4.0.',
-            __METHOD__
-        ), E_USER_DEPRECATED);
-=======
     private static ?bool $useIntId = null;
 
     public function __call($method, $args)
@@ -54,7 +40,6 @@ class ODM implements AdapterInterface
             'Using "%s()" method is deprecated since gedmo/doctrine-extensions 3.5 and will be removed in version 4.0.',
             __METHOD__
         );
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (null === $this->args) {
             throw new RuntimeException('Event args must be set before calling its methods');
@@ -80,11 +65,7 @@ class ODM implements AdapterInterface
     }
 
     /**
-<<<<<<< HEAD
-     * @param ClassMetadata $meta
-=======
      * @param ClassMetadata<object> $meta
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getRootObjectClass($meta)
     {
@@ -136,23 +117,17 @@ class ODM implements AdapterInterface
         return $uow->getDocumentChangeSet($object);
     }
 
-<<<<<<< HEAD
-=======
     /**
      * @param ClassMetadata<object> $meta
      */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function getSingleIdentifierFieldName($meta)
     {
         return $meta->getIdentifier()[0];
     }
 
-<<<<<<< HEAD
-=======
     /**
      * @param ClassMetadata<object> $meta
      */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function recomputeSingleObjectChangeSet($uow, $meta, $object)
     {
         $uow->recomputeSingleDocumentChangeSet($meta, $object);
@@ -178,28 +153,17 @@ class ODM implements AdapterInterface
 
     public function setOriginalObjectProperty($uow, $object, $property, $value)
     {
-<<<<<<< HEAD
-        $uow->setOriginalDocumentProperty(spl_object_hash($object), $property, $value);
-=======
         $uow->setOriginalDocumentProperty($this->getOid($uow, $object), $property, $value);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function clearObjectChangeSet($uow, $object)
     {
-<<<<<<< HEAD
-        $uow->clearDocumentChangeSet(spl_object_hash($object));
-    }
-
-    /**
-=======
         $uow->clearDocumentChangeSet($this->getOid($uow, $object));
     }
 
     /**
      * @deprecated to be removed in 4.0, use custom lifecycle event classes instead.
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Creates a ODM specific LifecycleEventArgs.
      *
      * @param object          $document
@@ -209,10 +173,6 @@ class ODM implements AdapterInterface
      */
     public function createLifecycleEventArgsInstance($document, $documentManager)
     {
-<<<<<<< HEAD
-        return new LifecycleEventArgs($document, $documentManager);
-    }
-=======
         Deprecation::trigger(
             'gedmo/doctrine-extensions',
             'https://github.com/doctrine-extensions/DoctrineExtensions/pull/2649',
@@ -239,5 +199,4 @@ class ODM implements AdapterInterface
 
         return true === self::$useIntId ? spl_object_id($object) : spl_object_hash($object);
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

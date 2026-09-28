@@ -11,11 +11,7 @@ use Doctrine\ORM\Query\AST\SelectStatement;
 use Doctrine\ORM\Query\Parser;
 use Doctrine\ORM\Query\ParserResult;
 use Doctrine\ORM\Query\ResultSetMapping;
-<<<<<<< HEAD
-use Doctrine\ORM\Query\SqlWalker;
-=======
 use Doctrine\ORM\Query\SqlOutputWalker;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use RuntimeException;
 
 use function array_diff;
@@ -39,15 +35,9 @@ use function sprintf;
  * are able to cache subqueries. By keeping the ORDER BY clause intact, the limitSubQuery
  * that will most likely be executed next can be read from the native SQL cache.
  *
-<<<<<<< HEAD
- * @psalm-import-type QueryComponent from Parser
- */
-class CountOutputWalker extends SqlWalker
-=======
  * @phpstan-import-type QueryComponent from Parser
  */
 class CountOutputWalker extends SqlOutputWalker
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 {
     private readonly AbstractPlatform $platform;
     private readonly ResultSetMapping $rsm;
@@ -63,21 +53,13 @@ class CountOutputWalker extends SqlOutputWalker
         parent::__construct($query, $parserResult, $queryComponents);
     }
 
-<<<<<<< HEAD
-    public function walkSelectStatement(SelectStatement $selectStatement): string
-=======
     protected function createSqlForFinalizer(SelectStatement $selectStatement): string
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if ($this->platform instanceof SQLServerPlatform) {
             $selectStatement->orderByClause = null;
         }
 
-<<<<<<< HEAD
-        $sql = parent::walkSelectStatement($selectStatement);
-=======
         $sql = parent::createSqlForFinalizer($selectStatement);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($selectStatement->groupByClause) {
             return sprintf(

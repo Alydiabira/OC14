@@ -34,14 +34,10 @@ class TestServiceContainerWeakRefPass implements CompilerPassInterface
         $definitions = $container->getDefinitions();
 
         foreach ($definitions as $id => $definition) {
-<<<<<<< HEAD
-            if ($id && '.' !== $id[0] && (!$definition->isPublic() || $definition->isPrivate() || $definition->hasTag('container.private')) && !$definition->hasErrors() && !$definition->isAbstract()) {
-=======
             if ($inner = $definition->getTag('container.decorator')[0]['inner'] ?? null) {
                 $privateServices[$inner] = new Reference($inner, ContainerBuilder::IGNORE_ON_UNINITIALIZED_REFERENCE);
             }
             if ($id && '.' !== $id[0] && ($definition->isPrivate() || $definition->hasTag('container.private')) && !$definition->hasErrors() && !$definition->isAbstract()) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $privateServices[$id] = new Reference($id, ContainerBuilder::IGNORE_ON_UNINITIALIZED_REFERENCE);
             }
         }

@@ -33,12 +33,9 @@ final class VideoGamesList implements Countable, IteratorAggregate
 
     private string $route;
 
-<<<<<<< HEAD
     /**
      * @var array<string, mixed>
      */
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private array $routeParameters;
 
     public function __construct(
@@ -58,13 +55,9 @@ final class VideoGamesList implements Countable, IteratorAggregate
     {
         $this->filter = new Filter();
 
-<<<<<<< HEAD
         /** @var string $route */
         $route = $request->attributes->get('_route');
         $this->route = $route;
-=======
-        $this->route = $request->attributes->get('_route');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->routeParameters = $request->query->all();
 
         $this->form = $this->formFactory

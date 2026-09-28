@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace Doctrine\ORM;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-<<<<<<< HEAD
-=======
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Deprecations\Deprecation;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\Cache\CacheConfiguration;
 use Doctrine\ORM\Exception\InvalidEntityRepository;
 use Doctrine\ORM\Internal\Hydration\AbstractHydrator;
@@ -33,16 +30,11 @@ use Psr\Cache\CacheItemPoolInterface;
 
 use function class_exists;
 use function is_a;
-<<<<<<< HEAD
-use function strtolower;
-
-=======
 use function method_exists;
 use function strtolower;
 
 use const PHP_VERSION_ID;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /**
  * Configuration container for all configuration options of Doctrine.
  * It combines all configuration options from DBAL & ORM.
@@ -54,27 +46,16 @@ class Configuration extends \Doctrine\DBAL\Configuration
     /** @var mixed[] */
     protected array $attributes = [];
 
-<<<<<<< HEAD
-    /** @psalm-var array<class-string<AbstractPlatform>, ClassMetadata::GENERATOR_TYPE_*> */
-    private $identityGenerationPreferences = [];
-
-    /** @psalm-param array<class-string<AbstractPlatform>, ClassMetadata::GENERATOR_TYPE_*> $value */
-=======
     /** @phpstan-var array<class-string<AbstractPlatform>, ClassMetadata::GENERATOR_TYPE_*> */
     private $identityGenerationPreferences = [];
 
     /** @phpstan-param array<class-string<AbstractPlatform>, ClassMetadata::GENERATOR_TYPE_*> $value */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function setIdentityGenerationPreferences(array $value): void
     {
         $this->identityGenerationPreferences = $value;
     }
 
-<<<<<<< HEAD
-    /** @psalm-return array<class-string<AbstractPlatform>, ClassMetadata::GENERATOR_TYPE_*> $value */
-=======
     /** @phpstan-return array<class-string<AbstractPlatform>, ClassMetadata::GENERATOR_TYPE_*> $value */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function getIdentityGenerationPreferences(): array
     {
         return $this->identityGenerationPreferences;
@@ -85,8 +66,6 @@ class Configuration extends \Doctrine\DBAL\Configuration
      */
     public function setProxyDir(string $dir): void
     {
-<<<<<<< HEAD
-=======
         if (PHP_VERSION_ID >= 80400) {
             Deprecation::triggerIfCalledFromOutside(
                 'doctrine/orm',
@@ -96,7 +75,6 @@ class Configuration extends \Doctrine\DBAL\Configuration
             );
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->attributes['proxyDir'] = $dir;
     }
 
@@ -105,8 +83,6 @@ class Configuration extends \Doctrine\DBAL\Configuration
      */
     public function getProxyDir(): string|null
     {
-<<<<<<< HEAD
-=======
         if (PHP_VERSION_ID >= 80400) {
             Deprecation::trigger(
                 'doctrine/orm',
@@ -116,7 +92,6 @@ class Configuration extends \Doctrine\DBAL\Configuration
             );
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return $this->attributes['proxyDir'] ?? null;
     }
 
@@ -127,8 +102,6 @@ class Configuration extends \Doctrine\DBAL\Configuration
      */
     public function getAutoGenerateProxyClasses(): int
     {
-<<<<<<< HEAD
-=======
         if (PHP_VERSION_ID >= 80400) {
             Deprecation::trigger(
                 'doctrine/orm',
@@ -138,7 +111,6 @@ class Configuration extends \Doctrine\DBAL\Configuration
             );
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return $this->attributes['autoGenerateProxyClasses'] ?? ProxyFactory::AUTOGENERATE_ALWAYS;
     }
 
@@ -149,8 +121,6 @@ class Configuration extends \Doctrine\DBAL\Configuration
      */
     public function setAutoGenerateProxyClasses(bool|int $autoGenerate): void
     {
-<<<<<<< HEAD
-=======
         if (PHP_VERSION_ID >= 80400) {
             Deprecation::triggerIfCalledFromOutside(
                 'doctrine/orm',
@@ -160,7 +130,6 @@ class Configuration extends \Doctrine\DBAL\Configuration
             );
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->attributes['autoGenerateProxyClasses'] = (int) $autoGenerate;
     }
 
@@ -169,8 +138,6 @@ class Configuration extends \Doctrine\DBAL\Configuration
      */
     public function getProxyNamespace(): string|null
     {
-<<<<<<< HEAD
-=======
         if (PHP_VERSION_ID >= 80400) {
             Deprecation::trigger(
                 'doctrine/orm',
@@ -180,7 +147,6 @@ class Configuration extends \Doctrine\DBAL\Configuration
             );
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return $this->attributes['proxyNamespace'] ?? null;
     }
 
@@ -189,11 +155,6 @@ class Configuration extends \Doctrine\DBAL\Configuration
      */
     public function setProxyNamespace(string $ns): void
     {
-<<<<<<< HEAD
-        $this->attributes['proxyNamespace'] = $ns;
-    }
-
-=======
         if (PHP_VERSION_ID >= 80400) {
             Deprecation::triggerIfCalledFromOutside(
                 'doctrine/orm',
@@ -226,7 +187,6 @@ class Configuration extends \Doctrine\DBAL\Configuration
         $this->attributes['use_dbal_editor_api'] = $useDbalEditorApi;
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Sets the cache driver implementation that is used for metadata caching.
      *
@@ -241,11 +201,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
     /**
      * Sets the entity alias map.
      *
-<<<<<<< HEAD
-     * @psalm-param array<string, string> $entityNamespaces
-=======
      * @phpstan-param array<string, string> $entityNamespaces
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function setEntityNamespaces(array $entityNamespaces): void
     {
@@ -255,11 +211,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
     /**
      * Retrieves the list of registered entity namespace aliases.
      *
-<<<<<<< HEAD
-     * @psalm-return array<string, string>
-=======
      * @phpstan-return array<string, string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getEntityNamespaces(): array
     {
@@ -318,11 +270,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
      * DQL function names are case-insensitive.
      *
      * @param class-string|callable $className Class name or a callable that returns the function.
-<<<<<<< HEAD
-     * @psalm-param class-string<FunctionNode>|callable(string):FunctionNode $className
-=======
      * @phpstan-param class-string<FunctionNode>|callable(string):FunctionNode $className
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function addCustomStringFunction(string $name, string|callable $className): void
     {
@@ -332,11 +280,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
     /**
      * Gets the implementation class name of a registered custom string DQL function.
      *
-<<<<<<< HEAD
-     * @psalm-return class-string<FunctionNode>|callable(string):FunctionNode|null
-=======
      * @phpstan-return class-string<FunctionNode>|callable(string):FunctionNode|null
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getCustomStringFunction(string $name): string|callable|null
     {
@@ -353,11 +297,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
      *
      * Any previously added string functions are discarded.
      *
-<<<<<<< HEAD
-     * @psalm-param array<string, class-string<FunctionNode>|callable(string):FunctionNode> $functions The map of custom
-=======
      * @phpstan-param array<string, class-string<FunctionNode>|callable(string):FunctionNode> $functions The map of custom
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *                                                     DQL string functions.
      */
     public function setCustomStringFunctions(array $functions): void
@@ -375,11 +315,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
      * DQL function names are case-insensitive.
      *
      * @param class-string|callable $className Class name or a callable that returns the function.
-<<<<<<< HEAD
-     * @psalm-param class-string<FunctionNode>|callable(string):FunctionNode $className
-=======
      * @phpstan-param class-string<FunctionNode>|callable(string):FunctionNode $className
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function addCustomNumericFunction(string $name, string|callable $className): void
     {
@@ -389,11 +325,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
     /**
      * Gets the implementation class name of a registered custom numeric DQL function.
      *
-<<<<<<< HEAD
-     * @psalm-return ?class-string<FunctionNode>|callable(string):FunctionNode
-=======
      * @phpstan-return class-string<FunctionNode>|callable(string):FunctionNode|null
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getCustomNumericFunction(string $name): string|callable|null
     {
@@ -410,13 +342,8 @@ class Configuration extends \Doctrine\DBAL\Configuration
      *
      * Any previously added numeric functions are discarded.
      *
-<<<<<<< HEAD
-     * @psalm-param array<string, class-string> $functions The map of custom
-     *                                                     DQL numeric functions.
-=======
      * @param array<string, class-string> $functions The map of custom
      *                                               DQL numeric functions.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function setCustomNumericFunctions(array $functions): void
     {
@@ -433,11 +360,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
      * DQL function names are case-insensitive.
      *
      * @param string|callable $className Class name or a callable that returns the function.
-<<<<<<< HEAD
-     * @psalm-param class-string<FunctionNode>|callable(string):FunctionNode $className
-=======
      * @phpstan-param class-string<FunctionNode>|callable(string):FunctionNode $className
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function addCustomDatetimeFunction(string $name, string|callable $className): void
     {
@@ -447,11 +370,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
     /**
      * Gets the implementation class name of a registered custom date/time DQL function.
      *
-<<<<<<< HEAD
-     * @psalm-return class-string|callable|null
-=======
      * @return class-string|callable|null
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getCustomDatetimeFunction(string $name): string|callable|null
     {
@@ -469,11 +388,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
      * Any previously added date/time functions are discarded.
      *
      * @param array $functions The map of custom DQL date/time functions.
-<<<<<<< HEAD
-     * @psalm-param array<string, class-string<FunctionNode>|callable(string):FunctionNode> $functions
-=======
      * @phpstan-param array<string, class-string<FunctionNode>|callable(string):FunctionNode> $functions
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function setCustomDatetimeFunctions(array $functions): void
     {
@@ -515,11 +430,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
     /**
      * Gets the hydrator class for the given hydration mode name.
      *
-<<<<<<< HEAD
-     * @psalm-return class-string<AbstractHydrator>|null
-=======
      * @return class-string<AbstractHydrator>|null
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getCustomHydrationMode(string $modeName): string|null
     {
@@ -529,11 +440,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
     /**
      * Adds a custom hydration mode.
      *
-<<<<<<< HEAD
-     * @psalm-param class-string<AbstractHydrator> $hydrator
-=======
      * @param class-string<AbstractHydrator> $hydrator
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function addCustomHydrationMode(string $modeName, string $hydrator): void
     {
@@ -543,22 +450,14 @@ class Configuration extends \Doctrine\DBAL\Configuration
     /**
      * Sets a class metadata factory.
      *
-<<<<<<< HEAD
-     * @psalm-param class-string $cmfName
-=======
      * @param class-string $cmfName
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function setClassMetadataFactoryName(string $cmfName): void
     {
         $this->attributes['classMetadataFactoryName'] = $cmfName;
     }
 
-<<<<<<< HEAD
-    /** @psalm-return class-string */
-=======
     /** @return class-string */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function getClassMetadataFactoryName(): string
     {
         if (! isset($this->attributes['classMetadataFactoryName'])) {
@@ -571,12 +470,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
     /**
      * Adds a filter to the list of possible filters.
      *
-<<<<<<< HEAD
-     * @param string $className The class name of the filter.
-     * @psalm-param class-string<SQLFilter> $className
-=======
      * @param class-string<SQLFilter> $className The class name of the filter.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function addFilter(string $name, string $className): void
     {
@@ -586,14 +480,8 @@ class Configuration extends \Doctrine\DBAL\Configuration
     /**
      * Gets the class name for a given filter name.
      *
-<<<<<<< HEAD
-     * @return string|null The class name of the filter, or null if it is not
-     *  defined.
-     * @psalm-return class-string<SQLFilter>|null
-=======
      * @return class-string<SQLFilter>|null The class name of the filter,
      *                                      or null if it is not defined.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getFilterClassName(string $name): string|null
     {
@@ -603,11 +491,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
     /**
      * Sets default repository class.
      *
-<<<<<<< HEAD
-     * @psalm-param class-string<EntityRepository> $className
-=======
      * @param class-string<EntityRepository> $className
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws InvalidEntityRepository If $classname is not an ObjectRepository.
      */
@@ -623,11 +507,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
     /**
      * Get default repository class.
      *
-<<<<<<< HEAD
-     * @psalm-return class-string<EntityRepository>
-=======
      * @return class-string<EntityRepository>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getDefaultRepositoryClassName(): string
     {
@@ -737,11 +617,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
     /**
      * Returns query hints, which will be applied to every query in application
      *
-<<<<<<< HEAD
-     * @psalm-return array<string, mixed>
-=======
      * @phpstan-return array<string, mixed>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getDefaultQueryHints(): array
     {
@@ -751,11 +627,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
     /**
      * Sets array of query hints, which will be applied to every query in application
      *
-<<<<<<< HEAD
-     * @psalm-param array<string, mixed> $defaultQueryHints
-=======
      * @phpstan-param array<string, mixed> $defaultQueryHints
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function setDefaultQueryHints(array $defaultQueryHints): void
     {
@@ -800,10 +672,6 @@ class Configuration extends \Doctrine\DBAL\Configuration
         $this->attributes['schemaIgnoreClasses'] = $schemaIgnoreClasses;
     }
 
-<<<<<<< HEAD
-    /**
-     * To be deprecated in 3.1.0
-=======
     public function isNativeLazyObjectsEnabled(): bool
     {
         return $this->attributes['nativeLazyObjects'] ?? false;
@@ -828,7 +696,6 @@ class Configuration extends \Doctrine\DBAL\Configuration
 
     /**
      * @deprecated lazy ghost objects are always enabled
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return true
      */
@@ -837,11 +704,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
         return true;
     }
 
-<<<<<<< HEAD
-    /** To be deprecated in 3.1.0 */
-=======
     /** @deprecated lazy ghost objects cannot be disabled */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function setLazyGhostObjectEnabled(bool $flag): void
     {
         if (! $flag) {
@@ -852,11 +715,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
         }
     }
 
-<<<<<<< HEAD
-    /** To be deprecated in 3.1.0 */
-=======
     /** @deprecated rejecting ID collisions in the identity map cannot be disabled */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function setRejectIdCollisionInIdentityMap(bool $flag): void
     {
         if (! $flag) {
@@ -868,11 +727,7 @@ class Configuration extends \Doctrine\DBAL\Configuration
     }
 
     /**
-<<<<<<< HEAD
-     * To be deprecated in 3.1.0
-=======
      * @deprecated rejecting ID collisions in the identity map is always enabled
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return true
      */
@@ -890,8 +745,6 @@ class Configuration extends \Doctrine\DBAL\Configuration
     {
         return $this->attributes['fetchModeSubselectBatchSize'] ?? 100;
     }
-<<<<<<< HEAD
-=======
 
     public function setDefaultStringTypeSchemaLength(int $length): void
     {
@@ -902,5 +755,4 @@ class Configuration extends \Doctrine\DBAL\Configuration
     {
         return $this->attributes['defaultStringTypeSchemaLength'] ?? 255;
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

@@ -54,38 +54,22 @@ class GenericRetryStrategy implements RetryStrategyInterface
         $this->statusCodes = $statusCodes;
 
         if ($delayMs < 0) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('Delay must be greater than or equal to zero: "%s" given.', $delayMs));
-=======
             throw new InvalidArgumentException(\sprintf('Delay must be greater than or equal to zero: "%s" given.', $delayMs));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         $this->delayMs = $delayMs;
 
         if ($multiplier < 1) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('Multiplier must be greater than or equal to one: "%s" given.', $multiplier));
-=======
             throw new InvalidArgumentException(\sprintf('Multiplier must be greater than or equal to one: "%s" given.', $multiplier));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         $this->multiplier = $multiplier;
 
         if ($maxDelayMs < 0) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('Max delay must be greater than or equal to zero: "%s" given.', $maxDelayMs));
-=======
             throw new InvalidArgumentException(\sprintf('Max delay must be greater than or equal to zero: "%s" given.', $maxDelayMs));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         $this->maxDelayMs = $maxDelayMs;
 
         if ($jitter < 0 || $jitter > 1) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('Jitter must be between 0 and 1: "%s" given.', $jitter));
-=======
             throw new InvalidArgumentException(\sprintf('Jitter must be between 0 and 1: "%s" given.', $jitter));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         $this->jitter = $jitter;
     }

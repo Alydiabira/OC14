@@ -9,16 +9,6 @@
 
 namespace Gedmo\Translatable\Mapping\Driver;
 
-<<<<<<< HEAD
-use Gedmo\Mapping\Annotation\Translatable;
-use Gedmo\Mapping\Driver\AttributeDriverInterface;
-
-/**
- * This is an attribute mapping driver for Translatable
- * behavioral extension. Used for extraction of extended
- * metadata from attributes specifically for Translatable
- * extension.
-=======
 use Doctrine\ORM\Mapping\EmbeddedClassMapping;
 use Gedmo\Exception\InvalidMappingException;
 use Gedmo\Mapping\Annotation\Language;
@@ -29,16 +19,11 @@ use Gedmo\Mapping\Driver\AbstractAnnotationDriver;
 
 /**
  * Mapping driver for the translatable extension which reads extended metadata from annotations on a translatable class.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @author Gediminas Morkevicius <gediminas.morkevicius@gmail.com>
  *
  * @internal
  */
-<<<<<<< HEAD
-final class Attribute extends Annotation implements AttributeDriverInterface
-{
-=======
 class Attribute extends AbstractAnnotationDriver
 {
     /**
@@ -162,5 +147,4 @@ class Attribute extends AbstractAnnotationDriver
 
         return $config;
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

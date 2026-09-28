@@ -442,8 +442,6 @@
                 <source>This URL is missing a top-level domain.</source>
                 <target>В этом URL отсутствует домен верхнего уровня.</target>
             </trans-unit>
-<<<<<<< HEAD
-=======
             <trans-unit id="114">
                 <source>This value is too short. It should contain at least one word.|This value is too short. It should contain at least {{ min }} words.</source>
                 <target>Это значение слишком короткое. Оно должно содержать как минимум одно слово.|Это значение слишком короткое. Оно должно содержать как минимум {{ min }} слова.|Это значение слишком короткое. Оно должно содержать как минимум {{ min }} слов.</target>
@@ -580,7 +578,6 @@
                 <source>This value is not a valid ULID.</source>
                 <target>Это значение не является действительным ULID.</target>
             </trans-unit>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         </body>
     </file>
 </xliff>

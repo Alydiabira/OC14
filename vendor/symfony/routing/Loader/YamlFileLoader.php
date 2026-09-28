@@ -46,19 +46,11 @@ class YamlFileLoader extends FileLoader
         $path = $this->locator->locate($file);
 
         if (!stream_is_local($path)) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('This is not a local file "%s".', $path));
-        }
-
-        if (!file_exists($path)) {
-            throw new \InvalidArgumentException(sprintf('File "%s" not found.', $path));
-=======
             throw new \InvalidArgumentException(\sprintf('This is not a local file "%s".', $path));
         }
 
         if (!file_exists($path)) {
             throw new \InvalidArgumentException(\sprintf('File "%s" not found.', $path));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->yamlParser ??= new YamlParser();
@@ -66,11 +58,7 @@ class YamlFileLoader extends FileLoader
         try {
             $parsedConfig = $this->yamlParser->parseFile($path, Yaml::PARSE_CONSTANT);
         } catch (ParseException $e) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('The file "%s" does not contain valid YAML: ', $path).$e->getMessage(), 0, $e);
-=======
             throw new \InvalidArgumentException(\sprintf('The file "%s" does not contain valid YAML: ', $path).$e->getMessage(), 0, $e);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $collection = new RouteCollection();
@@ -83,11 +71,7 @@ class YamlFileLoader extends FileLoader
 
         // not an array
         if (!\is_array($parsedConfig)) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('The file "%s" must contain a YAML array.', $path));
-=======
             throw new \InvalidArgumentException(\sprintf('The file "%s" must contain a YAML array.', $path));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         foreach ($parsedConfig as $name => $config) {
@@ -153,11 +137,7 @@ class YamlFileLoader extends FileLoader
 
         foreach ($requirements as $placeholder => $requirement) {
             if (\is_int($placeholder)) {
-<<<<<<< HEAD
-                throw new \InvalidArgumentException(sprintf('A placeholder name must be a string (%d given). Did you forget to specify the placeholder key for the requirement "%s" of route "%s" in "%s"?', $placeholder, $requirement, $name, $path));
-=======
                 throw new \InvalidArgumentException(\sprintf('A placeholder name must be a string (%d given). Did you forget to specify the placeholder key for the requirement "%s" of route "%s" in "%s"?', $placeholder, $requirement, $name, $path));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -177,11 +157,7 @@ class YamlFileLoader extends FileLoader
             $defaults['_stateless'] = $config['stateless'];
         }
 
-<<<<<<< HEAD
-        $routes = $this->createLocalizedRoute($collection, $name, $config['path']);
-=======
         $routes = $this->createLocalizedRoute(new RouteCollection(), $name, $config['path']);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $routes->addDefaults($defaults);
         $routes->addRequirements($requirements);
         $routes->addOptions($options);
@@ -192,11 +168,8 @@ class YamlFileLoader extends FileLoader
         if (isset($config['host'])) {
             $this->addHost($routes, $config['host']);
         }
-<<<<<<< HEAD
-=======
 
         $collection->addCollection($routes);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -279,11 +252,7 @@ class YamlFileLoader extends FileLoader
     protected function validate(mixed $config, string $name, string $path)
     {
         if (!\is_array($config)) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('The definition of "%s" in "%s" must be a YAML array.', $name, $path));
-=======
             throw new \InvalidArgumentException(\sprintf('The definition of "%s" in "%s" must be a YAML array.', $name, $path));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         if (isset($config['alias'])) {
             $this->validateAlias($config, $name, $path);
@@ -291,24 +260,6 @@ class YamlFileLoader extends FileLoader
             return;
         }
         if ($extraKeys = array_diff(array_keys($config), self::AVAILABLE_KEYS)) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('The routing file "%s" contains unsupported keys for "%s": "%s". Expected one of: "%s".', $path, $name, implode('", "', $extraKeys), implode('", "', self::AVAILABLE_KEYS)));
-        }
-        if (isset($config['resource']) && isset($config['path'])) {
-            throw new \InvalidArgumentException(sprintf('The routing file "%s" must not specify both the "resource" key and the "path" key for "%s". Choose between an import and a route definition.', $path, $name));
-        }
-        if (!isset($config['resource']) && isset($config['type'])) {
-            throw new \InvalidArgumentException(sprintf('The "type" key for the route definition "%s" in "%s" is unsupported. It is only available for imports in combination with the "resource" key.', $name, $path));
-        }
-        if (!isset($config['resource']) && !isset($config['path'])) {
-            throw new \InvalidArgumentException(sprintf('You must define a "path" for the route "%s" in file "%s".', $name, $path));
-        }
-        if (isset($config['controller']) && isset($config['defaults']['_controller'])) {
-            throw new \InvalidArgumentException(sprintf('The routing file "%s" must not specify both the "controller" key and the defaults key "_controller" for "%s".', $path, $name));
-        }
-        if (isset($config['stateless']) && isset($config['defaults']['_stateless'])) {
-            throw new \InvalidArgumentException(sprintf('The routing file "%s" must not specify both the "stateless" key and the defaults key "_stateless" for "%s".', $path, $name));
-=======
             throw new \InvalidArgumentException(\sprintf('The routing file "%s" contains unsupported keys for "%s": "%s". Expected one of: "%s".', $path, $name, implode('", "', $extraKeys), implode('", "', self::AVAILABLE_KEYS)));
         }
         if (isset($config['resource']) && isset($config['path'])) {
@@ -325,7 +276,6 @@ class YamlFileLoader extends FileLoader
         }
         if (isset($config['stateless']) && isset($config['defaults']['_stateless'])) {
             throw new \InvalidArgumentException(\sprintf('The routing file "%s" must not specify both the "stateless" key and the defaults key "_stateless" for "%s".', $path, $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -337,28 +287,16 @@ class YamlFileLoader extends FileLoader
     {
         foreach ($config as $key => $value) {
             if (!\in_array($key, ['alias', 'deprecated'], true)) {
-<<<<<<< HEAD
-                throw new \InvalidArgumentException(sprintf('The routing file "%s" must not specify other keys than "alias" and "deprecated" for "%s".', $path, $name));
-=======
                 throw new \InvalidArgumentException(\sprintf('The routing file "%s" must not specify other keys than "alias" and "deprecated" for "%s".', $path, $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if ('deprecated' === $key) {
                 if (!isset($value['package'])) {
-<<<<<<< HEAD
-                    throw new \InvalidArgumentException(sprintf('The routing file "%s" must specify the attribute "package" of the "deprecated" option for "%s".', $path, $name));
-                }
-
-                if (!isset($value['version'])) {
-                    throw new \InvalidArgumentException(sprintf('The routing file "%s" must specify the attribute "version" of the "deprecated" option for "%s".', $path, $name));
-=======
                     throw new \InvalidArgumentException(\sprintf('The routing file "%s" must specify the attribute "package" of the "deprecated" option for "%s".', $path, $name));
                 }
 
                 if (!isset($value['version'])) {
                     throw new \InvalidArgumentException(\sprintf('The routing file "%s" must specify the attribute "version" of the "deprecated" option for "%s".', $path, $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
         }

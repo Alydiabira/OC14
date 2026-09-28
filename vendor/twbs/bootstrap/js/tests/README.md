@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-## How does Bootstrap's test suite work?
-=======
 ## How does Bootstrap’s test suite work?
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Bootstrap uses [Jasmine](https://jasmine.github.io/). Each plugin has a file dedicated to its tests in `tests/unit/<plugin-name>.spec.js`.
 
@@ -26,19 +22,11 @@ To run the unit test suite via [Karma](https://karma-runner.github.io/) and debu
 - Each test should be in the corresponding `describe`.
 - Each test should test only one unit per test, although one test can include several assertions. Create multiple tests for multiple units of functionality.
 - Each test should use [`expect`](https://jasmine.github.io/api/edge/matchers.html) to ensure something is expected.
-<<<<<<< HEAD
-- Each test should follow the project's [JavaScript Code Guidelines](https://github.com/twbs/bootstrap/blob/main/.github/CONTRIBUTING.md#js)
-
-## Code coverage
-
-Currently we're aiming for at least 90% test coverage for our code. To ensure your changes meet or exceed this limit, run `npm run js-test-karma` and open the file in `js/coverage/lcov-report/index.html` to see the code coverage for each plugin. See more details when you select a plugin and ensure your change is fully covered by unit tests.
-=======
 - Each test should follow the project’s [JavaScript Code Guidelines](https://github.com/twbs/bootstrap/blob/main/.github/CONTRIBUTING.md#js)
 
 ## Code coverage
 
 Currently we’re aiming for at least 90% test coverage for our code. To ensure your changes meet or exceed this limit, run `npm run js-test-karma` and open the file in `js/coverage/lcov-report/index.html` to see the code coverage for each plugin. See more details when you select a plugin and ensure your change is fully covered by unit tests.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 ### Example tests
 

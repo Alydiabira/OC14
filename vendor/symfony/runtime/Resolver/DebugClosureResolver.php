@@ -28,11 +28,7 @@ class DebugClosureResolver extends ClosureResolver
 
                 $r = new \ReflectionFunction($closure);
 
-<<<<<<< HEAD
-                throw new \TypeError(sprintf('Unexpected value of type "%s" returned, "object" expected from "%s" on line "%d".', get_debug_type($app), $r->getFileName(), $r->getStartLine()));
-=======
                 throw new \TypeError(\sprintf('Unexpected value of type "%s" returned, "object" expected from "%s" on line "%d".', get_debug_type($app), $r->getFileName(), $r->getStartLine()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             },
             $arguments,
         ];

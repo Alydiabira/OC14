@@ -10,15 +10,6 @@
 namespace Gedmo\SoftDeleteable;
 
 use Doctrine\Common\EventArgs;
-<<<<<<< HEAD
-use Doctrine\ODM\MongoDB\DocumentManager;
-use Doctrine\ODM\MongoDB\UnitOfWork as MongoDBUnitOfWork;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\Event\LoadClassMetadataEventArgs;
-use Doctrine\Persistence\Mapping\ClassMetadata;
-use Doctrine\Persistence\ObjectManager;
-use Gedmo\Mapping\MappedEventSubscriber;
-=======
 use Doctrine\Common\EventManager;
 use Doctrine\Deprecations\Deprecation;
 use Doctrine\ODM\MongoDB\DocumentManager;
@@ -33,16 +24,12 @@ use Gedmo\Mapping\MappedEventSubscriber;
 use Gedmo\SoftDeleteable\Event\PostSoftDeleteEventArgs;
 use Gedmo\SoftDeleteable\Event\PreSoftDeleteEventArgs;
 use Gedmo\SoftDeleteable\Mapping\Event\SoftDeleteableAdapter;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * SoftDeleteable listener
  *
-<<<<<<< HEAD
-=======
  * @phpstan-extends MappedEventSubscriber<array, SoftDeleteableAdapter>
  *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  * @author Gustavo Falco <comfortablynumb84@gmail.com>
  * @author Gediminas Morkevicius <gediminas.morkevicius@gmail.com>
  *
@@ -65,8 +52,6 @@ class SoftDeleteableListener extends MappedEventSubscriber
     public const POST_SOFT_DELETE = 'postSoftDelete';
 
     /**
-<<<<<<< HEAD
-=======
      * Whether the postFlush event should be handled.
      */
     private bool $handlePostFlushEvent;
@@ -86,7 +71,6 @@ class SoftDeleteableListener extends MappedEventSubscriber
     }
 
     /**
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return string[]
      */
     public function getSubscribedEvents()
@@ -94,10 +78,7 @@ class SoftDeleteableListener extends MappedEventSubscriber
         return [
             'loadClassMetadata',
             'onFlush',
-<<<<<<< HEAD
-=======
             'postFlush',
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ];
     }
 
@@ -105,13 +86,10 @@ class SoftDeleteableListener extends MappedEventSubscriber
      * If it's a SoftDeleteable object, update the "deletedAt" field
      * and skip the removal of the object
      *
-<<<<<<< HEAD
-=======
      * @param ManagerEventArgs $args
      *
      * @phpstan-param ManagerEventArgs<ObjectManager> $args
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function onFlush(EventArgs $args)
@@ -128,26 +106,13 @@ class SoftDeleteableListener extends MappedEventSubscriber
             $config = $this->getConfiguration($om, $meta->getName());
 
             if (isset($config['softDeleteable']) && $config['softDeleteable']) {
-<<<<<<< HEAD
-                $reflProp = $meta->getReflectionProperty($config['fieldName']);
-                $oldValue = $reflProp->getValue($object);
-=======
                 $oldValue = $meta->getFieldValue($object, $config['fieldName']);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $date = $ea->getDateValue($meta, $config['fieldName']);
 
                 if (isset($config['hardDelete']) && $config['hardDelete'] && $oldValue instanceof \DateTimeInterface && $oldValue <= $date) {
                     continue; // want to hard delete
                 }
 
-<<<<<<< HEAD
-                $evm->dispatchEvent(
-                    self::PRE_SOFT_DELETE,
-                    $ea->createLifecycleEventArgsInstance($object, $om)
-                );
-
-                $reflProp->setValue($object, $date);
-=======
                 if ($evm->hasListeners(self::PRE_SOFT_DELETE)) {
                     // @todo: in the next major remove check and only instantiate the event
                     $preSoftDeleteEventArgs = $this->hasToDispatchNewEvent($om, $evm, self::PRE_SOFT_DELETE, PreSoftDeleteEventArgs::class)
@@ -161,7 +126,6 @@ class SoftDeleteableListener extends MappedEventSubscriber
                 }
 
                 $meta->setFieldValue($object, $config['fieldName'], $date);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 $om->persist($object);
                 $uow->propertyChanged($object, $config['fieldName'], $oldValue, $date);
@@ -173,12 +137,6 @@ class SoftDeleteableListener extends MappedEventSubscriber
                     ]);
                 }
 
-<<<<<<< HEAD
-                $evm->dispatchEvent(
-                    self::POST_SOFT_DELETE,
-                    $ea->createLifecycleEventArgsInstance($object, $om)
-                );
-=======
                 if ($evm->hasListeners(self::POST_SOFT_DELETE)) {
                     // @todo: in the next major remove check and only instantiate the event
                     $postSoftDeleteEventArgs = $this->hasToDispatchNewEvent($om, $evm, self::POST_SOFT_DELETE, PostSoftDeleteEventArgs::class)
@@ -194,14 +152,11 @@ class SoftDeleteableListener extends MappedEventSubscriber
                 if ($this->handlePostFlushEvent) {
                     $this->softDeletedObjects[] = $object;
                 }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Detach soft-deleted objects from object manager.
      *
      * @return void
@@ -221,7 +176,6 @@ class SoftDeleteableListener extends MappedEventSubscriber
     }
 
     /**
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Maps additional metadata
      *
      * @param LoadClassMetadataEventArgs $eventArgs
@@ -235,8 +189,6 @@ class SoftDeleteableListener extends MappedEventSubscriber
         $this->loadMetadataForObjectClass($eventArgs->getObjectManager(), $eventArgs->getClassMetadata());
     }
 
-<<<<<<< HEAD
-=======
     public function setHandlePostFlushEvent(bool $handlePostFlushEvent): void
     {
         $this->handlePostFlushEvent = $handlePostFlushEvent;
@@ -247,13 +199,10 @@ class SoftDeleteableListener extends MappedEventSubscriber
         return $this->handlePostFlushEvent;
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected function getNamespace()
     {
         return __NAMESPACE__;
     }
-<<<<<<< HEAD
-=======
 
     /** @param class-string $eventClass */
     private function hasToDispatchNewEvent(ObjectManager $objectManager, EventManager $eventManager, string $eventName, string $eventClass): bool
@@ -288,5 +237,4 @@ class SoftDeleteableListener extends MappedEventSubscriber
 
         return true;
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

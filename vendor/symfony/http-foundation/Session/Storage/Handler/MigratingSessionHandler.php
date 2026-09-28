@@ -38,8 +38,6 @@ class MigratingSessionHandler implements \SessionHandlerInterface, \SessionUpdat
         $this->writeOnlyHandler = $writeOnlyHandler;
     }
 
-<<<<<<< HEAD
-=======
     /**
      * @return string
      */
@@ -48,7 +46,6 @@ class MigratingSessionHandler implements \SessionHandlerInterface, \SessionUpdat
         return session_create_id() ?: throw new \RuntimeException('Unable to create a session ID.');
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function close(): bool
     {
         $result = $this->currentHandler->close();

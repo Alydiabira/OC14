@@ -60,15 +60,6 @@ class MessagePart extends DataPart
         return $this->message->toIterable();
     }
 
-<<<<<<< HEAD
-    public function __sleep(): array
-    {
-        return ['message'];
-    }
-
-    public function __wakeup(): void
-    {
-=======
     public function __serialize(): array
     {
         return ['message' => $this->message];
@@ -78,7 +69,6 @@ class MessagePart extends DataPart
     {
         $this->message = $data['message'] ?? $data["\0".self::class."\0message"];
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->__construct($this->message);
     }
 }

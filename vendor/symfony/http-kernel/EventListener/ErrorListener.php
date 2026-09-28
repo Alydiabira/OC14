@@ -90,11 +90,7 @@ class ErrorListener implements EventSubscriberInterface
 
         $e = FlattenException::createFromThrowable($throwable);
 
-<<<<<<< HEAD
-        $this->logException($throwable, sprintf('Uncaught PHP Exception %s: "%s" at %s line %s', $e->getClass(), $e->getMessage(), basename($e->getFile()), $e->getLine()), $logLevel);
-=======
         $this->logException($throwable, \sprintf('Uncaught PHP Exception %s: "%s" at %s line %s', $e->getClass(), $e->getMessage(), basename($e->getFile()), $e->getLine()), $logLevel);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -108,19 +104,11 @@ class ErrorListener implements EventSubscriberInterface
 
         $throwable = $event->getThrowable();
 
-<<<<<<< HEAD
-        if ($exceptionHandler = set_exception_handler(var_dump(...))) {
-            restore_exception_handler();
-            if (\is_array($exceptionHandler) && $exceptionHandler[0] instanceof ErrorHandler) {
-                $throwable = $exceptionHandler[0]->enhanceError($event->getThrowable());
-            }
-=======
         $exceptionHandler = set_exception_handler('var_dump');
         restore_exception_handler();
 
         if (\is_array($exceptionHandler) && $exceptionHandler[0] instanceof ErrorHandler) {
             $throwable = $exceptionHandler[0]->enhanceError($event->getThrowable());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $request = $this->duplicateRequest($throwable, $event->getRequest());
@@ -130,11 +118,7 @@ class ErrorListener implements EventSubscriberInterface
         } catch (\Exception $e) {
             $f = FlattenException::createFromThrowable($e);
 
-<<<<<<< HEAD
-            $this->logException($e, sprintf('Exception thrown when handling an exception (%s: %s at %s line %s)', $f->getClass(), $f->getMessage(), basename($e->getFile()), $e->getLine()));
-=======
             $this->logException($e, \sprintf('Exception thrown when handling an exception (%s: %s at %s line %s)', $f->getClass(), $f->getMessage(), basename($e->getFile()), $e->getLine()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             $prev = $e;
             do {

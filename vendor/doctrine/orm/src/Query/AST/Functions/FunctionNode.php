@@ -13,11 +13,7 @@ use Doctrine\ORM\Query\SqlWalker;
  *
  * @link    www.doctrine-project.org
  *
-<<<<<<< HEAD
- * @psalm-consistent-constructor
-=======
  * @phpstan-consistent-constructor
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 abstract class FunctionNode extends Node
 {

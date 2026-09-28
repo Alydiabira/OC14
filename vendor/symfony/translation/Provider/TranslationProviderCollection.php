@@ -44,11 +44,7 @@ final class TranslationProviderCollection
     public function get(string $name): ProviderInterface
     {
         if (!$this->has($name)) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('Provider "%s" not found. Available: "%s".', $name, (string) $this));
-=======
             throw new InvalidArgumentException(\sprintf('Provider "%s" not found. Available: "%s".', $name, (string) $this));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->providers[$name];

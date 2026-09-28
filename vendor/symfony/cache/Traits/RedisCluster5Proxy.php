@@ -33,11 +33,7 @@ class RedisCluster5Proxy extends \RedisCluster implements ResetInterface, LazyOb
 
     public function __construct($name, $seeds = null, $timeout = null, $read_timeout = null, $persistent = null, #[\SensitiveParameter] $auth = null)
     {
-<<<<<<< HEAD
-        return ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->__construct(...\func_get_args());
-=======
         ($this->lazyObjectState->realInstance ??= ($this->lazyObjectState->initializer)())->__construct(...\func_get_args());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function _masters()

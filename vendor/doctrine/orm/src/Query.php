@@ -7,20 +7,14 @@ namespace Doctrine\ORM;
 use Doctrine\DBAL\LockMode;
 use Doctrine\DBAL\Result;
 use Doctrine\DBAL\Types\Type;
-<<<<<<< HEAD
-=======
 use Doctrine\Deprecations\Deprecation;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\AST\DeleteStatement;
 use Doctrine\ORM\Query\AST\SelectStatement;
 use Doctrine\ORM\Query\AST\UpdateStatement;
 use Doctrine\ORM\Query\Exec\AbstractSqlExecutor;
-<<<<<<< HEAD
-=======
 use Doctrine\ORM\Query\Exec\SqlFinalizer;
 use Doctrine\ORM\Query\OutputWalker;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\Query\Parameter;
 use Doctrine\ORM\Query\ParameterTypeInferer;
 use Doctrine\ORM\Query\Parser;
@@ -36,10 +30,7 @@ use function assert;
 use function count;
 use function get_debug_type;
 use function in_array;
-<<<<<<< HEAD
-=======
 use function is_a;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function ksort;
 use function md5;
 use function reset;
@@ -84,8 +75,6 @@ class Query extends AbstractQuery
     public const HINT_REFRESH_ENTITY = 'doctrine.refresh.entity';
 
     /**
-<<<<<<< HEAD
-=======
      * The forcePartialLoad query hint forces a particular query to return
      * partial objects.
      *
@@ -94,7 +83,6 @@ class Query extends AbstractQuery
     public const HINT_FORCE_PARTIAL_LOAD = 'doctrine.forcePartialLoad';
 
     /**
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * The includeMetaColumns query hint causes meta columns like foreign keys and
      * discriminator columns to be selected and returned as part of the query result.
      *
@@ -129,11 +117,7 @@ class Query extends AbstractQuery
     /**
      * The current state of this query.
      *
-<<<<<<< HEAD
-     * @psalm-var self::STATE_*
-=======
      * @phpstan-var self::STATE_*
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private int $state = self::STATE_DIRTY;
 
@@ -191,11 +175,7 @@ class Query extends AbstractQuery
      */
     public function getSQL(): string|array
     {
-<<<<<<< HEAD
-        return $this->parse()->getSqlExecutor()->getSqlStatements();
-=======
         return $this->getSqlExecutor()->getSqlStatements();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -274,11 +254,7 @@ class Query extends AbstractQuery
 
     protected function _doExecute(): Result|int
     {
-<<<<<<< HEAD
-        $executor = $this->parse()->getSqlExecutor();
-=======
         $executor = $this->getSqlExecutor();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($this->queryCacheProfile) {
             $executor->setQueryCacheProfile($this->queryCacheProfile);
@@ -371,11 +347,7 @@ class Query extends AbstractQuery
      * @param array<list<int>> $paramMappings
      *
      * @return mixed[][]
-<<<<<<< HEAD
-     * @psalm-return array{0: list<mixed>, 1: array}
-=======
      * @phpstan-return array{0: list<mixed>, 1: array}
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws Query\QueryException
      */
@@ -426,11 +398,7 @@ class Query extends AbstractQuery
 
     /**
      * @return mixed[] tuple of (value, type)
-<<<<<<< HEAD
-     * @psalm-return array{0: mixed, 1: mixed}
-=======
      * @phpstan-return array{0: mixed, 1: mixed}
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private function resolveParameterValue(Parameter $parameter): array
     {
@@ -563,11 +531,7 @@ class Query extends AbstractQuery
      * @see AbstractQuery::STATE_DIRTY
      *
      * @return int The query state.
-<<<<<<< HEAD
-     * @psalm-return self::STATE_* The query state.
-=======
      * @phpstan-return self::STATE_* The query state.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getState(): int
     {
@@ -661,11 +625,7 @@ class Query extends AbstractQuery
      *
      * @see \Doctrine\DBAL\LockMode
      *
-<<<<<<< HEAD
-     * @psalm-param LockMode::* $lockMode
-=======
      * @phpstan-param LockMode::* $lockMode
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return $this
      *
@@ -673,11 +633,7 @@ class Query extends AbstractQuery
      */
     public function setLockMode(LockMode|int $lockMode): self
     {
-<<<<<<< HEAD
-        if (in_array($lockMode, [LockMode::NONE, LockMode::PESSIMISTIC_READ, LockMode::PESSIMISTIC_WRITE], true)) {
-=======
         if (in_array($lockMode, [LockMode::PESSIMISTIC_READ, LockMode::PESSIMISTIC_WRITE], true)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (! $this->em->getConnection()->isTransactionActive()) {
                 throw TransactionRequiredException::transactionRequired();
             }
@@ -691,16 +647,10 @@ class Query extends AbstractQuery
     /**
      * Get the current lock mode for this query.
      *
-<<<<<<< HEAD
-     * @return int|null The current lock mode of this query or NULL if no specific lock mode is set.
-     */
-    public function getLockMode(): int|null
-=======
      * @return LockMode|int|null The current lock mode of this query or NULL if no specific lock mode is set.
      * @phpstan-return LockMode::*|null
      */
     public function getLockMode(): LockMode|int|null
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $lockMode = $this->getHint(self::HINT_LOCK_MODE);
 
@@ -718,8 +668,6 @@ class Query extends AbstractQuery
     {
         ksort($this->hints);
 
-<<<<<<< HEAD
-=======
         if (! $this->hasHint(self::HINT_CUSTOM_OUTPUT_WALKER)) {
             // Assume Parser will create the SqlOutputWalker; save is_a call, which might trigger a class load
             $firstAndMaxResult = '';
@@ -740,16 +688,11 @@ class Query extends AbstractQuery
             }
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return md5(
             $this->getDQL() . serialize($this->hints) .
             '&platform=' . get_debug_type($this->getEntityManager()->getConnection()->getDatabasePlatform()) .
             ($this->em->hasFilters() ? $this->em->getFilters()->getHash() : '') .
-<<<<<<< HEAD
-            '&firstResult=' . $this->firstResult . '&maxResult=' . $this->maxResults .
-=======
             $firstAndMaxResult .
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             '&hydrationMode=' . $this->hydrationMode . '&types=' . serialize($this->parsedTypes) . 'DOCTRINE_QUERY_CACHE_SALT',
         );
     }
@@ -768,12 +711,9 @@ class Query extends AbstractQuery
 
         $this->state = self::STATE_DIRTY;
     }
-<<<<<<< HEAD
-=======
 
     private function getSqlExecutor(): AbstractSqlExecutor
     {
         return $this->parse()->prepareSqlExecutor($this);
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

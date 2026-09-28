@@ -87,10 +87,7 @@ class PassConfig
             new CheckExceptionOnInvalidReferenceBehaviorPass(),
             new InlineServiceDefinitionsPass(new AnalyzeServiceReferencesPass()),
             new AnalyzeServiceReferencesPass(),
-<<<<<<< HEAD
-=======
             new CheckFactoryBuilderCircularReferencePass(),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             new DefinitionErrorExceptionPass(),
         ]];
 
@@ -101,12 +98,8 @@ class PassConfig
                 new AliasDeprecatedPublicServicesPass(),
             ],
             // Let build parameters be available as late as possible
-<<<<<<< HEAD
-            -2048 => [new RemoveBuildParametersPass()],
-=======
             // Don't remove array parameters since ResolveParameterPlaceHoldersPass doesn't resolve them
             -2048 => [new RemoveBuildParametersPass(true)],
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ];
     }
 
@@ -138,11 +131,7 @@ class PassConfig
     {
         $property = $type.'Passes';
         if (!isset($this->$property)) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('Invalid type "%s".', $type));
-=======
             throw new InvalidArgumentException(\sprintf('Invalid type "%s".', $type));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $passes = &$this->$property;
@@ -288,11 +277,7 @@ class PassConfig
      */
     private function sortPasses(array $passes): array
     {
-<<<<<<< HEAD
-        if (0 === \count($passes)) {
-=======
         if (!$passes) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return [];
         }
 

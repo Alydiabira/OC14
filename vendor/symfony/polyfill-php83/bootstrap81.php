@@ -9,19 +9,12 @@
  * file that was distributed with this source code.
  */
 
-<<<<<<< HEAD
-=======
 use Symfony\Polyfill\Php83 as p;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 if (\PHP_VERSION_ID >= 80300) {
     return;
 }
 
-<<<<<<< HEAD
-if (!function_exists('ldap_exop_sync') && function_exists('ldap_exop')) {
-    function ldap_exop_sync(\LDAP\Connection $ldap, string $request_oid, string $request_data = null, array $controls = null, &$response_data = null, &$response_oid = null): bool { return ldap_exop($ldap, $request_oid, $request_data, $controls, $response_data, $response_oid); }
-=======
 if (!function_exists('json_validate')) {
     function json_validate(string $json, int $depth = 512, int $flags = 0): bool { return p\Php83::json_validate($json, $depth, $flags); }
 }
@@ -40,7 +33,6 @@ if (extension_loaded('mbstring') && !function_exists('mb_str_pad')) {
 
 if (!function_exists('ldap_exop_sync') && function_exists('ldap_exop')) {
     function ldap_exop_sync(\LDAP\Connection $ldap, string $request_oid, ?string $request_data = null, ?array $controls = null, &$response_data = null, &$response_oid = null): bool { return ldap_exop($ldap, $request_oid, $request_data, $response_data, $response_oid); }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }
 
 if (!function_exists('ldap_connect_wallet') && function_exists('ldap_connect')) {

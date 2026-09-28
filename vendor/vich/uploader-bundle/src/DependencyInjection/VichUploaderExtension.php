@@ -9,19 +9,12 @@ use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\Extension;
-<<<<<<< HEAD
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Component\DependencyInjection\Reference;
-use Vich\UploaderBundle\Exception\MissingPackageException;
-use Vich\UploaderBundle\Metadata\CacheWarmer;
-=======
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Vich\UploaderBundle\Exception\MissingPackageException;
 use Vich\UploaderBundle\Metadata\CacheWarmer;
 use Vich\UploaderBundle\Naming\DirectoryNamerInterface;
 use Vich\UploaderBundle\Naming\NamerInterface;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Vich\UploaderBundle\Storage\StorageInterface;
 
 /**
@@ -39,29 +32,20 @@ final class VichUploaderExtension extends Extension
 
     public function load(array $configs, ContainerBuilder $container): void
     {
-<<<<<<< HEAD
-=======
         $container->registerForAutoconfiguration(DirectoryNamerInterface::class)->addTag('vich_uploader.dir_namer');
         $container->registerForAutoconfiguration(NamerInterface::class)->addTag('vich_uploader.namer');
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
         $config = $this->fixDbDriverConfig($config);
-<<<<<<< HEAD
-=======
         $config = $this->fixUploadDestinationConfig($container, $config);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $config = $this->createNamerServices($container, $config);
 
         // define a few parameters
         $container->setParameter('vich_uploader.default_filename_attribute_suffix', $config['default_filename_attribute_suffix']);
         $container->setParameter('vich_uploader.mappings', $config['mappings']);
-<<<<<<< HEAD
-=======
         $container->setParameter('vich_uploader.use_flysystem_to_resolve_uri', $config['use_flysystem_to_resolve_uri']);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (\str_starts_with((string) $config['storage'], '@')) {
             $container->setAlias('vich_uploader.storage', \substr((string) $config['storage'], 1));
@@ -72,11 +56,7 @@ final class VichUploaderExtension extends Extension
 
         $this->loadServicesFiles($container, $config);
         $this->registerMetadataDirectories($container, $config);
-<<<<<<< HEAD
-        $this->registerAnnotationStrategy($container, $config);
-=======
         $this->registerAttributeStrategy($container, $config);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->registerCacheStrategy($container, $config);
 
         $this->registerListeners($container, $config);
@@ -86,36 +66,17 @@ final class VichUploaderExtension extends Extension
 
     protected function loadServicesFiles(ContainerBuilder $container, array $config): void
     {
-<<<<<<< HEAD
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
-
-        $toLoad = [
-            'adapter.xml', 'listener.xml', 'storage.xml', 'injector.xml',
-            'mapping.xml', 'factory.xml', 'namer.xml', 'handler.xml', 'command.xml', 'collector.xml',
-=======
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../../config'));
 
         $toLoad = [
             'adapter.php', 'listener.php', 'storage.php', 'injector.php',
             'mapping.php', 'factory.php', 'namer.php', 'handler.php', 'command.php', 'collector.php',
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ];
         foreach ($toLoad as $file) {
             $loader->load($file);
         }
 
         if (\in_array($config['storage'], ['gaufrette', 'flysystem'], true)) {
-<<<<<<< HEAD
-            $loader->load($config['storage'].'.xml');
-        }
-
-        if ($config['form']) {
-            $loader->load('form.xml');
-        }
-
-        if ($config['twig']) {
-            $loader->load('twig.xml');
-=======
             $loader->load($config['storage'].'.php');
         }
 
@@ -125,7 +86,6 @@ final class VichUploaderExtension extends Extension
 
         if ($config['twig']) {
             $loader->load('twig.php');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -179,34 +139,21 @@ final class VichUploaderExtension extends Extension
         ;
     }
 
-<<<<<<< HEAD
-    protected function registerAnnotationStrategy(ContainerBuilder $container, array $config): void
-    {
-        if (!$container->has('vich_uploader.metadata_driver.annotation')) {
-=======
     protected function registerAttributeStrategy(ContainerBuilder $container, array $config): void
     {
         if (!$container->has('vich_uploader.metadata_driver.attribute') && !$container->has('vich_uploader.metadata_driver.annotation')) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return;
         }
 
         switch ($config['metadata']['type']) {
             case 'annotation':
-<<<<<<< HEAD
-                if (!class_exists(AnnotationReader::class) || !$container::willBeAvailable('doctrine/annotations', AnnotationReader::class, [])) {
-=======
                 if (!\class_exists(AnnotationReader::class) || !$container::willBeAvailable('doctrine/annotations', AnnotationReader::class, [])) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $msg = 'Annotations support missing. Try running "composer require doctrine/annotations".';
                     throw new MissingPackageException($msg);
                 }
 
-<<<<<<< HEAD
-=======
                 @\trigger_error('Annotation support is deprecated since version 2.5 and will be removed in 3.0. Use attributes instead.', \E_USER_DEPRECATED);
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $container->setDefinition(
                     'vich_uploader.metadata.reader',
                     new Definition(AnnotationReader::class)
@@ -221,8 +168,6 @@ final class VichUploaderExtension extends Extension
         }
     }
 
-<<<<<<< HEAD
-=======
     /**
      * @deprecated since 2.9, use registerAttributeStrategy() instead
      */
@@ -233,7 +178,6 @@ final class VichUploaderExtension extends Extension
         $this->registerAttributeStrategy($container, $config);
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected function registerCacheStrategy(ContainerBuilder $container, array $config): void
     {
         if ('none' === $config['metadata']['cache']) {
@@ -267,8 +211,6 @@ final class VichUploaderExtension extends Extension
         return $config;
     }
 
-<<<<<<< HEAD
-=======
     protected function fixUploadDestinationConfig(ContainerBuilder $container, array $config): array
     {
         // mapping with no declared upload_destination uses the uri_prefix
@@ -282,7 +224,6 @@ final class VichUploaderExtension extends Extension
         return $config;
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected function registerListeners(ContainerBuilder $container, array $config): void
     {
         $servicesMap = [

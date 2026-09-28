@@ -84,11 +84,7 @@ class AsciiSlugger implements SluggerInterface, LocaleAwareInterface
 
     public function getLocale(): string
     {
-<<<<<<< HEAD
-        return $this->defaultLocale;
-=======
         return $this->defaultLocale ?? '';
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -99,11 +95,7 @@ class AsciiSlugger implements SluggerInterface, LocaleAwareInterface
     public function withEmoji(bool|string $emoji = true): static
     {
         if (false !== $emoji && !class_exists(EmojiTransliterator::class)) {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('You cannot use the "%s()" method as the "symfony/intl" package is not installed. Try running "composer require symfony/intl".', __METHOD__));
-=======
             throw new \LogicException(\sprintf('You cannot use the "%s()" method as the "symfony/intl" package is not installed. Try running "composer require symfony/intl".', __METHOD__));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $new = clone $this;
@@ -139,13 +131,8 @@ class AsciiSlugger implements SluggerInterface, LocaleAwareInterface
 
         if (\is_array($this->symbolsMap)) {
             $map = null;
-<<<<<<< HEAD
-            if (isset($this->symbolsMap[$locale])) {
-                $map = $this->symbolsMap[$locale];
-=======
             if (isset($this->symbolsMap[$locale ?? ''])) {
                 $map = $this->symbolsMap[$locale ?? ''];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } else {
                 $parent = self::getParentLocale($locale);
                 if ($parent && isset($this->symbolsMap[$parent])) {

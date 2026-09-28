@@ -16,11 +16,7 @@ namespace Symfony\Component\Routing;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-<<<<<<< HEAD
-class CompiledRoute implements \Serializable
-=======
 class CompiledRoute
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 {
     private array $variables;
     private array $tokens;
@@ -67,18 +63,6 @@ class CompiledRoute
         ];
     }
 
-<<<<<<< HEAD
-    /**
-     * @internal
-     */
-    final public function serialize(): string
-    {
-        throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
-    }
-
-    public function __unserialize(array $data): void
-    {
-=======
     public function __unserialize(array $data): void
     {
         if (($data['path_prefix'] ?? null) instanceof \Stringable
@@ -88,7 +72,6 @@ class CompiledRoute
             throw new \BadMethodCallException('Cannot unserialize '.self::class);
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->variables = $data['vars'];
         $this->staticPrefix = $data['path_prefix'];
         $this->regex = $data['path_regex'];
@@ -100,17 +83,6 @@ class CompiledRoute
     }
 
     /**
-<<<<<<< HEAD
-     * @internal
-     */
-    final public function unserialize(string $serialized): void
-    {
-        $this->__unserialize(unserialize($serialized, ['allowed_classes' => false]));
-    }
-
-    /**
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Returns the static prefix.
      */
     public function getStaticPrefix(): string

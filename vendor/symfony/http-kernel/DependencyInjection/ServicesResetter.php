@@ -40,11 +40,8 @@ class ServicesResetter implements ResetInterface
 
     public function reset(): void
     {
-<<<<<<< HEAD
-=======
         $throwable = null;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         foreach ($this->resettableServices as $id => $service) {
             if ($service instanceof LazyObjectInterface && !$service->isLazyObjectInitialized(true)) {
                 continue;
@@ -59,11 +56,6 @@ class ServicesResetter implements ResetInterface
                     continue;
                 }
 
-<<<<<<< HEAD
-                $service->$resetMethod();
-            }
-        }
-=======
                 try {
                     $service->$resetMethod();
                 } catch (\Throwable $e) {
@@ -76,6 +68,5 @@ class ServicesResetter implements ResetInterface
         if (null !== $throwable) {
             throw $throwable;
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

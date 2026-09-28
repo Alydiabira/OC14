@@ -38,11 +38,7 @@ class StaticVersionStrategy implements VersionStrategyInterface
 
     public function applyVersion(string $path): string
     {
-<<<<<<< HEAD
-        $versionized = sprintf($this->format, ltrim($path, '/'), $this->getVersion($path));
-=======
         $versionized = \sprintf($this->format, ltrim($path, '/'), $this->getVersion($path));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($path && '/' === $path[0]) {
             return '/'.$versionized;

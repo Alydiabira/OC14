@@ -93,11 +93,7 @@ class YamlSourceManipulator
         $newData = $this->normalizeSequences($newData);
 
         if ($newData !== $this->currentData) {
-<<<<<<< HEAD
-            throw new YamlManipulationFailedException(sprintf('Failed updating YAML contents: the process was successful, but something was not updated. Expected new data: %s. Actual new data: %s', var_export($newData, true), var_export($this->currentData, true)));
-=======
             throw new YamlManipulationFailedException(\sprintf('Failed updating YAML contents: the process was successful, but something was not updated. Expected new data: %s. Actual new data: %s', var_export($newData, true), var_export($this->currentData, true)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -129,11 +125,7 @@ class YamlSourceManipulator
 
         $this->arrayTypeForDepths[$this->depth] = $this->isHash($currentData) ? self::ARRAY_TYPE_HASH : self::ARRAY_TYPE_SEQUENCE;
 
-<<<<<<< HEAD
-        $this->log(sprintf(
-=======
         $this->log(\sprintf(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'Changing array type & format via updateData() (type=%s, format=%s)',
             $this->arrayTypeForDepths[$this->depth],
             $this->arrayFormatForDepths[$this->depth]
@@ -221,11 +213,7 @@ class YamlSourceManipulator
             }
 
             // 3b) value DID change
-<<<<<<< HEAD
-            $this->log(sprintf('updating value to {%s}', \is_array($newVal) ? '<array>' : $newVal));
-=======
             $this->log(\sprintf('updating value to {%s}', \is_array($newVal) ? '<array>' : $newVal));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->changeValueInYaml($newVal);
         }
 
@@ -331,11 +319,7 @@ class YamlSourceManipulator
                 } else {
                     // this is an associative array, but an indexed key
                     // is being added. We can't use the "- " format
-<<<<<<< HEAD
-                    $newYamlValue = sprintf(
-=======
                     $newYamlValue = \sprintf(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         '%s: %s',
                         $key,
                         $this->convertToYaml($value)
@@ -537,11 +521,7 @@ class YamlSourceManipulator
 
     private function advanceBeyondKey(int|string $key): void
     {
-<<<<<<< HEAD
-        $this->log(sprintf('Advancing position beyond key "%s"', $key));
-=======
         $this->log(\sprintf('Advancing position beyond key "%s"', $key));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->advanceCurrentPosition($this->getEndOfKeyPosition($key));
     }
 
@@ -576,11 +556,7 @@ class YamlSourceManipulator
             throw new \LogicException('Do not pass an array to this method');
         }
 
-<<<<<<< HEAD
-        $this->log(sprintf('Advancing position beyond value "%s"', $value));
-=======
         $this->log(\sprintf('Advancing position beyond value "%s"', $value));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->advanceCurrentPosition($this->findEndPositionOfValue($value));
     }
 
@@ -594,11 +570,7 @@ class YamlSourceManipulator
                 return $this->currentPosition;
             }
 
-<<<<<<< HEAD
-            throw new YamlManipulationFailedException(sprintf('Cannot find the key "%s"', $key));
-=======
             throw new YamlManipulationFailedException(\sprintf('Cannot find the key "%s"', $key));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $matches[0][1] + \strlen($matches[0][0]);
@@ -627,11 +599,7 @@ class YamlSourceManipulator
                 return $cursor;
             }
 
-<<<<<<< HEAD
-            throw new YamlManipulationFailedException(sprintf('Cannot find the key "%s"', $key));
-=======
             throw new YamlManipulationFailedException(\sprintf('Cannot find the key "%s"', $key));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $startOfKey = $matches[0][1];
@@ -708,11 +676,7 @@ class YamlSourceManipulator
 
     private function getKeyRegex($key): string
     {
-<<<<<<< HEAD
-        return sprintf('#(?<!\w)\$?%s\'?( )*:#', preg_quote($key));
-=======
         return \sprintf('#(?<!\w)\$?%s\'?( )*:#', preg_quote($key));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function updateContents(string $newContents, array $newData, int $newPosition): void
@@ -727,17 +691,10 @@ class YamlSourceManipulator
             $parsedContentsData = $this->normalizeSequences($parsedContentsData);
             $newData = $this->normalizeSequences($newData);
             if ($parsedContentsData !== $newData) {
-<<<<<<< HEAD
-                throw new YamlManipulationFailedException(sprintf('Content was updated, but updated content does not match expected data. Original source: "%s", updated source: "%s", updated data: %s', $this->contents, $newContents, var_export($newData, true)));
-            }
-        } catch (ParseException) {
-            throw new YamlManipulationFailedException(sprintf('Could not update YAML: a parse error occurred in the new content: "%s"', $newContents));
-=======
                 throw new YamlManipulationFailedException(\sprintf('Content was updated, but updated content does not match expected data. Original source: "%s", updated source: "%s", updated data: %s', $this->contents, $newContents, var_export($newData, true)));
             }
         } catch (ParseException) {
             throw new YamlManipulationFailedException(\sprintf('Could not update YAML: a parse error occurred in the new content: "%s"', $newContents));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         // must be called before changing the contents
@@ -800,11 +757,7 @@ class YamlSourceManipulator
         $path = \array_slice($this->currentPath, 0, \count($this->currentPath) - $limitLevels);
         foreach ($path as $key) {
             if (!\array_key_exists($key, $dataRef)) {
-<<<<<<< HEAD
-                throw new \LogicException(sprintf('Could not find the key "%s" from the current path "%s" in data "%s"', $key, implode(', ', $path), var_export($data, true)));
-=======
                 throw new \LogicException(\sprintf('Could not find the key "%s" from the current path "%s" in data "%s"', $key, implode(', ', $path), var_export($data, true)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if ($depth === $this->depth) {
@@ -851,11 +804,7 @@ class YamlSourceManipulator
         $path = \array_slice($this->currentPath, 0, \count($this->currentPath) - $limitLevels);
         foreach ($path as $key) {
             if (!\array_key_exists($key, $data)) {
-<<<<<<< HEAD
-                throw new \LogicException(sprintf('Could not find the key "%s" from the current path "%s" in data "%s"', $key, implode(', ', $path), var_export($this->currentData, true)));
-=======
                 throw new \LogicException(\sprintf('Could not find the key "%s" from the current path "%s" in data "%s"', $key, implode(', ', $path), var_export($this->currentData, true)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $data = $data[$key];
@@ -881,11 +830,7 @@ class YamlSourceManipulator
 
             if (\is_bool($value)) {
                 // (?i) & (?-i) opens/closes case insensitive match
-<<<<<<< HEAD
-                $pattern = sprintf('(?i)%s(?-i)', $value ? 'true' : 'false');
-=======
                 $pattern = \sprintf('(?i)%s(?-i)', $value ? 'true' : 'false');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } elseif (null === $value) {
                 $pattern = '(~|NULL|null|\n)';
             } else {
@@ -899,11 +844,7 @@ class YamlSourceManipulator
                     $patternValue = str_replace(["\r\n", "\n"], '\r?\n\s*', $quotedValue);
                 }
 
-<<<<<<< HEAD
-                $pattern = sprintf('\'?"?%s\'?"?', $patternValue);
-=======
                 $pattern = \sprintf('\'?"?%s\'?"?', $patternValue);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             // a value like "foo:" can simply end a file
@@ -912,15 +853,9 @@ class YamlSourceManipulator
                 return $offset;
             }
 
-<<<<<<< HEAD
-            preg_match(sprintf('#%s#', $pattern), $this->contents, $matches, \PREG_OFFSET_CAPTURE, $offset);
-            if (empty($matches)) {
-                throw new YamlManipulationFailedException(sprintf('Cannot find the original value "%s"', $value));
-=======
             preg_match(\sprintf('#%s#', $pattern), $this->contents, $matches, \PREG_OFFSET_CAPTURE, $offset);
             if (empty($matches)) {
                 throw new YamlManipulationFailedException(\sprintf('Cannot find the original value "%s"', $value));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $position = $matches[0][1] + \strlen($matches[0][0]);
@@ -941,20 +876,12 @@ class YamlSourceManipulator
         }
 
         // there are other possible values, but we don't support them
-<<<<<<< HEAD
-        throw new YamlManipulationFailedException(sprintf('Unsupported Yaml value of type "%s"', \gettype($value)));
-=======
         throw new YamlManipulationFailedException(\sprintf('Unsupported Yaml value of type "%s"', \gettype($value)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function advanceCurrentPosition(int $newPosition): void
     {
-<<<<<<< HEAD
-        $this->log(sprintf('advanceCurrentPosition() from %d to %d', $this->currentPosition, $newPosition), true);
-=======
         $this->log(\sprintf('advanceCurrentPosition() from %d to %d', $this->currentPosition, $newPosition), true);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $originalPosition = $this->currentPosition;
         $this->currentPosition = $newPosition;
 
@@ -1008,11 +935,7 @@ class YamlSourceManipulator
             }
         }
 
-<<<<<<< HEAD
-        $this->log(sprintf('Calculating new indentation: changing from %d to %d', $this->indentationForDepths[$this->depth], $newIndentation), true);
-=======
         $this->log(\sprintf('Calculating new indentation: changing from %d to %d', $this->indentationForDepths[$this->depth], $newIndentation), true);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->indentationForDepths[$this->depth] = $newIndentation;
     }
 
@@ -1050,11 +973,7 @@ class YamlSourceManipulator
         ];
 
         if ($includeContent) {
-<<<<<<< HEAD
-            $context['content'] = sprintf(
-=======
             $context['content'] = \sprintf(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 '>%s<',
                 str_replace(["\r\n", "\n"], ['\r\n', '\n'], substr($this->contents, $this->currentPosition, 50))
             );
@@ -1081,11 +1000,7 @@ class YamlSourceManipulator
     {
         while (true) {
             if ($this->isEOF()) {
-<<<<<<< HEAD
-                throw new \LogicException('Could not determine array type');
-=======
                 throw new \LogicException('Could not determine array type.');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             // get the next char & advance immediately
@@ -1114,11 +1029,7 @@ class YamlSourceManipulator
         $currentPosition = $this->currentPosition;
         while (true) {
             if ($this->isEOF($currentPosition)) {
-<<<<<<< HEAD
-                throw new \LogicException(sprintf('Could not find any characters: %s', implode(', ', $chars)));
-=======
                 throw new \LogicException(\sprintf('Could not find any characters: "%s"', implode('", "', $chars)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             // get the next char & advance immediately
@@ -1182,11 +1093,7 @@ class YamlSourceManipulator
     private function normalizeSequences(array $data): array
     {
         // https://stackoverflow.com/questions/173400/how-to-check-if-php-array-is-associative-or-sequential/4254008#4254008
-<<<<<<< HEAD
-        $hasStringKeys = fn (array $array): bool => \count(array_filter(array_keys($array), 'is_string')) > 0;
-=======
         $hasStringKeys = static fn (array $array): bool => \count(array_filter(array_keys($array), 'is_string')) > 0;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         foreach ($data as $key => $val) {
             if (!\is_array($val)) {
@@ -1240,11 +1147,7 @@ class YamlSourceManipulator
 
             $this->contents = str_replace(
                 $fullMatch,
-<<<<<<< HEAD
-                sprintf("\n%s#%s", $indentation, $comment),
-=======
                 \sprintf("\n%s#%s", $indentation, $comment),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $this->contents
             );
         }
@@ -1347,11 +1250,7 @@ class YamlSourceManipulator
         $startPos = strrpos(substr($this->contents, 0, $position), "\n") + 1;
         $endPos = strpos($this->contents, "\n", $startPos);
 
-<<<<<<< HEAD
-        $this->log(sprintf('Looking for current line from %d to %d', $startPos, $endPos));
-=======
         $this->log(\sprintf('Looking for current line from %d to %d', $startPos, $endPos));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $line = substr($this->contents, $startPos, $endPos - $startPos);
 

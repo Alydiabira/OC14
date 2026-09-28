@@ -3,6 +3,8 @@
 namespace DAMA\DoctrineTestBundle\PHPUnit;
 
 use DAMA\DoctrineTestBundle\Doctrine\DBAL\StaticDriver;
+use PHPUnit\Event\Test\BeforeTestMethodErrored;
+use PHPUnit\Event\Test\BeforeTestMethodErroredSubscriber;
 use PHPUnit\Event\Test\Errored;
 use PHPUnit\Event\Test\ErroredSubscriber;
 use PHPUnit\Event\Test\Finished as TestFinishedEvent;
@@ -44,14 +46,14 @@ if (class_exists(TestRunnerStartedEvent::class)) {
 
         public function bootstrap(Configuration $configuration, Facade $facade, ParameterCollection $parameters): void
         {
-            $facade->registerSubscriber(new class() implements TestRunnerStartedSubscriber {
+            $facade->registerSubscriber(new class implements TestRunnerStartedSubscriber {
                 public function notify(TestRunnerStartedEvent $event): void
                 {
                     StaticDriver::setKeepStaticConnections(true);
                 }
             });
 
-            $facade->registerSubscriber(new class() implements TestStartedSubscriber {
+            $facade->registerSubscriber(new class implements TestStartedSubscriber {
                 public function notify(TestStartedEvent $event): void
                 {
                     StaticDriver::beginTransaction();
@@ -59,7 +61,7 @@ if (class_exists(TestRunnerStartedEvent::class)) {
                 }
             });
 
-            $facade->registerSubscriber(new class() implements SkippedSubscriber {
+            $facade->registerSubscriber(new class implements SkippedSubscriber {
                 public function notify(Skipped $event): void
                 {
                     // this is a workaround to allow skipping tests within the setUp() method
@@ -68,14 +70,24 @@ if (class_exists(TestRunnerStartedEvent::class)) {
                 }
             });
 
-            $facade->registerSubscriber(new class() implements TestFinishedSubscriber {
+            $facade->registerSubscriber(new class implements TestFinishedSubscriber {
                 public function notify(TestFinishedEvent $event): void
                 {
                     PHPUnitExtension::rollBack();
                 }
             });
 
-            $facade->registerSubscriber(new class() implements ErroredSubscriber {
+            if (interface_exists(BeforeTestMethodErroredSubscriber::class)) {
+                $facade->registerSubscriber(new class implements BeforeTestMethodErroredSubscriber {
+                    public function notify(BeforeTestMethodErrored $event): void
+                    {
+                        // needed for tests marked incomplete during setUp()
+                        PHPUnitExtension::rollBack();
+                    }
+                });
+            }
+
+            $facade->registerSubscriber(new class implements ErroredSubscriber {
                 public function notify(Errored $event): void
                 {
                     // needed as for errored tests the "Finished" event is not triggered
@@ -83,7 +95,7 @@ if (class_exists(TestRunnerStartedEvent::class)) {
                 }
             });
 
-            $facade->registerSubscriber(new class() implements TestRunnerFinishedSubscriber {
+            $facade->registerSubscriber(new class implements TestRunnerFinishedSubscriber {
                 public function notify(TestRunnerFinishedEvent $event): void
                 {
                     StaticDriver::setKeepStaticConnections(false);

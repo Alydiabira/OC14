@@ -69,30 +69,17 @@ class GenericRuntime implements RuntimeInterface
         }
 
         if ($debug) {
-<<<<<<< HEAD
-            umask(0000);
-            $_SERVER[$debugKey] = $_ENV[$debugKey] = '1';
-
-            if (false !== $errorHandler = ($options['error_handler'] ?? BasicErrorHandler::class)) {
-                $errorHandler::register($debug);
-                $options['error_handler'] = false;
-            }
-=======
             umask(0o000);
             $_SERVER[$debugKey] = $_ENV[$debugKey] = '1';
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } else {
             $_SERVER[$debugKey] = $_ENV[$debugKey] = '0';
         }
 
-<<<<<<< HEAD
-=======
         if (false !== $errorHandler = ($options['error_handler'] ?? BasicErrorHandler::class)) {
             $errorHandler::register($debug);
             $options['error_handler'] = false;
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->options = $options;
     }
 
@@ -138,22 +125,14 @@ class GenericRuntime implements RuntimeInterface
             }
 
             if (!\is_callable($application)) {
-<<<<<<< HEAD
-                throw new \LogicException(sprintf('"%s" doesn\'t know how to handle apps of type "%s".', get_debug_type($this), get_debug_type($application)));
-=======
                 throw new \LogicException(\sprintf('"%s" doesn\'t know how to handle apps of type "%s".', get_debug_type($this), get_debug_type($application)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $application = $application(...);
         }
 
         if ($_SERVER[$this->options['debug_var_name']] && ($r = new \ReflectionFunction($application)) && $r->getNumberOfRequiredParameters()) {
-<<<<<<< HEAD
-            throw new \ArgumentCountError(sprintf('Zero argument should be required by the runner callable, but at least one is in "%s" on line "%d.', $r->getFileName(), $r->getStartLine()));
-=======
             throw new \ArgumentCountError(\sprintf('Zero argument should be required by the runner callable, but at least one is in "%s" on line "%d.', $r->getFileName(), $r->getStartLine()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return new ClosureRunner($application);
@@ -192,11 +171,7 @@ class GenericRuntime implements RuntimeInterface
         if (!$runtime = $this->getRuntime($type)) {
             $r = $parameter->getDeclaringFunction();
 
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('Cannot resolve argument "%s $%s" in "%s" on line "%d": "%s" supports only arguments "array $context", "array $argv" and "array $request", or a runtime named "Symfony\Runtime\%1$sRuntime".', $type, $parameter->name, $r->getFileName(), $r->getStartLine(), get_debug_type($this)));
-=======
             throw new \InvalidArgumentException(\sprintf('Cannot resolve argument "%s $%s" in "%s" on line "%d": "%s" supports only arguments "array $context", "array $argv" and "array $request", or a runtime named "Symfony\Runtime\%1$sRuntime".', $type, $parameter->name, $r->getFileName(), $r->getStartLine(), get_debug_type($this)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $runtime->getArgument($parameter, $type);

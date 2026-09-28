@@ -39,11 +39,7 @@ final class MakeCommand extends AbstractMaker
             @trigger_deprecation(
                 'symfony/maker-bundle',
                 '1.55.0',
-<<<<<<< HEAD
-                sprintf('Initializing MakeCommand while providing an instance of "%s" is deprecated. The $phpCompatUtil param will be removed in a future version.', PhpCompatUtil::class),
-=======
                 \sprintf('Initializing MakeCommand while providing an instance of "%s" is deprecated. The $phpCompatUtil param will be removed in a future version.', PhpCompatUtil::class),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
         }
     }
@@ -61,13 +57,8 @@ final class MakeCommand extends AbstractMaker
     public function configureCommand(Command $command, InputConfiguration $inputConfig): void
     {
         $command
-<<<<<<< HEAD
-            ->addArgument('name', InputArgument::OPTIONAL, sprintf('Choose a command name (e.g. <fg=yellow>app:%s</>)', Str::asCommand(Str::getRandomTerm())))
-            ->setHelp(file_get_contents(__DIR__.'/../Resources/help/MakeCommand.txt'))
-=======
             ->addArgument('name', InputArgument::OPTIONAL, \sprintf('Choose a command name (e.g. <fg=yellow>app:%s</>)', Str::asCommand(Str::getRandomTerm())))
             ->setHelp($this->getHelpFileContents('MakeCommand.txt'))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ;
     }
 
@@ -80,11 +71,7 @@ final class MakeCommand extends AbstractMaker
             $commandNameHasAppPrefix ? substr($commandName, 4) : $commandName,
             'Command\\',
             'Command',
-<<<<<<< HEAD
-            sprintf('The "%s" command name is not valid because it would be implemented by "%s" class, which is not valid as a PHP class name (it must start with a letter or underscore, followed by any number of letters, numbers, or underscores).', $commandName, Str::asClassName($commandName, 'Command'))
-=======
             \sprintf('The "%s" command name is not valid because it would be implemented by "%s" class, which is not valid as a PHP class name (it must start with a letter or underscore, followed by any number of letters, numbers, or underscores).', $commandName, Str::asClassName($commandName, 'Command'))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         );
 
         $useStatements = new UseStatementGenerator([

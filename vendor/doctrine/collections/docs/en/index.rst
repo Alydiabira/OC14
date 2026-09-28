@@ -1,13 +1,8 @@
-<<<<<<< HEAD
-Introduction
-============
-=======
 Getting Started
 ===============
 
 Introduction
 ------------
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Doctrine Collections is a library that contains classes for working with
 arrays of data. Here is an example using the simple
@@ -20,19 +15,10 @@ arrays of data. Here is an example using the simple
 
     $collection = new ArrayCollection([1, 2, 3]);
 
-<<<<<<< HEAD
-    $filteredCollection = $collection->filter(function($element) {
-        return $element > 1;
-    }); // [2, 3]
-
-Collection Methods
-==================
-=======
     $filteredCollection = $collection->filter(static fn ($element): bool => $element > 1); // [2, 3]
 
 Collection Methods
 ------------------
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Doctrine Collections provides an interface named ``Doctrine\Common\Collections\Collection``
 that resembles the nature of a regular PHP array. That is,
@@ -55,11 +41,7 @@ from the ``Doctrine\Common\Collections\ReadableCollection`` interface.
 The methods available on the interface are:
 
 add
-<<<<<<< HEAD
----
-=======
 ^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Adds an element at the end of the collection.
 
@@ -67,11 +49,7 @@ Adds an element at the end of the collection.
     $collection->add('test');
 
 clear
-<<<<<<< HEAD
------
-=======
 ^^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Clears the collection, removing all elements.
 
@@ -79,11 +57,7 @@ Clears the collection, removing all elements.
     $collection->clear();
 
 contains
-<<<<<<< HEAD
---------
-=======
 ^^^^^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Checks whether an element is contained in the collection. This is an O(n) operation, where n is the size of the collection.
 
@@ -93,11 +67,7 @@ Checks whether an element is contained in the collection. This is an O(n) operat
     $contains = $collection->contains('test'); // true
 
 containsKey
-<<<<<<< HEAD
------------
-=======
 ^^^^^^^^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Checks whether the collection contains an element with the specified key/index.
 
@@ -107,11 +77,7 @@ Checks whether the collection contains an element with the specified key/index.
     $contains = $collection->containsKey('test'); // true
 
 current
-<<<<<<< HEAD
--------
-=======
 ^^^^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Gets the element of the collection at the current iterator position.
 
@@ -121,11 +87,7 @@ Gets the element of the collection at the current iterator position.
     $current = $collection->current(); // first
 
 get
-<<<<<<< HEAD
----
-=======
 ^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Gets the element at the specified key/index.
 
@@ -137,11 +99,7 @@ Gets the element at the specified key/index.
     $value = $collection->get('key'); // value
 
 getKeys
-<<<<<<< HEAD
--------
-=======
 ^^^^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Gets all keys/indices of the collection.
 
@@ -151,11 +109,7 @@ Gets all keys/indices of the collection.
     $keys = $collection->getKeys(); // [0, 1, 2]
 
 getValues
-<<<<<<< HEAD
----------
-=======
 ^^^^^^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Gets all values of the collection.
 
@@ -169,11 +123,7 @@ Gets all values of the collection.
     $values = $collection->getValues(); // ['value1', 'value2', 'value3']
 
 isEmpty
-<<<<<<< HEAD
--------
-=======
 ^^^^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Checks whether the collection is empty (contains no elements).
 
@@ -183,11 +133,7 @@ Checks whether the collection is empty (contains no elements).
     $isEmpty = $collection->isEmpty(); // false
 
 first
-<<<<<<< HEAD
------
-=======
 ^^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Sets the internal iterator to the first element in the collection and returns this element.
 
@@ -197,49 +143,27 @@ Sets the internal iterator to the first element in the collection and returns th
     $first = $collection->first(); // first
 
 exists
-<<<<<<< HEAD
-------
-=======
 ^^^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Tests for the existence of an element that satisfies the given predicate.
 
 .. code-block:: php
     $collection = new Collection(['first', 'second', 'third']);
 
-<<<<<<< HEAD
-    $exists = $collection->exists(function($key, $value) {
-        return $value === 'first';
-    }); // true
-
-findFirst
----------
-=======
     $exists = $collection->exists(static fn ($key, $value): bool => $value === 'first'); // true
 
 findFirst
 ^^^^^^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Returns the first element of this collection that satisfies the given predicate.
 
 .. code-block:: php
     $collection = new Collection([1, 2, 3, 2, 1]);
 
-<<<<<<< HEAD
-    $one = $collection->findFirst(function(int $key, int $value): bool {
-        return $value > 2 && $key > 1;
-    }); // 3
-
-filter
-------
-=======
     $one = $collection->findFirst(static fn (int $key, int $value): bool => $value > 2 && $key > 1); // 3
 
 filter
 ^^^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Returns all the elements of this collection for which your callback function returns `true`.
 The order and keys of the elements are preserved.
@@ -247,38 +171,20 @@ The order and keys of the elements are preserved.
 .. code-block:: php
     $collection = new ArrayCollection([1, 2, 3]);
 
-<<<<<<< HEAD
-    $filteredCollection = $collection->filter(function($element) {
-        return $element > 1;
-    }); // [2, 3]
-
-forAll
-------
-=======
     $filteredCollection = $collection->filter(static fn ($element): bool => $element > 1); // [2, 3]
 
 forAll
 ^^^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Tests whether the given predicate holds for all elements of this collection.
 
 .. code-block:: php
     $collection = new ArrayCollection([1, 2, 3]);
 
-<<<<<<< HEAD
-    $forAll = $collection->forAll(function($key, $value) {
-        return $value > 1;
-    }); // false
-
-indexOf
--------
-=======
     $forAll = $collection->forAll(static fn ($key, $value): bool => $value > 1); // false
 
 indexOf
 ^^^^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Gets the index/key of a given element. The comparison of two elements is strict, that means not only the value but also the type must match. For objects this means reference equality.
 
@@ -288,11 +194,7 @@ Gets the index/key of a given element. The comparison of two elements is strict,
     $indexOf = $collection->indexOf(3); // 2
 
 key
-<<<<<<< HEAD
----
-=======
 ^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Gets the key/index of the element at the current iterator position.
 
@@ -304,11 +206,7 @@ Gets the key/index of the element at the current iterator position.
     $key = $collection->key(); // 1
 
 last
-<<<<<<< HEAD
-----
-=======
 ^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Sets the internal iterator to the last element in the collection and returns this element.
 
@@ -318,49 +216,27 @@ Sets the internal iterator to the last element in the collection and returns thi
     $last = $collection->last(); // 3
 
 map
-<<<<<<< HEAD
----
-=======
 ^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Applies the given function to each element in the collection and returns a new collection with the elements returned by the function.
 
 .. code-block:: php
     $collection = new ArrayCollection([1, 2, 3]);
 
-<<<<<<< HEAD
-    $mappedCollection = $collection->map(function($value) {
-        return $value + 1;
-    }); // [2, 3, 4]
-
-reduce
-------
-=======
     $mappedCollection = $collection->map(static fn (int $value): int => $value + 1); // [2, 3, 4]
 
 reduce
 ^^^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Applies iteratively the given function to each element in the collection, so as to reduce the collection to a single value.
 
 .. code-block:: php
     $collection = new ArrayCollection([1, 2, 3]);
 
-<<<<<<< HEAD
-    $reduce = $collection->reduce(function(int $accumulator, int $value): int {
-        return $accumulator + $value;
-    }, 0); // 6
-
-next
-----
-=======
     $reduce = $collection->reduce(static fn (int $accumulator, int $value): int => $accumulator + $value, 0); // 6
 
 next
 ^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Moves the internal iterator position to the next element and returns this element.
 
@@ -370,30 +246,17 @@ Moves the internal iterator position to the next element and returns this elemen
     $next = $collection->next(); // 2
 
 partition
-<<<<<<< HEAD
----------
-=======
 ^^^^^^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Partitions this collection in two collections according to a predicate. Keys are preserved in the resulting collections.
 
 .. code-block:: php
     $collection = new ArrayCollection([1, 2, 3]);
 
-<<<<<<< HEAD
-    $mappedCollection = $collection->partition(function($key, $value) {
-        return $value > 1
-    }); // [[2, 3], [1]]
-
-remove
-------
-=======
     $mappedCollection = $collection->partition(static fn ($key, $value): bool => $value > 1); // [[2, 3], [1]]
 
 remove
 ^^^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Removes the element at the specified index from the collection.
 
@@ -403,11 +266,7 @@ Removes the element at the specified index from the collection.
     $collection->remove(0); // [2, 3]
 
 removeElement
-<<<<<<< HEAD
--------------
-=======
 ^^^^^^^^^^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Removes the specified element from the collection, if it is found.
 
@@ -417,11 +276,7 @@ Removes the specified element from the collection, if it is found.
     $collection->removeElement(3); // [1, 2]
 
 set
-<<<<<<< HEAD
----
-=======
 ^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Sets an element in the collection at the specified key/index.
 
@@ -431,11 +286,7 @@ Sets an element in the collection at the specified key/index.
     $collection->set('name', 'jwage');
 
 slice
-<<<<<<< HEAD
------
-=======
 ^^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Extracts a slice of $length elements starting at position $offset from the Collection. If $length is null it returns all elements from $offset to the end of the Collection. Keys have to be preserved by this method. Calling this method will only return the selected slice and NOT change the elements contained in the collection slice is called on.
 
@@ -445,11 +296,7 @@ Extracts a slice of $length elements starting at position $offset from the Colle
     $slice = $collection->slice(1, 2); // [1, 2]
 
 toArray
-<<<<<<< HEAD
--------
-=======
 ^^^^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Gets a native PHP array representation of the collection.
 
@@ -459,11 +306,7 @@ Gets a native PHP array representation of the collection.
     $array = $collection->toArray(); // [0, 1, 2, 3, 4, 5]
 
 Selectable Methods
-<<<<<<< HEAD
-==================
-=======
 ------------------
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Some Doctrine Collections, like ``Doctrine\Common\Collections\ArrayCollection``,
 implement an interface named ``Doctrine\Common\Collections\Selectable``
@@ -472,11 +315,7 @@ can be applied to a collection to get a result with matching elements
 only.
 
 matching
-<<<<<<< HEAD
---------
-=======
 ^^^^^^^^
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Selects all elements from a selectable that match the expression and
 returns a new collection containing these elements and preserved keys.
@@ -503,8 +342,6 @@ returns a new collection containing these elements and preserved keys.
     $matchingCollection = $collection->matching($criteria); // [ 'wage' => [ 'name' => 'jwage' ]]
 
 You can read more about expressions :ref:`here <expressions>`.
-<<<<<<< HEAD
-=======
 
 .. note::
 
@@ -547,4 +384,3 @@ You can read more about expressions :ref:`here <expressions>`.
        and prefixless accessor methods
     6. Direct access to ``::$field``, which must be a public property, as a
        last resort.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96

@@ -60,19 +60,11 @@ final class ComputedPropertiesProxy
         }
 
         foreach (['get', 'is', 'has'] as $prefix) {
-<<<<<<< HEAD
-            if (method_exists($this->component, $method = sprintf('%s%s', $prefix, ucfirst($name)))) {
-=======
             if (method_exists($this->component, $method = \sprintf('%s%s', $prefix, ucfirst($name)))) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 return $method;
             }
         }
 
-<<<<<<< HEAD
-        throw new \InvalidArgumentException(sprintf('Component "%s" does not have a "%s" method.', $this->component::class, $name));
-=======
         throw new \InvalidArgumentException(\sprintf('Component "%s" does not have a "%s" method.', $this->component::class, $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

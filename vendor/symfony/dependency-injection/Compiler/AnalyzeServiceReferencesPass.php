@@ -41,10 +41,7 @@ class AnalyzeServiceReferencesPass extends AbstractRecursivePass
     private bool $lazy;
     private bool $byConstructor;
     private bool $byFactory;
-<<<<<<< HEAD
-=======
     private bool $byMultiUseArgument;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private array $definitions;
     private array $aliases;
 
@@ -71,10 +68,7 @@ class AnalyzeServiceReferencesPass extends AbstractRecursivePass
         $this->lazy = false;
         $this->byConstructor = false;
         $this->byFactory = false;
-<<<<<<< HEAD
-=======
         $this->byMultiUseArgument = false;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->definitions = $container->getDefinitions();
         $this->aliases = $container->getAliases();
 
@@ -97,16 +91,12 @@ class AnalyzeServiceReferencesPass extends AbstractRecursivePass
 
         if ($value instanceof ArgumentInterface) {
             $this->lazy = !$this->byFactory || !$value instanceof IteratorArgument;
-<<<<<<< HEAD
-            parent::processValue($value->getValues());
-=======
             $byMultiUseArgument = $this->byMultiUseArgument;
             if ($value instanceof IteratorArgument) {
                 $this->byMultiUseArgument = true;
             }
             parent::processValue($value->getValues());
             $this->byMultiUseArgument = $byMultiUseArgument;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->lazy = $lazy;
 
             return $value;
@@ -123,13 +113,9 @@ class AnalyzeServiceReferencesPass extends AbstractRecursivePass
                 $value,
                 $this->lazy || ($this->hasProxyDumper && $targetDefinition?->isLazy()),
                 ContainerInterface::IGNORE_ON_UNINITIALIZED_REFERENCE === $value->getInvalidBehavior(),
-<<<<<<< HEAD
-                $this->byConstructor
-=======
                 $this->byConstructor,
                 $this->byMultiUseArgument,
                 $inExpression
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
 
             if ($inExpression) {
@@ -140,12 +126,9 @@ class AnalyzeServiceReferencesPass extends AbstractRecursivePass
                     $targetDefinition,
                     $value,
                     $this->lazy || $targetDefinition?->isLazy(),
-<<<<<<< HEAD
-=======
                     true,
                     $this->byConstructor,
                     $this->byMultiUseArgument,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     true
                 );
             }

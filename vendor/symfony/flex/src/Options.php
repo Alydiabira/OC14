@@ -22,13 +22,6 @@ class Options
     private $options;
     private $writtenFiles = [];
     private $io;
-<<<<<<< HEAD
-
-    public function __construct(array $options = [], IOInterface $io = null)
-    {
-        $this->options = $options;
-        $this->io = $io;
-=======
     private $lockData;
 
     public function __construct(array $options = [], ?IOInterface $io = null, ?Lock $lock = null)
@@ -36,7 +29,6 @@ class Options
         $this->options = $options;
         $this->io = $io;
         $this->lockData = $lock?->all() ?? [];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function get(string $name)
@@ -46,11 +38,7 @@ class Options
 
     public function expandTargetDir(string $target): string
     {
-<<<<<<< HEAD
-        return preg_replace_callback('{%(.+?)%}', function ($matches) {
-=======
         $result = preg_replace_callback('{%(.+?)%}', function ($matches) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $option = str_replace('_', '-', strtolower($matches[1]));
             if (!isset($this->options[$option])) {
                 return $matches[0];
@@ -58,11 +46,6 @@ class Options
 
             return rtrim($this->options[$option], '/');
         }, $target);
-<<<<<<< HEAD
-    }
-
-    public function shouldWriteFile(string $file, bool $overwrite): bool
-=======
 
         $phpunitDistFiles = [
             'phpunit.xml.dist' => true,
@@ -82,7 +65,6 @@ class Options
     }
 
     public function shouldWriteFile(string $file, bool $overwrite, bool $skipQuestion): bool
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if (isset($this->writtenFiles[$file])) {
             return false;
@@ -101,12 +83,6 @@ class Options
             return true;
         }
 
-<<<<<<< HEAD
-        exec('git status --short --ignored --untracked-files=all -- '.ProcessExecutor::escape($file).' 2>&1', $output, $status);
-
-        if (0 !== $status) {
-            return $this->io && $this->io->askConfirmation(sprintf('Cannot determine the state of the "%s" file, overwrite anyway? [y/N] ', $file), false);
-=======
         if ($skipQuestion) {
             return true;
         }
@@ -115,7 +91,6 @@ class Options
 
         if (0 !== $status) {
             return $this->io && $this->io->askConfirmation(\sprintf('Cannot determine the state of the "%s" file, overwrite anyway? [y/N] ', $file), false);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (empty($output[0]) || preg_match('/^[ AMDRCU][ D][ \t]/', $output[0])) {
@@ -125,9 +100,6 @@ class Options
         $name = basename($file);
         $name = \strlen($output[0]) - \strlen($name) === strrpos($output[0], $name) ? substr($output[0], 3) : $name;
 
-<<<<<<< HEAD
-        return $this->io && $this->io->askConfirmation(sprintf('File "%s" has uncommitted changes, overwrite? [y/N] ', $name), false);
-=======
         return $this->io && $this->io->askConfirmation(\sprintf('File "%s" has uncommitted changes, overwrite? [y/N] ', $name), false);
     }
 
@@ -161,7 +133,6 @@ class Options
         }
 
         return array_values($removableFiles);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function toArray(): array

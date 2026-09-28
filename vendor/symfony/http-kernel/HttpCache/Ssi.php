@@ -38,11 +38,7 @@ class Ssi extends AbstractSurrogate
 
     public function renderIncludeTag(string $uri, ?string $alt = null, bool $ignoreErrors = true, string $comment = ''): string
     {
-<<<<<<< HEAD
-        return sprintf('<!--#include virtual="%s" -->', $uri);
-=======
         return \sprintf('<!--#include virtual="%s" -->', $uri);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function process(Request $request, Response $response): Response

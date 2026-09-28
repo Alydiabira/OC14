@@ -11,11 +11,8 @@
 
 namespace Symfony\Bundle\MakerBundle\Util;
 
-<<<<<<< HEAD
-=======
 use Symfony\Bundle\MakerBundle\Util\ClassSource\Model\ClassData;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /**
  * @author Jesse Rushlow <jr@rushlow.dev>
  *
@@ -23,11 +20,6 @@ use Symfony\Bundle\MakerBundle\Util\ClassSource\Model\ClassData;
  */
 final class TemplateComponentGenerator
 {
-<<<<<<< HEAD
-    public function generateRouteForControllerMethod(string $routePath, string $routeName, array $methods = [], bool $indent = true, bool $trailingNewLine = true): string
-    {
-        $attribute = sprintf('%s#[Route(\'%s\', name: \'%s\'', $indent ? '    ' : null, $routePath, $routeName);
-=======
     public function __construct(
         private bool $generateFinalClasses,
         private bool $generateFinalEntities,
@@ -45,17 +37,12 @@ final class TemplateComponentGenerator
         }
 
         $attribute = \sprintf('%s#[Route(%sname: \'%s\'', $indent ? '    ' : null, $path ?? null, $routeName);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (!empty($methods)) {
             $attribute .= ', methods: [';
 
             foreach ($methods as $method) {
-<<<<<<< HEAD
-                $attribute .= sprintf('\'%s\', ', $method);
-=======
                 $attribute .= \sprintf('\'%s\', ', $method);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $attribute = rtrim($attribute, ', ');
@@ -63,20 +50,13 @@ final class TemplateComponentGenerator
             $attribute .= ']';
         }
 
-<<<<<<< HEAD
-        $attribute .= sprintf(')]%s', $trailingNewLine ? "\n" : null);
-=======
         $attribute .= \sprintf(')]%s', $trailingNewLine ? "\n" : null);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $attribute;
     }
 
     public function getPropertyType(ClassNameDetails $classNameDetails): ?string
     {
-<<<<<<< HEAD
-        return sprintf('%s ', $classNameDetails->getShortName());
-=======
         return \sprintf('%s ', $classNameDetails->getShortName());
     }
 
@@ -89,6 +69,5 @@ final class TemplateComponentGenerator
         }
 
         return $classMetadata->setIsFinal($this->generateFinalClasses);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

@@ -14,14 +14,9 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
-<<<<<<< HEAD
- * A soft deletable trait you can apply to your Doctrine ORM entities.
- * Includes default annotation mapping.
-=======
  * Trait for soft-deletable objects.
  *
  * This implementation provides a mapping configuration for the Doctrine ORM.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @author Wesley van Opdorp <wesley.van.opdorp@freshheads.com>
  */

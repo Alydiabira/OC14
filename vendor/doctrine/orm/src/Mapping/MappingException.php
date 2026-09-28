@@ -179,11 +179,7 @@ class MappingException extends PersistenceMappingException implements ORMExcepti
 
     public static function joinTableRequired(string $fieldName): self
     {
-<<<<<<< HEAD
-        return new self(sprintf("The mapping of field '%s' requires an the 'joinTable' attribute.", $fieldName));
-=======
         return new self(sprintf("The mapping of field '%s' requires the 'joinTable' attribute.", $fieldName));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -334,8 +330,6 @@ class MappingException extends PersistenceMappingException implements ORMExcepti
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Returns an exception that indicates that discriminator entries used in a discriminator map
      * does not exist in the backed enum provided by enumType option.
      *
@@ -354,7 +348,6 @@ class MappingException extends PersistenceMappingException implements ORMExcepti
     }
 
     /**
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Returns an exception that indicates that a class used in a discriminator map does not exist.
      * An example would be an outdated (maybe renamed) classname.
      *
@@ -713,8 +706,6 @@ EXCEPTION
             $entityName,
         ));
     }
-<<<<<<< HEAD
-=======
 
     public static function mappingVirtualPropertyNotAllowed(string $entityName, string $propertyName): self
     {
@@ -739,5 +730,4 @@ EXCEPTION
             $className,
         ));
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

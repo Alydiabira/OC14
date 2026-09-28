@@ -30,10 +30,7 @@
         "symfony/expression-language": "^5.4|^6.0|^7.0",
         "symfony/http-foundation": "^5.4|^6.0|^7.0",
         "symfony/ldap": "^5.4|^6.0|^7.0",
-<<<<<<< HEAD
-=======
         "symfony/property-access": "^5.4|^6.0|^7.0",
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         "symfony/string": "^5.4|^6.0|^7.0",
         "symfony/translation": "^5.4.35|~6.3.12|^6.4.3|^7.0.3",
         "symfony/validator": "^6.4|^7.0",

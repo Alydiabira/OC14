@@ -11,22 +11,12 @@
 
 namespace Twig\Extra\TwigExtraBundle;
 
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-<<<<<<< HEAD
-use Twig\Extra\TwigExtraBundle\DependencyInjection\Compiler\MissingExtensionSuggestorPass;
-
-class TwigExtraBundle extends Bundle
-{
-    /** @return void */
-    public function build(ContainerBuilder $container)
-    {
-        parent::build($container);
-
-        $container->addCompilerPass(new MissingExtensionSuggestorPass());
-=======
 use Symfony\Component\HttpKernel\KernelInterface;
 use Twig\Extra\TwigExtraBundle\DependencyInjection\Compiler\MissingExtensionSuggestorPass;
+use Twig\Extra\TwigExtraBundle\DependencyInjection\Compiler\TwigCachePoolPass;
 
 if (method_exists(KernelInterface::class, 'getShareDir')) {
     class TwigExtraBundle extends Bundle
@@ -36,6 +26,8 @@ if (method_exists(KernelInterface::class, 'getShareDir')) {
             parent::build($container);
 
             $container->addCompilerPass(new MissingExtensionSuggestorPass());
+            // priority 64 so that it runs before Symfony's CachePoolPass (priority 32)
+            $container->addCompilerPass(new TwigCachePoolPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 64);
         }
     }
 } else {
@@ -47,7 +39,8 @@ if (method_exists(KernelInterface::class, 'getShareDir')) {
             parent::build($container);
 
             $container->addCompilerPass(new MissingExtensionSuggestorPass());
+            // priority 64 so that it runs before Symfony's CachePoolPass (priority 32)
+            $container->addCompilerPass(new TwigCachePoolPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 64);
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

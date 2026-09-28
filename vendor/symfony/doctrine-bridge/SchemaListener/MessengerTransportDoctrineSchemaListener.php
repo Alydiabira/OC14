@@ -34,26 +34,19 @@ class MessengerTransportDoctrineSchemaListener extends AbstractSchemaListener
     public function postGenerateSchema(GenerateSchemaEventArgs $event): void
     {
         $connection = $event->getEntityManager()->getConnection();
-<<<<<<< HEAD
-=======
         $schema = $event->getSchema();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         foreach ($this->transports as $transport) {
             if (!$transport instanceof DoctrineTransport) {
                 continue;
             }
 
-<<<<<<< HEAD
-            $transport->configureSchema($event->getSchema(), $connection, $this->getIsSameDatabaseChecker($connection));
-=======
             $isSameDatabaseChecker = $this->getIsSameDatabaseChecker($connection);
             $schema = $this->filterSchemaChanges($schema, $connection, static fn () => $transport->configureSchema($schema, $connection, $isSameDatabaseChecker)) ?? $schema;
         }
 
         if (method_exists($schema, 'edit') && method_exists($event, 'setSchema')) {
             $event->setSchema($schema);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 

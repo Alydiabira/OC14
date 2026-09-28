@@ -20,11 +20,7 @@
             </trans-unit>
             <trans-unit id="5">
                 <source>The value you selected is not a valid choice.</source>
-<<<<<<< HEAD
-                <target>Questo valore dovrebbe essere una delle opzioni disponibili.</target>
-=======
                 <target>Il valore selezionato non è una scelta valida.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="6">
                 <source>You must select at least {{ limit }} choice.|You must select at least {{ limit }} choices.</source>
@@ -312,11 +308,7 @@
             </trans-unit>
             <trans-unit id="80">
                 <source>This value does not match the expected {{ charset }} charset.</source>
-<<<<<<< HEAD
-                <target>Questo valore non corrisponde al charset {{ charset }}.</target>
-=======
                 <target>Questo valore non corrisponde al charset {{ charset }} previsto.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="81" resname="This is not a valid Business Identifier Code (BIC).">
                 <source>This value is not a valid Business Identifier Code (BIC).</source>
@@ -450,8 +442,6 @@
                 <source>This URL is missing a top-level domain.</source>
                 <target>Questo URL è privo di un dominio di primo livello.</target>
             </trans-unit>
-<<<<<<< HEAD
-=======
             <trans-unit id="114">
                 <source>This value is too short. It should contain at least one word.|This value is too short. It should contain at least {{ min }} words.</source>
                 <target>Questo valore è troppo corto. Dovrebbe contenere almeno una parola.|Questo valore è troppo corto. Dovrebbe contenere almeno {{ min }} parole.</target>
@@ -582,13 +572,12 @@
             </trans-unit>
             <trans-unit id="147">
                 <source>The referenced entity does not exist.</source>
-                <target state="needs-review-translation">L'entità referenziata non esiste.</target>
+                <target>L'entità referenziata non esiste.</target>
             </trans-unit>
             <trans-unit id="148" resname="This is not a valid ULID.">
                 <source>This value is not a valid ULID.</source>
-                <target state="needs-review-translation">Questo valore non è un ULID valido.</target>
+                <target>Questo valore non è un ULID valido.</target>
             </trans-unit>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         </body>
     </file>
 </xliff>

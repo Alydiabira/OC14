@@ -34,19 +34,11 @@ class ClassNotFoundErrorEnhancer implements ErrorEnhancerInterface
         if (false !== $namespaceSeparatorIndex = strrpos($fullyQualifiedClassName, '\\')) {
             $className = substr($fullyQualifiedClassName, $namespaceSeparatorIndex + 1);
             $namespacePrefix = substr($fullyQualifiedClassName, 0, $namespaceSeparatorIndex);
-<<<<<<< HEAD
-            $message = sprintf('Attempted to load %s "%s" from namespace "%s".', $typeName, $className, $namespacePrefix);
-            $tail = ' for another namespace?';
-        } else {
-            $className = $fullyQualifiedClassName;
-            $message = sprintf('Attempted to load %s "%s" from the global namespace.', $typeName, $className);
-=======
             $message = \sprintf('Attempted to load %s "%s" from namespace "%s".', $typeName, $className, $namespacePrefix);
             $tail = ' for another namespace?';
         } else {
             $className = $fullyQualifiedClassName;
             $message = \sprintf('Attempted to load %s "%s" from the global namespace.', $typeName, $className);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $tail = '?';
         }
 
@@ -122,12 +114,6 @@ class ClassNotFoundErrorEnhancer implements ErrorEnhancerInterface
 
         $classes = [];
         $filename = $class.'.php';
-<<<<<<< HEAD
-        foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS), \RecursiveIteratorIterator::LEAVES_ONLY) as $file) {
-            if ($filename == $file->getFileName() && $class = $this->convertFileToClass($path, $file->getPathName(), $prefix)) {
-                $classes[] = $class;
-            }
-=======
         try {
             foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::SKIP_DOTS), \RecursiveIteratorIterator::LEAVES_ONLY) as $file) {
                 if ($filename == $file->getFileName() && $class = $this->convertFileToClass($path, $file->getPathName(), $prefix)) {
@@ -136,7 +122,6 @@ class ClassNotFoundErrorEnhancer implements ErrorEnhancerInterface
             }
         } catch (\UnexpectedValueException) {
             // a subdirectory may vanish between listing and recursion (e.g. test fixtures)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $classes;
@@ -160,11 +145,7 @@ class ClassNotFoundErrorEnhancer implements ErrorEnhancerInterface
         ];
 
         if ($prefix) {
-<<<<<<< HEAD
-            $candidates = array_filter($candidates, fn ($candidate) => str_starts_with($candidate, $prefix));
-=======
             $candidates = array_filter($candidates, static fn ($candidate) => str_starts_with($candidate, $prefix));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         // We cannot use the autoloader here as most of them use require; but if the class

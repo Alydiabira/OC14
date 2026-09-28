@@ -28,11 +28,7 @@ class ClassConst implements PhpParser\Builder {
      * Creates a class constant builder
      *
      * @param string|Identifier $name Name
-<<<<<<< HEAD
-     * @param Node\Expr|bool|null|int|float|string|array $value Value
-=======
      * @param Node\Expr|bool|null|int|float|string|array|\UnitEnum $value Value
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct($name, $value) {
         $this->constants = [new Const_($name, BuilderHelpers::normalizeValue($value))];
@@ -42,11 +38,7 @@ class ClassConst implements PhpParser\Builder {
      * Add another constant to const group
      *
      * @param string|Identifier $name Name
-<<<<<<< HEAD
-     * @param Node\Expr|bool|null|int|float|string|array $value Value
-=======
      * @param Node\Expr|bool|null|int|float|string|array|\UnitEnum $value Value
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return $this The builder instance (for fluid interface)
      */

@@ -9,15 +9,6 @@
 
 namespace Gedmo\Sortable\Mapping\Driver;
 
-<<<<<<< HEAD
-use Gedmo\Mapping\Driver\AttributeDriverInterface;
-
-/**
- * This is an attribute mapping driver for Sortable
- * behavioral extension. Used for extraction of extended
- * metadata from attributes specifically for Sortable
- * extension.
-=======
 use Gedmo\Exception\InvalidMappingException;
 use Gedmo\Mapping\Annotation\SortableGroup;
 use Gedmo\Mapping\Annotation\SortablePosition;
@@ -27,16 +18,11 @@ use Gedmo\Mapping\Driver\AbstractAnnotationDriver;
  * Mapping driver for the sortable extension which reads extended metadata from attributes on a sortable class.
  *
  * @author Lukas Botsch <lukas.botsch@gmail.com>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  *
  * @internal
  */
-<<<<<<< HEAD
-final class Attribute extends Annotation implements AttributeDriverInterface
-{
-=======
 class Attribute extends AbstractAnnotationDriver
 {
     /**
@@ -110,5 +96,4 @@ class Attribute extends AbstractAnnotationDriver
 
         return $config;
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

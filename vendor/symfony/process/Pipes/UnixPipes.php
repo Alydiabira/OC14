@@ -35,20 +35,12 @@ class UnixPipes extends AbstractPipes
         parent::__construct($input);
     }
 
-<<<<<<< HEAD
-    public function __sleep(): array
-=======
     public function __serialize(): array
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         throw new \BadMethodCallException('Cannot serialize '.__CLASS__);
     }
 
-<<<<<<< HEAD
-    public function __wakeup(): void
-=======
     public function __unserialize(array $data): void
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         throw new \BadMethodCallException('Cannot unserialize '.__CLASS__);
     }
@@ -82,11 +74,7 @@ class UnixPipes extends AbstractPipes
             return [
                 ['pty'],
                 ['pty'],
-<<<<<<< HEAD
-                ['pty'],
-=======
                 ['pipe', 'w'], // stderr needs to be in a pipe to correctly split error and output, since PHP will use the same stream for both
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ];
         }
 

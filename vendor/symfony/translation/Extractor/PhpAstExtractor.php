@@ -36,11 +36,7 @@ final class PhpAstExtractor extends AbstractFileExtractor implements ExtractorIn
         private string $prefix = '',
     ) {
         if (!class_exists(ParserFactory::class)) {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('You cannot use "%s" as the "nikic/php-parser" package is not installed. Try running "composer require nikic/php-parser".', static::class));
-=======
             throw new \LogicException(\sprintf('You cannot use "%s" as the "nikic/php-parser" package is not installed. Try running "composer require nikic/php-parser".', static::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->parser = (new ParserFactory())->createForHostVersion();
@@ -81,11 +77,7 @@ final class PhpAstExtractor extends AbstractFileExtractor implements ExtractorIn
     protected function extractFromDirectory(array|string $resource): iterable|Finder
     {
         if (!class_exists(Finder::class)) {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('You cannot use "%s" as the "symfony/finder" package is not installed. Try running "composer require symfony/finder".', static::class));
-=======
             throw new \LogicException(\sprintf('You cannot use "%s" as the "symfony/finder" package is not installed. Try running "composer require symfony/finder".', static::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return (new Finder())->files()->name('*.php')->in($resource);

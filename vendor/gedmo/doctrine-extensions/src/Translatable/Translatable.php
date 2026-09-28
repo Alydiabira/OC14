@@ -21,15 +21,6 @@ interface Translatable
     // use now annotations instead of predefined methods, this interface is not necessary
 
     /*
-<<<<<<< HEAD
-     * @gedmo:TranslationEntity
-     * to specify custom translation class use
-     * class annotation @gedmo:TranslationEntity(class="your\class")
-     */
-
-    /*
-     * @gedmo:Translatable
-=======
      * @Gedmo\TranslationEntity
      * to specify custom translation class use
      * class annotation @Gedmo\TranslationEntity(class="your\class")
@@ -37,17 +28,12 @@ interface Translatable
 
     /*
      * @Gedmo\Translatable
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * to mark the field as translatable,
      * these fields will be translated
      */
 
     /*
-<<<<<<< HEAD
-     * @gedmo:Locale OR @gedmo:Language
-=======
      * @Gedmo\Locale OR @Gedmo\Language
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * to mark the field as locale used to override global
      * locale settings from TranslatableListener
      */

@@ -1,15 +1,9 @@
 # Twig Components
 
 Twig components give you the power to bind an object to a template, making
-<<<<<<< HEAD
-it easier to render and re-use small template "units" - like an "alert",
-markup for a modal, or a category sidebar. A very simple example
-would be a re-usable alert component:
-=======
 it easier to render and reuse small template "units" - like an "alert",
 markup for a modal, or a category sidebar. A very simple example
 would be a reusable alert component:
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 ![Example of the AlertComponent](https://github.com/symfony/ux/blob/2.x/src/TwigComponent/alert-example.png?raw=true)
 
@@ -30,17 +24,10 @@ Help Symfony by [sponsoring][3] its development!
 
 ## Resources
 
-<<<<<<< HEAD
--   [Documentation](https://symfony.com/bundles/ux-twig-component/current/index.html)
--   [Report issues](https://github.com/symfony/ux/issues) and
-    [send Pull Requests](https://github.com/symfony/ux/pulls)
-    in the [main Symfony UX repository](https://github.com/symfony/ux)
-=======
 - [Documentation](https://symfony.com/bundles/ux-twig-component/current/index.html)
 - [Report issues](https://github.com/symfony/ux/issues) and
   [send Pull Requests](https://github.com/symfony/ux/pulls)
   in the [main Symfony UX repository](https://github.com/symfony/ux)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 [1]: https://symfony.com/backers
 [2]: https://mercure.rocks

@@ -68,30 +68,6 @@ class DebugCommand extends Command
             ->setDefinition([
                 new InputArgument('name', InputArgument::OPTIONAL, 'The template name'),
                 new InputOption('filter', null, InputOption::VALUE_REQUIRED, 'Show details for all entries matching this filter'),
-<<<<<<< HEAD
-                new InputOption('format', null, InputOption::VALUE_REQUIRED, sprintf('The output format ("%s")', implode('", "', $this->getAvailableFormatOptions())), 'text'),
-            ])
-            ->setHelp(<<<'EOF'
-The <info>%command.name%</info> command outputs a list of twig functions,
-filters, globals and tests.
-
-  <info>php %command.full_name%</info>
-
-The command lists all functions, filters, etc.
-
-  <info>php %command.full_name% @Twig/Exception/error.html.twig</info>
-
-The command lists all paths that match the given template name.
-
-  <info>php %command.full_name% --filter=date</info>
-
-The command lists everything that contains the word date.
-
-  <info>php %command.full_name% --format=json</info>
-
-The command lists everything in a machine readable json format.
-EOF
-=======
                 new InputOption('format', null, InputOption::VALUE_REQUIRED, \sprintf('The output format ("%s")', implode('", "', $this->getAvailableFormatOptions())), 'text'),
             ])
             ->setHelp(<<<'EOF'
@@ -114,7 +90,6 @@ EOF
 
                 The command lists everything in a machine readable json format.
                 EOF
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -125,23 +100,14 @@ EOF
         $name = $input->getArgument('name');
         $filter = $input->getOption('filter');
 
-<<<<<<< HEAD
-        if (null !== $name && [] === $this->getFilesystemLoaders()) {
-            throw new InvalidArgumentException(sprintf('Argument "name" not supported, it requires the Twig loader "%s".', FilesystemLoader::class));
-=======
         if (null !== $name && !$this->getFilesystemLoaders()) {
             throw new InvalidArgumentException(\sprintf('Argument "name" not supported, it requires the Twig loader "%s".', FilesystemLoader::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         match ($input->getOption('format')) {
             'text' => $name ? $this->displayPathsText($io, $name) : $this->displayGeneralText($io, $filter),
             'json' => $name ? $this->displayPathsJson($io, $name) : $this->displayGeneralJson($io, $filter),
-<<<<<<< HEAD
-            default => throw new InvalidArgumentException(sprintf('Supported formats are "%s".', implode('", "', $this->getAvailableFormatOptions()))),
-=======
             default => throw new InvalidArgumentException(\sprintf('Supported formats are "%s".', implode('", "', $this->getAvailableFormatOptions()))),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         };
 
         return 0;
@@ -166,11 +132,7 @@ EOF
         $io->section('Matched File');
         if ($file->valid()) {
             if ($fileLink = $this->getFileLink($file->key())) {
-<<<<<<< HEAD
-                $io->block($file->current(), 'OK', sprintf('fg=black;bg=green;href=%s', $fileLink), ' ', true);
-=======
                 $io->block($file->current(), 'OK', \sprintf('fg=black;bg=green;href=%s', $fileLink), ' ', true);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } else {
                 $io->success($file->current());
             }
@@ -180,15 +142,9 @@ EOF
                 $io->section('Overridden Files');
                 do {
                     if ($fileLink = $this->getFileLink($file->key())) {
-<<<<<<< HEAD
-                        $io->text(sprintf('* <href=%s>%s</>', $fileLink, $file->current()));
-                    } else {
-                        $io->text(sprintf('* %s', $file->current()));
-=======
                         $io->text(\sprintf('* <href=%s>%s</>', $fileLink, $file->current()));
                     } else {
                         $io->text(\sprintf('* %s', $file->current()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
                     $file->next();
                 } while ($file->valid());
@@ -209,19 +165,11 @@ EOF
                 [$namespace, $shortname] = $this->parseTemplateName($name);
                 $alternatives = $this->findAlternatives($shortname, $shortnames);
                 if (FilesystemLoader::MAIN_NAMESPACE !== $namespace) {
-<<<<<<< HEAD
-                    $alternatives = array_map(fn ($shortname) => '@'.$namespace.'/'.$shortname, $alternatives);
-                }
-            }
-
-            $this->error($io, sprintf('Template name "%s" not found', $name), $alternatives);
-=======
                     $alternatives = array_map(static fn ($shortname) => '@'.$namespace.'/'.$shortname, $alternatives);
                 }
             }
 
             $this->error($io, \sprintf('Template name "%s" not found', $name), $alternatives);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $io->section('Configured Paths');
@@ -234,11 +182,7 @@ EOF
             if (FilesystemLoader::MAIN_NAMESPACE === $namespace) {
                 $message = 'No template paths configured for your application';
             } else {
-<<<<<<< HEAD
-                $message = sprintf('No template paths configured for "@%s" namespace', $namespace);
-=======
                 $message = \sprintf('No template paths configured for "@%s" namespace', $namespace);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 foreach ($this->getFilesystemLoaders() as $loader) {
                     $namespaces = $loader->getNamespaces();
                     foreach ($this->findAlternatives($namespace, $namespaces) as $namespace) {
@@ -266,11 +210,7 @@ EOF
                 $data['overridden_files'] = $files;
             }
         } else {
-<<<<<<< HEAD
-            $data['matched_file'] = sprintf('Template name "%s" not found', $name);
-=======
             $data['matched_file'] = \sprintf('Template name "%s" not found', $name);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         $data['loader_paths'] = $paths;
 
@@ -409,11 +349,7 @@ EOF
             }
 
             // format args
-<<<<<<< HEAD
-            $args = array_map(function (\ReflectionParameter $param) {
-=======
             $args = array_map(static function (\ReflectionParameter $param) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if ($param->isDefaultValueAvailable()) {
                     return $param->getName().' = '.json_encode($param->getDefaultValue());
                 }
@@ -439,11 +375,7 @@ EOF
                 return '(unknown?)';
             }
         } catch (\UnexpectedValueException $e) {
-<<<<<<< HEAD
-            return sprintf(' <error>%s</error>', $decorated ? OutputFormatter::escape($e->getMessage()) : $e->getMessage());
-=======
             return \sprintf(' <error>%s</error>', $decorated ? OutputFormatter::escape($e->getMessage()) : $e->getMessage());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ('globals' === $type) {
@@ -453,11 +385,7 @@ EOF
 
             $description = substr(@json_encode($meta), 0, 50);
 
-<<<<<<< HEAD
-            return sprintf(' = %s', $decorated ? OutputFormatter::escape($description) : $description);
-=======
             return \sprintf(' = %s', $decorated ? OutputFormatter::escape($description) : $description);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ('functions' === $type) {
@@ -504,16 +432,6 @@ EOF
     {
         $messages = [];
         foreach ($wrongBundles as $path => $alternatives) {
-<<<<<<< HEAD
-            $message = sprintf('Path "%s" not matching any bundle found', $path);
-            if ($alternatives) {
-                if (1 === \count($alternatives)) {
-                    $message .= sprintf(", did you mean \"%s\"?\n", $alternatives[0]);
-                } else {
-                    $message .= ", did you mean one of these:\n";
-                    foreach ($alternatives as $bundle) {
-                        $message .= sprintf("  - %s\n", $bundle);
-=======
             $message = \sprintf('Path "%s" not matching any bundle found', $path);
             if ($alternatives) {
                 if (1 === \count($alternatives)) {
@@ -522,7 +440,6 @@ EOF
                     $message .= ", did you mean one of these:\n";
                     foreach ($alternatives as $bundle) {
                         $message .= \sprintf("  - %s\n", $bundle);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
                 }
             }
@@ -575,11 +492,7 @@ EOF
     {
         if (isset($name[0]) && '@' === $name[0]) {
             if (false === ($pos = strpos($name, '/')) || $pos === \strlen($name) - 1) {
-<<<<<<< HEAD
-                throw new InvalidArgumentException(sprintf('Malformed namespaced template name "%s" (expecting "@namespace/template_name").', $name));
-=======
                 throw new InvalidArgumentException(\sprintf('Malformed namespaced template name "%s" (expecting "@namespace/template_name").', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $namespace = substr($name, 1, $pos - 1);
@@ -631,11 +544,7 @@ EOF
         }
 
         $threshold = 1e3;
-<<<<<<< HEAD
-        $alternatives = array_filter($alternatives, fn ($lev) => $lev < 2 * $threshold);
-=======
         $alternatives = array_filter($alternatives, static fn ($lev) => $lev < 2 * $threshold);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ksort($alternatives, \SORT_NATURAL | \SORT_FLAG_CASE);
 
         return array_keys($alternatives);
@@ -652,11 +561,7 @@ EOF
 
     private function isAbsolutePath(string $file): bool
     {
-<<<<<<< HEAD
-        return strspn($file, '/\\', 0, 1) || (\strlen($file) > 3 && ctype_alpha($file[0]) && ':' === $file[1] && strspn($file, '/\\', 2, 1)) || null !== parse_url($file, \PHP_URL_SCHEME);
-=======
         return strspn($file, '/\\', 0, 1) || (\strlen($file) > 3 && ctype_alpha($file[0]) && ':' === $file[1] && strspn($file, '/\\', 2, 1)) || parse_url($file, \PHP_URL_SCHEME);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

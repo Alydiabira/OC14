@@ -55,11 +55,7 @@ class UserPasswordValidator extends ConstraintValidator
         $user = $this->tokenStorage->getToken()->getUser();
 
         if (!$user instanceof PasswordAuthenticatedUserInterface) {
-<<<<<<< HEAD
-            throw new ConstraintDefinitionException(sprintf('The "%s" class must implement the "%s" interface.', PasswordAuthenticatedUserInterface::class, get_debug_type($user)));
-=======
             throw new ConstraintDefinitionException(\sprintf('The "%s" class must implement the "%s" interface.', get_debug_type($user), PasswordAuthenticatedUserInterface::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $hasher = $this->hasherFactory->getPasswordHasher($user);

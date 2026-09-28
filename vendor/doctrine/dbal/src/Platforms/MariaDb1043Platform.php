@@ -8,11 +8,7 @@ use Doctrine\Deprecations\Deprecation;
 use function sprintf;
 
 /**
-<<<<<<< HEAD
- * Provides the behavior, features and SQL dialect of the MariaDB 10.4 (10.4.6 GA) database platform.
-=======
  * Provides the behavior, features and SQL dialect of the MariaDB 10.4 database platform.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * Extend deprecated MariaDb1027Platform to ensure correct functions used in MySQLSchemaManager which
  * tests for MariaDb1027Platform not MariaDBPlatform.

@@ -5,17 +5,6 @@ namespace PhpParser\Lexer;
 use PhpParser\Error;
 use PhpParser\ErrorHandler;
 use PhpParser\Lexer;
-<<<<<<< HEAD
-use PhpParser\Lexer\TokenEmulator\AttributeEmulator;
-use PhpParser\Lexer\TokenEmulator\EnumTokenEmulator;
-use PhpParser\Lexer\TokenEmulator\CoaleseEqualTokenEmulator;
-use PhpParser\Lexer\TokenEmulator\ExplicitOctalEmulator;
-use PhpParser\Lexer\TokenEmulator\FlexibleDocStringEmulator;
-use PhpParser\Lexer\TokenEmulator\FnTokenEmulator;
-use PhpParser\Lexer\TokenEmulator\MatchTokenEmulator;
-use PhpParser\Lexer\TokenEmulator\NullsafeTokenEmulator;
-use PhpParser\Lexer\TokenEmulator\NumericLiteralSeparatorEmulator;
-=======
 use PhpParser\Lexer\TokenEmulator\AsymmetricVisibilityTokenEmulator;
 use PhpParser\Lexer\TokenEmulator\AttributeEmulator;
 use PhpParser\Lexer\TokenEmulator\EnumTokenEmulator;
@@ -25,15 +14,11 @@ use PhpParser\Lexer\TokenEmulator\MatchTokenEmulator;
 use PhpParser\Lexer\TokenEmulator\NullsafeTokenEmulator;
 use PhpParser\Lexer\TokenEmulator\PipeOperatorEmulator;
 use PhpParser\Lexer\TokenEmulator\PropertyTokenEmulator;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use PhpParser\Lexer\TokenEmulator\ReadonlyFunctionTokenEmulator;
 use PhpParser\Lexer\TokenEmulator\ReadonlyTokenEmulator;
 use PhpParser\Lexer\TokenEmulator\ReverseEmulator;
 use PhpParser\Lexer\TokenEmulator\TokenEmulator;
-<<<<<<< HEAD
-=======
 use PhpParser\Lexer\TokenEmulator\VoidCastEmulator;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use PhpParser\PhpVersion;
 use PhpParser\Token;
 
@@ -56,10 +41,7 @@ class Emulative extends Lexer {
         $this->hostPhpVersion = PhpVersion::getHostVersion();
 
         $emulators = [
-<<<<<<< HEAD
-=======
             new FnTokenEmulator(),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             new MatchTokenEmulator(),
             new NullsafeTokenEmulator(),
             new AttributeEmulator(),
@@ -67,13 +49,10 @@ class Emulative extends Lexer {
             new ReadonlyTokenEmulator(),
             new ExplicitOctalEmulator(),
             new ReadonlyFunctionTokenEmulator(),
-<<<<<<< HEAD
-=======
             new PropertyTokenEmulator(),
             new AsymmetricVisibilityTokenEmulator(),
             new PipeOperatorEmulator(),
             new VoidCastEmulator(),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ];
 
         // Collect emulators that are relevant for the PHP version we're running

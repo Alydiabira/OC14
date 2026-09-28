@@ -18,10 +18,7 @@ use Doctrine\ORM\Mapping\ClassMetadataFactory;
 use Doctrine\ORM\PersistentCollection;
 use Doctrine\ORM\Persisters\Collection\CollectionPersister;
 use Doctrine\ORM\Proxy\DefaultProxyClassNameResolver;
-<<<<<<< HEAD
-=======
 use Doctrine\ORM\Query\FilterCollection;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\UnitOfWork;
 
 use function array_values;
@@ -39,10 +36,7 @@ abstract class AbstractCollectionPersister implements CachedCollectionPersister
     protected array $queuedCache = [];
 
     protected string $regionName;
-<<<<<<< HEAD
-=======
     protected FilterCollection $filters;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected CollectionHydrator $hydrator;
     protected CacheLogger|null $cacheLogger;
 
@@ -56,13 +50,10 @@ abstract class AbstractCollectionPersister implements CachedCollectionPersister
         $cacheConfig   = $configuration->getSecondLevelCacheConfiguration();
         $cacheFactory  = $cacheConfig->getCacheFactory();
 
-<<<<<<< HEAD
-=======
         $this->region          = $region;
         $this->persister       = $persister;
         $this->association     = $association;
         $this->filters         = $em->getFilters();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->regionName      = $region->getName();
         $this->uow             = $em->getUnitOfWork();
         $this->metadataFactory = $em->getMetadataFactory();
@@ -150,11 +141,7 @@ abstract class AbstractCollectionPersister implements CachedCollectionPersister
     public function count(PersistentCollection $collection): int
     {
         $ownerId = $this->uow->getEntityIdentifier($collection->getOwner());
-<<<<<<< HEAD
-        $key     = new CollectionCacheKey($this->sourceEntity->rootEntityName, $this->association->fieldName, $ownerId);
-=======
         $key     = new CollectionCacheKey($this->sourceEntity->rootEntityName, $this->association->fieldName, $ownerId, $this->filters->getHash());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $entry   = $this->region->get($key);
 
         if ($entry !== null) {

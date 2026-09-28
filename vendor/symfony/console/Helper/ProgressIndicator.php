@@ -13,10 +13,7 @@ namespace Symfony\Component\Console\Helper;
 
 use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Exception\LogicException;
-<<<<<<< HEAD
-=======
 use Symfony\Component\Console\Output\ConsoleSectionOutput;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -144,13 +141,9 @@ class ProgressIndicator
 
         $this->message = $message;
         $this->display();
-<<<<<<< HEAD
-        $this->output->writeln('');
-=======
         if (!$this->output instanceof ConsoleSectionOutput) {
             $this->output->writeln('');
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->started = false;
     }
 
@@ -217,13 +210,9 @@ class ProgressIndicator
      */
     private function overwrite(string $message): void
     {
-<<<<<<< HEAD
-        if ($this->output->isDecorated()) {
-=======
         if ($this->output instanceof ConsoleSectionOutput) {
             $this->output->overwrite($message);
         } elseif ($this->output->isDecorated()) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->output->write("\x0D\x1B[2K");
             $this->output->write($message);
         } else {
@@ -242,17 +231,10 @@ class ProgressIndicator
     private static function initPlaceholderFormatters(): array
     {
         return [
-<<<<<<< HEAD
-            'indicator' => fn (self $indicator) => $indicator->indicatorValues[$indicator->indicatorCurrent % \count($indicator->indicatorValues)],
-            'message' => fn (self $indicator) => $indicator->message,
-            'elapsed' => fn (self $indicator) => Helper::formatTime(time() - $indicator->startTime, 2),
-            'memory' => fn () => Helper::formatMemory(memory_get_usage(true)),
-=======
             'indicator' => static fn (self $indicator) => $indicator->indicatorValues[$indicator->indicatorCurrent % \count($indicator->indicatorValues)],
             'message' => static fn (self $indicator) => $indicator->message,
             'elapsed' => static fn (self $indicator) => Helper::formatTime(time() - $indicator->startTime, 2),
             'memory' => static fn () => Helper::formatMemory(memory_get_usage(true)),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ];
     }
 }

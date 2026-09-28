@@ -13,10 +13,6 @@ namespace Symfony\Component\Mime\Part\Multipart;
 
 use Symfony\Component\Mime\Exception\InvalidArgumentException;
 use Symfony\Component\Mime\Part\AbstractMultipartPart;
-<<<<<<< HEAD
-use Symfony\Component\Mime\Part\DataPart;
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Mime\Part\TextPart;
 
 /**
@@ -29,11 +25,7 @@ final class FormDataPart extends AbstractMultipartPart
     private array $fields = [];
 
     /**
-<<<<<<< HEAD
-     * @param array<string|array|DataPart> $fields
-=======
      * @param array<string|array|TextPart> $fields
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct(array $fields = [])
     {
@@ -62,22 +54,14 @@ final class FormDataPart extends AbstractMultipartPart
         $prepare = function ($item, $key, $root = null) use (&$values, &$prepare) {
             if (null === $root && \is_int($key) && \is_array($item)) {
                 if (1 !== \count($item)) {
-<<<<<<< HEAD
-                    throw new InvalidArgumentException(sprintf('Form field values with integer keys can only have one array element, the key being the field name and the value being the field value, %d provided.', \count($item)));
-=======
                     throw new InvalidArgumentException(\sprintf('Form field values with integer keys can only have one array element, the key being the field name and the value being the field value, %d provided.', \count($item)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 $key = key($item);
                 $item = $item[$key];
             }
 
-<<<<<<< HEAD
-            $fieldName = null !== $root ? sprintf('%s[%s]', $root, $key) : $key;
-=======
             $fieldName = null !== $root ? \sprintf('%s[%s]', $root, $key) : $key;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             if (\is_array($item)) {
                 array_walk($item, $prepare, $fieldName);
@@ -86,11 +70,7 @@ final class FormDataPart extends AbstractMultipartPart
             }
 
             if (!\is_string($item) && !$item instanceof TextPart) {
-<<<<<<< HEAD
-                throw new InvalidArgumentException(sprintf('The value of the form field "%s" can only be a string, an array, or an instance of TextPart, "%s" given.', $fieldName, get_debug_type($item)));
-=======
                 throw new InvalidArgumentException(\sprintf('The value of the form field "%s" can only be a string, an array, or an instance of TextPart, "%s" given.', $fieldName, get_debug_type($item)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $values[] = $this->preparePart($fieldName, $item);

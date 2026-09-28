@@ -119,11 +119,7 @@ class MakeResetPassword extends AbstractMaker
     public function configureCommand(Command $command, InputConfiguration $inputConfig): void
     {
         $command
-<<<<<<< HEAD
-            ->setHelp(file_get_contents(__DIR__.'/../Resources/help/MakeResetPassword.txt'))
-=======
             ->setHelp($this->getHelpFileContents('MakeResetPassword.txt'))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ;
 
         $this->addWithUuidOption($command);
@@ -143,10 +139,7 @@ class MakeResetPassword extends AbstractMaker
 
         // reset-password-bundle 1.6 includes the ability to generate a fake token.
         // we need to check that version 1.6 is installed
-<<<<<<< HEAD
-=======
         // @phpstan-ignore function.alreadyNarrowedType
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (class_exists(ResetPasswordHelper::class) && !method_exists(ResetPasswordHelper::class, 'generateFakeResetToken')) {
             throw new RuntimeCommandException('Please run "composer upgrade symfonycasts/reset-password-bundle". Version 1.6 or greater of this bundle is required.');
         }
@@ -178,11 +171,7 @@ class MakeResetPassword extends AbstractMaker
         $this->emailGetterMethodName = $interactiveSecurityHelper->guessEmailGetter($io, $this->userClass, $this->emailPropertyName);
         $this->passwordSetterMethodName = $interactiveSecurityHelper->guessPasswordSetter($io, $this->userClass);
 
-<<<<<<< HEAD
-        $io->text(sprintf('Implementing reset password for <info>%s</info>', $this->userClass));
-=======
         $io->text(\sprintf('Implementing reset password for <info>%s</info>', $this->userClass));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $io->section('- ResetPasswordController -');
         $io->text('A named route is used for redirecting after a successful reset. Even a route that does not exist yet can be used here.');
@@ -369,11 +358,7 @@ class MakeResetPassword extends AbstractMaker
             );
 
             $userRepositoryDetails = $generator->createClassNameDetails(
-<<<<<<< HEAD
-                sprintf('%sRepository', $userClassNameDetails->getShortName()),
-=======
                 \sprintf('%sRepository', $userClassNameDetails->getShortName()),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'Repository\\'
             );
 
@@ -387,11 +372,7 @@ class MakeResetPassword extends AbstractMaker
             ]);
 
             $generator->generateFile(
-<<<<<<< HEAD
-                targetPath: sprintf('tests/%s.php', $testClassDetails->getShortName()),
-=======
                 targetPath: \sprintf('tests/%s.php', $testClassDetails->getShortName()),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 templateName: 'resetPassword/Test.ResetPasswordController.tpl.php',
                 variables: [
                     'use_statements' => $useStatements,
@@ -423,11 +404,7 @@ class MakeResetPassword extends AbstractMaker
          * Remind the developer to set the repository class accordingly.
          */
         if (!$configFileExists) {
-<<<<<<< HEAD
-            $io->text(sprintf('We can\'t find %s. That\'s ok, you probably have a customized configuration.', $path));
-=======
             $io->text(\sprintf('We can\'t find %s. That\'s ok, you probably have a customized configuration.', $path));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $io->text('Just remember to set the <fg=yellow>request_password_repository</> in your configuration.');
             $io->newLine();
 
@@ -470,11 +447,7 @@ class MakeResetPassword extends AbstractMaker
     private function successMessage(ConsoleStyle $io, string $requestClassName): void
     {
         $closing[] = 'Next:';
-<<<<<<< HEAD
-        $closing[] = sprintf('  1) Run <fg=yellow>"%s make:migration"</> to generate a migration for the new <fg=yellow>"%s"</> entity.', CliOutputHelper::getCommandPrefix(), $requestClassName);
-=======
         $closing[] = \sprintf('  1) Run <fg=yellow>"%s make:migration"</> to generate a migration for the new <fg=yellow>"%s"</> entity.', CliOutputHelper::getCommandPrefix(), $requestClassName);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $closing[] = '  2) Review forms in <fg=yellow>"src/Form"</> to customize validation and labels.';
         $closing[] = '  3) Review and customize the templates in <fg=yellow>`templates/reset_password`</>.';
         $closing[] = '  4) Make sure your <fg=yellow>MAILER_DSN</> env var has the correct settings.';
@@ -560,11 +533,7 @@ class MakeResetPassword extends AbstractMaker
             methodName: 'createResetPasswordRequest',
             returnType: ResetPasswordRequestInterface::class,
             isReturnTypeNullable: false,
-<<<<<<< HEAD
-            commentLines: [sprintf('@param %s $user', $userClassDetails->getShortName())]
-=======
             commentLines: [\sprintf('@param %s $user', $userClassDetails->getShortName())]
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         );
 
         $manipulator->addUseStatementIfNecessary($userClassDetails->getFullName());

@@ -36,11 +36,7 @@ class XliffLintCommand extends BaseLintCommand
             return $default($directory);
         };
 
-<<<<<<< HEAD
-        $isReadableProvider = fn ($fileOrDirectory, $default) => str_starts_with($fileOrDirectory, '@') || $default($fileOrDirectory);
-=======
         $isReadableProvider = static fn ($fileOrDirectory, $default) => str_starts_with($fileOrDirectory, '@') || $default($fileOrDirectory);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         parent::__construct(null, $directoryIteratorProvider, $isReadableProvider);
     }
@@ -51,19 +47,11 @@ class XliffLintCommand extends BaseLintCommand
 
         $this->setHelp($this->getHelp().<<<'EOF'
 
-<<<<<<< HEAD
-Or find all files in a bundle:
-
-  <info>php %command.full_name% @AcmeDemoBundle</info>
-
-EOF
-=======
             Or find all files in a bundle:
 
               <info>php %command.full_name% @AcmeDemoBundle</info>
 
             EOF
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         );
     }
 }

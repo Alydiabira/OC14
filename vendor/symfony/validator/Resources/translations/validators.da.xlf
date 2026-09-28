@@ -136,11 +136,7 @@
             </trans-unit>
             <trans-unit id="37" resname="This is not a valid IP address.">
                 <source>This value is not a valid IP address.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Denne værdi er ikke en gyldig IP-adresse.</target>
-=======
                 <target>Denne værdi er ikke en gyldig IP-adresse.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="38">
                 <source>This value is not a valid language.</source>
@@ -196,11 +192,7 @@
             </trans-unit>
             <trans-unit id="51" resname="No temporary folder was configured in php.ini.">
                 <source>No temporary folder was configured in php.ini, or the configured folder does not exist.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Der blev ikke konfigureret en midlertidig mappe i php.ini, eller den konfigurerede mappe eksisterer ikke.</target>
-=======
                 <target>Der blev ikke konfigureret en midlertidig mappe i php.ini, eller den konfigurerede mappe eksisterer ikke.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="52">
                 <source>Cannot write temporary file to disk.</source>
@@ -232,11 +224,7 @@
             </trans-unit>
             <trans-unit id="59" resname="This is not a valid International Bank Account Number (IBAN).">
                 <source>This value is not a valid International Bank Account Number (IBAN).</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Denne værdi er ikke et gyldigt internationalt bankkontonummer (IBAN).</target>
-=======
                 <target>Denne værdi er ikke et gyldigt internationalt bankkontonummer (IBAN).</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="60">
                 <source>This value is not a valid ISBN-10.</source>
@@ -284,19 +272,11 @@
             </trans-unit>
             <trans-unit id="71">
                 <source>This value should not be equal to {{ compared_value }}.</source>
-<<<<<<< HEAD
-                <target>Denne værdi bør ikke være lig med {{ compared_value }}.</target>
-            </trans-unit>
-            <trans-unit id="72">
-                <source>This value should not be identical to {{ compared_value_type }} {{ compared_value }}.</source>
-                <target>Denne værdi bør ikke være identisk med {{ compared_value_type }} {{ compared_value }}.</target>
-=======
                 <target>Denne værdi må ikke være lig med {{ compared_value }}.</target>
             </trans-unit>
             <trans-unit id="72">
                 <source>This value should not be identical to {{ compared_value_type }} {{ compared_value }}.</source>
                 <target>Denne værdi må ikke være identisk med {{ compared_value_type }} {{ compared_value }}.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="73">
                 <source>The image ratio is too big ({{ ratio }}). Allowed maximum ratio is {{ max_ratio }}.</source>
@@ -332,11 +312,7 @@
             </trans-unit>
             <trans-unit id="81" resname="This is not a valid Business Identifier Code (BIC).">
                 <source>This value is not a valid Business Identifier Code (BIC).</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Denne værdi er ikke en gyldig forretningsidentifikationskode (BIC).</target>
-=======
                 <target>Denne værdi er ikke en gyldig forretningsidentifikationskode (BIC).</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="82">
                 <source>Error</source>
@@ -344,19 +320,11 @@
             </trans-unit>
             <trans-unit id="83" resname="This is not a valid UUID.">
                 <source>This value is not a valid UUID.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Denne værdi er ikke en gyldig UUID.</target>
-            </trans-unit>
-            <trans-unit id="84">
-                <source>This value should be a multiple of {{ compared_value }}.</source>
-                <target>Denne værdi skal være et multiplikation af {{ compared_value }}.</target>
-=======
                 <target>Denne værdi er ikke et gyldigt UUID.</target>
             </trans-unit>
             <trans-unit id="84">
                 <source>This value should be a multiple of {{ compared_value }}.</source>
                 <target>Denne værdi skal være et multiplum af {{ compared_value }}.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="85">
                 <source>This Business Identifier Code (BIC) is not associated with IBAN {{ iban }}.</source>
@@ -368,11 +336,7 @@
             </trans-unit>
             <trans-unit id="87">
                 <source>This collection should contain only unique elements.</source>
-<<<<<<< HEAD
-                <target>Denne samling bør kun indeholde unikke elementer.</target>
-=======
                 <target>Denne samling må kun indeholde unikke elementer.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="88">
                 <source>This value should be positive.</source>
@@ -408,17 +372,6 @@
             </trans-unit>
             <trans-unit id="96">
                 <source>The number of elements in this collection should be a multiple of {{ compared_value }}.</source>
-<<<<<<< HEAD
-                <target>Antallet af elementer i denne samling skal være en multiplikation af {{ compared_value }}.</target>
-            </trans-unit>
-            <trans-unit id="97">
-                <source>This value should satisfy at least one of the following constraints:</source>
-                <target>Værdien skal overholde mindst én af følgende krav:</target>
-            </trans-unit>
-            <trans-unit id="98">
-                <source>Each element of this collection should satisfy its own set of constraints.</source>
-                <target>Hvert element i denne samling skal overholde dens egne krav.</target>
-=======
                 <target>Antallet af elementer i denne samling skal være et multiplum af {{ compared_value }}.</target>
             </trans-unit>
             <trans-unit id="97">
@@ -428,7 +381,6 @@
             <trans-unit id="98">
                 <source>Each element of this collection should satisfy its own set of constraints.</source>
                 <target>Hvert element i denne samling skal overholde sine egne krav.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="99">
                 <source>This value is not a valid International Securities Identification Number (ISIN).</source>
@@ -484,13 +436,6 @@
             </trans-unit>
             <trans-unit id="112">
                 <source>This value is not a valid MAC address.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Denne værdi er ikke en gyldig MAC-adresse.</target>
-            </trans-unit>
-            <trans-unit id="113">
-                <source>This URL is missing a top-level domain.</source>
-                <target state="needs-review-translation">Denne URL mangler et topdomæne.</target>
-=======
                 <target>Denne værdi er ikke en gyldig MAC-adresse.</target>
             </trans-unit>
             <trans-unit id="113">
@@ -632,7 +577,6 @@
             <trans-unit id="148" resname="This is not a valid ULID.">
                 <source>This value is not a valid ULID.</source>
                 <target state="needs-review-translation">Denne værdi er ikke et gyldigt ULID.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
         </body>
     </file>

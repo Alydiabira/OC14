@@ -5,11 +5,7 @@
  * Remember to use the same vendor files as the CDN ones,
  * otherwise the hashes won't match!
  *
-<<<<<<< HEAD
- * Copyright 2017-2024 The Bootstrap Authors
-=======
  * Copyright 2017-2025 The Bootstrap Authors
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 
@@ -23,19 +19,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 sh.config.fatal = true
 
-<<<<<<< HEAD
-const configFile = path.join(__dirname, '../hugo.yml')
-
-// Array of objects which holds the files to generate SRI hashes for.
-// `file` is the path from the root folder
-// `configPropertyName` is the hugo.yml variable's name of the file
-=======
 const configFile = path.join(__dirname, '../config.yml')
 
 // Array of objects which holds the files to generate SRI hashes for.
 // `file` is the path from the root folder
 // `configPropertyName` is the config.yml variable's name of the file
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 const files = [
   {
     file: 'dist/css/bootstrap.min.css',

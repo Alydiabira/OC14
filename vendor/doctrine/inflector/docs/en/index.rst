@@ -39,10 +39,7 @@ you want to create an inflector for to the ``createForLanguage()`` method:
 The supported languages are as follows:
 
 - ``Language::ENGLISH``
-<<<<<<< HEAD
-=======
 - ``Language::ESPERANTO``
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 - ``Language::FRENCH``
 - ``Language::NORWEGIAN_BOKMAL``
 - ``Language::PORTUGUESE``

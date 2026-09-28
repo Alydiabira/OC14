@@ -68,13 +68,8 @@ class ImportMapManager
      */
     public static function parsePackageName(string $packageName): ?array
     {
-<<<<<<< HEAD
-        // https://regex101.com/r/z1nj7P/1
-        $regex = '/((?P<package>@?[^=@\n]+))(?:@(?P<version>[^=\s\n]+))?(?:=(?P<alias>[^\s\n]+))?/';
-=======
         // https://regex101.com/r/3SkfPg/1
         $regex = '/((?P<package>@?[^=@\n]+))(?:@(?P<version>[^=\n]+))?(?:=(?P<alias>[^\s\n]+))?/';
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (!preg_match($regex, $packageName, $matches)) {
             return null;
@@ -99,11 +94,7 @@ class ImportMapManager
 
         foreach ($packagesToRemove as $packageName) {
             if (!$currentEntries->has($packageName)) {
-<<<<<<< HEAD
-                throw new \InvalidArgumentException(sprintf('Package "%s" listed for removal was not found in "importmap.php".', $packageName));
-=======
                 throw new \InvalidArgumentException(\sprintf('Package "%s" listed for removal was not found in "importmap.php".', $packageName));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $this->cleanupPackageFiles($currentEntries->get($packageName));
@@ -121,11 +112,8 @@ class ImportMapManager
                     $entry->packageModuleSpecifier,
                     null,
                     $importName,
-<<<<<<< HEAD
-=======
                     null,
                     $entry->isEntrypoint,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 );
 
                 // remove it: then it will be re-added
@@ -163,11 +151,7 @@ class ImportMapManager
 
             $path = $requireOptions->path;
             if (!$asset = $this->findAsset($path)) {
-<<<<<<< HEAD
-                throw new \LogicException(sprintf('The path "%s" of the package "%s" cannot be found: either pass the logical name of the asset or a relative path starting with "./".', $requireOptions->path, $requireOptions->importName));
-=======
                 throw new \LogicException(\sprintf('The path "%s" of the package "%s" cannot be found: either pass the logical name of the asset or a relative path starting with "./".', $requireOptions->path, $requireOptions->importName));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             // convert to a relative path (or fallback to the logical path)

@@ -27,11 +27,7 @@ class Question
     private bool $hiddenFallback = true;
     private ?\Closure $autocompleterCallback = null;
     private ?\Closure $validator = null;
-<<<<<<< HEAD
-    private string|int|bool|null|float $default;
-=======
     private string|int|bool|float|null $default;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private ?\Closure $normalizer = null;
     private bool $trimmable = true;
     private bool $multiline = false;

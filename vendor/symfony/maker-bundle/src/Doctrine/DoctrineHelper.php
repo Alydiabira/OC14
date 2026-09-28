@@ -24,10 +24,6 @@ use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\Mapping\Driver\MappingDriver;
 use Doctrine\Persistence\Mapping\Driver\MappingDriverChain;
 use Doctrine\Persistence\Mapping\MappingException as PersistenceMappingException;
-<<<<<<< HEAD
-use Doctrine\Persistence\Mapping\StaticReflectionService;
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Bundle\MakerBundle\Util\ClassNameDetails;
 use Symfony\Component\Uid\Ulid;
 use Symfony\Component\Uid\Uuid;
@@ -92,11 +88,7 @@ final class DoctrineHelper
         }
 
         if (null === $em) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('Cannot find the entity manager for class "%s". Ensure entity uses attribute mapping.', $className));
-=======
             throw new \InvalidArgumentException(\sprintf('Cannot find the entity manager for class "%s". Ensure entity uses attribute mapping.', $className));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (null === $this->mappingDriversByPrefix) {
@@ -163,10 +155,6 @@ final class DoctrineHelper
                 if ($attributeDriver instanceof AttributeDriver) {
                     $classNames = (new \ReflectionClass(AttributeDriver::class))->getProperty('classNames');
 
-<<<<<<< HEAD
-                    $classNames->setAccessible(true);
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $classNames->setValue($attributeDriver, null);
                 }
             }
@@ -274,11 +262,7 @@ final class DoctrineHelper
             Types::BOOLEAN => 'bool',
             Types::INTEGER, Types::SMALLINT => 'int',
             Types::FLOAT => 'float',
-<<<<<<< HEAD
-            Types::DATETIME_MUTABLE, Types::DATETIMETZ_MUTABLE, Types::DATE_MUTABLE, Types::TIME_MUTABLE => '\\'.\DateTimeInterface::class,
-=======
             Types::DATETIME_MUTABLE, Types::DATETIMETZ_MUTABLE, Types::DATE_MUTABLE, Types::TIME_MUTABLE => '\\'.\DateTime::class,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             Types::DATETIME_IMMUTABLE, Types::DATETIMETZ_IMMUTABLE, Types::DATE_IMMUTABLE, Types::TIME_IMMUTABLE => '\\'.\DateTimeImmutable::class,
             Types::DATEINTERVAL => '\\'.\DateInterval::class,
             'object' => 'object',
@@ -320,11 +304,7 @@ final class DoctrineHelper
             return null;
         }
 
-<<<<<<< HEAD
-        return sprintf('Types::%s', $constants[$columnType]);
-=======
         return \sprintf('Types::%s', $constants[$columnType]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function isInstanceOf($object, string $class): bool

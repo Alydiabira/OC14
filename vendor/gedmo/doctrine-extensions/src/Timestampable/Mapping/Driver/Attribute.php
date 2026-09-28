@@ -9,16 +9,6 @@
 
 namespace Gedmo\Timestampable\Mapping\Driver;
 
-<<<<<<< HEAD
-use Gedmo\Mapping\Driver\AttributeDriverInterface;
-
-/**
- * This is an attribute mapping driver for Timestampable
- * behavioral extension. Used for extraction of extended
- * metadata from attributes specifically for Timestampable
- * extension.
- *
-=======
 use Gedmo\Exception\InvalidMappingException;
 use Gedmo\Mapping\Annotation\Timestampable;
 use Gedmo\Mapping\Driver\AbstractAnnotationDriver;
@@ -27,17 +17,12 @@ use Gedmo\Mapping\Driver\AbstractAnnotationDriver;
  * Mapping driver for the timestampable extension which reads extended metadata from attributes on a timestampable class.
  *
  * @author Gediminas Morkevicius <gediminas.morkevicius@gmail.com>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  * @author Kevin Mian Kraiker <kevin.mian@gmail.com>
  *
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  *
  * @internal
  */
-<<<<<<< HEAD
-final class Attribute extends Annotation implements AttributeDriverInterface
-{
-=======
 class Attribute extends AbstractAnnotationDriver
 {
     /**
@@ -117,5 +102,4 @@ class Attribute extends AbstractAnnotationDriver
 
         return $config;
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

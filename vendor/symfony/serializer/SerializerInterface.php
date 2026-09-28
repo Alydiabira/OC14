@@ -32,15 +32,9 @@ interface SerializerInterface
      * @param TType                $type
      * @param array<string, mixed> $context
      *
-<<<<<<< HEAD
-     * @psalm-return (TType is class-string<TObject> ? TObject : mixed)
-     *
-     * @phpstan-return ($type is class-string<TObject> ? TObject : mixed)
-=======
      * @phpstan-return ($type is class-string<TObject> ? TObject : mixed)
      *
      * @psalm-return (TType is class-string<TObject> ? TObject : mixed)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function deserialize(mixed $data, string $type, string $format, array $context = []): mixed;
 }

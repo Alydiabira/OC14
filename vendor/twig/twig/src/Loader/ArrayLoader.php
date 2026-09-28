@@ -28,23 +28,12 @@ use Twig\Source;
  */
 final class ArrayLoader implements LoaderInterface
 {
-<<<<<<< HEAD
-    private $templates = [];
-
-    /**
-     * @param array $templates An array of templates (keys are the names, and values are the source code)
-     */
-    public function __construct(array $templates = [])
-    {
-        $this->templates = $templates;
-=======
     /**
      * @param array $templates An array of templates (keys are the names, and values are the source code)
      */
     public function __construct(
         private array $templates = [],
     ) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function setTemplate(string $name, string $template): void
@@ -55,11 +44,7 @@ final class ArrayLoader implements LoaderInterface
     public function getSourceContext(string $name): Source
     {
         if (!isset($this->templates[$name])) {
-<<<<<<< HEAD
-            throw new LoaderError(sprintf('Template "%s" is not defined.', $name));
-=======
             throw new LoaderError(\sprintf('Template "%s" is not defined.', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return new Source($this->templates[$name], $name);
@@ -73,11 +58,7 @@ final class ArrayLoader implements LoaderInterface
     public function getCacheKey(string $name): string
     {
         if (!isset($this->templates[$name])) {
-<<<<<<< HEAD
-            throw new LoaderError(sprintf('Template "%s" is not defined.', $name));
-=======
             throw new LoaderError(\sprintf('Template "%s" is not defined.', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $name.':'.$this->templates[$name];
@@ -86,11 +67,7 @@ final class ArrayLoader implements LoaderInterface
     public function isFresh(string $name, int $time): bool
     {
         if (!isset($this->templates[$name])) {
-<<<<<<< HEAD
-            throw new LoaderError(sprintf('Template "%s" is not defined.', $name));
-=======
             throw new LoaderError(\sprintf('Template "%s" is not defined.', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return true;

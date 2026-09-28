@@ -14,14 +14,6 @@ trait LoggerTrait
 {
     /**
      * System is unusable.
-<<<<<<< HEAD
-     *
-     * @param string|\Stringable $message
-     * @param array  $context
-     *
-     * @return void
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function emergency(string|\Stringable $message, array $context = []): void
     {
@@ -33,14 +25,6 @@ trait LoggerTrait
      *
      * Example: Entire website down, database unavailable, etc. This should
      * trigger the SMS alerts and wake you up.
-<<<<<<< HEAD
-     *
-     * @param string|\Stringable $message
-     * @param array  $context
-     *
-     * @return void
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function alert(string|\Stringable $message, array $context = []): void
     {
@@ -51,14 +35,6 @@ trait LoggerTrait
      * Critical conditions.
      *
      * Example: Application component unavailable, unexpected exception.
-<<<<<<< HEAD
-     *
-     * @param string|\Stringable $message
-     * @param array  $context
-     *
-     * @return void
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function critical(string|\Stringable $message, array $context = []): void
     {
@@ -68,14 +44,6 @@ trait LoggerTrait
     /**
      * Runtime errors that do not require immediate action but should typically
      * be logged and monitored.
-<<<<<<< HEAD
-     *
-     * @param string|\Stringable $message
-     * @param array  $context
-     *
-     * @return void
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function error(string|\Stringable $message, array $context = []): void
     {
@@ -87,14 +55,6 @@ trait LoggerTrait
      *
      * Example: Use of deprecated APIs, poor use of an API, undesirable things
      * that are not necessarily wrong.
-<<<<<<< HEAD
-     *
-     * @param string|\Stringable $message
-     * @param array  $context
-     *
-     * @return void
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function warning(string|\Stringable $message, array $context = []): void
     {
@@ -103,14 +63,6 @@ trait LoggerTrait
 
     /**
      * Normal but significant events.
-<<<<<<< HEAD
-     *
-     * @param string|\Stringable $message
-     * @param array  $context
-     *
-     * @return void
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function notice(string|\Stringable $message, array $context = []): void
     {
@@ -121,14 +73,6 @@ trait LoggerTrait
      * Interesting events.
      *
      * Example: User logs in, SQL logs.
-<<<<<<< HEAD
-     *
-     * @param string|\Stringable $message
-     * @param array  $context
-     *
-     * @return void
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function info(string|\Stringable $message, array $context = []): void
     {
@@ -137,14 +81,6 @@ trait LoggerTrait
 
     /**
      * Detailed debug information.
-<<<<<<< HEAD
-     *
-     * @param string|\Stringable $message
-     * @param array  $context
-     *
-     * @return void
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function debug(string|\Stringable $message, array $context = []): void
     {
@@ -154,15 +90,7 @@ trait LoggerTrait
     /**
      * Logs with an arbitrary level.
      *
-<<<<<<< HEAD
-     * @param mixed  $level
-     * @param string|\Stringable $message
-     * @param array  $context
-     *
-     * @return void
-=======
      * @param mixed $level
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws \Psr\Log\InvalidArgumentException
      */

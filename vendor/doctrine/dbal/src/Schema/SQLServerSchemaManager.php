@@ -197,11 +197,7 @@ SQL,
 
     private function parseDefaultExpression(string $value): ?string
     {
-<<<<<<< HEAD
-        while (preg_match('/^\((.*)\)$/s', $value, $matches)) {
-=======
         while (preg_match('/^\((.*)\)$/s', $value, $matches) === 1) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $value = $matches[1];
         }
 
@@ -231,11 +227,6 @@ SQL,
             $name = $tableForeignKey['ForeignKey'];
 
             if (! isset($foreignKeys[$name])) {
-<<<<<<< HEAD
-                $foreignKeys[$name] = [
-                    'local_columns' => [$tableForeignKey['ColumnName']],
-                    'foreign_table' => $tableForeignKey['ReferenceTableName'],
-=======
                 $referencedTableName = $tableForeignKey['ReferenceTableName'];
 
                 if ($tableForeignKey['ReferenceSchemaName'] !== 'dbo') {
@@ -245,7 +236,6 @@ SQL,
                 $foreignKeys[$name] = [
                     'local_columns' => [$tableForeignKey['ColumnName']],
                     'foreign_table' => $referencedTableName,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     'foreign_columns' => [$tableForeignKey['ReferenceColumnName']],
                     'name' => $name,
                     'options' => [
@@ -572,20 +562,6 @@ SQL;
     {
         $sql = <<<'SQL'
           SELECT
-<<<<<<< HEAD
-            tbl.name,
-            p.value AS [table_comment]
-          FROM
-            sys.tables AS tbl
-            INNER JOIN sys.extended_properties AS p ON p.major_id=tbl.object_id AND p.minor_id=0 AND p.class=1
-SQL;
-
-        $conditions = ["SCHEMA_NAME(tbl.schema_id) = N'dbo'", "p.name = N'MS_Description'"];
-        $params     = [];
-
-        if ($tableName !== null) {
-            $conditions[] = "tbl.name = N'" . $tableName . "'";
-=======
             scm.name AS schema_name,
             tbl.name AS table_name,
             p.value AS [table_comment]
@@ -600,28 +576,15 @@ SQL;
 
         if ($tableName !== null) {
             $conditions[] = $this->getTableWhereClause($tableName, 'scm.name', 'tbl.name');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $sql .= ' WHERE ' . implode(' AND ', $conditions);
 
-<<<<<<< HEAD
-        /** @var array<string,array<string,mixed>> $metadata */
-        $metadata = $this->_conn->executeQuery($sql, $params)
-            ->fetchAllAssociativeIndexed();
-
-        $tableOptions = [];
-        foreach ($metadata as $table => $data) {
-            $data = array_change_key_case($data, CASE_LOWER);
-
-            $tableOptions[$table] = [
-=======
         $tableOptions = [];
         foreach ($this->_conn->iterateAssociative($sql) as $data) {
             $data = array_change_key_case($data, CASE_LOWER);
 
             $tableOptions[$this->_getPortableTableDefinition($data)] = [
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'comment' => $data['table_comment'],
             ];
         }

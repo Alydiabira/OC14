@@ -14,10 +14,7 @@ namespace Symfony\Component\Security\Http;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestMatcherInterface;
 use Symfony\Component\Security\Http\Firewall\ExceptionListener;
-<<<<<<< HEAD
-=======
 use Symfony\Component\Security\Http\Firewall\FirewallListenerInterface;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Security\Http\Firewall\LogoutListener;
 
 /**
@@ -29,20 +26,12 @@ use Symfony\Component\Security\Http\Firewall\LogoutListener;
 class FirewallMap implements FirewallMapInterface
 {
     /**
-<<<<<<< HEAD
-     * @var list<array{RequestMatcherInterface, list<callable>, ExceptionListener|null, LogoutListener|null}>
-=======
      * @var list<array{RequestMatcherInterface, list<callable|FirewallListenerInterface>, ExceptionListener|null, LogoutListener|null}>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private array $map = [];
 
     /**
-<<<<<<< HEAD
-     * @param list<callable> $listeners
-=======
      * @param list<callable|FirewallListenerInterface> $listeners
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return void
      */

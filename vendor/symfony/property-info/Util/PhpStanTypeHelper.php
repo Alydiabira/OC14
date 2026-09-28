@@ -107,13 +107,10 @@ final class PhpStanTypeHelper
                     // It's safer to fall back to other extractors here, as resolving const types correctly is not easy at the moment
                     return [];
                 }
-<<<<<<< HEAD
-=======
                 if ($type instanceof IdentifierTypeNode && 'mixed' === $type->name) {
                     // a union that contains "mixed" is equivalent to "mixed", so it accepts any value
                     return [];
                 }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 foreach ($this->extractTypes($type, $nameScope) as $subType) {
                     $types[] = $subType;
                 }
@@ -132,8 +129,6 @@ final class PhpStanTypeHelper
                 return [$mainType];
             }
 
-<<<<<<< HEAD
-=======
             $collection = $mainType->isCollection() || is_a($mainType->getClassName(), \Traversable::class, true) || is_a($mainType->getClassName(), \ArrayAccess::class, true);
 
             // it's safer to fall back to other extractors if the generic type is too abstract
@@ -141,7 +136,6 @@ final class PhpStanTypeHelper
                 return [];
             }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $collectionKeyTypes = $mainType->getCollectionKeyTypes();
             $collectionKeyValues = [];
             if (1 === \count($node->genericTypes)) {
@@ -157,11 +151,7 @@ final class PhpStanTypeHelper
                 }
             }
 
-<<<<<<< HEAD
-            return [new Type($mainType->getBuiltinType(), $mainType->isNullable(), $mainType->getClassName(), true, $collectionKeyTypes, $collectionKeyValues)];
-=======
             return [new Type($mainType->getBuiltinType(), $mainType->isNullable(), $mainType->getClassName(), $collection, $collectionKeyTypes, $collectionKeyValues)];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         if ($node instanceof ArrayShapeNode) {
             return [new Type(Type::BUILTIN_TYPE_ARRAY, false, null, true)];

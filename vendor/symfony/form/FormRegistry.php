@@ -33,11 +33,7 @@ class FormRegistry implements FormRegistryInterface
      */
     private array $types = [];
 
-<<<<<<< HEAD
-    private FormTypeGuesserInterface|null|false $guesser = false;
-=======
     private FormTypeGuesserInterface|false|null $guesser = false;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private ResolvedFormTypeFactoryInterface $resolvedTypeFactory;
     private array $checkedTypes = [];
 
@@ -73,17 +69,10 @@ class FormRegistry implements FormRegistryInterface
             if (!$type) {
                 // Support fully-qualified class names
                 if (!class_exists($name)) {
-<<<<<<< HEAD
-                    throw new InvalidArgumentException(sprintf('Could not load type "%s": class does not exist.', $name));
-                }
-                if (!is_subclass_of($name, FormTypeInterface::class)) {
-                    throw new InvalidArgumentException(sprintf('Could not load type "%s": class does not implement "Symfony\Component\Form\FormTypeInterface".', $name));
-=======
                     throw new InvalidArgumentException(\sprintf('Could not load type "%s": class does not exist.', $name));
                 }
                 if (!is_subclass_of($name, FormTypeInterface::class)) {
                     throw new InvalidArgumentException(\sprintf('Could not load type "%s": class does not implement "Symfony\Component\Form\FormTypeInterface".', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 $type = new $name();
@@ -105,11 +94,7 @@ class FormRegistry implements FormRegistryInterface
 
         if (isset($this->checkedTypes[$fqcn])) {
             $types = implode(' > ', array_merge(array_keys($this->checkedTypes), [$fqcn]));
-<<<<<<< HEAD
-            throw new LogicException(sprintf('Circular reference detected for form type "%s" (%s).', $fqcn, $types));
-=======
             throw new LogicException(\sprintf('Circular reference detected for form type "%s" (%s).', $fqcn, $types));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->checkedTypes[$fqcn] = true;

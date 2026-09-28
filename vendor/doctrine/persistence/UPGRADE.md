@@ -6,8 +6,6 @@ awareness about deprecated code.
 - Use of our low-overhead runtime deprecation API, details:
   https://github.com/doctrine/deprecations/
 
-<<<<<<< HEAD
-=======
 # Upgrade to 4.2
 
 ## Add `getFieldValue` and `setFieldValue` to `ClassMetadata` implementation
@@ -121,7 +119,6 @@ Deprecated classes have been removed:
 The class `Doctrine\Persistence\Mapping\StaticReflectionService` is deprecated
 without replacement.
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 # Upgrade to 3.3
 
 ## Added method `ObjectManager::isUninitializedObject()`

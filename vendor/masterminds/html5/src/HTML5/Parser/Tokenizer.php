@@ -507,11 +507,7 @@ class Tokenizer
         $this->scanner->whitespace();
 
         $val = $this->attributeValue();
-<<<<<<< HEAD
-        if ($isValidAttribute) {
-=======
         if ($isValidAttribute && !array_key_exists($name, $attributes)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $attributes[$name] = $val;
         }
 
@@ -733,10 +729,7 @@ class Tokenizer
         // Test for '!>'
         if ('!' == $this->scanner->current() && '>' == $this->scanner->peek()) {
             $this->scanner->consume(); // Consume the last '>'
-<<<<<<< HEAD
-=======
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return true;
         }
         // Unread '-' and one of '!' or '>';
@@ -1135,11 +1128,7 @@ class Tokenizer
                 return '&';
             }
 
-<<<<<<< HEAD
-            // Hexidecimal encoding.
-=======
             // Hexadecimal encoding.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             // X[0-9a-fA-F]+;
             // x[0-9a-fA-F]+;
             if ('x' === $tok || 'X' === $tok) {
@@ -1219,13 +1208,10 @@ class Tokenizer
      */
     protected function is_alpha($input)
     {
-<<<<<<< HEAD
-=======
         if (!is_string($input) || 1 !== strlen($input)) {
             return false;
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $code = ord($input);
 
         return ($code >= 97 && $code <= 122) || ($code >= 65 && $code <= 90);

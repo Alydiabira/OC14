@@ -13,16 +13,11 @@ use Doctrine\Common\EventArgs;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Types\Type as TypeODM;
-<<<<<<< HEAD
-use Doctrine\ORM\UnitOfWork;
-use Doctrine\Persistence\Event\LoadClassMetadataEventArgs;
-=======
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\UnitOfWork;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Doctrine\Persistence\Event\LoadClassMetadataEventArgs;
 use Doctrine\Persistence\Event\ManagerEventArgs;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\NotifyPropertyChanged;
 use Doctrine\Persistence\ObjectManager;
@@ -33,14 +28,11 @@ use Gedmo\Mapping\MappedEventSubscriber;
 /**
  * The AbstractTrackingListener provides generic functions for all listeners.
  *
-<<<<<<< HEAD
-=======
  * @template TConfig of array
  * @template TEventAdapter of AdapterInterface
  *
  * @template-extends MappedEventSubscriber<TConfig, TEventAdapter>
  *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  * @author Gediminas Morkevicius <gediminas.morkevicius@gmail.com>
  */
 abstract class AbstractTrackingListener extends MappedEventSubscriber
@@ -76,13 +68,10 @@ abstract class AbstractTrackingListener extends MappedEventSubscriber
     /**
      * Processes object updates when the manager is flushed.
      *
-<<<<<<< HEAD
-=======
      * @param ManagerEventArgs $args
      *
      * @phpstan-param ManagerEventArgs<ObjectManager> $args
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function onFlush(EventArgs $args)
@@ -160,11 +149,7 @@ abstract class AbstractTrackingListener extends MappedEventSubscriber
                                 }
                                 $objectMeta = $om->getClassMetadata(get_class($changingObject));
                                 $om->initializeObject($changingObject);
-<<<<<<< HEAD
-                                $value = $objectMeta->getReflectionProperty($trackedChild)->getValue($changingObject);
-=======
                                 $value = $objectMeta->getFieldValue($changingObject, $trackedChild);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                             } else {
                                 $value = $changes[1];
                             }
@@ -189,13 +174,10 @@ abstract class AbstractTrackingListener extends MappedEventSubscriber
     /**
      * Processes updates when an object is persisted in the manager.
      *
-<<<<<<< HEAD
-=======
      * @param LifecycleEventArgs $args
      *
      * @phpstan-param LifecycleEventArgs<ObjectManager> $args
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return void
      */
     public function prePersist(EventArgs $args)
@@ -207,22 +189,14 @@ abstract class AbstractTrackingListener extends MappedEventSubscriber
         if ($config = $this->getConfiguration($om, $meta->getName())) {
             if (isset($config['update'])) {
                 foreach ($config['update'] as $field) {
-<<<<<<< HEAD
-                    if (null === $meta->getReflectionProperty($field)->getValue($object)) { // let manual values
-=======
                     if (null === $meta->getFieldValue($object, $field)) { // let manual values
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $this->updateField($object, $ea, $meta, $field);
                     }
                 }
             }
             if (isset($config['create'])) {
                 foreach ($config['create'] as $field) {
-<<<<<<< HEAD
-                    if (null === $meta->getReflectionProperty($field)->getValue($object)) { // let manual values
-=======
                     if (null === $meta->getFieldValue($object, $field)) { // let manual values
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $this->updateField($object, $ea, $meta, $field);
                     }
                 }
@@ -233,15 +207,9 @@ abstract class AbstractTrackingListener extends MappedEventSubscriber
     /**
      * Get the value for an updated field.
      *
-<<<<<<< HEAD
-     * @param ClassMetadata    $meta
-     * @param string           $field
-     * @param AdapterInterface $eventAdapter
-=======
      * @param ClassMetadata<object> $meta
      * @param string                $field
      * @param TEventAdapter         $eventAdapter
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return mixed
      */
@@ -250,28 +218,16 @@ abstract class AbstractTrackingListener extends MappedEventSubscriber
     /**
      * Updates a field.
      *
-<<<<<<< HEAD
-     * @param object           $object
-     * @param AdapterInterface $eventAdapter
-     * @param ClassMetadata    $meta
-     * @param string           $field
-=======
      * @param object                $object
      * @param TEventAdapter         $eventAdapter
      * @param ClassMetadata<object> $meta
      * @param string                $field
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return void
      */
     protected function updateField($object, $eventAdapter, $meta, $field)
     {
-<<<<<<< HEAD
-        $property = $meta->getReflectionProperty($field);
-        $oldValue = $property->getValue($object);
-=======
         $oldValue = $meta->getFieldValue($object, $field);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $newValue = $this->getFieldValue($meta, $field, $eventAdapter);
 
         // if field value is reference, persist object
@@ -284,11 +240,7 @@ abstract class AbstractTrackingListener extends MappedEventSubscriber
             }
         }
 
-<<<<<<< HEAD
-        $property->setValue($object, $newValue);
-=======
         $meta->setFieldValue($object, $field, $newValue);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($object instanceof NotifyPropertyChanged) {
             $uow = $eventAdapter->getObjectManager()->getUnitOfWork();
@@ -320,11 +272,6 @@ abstract class AbstractTrackingListener extends MappedEventSubscriber
                     } else {
                         $values[$i] = $value;
                     }
-<<<<<<< HEAD
-                } elseif (Type::hasType($type)) {
-                    $values[$i] = Type::getType($type)
-                        ->convertToPHPValue($value, $om->getConnection()->getDatabasePlatform());
-=======
                 } elseif ($om instanceof EntityManagerInterface) {
                     if (Type::hasType($type)) {
                         $values[$i] = $om->getConnection()
@@ -332,7 +279,6 @@ abstract class AbstractTrackingListener extends MappedEventSubscriber
                     } else {
                         $values[$i] = $value;
                     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
         }

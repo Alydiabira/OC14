@@ -11,11 +11,8 @@
 
 namespace Symfony\Component\Security\Http\Firewall;
 
-<<<<<<< HEAD
-=======
 use Doctrine\Persistence\Proxy;
 use ProxyManager\Proxy\LazyLoadingInterface;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -36,10 +33,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Event\TokenDeauthenticatedEvent;
-<<<<<<< HEAD
-=======
 use Symfony\Component\VarExporter\LazyObjectInterface;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -132,13 +126,10 @@ class ContextListener extends AbstractListener
         ]);
 
         if ($token instanceof TokenInterface) {
-<<<<<<< HEAD
-=======
             if (!$token->getUser()) {
                 throw new \UnexpectedValueException(\sprintf('Cannot authenticate a "%s" token because it doesn\'t store a user.', $token::class));
             }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $originalToken = $token;
             $token = $this->refreshUser($token);
 
@@ -180,10 +171,7 @@ class ContextListener extends AbstractListener
         $session = $request->getSession();
         $sessionId = $session->getId();
         $usageIndexValue = $session instanceof Session ? $usageIndexReference = &$session->getUsageIndex() : null;
-<<<<<<< HEAD
-=======
         $usageIndexReference = \PHP_INT_MIN;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $token = $this->tokenStorage->getToken();
 
         if (!$this->trustResolver->isAuthenticated($token)) {
@@ -191,8 +179,6 @@ class ContextListener extends AbstractListener
                 $session->remove($this->sessionKey);
             }
         } else {
-<<<<<<< HEAD
-=======
             if ($user = $token?->getUser()) {
                 if (\PHP_VERSION_ID >= 80400 && ($reflector = new \ReflectionClass($user))->isUninitializedLazyObject($user)) {
                     $reflector->initializeLazyObject($user);
@@ -205,7 +191,6 @@ class ContextListener extends AbstractListener
                 }
             }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $session->set($this->sessionKey, serialize($token));
 
             $this->logger?->debug('Stored the security token in the session.', ['key' => $this->sessionKey]);
@@ -213,11 +198,8 @@ class ContextListener extends AbstractListener
 
         if ($this->sessionTrackerEnabler && $session->getId() === $sessionId) {
             $usageIndexReference = $usageIndexValue;
-<<<<<<< HEAD
-=======
         } else {
             $usageIndexReference = $usageIndexReference - \PHP_INT_MIN + $usageIndexValue;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -228,13 +210,10 @@ class ContextListener extends AbstractListener
      */
     protected function refreshUser(TokenInterface $token): ?TokenInterface
     {
-<<<<<<< HEAD
-=======
         if ($token instanceof SwitchUserToken && $token->getOriginalToken()->getUser() && !$this->refreshUser($token->getOriginalToken())) {
             return null;
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $user = $token->getUser();
 
         $userNotFoundByProvider = false;
@@ -243,11 +222,7 @@ class ContextListener extends AbstractListener
 
         foreach ($this->userProviders as $provider) {
             if (!$provider instanceof UserProviderInterface) {
-<<<<<<< HEAD
-                throw new \InvalidArgumentException(sprintf('User provider "%s" must implement "%s".', get_debug_type($provider), UserProviderInterface::class));
-=======
                 throw new \InvalidArgumentException(\sprintf('User provider "%s" must implement "%s".', get_debug_type($provider), UserProviderInterface::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if (!$provider->supportsClass($userClass)) {
@@ -256,17 +231,9 @@ class ContextListener extends AbstractListener
 
             try {
                 $refreshedUser = $provider->refreshUser($user);
-<<<<<<< HEAD
-                $newToken = clone $token;
-                $newToken->setUser($refreshedUser, false);
-
-                // tokens can be deauthenticated if the user has been changed.
-                if ($token instanceof AbstractToken && $this->hasUserChanged($user, $newToken)) {
-=======
 
                 // tokens can be deauthenticated if the user has been changed.
                 if ($token instanceof AbstractToken && self::hasUserChanged($token, $user, $refreshedUser)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $userDeauthenticated = true;
 
                     $this->logger?->debug('Cannot refresh token because user has changed.', ['username' => $refreshedUser->getUserIdentifier(), 'provider' => $provider::class]);
@@ -305,22 +272,14 @@ class ContextListener extends AbstractListener
             return null;
         }
 
-<<<<<<< HEAD
-        throw new \RuntimeException(sprintf('There is no user provider for user "%s". Shouldn\'t the "supportsClass()" method of your user provider return true for this classname?', $userClass));
-=======
         throw new \RuntimeException(\sprintf('There is no user provider for user "%s". Shouldn\'t the "supportsClass()" method of your user provider return true for this classname?', $userClass));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function safelyUnserialize(string $serializedToken): mixed
     {
         $token = null;
         $prevUnserializeHandler = ini_set('unserialize_callback_func', __CLASS__.'::handleUnserializeCallback');
-<<<<<<< HEAD
-        $prevErrorHandler = set_error_handler(function ($type, $msg, $file, $line, $context = []) use (&$prevErrorHandler) {
-=======
         $prevErrorHandler = set_error_handler(static function ($type, $msg, $file, $line, $context = []) use (&$prevErrorHandler) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (__FILE__ === $file && !\in_array($type, [\E_DEPRECATED, \E_USER_DEPRECATED], true)) {
                 throw new \ErrorException($msg, 0x37313BC, $type, $file, $line);
             }
@@ -329,11 +288,7 @@ class ContextListener extends AbstractListener
         });
 
         try {
-<<<<<<< HEAD
-            $token = unserialize($serializedToken);
-=======
             $token = unserialize($serializedToken, ['allowed_classes' => true]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } catch (\ErrorException $e) {
             if (0x37313BC !== $e->getCode()) {
                 throw $e;
@@ -347,19 +302,10 @@ class ContextListener extends AbstractListener
         return $token;
     }
 
-<<<<<<< HEAD
-    private static function hasUserChanged(UserInterface $originalUser, TokenInterface $refreshedToken): bool
-    {
-        $refreshedUser = $refreshedToken->getUser();
-
-        if ($originalUser instanceof EquatableInterface) {
-            return !(bool) $originalUser->isEqualTo($refreshedUser);
-=======
     private static function hasUserChanged(AbstractToken $token, UserInterface $originalUser, UserInterface $refreshedUser): bool
     {
         if ($originalUser instanceof EquatableInterface) {
             return !$originalUser->isEqualTo($refreshedUser);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($originalUser instanceof PasswordAuthenticatedUserInterface || $refreshedUser instanceof PasswordAuthenticatedUserInterface) {
@@ -378,15 +324,6 @@ class ContextListener extends AbstractListener
 
         $userRoles = array_map('strval', (array) $refreshedUser->getRoles());
 
-<<<<<<< HEAD
-        if ($refreshedToken instanceof SwitchUserToken) {
-            $userRoles[] = 'ROLE_PREVIOUS_ADMIN';
-        }
-
-        if (
-            \count($userRoles) !== \count($refreshedToken->getRoleNames())
-            || \count($userRoles) !== \count(array_intersect($userRoles, $refreshedToken->getRoleNames()))
-=======
         if ($token instanceof SwitchUserToken) {
             $userRoles[] = 'ROLE_PREVIOUS_ADMIN';
         }
@@ -396,7 +333,6 @@ class ContextListener extends AbstractListener
         if (
             \count($userRoles) !== \count($tokenRoleNames)
             || \count($userRoles) !== \count(array_intersect($userRoles, $tokenRoleNames))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ) {
             return true;
         }

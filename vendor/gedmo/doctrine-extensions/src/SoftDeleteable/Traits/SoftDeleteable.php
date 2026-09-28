@@ -10,14 +10,9 @@
 namespace Gedmo\SoftDeleteable\Traits;
 
 /**
-<<<<<<< HEAD
- * A generic trait to use on your self-deletable entities.
- * There is no mapping information defined in this trait.
-=======
  * Trait for soft-deletable objects.
  *
  * This implementation does not provide any mapping configurations.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @author Wesley van Opdorp <wesley.van.opdorp@freshheads.com>
  */

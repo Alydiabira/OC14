@@ -12,10 +12,7 @@ use Doctrine\DBAL\LockMode;
 use Doctrine\Inflector\Inflector;
 use Doctrine\Inflector\InflectorFactory;
 use Doctrine\ORM\Mapping\ClassMetadata;
-<<<<<<< HEAD
-=======
 use Doctrine\ORM\Query\Expr;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Doctrine\ORM\Repository\Exception\InvalidMagicMethodCall;
 use Doctrine\Persistence\ObjectRepository;
@@ -39,19 +36,11 @@ use function substr;
  */
 class EntityRepository implements ObjectRepository, Selectable
 {
-<<<<<<< HEAD
-    /** @psalm-var class-string<T> */
-    private readonly string $entityName;
-    private static Inflector|null $inflector = null;
-
-    /** @psalm-param ClassMetadata<T> $class */
-=======
     /** @var class-string<T> */
     private readonly string $entityName;
     private static Inflector|null $inflector = null;
 
     /** @param ClassMetadata<T> $class */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function __construct(
         private readonly EntityManagerInterface $em,
         private readonly ClassMetadata $class,
@@ -85,17 +74,6 @@ class EntityRepository implements ObjectRepository, Selectable
     /**
      * Finds an entity by its primary key / identifier.
      *
-<<<<<<< HEAD
-     * @param LockMode|int|null $lockMode One of the \Doctrine\DBAL\LockMode::* constants
-     *                                    or NULL if no specific lock mode should be used
-     *                                    during the search.
-     * @psalm-param LockMode::*|null $lockMode
-     *
-     * @return object|null The entity instance or NULL if the entity can not be found.
-     * @psalm-return ?T
-     */
-    public function find(mixed $id, LockMode|int|null $lockMode = null, int|null $lockVersion = null): object|null
-=======
      * @param LockMode|int|null $lockMode One of the \Doctrine\DBAL\LockMode::* constants.
      *                                    Passing NULL is deprecated, use LockMode::NONE
      *                                    instead.
@@ -105,7 +83,6 @@ class EntityRepository implements ObjectRepository, Selectable
      * @phpstan-return ?T
      */
     public function find(mixed $id, LockMode|int|null $lockMode = LockMode::NONE, int|null $lockVersion = null): object|null
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return $this->em->find($this->entityName, $id, $lockMode, $lockVersion);
     }
@@ -113,11 +90,7 @@ class EntityRepository implements ObjectRepository, Selectable
     /**
      * Finds all entities in the repository.
      *
-<<<<<<< HEAD
-     * @psalm-return list<T> The entities.
-=======
      * @phpstan-return list<T> The entities.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function findAll(): array
     {
@@ -129,11 +102,7 @@ class EntityRepository implements ObjectRepository, Selectable
      *
      * {@inheritDoc}
      *
-<<<<<<< HEAD
-     * @psalm-return list<T>
-=======
      * @phpstan-return list<T>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function findBy(array $criteria, array|null $orderBy = null, int|null $limit = null, int|null $offset = null): array
     {
@@ -145,17 +114,10 @@ class EntityRepository implements ObjectRepository, Selectable
     /**
      * Finds a single entity by a set of criteria.
      *
-<<<<<<< HEAD
-     * @psalm-param array<string, mixed> $criteria
-     * @psalm-param array<string, string>|null $orderBy
-     *
-     * @psalm-return T|null
-=======
      * @phpstan-param array<string, mixed> $criteria
      * @phpstan-param array<string, string>|null $orderBy
      *
      * @phpstan-return T|null
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function findOneBy(array $criteria, array|null $orderBy = null): object|null
     {
@@ -167,16 +129,10 @@ class EntityRepository implements ObjectRepository, Selectable
     /**
      * Counts entities by a set of criteria.
      *
-<<<<<<< HEAD
-     * @psalm-param array<string, mixed> $criteria
-     *
-     * @return int The cardinality of the objects that match the given criteria.
-=======
      * @phpstan-param array<string, mixed> $criteria
      *
      * @return int The cardinality of the objects that match the given criteria.
      * @phpstan-return 0|positive-int
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @todo Add this method to `ObjectRepository` interface in the next major release
      */
@@ -189,11 +145,7 @@ class EntityRepository implements ObjectRepository, Selectable
      * Adds support for magic method calls.
      *
      * @param mixed[] $arguments
-<<<<<<< HEAD
-     * @psalm-param list<mixed> $arguments
-=======
      * @phpstan-param list<mixed> $arguments
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws BadMethodCallException If the method called is invalid.
      */
@@ -218,11 +170,7 @@ class EntityRepository implements ObjectRepository, Selectable
         ));
     }
 
-<<<<<<< HEAD
-    /** @psalm-return class-string<T> */
-=======
     /** @return class-string<T> */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected function getEntityName(): string
     {
         return $this->entityName;
@@ -238,16 +186,12 @@ class EntityRepository implements ObjectRepository, Selectable
         return $this->em;
     }
 
-<<<<<<< HEAD
-    /** @psalm-return ClassMetadata<T> */
-=======
     final protected function expr(): Expr
     {
         return $this->em->getExpressionBuilder();
     }
 
     /** @phpstan-return ClassMetadata<T> */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected function getClassMetadata(): ClassMetadata
     {
         return $this->class;
@@ -257,11 +201,7 @@ class EntityRepository implements ObjectRepository, Selectable
      * Select all elements from a selectable that match the expression and
      * return a new collection containing these elements.
      *
-<<<<<<< HEAD
-     * @psalm-return AbstractLazyCollection<int, T>&Selectable<int, T>
-=======
      * @phpstan-return AbstractLazyCollection<int, T>&Selectable<int, T>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function matching(Criteria $criteria): AbstractLazyCollection&Selectable
     {
@@ -275,11 +215,7 @@ class EntityRepository implements ObjectRepository, Selectable
      *
      * @param string $method The method to call
      * @param string $by     The property name used as condition
-<<<<<<< HEAD
-     * @psalm-param list<mixed> $arguments The arguments to pass at method call
-=======
      * @phpstan-param list<mixed> $arguments The arguments to pass at method call
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws InvalidMagicMethodCall If the method called is invalid or the
      *                                requested field/association does not exist.

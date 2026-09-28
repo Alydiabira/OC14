@@ -28,13 +28,8 @@ final class SessionUtils
     public static function popSessionCookie(string $sessionName, #[\SensitiveParameter] string $sessionId): ?string
     {
         $sessionCookie = null;
-<<<<<<< HEAD
-        $sessionCookiePrefix = sprintf(' %s=', urlencode($sessionName));
-        $sessionCookieWithId = sprintf('%s%s;', $sessionCookiePrefix, urlencode($sessionId));
-=======
         $sessionCookiePrefix = \sprintf(' %s=', urlencode($sessionName));
         $sessionCookieWithId = \sprintf('%s%s;', $sessionCookiePrefix, urlencode($sessionId));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $otherCookies = [];
         foreach (headers_list() as $h) {
             if (0 !== stripos($h, 'Set-Cookie:')) {

@@ -47,11 +47,7 @@ class CheckArgumentsValidityPass extends AbstractRecursivePass
 
             if ($k !== $i++) {
                 if (!\is_int($k)) {
-<<<<<<< HEAD
-                    $msg = sprintf('Invalid constructor argument for service "%s": integer expected but found string "%s". Check your service definition.', $this->currentId, $k);
-=======
                     $msg = \sprintf('Invalid constructor argument for service "%s": integer expected but found string "%s". Check your service definition.', $this->currentId, $k);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $value->addError($msg);
                     if ($this->throwExceptions) {
                         throw new RuntimeException($msg);
@@ -60,11 +56,7 @@ class CheckArgumentsValidityPass extends AbstractRecursivePass
                     break;
                 }
 
-<<<<<<< HEAD
-                $msg = sprintf('Invalid constructor argument %d for service "%s": argument %d must be defined before. Check your service definition.', 1 + $k, $this->currentId, $i);
-=======
                 $msg = \sprintf('Invalid constructor argument %d for service "%s": argument %d must be defined before. Check your service definition.', 1 + $k, $this->currentId, $i);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $value->addError($msg);
                 if ($this->throwExceptions) {
                     throw new RuntimeException($msg);
@@ -72,11 +64,7 @@ class CheckArgumentsValidityPass extends AbstractRecursivePass
             }
 
             if ($hasNamedArgs) {
-<<<<<<< HEAD
-                $msg = sprintf('Invalid constructor argument for service "%s": cannot use positional argument after named argument. Check your service definition.', $this->currentId);
-=======
                 $msg = \sprintf('Invalid constructor argument for service "%s": cannot use positional argument after named argument. Check your service definition.', $this->currentId);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $value->addError($msg);
                 if ($this->throwExceptions) {
                     throw new RuntimeException($msg);
@@ -97,11 +85,7 @@ class CheckArgumentsValidityPass extends AbstractRecursivePass
 
                 if ($k !== $i++) {
                     if (!\is_int($k)) {
-<<<<<<< HEAD
-                        $msg = sprintf('Invalid argument for method call "%s" of service "%s": integer expected but found string "%s". Check your service definition.', $methodCall[0], $this->currentId, $k);
-=======
                         $msg = \sprintf('Invalid argument for method call "%s" of service "%s": integer expected but found string "%s". Check your service definition.', $methodCall[0], $this->currentId, $k);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $value->addError($msg);
                         if ($this->throwExceptions) {
                             throw new RuntimeException($msg);
@@ -110,11 +94,7 @@ class CheckArgumentsValidityPass extends AbstractRecursivePass
                         break;
                     }
 
-<<<<<<< HEAD
-                    $msg = sprintf('Invalid argument %d for method call "%s" of service "%s": argument %d must be defined before. Check your service definition.', 1 + $k, $methodCall[0], $this->currentId, $i);
-=======
                     $msg = \sprintf('Invalid argument %d for method call "%s" of service "%s": argument %d must be defined before. Check your service definition.', 1 + $k, $methodCall[0], $this->currentId, $i);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $value->addError($msg);
                     if ($this->throwExceptions) {
                         throw new RuntimeException($msg);
@@ -122,11 +102,7 @@ class CheckArgumentsValidityPass extends AbstractRecursivePass
                 }
 
                 if ($hasNamedArgs) {
-<<<<<<< HEAD
-                    $msg = sprintf('Invalid argument for method call "%s" of service "%s": cannot use positional argument after named argument. Check your service definition.', $methodCall[0], $this->currentId);
-=======
                     $msg = \sprintf('Invalid argument for method call "%s" of service "%s": cannot use positional argument after named argument. Check your service definition.', $methodCall[0], $this->currentId);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $value->addError($msg);
                     if ($this->throwExceptions) {
                         throw new RuntimeException($msg);

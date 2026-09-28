@@ -40,18 +40,12 @@ abstract class AbstractEntityInheritancePersister extends BasicEntityPersister
     {
         $tableAlias   = $alias === 'r' ? '' : $alias;
         $fieldMapping = $class->fieldMappings[$field];
-<<<<<<< HEAD
-        $columnAlias  = $this->getSQLColumnAlias($fieldMapping->columnName);
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $sql          = sprintf(
             '%s.%s',
             $this->getSQLTableAlias($class->name, $tableAlias),
             $this->quoteStrategy->getColumnName($field, $class, $this->platform),
         );
 
-<<<<<<< HEAD
-=======
         // Reuse the alias if the field was already selected before; the SQL is regenerated
         // when the filters change, and a second alias for the same field breaks indexBy().
         // getColumnAliasByField() is of no use here, as it misses fields inherited from a
@@ -59,7 +53,6 @@ abstract class AbstractEntityInheritancePersister extends BasicEntityPersister
         $columnAlias = $this->currentPersisterContext->rsm->columnAliasMappings[$class->name][$alias][$field]
             ?? $this->getSQLColumnAlias($fieldMapping->columnName);
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->currentPersisterContext->rsm->addFieldResult($alias, $columnAlias, $field, $class->name);
 
         $type = Type::getType($fieldMapping->type);

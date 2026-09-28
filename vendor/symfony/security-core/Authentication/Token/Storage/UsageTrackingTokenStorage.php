@@ -36,22 +36,15 @@ final class UsageTrackingTokenStorage implements TokenStorageInterface, ServiceS
 
     public function getToken(): ?TokenInterface
     {
-<<<<<<< HEAD
-=======
         // reading the token can enable usage tracking, e.g. when a lazy firewall loads it from the session
         $token = $this->storage->getToken();
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ($this->shouldTrackUsage()) {
             // increments the internal session usage index
             $this->getSession()->getMetadataBag();
         }
 
-<<<<<<< HEAD
-        return $this->storage->getToken();
-=======
         return $token;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function setToken(?TokenInterface $token = null): void

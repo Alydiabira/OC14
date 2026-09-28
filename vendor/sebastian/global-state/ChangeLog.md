@@ -2,15 +2,12 @@
 
 All notable changes in `sebastian/global-state` are documented in this file using the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
-<<<<<<< HEAD
-=======
 ## [5.0.8] - 2025-08-10
 
 ### Changed
 
 * Do not use `ReflectionProperty::setAccessible()` with PHP >= 8.1
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 ## [5.0.7] - 2024-03-02
 
 ### Changed
@@ -87,10 +84,7 @@ All notable changes in `sebastian/global-state` are documented in this file usin
 
 * This component is no longer supported on PHP 7.0 and PHP 7.1
 
-<<<<<<< HEAD
-=======
 [5.0.8]: https://github.com/sebastianbergmann/global-state/compare/5.0.7...5.0.8
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 [5.0.7]: https://github.com/sebastianbergmann/global-state/compare/5.0.6...5.0.7
 [5.0.6]: https://github.com/sebastianbergmann/global-state/compare/5.0.5...5.0.6
 [5.0.5]: https://github.com/sebastianbergmann/global-state/compare/5.0.4...5.0.5

@@ -52,11 +52,7 @@ class StringHandler implements HandlerInterface
         $match = $reader->findPattern($this->patterns->getQuotedStringPattern($quote));
 
         if (!$match) {
-<<<<<<< HEAD
-            throw new InternalErrorException(sprintf('Should have found at least an empty match at %d.', $reader->getPosition()));
-=======
             throw new InternalErrorException(\sprintf('Should have found at least an empty match at %d.', $reader->getPosition()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         // check unclosed strings

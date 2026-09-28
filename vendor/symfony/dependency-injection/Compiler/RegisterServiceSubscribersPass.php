@@ -49,19 +49,11 @@ class RegisterServiceSubscribersPass extends AbstractRecursivePass
                 continue;
             }
             ksort($attributes);
-<<<<<<< HEAD
-            if ([] !== array_diff(array_keys($attributes), ['id', 'key'])) {
-                throw new InvalidArgumentException(sprintf('The "container.service_subscriber" tag accepts only the "key" and "id" attributes, "%s" given for service "%s".', implode('", "', array_keys($attributes)), $this->currentId));
-            }
-            if (!\array_key_exists('id', $attributes)) {
-                throw new InvalidArgumentException(sprintf('Missing "id" attribute on "container.service_subscriber" tag with key="%s" for service "%s".', $attributes['key'], $this->currentId));
-=======
             if (array_diff(array_keys($attributes), ['id', 'key'])) {
                 throw new InvalidArgumentException(\sprintf('The "container.service_subscriber" tag accepts only the "key" and "id" attributes, "%s" given for service "%s".', implode('", "', array_keys($attributes)), $this->currentId));
             }
             if (!\array_key_exists('id', $attributes)) {
                 throw new InvalidArgumentException(\sprintf('Missing "id" attribute on "container.service_subscriber" tag with key="%s" for service "%s".', $attributes['key'], $this->currentId));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             if (!\array_key_exists('key', $attributes)) {
                 $attributes['key'] = $attributes['id'];
@@ -74,17 +66,10 @@ class RegisterServiceSubscribersPass extends AbstractRecursivePass
         $class = $value->getClass();
 
         if (!$r = $this->container->getReflectionClass($class)) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('Class "%s" used for service "%s" cannot be found.', $class, $this->currentId));
-        }
-        if (!$r->isSubclassOf(ServiceSubscriberInterface::class)) {
-            throw new InvalidArgumentException(sprintf('Service "%s" must implement interface "%s".', $this->currentId, ServiceSubscriberInterface::class));
-=======
             throw new InvalidArgumentException(\sprintf('Class "%s" used for service "%s" cannot be found.', $class, $this->currentId));
         }
         if (!$r->isSubclassOf(ServiceSubscriberInterface::class)) {
             throw new InvalidArgumentException(\sprintf('Service "%s" must implement interface "%s".', $this->currentId, ServiceSubscriberInterface::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         $class = $r->name;
         // to remove when symfony/dependency-injection will stop being compatible with symfony/framework-bundle<6.0
@@ -102,19 +87,11 @@ class RegisterServiceSubscribersPass extends AbstractRecursivePass
             if ($type instanceof SubscribedService) {
                 $key = $type->key ?? $key;
                 $attributes = $type->attributes;
-<<<<<<< HEAD
-                $type = ($type->nullable ? '?' : '').($type->type ?? throw new InvalidArgumentException(sprintf('When "%s::getSubscribedServices()" returns "%s", a type must be set.', $class, SubscribedService::class)));
-            }
-
-            if (!\is_string($type) || !preg_match('/(?(DEFINE)(?<cn>[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*+))(?(DEFINE)(?<fqcn>(?&cn)(?:\\\\(?&cn))*+))^\??(?&fqcn)(?:(?:\|(?&fqcn))*+|(?:&(?&fqcn))*+)$/', $type)) {
-                throw new InvalidArgumentException(sprintf('"%s::getSubscribedServices()" must return valid PHP types for service "%s" key "%s", "%s" returned.', $class, $this->currentId, $key, \is_string($type) ? $type : get_debug_type($type)));
-=======
                 $type = ($type->nullable ? '?' : '').($type->type ?? throw new InvalidArgumentException(\sprintf('When "%s::getSubscribedServices()" returns "%s", a type must be set.', $class, SubscribedService::class)));
             }
 
             if (!\is_string($type) || !preg_match('/(?(DEFINE)(?<cn>[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*+))(?(DEFINE)(?<fqcn>(?&cn)(?:\\\\(?&cn))*+))^\??(?&fqcn)(?:(?:\|(?&fqcn))*+|(?:&(?&fqcn))*+)$/', $type)) {
                 throw new InvalidArgumentException(\sprintf('"%s::getSubscribedServices()" must return valid PHP types for service "%s" key "%s", "%s" returned.', $class, $this->currentId, $key, \is_string($type) ? $type : get_debug_type($type)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $optionalBehavior = ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE;
             if ('?' === $type[0]) {
@@ -127,11 +104,7 @@ class RegisterServiceSubscribersPass extends AbstractRecursivePass
             }
             if (!isset($serviceMap[$key])) {
                 if (!$autowire) {
-<<<<<<< HEAD
-                    throw new InvalidArgumentException(sprintf('Service "%s" misses a "container.service_subscriber" tag with "key"/"id" attributes corresponding to entry "%s" as returned by "%s::getSubscribedServices()".', $this->currentId, $key, $class));
-=======
                     throw new InvalidArgumentException(\sprintf('Service "%s" misses a "container.service_subscriber" tag with "key"/"id" attributes corresponding to entry "%s" as returned by "%s::getSubscribedServices()".', $this->currentId, $key, $class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
                 if ($replaceDeprecatedSession && SessionInterface::class === $type) {
                     // This prevents triggering the deprecation when building the container
@@ -159,13 +132,8 @@ class RegisterServiceSubscribersPass extends AbstractRecursivePass
         }
 
         if ($serviceMap = array_keys($serviceMap)) {
-<<<<<<< HEAD
-            $message = sprintf(1 < \count($serviceMap) ? 'keys "%s" do' : 'key "%s" does', str_replace('%', '%%', implode('", "', $serviceMap)));
-            throw new InvalidArgumentException(sprintf('Service %s not exist in the map returned by "%s::getSubscribedServices()" for service "%s".', $message, $class, $this->currentId));
-=======
             $message = \sprintf(1 < \count($serviceMap) ? 'keys "%s" do' : 'key "%s" does', str_replace('%', '%%', implode('", "', $serviceMap)));
             throw new InvalidArgumentException('Service '.$message.\sprintf(' not exist in the map returned by "%s::getSubscribedServices()" for service "%s".', $class, $this->currentId));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $locatorRef = ServiceLocatorTagPass::register($this->container, $subscriberMap, $this->currentId);

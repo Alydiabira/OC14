@@ -178,11 +178,7 @@ trait MicroKernelTrait
             }
 
             $file = (new \ReflectionObject($this))->getFileName();
-<<<<<<< HEAD
-            /* @var ContainerPhpFileLoader $kernelLoader */
-=======
             /** @var ContainerPhpFileLoader $kernelLoader */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $kernelLoader = $loader->getResolver()->resolve($file);
             $kernelLoader->setCurrentDir(\dirname($file));
             $instanceof = &\Closure::bind(fn &() => $this->instanceof, $kernelLoader, $kernelLoader)();
@@ -208,11 +204,7 @@ trait MicroKernelTrait
     public function loadRoutes(LoaderInterface $loader): RouteCollection
     {
         $file = (new \ReflectionObject($this))->getFileName();
-<<<<<<< HEAD
-        /* @var RoutingPhpFileLoader $kernelLoader */
-=======
         /** @var RoutingPhpFileLoader $kernelLoader */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $kernelLoader = $loader->getResolver()->resolve($file, 'php');
         $kernelLoader->setCurrentDir(\dirname($file));
         $collection = new RouteCollection();

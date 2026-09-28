@@ -29,11 +29,7 @@ abstract class SQLFilter implements Stringable
     /**
      * Parameters for the filter.
      *
-<<<<<<< HEAD
-     * @psalm-var array<string,array{type: string, value: mixed, is_list: bool}>
-=======
      * @phpstan-var array<string, Parameter>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private array $parameters = [];
 
@@ -53,11 +49,7 @@ abstract class SQLFilter implements Stringable
      */
     final public function setParameterList(string $name, array $values, string $type = Types::STRING): static
     {
-<<<<<<< HEAD
-        $this->parameters[$name] = ['value' => $values, 'type' => $type, 'is_list' => true];
-=======
         $this->parameters[$name] = new Parameter(value: $values, type: $type, isList: true);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         // Keep the parameters sorted for the hash
         ksort($this->parameters);
@@ -79,19 +71,11 @@ abstract class SQLFilter implements Stringable
      */
     final public function setParameter(string $name, mixed $value, string|null $type = null): static
     {
-<<<<<<< HEAD
-        if ($type === null) {
-            $type = ParameterTypeInferer::inferType($value);
-        }
-
-        $this->parameters[$name] = ['value' => $value, 'type' => $type, 'is_list' => false];
-=======
         $this->parameters[$name] = new Parameter(
             value: $value,
             type: $type ?? ParameterTypeInferer::inferType($value),
             isList: false,
         );
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         // Keep the parameters sorted for the hash
         ksort($this->parameters);
@@ -118,19 +102,11 @@ abstract class SQLFilter implements Stringable
             throw new InvalidArgumentException("Parameter '" . $name . "' does not exist.");
         }
 
-<<<<<<< HEAD
-        if ($this->parameters[$name]['is_list']) {
-            throw FilterException::cannotConvertListParameterIntoSingleValue($name);
-        }
-
-        return $this->em->getConnection()->quote((string) $this->parameters[$name]['value']);
-=======
         if ($this->parameters[$name]->isList) {
             throw FilterException::cannotConvertListParameterIntoSingleValue($name);
         }
 
         return $this->em->getConnection()->quote((string) $this->parameters[$name]->value);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -148,11 +124,7 @@ abstract class SQLFilter implements Stringable
             throw new InvalidArgumentException("Parameter '" . $name . "' does not exist.");
         }
 
-<<<<<<< HEAD
-        if ($this->parameters[$name]['is_list'] === false) {
-=======
         if (! $this->parameters[$name]->isList) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             throw FilterException::cannotConvertSingleParameterIntoListValue($name);
         }
 
@@ -161,11 +133,7 @@ abstract class SQLFilter implements Stringable
 
         $quoted = array_map(
             static fn (mixed $value): string => $connection->quote((string) $value),
-<<<<<<< HEAD
-            $param['value'],
-=======
             $param->value,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         );
 
         return implode(',', $quoted);
@@ -184,9 +152,6 @@ abstract class SQLFilter implements Stringable
      */
     final public function __toString(): string
     {
-<<<<<<< HEAD
-        return serialize($this->parameters);
-=======
         return serialize(array_map(
             static fn (Parameter $value): array => [
                 'value'  => $value->value,
@@ -195,7 +160,6 @@ abstract class SQLFilter implements Stringable
             ],
             $this->parameters,
         ));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -209,11 +173,7 @@ abstract class SQLFilter implements Stringable
     /**
      * Gets the SQL query part to add to a query.
      *
-<<<<<<< HEAD
-     * @psalm-param ClassMetadata<object> $targetEntity
-=======
      * @phpstan-param ClassMetadata<object> $targetEntity
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return string The constraint SQL if there is available, empty string otherwise.
      */

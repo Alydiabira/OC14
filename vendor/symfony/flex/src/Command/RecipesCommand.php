@@ -44,11 +44,7 @@ class RecipesCommand extends BaseCommand
         parent::__construct();
     }
 
-<<<<<<< HEAD
-    protected function configure()
-=======
     protected function configure(): void
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->setName('symfony:recipes')
             ->setAliases(['recipes'])
@@ -85,11 +81,7 @@ class RecipesCommand extends BaseCommand
                 $pkgVersion = $this->symfonyLock->get($name)['version'];
                 $pkg = new Package($name, $pkgVersion, $pkgVersion);
             } elseif (!$pkg) {
-<<<<<<< HEAD
-                $this->getIO()->writeError(sprintf('<error>Package %s is not installed</error>', $name));
-=======
                 $this->getIO()->writeError(\sprintf('<error>Package %s is not installed</error>', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 continue;
             }
@@ -133,11 +125,7 @@ class RecipesCommand extends BaseCommand
             }
 
             $hasOutdatedRecipes = true;
-<<<<<<< HEAD
-            $write[] = sprintf(' * %s %s', $name, $additional);
-=======
             $write[] = \sprintf(' * %s %s', $name, $additional);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         // Nothing to display
@@ -148,11 +136,7 @@ class RecipesCommand extends BaseCommand
         $this->getIO()->write(array_merge([
             '',
             '<bg=blue;fg=white>                      </>',
-<<<<<<< HEAD
-            sprintf('<bg=blue;fg=white> %s recipes.   </>', $outdated ? ' Outdated' : 'Available'),
-=======
             \sprintf('<bg=blue;fg=white> %s recipes.   </>', $outdated ? ' Outdated' : 'Available'),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             '<bg=blue;fg=white>                      </>',
             '',
         ], $write, [
@@ -216,11 +200,7 @@ class RecipesCommand extends BaseCommand
         $io->write('<info>version</info>          : '.($lockVersion ?? 'n/a'));
         $io->write('<info>status</info>           : '.$status);
         if (!$recipe->isAuto() && null !== $lockVersion) {
-<<<<<<< HEAD
-            $recipeUrl = sprintf(
-=======
             $recipeUrl = \sprintf(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'https://%s/tree/%s/%s/%s',
                 $lockRepo,
                 // if something fails, default to the branch as the closest "sha"
@@ -237,11 +217,7 @@ class RecipesCommand extends BaseCommand
         }
 
         if ($lockRef !== $recipe->getRef() && null !== $lockVersion) {
-<<<<<<< HEAD
-            $historyUrl = sprintf(
-=======
             $historyUrl = \sprintf(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'https://%s/commits/%s/%s',
                 $lockRepo,
                 $lockBranch,
@@ -273,11 +249,7 @@ class RecipesCommand extends BaseCommand
             $io->write([
                 '',
                 'Update this recipe by running:',
-<<<<<<< HEAD
-                sprintf('<info>composer recipes:update %s</info>', $recipe->getName()),
-=======
                 \sprintf('<info>composer recipes:update %s</info>', $recipe->getName()),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ]);
         }
     }
@@ -320,11 +292,7 @@ class RecipesCommand extends BaseCommand
                 $treeBar = '└';
             }
 
-<<<<<<< HEAD
-            $info = sprintf(
-=======
             $info = \sprintf(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 '%s──%s',
                 $treeBar,
                 $dir
@@ -351,11 +319,7 @@ class RecipesCommand extends BaseCommand
                 $treeBar = $previousTreeBar.'  └';
             }
 
-<<<<<<< HEAD
-            $info = sprintf(
-=======
             $info = \sprintf(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 '%s──%s',
                 $treeBar,
                 $dir

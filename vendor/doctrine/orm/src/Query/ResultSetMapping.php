@@ -38,21 +38,11 @@ class ResultSetMapping
      * Maps alias names to class names.
      *
      * @ignore
-<<<<<<< HEAD
-     * @psalm-var array<string, class-string>
-=======
      * @var array<string, class-string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $aliasMap = [];
 
     /**
-<<<<<<< HEAD
-     * Maps alias names to related association field names.
-     *
-     * @ignore
-     * @psalm-var array<string, string>
-=======
      * Whether this alias is for a partially loaded entity
      *
      * @var array<string, bool>
@@ -64,7 +54,6 @@ class ResultSetMapping
      *
      * @ignore
      * @phpstan-var array<string, string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $relationMap = [];
 
@@ -72,11 +61,7 @@ class ResultSetMapping
      * Maps alias names to parent alias names.
      *
      * @ignore
-<<<<<<< HEAD
-     * @psalm-var array<string, string>
-=======
      * @phpstan-var array<string, string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $parentAliasMap = [];
 
@@ -84,21 +69,11 @@ class ResultSetMapping
      * Maps column names in the result set to field names for each class.
      *
      * @ignore
-<<<<<<< HEAD
-     * @psalm-var array<string, string>
-=======
      * @phpstan-var array<string, string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $fieldMappings = [];
 
     /**
-<<<<<<< HEAD
-     * Maps column names in the result set to the alias/field name to use in the mapped result.
-     *
-     * @ignore
-     * @psalm-var array<string, string|int>
-=======
      * Map field names for each class to alias
      *
      * @var array<class-string, array<string, array<string, string>>>
@@ -110,7 +85,6 @@ class ResultSetMapping
      *
      * @ignore
      * @phpstan-var array<string, string|int>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $scalarMappings = [];
 
@@ -118,11 +92,7 @@ class ResultSetMapping
      * Maps scalar columns to enums
      *
      * @ignore
-<<<<<<< HEAD
-     * @psalm-var array<string, string>
-=======
      * @phpstan-var array<string, string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public $enumMappings = [];
 
@@ -130,11 +100,7 @@ class ResultSetMapping
      * Maps column names in the result set to the alias/field type to use in the mapped result.
      *
      * @ignore
-<<<<<<< HEAD
-     * @psalm-var array<string, string>
-=======
      * @phpstan-var array<string, string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $typeMappings = [];
 
@@ -142,11 +108,7 @@ class ResultSetMapping
      * Maps entities in the result set to the alias name to use in the mapped result.
      *
      * @ignore
-<<<<<<< HEAD
-     * @psalm-var array<string, string|null>
-=======
      * @phpstan-var array<string, string|null>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $entityMappings = [];
 
@@ -154,11 +116,7 @@ class ResultSetMapping
      * Maps column names of meta columns (foreign keys, discriminator columns, ...) to field names.
      *
      * @ignore
-<<<<<<< HEAD
-     * @psalm-var array<string, string>
-=======
      * @phpstan-var array<string, string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $metaMappings = [];
 
@@ -166,11 +124,7 @@ class ResultSetMapping
      * Maps column names in the result set to the alias they belong to.
      *
      * @ignore
-<<<<<<< HEAD
-     * @psalm-var array<string, string>
-=======
      * @phpstan-var array<string, string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $columnOwnerMap = [];
 
@@ -178,11 +132,7 @@ class ResultSetMapping
      * List of columns in the result set that are used as discriminator columns.
      *
      * @ignore
-<<<<<<< HEAD
-     * @psalm-var array<string, string>
-=======
      * @phpstan-var array<string, string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $discriminatorColumns = [];
 
@@ -190,11 +140,7 @@ class ResultSetMapping
      * Maps alias names to field names that should be used for indexing.
      *
      * @ignore
-<<<<<<< HEAD
-     * @psalm-var array<string, string>
-=======
      * @phpstan-var array<string, string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $indexByMap = [];
 
@@ -202,42 +148,25 @@ class ResultSetMapping
      * Map from column names to class names that declare the field the column is mapped to.
      *
      * @ignore
-<<<<<<< HEAD
-     * @psalm-var array<string, class-string>
-=======
      * @var array<string, class-string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $declaringClasses = [];
 
     /**
      * This is necessary to hydrate derivate foreign keys correctly.
      *
-<<<<<<< HEAD
-     * @psalm-var array<string, array<string, bool>>
-=======
      * @phpstan-var array<string, array<string, bool>>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $isIdentifierColumn = [];
 
     /**
      * Maps column names in the result set to field names for each new object expression.
      *
-<<<<<<< HEAD
-     * @psalm-var array<string, array<string, mixed>>
-=======
      * @phpstan-var array<string, array<string, mixed>>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $newObjectMappings = [];
 
     /**
-<<<<<<< HEAD
-     * Maps metadata parameter names to the metadata attribute.
-     *
-     * @psalm-var array<int|string, string>
-=======
      * Maps object Ids in the result set to classnames.
      *
      * @phpstan-var array<string|int, class-string>
@@ -255,32 +184,17 @@ class ResultSetMapping
      * Maps metadata parameter names to the metadata attribute.
      *
      * @phpstan-var array<int|string, string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $metadataParameterMapping = [];
 
     /**
      * Contains query parameter names to be resolved as discriminator values
      *
-<<<<<<< HEAD
-     * @psalm-var array<string, string>
-=======
      * @phpstan-var array<string, string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $discriminatorParameters = [];
 
     /**
-<<<<<<< HEAD
-     * Adds an entity result to this ResultSetMapping.
-     *
-     * @param string      $class       The class name of the entity.
-     * @param string      $alias       The alias for the class. The alias must be unique among all entity
-     *                                 results or joined entity results within this ResultSetMapping.
-     * @param string|null $resultAlias The result alias with which the entity result should be
-     *                                 placed in the result structure.
-     * @psalm-param class-string $class
-=======
      * Entities nested in Dto's
      *
      * @phpstan-var array<string, array<string, (int|string)>>
@@ -295,7 +209,6 @@ class ResultSetMapping
      *                                  results or joined entity results within this ResultSetMapping.
      * @param string|null  $resultAlias The result alias with which the entity result should be
      *                                  placed in the result structure.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return $this
      *
@@ -314,8 +227,6 @@ class ResultSetMapping
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Mark alias as partial entity result to this ResultSetMapping.
      */
     public function markPartialEntityResult(string $alias): static
@@ -326,7 +237,6 @@ class ResultSetMapping
     }
 
     /**
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Sets a discriminator column for an entity result or joined entity result.
      * The discriminator column will be used to determine the concrete class name to
      * instantiate.
@@ -436,17 +346,6 @@ class ResultSetMapping
     /**
      * Adds a field to the result that belongs to an entity or joined entity.
      *
-<<<<<<< HEAD
-     * @param string      $alias          The alias of the root entity or joined entity to which the field belongs.
-     * @param string      $columnName     The name of the column in the SQL result set.
-     * @param string      $fieldName      The name of the field on the declaring class.
-     * @param string|null $declaringClass The name of the class that declares/owns the specified field.
-     *                                    When $alias refers to a superclass in a mapped hierarchy but
-     *                                    the field $fieldName is defined on a subclass, specify that here.
-     *                                    If not specified, the field is assumed to belong to the class
-     *                                    designated by $alias.
-     * @psalm-param class-string|null $declaringClass
-=======
      * @param string            $alias          The alias of the root entity or joined entity to which the field belongs.
      * @param string            $columnName     The name of the column in the SQL result set.
      * @param string            $fieldName      The name of the field on the declaring class.
@@ -455,7 +354,6 @@ class ResultSetMapping
      *                                          the field $fieldName is defined on a subclass, specify that here.
      *                                          If not specified, the field is assumed to belong to the class
      *                                          designated by $alias.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return $this
      *
@@ -468,14 +366,10 @@ class ResultSetMapping
         // column name => alias of owner
         $this->columnOwnerMap[$columnName] = $alias;
         // field name => class name of declaring class
-<<<<<<< HEAD
-        $this->declaringClasses[$columnName] = $declaringClass ?: $this->aliasMap[$alias];
-=======
         $declaringClass                      = $declaringClass ?: $this->aliasMap[$alias];
         $this->declaringClasses[$columnName] = $declaringClass;
 
         $this->columnAliasMappings[$declaringClass][$alias][$fieldName] = $columnName;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (! $this->isMixed && $this->scalarMappings) {
             $this->isMixed = true;
@@ -484,17 +378,6 @@ class ResultSetMapping
         return $this;
     }
 
-<<<<<<< HEAD
-    /**
-     * Adds a joined entity result.
-     *
-     * @param string $class       The class name of the joined entity.
-     * @param string $alias       The unique alias to use for the joined entity.
-     * @param string $parentAlias The alias of the entity result that is the parent of this joined result.
-     * @param string $relation    The association field that connects the parent entity result
-     *                            with the joined entity result.
-     * @psalm-param class-string $class
-=======
     public function hasColumnAliasByField(string $alias, string $fieldName): bool
     {
         if (! isset($this->aliasMap[$alias])) {
@@ -521,29 +404,21 @@ class ResultSetMapping
      * @param string       $parentAlias The alias of the entity result that is the parent of this joined result.
      * @param string       $relation    The association field that connects the parent entity result
      *                                  with the joined entity result.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return $this
      *
      * @todo Rename: addJoinedEntity
      */
-<<<<<<< HEAD
-    public function addJoinedEntityResult(string $class, string $alias, string $parentAlias, string $relation): static
-=======
     public function addJoinedEntityResult(string $class, string $alias, string $parentAlias, string $relation, bool $isPartial = false): static
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->aliasMap[$alias]       = $class;
         $this->parentAliasMap[$alias] = $parentAlias;
         $this->relationMap[$alias]    = $relation;
 
-<<<<<<< HEAD
-=======
         if ($isPartial) {
             $this->partialAliases[$alias] = true;
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return $this;
     }
 
@@ -607,11 +482,7 @@ class ResultSetMapping
      * Gets the name of the class of an entity result or joined entity result,
      * identified by the given unique alias.
      *
-<<<<<<< HEAD
-     * @psalm-return class-string
-=======
      * @phpstan-return class-string
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getClassName(string $alias): string
     {
@@ -631,11 +502,7 @@ class ResultSetMapping
     /**
      * Gets the name of the class that owns a field mapping for the specified column.
      *
-<<<<<<< HEAD
-     * @psalm-return class-string
-=======
      * @phpstan-return class-string
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getDeclaringClass(string $columnName): string
     {
@@ -684,11 +551,7 @@ class ResultSetMapping
         return $this->fieldMappings[$columnName];
     }
 
-<<<<<<< HEAD
-    /** @psalm-return array<string, class-string> */
-=======
     /** @return array<string, class-string> */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function getAliasMap(): array
     {
         return $this->aliasMap;
@@ -697,11 +560,7 @@ class ResultSetMapping
     /**
      * Gets the number of different entities that appear in the mapped result.
      *
-<<<<<<< HEAD
-     * @psalm-return 0|positive-int
-=======
      * @phpstan-return 0|positive-int
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getEntityResultCount(): int
     {

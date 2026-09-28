@@ -43,11 +43,7 @@ class Locale extends Constraint
         ?string $message = null,
         ?bool $canonicalize = null,
         ?array $groups = null,
-<<<<<<< HEAD
-        mixed $payload = null
-=======
         mixed $payload = null,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ) {
         if (!class_exists(Locales::class)) {
             throw new LogicException('The Intl component is required to use the Locale constraint. Try running "composer require symfony/intl".');

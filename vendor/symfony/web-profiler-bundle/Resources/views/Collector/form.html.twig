@@ -458,11 +458,7 @@
                 </div>
             </div>
 
-<<<<<<< HEAD
-            <div class="tab {{ data.submitted_data ?? [] is empty ? 'disabled' }}">
-=======
             <div class="tab {{ (data.submitted_data ?? []) is empty ? 'disabled' }}">
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 <h3 class="tab-title">Submitted Data</h3>
 
                 <div class="tab-content">
@@ -470,11 +466,7 @@
                 </div>
             </div>
 
-<<<<<<< HEAD
-            <div class="tab {{ data.passed_options ?? [] is empty ? 'disabled' }}">
-=======
             <div class="tab {{ (data.passed_options ?? []) is empty ? 'disabled' }}">
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 <h3 class="tab-title">Passed Options</h3>
 
                 <div class="tab-content">
@@ -482,11 +474,7 @@
                 </div>
             </div>
 
-<<<<<<< HEAD
-            <div class="tab {{ data.resolved_options ?? [] is empty ? 'disabled' }}">
-=======
             <div class="tab {{ (data.resolved_options ?? []) is empty ? 'disabled' }}">
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 <h3 class="tab-title">Resolved Options</h3>
 
                 <div class="tab-content">
@@ -494,11 +482,7 @@
                 </div>
             </div>
 
-<<<<<<< HEAD
-            <div class="tab {{ data.view_vars ?? [] is empty ? 'disabled' }}">
-=======
             <div class="tab {{ (data.view_vars ?? []) is empty ? 'disabled' }}">
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 <h3 class="tab-title">View Vars</h3>
 
                 <div class="tab-content">
@@ -662,15 +646,10 @@
                     <td>{{ profiler_dump(value) }}</td>
                     <td>
                         {# values can be stubs #}
-<<<<<<< HEAD
-                        {% set option_value = value.value|default(value) %}
-                        {% set resolved_option_value = data.resolved_options[option].value|default(data.resolved_options[option]) %}
-=======
                         {% set option_value = (value.value is defined) ? value.value : value %}
                         {% set resolved_option_value = (data.resolved_options[option].value is defined)
                             ? data.resolved_options[option].value
                             : data.resolved_options[option] %}
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         {% if resolved_option_value == option_value %}
                             <em class="font-normal text-muted">same as passed value</em>
                         {% else %}

@@ -21,83 +21,13 @@ use Twig\Node\Node;
  *
  * @see https://twig.symfony.com/doc/templates.html#functions
  */
-<<<<<<< HEAD
-final class TwigFunction
-{
-    private $name;
-    private $callable;
-    private $options;
-    private $arguments = [];
-
-=======
 final class TwigFunction extends AbstractTwigCallable
 {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * @param callable|array{class-string, string}|null $callable A callable implementing the function. If null, you need to overwrite the "node_class" option to customize compilation.
      */
     public function __construct(string $name, $callable = null, array $options = [])
     {
-<<<<<<< HEAD
-        $this->name = $name;
-        $this->callable = $callable;
-        $this->options = array_merge([
-            'needs_environment' => false,
-            'needs_context' => false,
-            'needs_charset' => false,
-            'is_variadic' => false,
-            'is_safe' => null,
-            'is_safe_callback' => null,
-            'node_class' => FunctionExpression::class,
-            'deprecated' => false,
-            'alternative' => null,
-        ], $options);
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * Returns the callable to execute for this function.
-     *
-     * @return callable|array{class-string, string}|null
-     */
-    public function getCallable()
-    {
-        return $this->callable;
-    }
-
-    public function getNodeClass(): string
-    {
-        return $this->options['node_class'];
-    }
-
-    public function setArguments(array $arguments): void
-    {
-        $this->arguments = $arguments;
-    }
-
-    public function getArguments(): array
-    {
-        return $this->arguments;
-    }
-
-    public function needsCharset(): bool
-    {
-        return $this->options['needs_charset'];
-    }
-
-    public function needsEnvironment(): bool
-    {
-        return $this->options['needs_environment'];
-    }
-
-    public function needsContext(): bool
-    {
-        return $this->options['needs_context'];
-=======
         parent::__construct($name, $callable, $options);
 
         $this->options = array_merge([
@@ -116,7 +46,6 @@ final class TwigFunction extends AbstractTwigCallable
     public function getParserCallable(): ?callable
     {
         return $this->options['parser_callable'];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getSafe(Node $functionArgs): ?array
@@ -131,27 +60,4 @@ final class TwigFunction extends AbstractTwigCallable
 
         return [];
     }
-<<<<<<< HEAD
-
-    public function isVariadic(): bool
-    {
-        return (bool) $this->options['is_variadic'];
-    }
-
-    public function isDeprecated(): bool
-    {
-        return (bool) $this->options['deprecated'];
-    }
-
-    public function getDeprecatedVersion(): string
-    {
-        return \is_bool($this->options['deprecated']) ? '' : $this->options['deprecated'];
-    }
-
-    public function getAlternative(): ?string
-    {
-        return $this->options['alternative'];
-    }
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

@@ -47,18 +47,6 @@ final class SecretsGenerateKeysCommand extends Command
             ->addOption('local', 'l', InputOption::VALUE_NONE, 'Update the local vault.')
             ->addOption('rotate', 'r', InputOption::VALUE_NONE, 'Re-encrypt existing secrets with the newly generated keys.')
             ->setHelp(<<<'EOF'
-<<<<<<< HEAD
-The <info>%command.name%</info> command generates a new encryption key.
-
-    <info>%command.full_name%</info>
-
-If encryption keys already exist, the command must be called with
-the <info>--rotate</info> option in order to override those keys and re-encrypt
-existing secrets.
-
-    <info>%command.full_name% --rotate</info>
-EOF
-=======
                 The <info>%command.name%</info> command generates a new encryption key.
 
                     <info>%command.full_name%</info>
@@ -69,7 +57,6 @@ EOF
 
                     <info>%command.full_name% --rotate</info>
                 EOF
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -80,11 +67,7 @@ EOF
         $vault = $input->getOption('local') ? $this->localVault : $this->vault;
 
         if (null === $vault) {
-<<<<<<< HEAD
-            $io->success('The local vault is disabled.');
-=======
             $io->error('The local vault is disabled.');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             return 1;
         }

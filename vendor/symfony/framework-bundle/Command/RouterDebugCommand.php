@@ -57,17 +57,6 @@ class RouterDebugCommand extends Command
                 new InputArgument('name', InputArgument::OPTIONAL, 'A route name'),
                 new InputOption('show-controllers', null, InputOption::VALUE_NONE, 'Show assigned controllers in overview'),
                 new InputOption('show-aliases', null, InputOption::VALUE_NONE, 'Show aliases in overview'),
-<<<<<<< HEAD
-                new InputOption('format', null, InputOption::VALUE_REQUIRED, sprintf('The output format ("%s")', implode('", "', $this->getAvailableFormatOptions())), 'txt'),
-                new InputOption('raw', null, InputOption::VALUE_NONE, 'To output raw route(s)'),
-            ])
-            ->setHelp(<<<'EOF'
-The <info>%command.name%</info> displays the configured routes:
-
-  <info>php %command.full_name%</info>
-
-EOF
-=======
                 new InputOption('format', null, InputOption::VALUE_REQUIRED, \sprintf('The output format ("%s")', implode('", "', $this->getAvailableFormatOptions())), 'txt'),
                 new InputOption('raw', null, InputOption::VALUE_NONE, 'To output raw route(s)'),
             ])
@@ -77,7 +66,6 @@ EOF
                   <info>php %command.full_name%</info>
 
                 EOF
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -119,11 +107,7 @@ EOF
             }
 
             if (!$route) {
-<<<<<<< HEAD
-                throw new InvalidArgumentException(sprintf('The route "%s" does not exist.', $name));
-=======
                 throw new InvalidArgumentException(\sprintf('The route "%s" does not exist.', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $helper->describe($io, $route, [

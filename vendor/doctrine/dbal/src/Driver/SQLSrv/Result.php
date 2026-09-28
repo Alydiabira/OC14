@@ -106,11 +106,7 @@ final class Result implements ResultInterface
         // @link http://php.net/manual/en/pdostatement.closecursor.php
         // @link https://github.com/php/php-src/blob/php-7.0.11/ext/pdo/pdo_stmt.c#L2075
         // deliberately do not consider multiple result sets, since doctrine/dbal doesn't support them
-<<<<<<< HEAD
-        while (sqlsrv_fetch($this->statement)) {
-=======
         while (sqlsrv_fetch($this->statement) === true) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 

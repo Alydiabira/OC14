@@ -16,6 +16,7 @@ use DateTimeZone;
 use Fiber;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Processor\ProcessorInterface;
+use Psr\Clock\ClockInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\InvalidArgumentException;
 use Psr\Log\LogLevel;
@@ -146,6 +147,11 @@ class Logger implements LoggerInterface, ResettableInterface
 
     protected DateTimeZone $timezone;
 
+    /**
+     * Clock used to timestamp new records, or null to read the current time from the engine
+     */
+    protected ClockInterface|null $clock = null;
+
     protected Closure|null $exceptionHandler = null;
 
     /**
@@ -166,22 +172,20 @@ class Logger implements LoggerInterface, ResettableInterface
 
     /**
      * @param string             $name       The logging channel, a simple descriptive name that is attached to all log records
-<<<<<<< HEAD
-     * @param HandlerInterface[] $handlers   Optional stack of handlers, the first one in the array is called first, etc.
-=======
      * @param list<HandlerInterface> $handlers   Optional stack of handlers, the first one in the array is called first, etc.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @param callable[]         $processors Optional array of processors
      * @param DateTimeZone|null  $timezone   Optional timezone, if not provided date_default_timezone_get() will be used
+     * @param ClockInterface|null $clock     Optional clock to read the current time from, if not provided the engine's current time is used
      *
      * @phpstan-param array<(callable(LogRecord): LogRecord)|ProcessorInterface> $processors
      */
-    public function __construct(string $name, array $handlers = [], array $processors = [], DateTimeZone|null $timezone = null)
+    public function __construct(string $name, array $handlers = [], array $processors = [], DateTimeZone|null $timezone = null, ClockInterface|null $clock = null)
     {
         $this->name = $name;
         $this->setHandlers($handlers);
         $this->processors = $processors;
         $this->timezone = $timezone ?? new DateTimeZone(date_default_timezone_get());
+        $this->clock = $clock;
         $this->fiberLogDepth = new \WeakMap();
     }
 
@@ -234,11 +238,7 @@ class Logger implements LoggerInterface, ResettableInterface
      *
      * If a map is passed, keys will be ignored.
      *
-<<<<<<< HEAD
-     * @param list<HandlerInterface> $handlers
-=======
      * @param  list<HandlerInterface> $handlers
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return $this
      */
     public function setHandlers(array $handlers): self
@@ -305,11 +305,7 @@ class Logger implements LoggerInterface, ResettableInterface
      * by default. This function lets you disable them though in case you want
      * to suppress microseconds from the output.
      *
-<<<<<<< HEAD
-     * @param bool $micro True to use microtime() to create timestamps
-=======
      * @param  bool  $micro True to use microtime() to create timestamps
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return $this
      */
     public function useMicrosecondTimestamps(bool $micro): self
@@ -335,25 +331,15 @@ class Logger implements LoggerInterface, ResettableInterface
      * @param  int                    $level    The logging level (a Monolog or RFC 5424 level)
      * @param  string                 $message  The log message
      * @param  mixed[]                $context  The log context
-<<<<<<< HEAD
-     * @param  DateTimeImmutable|null $datetime Optional log date to log into the past or future
-=======
      * @param  JsonSerializableDateTimeImmutable|null $datetime Optional log date to log into the past or future
      *
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return bool                   Whether the record has been processed
      *
      * @phpstan-param value-of<Level::VALUES>|Level $level
      */
-<<<<<<< HEAD
-    public function addRecord(int|Level $level, string $message, array $context = [], DateTimeImmutable|null $datetime = null): bool
-    {
-        if (is_int($level) && isset(self::RFC_5424_LEVELS[$level])) {
-=======
     public function addRecord(int|Level $level, string $message, array $context = [], JsonSerializableDateTimeImmutable|null $datetime = null): bool
     {
         if (\is_int($level) && isset(self::RFC_5424_LEVELS[$level])) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $level = self::RFC_5424_LEVELS[$level];
         }
 
@@ -369,27 +355,17 @@ class Logger implements LoggerInterface, ResettableInterface
 
         if ($logDepth === 3) {
             $this->warning('A possible infinite logging loop was detected and aborted. It appears some of your handler code is triggering logging, see the previous log record for a hint as to what may be the cause.');
-<<<<<<< HEAD
-=======
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return false;
         } elseif ($logDepth >= 5) { // log depth 4 is let through, so we can log the warning above
             return false;
         }
 
         try {
-<<<<<<< HEAD
-            $recordInitialized = count($this->processors) === 0;
-
-            $record = new LogRecord(
-                datetime: $datetime ?? new DateTimeImmutable($this->microsecondTimestamps, $this->timezone),
-=======
             $recordInitialized = \count($this->processors) === 0;
 
             $record = new LogRecord(
-                datetime: $datetime ?? new JsonSerializableDateTimeImmutable($this->microsecondTimestamps, $this->timezone),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
+                datetime: $datetime ?? $this->createDateTime(),
                 channel: $this->name,
                 level: self::toMonologLevel($level),
                 message: $message,
@@ -504,13 +480,8 @@ class Logger implements LoggerInterface, ResettableInterface
     /**
      * Converts PSR-3 levels to Monolog ones if necessary
      *
-<<<<<<< HEAD
-     * @param  int|string|Level|LogLevel::* $level Level number (monolog) or name (PSR-3)
-     * @throws \Psr\Log\InvalidArgumentException      If level is not defined
-=======
      * @param  int|string|Level|LogLevel::*      $level Level number (monolog) or name (PSR-3)
      * @throws \Psr\Log\InvalidArgumentException If level is not defined
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @phpstan-param value-of<Level::VALUES>|value-of<Level::NAMES>|Level|LogLevel::* $level
      */
@@ -521,11 +492,7 @@ class Logger implements LoggerInterface, ResettableInterface
         }
 
         if (\is_string($level)) {
-<<<<<<< HEAD
-            if (\is_numeric($level)) {
-=======
             if (is_numeric($level)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $levelEnum = Level::tryFrom((int) $level);
                 if ($levelEnum === null) {
                     throw new InvalidArgumentException('Level "'.$level.'" is not defined, use one of: '.implode(', ', Level::NAMES + Level::VALUES));
@@ -537,13 +504,8 @@ class Logger implements LoggerInterface, ResettableInterface
             // Contains first char of all log levels and avoids using strtoupper() which may have
             // strange results depending on locale (for example, "i" will become "İ" in Turkish locale)
             $upper = strtr(substr($level, 0, 1), 'dinweca', 'DINWECA') . strtolower(substr($level, 1));
-<<<<<<< HEAD
-            if (defined(Level::class.'::'.$upper)) {
-                return constant(Level::class . '::' . $upper);
-=======
             if (\defined(Level::class.'::'.$upper)) {
                 return \constant(Level::class . '::' . $upper);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             throw new InvalidArgumentException('Level "'.$level.'" is not defined, use one of: '.implode(', ', Level::NAMES + Level::VALUES));
@@ -565,11 +527,7 @@ class Logger implements LoggerInterface, ResettableInterface
     public function isHandling(int|string|Level $level): bool
     {
         $record = new LogRecord(
-<<<<<<< HEAD
-            datetime: new DateTimeImmutable($this->microsecondTimestamps, $this->timezone),
-=======
-            datetime: new JsonSerializableDateTimeImmutable($this->microsecondTimestamps, $this->timezone),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
+            datetime: $this->createDateTime(),
             channel: $this->name,
             message: '',
             level: self::toMonologLevel($level),
@@ -617,11 +575,7 @@ class Logger implements LoggerInterface, ResettableInterface
     public function log($level, string|\Stringable $message, array $context = []): void
     {
         if (!$level instanceof Level) {
-<<<<<<< HEAD
-            if (!is_string($level) && !is_int($level)) {
-=======
             if (!\is_string($level) && !\is_int($level)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 throw new \InvalidArgumentException('$level is expected to be a string, int or '.Level::class.' instance');
             }
 
@@ -757,6 +711,66 @@ class Logger implements LoggerInterface, ResettableInterface
     public function getTimezone(): DateTimeZone
     {
         return $this->timezone;
+    }
+
+    /**
+     * Sets the clock to read the current time from when timestamping log records.
+     *
+     * Pass null to go back to reading the engine's current time. The timezone
+     * configured on the logger still decides how the timestamp is rendered.
+     *
+     * @return $this
+     */
+    public function setClock(ClockInterface|null $clock): self
+    {
+        $this->clock = $clock;
+
+        return $this;
+    }
+
+    /**
+     * Returns the clock used to timestamp log records, or null if the engine's current time is used.
+     */
+    public function getClock(): ClockInterface|null
+    {
+        return $this->clock;
+    }
+
+    /**
+     * Builds the timestamp of a new record, reading the current time from the clock if one is set.
+     */
+    private function createDateTime(): JsonSerializableDateTimeImmutable
+    {
+        if (null === $this->clock) {
+            return new JsonSerializableDateTimeImmutable($this->microsecondTimestamps, $this->timezone);
+        }
+
+        $now = $this->clock->now();
+
+        if ($now instanceof JsonSerializableDateTimeImmutable) {
+            return $now;
+        }
+
+        $datetime = new JsonSerializableDateTimeImmutable($this->microsecondTimestamps, $this->timezone);
+
+        // The instant is applied without ever going through a local wall clock time, which
+        // is ambiguous across a DST transition, and without the "@U.u" notation, which is
+        // off by one second before 1970 and replaces the named timezone with an offset.
+        $datetime = $datetime->setTimestamp($now->getTimestamp());
+        if (\PHP_VERSION_ID >= 80400) {
+            return $datetime->setMicrosecond($now->getMicrosecond());
+        }
+
+        $microseconds = (int) $now->format('u');
+        if (0 !== $microseconds) {
+            // DateInterval has no notation for microseconds, they can only be set on the property
+            $interval = new \DateInterval('PT0S');
+            $interval->f = $microseconds / 1000000;
+
+            $datetime = $datetime->add($interval);
+        }
+
+        return $datetime;
     }
 
     /**

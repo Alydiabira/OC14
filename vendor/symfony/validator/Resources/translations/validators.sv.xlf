@@ -440,9 +440,6 @@
             </trans-unit>
             <trans-unit id="113">
                 <source>This URL is missing a top-level domain.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Denna URL saknar en toppdomän.</target>
-=======
                 <target>Denna URL saknar en toppdomän.</target>
             </trans-unit>
             <trans-unit id="114">
@@ -580,7 +577,6 @@
             <trans-unit id="148" resname="This is not a valid ULID.">
                 <source>This value is not a valid ULID.</source>
                 <target state="needs-review-translation">Värdet är inte en giltig ULID.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
         </body>
     </file>

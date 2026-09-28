@@ -18,11 +18,7 @@
 ### Checklist
 
 <!-- Go over all the following points, and put an `x` in all the boxes that apply. -->
-<<<<<<< HEAD
-<!-- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
-=======
 <!-- If you’re unsure about any of these, don’t hesitate to ask. We’re here to help! -->
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 - [ ] I have read the [contributing guidelines](https://github.com/twbs/bootstrap/blob/main/.github/CONTRIBUTING.md)
 - [ ] My code follows the code style of the project _(using `npm run lint`)_

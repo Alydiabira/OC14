@@ -76,11 +76,7 @@ class FormFieldRegistry
         while ($segments) {
             $path = array_shift($segments);
             if (!\is_array($target) || !\array_key_exists($path, $target)) {
-<<<<<<< HEAD
-                throw new \InvalidArgumentException(sprintf('Unreachable field "%s".', $path));
-=======
                 throw new \InvalidArgumentException(\sprintf('Unreachable field "%s".', $path));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $target = &$target[$path];
         }
@@ -110,11 +106,7 @@ class FormFieldRegistry
     public function set(string $name, mixed $value): void
     {
         $target = &$this->get($name);
-<<<<<<< HEAD
-        if ((!\is_array($value) && $target instanceof Field\FormField) || $target instanceof Field\ChoiceFormField) {
-=======
         if ((!\is_array($value) && $target instanceof FormField) || $target instanceof Field\ChoiceFormField) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $target->setValue($value);
         } elseif (\is_array($value)) {
             $registry = new static();
@@ -124,11 +116,7 @@ class FormFieldRegistry
                 $this->set($k, $v);
             }
         } else {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('Cannot set value on a compound field "%s".', $name));
-=======
             throw new \InvalidArgumentException(\sprintf('Cannot set value on a compound field "%s".', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -148,11 +136,7 @@ class FormFieldRegistry
     private function walk(array $array, ?string $base = '', array &$output = []): array
     {
         foreach ($array as $k => $v) {
-<<<<<<< HEAD
-            $path = empty($base) ? $k : sprintf('%s[%s]', $base, $k);
-=======
             $path = empty($base) ? $k : \sprintf('%s[%s]', $base, $k);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (\is_array($v)) {
                 $this->walk($v, $path, $output);
             } else {

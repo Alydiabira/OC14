@@ -11,10 +11,7 @@
 
 namespace Symfony\Component\Serializer\Normalizer;
 
-<<<<<<< HEAD
-=======
 use Symfony\Component\PropertyAccess\Exception\InvalidArgumentException as PropertyAccessInvalidArgumentException;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
@@ -22,20 +19,12 @@ use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractorInterface;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use Symfony\Component\PropertyInfo\PropertyWriteInfo;
-<<<<<<< HEAD
-use Symfony\Component\Serializer\Annotation\Ignore;
-use Symfony\Component\Serializer\Exception\LogicException;
-use Symfony\Component\Serializer\Mapping\AttributeMetadata;
-use Symfony\Component\Serializer\Mapping\ClassDiscriminatorResolverInterface;
-use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
-=======
 use Symfony\Component\Serializer\Attribute\Ignore;
 use Symfony\Component\Serializer\Exception\LogicException;
 use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
 use Symfony\Component\Serializer\Mapping\ClassDiscriminatorResolverInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\Mapping\Loader\AccessorCollisionResolverTrait;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
 /**
@@ -47,12 +36,6 @@ use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
  */
 class ObjectNormalizer extends AbstractObjectNormalizer
 {
-<<<<<<< HEAD
-    private static $reflectionCache = [];
-
-    protected $propertyAccessor;
-    protected $propertyInfoExtractor;
-=======
     use AccessorCollisionResolverTrait;
 
     private static $reflectionCache = [];
@@ -62,7 +45,6 @@ class ObjectNormalizer extends AbstractObjectNormalizer
     protected $propertyAccessor;
     protected $propertyInfoExtractor;
     private $writeInfoExtractor;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     private readonly \Closure $objectClassResolver;
 
@@ -78,10 +60,7 @@ class ObjectNormalizer extends AbstractObjectNormalizer
 
         $this->objectClassResolver = ($objectClassResolver ?? static fn ($class) => \is_object($class) ? $class::class : $class)(...);
         $this->propertyInfoExtractor = $propertyInfoExtractor ?: new ReflectionExtractor();
-<<<<<<< HEAD
-=======
         $this->writeInfoExtractor = new ReflectionExtractor();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getSupportedTypes(?string $format): array
@@ -113,40 +92,11 @@ class ObjectNormalizer extends AbstractObjectNormalizer
         $reflClass = new \ReflectionClass($class);
 
         foreach ($reflClass->getMethods(\ReflectionMethod::IS_PUBLIC) as $reflMethod) {
-<<<<<<< HEAD
-            if (
-                0 !== $reflMethod->getNumberOfRequiredParameters()
-                || $reflMethod->isStatic()
-                || $reflMethod->isConstructor()
-                || $reflMethod->isDestructor()
-            ) {
-                continue;
-            }
-
-            $name = $reflMethod->name;
-            $attributeName = null;
-
-            if (str_starts_with($name, 'get') || str_starts_with($name, 'has') || str_starts_with($name, 'can')) {
-                // getters, hassers and canners
-                $attributeName = substr($name, 3);
-
-                if (!$reflClass->hasProperty($attributeName)) {
-                    $attributeName = lcfirst($attributeName);
-                }
-            } elseif (str_starts_with($name, 'is')) {
-                // issers
-                $attributeName = substr($name, 2);
-
-                if (!$reflClass->hasProperty($attributeName)) {
-                    $attributeName = lcfirst($attributeName);
-                }
-=======
             $name = $reflMethod->name;
             $attributeName = $this->getAttributeNameFromAccessor($reflClass, $reflMethod, false);
 
             if ($this->hasPropertyForAccessor($reflMethod->getDeclaringClass(), $name) && (null === $attributeName || $this->hasAttributeNameCollision($reflClass, $attributeName, $name))) {
                 $attributeName = $name;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if (null !== $attributeName && $this->isAllowedAttribute($object, $attributeName, $format, $context)) {
@@ -188,56 +138,16 @@ class ObjectNormalizer extends AbstractObjectNormalizer
             $this->propertyAccessor->setValue($object, $attribute, $value);
         } catch (NoSuchPropertyException) {
             // Properties not found are ignored
-<<<<<<< HEAD
-        }
-    }
-
-    protected function getAllowedAttributes(string|object $classOrObject, array $context, bool $attributesAsString = false): array|bool
-    {
-        if (false === $allowedAttributes = parent::getAllowedAttributes($classOrObject, $context, $attributesAsString)) {
-            return false;
-        }
-
-        if (null !== $this->classDiscriminatorResolver) {
-            $class = \is_object($classOrObject) ? $classOrObject::class : $classOrObject;
-            if (null !== $discriminatorMapping = $this->classDiscriminatorResolver->getMappingForMappedObject($classOrObject)) {
-                $allowedAttributes[] = $attributesAsString ? $discriminatorMapping->getTypeProperty() : new AttributeMetadata($discriminatorMapping->getTypeProperty());
-            }
-
-            if (null !== $discriminatorMapping = $this->classDiscriminatorResolver->getMappingForClass($class)) {
-                $attributes = [];
-                foreach ($discriminatorMapping->getTypesMapping() as $mappedClass) {
-                    $attributes[] = parent::getAllowedAttributes($mappedClass, $context, $attributesAsString);
-                }
-                $allowedAttributes = array_merge($allowedAttributes, ...$attributes);
-            }
-        }
-
-        return $allowedAttributes;
-    }
-
-=======
         } catch (PropertyAccessInvalidArgumentException $e) {
             throw NotNormalizableValueException::createForUnexpectedDataType(\sprintf('Failed to denormalize attribute "%s" value for class "%s": %s', $attribute, $object::class, $e->getMessage()), $value, ['unknown'], $context['deserialization_path'] ?? null, false, $e->getCode(), $e);
         }
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected function isAllowedAttribute($classOrObject, string $attribute, ?string $format = null, array $context = [])
     {
         if (!parent::isAllowedAttribute($classOrObject, $attribute, $format, $context)) {
             return false;
         }
-<<<<<<< HEAD
-        $class = \is_object($classOrObject) ? \get_class($classOrObject) : $classOrObject;
-
-        if ($context['_read_attributes'] ?? true) {
-            return $this->propertyInfoExtractor->isReadable($class, $attribute) || $this->hasAttributeAccessorMethod($class, $attribute);
-        }
-
-        return $this->propertyInfoExtractor->isWritable($class, $attribute)
-            || ($writeInfo = $this->propertyInfoExtractor->getWriteInfo($class, $attribute)) && PropertyWriteInfo::TYPE_NONE !== $writeInfo->getType();
-=======
 
         $class = \is_object($classOrObject) ? $classOrObject::class : $classOrObject;
 
@@ -267,20 +177,11 @@ class ObjectNormalizer extends AbstractObjectNormalizer
 
         return self::$isWritableCache[$cacheKey] = !\in_array($writeType, [null, PropertyWriteInfo::TYPE_NONE], true)
             && (PropertyWriteInfo::TYPE_PROPERTY !== $writeType || !property_exists($class, $attribute));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function hasAttributeAccessorMethod(string $class, string $attribute): bool
     {
-<<<<<<< HEAD
-        if (!isset(self::$reflectionCache[$class])) {
-            self::$reflectionCache[$class] = new \ReflectionClass($class);
-        }
-
-        $reflection = self::$reflectionCache[$class];
-=======
         $reflection = self::$reflectionCache[$class] ??= new \ReflectionClass($class);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (!$reflection->hasMethod($attribute)) {
             return false;
@@ -290,11 +191,7 @@ class ObjectNormalizer extends AbstractObjectNormalizer
 
         return !$method->isStatic()
             && !$method->getAttributes(Ignore::class)
-<<<<<<< HEAD
-            && !$method->getNumberOfRequiredParameters();
-=======
             && !$method->getNumberOfRequiredParameters()
             && !\in_array((string) $method->getReturnType(), ['void', 'never'], true);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

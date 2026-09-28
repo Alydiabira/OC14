@@ -39,15 +39,9 @@ class QuarterTransformer extends Transformer
                     $map = [1 => '1st quarter', 2 => '2nd quarter', 3 => '3rd quarter', 4 => '4th quarter'];
 
                     return $map[$quarter];
-<<<<<<< HEAD
-                } else {
-                    return $quarter;
-                }
-=======
                 }
 
                 return $quarter;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 

@@ -41,11 +41,7 @@ final class FFICaster
             $type = \FFI::typeof($data);
         }
 
-<<<<<<< HEAD
-        $stub->class = sprintf('%s<%s> size %d align %d', ($data ?? $type)::class, $type->getName(), $type->getSize(), $type->getAlignment());
-=======
         $stub->class = \sprintf('%s<%s> size %d align %d', ($data ?? $type)::class, $type->getName(), $type->getSize(), $type->getAlignment());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return match ($type->getKind()) {
             CType::TYPE_FLOAT,
@@ -90,11 +86,7 @@ final class FFICaster
             CType::ABI_MS => '[ms]',
             CType::ABI_SYSV => '[sysv]',
             CType::ABI_VECTORCALL => '[vectorcall]',
-<<<<<<< HEAD
-            default => '[unknown abi]'
-=======
             default => '[unknown abi]',
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         };
 
         $returnType = $type->getFuncReturnType();
@@ -123,13 +115,6 @@ final class FFICaster
     private static function castFFIStringValue(CData $data): string|CutStub
     {
         $result = [];
-<<<<<<< HEAD
-
-        for ($i = 0; $i < self::MAX_STRING_LENGTH; ++$i) {
-            $result[$i] = $data[$i];
-
-            if ("\0" === $result[$i]) {
-=======
         $ffi = \FFI::cdef(<<<C
                 size_t zend_get_page_size(void);
             C);
@@ -145,7 +130,6 @@ final class FFICaster
             $result[$i] = $data[$i];
 
             if ("\0" === $data[$i]) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 return implode('', $result);
             }
         }

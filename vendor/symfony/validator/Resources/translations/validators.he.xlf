@@ -136,11 +136,7 @@
             </trans-unit>
             <trans-unit id="37" resname="This is not a valid IP address.">
                 <source>This value is not a valid IP address.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">ערך זה אינו כתובת IP תקפה.</target>
-=======
                 <target>ערך זה אינו כתובת IP תקפה.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="38">
                 <source>This value is not a valid language.</source>
@@ -196,11 +192,7 @@
             </trans-unit>
             <trans-unit id="51" resname="No temporary folder was configured in php.ini.">
                 <source>No temporary folder was configured in php.ini, or the configured folder does not exist.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">לא הוגדרה תיקייה זמנית ב-php.ini, או שהתיקייה המוגדרת אינה קיימת.</target>
-=======
                 <target>לא הוגדרה תיקייה זמנית ב-php.ini, או שהתיקייה המוגדרת אינה קיימת.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="52">
                 <source>Cannot write temporary file to disk.</source>
@@ -232,11 +224,7 @@
             </trans-unit>
             <trans-unit id="59" resname="This is not a valid International Bank Account Number (IBAN).">
                 <source>This value is not a valid International Bank Account Number (IBAN).</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">ערך זה אינו מספר חשבון בנק בינלאומי (IBAN) תקף.</target>
-=======
                 <target>ערך זה אינו מספר זה"ב (IBAN) תקף.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="60">
                 <source>This value is not a valid ISBN-10.</source>
@@ -324,11 +312,7 @@
             </trans-unit>
             <trans-unit id="81" resname="This is not a valid Business Identifier Code (BIC).">
                 <source>This value is not a valid Business Identifier Code (BIC).</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">ערך זה אינו קוד מזהה עסקי (BIC) תקף.</target>
-=======
                 <target>ערך זה אינו קוד מזהה עסקי (BIC) תקף.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="82">
                 <source>Error</source>
@@ -336,11 +320,7 @@
             </trans-unit>
             <trans-unit id="83" resname="This is not a valid UUID.">
                 <source>This value is not a valid UUID.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">ערך זה אינו UUID תקף.</target>
-=======
                 <target>ערך זה אינו UUID תקף.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="84">
                 <source>This value should be a multiple of {{ compared_value }}.</source>
@@ -424,45 +404,6 @@
             </trans-unit>
             <trans-unit id="104">
                 <source>The filename is too long. It should have {{ filename_max_length }} character or less.|The filename is too long. It should have {{ filename_max_length }} characters or less.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">שם הקובץ ארוך מדי. עליו להכיל {{ filename_max_length }} תווים או פחות.</target>
-            </trans-unit>
-            <trans-unit id="105">
-                <source>The password strength is too low. Please use a stronger password.</source>
-                <target state="needs-review-translation">חוזק הסיסמה נמוך מדי. אנא השתמש בסיסמה חזקה יותר.</target>
-            </trans-unit>
-            <trans-unit id="106">
-                <source>This value contains characters that are not allowed by the current restriction-level.</source>
-                <target state="needs-review-translation">הערך כולל תווים שאינם מותרים על פי רמת ההגבלה הנוכחית.</target>
-            </trans-unit>
-            <trans-unit id="107">
-                <source>Using invisible characters is not allowed.</source>
-                <target state="needs-review-translation">אסור להשתמש בתווים בלתי נראים.</target>
-            </trans-unit>
-            <trans-unit id="108">
-                <source>Mixing numbers from different scripts is not allowed.</source>
-                <target state="needs-review-translation">אסור לערבב מספרים מתסריטים שונים.</target>
-            </trans-unit>
-            <trans-unit id="109">
-                <source>Using hidden overlay characters is not allowed.</source>
-                <target state="needs-review-translation">אסור להשתמש בתווים מוסתרים של חפיפה.</target>
-            </trans-unit>
-            <trans-unit id="110">
-                <source>The extension of the file is invalid ({{ extension }}). Allowed extensions are {{ extensions }}.</source>
-                <target state="needs-review-translation">סיומת הקובץ אינה תקינה ({{ extension }}). הסיומות המותרות הן {{ extensions }}.</target>
-            </trans-unit>
-            <trans-unit id="111">
-                <source>The detected character encoding is invalid ({{ detected }}). Allowed encodings are {{ encodings }}.</source>
-                <target state="needs-review-translation">קידוד התווים שזוהה אינו חוקי ({{ detected }}). הקידודים המותרים הם {{ encodings }}.</target>
-            </trans-unit>
-            <trans-unit id="112">
-                <source>This value is not a valid MAC address.</source>
-                <target state="needs-review-translation">ערך זה אינו כתובת MAC תקפה.</target>
-            </trans-unit>
-            <trans-unit id="113">
-                <source>This URL is missing a top-level domain.</source>
-                <target state="needs-review-translation">לכתובת URL זו חסר דומיין רמה עליונה.</target>
-=======
                 <target>שם הקובץ ארוך מדי. עליו להכיל {{ filename_max_length }} תווים או פחות.</target>
             </trans-unit>
             <trans-unit id="105">
@@ -636,7 +577,6 @@
             <trans-unit id="148" resname="This is not a valid ULID.">
                 <source>This value is not a valid ULID.</source>
                 <target state="needs-review-translation">ערך זה אינו ULID תקף.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
         </body>
     </file>

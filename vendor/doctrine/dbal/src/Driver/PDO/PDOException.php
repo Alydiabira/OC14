@@ -6,15 +6,7 @@ namespace Doctrine\DBAL\Driver\PDO;
 
 use Doctrine\DBAL\Driver\Exception as DriverException;
 
-<<<<<<< HEAD
-/**
- * @internal
- *
- * @psalm-immutable
- */
-=======
 /** @internal */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 final class PDOException extends \PDOException implements DriverException
 {
     private ?string $sqlState = null;

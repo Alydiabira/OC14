@@ -224,11 +224,7 @@ class Dropdown extends BaseComponent {
 
   _createPopper() {
     if (typeof Popper === 'undefined') {
-<<<<<<< HEAD
-      throw new TypeError('Bootstrap\'s dropdowns require Popper (https://popper.js.org)')
-=======
       throw new TypeError('Bootstrap\'s dropdowns require Popper (https://popper.js.org/docs/v2/)')
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     let referenceElement = this._element
@@ -324,11 +320,7 @@ class Dropdown extends BaseComponent {
 
     return {
       ...defaultBsPopperConfig,
-<<<<<<< HEAD
-      ...execute(this._config.popperConfig, [defaultBsPopperConfig])
-=======
       ...execute(this._config.popperConfig, [undefined, defaultBsPopperConfig])
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
   }
 

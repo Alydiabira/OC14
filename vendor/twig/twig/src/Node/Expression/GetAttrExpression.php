@@ -14,13 +14,6 @@ namespace Twig\Node\Expression;
 
 use Twig\Compiler;
 use Twig\Extension\SandboxExtension;
-<<<<<<< HEAD
-use Twig\Template;
-
-class GetAttrExpression extends AbstractExpression
-{
-    public function __construct(AbstractExpression $node, AbstractExpression $attribute, ?AbstractExpression $arguments, string $type, int $lineno)
-=======
 use Twig\Node\CoercesChildrenToStringInterface;
 use Twig\Node\Expression\Variable\ContextVariable;
 use Twig\Template;
@@ -34,16 +27,12 @@ class GetAttrExpression extends AbstractExpression implements SupportDefinedTest
      * @param ArrayExpression|NameExpression|null $arguments
      */
     public function __construct(AbstractExpression $node, AbstractExpression $attribute, ?AbstractExpression $arguments, string $type, int $lineno, bool $nullSafe = false)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $nodes = ['node' => $node, 'attribute' => $attribute];
         if (null !== $arguments) {
             $nodes['arguments'] = $arguments;
         }
 
-<<<<<<< HEAD
-        parent::__construct($nodes, ['type' => $type, 'is_defined_test' => false, 'ignore_strict_check' => false, 'optimizable' => true], $lineno);
-=======
         if ($arguments && !$arguments instanceof ArrayExpression && !$arguments instanceof ContextVariable) {
             trigger_deprecation('twig/twig', '3.15', \sprintf('Not passing a "%s" instance as the "arguments" argument of the "%s" constructor is deprecated ("%s" given).', ArrayExpression::class, static::class, $arguments::class));
         }
@@ -55,27 +44,19 @@ class GetAttrExpression extends AbstractExpression implements SupportDefinedTest
     {
         $this->definedTest = true;
         $this->changeIgnoreStrictCheck($this);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function compile(Compiler $compiler): void
     {
         $env = $compiler->getEnvironment();
-<<<<<<< HEAD
-=======
         $arrayAccessSandbox = false;
         $nullSafe = $this->getAttribute('null_safe');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         // optimize array calls
         if (
             $this->getAttribute('optimizable')
             && (!$env->isStrictVariables() || $this->getAttribute('ignore_strict_check'))
-<<<<<<< HEAD
-            && !$this->getAttribute('is_defined_test')
-=======
             && !$this->definedTest
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             && Template::ARRAY_CALL === $this->getAttribute('type')
         ) {
             $var = '$'.$compiler->getVarName();
@@ -83,24 +64,8 @@ class GetAttrExpression extends AbstractExpression implements SupportDefinedTest
                 ->raw('(('.$var.' = ')
                 ->subcompile($this->getNode('node'))
                 ->raw(') && is_array(')
-<<<<<<< HEAD
                 ->raw($var)
-                ->raw(') || ')
-                ->raw($var)
-                ->raw(' instanceof ArrayAccess ? (')
-                ->raw($var)
-                ->raw('[')
-                ->subcompile($this->getNode('attribute'))
-                ->raw('] ?? null) : null)')
             ;
-
-            return;
-        }
-
-        $compiler->raw('CoreExtension::getAttribute($this->env, $this->source, ');
-
-=======
-                ->raw($var);
 
             if (!$env->hasExtension(SandboxExtension::class)) {
                 $compiler
@@ -110,7 +75,7 @@ class GetAttrExpression extends AbstractExpression implements SupportDefinedTest
                     ->raw($var)
                     ->raw('[')
                 ;
-                $this->compileArrayKey($compiler);
+                $this->compileArrayKey($compiler, $var);
                 $compiler->raw('] ?? null) : null)');
 
                 return;
@@ -127,19 +92,14 @@ class GetAttrExpression extends AbstractExpression implements SupportDefinedTest
                 ->raw($var)
                 ->raw('[')
             ;
-            $this->compileArrayKey($compiler);
+            $this->compileArrayKey($compiler, $var);
             $compiler->raw('] ?? null) : ');
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ($this->getAttribute('ignore_strict_check')) {
             $this->getNode('node')->setAttribute('ignore_strict_check', true);
         }
 
-<<<<<<< HEAD
-        $compiler
-            ->subcompile($this->getNode('node'))
-=======
         if (null === $nullSafeNode = $nullSafe ? $this : null) {
             $node = $this->getNode('node');
             while ($node instanceof self) {
@@ -171,7 +131,6 @@ class GetAttrExpression extends AbstractExpression implements SupportDefinedTest
         }
 
         $compiler
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->raw(', ')
             ->subcompile($this->getNode('attribute'))
         ;
@@ -184,18 +143,12 @@ class GetAttrExpression extends AbstractExpression implements SupportDefinedTest
 
         $compiler->raw(', ')
             ->repr($this->getAttribute('type'))
-<<<<<<< HEAD
-            ->raw(', ')->repr($this->getAttribute('is_defined_test'))
-=======
             ->raw(', ')->repr($this->definedTest)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->raw(', ')->repr($this->getAttribute('ignore_strict_check'))
             ->raw(', ')->repr($env->hasExtension(SandboxExtension::class))
             ->raw(', ')->repr($this->getNode('node')->getTemplateLine())
             ->raw(')')
         ;
-<<<<<<< HEAD
-=======
 
         if ($arrayAccessSandbox) {
             $compiler->raw(')');
@@ -215,7 +168,7 @@ class GetAttrExpression extends AbstractExpression implements SupportDefinedTest
             $names[] = 'arguments';
         }
 
-        // compileArrayKey() coerces a Stringable key; expose it so the sandbox checks __toString()
+        // compileArrayKey() may coerce a Stringable key; expose it so the sandbox checks __toString()
         if (Template::ARRAY_CALL === $this->getAttribute('type')) {
             $names[] = 'attribute';
         }
@@ -224,10 +177,11 @@ class GetAttrExpression extends AbstractExpression implements SupportDefinedTest
     }
 
     /**
-     * Coerces a Stringable array key to string so the optimized path matches
-     * CoreExtension::getAttribute(); scalars are left to PHP's native offset coercion.
+     * Normalizes a Stringable array key so optimized access matches getAttribute():
+     * arrays and known string-keyed ArrayAccess implementations receive a string,
+     * while object-key implementations receive the object unchanged.
      */
-    private function compileArrayKey(Compiler $compiler): void
+    private function compileArrayKey(Compiler $compiler, string $var): void
     {
         $attribute = $this->getNode('attribute');
 
@@ -241,7 +195,7 @@ class GetAttrExpression extends AbstractExpression implements SupportDefinedTest
         $compiler
             ->raw('(('.$key.' = ')
             ->subcompile($attribute)
-            ->raw(') instanceof \Stringable ? (string) '.$key.' : '.$key.')')
+            ->raw(') instanceof \Stringable && (is_array('.$var.') || '.$var.' instanceof \ArrayObject || '.$var.' instanceof \ArrayIterator) ? (string) '.$key.' : '.$key.')')
         ;
     }
 
@@ -272,6 +226,5 @@ class GetAttrExpression extends AbstractExpression implements SupportDefinedTest
         }
 
         return '$'.$this->getAttribute('var_name');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

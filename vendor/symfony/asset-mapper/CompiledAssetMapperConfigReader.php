@@ -35,11 +35,7 @@ class CompiledAssetMapperConfigReader
     public function saveConfig(string $filename, array $data): string
     {
         $path = Path::join($this->directory, $filename);
-<<<<<<< HEAD
-        @mkdir(\dirname($path), 0777, true);
-=======
         @mkdir(\dirname($path), 0o777, true);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         file_put_contents($path, json_encode($data, \JSON_PRETTY_PRINT | \JSON_THROW_ON_ERROR));
 
         return $path;

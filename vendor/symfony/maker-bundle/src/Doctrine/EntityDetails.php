@@ -77,19 +77,11 @@ final class EntityDetails
             }
             $fieldsWithTypes[$fieldName] = [
                 'type' => EntityType::class,
-<<<<<<< HEAD
-                'options_code' => sprintf('\'class\' => %s::class,', $relation['targetEntity']).\PHP_EOL.'\'choice_label\' => \'id\',',
-                'extra_use_classes' => [$relation['targetEntity']],
-            ];
-            if (\Doctrine\ORM\Mapping\ClassMetadata::MANY_TO_MANY === $relation['type']) {
-                $fieldsWithTypes[$fieldName]['options_code'] .= "\n'multiple' => true,";
-=======
                 'options_code' => \sprintf('\'class\' => %s::class,', $relation['targetEntity'])."\n                'choice_label' => 'id',",
                 'extra_use_classes' => [$relation['targetEntity']],
             ];
             if (\Doctrine\ORM\Mapping\ClassMetadata::MANY_TO_MANY === $relation['type']) {
                 $fieldsWithTypes[$fieldName]['options_code'] .= "\n                'multiple' => true,";
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 

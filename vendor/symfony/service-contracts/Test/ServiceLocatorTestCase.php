@@ -19,12 +19,9 @@ use Symfony\Contracts\Service\ServiceLocatorTrait;
 
 abstract class ServiceLocatorTestCase extends TestCase
 {
-<<<<<<< HEAD
-=======
     /**
      * @param array<string, callable> $factories
      */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     protected function getServiceLocator(array $factories): ContainerInterface
     {
         return new class($factories) implements ContainerInterface {
@@ -35,15 +32,9 @@ abstract class ServiceLocatorTestCase extends TestCase
     public function testHas()
     {
         $locator = $this->getServiceLocator([
-<<<<<<< HEAD
-            'foo' => fn () => 'bar',
-            'bar' => fn () => 'baz',
-            fn () => 'dummy',
-=======
             'foo' => static fn () => 'bar',
             'bar' => static fn () => 'baz',
             static fn () => 'dummy',
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ]);
 
         $this->assertTrue($locator->has('foo'));
@@ -54,13 +45,8 @@ abstract class ServiceLocatorTestCase extends TestCase
     public function testGet()
     {
         $locator = $this->getServiceLocator([
-<<<<<<< HEAD
-            'foo' => fn () => 'bar',
-            'bar' => fn () => 'baz',
-=======
             'foo' => static fn () => 'bar',
             'bar' => static fn () => 'baz',
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ]);
 
         $this->assertSame('bar', $locator->get('foo'));
@@ -71,11 +57,7 @@ abstract class ServiceLocatorTestCase extends TestCase
     {
         $i = 0;
         $locator = $this->getServiceLocator([
-<<<<<<< HEAD
-            'foo' => function () use (&$i) {
-=======
             'foo' => static function () use (&$i) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 ++$i;
 
                 return 'bar';
@@ -90,21 +72,11 @@ abstract class ServiceLocatorTestCase extends TestCase
     public function testThrowsOnUndefinedInternalService()
     {
         $locator = $this->getServiceLocator([
-<<<<<<< HEAD
-            'foo' => function () use (&$locator) { return $locator->get('bar'); },
-        ]);
-
-        if (!$this->getExpectedException()) {
-            $this->expectException(NotFoundExceptionInterface::class);
-            $this->expectExceptionMessage('The service "foo" has a dependency on a non-existent service "bar". This locator only knows about the "foo" service.');
-        }
-=======
             'foo' => static function () use (&$locator) { return $locator->get('bar'); },
         ]);
 
         $this->expectException(NotFoundExceptionInterface::class);
         $this->expectExceptionMessage('The service "foo" has a dependency on a non-existent service "bar". This locator only knows about the "foo" service.');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $locator->get('foo');
     }
@@ -112,15 +84,9 @@ abstract class ServiceLocatorTestCase extends TestCase
     public function testThrowsOnCircularReference()
     {
         $locator = $this->getServiceLocator([
-<<<<<<< HEAD
-            'foo' => function () use (&$locator) { return $locator->get('bar'); },
-            'bar' => function () use (&$locator) { return $locator->get('baz'); },
-            'baz' => function () use (&$locator) { return $locator->get('bar'); },
-=======
             'foo' => static function () use (&$locator) { return $locator->get('bar'); },
             'bar' => static function () use (&$locator) { return $locator->get('baz'); },
             'baz' => static function () use (&$locator) { return $locator->get('bar'); },
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ]);
 
         $this->expectException(ContainerExceptionInterface::class);

@@ -41,25 +41,9 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
     {
         parent::__construct($this->openOutputStream(), $verbosity, $decorated, $formatter);
 
-<<<<<<< HEAD
-        if (null === $formatter) {
-            // for BC reasons, stdErr has it own Formatter only when user don't inject a specific formatter.
-            $this->stderr = new StreamOutput($this->openErrorStream(), $verbosity, $decorated);
-
-            return;
-        }
-
-        $actualDecorated = $this->isDecorated();
-        $this->stderr = new StreamOutput($this->openErrorStream(), $verbosity, $decorated, $this->getFormatter());
-
-        if (null === $decorated) {
-            $this->setDecorated($actualDecorated && $this->stderr->isDecorated());
-        }
-=======
         // stderr gets its own formatter: decoration is held by the formatter, so a shared one
         // would force both streams to the same state instead of detecting each independently
         $this->stderr = new StreamOutput($this->openErrorStream(), $verbosity, $decorated, $formatter ? clone $formatter : null);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -116,11 +100,7 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
      */
     protected function hasStdoutSupport(): bool
     {
-<<<<<<< HEAD
-        return false === $this->isRunningOS400();
-=======
         return !$this->isRunningOS400();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -129,11 +109,7 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
      */
     protected function hasStderrSupport(): bool
     {
-<<<<<<< HEAD
-        return false === $this->isRunningOS400();
-=======
         return !$this->isRunningOS400();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -156,14 +132,6 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
      */
     private function openOutputStream()
     {
-<<<<<<< HEAD
-        if (!$this->hasStdoutSupport()) {
-            return fopen('php://output', 'w');
-        }
-
-        // Use STDOUT when possible to prevent from opening too many file descriptors
-        return \defined('STDOUT') ? \STDOUT : (@fopen('php://stdout', 'w') ?: fopen('php://output', 'w'));
-=======
         static $stdout;
 
         if ($stdout) {
@@ -185,7 +153,6 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
         }
 
         return $stdout = \STDOUT;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -193,14 +160,6 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
      */
     private function openErrorStream()
     {
-<<<<<<< HEAD
-        if (!$this->hasStderrSupport()) {
-            return fopen('php://output', 'w');
-        }
-
-        // Use STDERR when possible to prevent from opening too many file descriptors
-        return \defined('STDERR') ? \STDERR : (@fopen('php://stderr', 'w') ?: fopen('php://output', 'w'));
-=======
         static $stderr;
 
         if ($stderr) {
@@ -222,6 +181,5 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
         }
 
         return $stderr ??= \STDERR;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

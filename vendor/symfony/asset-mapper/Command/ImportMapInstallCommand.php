@@ -42,11 +42,7 @@ final class ImportMapInstallCommand extends Command
         $finishedCount = 0;
         $progressBar = new ProgressBar($output);
         $progressBar->setFormat('<info>%current%/%max%</info> %bar% %url%');
-<<<<<<< HEAD
-        $downloadedPackages = $this->packageDownloader->downloadPackages(function (string $package, string $event, ResponseInterface $response, int $totalPackages) use (&$finishedCount, $progressBar) {
-=======
         $downloadedPackages = $this->packageDownloader->downloadPackages(static function (string $package, string $event, ResponseInterface $response, int $totalPackages) use (&$finishedCount, $progressBar) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $progressBar->setMessage($response->getInfo('url'), 'url');
             if (0 === $progressBar->getMaxSteps()) {
                 $progressBar->setMaxSteps($totalPackages);
@@ -67,11 +63,7 @@ final class ImportMapInstallCommand extends Command
             return Command::SUCCESS;
         }
 
-<<<<<<< HEAD
-        $io->success(sprintf(
-=======
         $io->success(\sprintf(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'Downloaded %d package%s into %s.',
             \count($downloadedPackages),
             1 === \count($downloadedPackages) ? '' : 's',

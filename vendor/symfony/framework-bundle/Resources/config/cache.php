@@ -88,11 +88,7 @@ return static function (ContainerConfigurator $container) {
                 '', // namespace
                 0, // default lifetime
                 abstract_arg('version'),
-<<<<<<< HEAD
-                sprintf('%s/pools/system', param('kernel.cache_dir')),
-=======
                 \sprintf('%s/pools/system', param('kernel.cache_dir')),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 service('logger')->ignoreOnInvalid(),
             ])
             ->tag('cache.pool', ['clearer' => 'cache.system_clearer', 'reset' => 'reset'])
@@ -114,11 +110,7 @@ return static function (ContainerConfigurator $container) {
             ->args([
                 '', // namespace
                 0, // default lifetime
-<<<<<<< HEAD
-                sprintf('%s/pools/app', param('kernel.cache_dir')),
-=======
                 \sprintf('%s/pools/app', param('kernel.cache_dir')),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 service('cache.default_marshaller')->ignoreOnInvalid(),
             ])
             ->call('setLogger', [service('logger')->ignoreOnInvalid()])

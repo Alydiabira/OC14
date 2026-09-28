@@ -44,17 +44,6 @@
             </trans-unit>
             <trans-unit id="11">
                 <source>This value is not a valid date.</source>
-<<<<<<< HEAD
-                <target>Ez az érték nem egy érvényes dátum.</target>
-            </trans-unit>
-            <trans-unit id="12">
-                <source>This value is not a valid datetime.</source>
-                <target>Ez az érték nem egy érvényes időpont.</target>
-            </trans-unit>
-            <trans-unit id="13">
-                <source>This value is not a valid email address.</source>
-                <target>Ez az érték nem egy érvényes e-mail cím.</target>
-=======
                 <target>Ez az érték nem érvényes dátum.</target>
             </trans-unit>
             <trans-unit id="12">
@@ -64,7 +53,6 @@
             <trans-unit id="13">
                 <source>This value is not a valid email address.</source>
                 <target>Ez az érték nem érvényes e-mail cím.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="14">
                 <source>The file could not be found.</source>
@@ -116,19 +104,11 @@
             </trans-unit>
             <trans-unit id="26">
                 <source>This value is not a valid time.</source>
-<<<<<<< HEAD
-                <target>Ez az érték nem egy érvényes időpont.</target>
-            </trans-unit>
-            <trans-unit id="27">
-                <source>This value is not a valid URL.</source>
-                <target>Ez az érték nem egy érvényes URL.</target>
-=======
                 <target>Ez az érték nem érvényes időpont.</target>
             </trans-unit>
             <trans-unit id="27">
                 <source>This value is not a valid URL.</source>
                 <target>Ez az érték nem érvényes URL.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="31">
                 <source>The two values should be equal.</source>
@@ -152,11 +132,7 @@
             </trans-unit>
             <trans-unit id="36">
                 <source>This file is not a valid image.</source>
-<<<<<<< HEAD
-                <target>Ez a fájl nem egy érvényes kép.</target>
-=======
                 <target>Ez a fájl nem érvényes kép.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="37" resname="This is not a valid IP address.">
                 <source>This value is not a valid IP address.</source>
@@ -164,17 +140,6 @@
             </trans-unit>
             <trans-unit id="38">
                 <source>This value is not a valid language.</source>
-<<<<<<< HEAD
-                <target>Ez az érték nem egy érvényes nyelv.</target>
-            </trans-unit>
-            <trans-unit id="39">
-                <source>This value is not a valid locale.</source>
-                <target>Ez az érték nem egy érvényes területi beállítás.</target>
-            </trans-unit>
-            <trans-unit id="40">
-                <source>This value is not a valid country.</source>
-                <target>Ez az érték nem egy érvényes ország.</target>
-=======
                 <target>Ez az érték nem érvényes nyelv.</target>
             </trans-unit>
             <trans-unit id="39">
@@ -184,7 +149,6 @@
             <trans-unit id="40">
                 <source>This value is not a valid country.</source>
                 <target>Ez az érték nem érvényes ország.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="41">
                 <source>This value is already used.</source>
@@ -264,25 +228,6 @@
             </trans-unit>
             <trans-unit id="60">
                 <source>This value is not a valid ISBN-10.</source>
-<<<<<<< HEAD
-                <target>Ez az érték nem egy érvényes ISBN-10.</target>
-            </trans-unit>
-            <trans-unit id="61">
-                <source>This value is not a valid ISBN-13.</source>
-                <target>Ez az érték nem egy érvényes ISBN-13.</target>
-            </trans-unit>
-            <trans-unit id="62">
-                <source>This value is neither a valid ISBN-10 nor a valid ISBN-13.</source>
-                <target>Ez az érték nem egy érvényes ISBN-10 vagy ISBN-13.</target>
-            </trans-unit>
-            <trans-unit id="63">
-                <source>This value is not a valid ISSN.</source>
-                <target>Ez az érték nem egy érvényes ISSN.</target>
-            </trans-unit>
-            <trans-unit id="64">
-                <source>This value is not a valid currency.</source>
-                <target>Ez az érték nem egy érvényes pénznem.</target>
-=======
                 <target>Ez az érték nem érvényes ISBN-10.</target>
             </trans-unit>
             <trans-unit id="61">
@@ -300,7 +245,6 @@
             <trans-unit id="64">
                 <source>This value is not a valid currency.</source>
                 <target>Ez az érték nem érvényes pénznem.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="65">
                 <source>This value should be equal to {{ compared_value }}.</source>
@@ -412,11 +356,7 @@
             </trans-unit>
             <trans-unit id="92">
                 <source>This value is not a valid timezone.</source>
-<<<<<<< HEAD
-                <target>Ez az érték nem egy érvényes időzóna.</target>
-=======
                 <target>Ez az érték nem érvényes időzóna.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="93">
                 <source>This password has been leaked in a data breach, it must not be used. Please use another password.</source>
@@ -428,11 +368,7 @@
             </trans-unit>
             <trans-unit id="95">
                 <source>This value is not a valid hostname.</source>
-<<<<<<< HEAD
-                <target>Ez az érték nem egy érvényes állomásnév (hosztnév).</target>
-=======
                 <target>Ez az érték nem érvényes állomásnév (hosztnév).</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="96">
                 <source>The number of elements in this collection should be a multiple of {{ compared_value }}.</source>
@@ -448,11 +384,7 @@
             </trans-unit>
             <trans-unit id="99">
                 <source>This value is not a valid International Securities Identification Number (ISIN).</source>
-<<<<<<< HEAD
-                <target>Ez az érték nem egy érvényes nemzetközi értékpapír-azonosító szám (ISIN).</target>
-=======
                 <target>Ez az érték nem érvényes nemzetközi értékpapír-azonosító szám (ISIN).</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="100">
                 <source>This value should be a valid expression.</source>
@@ -460,19 +392,11 @@
             </trans-unit>
             <trans-unit id="101">
                 <source>This value is not a valid CSS color.</source>
-<<<<<<< HEAD
-                <target>Ez az érték nem egy érvényes CSS szín.</target>
-            </trans-unit>
-            <trans-unit id="102">
-                <source>This value is not a valid CIDR notation.</source>
-                <target>Ez az érték nem egy érvényes CIDR jelölés.</target>
-=======
                 <target>Ez az érték nem érvényes CSS szín.</target>
             </trans-unit>
             <trans-unit id="102">
                 <source>This value is not a valid CIDR notation.</source>
                 <target>Ez az érték nem érvényes CIDR jelölés.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="103">
                 <source>The value of the netmask should be between {{ min }} and {{ max }}.</source>
@@ -484,11 +408,7 @@
             </trans-unit>
             <trans-unit id="105">
                 <source>The password strength is too low. Please use a stronger password.</source>
-<<<<<<< HEAD
-                <target>A jelszó túl egyszerű. Kérjük, használjon egy bonyolultabb jelszót.</target>
-=======
                 <target>A jelszó túl egyszerű. Kérjük, használjon egy erősebb jelszót.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="106">
                 <source>This value contains characters that are not allowed by the current restriction-level.</source>
@@ -496,11 +416,7 @@
             </trans-unit>
             <trans-unit id="107">
                 <source>Using invisible characters is not allowed.</source>
-<<<<<<< HEAD
-                <target>Láthatatlan karaktert használata nem megengedett.</target>
-=======
                 <target>Láthatatlan karakterek használata nem megengedett.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="108">
                 <source>Mixing numbers from different scripts is not allowed.</source>
@@ -526,8 +442,6 @@
                 <source>This URL is missing a top-level domain.</source>
                 <target>Az URL-ből hiányzik a legfelső szintű tartomány (top-level domain).</target>
             </trans-unit>
-<<<<<<< HEAD
-=======
             <trans-unit id="114">
                 <source>This value is too short. It should contain at least one word.|This value is too short. It should contain at least {{ min }} words.</source>
                 <target>Ez az érték túl rövid. Tartalmaznia kell legalább egy szót.|Ez az érték túl rövid. Tartalmaznia kell legalább {{ min }} szót.</target>
@@ -654,17 +568,16 @@
             </trans-unit>
             <trans-unit id="146">
                 <source>This value is not a valid cron expression.</source>
-                <target state="needs-review-translation">Ez az érték nem érvényes cron kifejezés.</target>
+                <target>Ez az érték nem érvényes cron kifejezés.</target>
             </trans-unit>
             <trans-unit id="147">
                 <source>The referenced entity does not exist.</source>
-                <target state="needs-review-translation">A hivatkozott entitás nem létezik.</target>
+                <target>A hivatkozott entitás nem létezik.</target>
             </trans-unit>
             <trans-unit id="148" resname="This is not a valid ULID.">
                 <source>This value is not a valid ULID.</source>
-                <target state="needs-review-translation">Ez az érték nem érvényes ULID.</target>
+                <target>Ez az érték nem érvényes ULID.</target>
             </trans-unit>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         </body>
     </file>
 </xliff>

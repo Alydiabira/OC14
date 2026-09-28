@@ -104,11 +104,7 @@ abstract class AbstractTreeRepository extends DocumentRepository implements Repo
     }
 
     /**
-<<<<<<< HEAD
-     * @see \Gedmo\Tree\RepositoryUtilsInterface::setChildrenIndex
-=======
      * @see RepositoryUtilsInterface::setChildrenIndex
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function setChildrenIndex($childrenIndex)
     {
@@ -116,11 +112,7 @@ abstract class AbstractTreeRepository extends DocumentRepository implements Repo
     }
 
     /**
-<<<<<<< HEAD
-     * @see \Gedmo\Tree\RepositoryUtilsInterface::getChildrenIndex
-=======
      * @see RepositoryUtilsInterface::getChildrenIndex
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getChildrenIndex()
     {

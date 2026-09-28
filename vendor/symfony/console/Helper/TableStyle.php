@@ -77,18 +77,11 @@ class TableStyle
      *
      * <code>
      * ╔═══════════════╤══════════════════════════╤══════════════════╗
-<<<<<<< HEAD
-     * 1 ISBN          2 Title                    │ Author           ║
-     * ╠═══════════════╪══════════════════════════╪══════════════════╣
-     * ║ 99921-58-10-7 │ Divine Comedy            │ Dante Alighieri  ║
-     * ║ 9971-5-0210-0 │ A Tale of Two Cities     │ Charles Dickens  ║
-=======
      * ║ ISBN          │ Title                    │ Author           ║
      * ╠═══════1═══════╪══════════════════════════╪══════════════════╣
      * ║ 99921-58-10-7 │ Divine Comedy            │ Dante Alighieri  ║
      * ║ 9971-5-0210-0 │ A Tale of Two Cities     │ Charles Dickens  ║
      * ╟───────2───────┼──────────────────────────┼──────────────────╢
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * ║ 960-425-059-0 │ The Lord of the Rings    │ J. R. R. Tolkien ║
      * ║ 80-902734-1-6 │ And Then There Were None │ Agatha Christie  ║
      * ╚═══════════════╧══════════════════════════╧══════════════════╝
@@ -109,18 +102,10 @@ class TableStyle
      *
      * <code>
      * ╔═══════════════╤══════════════════════════╤══════════════════╗
-<<<<<<< HEAD
-     * ║ ISBN          │ Title                    │ Author           ║
-     * ╠═══════1═══════╪══════════════════════════╪══════════════════╣
-     * ║ 99921-58-10-7 │ Divine Comedy            │ Dante Alighieri  ║
-     * ║ 9971-5-0210-0 │ A Tale of Two Cities     │ Charles Dickens  ║
-     * ╟───────2───────┼──────────────────────────┼──────────────────╢
-=======
      * 1 ISBN          2 Title                    │ Author           ║
      * ╠═══════════════╪══════════════════════════╪══════════════════╣
      * ║ 99921-58-10-7 │ Divine Comedy            │ Dante Alighieri  ║
      * ║ 9971-5-0210-0 │ A Tale of Two Cities     │ Charles Dickens  ║
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * ║ 960-425-059-0 │ The Lord of the Rings    │ J. R. R. Tolkien ║
      * ║ 80-902734-1-6 │ And Then There Were None │ Agatha Christie  ║
      * ╚═══════════════╧══════════════════════════╧══════════════════╝

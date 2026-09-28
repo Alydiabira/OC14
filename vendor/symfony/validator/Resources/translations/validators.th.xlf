@@ -442,8 +442,6 @@
                 <source>This URL is missing a top-level domain.</source>
                 <target state="needs-review-translation">URL นี้ขาดโดเมนระดับสูงสุด.</target>
             </trans-unit>
-<<<<<<< HEAD
-=======
             <trans-unit id="114">
                 <source>This value is too short. It should contain at least one word.|This value is too short. It should contain at least {{ min }} words.</source>
                 <target state="needs-review-translation">ค่านี้สั้นเกินไป ควรมีอย่างน้อยหนึ่งคำ|ค่านี้สั้นเกินไป ควรมีอย่างน้อย {{ min }} คำ</target>
@@ -580,7 +578,6 @@
                 <source>This value is not a valid ULID.</source>
                 <target state="needs-review-translation">ค่านี้ไม่ใช่ ULID ที่ถูกต้อง</target>
             </trans-unit>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         </body>
     </file>
 </xliff>

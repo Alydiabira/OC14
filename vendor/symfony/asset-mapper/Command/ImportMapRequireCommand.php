@@ -45,36 +45,6 @@ final class ImportMapRequireCommand extends Command
             ->addOption('entrypoint', null, InputOption::VALUE_NONE, 'Make the package(s) an entrypoint?')
             ->addOption('path', null, InputOption::VALUE_REQUIRED, 'The local path where the package lives relative to the project root')
             ->setHelp(<<<'EOT'
-<<<<<<< HEAD
-The <info>%command.name%</info> command adds packages to <comment>importmap.php</comment> usually
-by finding a CDN URL for the given package and version.
-
-For example:
-
-    <info>php %command.full_name% lodash</info>
-    <info>php %command.full_name% "lodash@^4.15"</info>
-
-You can also require specific paths of a package:
-
-    <info>php %command.full_name% "chart.js/auto"</info>
-
-Or require one package/file, but alias its name in your import map:
-
-    <info>php %command.full_name% "vue/dist/vue.esm-bundler.js=vue"</info>
-
-Sometimes, a package may require other packages and multiple new items may be added
-to the import map.
-
-You can also require multiple packages at once:
-
-    <info>php %command.full_name% "lodash@^4.15" "@hotwired/stimulus"</info>
-
-To add an importmap entry pointing to a local file, use the <info>path</info> option:
-
-    <info>php %command.full_name% "any_module_name" --path=./assets/some_file.js</info>
-
-EOT
-=======
                 The <info>%command.name%</info> command adds packages to <comment>importmap.php</comment> usually
                 by finding a CDN URL for the given package and version.
 
@@ -103,7 +73,6 @@ EOT
                     <info>php %command.full_name% "any_module_name" --path=./assets/some_file.js</info>
 
                 EOT
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
     }
 
@@ -127,11 +96,7 @@ EOT
         foreach ($packageList as $packageName) {
             $parts = ImportMapManager::parsePackageName($packageName);
             if (null === $parts) {
-<<<<<<< HEAD
-                $io->error(sprintf('Package "%s" is not a valid package name format. Use the format PACKAGE@VERSION - e.g. "lodash" or "lodash@^4"', $packageName));
-=======
                 $io->error(\sprintf('Package "%s" is not a valid package name format. Use the format PACKAGE@VERSION - e.g. "lodash" or "lodash@^4"', $packageName));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 return Command::FAILURE;
             }
@@ -151,31 +116,18 @@ EOT
 
         if (1 === \count($newPackages)) {
             $newPackage = $newPackages[0];
-<<<<<<< HEAD
-            $message = sprintf('Package "%s" added to importmap.php', $newPackage->importName);
-
-            $message .= '.';
-        } else {
-            $names = array_map(fn (ImportMapEntry $package) => $package->importName, $newPackages);
-            $message = sprintf('%d new items (%s) added to the importmap.php!', \count($newPackages), implode(', ', $names));
-=======
             $message = \sprintf('Package "%s" added to importmap.php', $newPackage->importName);
 
             $message .= '.';
         } else {
             $names = array_map(static fn (ImportMapEntry $package) => $package->importName, $newPackages);
             $message = \sprintf('%d new items (%s) added to the importmap.php!', \count($newPackages), implode(', ', $names));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $messages = [$message];
 
         if (1 === \count($newPackages)) {
-<<<<<<< HEAD
-            $messages[] = sprintf('Use the new package normally by importing "%s".', $newPackages[0]->importName);
-=======
             $messages[] = \sprintf('Use the new package normally by importing "%s".', $newPackages[0]->importName);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $io->success($messages);

@@ -24,31 +24,22 @@ final class RegisterType extends AbstractType
         $builder
             ->add('username', TextType::class, [
                 'label' => 'Pseudo',
-<<<<<<< HEAD
                 'error_bubbling' => true,
                 'empty_data' => '',
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'attr' => [
                     'placeholder' => 'Pseudo',
                 ]
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
-<<<<<<< HEAD
                 'empty_data' => '',
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'attr' => [
                     'placeholder' => 'Email',
                 ]
             ])
             ->add('plainPassword', PasswordType::class, [
                 'label' => 'Mot de passe',
-<<<<<<< HEAD
                 'empty_data' => '',
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'attr' => [
                     'placeholder' => 'Mot de passe',
                 ]

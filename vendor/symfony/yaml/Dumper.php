@@ -81,21 +81,13 @@ class Dumper
                         $blockChompingIndicator = '-';
                     }
 
-<<<<<<< HEAD
-                    $output .= sprintf('%s%s%s |%s%s', $prefix, $dumpAsMap ? Inline::dump($key, $flags).':' : '-', '', $blockIndentationIndicator, $blockChompingIndicator);
-=======
                     $output .= \sprintf('%s%s%s |%s%s', $prefix, $dumpAsMap ? Inline::dump($key, $flags).':' : '-', '', $blockIndentationIndicator, $blockChompingIndicator);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                     foreach (explode("\n", $value) as $row) {
                         if ('' === $row) {
                             $output .= "\n";
                         } else {
-<<<<<<< HEAD
-                            $output .= sprintf("\n%s%s%s", $prefix, str_repeat(' ', $this->indentation), $row);
-=======
                             $output .= \sprintf("\n%s%s%s", $prefix, str_repeat(' ', $this->indentation), $row);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         }
                     }
 
@@ -103,16 +95,6 @@ class Dumper
                 }
 
                 if ($value instanceof TaggedValue) {
-<<<<<<< HEAD
-                    $output .= sprintf('%s%s !%s', $prefix, $dumpAsMap ? Inline::dump($key, $flags).':' : '-', $value->getTag());
-
-                    if (Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK & $flags && \is_string($value->getValue()) && str_contains($value->getValue(), "\n") && !str_contains($value->getValue(), "\r\n")) {
-                        $blockIndentationIndicator = $this->getBlockIndentationIndicator($value->getValue());
-                        $output .= sprintf(' |%s', $blockIndentationIndicator);
-
-                        foreach (explode("\n", $value->getValue()) as $row) {
-                            $output .= sprintf("\n%s%s%s", $prefix, str_repeat(' ', $this->indentation), $row);
-=======
                     $output .= \sprintf('%s%s !%s', $prefix, $dumpAsMap ? Inline::dump($key, $flags).':' : '-', $value->getTag());
 
                     if (Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK & $flags && \is_string($value->getValue()) && str_contains($value->getValue(), "\n") && !str_contains($value->getValue(), "\r\n")) {
@@ -121,7 +103,6 @@ class Dumper
 
                         foreach (explode("\n", $value->getValue()) as $row) {
                             $output .= \sprintf("\n%s%s%s", $prefix, str_repeat(' ', $this->indentation), $row);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         }
 
                         continue;
@@ -145,11 +126,7 @@ class Dumper
 
                 $willBeInlined = $inline - 1 <= 0 || !\is_array($value) && $dumpObjectAsInlineMap || empty($value);
 
-<<<<<<< HEAD
-                $output .= sprintf('%s%s%s%s',
-=======
                 $output .= \sprintf('%s%s%s%s',
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $prefix,
                     $dumpAsMap ? Inline::dump($key, $flags).':' : '-',
                     $willBeInlined ? ' ' : "\n",
@@ -163,16 +140,6 @@ class Dumper
 
     private function dumpTaggedValue(TaggedValue $value, int $inline, int $indent, int $flags, string $prefix): string
     {
-<<<<<<< HEAD
-        $output = sprintf('%s!%s', $prefix ? $prefix.' ' : '', $value->getTag());
-
-        if (Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK & $flags && \is_string($value->getValue()) && str_contains($value->getValue(), "\n") && !str_contains($value->getValue(), "\r\n")) {
-            $blockIndentationIndicator = $this->getBlockIndentationIndicator($value->getValue());
-            $output .= sprintf(' |%s', $blockIndentationIndicator);
-
-            foreach (explode("\n", $value->getValue()) as $row) {
-                $output .= sprintf("\n%s%s%s", $prefix, str_repeat(' ', $this->indentation), $row);
-=======
         $output = \sprintf('%s!%s', $prefix ? $prefix.' ' : '', $value->getTag());
 
         if (Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK & $flags && \is_string($value->getValue()) && str_contains($value->getValue(), "\n") && !str_contains($value->getValue(), "\r\n")) {
@@ -181,7 +148,6 @@ class Dumper
 
             foreach (explode("\n", $value->getValue()) as $row) {
                 $output .= \sprintf("\n%s%s%s", $prefix, str_repeat(' ', $this->indentation), $row);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             return $output;

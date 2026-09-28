@@ -5,14 +5,6 @@ namespace Stof\DoctrineExtensionsBundle\DependencyInjection;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Alias;
-<<<<<<< HEAD
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\Config\Definition\Processor;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-
-=======
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
@@ -22,7 +14,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * @internal
  */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 class StofDoctrineExtensionsExtension extends Extension
 {
     private const LISTENER_EVENTS = array(
@@ -53,10 +44,7 @@ class StofDoctrineExtensionsExtension extends Extension
         'softdeleteable' => array(
             'loadClassMetadata',
             'onFlush',
-<<<<<<< HEAD
-=======
             'postFlush',
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ),
         'sortable' => array(
             'onFlush',
@@ -97,36 +85,23 @@ class StofDoctrineExtensionsExtension extends Extension
         ),
     );
 
-<<<<<<< HEAD
-    private $entityManagers   = array();
-    private $documentManagers = array();
-=======
     /** @var list<string> */
     private array $entityManagers = array();
     /** @var list<string> */
     private array $documentManagers = array();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * @return void
      */
-<<<<<<< HEAD
-    public function load(array $configs, ContainerBuilder $container)
-=======
     public function load(array $configs, ContainerBuilder $container): void
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $processor = new Processor();
         $configuration = new Configuration();
 
         $config = $processor->processConfiguration($configuration, $configs);
 
-<<<<<<< HEAD
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-=======
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('tool.php');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $loaded = array();
 
@@ -138,15 +113,12 @@ class StofDoctrineExtensionsExtension extends Extension
         $container->setParameter('stof_doctrine_extensions.persist_default_translation', $config['persist_default_translation']);
         $container->setParameter('stof_doctrine_extensions.skip_translation_on_load', $config['skip_translation_on_load']);
 
-<<<<<<< HEAD
-=======
         // Register the softdeleteable configuration if the listener is used
         if (isset($loaded['softdeleteable'])) {
             $container->getDefinition('stof_doctrine_extensions.listener.softdeleteable')
                 ->replaceArgument(0, $config['softdeleteable']['handle_post_flush_event']);
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         // Register the uploadable configuration if the listener is used
         if (isset($loaded['uploadable'])) {
             $uploadableConfig = $config['uploadable'];
@@ -191,11 +163,7 @@ class StofDoctrineExtensionsExtension extends Extension
     /**
      * @internal
      */
-<<<<<<< HEAD
-    public function configValidate(ContainerBuilder $container)
-=======
     public function configValidate(ContainerBuilder $container): void
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         foreach ($this->entityManagers as $name) {
             if (!$container->hasDefinition(sprintf('doctrine.dbal.%s_connection', $name))) {
@@ -211,15 +179,6 @@ class StofDoctrineExtensionsExtension extends Extension
     }
 
     /**
-<<<<<<< HEAD
-     * @param array            $configs
-     * @param ContainerBuilder $container
-     * @param LoaderInterface  $loader
-     * @param array            $loaded
-     * @param string           $doctrineListenerTag
-     *
-     * @return array
-=======
      * @param array<string, array<string, bool>> $configs
      * @param ContainerBuilder                   $container
      * @param LoaderInterface                    $loader
@@ -227,7 +186,6 @@ class StofDoctrineExtensionsExtension extends Extension
      * @param string                             $doctrineListenerTag
      *
      * @return list<string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private function processObjectManagerConfigurations(array $configs, ContainerBuilder $container, LoaderInterface $loader, array &$loaded, string $doctrineListenerTag)
     {
@@ -246,11 +204,7 @@ class StofDoctrineExtensionsExtension extends Extension
                 }
 
                 if (!isset($loaded[$ext])) {
-<<<<<<< HEAD
-                    $loader->load($ext.'.xml');
-=======
                     $loader->load($ext.'.php');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $loaded[$ext] = true;
                 }
 

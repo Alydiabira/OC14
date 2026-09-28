@@ -48,11 +48,7 @@
             </trans-unit>
             <trans-unit id="12">
                 <source>This value is not a valid datetime.</source>
-<<<<<<< HEAD
-                <target>Šī vērtība ir nederīgs datums un laiks</target>
-=======
                 <target>Šī vērtība ir nederīgs datums un laiks.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="13">
                 <source>This value is not a valid email address.</source>
@@ -446,8 +442,6 @@
                 <source>This URL is missing a top-level domain.</source>
                 <target>Šim URL trūkst augšējā līmeņa domēna.</target>
             </trans-unit>
-<<<<<<< HEAD
-=======
             <trans-unit id="114">
                 <source>This value is too short. It should contain at least one word.|This value is too short. It should contain at least {{ min }} words.</source>
                 <target>Šī vērtība ir pārāk īsa. Tai būtu jābūt vismaz vienu vārdu garai.|Šī vērtība ir pārāk īsa. Tai būtu jābūt ne mazāk kā {{ min }} vārdus garai.</target>
@@ -584,7 +578,6 @@
                 <source>This value is not a valid ULID.</source>
                 <target state="needs-review-translation">Šī vērtība nav derīgs ULID.</target>
             </trans-unit>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         </body>
     </file>
 </xliff>

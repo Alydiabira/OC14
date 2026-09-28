@@ -28,11 +28,7 @@ class ConsoleCommandProcessor implements EventSubscriberInterface, ResetInterfac
 {
     use CompatibilityProcessor;
 
-<<<<<<< HEAD
-    private array $commandData;
-=======
     private array $commandDataStack = [];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private bool $includeArguments;
     private bool $includeOptions;
 
@@ -44,13 +40,8 @@ class ConsoleCommandProcessor implements EventSubscriberInterface, ResetInterfac
 
     private function doInvoke(array|LogRecord $record): array|LogRecord
     {
-<<<<<<< HEAD
-        if (isset($this->commandData) && !isset($record['extra']['command'])) {
-            $record['extra']['command'] = $this->commandData;
-=======
         if ($this->commandDataStack && !isset($record['extra']['command'])) {
             $record['extra']['command'] = $this->commandDataStack[array_key_last($this->commandDataStack)];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $record;
@@ -61,12 +52,8 @@ class ConsoleCommandProcessor implements EventSubscriberInterface, ResetInterfac
      */
     public function reset()
     {
-<<<<<<< HEAD
-        unset($this->commandData);
-=======
         // the command data is set on ConsoleEvents::COMMAND and removed on ConsoleEvents::TERMINATE,
         // it must outlive any reset happening while a command is still running
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -74,17 +61,6 @@ class ConsoleCommandProcessor implements EventSubscriberInterface, ResetInterfac
      */
     public function addCommandData(ConsoleEvent $event)
     {
-<<<<<<< HEAD
-        $this->commandData = [
-            'name' => $event->getCommand()->getName(),
-        ];
-        if ($this->includeArguments) {
-            $this->commandData['arguments'] = $event->getInput()->getArguments();
-        }
-        if ($this->includeOptions) {
-            $this->commandData['options'] = $event->getInput()->getOptions();
-        }
-=======
         $commandData = [
             'name' => $event->getCommand()->getName(),
         ];
@@ -101,19 +77,15 @@ class ConsoleCommandProcessor implements EventSubscriberInterface, ResetInterfac
     public function removeCommandData(): void
     {
         array_pop($this->commandDataStack);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public static function getSubscribedEvents(): array
     {
         return [
             ConsoleEvents::COMMAND => ['addCommandData', 1],
-<<<<<<< HEAD
-=======
             // lower than ConsoleHandler::onTerminate() (-255) so that records logged
             // on ConsoleEvents::TERMINATE still carry the command information
             ConsoleEvents::TERMINATE => ['removeCommandData', -2048],
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ];
     }
 }

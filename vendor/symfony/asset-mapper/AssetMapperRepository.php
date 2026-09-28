@@ -149,11 +149,7 @@ class AssetMapperRepository
         foreach ($this->paths as $path => $namespace) {
             if ($filesystem->isAbsolutePath($path)) {
                 if (!file_exists($path) && $this->debug) {
-<<<<<<< HEAD
-                    throw new \InvalidArgumentException(sprintf('The asset mapper directory "%s" does not exist.', $path));
-=======
                     throw new \InvalidArgumentException(\sprintf('The asset mapper directory "%s" does not exist.', $path));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
                 $this->absolutePaths[realpath($path)] = $namespace;
 
@@ -167,11 +163,7 @@ class AssetMapperRepository
             }
 
             if ($this->debug) {
-<<<<<<< HEAD
-                throw new \InvalidArgumentException(sprintf('The asset mapper directory "%s" does not exist.', $path));
-=======
                 throw new \InvalidArgumentException(\sprintf('The asset mapper directory "%s" does not exist.', $path));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 

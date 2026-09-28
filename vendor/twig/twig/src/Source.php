@@ -18,31 +18,16 @@ namespace Twig;
  */
 final class Source
 {
-<<<<<<< HEAD
-    private $code;
-    private $name;
-    private $path;
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * @param string $code The template source code
      * @param string $name The template logical name
      * @param string $path The filesystem path of the template if any
      */
-<<<<<<< HEAD
-    public function __construct(string $code, string $name, string $path = '')
-    {
-        $this->code = $code;
-        $this->name = $name;
-        $this->path = $path;
-=======
     public function __construct(
         private string $code,
         private string $name,
         private string $path = '',
     ) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getCode(): string
@@ -59,8 +44,6 @@ final class Source
     {
         return $this->path;
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Returns the 1-based column for a 0-based byte offset in the source code.
@@ -80,5 +63,4 @@ final class Source
 
         return false === $lineStart ? \strlen($before) + 1 : \strlen($before) - $lineStart;
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

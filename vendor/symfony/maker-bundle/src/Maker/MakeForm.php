@@ -51,15 +51,9 @@ final class MakeForm extends AbstractMaker
     public function configureCommand(Command $command, InputConfiguration $inputConfig): void
     {
         $command
-<<<<<<< HEAD
-            ->addArgument('name', InputArgument::OPTIONAL, sprintf('The name of the form class (e.g. <fg=yellow>%sType</>)', Str::asClassName(Str::getRandomTerm())))
-            ->addArgument('bound-class', InputArgument::OPTIONAL, 'The name of Entity or fully qualified model class name that the new form will be bound to (empty for none)')
-            ->setHelp(file_get_contents(__DIR__.'/../Resources/help/MakeForm.txt'))
-=======
             ->addArgument('name', InputArgument::OPTIONAL, \sprintf('The name of the form class (e.g. <fg=yellow>%sType</>)', Str::asClassName(Str::getRandomTerm())))
             ->addArgument('bound-class', InputArgument::OPTIONAL, 'The name of Entity or fully qualified model class name that the new form will be bound to (empty for none)')
             ->setHelp($this->getHelpFileContents('MakeForm.txt'))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ;
 
         $inputConfig->setArgumentAsNonInteractive('bound-class');
@@ -73,11 +67,7 @@ final class MakeForm extends AbstractMaker
             $entities = $this->entityHelper->getEntitiesForAutocomplete();
 
             $question = new Question($argument->getDescription());
-<<<<<<< HEAD
-            $question->setValidator(fn ($answer) => Validator::existsOrNull($answer, $entities));
-=======
             $question->setValidator(static fn ($answer) => Validator::existsOrNull($answer, $entities));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $question->setAutocompleterValues($entities);
             $question->setMaxAttempts(3);
 

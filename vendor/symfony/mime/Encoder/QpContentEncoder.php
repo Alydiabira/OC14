@@ -19,11 +19,7 @@ final class QpContentEncoder implements ContentEncoderInterface
     public function encodeByteStream($stream, int $maxLineLength = 0): iterable
     {
         if (!\is_resource($stream)) {
-<<<<<<< HEAD
-            throw new \TypeError(sprintf('Method "%s" takes a stream as a first argument.', __METHOD__));
-=======
             throw new \TypeError(\sprintf('Method "%s" takes a stream as a first argument.', __METHOD__));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         // we don't use PHP stream filters here as the content should be small enough
@@ -50,15 +46,9 @@ final class QpContentEncoder implements ContentEncoderInterface
         // transform =0D=0A to CRLF
         $string = str_replace(["\t=0D=0A", ' =0D=0A', '=0D=0A'], ["=09\r\n", "=20\r\n", "\r\n"], $string);
 
-<<<<<<< HEAD
-        return match (\ord(substr($string, -1))) {
-            0x09 => substr_replace($string, '=09', -1),
-            0x20 => substr_replace($string, '=20', -1),
-=======
         return match ($string[-1] ?? '') {
             "\x09" => substr_replace($string, '=09', -1),
             "\x20" => substr_replace($string, '=20', -1),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             default => $string,
         };
     }

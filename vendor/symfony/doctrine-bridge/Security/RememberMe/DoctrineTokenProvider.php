@@ -15,16 +15,12 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Driver\Result as DriverResult;
 use Doctrine\DBAL\ParameterType;
 use Doctrine\DBAL\Result;
-<<<<<<< HEAD
-use Doctrine\DBAL\Schema\Schema;
-=======
 use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Schema\Name\Identifier;
 use Doctrine\DBAL\Schema\Name\UnqualifiedName;
 use Doctrine\DBAL\Schema\PrimaryKeyConstraint;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Table;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Security\Core\Authentication\RememberMe\PersistentToken;
 use Symfony\Component\Security\Core\Authentication\RememberMe\PersistentTokenInterface;
@@ -61,17 +57,6 @@ class DoctrineTokenProvider implements TokenProviderInterface, TokenVerifierInte
 
     public function loadTokenBySeries(string $series): PersistentTokenInterface
     {
-<<<<<<< HEAD
-        // the alias for lastUsed works around case insensitivity in PostgreSQL
-        $sql = 'SELECT class, username, value, lastUsed AS last_used FROM rememberme_token WHERE series=:series';
-        $paramValues = ['series' => $series];
-        $paramTypes = ['series' => ParameterType::STRING];
-        $stmt = $this->conn->executeQuery($sql, $paramValues, $paramTypes);
-        $row = $stmt instanceof Result || $stmt instanceof DriverResult ? $stmt->fetchAssociative() : $stmt->fetch(\PDO::FETCH_ASSOC);
-
-        if ($row) {
-            return new PersistentToken($row['class'], $row['username'], $series, $row['value'], new \DateTimeImmutable($row['last_used']));
-=======
         $sql = 'SELECT class, username, value, lastUsed FROM rememberme_token WHERE series=:series';
         $paramValues = ['series' => $series];
         $paramTypes = ['series' => ParameterType::STRING];
@@ -84,7 +69,6 @@ class DoctrineTokenProvider implements TokenProviderInterface, TokenVerifierInte
             [$class, $username, $value, $last_used] = $row;
 
             return new PersistentToken($class, $username, $series, $value, new \DateTimeImmutable($last_used));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         throw new TokenNotFoundException('No token found.');
@@ -150,18 +134,7 @@ class DoctrineTokenProvider implements TokenProviderInterface, TokenVerifierInte
             return true;
         }
 
-<<<<<<< HEAD
-        // Generate an alternative series id here by changing the suffix == to _
-        // this is needed to be able to store an older token value in the database
-        // which has a PRIMARY(series), and it works as long as series ids are
-        // generated using base64_encode(random_bytes(64)) which always outputs
-        // a == suffix, but if it should not work for some reason we abort
-        // for safety
-        $tmpSeries = preg_replace('{=+$}', '_', $token->getSeries());
-        if ($tmpSeries === $token->getSeries()) {
-=======
         if (null === $tmpSeries = self::getPreviousTokenSeries($token->getSeries())) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return false;
         }
 
@@ -190,13 +163,7 @@ class DoctrineTokenProvider implements TokenProviderInterface, TokenVerifierInte
         // Persist a copy of the previous token for authentication
         // in verifyToken should the old token still be sent by the browser
         // in a request concurrent to the one that did this token update
-<<<<<<< HEAD
-        $tmpSeries = preg_replace('{=+$}', '_', $token->getSeries());
-        // if we cannot generate a unique series it is not worth trying further
-        if ($tmpSeries === $token->getSeries()) {
-=======
         if (null === $tmpSeries = self::getPreviousTokenSeries($token->getSeries())) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return;
         }
 
@@ -217,13 +184,6 @@ class DoctrineTokenProvider implements TokenProviderInterface, TokenVerifierInte
      * Adds the Table to the Schema if "remember me" uses this Connection.
      *
      * @param \Closure $isSameDatabase
-<<<<<<< HEAD
-     */
-    public function configureSchema(Schema $schema, Connection $forConnection/* , \Closure $isSameDatabase */): void
-    {
-        if ($schema->hasTable('rememberme_token')) {
-            return;
-=======
      *
      * @return Schema The (possibly new) schema with the table added
      */
@@ -231,29 +191,11 @@ class DoctrineTokenProvider implements TokenProviderInterface, TokenVerifierInte
     {
         if ($schema->hasTable('rememberme_token')) {
             return $schema;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $isSameDatabase = 2 < \func_num_args() ? func_get_arg(2) : static fn () => false;
 
         if ($forConnection !== $this->conn && !$isSameDatabase($this->conn->executeStatement(...))) {
-<<<<<<< HEAD
-            return;
-        }
-
-        $this->addTableToSchema($schema);
-    }
-
-    private function addTableToSchema(Schema $schema): void
-    {
-        $table = $schema->createTable('rememberme_token');
-        $table->addColumn('series', Types::STRING, ['length' => 88]);
-        $table->addColumn('value', Types::STRING, ['length' => 88]);
-        $table->addColumn('lastUsed', Types::DATETIME_IMMUTABLE);
-        $table->addColumn('class', Types::STRING, ['length' => 100]);
-        $table->addColumn('username', Types::STRING, ['length' => 200]);
-        $table->setPrimaryKey(['series']);
-=======
             return $schema;
         }
 
@@ -316,6 +258,5 @@ class DoctrineTokenProvider implements TokenProviderInterface, TokenVerifierInte
         }
 
         return \strlen($series) < 88 ? $series.'_' : null;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

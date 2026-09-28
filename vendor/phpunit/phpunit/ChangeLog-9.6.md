@@ -2,8 +2,12 @@
 
 All notable changes of the PHPUnit 9.6 release series are documented in this file using the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
-<<<<<<< HEAD
-=======
+## [9.6.37] - 2026-09-23
+
+### Changed
+
+* Do not pass empty output of a test that was run in a separate process to `unserialize()` (which emits a warning for an empty string as of PHP 8.6)
+
 ## [9.6.36] - 2026-08-11
 
 ### Changed
@@ -104,7 +108,6 @@ All notable changes of the PHPUnit 9.6 release series are documented in this fil
 
 * Updated dependencies (so that users that install using Composer's `--prefer-lowest` CLI option also get recent versions)
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 ## [9.6.19] - 2024-04-05
 
 ### Changed
@@ -246,8 +249,7 @@ All notable changes of the PHPUnit 9.6 release series are documented in this fil
 * [#5064](https://github.com/sebastianbergmann/phpunit/issues/5064): Deprecate `PHPUnit\Framework\TestCase::getMockClass()`
 * [#5132](https://github.com/sebastianbergmann/phpunit/issues/5132): Deprecate `Test` suffix for abstract test case classes
 
-<<<<<<< HEAD
-=======
+[9.6.37]: https://github.com/sebastianbergmann/phpunit/compare/9.6.36...9.6.37
 [9.6.36]: https://github.com/sebastianbergmann/phpunit/compare/9.6.35...9.6.36
 [9.6.35]: https://github.com/sebastianbergmann/phpunit/compare/9.6.34...9.6.35
 [9.6.34]: https://github.com/sebastianbergmann/phpunit/compare/9.6.33...9.6.34
@@ -265,7 +267,6 @@ All notable changes of the PHPUnit 9.6 release series are documented in this fil
 [9.6.22]: https://github.com/sebastianbergmann/phpunit/compare/9.6.21...9.6.22
 [9.6.21]: https://github.com/sebastianbergmann/phpunit/compare/9.6.20...9.6.21
 [9.6.20]: https://github.com/sebastianbergmann/phpunit/compare/9.6.19...9.6.20
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 [9.6.19]: https://github.com/sebastianbergmann/phpunit/compare/9.6.18...9.6.19
 [9.6.18]: https://github.com/sebastianbergmann/phpunit/compare/9.6.17...9.6.18
 [9.6.17]: https://github.com/sebastianbergmann/phpunit/compare/9.6.16...9.6.17

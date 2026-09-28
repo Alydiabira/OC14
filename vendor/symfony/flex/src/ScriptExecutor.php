@@ -30,11 +30,7 @@ class ScriptExecutor
     private $options;
     private $executor;
 
-<<<<<<< HEAD
-    public function __construct(Composer $composer, IOInterface $io, Options $options, ProcessExecutor $executor = null)
-=======
     public function __construct(Composer $composer, IOInterface $io, Options $options, ?ProcessExecutor $executor = null)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->composer = $composer;
         $this->io = $io;
@@ -57,32 +53,20 @@ class ScriptExecutor
             $cmdOutput->write($buffer, false, OutputInterface::OUTPUT_RAW);
         };
 
-<<<<<<< HEAD
-        $this->io->writeError(sprintf('Executing script %s', $parsedCmd), $this->io->isVerbose());
-=======
         $this->io->writeError(\sprintf('Executing script %s', $parsedCmd), $this->io->isVerbose());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $exitCode = $this->executor->execute($expandedCmd, $outputHandler);
 
         $code = 0 === $exitCode ? ' <info>[OK]</>' : ' <error>[KO]</>';
 
         if ($this->io->isVerbose()) {
-<<<<<<< HEAD
-            $this->io->writeError(sprintf('Executed script %s %s', $cmd, $code));
-=======
             $this->io->writeError(\sprintf('Executed script %s %s', $cmd, $code));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } else {
             $this->io->writeError($code);
         }
 
         if (0 !== $exitCode) {
             $this->io->writeError(' <error>[KO]</>');
-<<<<<<< HEAD
-            $this->io->writeError(sprintf('<error>Script %s returned with error code %s</>', $cmd, $exitCode));
-=======
             $this->io->writeError(\sprintf('<error>Script %s returned with error code %s</>', $cmd, $exitCode));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             fseek($cmdOutput->getStream(), 0);
             foreach (explode("\n", stream_get_contents($cmdOutput->getStream())) as $line) {
                 $this->io->writeError('!!  '.$line);
@@ -102,11 +86,7 @@ class ScriptExecutor
             case 'script':
                 return $cmd;
             default:
-<<<<<<< HEAD
-                throw new \InvalidArgumentException(sprintf('Invalid symfony/flex auto-script in composer.json: "%s" is not a valid type of command.', $type));
-=======
                 throw new \InvalidArgumentException(\sprintf('Invalid symfony/flex auto-script in composer.json: "%s" is not a valid type of command.', $type));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -114,11 +94,7 @@ class ScriptExecutor
     {
         $repo = $this->composer->getRepositoryManager()->getLocalRepository();
         if (!$repo->findPackage('symfony/console', new MatchAllConstraint())) {
-<<<<<<< HEAD
-            $this->io->writeError(sprintf('<warning>Skipping "%s" (needs symfony/console to run).</>', $cmd));
-=======
             $this->io->writeError(\sprintf('<warning>Skipping "%s" (needs symfony/console to run).</>', $cmd));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             return null;
         }

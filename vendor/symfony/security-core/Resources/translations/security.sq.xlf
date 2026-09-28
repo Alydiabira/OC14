@@ -20,11 +20,7 @@
             </trans-unit>
             <trans-unit id="5">
                 <source>Cookie has already been used by someone else.</source>
-<<<<<<< HEAD
-                <target>Cookie është përdorur tashmë nga dikush tjetër.</target>
-=======
                 <target>“Cookie” është përdorur tashmë nga dikush tjetër.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="6">
                 <source>Not privileged to request the resource.</source>
@@ -78,13 +74,10 @@
                 <source>Too many failed login attempts, please try again in %minutes% minute.</source>
                 <target>Shumë përpjekje të dështuara për identifikim; provo sërish pas %minutes% minutë.</target>
             </trans-unit>
-<<<<<<< HEAD
-=======
             <trans-unit id="20">
                 <source>Too many failed login attempts, please try again in %minutes% minutes.</source>
                 <target>Shumë përpjekje të dështuara për identifikim, ju lutemi provoni përsëri pas %minutes% minutash.</target>
             </trans-unit>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         </body>
     </file>
 </xliff>

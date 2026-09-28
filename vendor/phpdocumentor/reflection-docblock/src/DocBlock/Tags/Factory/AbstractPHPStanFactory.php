@@ -21,10 +21,6 @@ use PHPStan\PhpDocParser\Parser\ConstExprParser;
 use PHPStan\PhpDocParser\Parser\PhpDocParser;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
 use PHPStan\PhpDocParser\Parser\TypeParser;
-<<<<<<< HEAD
-use RuntimeException;
-
-=======
 use PHPStan\PhpDocParser\ParserConfig;
 use RuntimeException;
 
@@ -33,7 +29,6 @@ use function ltrim;
 use function property_exists;
 use function rtrim;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /**
  * Factory class creating tags using phpstan's parser
  *
@@ -51,11 +46,6 @@ class AbstractPHPStanFactory implements Factory
 
     public function __construct(PHPStanFactory ...$factories)
     {
-<<<<<<< HEAD
-        $this->lexer = new Lexer();
-        $constParser = new ConstExprParser();
-        $this->parser = new PhpDocParser(new TypeParser($constParser), $constParser);
-=======
         if (class_exists(ParserConfig::class)) {
             $config = new ParserConfig(['indexes' => true, 'lines' => true]);
             $this->lexer = new Lexer($config);
@@ -78,16 +68,11 @@ class AbstractPHPStanFactory implements Factory
             );
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->factories = $factories;
     }
 
     public function create(string $tagLine, ?TypeContext $context = null): Tag
     {
-<<<<<<< HEAD
-        $tokens = $this->lexer->tokenize($tagLine);
-        $ast = $this->parser->parseTag(new TokenIterator($tokens));
-=======
         $tokens = $this->tokenizeLine($tagLine . "\n");
         $ast = $this->parser->parseTag($tokens);
         if (property_exists($ast->value, 'description') === true) {
@@ -96,7 +81,6 @@ class AbstractPHPStanFactory implements Factory
                 rtrim($ast->value->description . $tokens->joinUntil(Lexer::TOKEN_END), "\n")
             );
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($context === null) {
             $context = new TypeContext('');
@@ -117,8 +101,6 @@ class AbstractPHPStanFactory implements Factory
             $ast->name
         );
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Solve the issue with the lexer not tokenizing the line correctly
@@ -151,5 +133,4 @@ class AbstractPHPStanFactory implements Factory
 
         return new TokenIterator($fixed);
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

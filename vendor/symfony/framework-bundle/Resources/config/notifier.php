@@ -73,14 +73,10 @@ return static function (ContainerConfigurator $container) {
             ->tag('notifier.channel', ['channel' => 'email'])
 
         ->set('notifier.channel.push', PushChannel::class)
-<<<<<<< HEAD
-            ->args([service('texter.transports'), service('messenger.default_bus')->ignoreOnInvalid()])
-=======
             ->args([
                 service('texter.transports'),
                 abstract_arg('message bus'),
             ])
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->tag('notifier.channel', ['channel' => 'push'])
 
         ->set('notifier.monolog_handler', NotifierHandler::class)
@@ -135,10 +131,7 @@ return static function (ContainerConfigurator $container) {
 
         ->set('notifier.notification_logger_listener', NotificationLoggerListener::class)
             ->tag('kernel.event_subscriber')
-<<<<<<< HEAD
-=======
             ->tag('kernel.reset', ['method' => 'reset'])
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         ->alias('notifier.logger_notification_listener', 'notifier.notification_logger_listener')
             ->deprecate('symfony/framework-bundle', '6.3', 'The "%alias_id%" service is deprecated, use "notifier.notification_logger_listener" instead.')

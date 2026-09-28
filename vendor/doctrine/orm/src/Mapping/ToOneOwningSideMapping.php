@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace Doctrine\ORM\Mapping;
 
-<<<<<<< HEAD
-=======
 use Doctrine\Deprecations\Deprecation;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use RuntimeException;
 
 use function array_flip;
@@ -31,11 +28,7 @@ abstract class ToOneOwningSideMapping extends OwningSideMapping implements ToOne
 
     /**
      * @param array<string, mixed> $mappingArray
-<<<<<<< HEAD
-     * @psalm-param array{
-=======
      * @phpstan-param array{
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *     fieldName: string,
      *     sourceEntity: class-string,
      *     targetEntity: class-string,
@@ -82,11 +75,7 @@ abstract class ToOneOwningSideMapping extends OwningSideMapping implements ToOne
     /**
      * @param mixed[]      $mappingArray
      * @param class-string $name
-<<<<<<< HEAD
-     * @psalm-param array{
-=======
      * @phpstan-param array{
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *     fieldName: string,
      *     sourceEntity: class-string,
      *     targetEntity: class-string,
@@ -119,13 +108,10 @@ abstract class ToOneOwningSideMapping extends OwningSideMapping implements ToOne
                 if (empty($joinColumn['name'])) {
                     $mappingArray['joinColumns'][$index]['name'] = $namingStrategy->joinColumnName($mappingArray['fieldName'], $name);
                 }
-<<<<<<< HEAD
-=======
 
                 if (empty($joinColumn['referencedColumnName'])) {
                     $mappingArray['joinColumns'][$index]['referencedColumnName'] = $namingStrategy->referenceColumnName();
                 }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -145,8 +131,6 @@ abstract class ToOneOwningSideMapping extends OwningSideMapping implements ToOne
         $uniqueConstraintColumns = [];
 
         foreach ($mapping->joinColumns as $joinColumn) {
-<<<<<<< HEAD
-=======
             if ($mapping->id) {
                 if ($joinColumn->nullable !== null) {
                     Deprecation::trigger(
@@ -167,7 +151,6 @@ abstract class ToOneOwningSideMapping extends OwningSideMapping implements ToOne
                 $joinColumn->nullable = true;
             }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if ($mapping->isOneToOne() && ! $isInheritanceTypeSingleTable) {
                 if (count($mapping->joinColumns) === 1) {
                     if (empty($mapping->id)) {
@@ -232,16 +215,12 @@ abstract class ToOneOwningSideMapping extends OwningSideMapping implements ToOne
 
         $joinColumns = [];
         foreach ($array['joinColumns'] as $column) {
-<<<<<<< HEAD
-            $joinColumns[] = (array) $column;
-=======
             $columnArray = (array) $column;
             if ($this->id) {
                 unset($columnArray['nullable']);
             }
 
             $joinColumns[] = $columnArray;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $array['joinColumns'] = $joinColumns;

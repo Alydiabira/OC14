@@ -45,22 +45,14 @@ class FilterCollection
      * Instances of suspended filters.
      *
      * @var SQLFilter[]
-<<<<<<< HEAD
-     * @psalm-var array<string, SQLFilter>
-=======
      * @phpstan-var array<string, SQLFilter>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private array $suspendedFilters = [];
 
     /**
      * The current state of this filter.
      *
-<<<<<<< HEAD
-     * @psalm-var self::FILTERS_STATE_*
-=======
      * @phpstan-var self::FILTERS_STATE_*
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private int $filtersState = self::FILTERS_STATE_CLEAN;
 
@@ -84,11 +76,7 @@ class FilterCollection
      * Gets all the suspended filters.
      *
      * @return SQLFilter[] The suspended filters.
-<<<<<<< HEAD
-     * @psalm-return array<string, SQLFilter>
-=======
      * @phpstan-return array<string, SQLFilter>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getSuspendedFilters(): array
     {

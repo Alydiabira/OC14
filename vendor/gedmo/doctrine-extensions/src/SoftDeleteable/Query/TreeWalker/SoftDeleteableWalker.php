@@ -15,11 +15,6 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\QuoteStrategy;
 use Doctrine\ORM\Query\AST\DeleteClause;
 use Doctrine\ORM\Query\AST\DeleteStatement;
-<<<<<<< HEAD
-use Doctrine\ORM\Query\Exec\AbstractSqlExecutor;
-use Doctrine\ORM\Query\Exec\SingleTableDeleteUpdateExecutor;
-use Doctrine\ORM\Query\SqlWalker;
-=======
 use Doctrine\ORM\Query\AST\SelectStatement;
 use Doctrine\ORM\Query\AST\UpdateStatement;
 use Doctrine\ORM\Query\Exec\AbstractSqlExecutor;
@@ -27,15 +22,11 @@ use Doctrine\ORM\Query\Exec\PreparedExecutorFinalizer;
 use Doctrine\ORM\Query\Exec\SingleTableDeleteUpdateExecutor;
 use Doctrine\ORM\Query\Exec\SqlFinalizer;
 use Doctrine\ORM\Query\SqlOutputWalker;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Gedmo\Exception\RuntimeException;
 use Gedmo\Exception\UnexpectedValueException;
 use Gedmo\SoftDeleteable\Query\TreeWalker\Exec\MultiTableDeleteExecutor;
 use Gedmo\SoftDeleteable\SoftDeleteableListener;
-<<<<<<< HEAD
-=======
 use Gedmo\Tool\ORM\Walker\SqlWalkerCompat;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * This SqlWalker is needed when you need to use a DELETE DQL query.
@@ -47,15 +38,10 @@ use Gedmo\Tool\ORM\Walker\SqlWalkerCompat;
  *
  * @final since gedmo/doctrine-extensions 3.11
  */
-<<<<<<< HEAD
-class SoftDeleteableWalker extends SqlWalker
-{
-=======
 class SoftDeleteableWalker extends SqlOutputWalker
 {
     use SqlWalkerCompat;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * @var Connection
      *
@@ -93,22 +79,11 @@ class SoftDeleteableWalker extends SqlOutputWalker
     protected $deletedAtField;
 
     /**
-<<<<<<< HEAD
-     * @var ClassMetadata
-     */
-    protected $meta;
-
-    /**
-     * @var QuoteStrategy
-     */
-    private $quoteStrategy;
-=======
      * @var ClassMetadata<object>
      */
     protected $meta;
 
     private QuoteStrategy $quoteStrategy;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     public function __construct($query, $parserResult, array $queryComponents)
     {
@@ -123,32 +98,6 @@ class SoftDeleteableWalker extends SqlOutputWalker
     }
 
     /**
-<<<<<<< HEAD
-     * @return AbstractSqlExecutor
-     */
-    public function getExecutor($AST)
-    {
-        switch (true) {
-            case $AST instanceof DeleteStatement:
-                assert(class_exists($AST->deleteClause->abstractSchemaName));
-
-                $primaryClass = $this->getEntityManager()->getClassMetadata($AST->deleteClause->abstractSchemaName);
-
-                return $primaryClass->isInheritanceTypeJoined()
-                    ? new MultiTableDeleteExecutor($AST, $this, $this->meta, $this->getConnection()->getDatabasePlatform(), $this->configuration)
-                    : new SingleTableDeleteUpdateExecutor($AST, $this);
-            default:
-                throw new UnexpectedValueException('SoftDeleteable walker should be used only on delete statement');
-        }
-    }
-
-    /**
-     * Change a DELETE clause for an UPDATE clause
-     *
-     * @return string the SQL
-     */
-    public function walkDeleteClause(DeleteClause $deleteClause)
-=======
      * @param SelectStatement|UpdateStatement|DeleteStatement $statement
      *
      * @throws UnexpectedValueException when an unsupported AST statement is given
@@ -195,7 +144,6 @@ class SoftDeleteableWalker extends SqlOutputWalker
      * Changes a DELETE clause into an UPDATE clause for a soft-deleteable entity.
      */
     protected function doWalkDeleteClauseWithCompat(DeleteClause $deleteClause): string
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $em = $this->getEntityManager();
 

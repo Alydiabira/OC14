@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# Upgrade to 3.1
-
-=======
 Note about upgrading: Doctrine uses static and runtime mechanisms to raise
 awareness about deprecated code.
 
@@ -554,7 +550,6 @@ using the `\Doctrine\ORM\Mapping\UniqueConstraint` and `\Doctrine\ORM\Mapping\In
 
 See the General notes to upgrading to 3.x versions above.
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 ## Deprecate `Doctrine\ORM\Mapping\ReflectionEnumProperty`
 
 This class is deprecated and will be removed in 4.0.
@@ -578,11 +573,8 @@ Using array access on instances of the following classes is deprecated:
 
 # Upgrade to 3.0
 
-<<<<<<< HEAD
-=======
 See the General notes to upgrading to 3.x versions above.
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 ## BC BREAK: Calling `ClassMetadata::getAssociationMappedByTargetField()` with the owning side of an association now throws an exception
 
 Previously, calling
@@ -608,12 +600,9 @@ so `$targetEntity` is a first argument now. This change affects only non-named a
 When using the `AUTO` strategy to let Doctrine determine the identity generation mechanism for
 an entity, and when using `doctrine/dbal` 4, PostgreSQL now uses `IDENTITY`
 instead of `SEQUENCE` or `SERIAL`.
-<<<<<<< HEAD
-=======
 
 There are three ways to handle this change.
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 * If you want to upgrade your existing tables to identity columns, you will need to follow [migration to identity columns on PostgreSQL](https://www.doctrine-project.org/projects/doctrine-dbal/en/4.0/how-to/postgresql-identity-migration.html)
 * If you want to keep using SQL sequences, you need to configure the ORM this way:
 ```php
@@ -626,8 +615,6 @@ $configuration->setIdentityGenerationPreferences([
     PostgreSQLPlatform::CLASS => ClassMetadata::GENERATOR_TYPE_SEQUENCE,
 ]);
 ```
-<<<<<<< HEAD
-=======
 * You can change individual entities to use the `SEQUENCE` strategy instead of `AUTO`:
 ```php
 
@@ -649,7 +636,6 @@ The later two options require a small database migration that will remove the de
 expression fetching the next value from the sequence. It's not strictly necessary to
 do this migration because the code will work anyway. A benefit of this approach is
 that you can just make and roll out the code changes first and then migrate the database later.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 ## BC BREAK: Throw exceptions when using illegal attributes on Embeddable
 
@@ -659,14 +645,6 @@ now they throw an exception.
 
 ## BC BREAK: Partial objects are removed
 
-<<<<<<< HEAD
-- The `PARTIAL` keyword in DQL no longer exists.
-- `Doctrine\ORM\Query\AST\PartialObjectExpression`is removed.
-- `Doctrine\ORM\Query\SqlWalker::HINT_PARTIAL` and
-  `Doctrine\ORM\Query::HINT_FORCE_PARTIAL_LOAD` are removed.
-- `Doctrine\ORM\EntityManager*::getPartialReference()` is removed.
-
-=======
 WARNING: This was relaxed in ORM 3.2 when partial was re-allowed for array-hydration.
 
 - The `PARTIAL` keyword in DQL no longer exists (reintroduced in ORM 3.2)
@@ -705,7 +683,6 @@ $qb = $em->createQueryBuilder()
     )));
 ```
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 ## BC BREAK: `Doctrine\ORM\Persister\Entity\EntityPersister::executeInserts()` return type changed to `void`
 
 Implementors should adapt to the new signature, and should call
@@ -1328,8 +1305,6 @@ following classes and methods:
 
 Use `toIterable()` instead.
 
-<<<<<<< HEAD
-=======
 # Upgrade to 2.20
 
 ## Add `Doctrine\ORM\Query\OutputWalker` interface, deprecate `Doctrine\ORM\Query\SqlWalker::getExecutor()`
@@ -1366,7 +1341,6 @@ Use the `\Doctrine\ORM\Query::HINT_CUSTOM_OUTPUT_WALKER` query hint to set the o
 class instead of setting it through the `\Doctrine\ORM\Query\Parser::setCustomOutputTreeWalker()` method
 on the parser instance.
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 # Upgrade to 2.19
 
 ## Deprecate calling `ClassMetadata::getAssociationMappedByTargetField()` with the owning side of an association
@@ -2581,11 +2555,7 @@ from 2.0 have to configure the annotation driver if they don't use `Configuratio
 
 ## Scalar mappings can now be omitted from DQL result
 
-<<<<<<< HEAD
-You are now allowed to mark scalar SELECT expressions as HIDDEN an they are not hydrated anymore.
-=======
 You are now allowed to mark scalar SELECT expressions as HIDDEN and they are not hydrated anymore.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 Example:
 
 SELECT u, SUM(a.id) AS HIDDEN numArticles FROM User u LEFT JOIN u.Articles a ORDER BY numArticles DESC HAVING numArticles > 10

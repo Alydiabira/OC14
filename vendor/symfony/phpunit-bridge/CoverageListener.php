@@ -29,11 +29,7 @@ class CoverageListener implements TestListener
     public function __construct(?callable $sutFqcnResolver = null, bool $warningOnSutNotFound = false)
     {
         $this->sutFqcnResolver = $sutFqcnResolver ?? static function (Test $test): ?string {
-<<<<<<< HEAD
-            $class = \get_class($test);
-=======
             $class = $test::class;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             $sutFqcn = str_replace('\\Tests\\', '\\', $class);
             $sutFqcn = preg_replace('{Test$}', '', $sutFqcn);
@@ -50,11 +46,7 @@ class CoverageListener implements TestListener
             return;
         }
 
-<<<<<<< HEAD
-        $annotations = TestUtil::parseTestMethodAnnotations(\get_class($test), $test->getName(false));
-=======
         $annotations = TestUtil::parseTestMethodAnnotations($test::class, $test->getName(false));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $ignoredAnnotations = ['covers', 'coversDefaultClass', 'coversNothing'];
 
@@ -94,18 +86,10 @@ class CoverageListener implements TestListener
     private function addCoversForClassToAnnotationCache(Test $test, array $covers): void
     {
         $r = new \ReflectionProperty(TestUtil::class, 'annotationCache');
-<<<<<<< HEAD
-        $r->setAccessible(true);
-
-        $cache = $r->getValue();
-        $cache = array_replace_recursive($cache, [
-            \get_class($test) => [
-=======
 
         $cache = $r->getValue();
         $cache = array_replace_recursive($cache, [
             $test::class => [
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'covers' => $covers,
             ],
         ]);
@@ -115,22 +99,12 @@ class CoverageListener implements TestListener
 
     private function addCoversForDocBlockInsideRegistry(Test $test, array $covers): void
     {
-<<<<<<< HEAD
-        $docBlock = Registry::getInstance()->forClassName(\get_class($test));
-
-        $symbolAnnotations = new \ReflectionProperty($docBlock, 'symbolAnnotations');
-        $symbolAnnotations->setAccessible(true);
-
-        // Exclude internal classes; PHPUnit 9.1+ is picky about tests covering, say, a \RuntimeException
-        $covers = array_filter($covers, function (string $class) {
-=======
         $docBlock = Registry::getInstance()->forClassName($test::class);
 
         $symbolAnnotations = new \ReflectionProperty($docBlock, 'symbolAnnotations');
 
         // Exclude internal classes; PHPUnit 9.1+ is picky about tests covering, say, a \RuntimeException
         $covers = array_filter($covers, static function (string $class) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $reflector = new \ReflectionClass($class);
 
             return $reflector->isUserDefined();

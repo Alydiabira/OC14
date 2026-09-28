@@ -24,8 +24,6 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
  */
 class DateTimeToLocalizedStringTransformer extends BaseDateTimeTransformer
 {
-<<<<<<< HEAD
-=======
     /**
      * Unicode whitespace characters used by ICU in formatted date strings.
      *
@@ -35,7 +33,6 @@ class DateTimeToLocalizedStringTransformer extends BaseDateTimeTransformer
     private const NARROW_NO_BREAK_SPACE = "\u{202F}"; // Used by ICU 72+ before AM/PM
     private const THIN_SPACE = "\u{2009}";
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private int $dateFormat;
     private int $timeFormat;
     private ?string $pattern;
@@ -98,11 +95,7 @@ class DateTimeToLocalizedStringTransformer extends BaseDateTimeTransformer
             throw new TransformationFailedException(intl_get_error_message());
         }
 
-<<<<<<< HEAD
-        return $value;
-=======
         return self::normalizeWhitespace($value);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -128,15 +121,7 @@ class DateTimeToLocalizedStringTransformer extends BaseDateTimeTransformer
         $dateOnly = $this->isPatternDateOnly();
         $dateFormatter = $this->getIntlDateFormatter($dateOnly);
 
-<<<<<<< HEAD
-        try {
-            $timestamp = @$dateFormatter->parse($value);
-        } catch (\IntlException $e) {
-            throw new TransformationFailedException($e->getMessage(), $e->getCode(), $e);
-        }
-=======
         $timestamp = $this->parse($dateFormatter, $value);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (0 != intl_get_error_code()) {
             throw new TransformationFailedException(intl_get_error_message(), intl_get_error_code());
@@ -146,11 +131,7 @@ class DateTimeToLocalizedStringTransformer extends BaseDateTimeTransformer
         } elseif (false === $timestamp) {
             // the value couldn't be parsed but the Intl extension didn't report an error code, this
             // could be the case when the Intl polyfill is used which always returns 0 as the error code
-<<<<<<< HEAD
-            throw new TransformationFailedException(sprintf('"%s" could not be parsed as a date.', $value));
-=======
             throw new TransformationFailedException(\sprintf('"%s" could not be parsed as a date.', $value));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         try {
@@ -159,11 +140,7 @@ class DateTimeToLocalizedStringTransformer extends BaseDateTimeTransformer
                 $dateTime = new \DateTime(gmdate('Y-m-d', $timestamp), new \DateTimeZone($this->outputTimezone));
             } else {
                 // read timestamp into DateTime object - the formatter delivers a timestamp
-<<<<<<< HEAD
-                $dateTime = new \DateTime(sprintf('@%s', $timestamp));
-=======
                 $dateTime = new \DateTime(\sprintf('@%s', $timestamp));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             // set timezone separately, as it would be ignored if set via the constructor,
             // see https://php.net/datetime.construct
@@ -195,15 +172,12 @@ class DateTimeToLocalizedStringTransformer extends BaseDateTimeTransformer
         $calendar = $this->calendar;
         $pattern = $this->pattern;
 
-<<<<<<< HEAD
-=======
         if (\IntlDateFormatter::GREGORIAN === $calendar && class_exists(\IntlGregorianCalendar::class, false)) {
             // ICU uses the Julian calendar before October 1582, PHP always uses the Gregorian one
             $calendar = new \IntlGregorianCalendar($timezone, \Locale::getDefault());
             $calendar->setGregorianChange(-\PHP_FLOAT_MAX);
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $intlDateFormatter = new \IntlDateFormatter(\Locale::getDefault(), $dateFormat, $timeFormat, $timezone, $calendar, $pattern ?? '');
 
         // new \intlDateFormatter may return null instead of false in case of failure, see https://bugs.php.net/66323
@@ -231,8 +205,6 @@ class DateTimeToLocalizedStringTransformer extends BaseDateTimeTransformer
         // check for the absence of time-related placeholders
         return 0 === preg_match('#[ahHkKmsSAzZOvVxX]#', $pattern);
     }
-<<<<<<< HEAD
-=======
 
     /**
      * Normalizes various Unicode whitespace characters to regular ASCII spaces.
@@ -276,5 +248,4 @@ class DateTimeToLocalizedStringTransformer extends BaseDateTimeTransformer
 
         return $timestamp;
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

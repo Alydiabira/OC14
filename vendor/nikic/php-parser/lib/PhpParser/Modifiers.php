@@ -14,10 +14,6 @@ final class Modifiers {
     public const ABSTRACT  = 16;
     public const FINAL     = 32;
     public const READONLY  = 64;
-<<<<<<< HEAD
-
-    public const VISIBILITY_MASK = 1 | 2 | 4;
-=======
     public const PUBLIC_SET = 128;
     public const PROTECTED_SET = 256;
     public const PRIVATE_SET = 512;
@@ -50,29 +46,15 @@ final class Modifiers {
         $isPow2 = ($modifier & ($modifier - 1)) == 0 && $modifier != 0;
         return $isPow2 && $modifier <= self::PRIVATE_SET;
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * @internal
      */
     public static function verifyClassModifier(int $a, int $b): void {
-<<<<<<< HEAD
-        if ($a & Modifiers::ABSTRACT && $b & Modifiers::ABSTRACT) {
-            throw new Error('Multiple abstract modifiers are not allowed');
-        }
-
-        if ($a & Modifiers::FINAL && $b & Modifiers::FINAL) {
-            throw new Error('Multiple final modifiers are not allowed');
-        }
-
-        if ($a & Modifiers::READONLY && $b & Modifiers::READONLY) {
-            throw new Error('Multiple readonly modifiers are not allowed');
-=======
         assert(self::isValidModifier($b));
         if (($a & $b) != 0) {
             throw new Error(
                 'Multiple ' . self::toString($b) . ' modifiers are not allowed');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($a & 48 && $b & 48) {
@@ -84,26 +66,6 @@ final class Modifiers {
      * @internal
      */
     public static function verifyModifier(int $a, int $b): void {
-<<<<<<< HEAD
-        if ($a & Modifiers::VISIBILITY_MASK && $b & Modifiers::VISIBILITY_MASK) {
-            throw new Error('Multiple access type modifiers are not allowed');
-        }
-
-        if ($a & Modifiers::ABSTRACT && $b & Modifiers::ABSTRACT) {
-            throw new Error('Multiple abstract modifiers are not allowed');
-        }
-
-        if ($a & Modifiers::STATIC && $b & Modifiers::STATIC) {
-            throw new Error('Multiple static modifiers are not allowed');
-        }
-
-        if ($a & Modifiers::FINAL && $b & Modifiers::FINAL) {
-            throw new Error('Multiple final modifiers are not allowed');
-        }
-
-        if ($a & Modifiers::READONLY && $b & Modifiers::READONLY) {
-            throw new Error('Multiple readonly modifiers are not allowed');
-=======
         assert(self::isValidModifier($b));
         if (($a & Modifiers::VISIBILITY_MASK && $b & Modifiers::VISIBILITY_MASK) ||
             ($a & Modifiers::VISIBILITY_SET_MASK && $b & Modifiers::VISIBILITY_SET_MASK)
@@ -114,7 +76,6 @@ final class Modifiers {
         if (($a & $b) != 0) {
             throw new Error(
                 'Multiple ' . self::toString($b) . ' modifiers are not allowed');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($a & 48 && $b & 48) {

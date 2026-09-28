@@ -35,13 +35,6 @@ final class ServiceLocatorTagPass extends AbstractRecursivePass
     protected function processValue(mixed $value, bool $isRoot = false): mixed
     {
         if ($value instanceof ServiceLocatorArgument) {
-<<<<<<< HEAD
-            if ($value->getTaggedIteratorArgument()) {
-                $value->setValues($this->findAndSortTaggedServices($value->getTaggedIteratorArgument(), $this->container));
-            }
-
-            return self::register($this->container, $value->getValues());
-=======
             if ($taggedIterator = $value->getTaggedIteratorArgument()) {
                 $exclude = $taggedIterator->getExclude();
                 if ($taggedIterator->excludeSelf()) {
@@ -51,7 +44,6 @@ final class ServiceLocatorTagPass extends AbstractRecursivePass
             }
 
             return self::register($this->container, $this->processValue($value->getValues()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($value instanceof Definition) {
@@ -73,21 +65,14 @@ final class ServiceLocatorTagPass extends AbstractRecursivePass
         }
 
         if (!\is_array($services)) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('Invalid definition for service "%s": an array of references is expected as first argument when the "container.service_locator" tag is set.', $this->currentId));
-=======
             throw new InvalidArgumentException(\sprintf('Invalid definition for service "%s": an array of references is expected as first argument when the "container.service_locator" tag is set.', $this->currentId));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $i = 0;
 
         foreach ($services as $k => $v) {
             if ($v instanceof ServiceClosureArgument) {
-<<<<<<< HEAD
-=======
                 $services[$k] = $this->processValue($v);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 continue;
             }
 
@@ -101,11 +86,7 @@ final class ServiceLocatorTagPass extends AbstractRecursivePass
                 $i = null;
             }
 
-<<<<<<< HEAD
-            $services[$k] = new ServiceClosureArgument($v);
-=======
             $services[$k] = new ServiceClosureArgument($this->processValue($v));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         ksort($services);
 

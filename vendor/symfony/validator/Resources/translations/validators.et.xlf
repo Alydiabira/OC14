@@ -24,19 +24,11 @@
             </trans-unit>
             <trans-unit id="6">
                 <source>You must select at least {{ limit }} choice.|You must select at least {{ limit }} choices.</source>
-<<<<<<< HEAD
-                <target>Valima peaks vähemalt {{ limit }} valikut.</target>
-            </trans-unit>
-            <trans-unit id="7">
-                <source>You must select at most {{ limit }} choice.|You must select at most {{ limit }} choices.</source>
-                <target>Valima peaks mitte rohkem kui  {{ limit }} valikut.</target>
-=======
                 <target>Valima peaks vähemalt {{ limit }} valiku.|Valima peaks vähemalt {{ limit }} valikut.</target>
             </trans-unit>
             <trans-unit id="7">
                 <source>You must select at most {{ limit }} choice.|You must select at most {{ limit }} choices.</source>
                 <target>Valima peaks mitte rohkem kui {{ limit }} valiku.|Valima peaks mitte rohkem kui {{ limit }} valikut.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="8">
                 <source>One or more of the given values is invalid.</source>
@@ -84,17 +76,6 @@
             </trans-unit>
             <trans-unit id="19">
                 <source>This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.</source>
-<<<<<<< HEAD
-                <target>Väärtus on liiga pikk. Pikkus peaks olema {{ limit }} tähemärki või vähem.</target>
-            </trans-unit>
-            <trans-unit id="20">
-                <source>This value should be {{ limit }} or more.</source>
-                <target>Väärtus peaks olema {{ limit }} või rohkem.</target>
-            </trans-unit>
-            <trans-unit id="21">
-                <source>This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.</source>
-                <target>Väärtus on liiga lühike. Pikkus peaks  olema {{ limit }} tähemärki või rohkem.</target>
-=======
                 <target>Väärtus on liiga pikk. Pikkus peaks olema {{ limit }} tähemärk või vähem.|Väärtus on liiga pikk. Pikkus peaks olema {{ limit }} tähemärki või vähem.</target>
             </trans-unit>
             <trans-unit id="20">
@@ -104,7 +85,6 @@
             <trans-unit id="21">
                 <source>This value is too short. It should have {{ limit }} character or more.|This value is too short. It should have {{ limit }} characters or more.</source>
                 <target>Väärtus on liiga lühike. Pikkus peaks olema vähemalt {{ limit }} tähemärk.|Väärtus on liiga lühike. Pikkus peaks olema vähemalt {{ limit }} tähemärki.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="22">
                 <source>This value should not be blank.</source>
@@ -232,11 +212,7 @@
             </trans-unit>
             <trans-unit id="56">
                 <source>This collection should contain exactly {{ limit }} element.|This collection should contain exactly {{ limit }} elements.</source>
-<<<<<<< HEAD
-                <target>Kogumikus peaks olema täpselt {{ limit }} element.|Kogumikus peaks olema täpselt {{ limit }}|elementi.</target>
-=======
                 <target>Kogumikus peaks olema täpselt {{ limit }} element.|Kogumikus peaks olema täpselt {{ limit }} elementi.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="57">
                 <source>Invalid card number.</source>
@@ -464,9 +440,6 @@
             </trans-unit>
             <trans-unit id="113">
                 <source>This URL is missing a top-level domain.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">Sellel URL-il puudub ülataseme domeen.</target>
-=======
                 <target>Sellel URL-il puudub ülataseme domeen.</target>
             </trans-unit>
             <trans-unit id="114">
@@ -604,7 +577,6 @@
             <trans-unit id="148" resname="This is not a valid ULID.">
                 <source>This value is not a valid ULID.</source>
                 <target>See väärtus ei ole korrektne ULID.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
         </body>
     </file>

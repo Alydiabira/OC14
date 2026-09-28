@@ -42,15 +42,9 @@ final class DebugAssetMapperCommand extends Command
         $this
             ->addOption('full', null, null, 'Whether to show the full paths')
             ->setHelp(<<<'EOT'
-<<<<<<< HEAD
-The <info>%command.name%</info> command outputs all of the assets in
-asset mapper for debugging purposes.
-EOT
-=======
                 The <info>%command.name%</info> command outputs all of the assets in
                 asset mapper for debugging purposes.
                 EOT
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             );
     }
 

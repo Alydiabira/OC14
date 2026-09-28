@@ -20,10 +20,6 @@ use function asort;
 use function class_exists;
 use function class_implements;
 use function count;
-<<<<<<< HEAD
-use function get_class;
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function get_declared_classes;
 use function implode;
 use function in_array;
@@ -43,22 +39,14 @@ class Loader
     /**
      * Array of fixture object instances to execute.
      *
-<<<<<<< HEAD
-     * @psalm-var array<class-string<FixtureInterface>, FixtureInterface>
-=======
      * @phpstan-var array<class-string<FixtureInterface>, FixtureInterface>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private array $fixtures = [];
 
     /**
      * Array of ordered fixture object instances.
      *
-<<<<<<< HEAD
-     * @psalm-var array<class-string<FixtureInterface>|int, FixtureInterface>
-=======
      * @phpstan-var array<class-string<FixtureInterface>|int, FixtureInterface>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private array $orderedFixtures = [];
 
@@ -84,11 +72,7 @@ class Loader
      *
      * @return array $fixtures Array of loaded fixture object instances.
      */
-<<<<<<< HEAD
-    public function loadFromDirectory($dir)
-=======
     public function loadFromDirectory(string $dir): array
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if (! is_dir($dir)) {
             throw new InvalidArgumentException(sprintf('"%s" does not exist', $dir));
@@ -109,11 +93,7 @@ class Loader
      *
      * @return array $fixtures Array of loaded fixture object instances.
      */
-<<<<<<< HEAD
-    public function loadFromFile($fileName)
-=======
     public function loadFromFile(string $fileName): array
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if (! is_readable($fileName)) {
             throw new InvalidArgumentException(sprintf('"%s" does not exist or is not readable', $fileName));
@@ -126,36 +106,16 @@ class Loader
 
     /**
      * Has fixture?
-<<<<<<< HEAD
-     *
-     * @param FixtureInterface $fixture
-     *
-     * @return bool
-     */
-    public function hasFixture($fixture)
-    {
-        return isset($this->fixtures[get_class($fixture)]);
-=======
      */
     public function hasFixture(FixtureInterface $fixture): bool
     {
         return isset($this->fixtures[$fixture::class]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
      * Get a specific fixture instance
-<<<<<<< HEAD
-     *
-     * @param string $className
-     *
-     * @return FixtureInterface
-     */
-    public function getFixture($className)
-=======
      */
     public function getFixture(string $className): FixtureInterface
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if (! isset($this->fixtures[$className])) {
             throw new InvalidArgumentException(sprintf(
@@ -170,15 +130,9 @@ class Loader
     /**
      * Add a fixture object instance to the loader.
      */
-<<<<<<< HEAD
-    public function addFixture(FixtureInterface $fixture)
-    {
-        $fixtureClass = get_class($fixture);
-=======
     public function addFixture(FixtureInterface $fixture): void
     {
         $fixtureClass = $fixture::class;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (isset($this->fixtures[$fixtureClass])) {
             return;
@@ -187,11 +141,7 @@ class Loader
         if ($fixture instanceof OrderedFixtureInterface && $fixture instanceof DependentFixtureInterface) {
             throw new InvalidArgumentException(sprintf(
                 'Class "%s" can\'t implement "%s" and "%s" at the same time.',
-<<<<<<< HEAD
-                get_class($fixture),
-=======
                 $fixture::class,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 'OrderedFixtureInterface',
                 'DependentFixtureInterface',
             ));
@@ -216,11 +166,7 @@ class Loader
     /**
      * Returns the array of data fixtures to execute.
      *
-<<<<<<< HEAD
-     * @psalm-return array<class-string<FixtureInterface>|int, FixtureInterface>
-=======
      * @phpstan-return array<class-string<FixtureInterface>|int, FixtureInterface>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getFixtures()
     {
@@ -245,17 +191,9 @@ class Loader
      * Check if a given fixture is transient and should not be considered a data fixtures
      * class.
      *
-<<<<<<< HEAD
-     * @psalm-param class-string<object> $className
-     *
-     * @return bool
-     */
-    public function isTransient($className)
-=======
      * @phpstan-param class-string<object> $className
      */
     public function isTransient(string $className): bool
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $rc = new ReflectionClass($className);
         if ($rc->isAbstract()) {
@@ -269,17 +207,8 @@ class Loader
 
     /**
      * Creates the fixture object from the class.
-<<<<<<< HEAD
-     *
-     * @param string $class
-     *
-     * @return FixtureInterface
-     */
-    protected function createFixture($class)
-=======
      */
     protected function createFixture(string $class): FixtureInterface
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return new $class();
     }
@@ -315,19 +244,10 @@ class Loader
 
     /**
      * Orders fixtures by dependencies
-<<<<<<< HEAD
-     *
-     * @return void
-     */
-    private function orderFixturesByDependencies()
-    {
-        /** @psalm-var array<class-string<DependentFixtureInterface>, int> */
-=======
      */
     private function orderFixturesByDependencies(): void
     {
         /** @phpstan-var array<class-string<DependentFixtureInterface>, int> */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $sequenceForClasses = [];
 
         // If fixtures were already ordered by number then we need
@@ -350,11 +270,7 @@ class Loader
 
         // First we determine which classes has dependencies and which don't
         foreach ($this->fixtures as $fixture) {
-<<<<<<< HEAD
-            $fixtureClass = get_class($fixture);
-=======
             $fixtureClass = $fixture::class;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             if ($fixture instanceof OrderedFixtureInterface) {
                 continue;
@@ -432,11 +348,7 @@ class Loader
         $this->orderedFixtures = array_merge($this->orderedFixtures, $orderedFixtures);
     }
 
-<<<<<<< HEAD
-    /** @psalm-param iterable<class-string> $dependenciesClasses */
-=======
     /** @phpstan-param iterable<class-string> $dependenciesClasses */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private function validateDependencies(iterable $dependenciesClasses): bool
     {
         $loadedFixtureClasses = array_keys($this->fixtures);
@@ -454,21 +366,12 @@ class Loader
     }
 
     /**
-<<<<<<< HEAD
-     * @psalm-param array<class-string<DependentFixtureInterface>, int> $sequences
-     * @psalm-param iterable<class-string<FixtureInterface>>|null       $classes
-     *
-     * @psalm-return array<class-string<FixtureInterface>>
-     */
-    private function getUnsequencedClasses(array $sequences, ?iterable $classes = null): array
-=======
      * @phpstan-param array<class-string<DependentFixtureInterface>, int> $sequences
      * @phpstan-param iterable<class-string<FixtureInterface>>|null       $classes
      *
      * @phpstan-return array<class-string<FixtureInterface>>
      */
     private function getUnsequencedClasses(array $sequences, iterable|null $classes = null): array
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $unsequencedClasses = [];
 
@@ -490,17 +393,10 @@ class Loader
     /**
      * Load fixtures from files contained in iterator.
      *
-<<<<<<< HEAD
-     * @psalm-param Iterator<SplFileInfo> $iterator Iterator over files from
-     *                                              which fixtures should be loaded.
-     *
-     * @psalm-return list<FixtureInterface> $fixtures Array of loaded fixture object instances.
-=======
      * @phpstan-param Iterator<SplFileInfo> $iterator Iterator over files from
      *                                              which fixtures should be loaded.
      *
      * @phpstan-return list<FixtureInterface> $fixtures Array of loaded fixture object instances.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private function loadFromIterator(Iterator $iterator): array
     {

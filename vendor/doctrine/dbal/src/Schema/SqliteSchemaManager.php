@@ -202,11 +202,7 @@ class SqliteSchemaManager extends AbstractSchemaManager
     {
         $table = $this->normalizeName($table);
 
-<<<<<<< HEAD
-        $columns = $this->selectForeignKeyColumns('', $table)
-=======
         $columns = $this->selectForeignKeyColumns($database ?? 'main', $table)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->fetchAllAssociative();
 
         if (count($columns) > 0) {
@@ -226,11 +222,6 @@ class SqliteSchemaManager extends AbstractSchemaManager
 
     /**
      * {@inheritDoc}
-<<<<<<< HEAD
-     *
-     * @link http://ezcomponents.org/docs/api/trunk/DatabaseSchema/ezcDbSchemaPgsqlReader.html
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     protected function _getPortableTableIndexesList($tableIndexes, $tableName = null)
     {
@@ -517,14 +508,8 @@ class SqliteSchemaManager extends AbstractSchemaManager
 
     private function parseColumnCollationFromSQL(string $column, string $sql): ?string
     {
-<<<<<<< HEAD
-        $pattern = '{(?:\W' . preg_quote($column) . '\W|\W'
-            . preg_quote($this->_platform->quoteSingleIdentifier($column))
-            . '\W)[^,(]+(?:\([^()]+\)[^,]*)?(?:(?:DEFAULT|CHECK)\s*(?:\(.*?\))?[^,]*)*COLLATE\s+["\']?([^\s,"\')]+)}is';
-=======
         $pattern = '{' . $this->buildIdentifierPattern($column)
             . '[^,(]+(?:\([^()]+\)[^,]*)?(?:(?:DEFAULT|CHECK)\s*(?:\(.*?\))?[^,]*)*COLLATE\s+["\']?([^\s,"\')]+)}is';
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (preg_match($pattern, $sql, $match) !== 1) {
             return null;
@@ -536,13 +521,7 @@ class SqliteSchemaManager extends AbstractSchemaManager
     private function parseTableCommentFromSQL(string $table, string $sql): ?string
     {
         $pattern = '/\s* # Allow whitespace characters at start of line
-<<<<<<< HEAD
-CREATE\sTABLE # Match "CREATE TABLE"
-(?:\W"' . preg_quote($this->_platform->quoteSingleIdentifier($table), '/') . '"\W|\W' . preg_quote($table, '/')
-            . '\W) # Match table name (quoted and unquoted)
-=======
 CREATE\sTABLE' . $this->buildIdentifierPattern($table) . '
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 ( # Start capture
    (?:\s*--[^\n]*\n?)+ # Capture anything that starts with whitespaces followed by -- until the end of the line(s)
 )/ix';
@@ -558,13 +537,8 @@ CREATE\sTABLE' . $this->buildIdentifierPattern($table) . '
 
     private function parseColumnCommentFromSQL(string $column, string $sql): ?string
     {
-<<<<<<< HEAD
-        $pattern = '{[\s(,](?:\W' . preg_quote($this->_platform->quoteSingleIdentifier($column))
-            . '\W|\W' . preg_quote($column) . '\W)(?:\([^)]*?\)|[^,(])*?,?((?:(?!\n))(?:\s*--[^\n]*\n?)+)}i';
-=======
         $pattern = '{[\s(,]' . $this->buildIdentifierPattern($column)
             . '(?:\([^)]*?\)|[^,(])*?,?((?:(?!\n))(?:\s*--[^\n]*\n?)+)}i';
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (preg_match($pattern, $sql, $match) !== 1) {
             return null;
@@ -575,8 +549,6 @@ CREATE\sTABLE' . $this->buildIdentifierPattern($table) . '
         return $comment === '' ? null : $comment;
     }
 
-<<<<<<< HEAD
-=======
     /**
      * Returns a regular expression pattern that matches the given unquoted or quoted identifier.
      */
@@ -593,7 +565,6 @@ CREATE\sTABLE' . $this->buildIdentifierPattern($table) . '
         )) . ')';
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /** @throws Exception */
     private function getCreateTableSQL(string $table): string
     {
@@ -744,13 +715,9 @@ SQL;
 
         if ($tableName !== null) {
             $conditions[] = 't.name = ?';
-<<<<<<< HEAD
-            $params[]     = str_replace('.', '__', $tableName);
-=======
             $params[]     = $this->_platform->canEmulateSchemas()
                 ? str_replace('.', '__', $tableName)
                 : $tableName;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $sql .= ' WHERE ' . implode(' AND ', $conditions) . ' ORDER BY t.name, c.cid';
@@ -775,13 +742,9 @@ SQL;
 
         if ($tableName !== null) {
             $conditions[] = 't.name = ?';
-<<<<<<< HEAD
-            $params[]     = str_replace('.', '__', $tableName);
-=======
             $params[]     = $this->_platform->canEmulateSchemas()
                 ? str_replace('.', '__', $tableName)
                 : $tableName;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $sql .= ' WHERE ' . implode(' AND ', $conditions) . ' ORDER BY t.name, i.seq';
@@ -807,13 +770,9 @@ SQL;
 
         if ($tableName !== null) {
             $conditions[] = 't.name = ?';
-<<<<<<< HEAD
-            $params[]     = str_replace('.', '__', $tableName);
-=======
             $params[]     = $this->_platform->canEmulateSchemas()
                 ? str_replace('.', '__', $tableName)
                 : $tableName;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $sql .= ' WHERE ' . implode(' AND ', $conditions) . ' ORDER BY t.name, p.id DESC, p.seq';

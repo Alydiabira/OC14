@@ -70,10 +70,7 @@ class SymfonyRuntime extends GenericRuntime
     private readonly ConsoleOutput $output;
     private readonly Application $console;
     private readonly Command $command;
-<<<<<<< HEAD
-=======
     private readonly Request $request;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * @param array {
@@ -99,13 +96,9 @@ class SymfonyRuntime extends GenericRuntime
 
         if (isset($options['env'])) {
             $_SERVER[$envKey] = $options['env'];
-<<<<<<< HEAD
-        } elseif (isset($_SERVER['argv']) && class_exists(ArgvInput::class)) {
-=======
         } elseif (isset($_SERVER['argv']) && class_exists(ArgvInput::class)
             && (\in_array(\PHP_SAPI, ['cli', 'phpdbg', 'embed'], true) || !isset($_SERVER['QUERY_STRING']))
         ) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->options = $options;
             $this->getInput();
         }
@@ -118,11 +111,7 @@ class SymfonyRuntime extends GenericRuntime
 
             if (isset($this->input) && ($options['dotenv_overload'] ?? false)) {
                 if ($this->input->getParameterOption(['--env', '-e'], $_SERVER[$envKey], true) !== $_SERVER[$envKey]) {
-<<<<<<< HEAD
-                    throw new \LogicException(sprintf('Cannot use "--env" or "-e" when the "%s" file defines "%s" and the "dotenv_overload" runtime option is true.', $options['dotenv_path'] ?? '.env', $envKey));
-=======
                     throw new \LogicException(\sprintf('Cannot use "--env" or "-e" when the "%s" file defines "%s" and the "dotenv_overload" runtime option is true.', $options['dotenv_path'] ?? '.env', $envKey));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 if ($_SERVER[$debugKey] && $this->input->hasParameterOption('--no-debug', true)) {
@@ -145,11 +134,7 @@ class SymfonyRuntime extends GenericRuntime
     public function getRunner(?object $application): RunnerInterface
     {
         if ($application instanceof HttpKernelInterface) {
-<<<<<<< HEAD
-            return new HttpKernelRunner($application, Request::createFromGlobals(), $this->options['debug'] ?? false);
-=======
             return new HttpKernelRunner($application, $this->request ??= Request::createFromGlobals(), $this->options['debug'] ?? false);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if ($application instanceof Response) {
@@ -162,15 +147,11 @@ class SymfonyRuntime extends GenericRuntime
 
             if (!$application->getName() || !$console->has($application->getName())) {
                 $application->setName($_SERVER['argv'][0]);
-<<<<<<< HEAD
-                $console->add($application);
-=======
                 if (method_exists($console, 'addCommand')) {
                     $console->addCommand($application);
                 } else {
                     $console->add($application);
                 }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $console->setDefaultCommand($application->getName(), true);
@@ -201,11 +182,7 @@ class SymfonyRuntime extends GenericRuntime
     protected function getArgument(\ReflectionParameter $parameter, ?string $type): mixed
     {
         return match ($type) {
-<<<<<<< HEAD
-            Request::class => Request::createFromGlobals(),
-=======
             Request::class => $this->request ??= Request::createFromGlobals(),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             InputInterface::class => $this->getInput(),
             OutputInterface::class => $this->output ??= new ConsoleOutput(),
             Application::class => $this->console ??= new Application(),
@@ -233,8 +210,6 @@ class SymfonyRuntime extends GenericRuntime
 
     private function getInput(): ArgvInput
     {
-<<<<<<< HEAD
-=======
         if (!\in_array(\PHP_SAPI, ['cli', 'phpdbg', 'embed'], true)
             && isset($_SERVER['QUERY_STRING'])
             && filter_var(\ini_get('register_argc_argv'), \FILTER_VALIDATE_BOOL)
@@ -242,7 +217,6 @@ class SymfonyRuntime extends GenericRuntime
             throw new \Exception('CLI applications cannot be run safely on non-CLI SAPIs with register_argc_argv=On.');
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (isset($this->input)) {
             return $this->input;
         }

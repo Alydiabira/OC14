@@ -25,11 +25,7 @@ class Query
     /** @var array<ParameterType|int> */
     private array $types = [];
 
-<<<<<<< HEAD
-    private ?float $start = null;
-=======
     private int|float|null $start = null;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private ?float $duration = null;
 
     public function __construct(
@@ -39,21 +35,13 @@ class Query
 
     public function start(): void
     {
-<<<<<<< HEAD
-        $this->start = microtime(true);
-=======
         $this->start = hrtime(true);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function stop(): void
     {
         if (null !== $this->start) {
-<<<<<<< HEAD
-            $this->duration = microtime(true) - $this->start;
-=======
             $this->duration = (hrtime(true) - $this->start) / 1e9;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 

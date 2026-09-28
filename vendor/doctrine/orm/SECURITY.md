@@ -12,11 +12,6 @@ understand the assumptions we make.
 
 - [DBAL Security Page](https://www.doctrine-project.org/projects/doctrine-dbal/en/stable/reference/security.html)
 - [ORM Security Page](https://www.doctrine-project.org/projects/doctrine-orm/en/stable/reference/security.html)
-<<<<<<< HEAD
-
-If you find a Security bug in Doctrine, please follow our
-[Security reporting guidelines](https://www.doctrine-project.org/policies/security.html#reporting).
-=======
 - [security.rst page in this repository](docs/en/reference/security.rst)
 
 If you find a Security bug in Doctrine, please follow our
@@ -24,4 +19,3 @@ If you find a Security bug in Doctrine, please follow our
 
 Security vulnerabilities should be reported to security@doctrine-project.org
 and not posted on the GitHub issue tracker of the project.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96

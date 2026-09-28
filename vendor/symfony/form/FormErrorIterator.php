@@ -58,11 +58,7 @@ class FormErrorIterator implements \RecursiveIterator, \SeekableIterator, \Array
     {
         foreach ($errors as $error) {
             if (!($error instanceof FormError || $error instanceof self)) {
-<<<<<<< HEAD
-                throw new InvalidArgumentException(sprintf('The errors must be instances of "Symfony\Component\Form\FormError" or "%s". Got: "%s".', __CLASS__, get_debug_type($error)));
-=======
                 throw new InvalidArgumentException(\sprintf('The errors must be instances of "Symfony\Component\Form\FormError" or "%s". Got: "%s".', __CLASS__, get_debug_type($error)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -81,11 +77,7 @@ class FormErrorIterator implements \RecursiveIterator, \SeekableIterator, \Array
             if ($error instanceof FormError) {
                 $string .= 'ERROR: '.$error->getMessage()."\n";
             } else {
-<<<<<<< HEAD
-                /* @var self $error */
-=======
                 /** @var self $error */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $string .= $error->getForm()->getName().":\n";
                 $string .= self::indent((string) $error);
             }
@@ -207,11 +199,7 @@ class FormErrorIterator implements \RecursiveIterator, \SeekableIterator, \Array
     public function getChildren(): self
     {
         if (!$this->hasChildren()) {
-<<<<<<< HEAD
-            throw new LogicException(sprintf('The current element is not iterable. Use "%s" to get the current element.', self::class.'::current()'));
-=======
             throw new LogicException(\sprintf('The current element is not iterable. Use "%s" to get the current element.', self::class.'::current()'));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         /** @var self $children */

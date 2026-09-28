@@ -49,18 +49,6 @@ class DebugAutowiringCommand extends ContainerDebugCommand
                 new InputOption('all', null, InputOption::VALUE_NONE, 'Show also services that are not aliased'),
             ])
             ->setHelp(<<<'EOF'
-<<<<<<< HEAD
-The <info>%command.name%</info> command displays the classes and interfaces that
-you can use as type-hints for autowiring:
-
-  <info>php %command.full_name%</info>
-
-You can also pass a search term to filter the list:
-
-  <info>php %command.full_name% log</info>
-
-EOF
-=======
                 The <info>%command.name%</info> command displays the classes and interfaces that
                 you can use as type-hints for autowiring:
 
@@ -71,7 +59,6 @@ EOF
                   <info>php %command.full_name% log</info>
 
                 EOF
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -88,17 +75,10 @@ EOF
         if ($search = $input->getArgument('search')) {
             $searchNormalized = preg_replace('/[^a-zA-Z0-9\x7f-\xff $]++/', '', $search);
 
-<<<<<<< HEAD
-            $serviceIds = array_filter($serviceIds, fn ($serviceId) => false !== stripos(str_replace('\\', '', $serviceId), $searchNormalized) && !str_starts_with($serviceId, '.'));
-
-            if (!$serviceIds) {
-                $errorIo->error(sprintf('No autowirable classes or interfaces found matching "%s"', $search));
-=======
             $serviceIds = array_filter($serviceIds, static fn ($serviceId) => false !== stripos(str_replace('\\', '', $serviceId), $searchNormalized) && !str_starts_with($serviceId, '.'));
 
             if (!$serviceIds) {
                 $errorIo->error(\sprintf('No autowirable classes or interfaces found matching "%s"', $search));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 return 1;
             }
@@ -117,11 +97,7 @@ EOF
         $io->title('Autowirable Types');
         $io->text('The following classes & interfaces can be used as type-hints when autowiring:');
         if ($search) {
-<<<<<<< HEAD
-            $io->text(sprintf('(only showing classes/interfaces matching <comment>%s</comment>)', $search));
-=======
             $io->text(\sprintf('(only showing classes/interfaces matching <comment>%s</comment>)', $search));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         $hasAlias = [];
         $all = $input->getOption('all');
@@ -144,17 +120,10 @@ EOF
                 }
             }
 
-<<<<<<< HEAD
-            $serviceLine = sprintf('<fg=yellow>%s</>', $serviceId);
-            if ('' !== $fileLink = $this->getFileLink($previousId)) {
-                $serviceLine = substr($serviceId, \strlen($previousId));
-                $serviceLine = sprintf('<fg=yellow;href=%s>%s</>', $fileLink, $previousId).('' !== $serviceLine ? sprintf('<fg=yellow>%s</>', $serviceLine) : '');
-=======
             $serviceLine = \sprintf('<fg=yellow>%s</>', $serviceId);
             if ('' !== $fileLink = $this->getFileLink($previousId)) {
                 $serviceLine = substr($serviceId, \strlen($previousId));
                 $serviceLine = \sprintf('<fg=yellow;href=%s>%s</>', $fileLink, $previousId).('' !== $serviceLine ? \sprintf('<fg=yellow>%s</>', $serviceLine) : '');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if ($container->hasAlias($serviceId)) {
@@ -199,11 +168,7 @@ EOF
         $io->newLine();
 
         if (0 < $serviceIdsNb) {
-<<<<<<< HEAD
-            $io->text(sprintf('%s more concrete service%s would be displayed when adding the "--all" option.', $serviceIdsNb, $serviceIdsNb > 1 ? 's' : ''));
-=======
             $io->text(\sprintf('%s more concrete service%s would be displayed when adding the "--all" option.', $serviceIdsNb, $serviceIdsNb > 1 ? 's' : ''));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
         if ($all) {
             $io->text('Pro-tip: use interfaces in your type-hints instead of classes to benefit from the dependency inversion principle.');

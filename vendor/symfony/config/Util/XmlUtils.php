@@ -84,11 +84,7 @@ class XmlUtils
             } else {
                 libxml_use_internal_errors($internalErrors);
 
-<<<<<<< HEAD
-                throw new XmlParsingException(sprintf('Invalid XSD file: "%s".', $schemaOrCallable));
-=======
                 throw new XmlParsingException(\sprintf('Invalid XSD file: "%s".', $schemaOrCallable));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if (!$valid) {
@@ -119,39 +115,23 @@ class XmlUtils
     public static function loadFile(string $file, string|callable|null $schemaOrCallable = null): \DOMDocument
     {
         if (!is_file($file)) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('Resource "%s" is not a file.', $file));
-        }
-
-        if (!is_readable($file)) {
-            throw new \InvalidArgumentException(sprintf('File "%s" is not readable.', $file));
-=======
             throw new \InvalidArgumentException(\sprintf('Resource "%s" is not a file.', $file));
         }
 
         if (!is_readable($file)) {
             throw new \InvalidArgumentException(\sprintf('File "%s" is not readable.', $file));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $content = @file_get_contents($file);
 
         if ('' === trim($content)) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('File "%s" does not contain valid XML, it is empty.', $file));
-=======
             throw new \InvalidArgumentException(\sprintf('File "%s" does not contain valid XML, it is empty.', $file));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         try {
             return static::parse($content, $schemaOrCallable);
         } catch (InvalidXmlException $e) {
-<<<<<<< HEAD
-            throw new XmlParsingException(sprintf('The XML file "%s" is not valid.', $file), 0, $e->getPrevious());
-=======
             throw new XmlParsingException(\sprintf('The XML file "%s" is not valid.', $file), 0, $e->getPrevious());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -214,11 +194,7 @@ class XmlUtils
 
         if (false !== $nodeValue) {
             $value = static::phpize($nodeValue);
-<<<<<<< HEAD
-            if (\count($config)) {
-=======
             if ($config) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $config['value'] = $value;
             } else {
                 $config = $value;
@@ -269,11 +245,7 @@ class XmlUtils
     {
         $errors = [];
         foreach (libxml_get_errors() as $error) {
-<<<<<<< HEAD
-            $errors[] = sprintf('[%s %s] %s (in %s - line %d, column %d)',
-=======
             $errors[] = \sprintf('[%s %s] %s (in %s - line %d, column %d)',
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 \LIBXML_ERR_WARNING == $error->level ? 'WARNING' : 'ERROR',
                 $error->code,
                 trim($error->message),

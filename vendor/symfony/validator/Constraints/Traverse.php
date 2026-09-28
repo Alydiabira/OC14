@@ -27,11 +27,7 @@ class Traverse extends Constraint
     public function __construct(bool|array|null $traverse = null)
     {
         if (\is_array($traverse) && \array_key_exists('groups', $traverse)) {
-<<<<<<< HEAD
-            throw new ConstraintDefinitionException(sprintf('The option "groups" is not supported by the constraint "%s".', __CLASS__));
-=======
             throw new ConstraintDefinitionException(\sprintf('The option "groups" is not supported by the constraint "%s".', __CLASS__));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         parent::__construct($traverse);

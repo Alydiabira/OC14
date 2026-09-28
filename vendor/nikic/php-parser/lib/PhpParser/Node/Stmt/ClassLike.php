@@ -17,11 +17,7 @@ abstract class ClassLike extends Node\Stmt {
     public ?Node\Name $namespacedName;
 
     /**
-<<<<<<< HEAD
-     * @return TraitUse[]
-=======
      * @return list<TraitUse>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getTraitUses(): array {
         $traitUses = [];
@@ -34,11 +30,7 @@ abstract class ClassLike extends Node\Stmt {
     }
 
     /**
-<<<<<<< HEAD
-     * @return ClassConst[]
-=======
      * @return list<ClassConst>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getConstants(): array {
         $constants = [];
@@ -51,11 +43,7 @@ abstract class ClassLike extends Node\Stmt {
     }
 
     /**
-<<<<<<< HEAD
-     * @return Property[]
-=======
      * @return list<Property>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getProperties(): array {
         $properties = [];
@@ -90,11 +78,7 @@ abstract class ClassLike extends Node\Stmt {
     /**
      * Gets all methods defined directly in this class/interface/trait
      *
-<<<<<<< HEAD
-     * @return ClassMethod[]
-=======
      * @return list<ClassMethod>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getMethods(): array {
         $methods = [];

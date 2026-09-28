@@ -315,13 +315,9 @@ class Snapshot
                         continue;
                     }
 
-<<<<<<< HEAD
-                    $attribute->setAccessible(true);
-=======
                     if (version_compare(PHP_VERSION, '8.1.0', '<')) {
                         $attribute->setAccessible(true);
                     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                     if (PHP_VERSION_ID >= 70400 && !$attribute->isInitialized()) {
                         continue;

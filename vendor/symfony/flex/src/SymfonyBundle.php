@@ -109,12 +109,7 @@ class SymfonyBundle
         // heuristic that should work in almost all cases
         $classContents = file_get_contents($classPath);
 
-<<<<<<< HEAD
-        return (false !== strpos($classContents, 'Symfony\Component\HttpKernel\Bundle\Bundle'))
-            || (false !== strpos($classContents, 'Symfony\Component\HttpKernel\Bundle\AbstractBundle'));
-=======
         return str_contains($classContents, 'Symfony\Component\HttpKernel\Bundle\Bundle')
             || str_contains($classContents, 'Symfony\Component\HttpKernel\Bundle\AbstractBundle');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

@@ -29,23 +29,16 @@ final class ORM extends BaseAdapterORM implements LoggableAdapter
     }
 
     /**
-<<<<<<< HEAD
-     * @param ClassMetadata $meta
-=======
      * @param ClassMetadata<object> $meta
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function isPostInsertGenerator($meta)
     {
         return $meta->idGenerator->isPostInsertGenerator();
     }
 
-<<<<<<< HEAD
-=======
     /**
      * @param ClassMetadata<object> $meta
      */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function getNewVersion($meta, $object)
     {
         $em = $this->getObjectManager();

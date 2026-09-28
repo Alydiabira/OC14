@@ -11,10 +11,7 @@
 
 namespace Twig\Extra\TwigExtraBundle\DependencyInjection;
 
-<<<<<<< HEAD
-=======
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Twig\Extra\TwigExtraBundle\Extensions;
@@ -36,10 +33,6 @@ class Configuration implements ConfigurationInterface
             ;
         }
 
-<<<<<<< HEAD
-        return $treeBuilder;
-    }
-=======
         $this->addCommonMarkConfiguration($rootNode);
 
         return $treeBuilder;
@@ -103,5 +96,4 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end();
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

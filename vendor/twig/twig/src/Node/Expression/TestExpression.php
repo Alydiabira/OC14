@@ -11,15 +11,6 @@
 
 namespace Twig\Node\Expression;
 
-<<<<<<< HEAD
-use Twig\Compiler;
-use Twig\Node\Node;
-
-class TestExpression extends CallExpression
-{
-    public function __construct(Node $node, string $name, ?Node $arguments, int $lineno)
-    {
-=======
 use Twig\Attribute\FirstClassTwigCallableReady;
 use Twig\Compiler;
 use Twig\Node\CoercesChildrenToStringInterface;
@@ -39,15 +30,11 @@ class TestExpression extends CallExpression implements ReturnBoolInterface, Coer
             trigger_deprecation('twig/twig', '3.15', 'Not passing a "%s" instance to the "node" argument of "%s" is deprecated ("%s" given).', AbstractExpression::class, static::class, $node::class);
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $nodes = ['node' => $node];
         if (null !== $arguments) {
             $nodes['arguments'] = $arguments;
         }
 
-<<<<<<< HEAD
-        parent::__construct($nodes, ['name' => $name], $lineno);
-=======
         if ($test instanceof TwigTest) {
             $name = $test->getName();
         } else {
@@ -65,24 +52,11 @@ class TestExpression extends CallExpression implements ReturnBoolInterface, Coer
         $this->deprecateAttribute('callable', new NameDeprecation('twig/twig', '3.12'));
         $this->deprecateAttribute('is_variadic', new NameDeprecation('twig/twig', '3.12'));
         $this->deprecateAttribute('dynamic_name', new NameDeprecation('twig/twig', '3.12'));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function compile(Compiler $compiler): void
     {
         $name = $this->getAttribute('name');
-<<<<<<< HEAD
-        $test = $compiler->getEnvironment()->getTest($name);
-
-        $this->setAttribute('name', $name);
-        $this->setAttribute('type', 'test');
-        $this->setAttribute('arguments', $test->getArguments());
-        $this->setAttribute('callable', $test->getCallable());
-        $this->setAttribute('is_variadic', $test->isVariadic());
-
-        $this->compileCallable($compiler);
-    }
-=======
         if ($this->hasAttribute('twig_callable')) {
             $name = $this->getAttribute('twig_callable')->getName();
             if ($name !== $this->getAttribute('name')) {
@@ -114,5 +88,4 @@ class TestExpression extends CallExpression implements ReturnBoolInterface, Coer
 
         return $names;
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

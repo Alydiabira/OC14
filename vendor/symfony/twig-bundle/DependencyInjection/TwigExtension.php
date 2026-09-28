@@ -25,10 +25,7 @@ use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Translation\LocaleSwitcher;
 use Symfony\Component\Translation\Translator;
 use Symfony\Contracts\Service\ResetInterface;
-<<<<<<< HEAD
-=======
 use Twig\Environment;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Twig\Extension\ExtensionInterface;
 use Twig\Extension\RuntimeExtensionInterface;
 use Twig\Loader\LoaderInterface;
@@ -49,13 +46,10 @@ class TwigExtension extends Extension
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('twig.php');
 
-<<<<<<< HEAD
-=======
         if (method_exists(Environment::class, 'resetGlobals')) {
             $container->getDefinition('twig')->addTag('kernel.reset', ['method' => 'resetGlobals']);
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ($container::willBeAvailable('symfony/form', Form::class, ['symfony/twig-bundle'])) {
             $loader->load('form.php');
 
@@ -109,7 +103,9 @@ class TwigExtension extends Extension
 
         $container->setParameter('twig.form.resources', $config['form_themes']);
         $container->setParameter('twig.default_path', $config['default_path']);
-        $defaultTwigPath = $container->getParameterBag()->resolveValue($config['default_path']);
+        $parameterBag = $container->getParameterBag();
+        // the parameter bag returns paths in their escaped form, the filesystem needs the literal one
+        $defaultTwigPath = $parameterBag->unescapeValue($parameterBag->resolveValue($config['default_path']));
 
         $envConfiguratorDefinition = $container->getDefinition('twig.configurator.environment');
         $envConfiguratorDefinition->replaceArgument(0, $config['date']['format']);
@@ -152,7 +148,7 @@ class TwigExtension extends Extension
         }
 
         if (file_exists($defaultTwigPath)) {
-            $twigFilesystemLoaderDefinition->addMethodCall('addPath', [$defaultTwigPath]);
+            $twigFilesystemLoaderDefinition->addMethodCall('addPath', [$parameterBag->escapeValue($defaultTwigPath)]);
         }
         $container->addResource(new FileExistenceResource($defaultTwigPath));
 
@@ -196,16 +192,20 @@ class TwigExtension extends Extension
     private function getBundleTemplatePaths(ContainerBuilder $container, array $config): array
     {
         $bundleHierarchy = [];
+        $parameterBag = $container->getParameterBag();
+        $defaultPath = $parameterBag->unescapeValue($parameterBag->resolveValue($config['default_path']));
+
         foreach ($container->getParameter('kernel.bundles_metadata') as $name => $bundle) {
-            $defaultOverrideBundlePath = $container->getParameterBag()->resolveValue($config['default_path']).'/bundles/'.$name;
+            $bundlePath = $parameterBag->unescapeValue($bundle['path']);
+            $defaultOverrideBundlePath = $defaultPath.'/bundles/'.$name;
 
             if (file_exists($defaultOverrideBundlePath)) {
-                $bundleHierarchy[$name][] = $defaultOverrideBundlePath;
+                $bundleHierarchy[$name][] = $parameterBag->escapeValue($defaultOverrideBundlePath);
             }
             $container->addResource(new FileExistenceResource($defaultOverrideBundlePath));
 
-            if (file_exists($dir = $bundle['path'].'/Resources/views') || file_exists($dir = $bundle['path'].'/templates')) {
-                $bundleHierarchy[$name][] = $dir;
+            if (file_exists($dir = $bundlePath.'/Resources/views') || file_exists($dir = $bundlePath.'/templates')) {
+                $bundleHierarchy[$name][] = $parameterBag->escapeValue($dir);
             }
             $container->addResource(new FileExistenceResource($dir));
         }

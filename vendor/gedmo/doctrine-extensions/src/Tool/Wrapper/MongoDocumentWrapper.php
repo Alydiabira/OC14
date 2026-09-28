@@ -17,13 +17,9 @@ use ProxyManager\Proxy\GhostObjectInterface;
  * Wraps document or proxy for more convenient
  * manipulation
  *
-<<<<<<< HEAD
- * @phpstan-extends AbstractWrapper<ClassMetadata>
-=======
  * @template TObject of object
  *
  * @template-extends AbstractWrapper<ClassMetadata<TObject>, TObject, DocumentManager>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @author Gediminas Morkevicius <gediminas.morkevicius@gmail.com>
  *
@@ -37,20 +33,9 @@ class MongoDocumentWrapper extends AbstractWrapper
     private ?string $identifier = null;
 
     /**
-<<<<<<< HEAD
-     * True if document or proxy is loaded
-     */
-    private bool $initialized = false;
-
-    /**
-     * Wrap document
-     *
-     * @param object $document
-=======
      * Wrap document
      *
      * @param TObject $document
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct($document, DocumentManager $dm)
     {
@@ -63,11 +48,7 @@ class MongoDocumentWrapper extends AbstractWrapper
     {
         $this->initialize();
 
-<<<<<<< HEAD
-        return $this->meta->getReflectionProperty($property)->getValue($this->object);
-=======
         return $this->meta->getFieldValue($this->object, $property);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function getRootObjectName()
@@ -78,11 +59,7 @@ class MongoDocumentWrapper extends AbstractWrapper
     public function setPropertyValue($property, $value)
     {
         $this->initialize();
-<<<<<<< HEAD
-        $this->meta->getReflectionProperty($property)->setValue($this->object, $value);
-=======
         $this->meta->setFieldValue($this->object, $property, $value);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this;
     }
@@ -129,26 +106,6 @@ class MongoDocumentWrapper extends AbstractWrapper
      */
     protected function initialize()
     {
-<<<<<<< HEAD
-        if (!$this->initialized) {
-            if ($this->object instanceof GhostObjectInterface) {
-                $uow = $this->om->getUnitOfWork();
-                if (!$this->object->isProxyInitialized()) {
-                    $persister = $uow->getDocumentPersister($this->meta->getName());
-                    $identifier = null;
-                    if ($uow->isInIdentityMap($this->object)) {
-                        $identifier = $this->getIdentifier();
-                    } else {
-                        // this may not happen but in case
-                        $getIdentifier = \Closure::bind(fn () => $this->identifier, $this->object, get_class($this->object));
-
-                        $identifier = $getIdentifier();
-                    }
-                    $this->object->initializeProxy();
-                    $persister->load($identifier, $this->object);
-                }
-            }
-=======
         if (method_exists($this->om, 'isUninitializedObject') && $this->om->isUninitializedObject($this->object)) {
             $this->om->initializeObject($this->object);
 
@@ -158,7 +115,6 @@ class MongoDocumentWrapper extends AbstractWrapper
         // @todo: Drop support for this fallback when requiring `doctrine/mongodb-odm:^2.6 as a minimum`
         if ($this->object instanceof GhostObjectInterface && !$this->object->isProxyInitialized()) {
             $this->om->initializeObject($this->object);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

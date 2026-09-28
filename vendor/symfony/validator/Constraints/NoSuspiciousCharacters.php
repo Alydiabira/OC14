@@ -94,11 +94,7 @@ class NoSuspiciousCharacters extends Constraint
         ?int $restrictionLevel = null,
         ?array $locales = null,
         ?array $groups = null,
-<<<<<<< HEAD
-        mixed $payload = null
-=======
         mixed $payload = null,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ) {
         if (!class_exists(\Spoofchecker::class)) {
             throw new LogicException('The intl extension is required to use the NoSuspiciousCharacters constraint.');

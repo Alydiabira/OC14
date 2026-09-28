@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace Doctrine\ORM\Proxy;
 
 use Closure;
-<<<<<<< HEAD
-=======
 use Doctrine\Deprecations\Deprecation;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\ORMInvalidArgumentException;
@@ -17,57 +14,37 @@ use Doctrine\ORM\UnitOfWork;
 use Doctrine\ORM\Utility\IdentifierFlattener;
 use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\Persistence\Proxy;
-<<<<<<< HEAD
-use ReflectionProperty;
-=======
 use LogicException;
 use ReflectionClass;
 use ReflectionProperty;
 use RuntimeException;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\VarExporter\ProxyHelper;
 
 use function array_combine;
 use function array_flip;
-<<<<<<< HEAD
-use function array_intersect_key;
-=======
 use function array_keys;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function assert;
 use function bin2hex;
 use function chmod;
 use function class_exists;
-<<<<<<< HEAD
-=======
 use function count;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function dirname;
 use function file_exists;
 use function file_put_contents;
 use function filemtime;
-<<<<<<< HEAD
-=======
 use function func_num_args;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function is_bool;
 use function is_dir;
 use function is_int;
 use function is_writable;
 use function ltrim;
-<<<<<<< HEAD
-=======
 use function method_exists;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function mkdir;
 use function preg_match_all;
 use function random_bytes;
 use function rename;
 use function rtrim;
-<<<<<<< HEAD
-=======
 use function sprintf;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function str_replace;
 use function strpos;
 use function strrpos;
@@ -76,10 +53,7 @@ use function substr;
 use function ucfirst;
 
 use const DIRECTORY_SEPARATOR;
-<<<<<<< HEAD
-=======
 use const PHP_VERSION_ID;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * This factory is used to create proxy objects for entities at runtime.
@@ -162,12 +136,9 @@ EOPHP;
     /** @var array<class-string, Closure> */
     private array $proxyFactories = [];
 
-<<<<<<< HEAD
-=======
     private readonly string $proxyDir;
     private readonly string $proxyNs;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Initializes a new instance of the <tt>ProxyFactory</tt> class that is
      * connected to the given <tt>EntityManager</tt>.
@@ -179,18 +150,6 @@ EOPHP;
      */
     public function __construct(
         private readonly EntityManagerInterface $em,
-<<<<<<< HEAD
-        private readonly string $proxyDir,
-        private readonly string $proxyNs,
-        bool|int $autoGenerate = self::AUTOGENERATE_NEVER,
-    ) {
-        if (! $proxyDir) {
-            throw ORMInvalidArgumentException::proxyDirectoryRequired();
-        }
-
-        if (! $proxyNs) {
-            throw ORMInvalidArgumentException::proxyNamespaceRequired();
-=======
         string|null $proxyDir = null,
         string|null $proxyNs = null,
         bool|int $autoGenerate = self::AUTOGENERATE_NEVER,
@@ -223,15 +182,12 @@ EOPHP;
                 'Passing more than just the EntityManager to the %s is deprecated and will not be possible in Doctrine ORM 4.0.',
                 __METHOD__,
             );
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (is_int($autoGenerate) ? $autoGenerate < 0 || $autoGenerate > 4 : ! is_bool($autoGenerate)) {
             throw ORMInvalidArgumentException::invalidAutoGenerateMode($autoGenerate);
         }
 
-<<<<<<< HEAD
-=======
         if ($proxyDir === null && $em->getConfiguration()->isNativeLazyObjectsEnabled()) {
             $proxyDir = '';
         }
@@ -243,14 +199,11 @@ EOPHP;
         $this->proxyDir = $proxyDir;
         $this->proxyNs  = $proxyNs;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->uow                 = $em->getUnitOfWork();
         $this->autoGenerate        = (int) $autoGenerate;
         $this->identifierFlattener = new IdentifierFlattener($this->uow, $em->getMetadataFactory());
     }
 
-<<<<<<< HEAD
-=======
     /** @param array<string, mixed> $entityIdentifier */
     public function getEmbeddableProxy(string $className, object $parentEntity, array $entityIdentifier): object
     {
@@ -292,15 +245,10 @@ EOPHP;
         return $classMetadata->reflClass->newLazyGhost($cb, ReflectionClass::SKIP_INITIALIZATION_ON_SERIALIZE);
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * @param class-string $className
      * @param array<mixed> $identifier
      */
-<<<<<<< HEAD
-    public function getProxy(string $className, array $identifier): InternalProxy
-    {
-=======
     public function getProxy(string $className, array $identifier, bool $assignIdentifiers = true): object
     {
         if ($this->em->getConfiguration()->isNativeLazyObjectsEnabled()) {
@@ -332,7 +280,6 @@ EOPHP;
             return $proxy;
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $proxyFactory = $this->proxyFactories[$className] ?? $this->getProxyFactory($className);
 
         return $proxyFactory($identifier);
@@ -350,13 +297,10 @@ EOPHP;
      */
     public function generateProxyClasses(array $classes, string|null $proxyDir = null): int
     {
-<<<<<<< HEAD
-=======
         if ($this->em->getConfiguration()->isNativeLazyObjectsEnabled()) {
             return 0;
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $generated = 0;
 
         foreach ($classes as $class) {
@@ -385,24 +329,14 @@ EOPHP;
     /**
      * Creates a closure capable of initializing a proxy
      *
-<<<<<<< HEAD
-     * @return Closure(InternalProxy, InternalProxy):void
-=======
      * @return Closure(InternalProxy, array):void
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws EntityNotFoundException
      */
     private function createLazyInitializer(ClassMetadata $classMetadata, EntityPersister $entityPersister, IdentifierFlattener $identifierFlattener): Closure
     {
-<<<<<<< HEAD
-        return static function (InternalProxy $proxy) use ($entityPersister, $classMetadata, $identifierFlattener): void {
-            $identifier = $classMetadata->getIdentifierValues($proxy);
-            $original   = $entityPersister->loadById($identifier);
-=======
         return static function (InternalProxy $proxy, array $identifier) use ($entityPersister, $classMetadata, $identifierFlattener): void {
             $original = $entityPersister->loadById($identifier);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             if ($original === null) {
                 throw EntityNotFoundException::fromClassNameAndIdentifier(
@@ -417,13 +351,8 @@ EOPHP;
 
             $class = $entityPersister->getClassMetadata();
 
-<<<<<<< HEAD
-            foreach ($class->getReflectionProperties() as $property) {
-                if (! $property || ! $class->hasField($property->getName()) && ! $class->hasAssociation($property->getName())) {
-=======
             foreach ($class->getPropertyAccessors() as $name => $property) {
                 if (isset($identifier[$name])) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     continue;
                 }
 
@@ -452,9 +381,6 @@ EOPHP;
             foreach ($reflector->getProperties($filter) as $property) {
                 $name = $property->name;
 
-<<<<<<< HEAD
-                if ($property->isStatic() || (($class->hasField($name) || $class->hasAssociation($name)) && ! isset($identifiers[$name]))) {
-=======
                 if (PHP_VERSION_ID >= 80400 && count($property->getHooks()) > 0) {
                     throw new LogicException(sprintf(
                         'Doctrine ORM does not support property hook on %s::%s without using native lazy objects. Check https://github.com/doctrine/orm/issues/11624 for details of versions that support property hooks.',
@@ -464,7 +390,6 @@ EOPHP;
                 }
 
                 if ($property->isStatic() || ! isset($identifiers[$name])) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     continue;
                 }
 
@@ -481,12 +406,6 @@ EOPHP;
         $entityPersister  = $this->uow->getEntityPersister($className);
         $initializer      = $this->createLazyInitializer($class, $entityPersister, $this->identifierFlattener);
         $proxyClassName   = $this->loadProxyClass($class);
-<<<<<<< HEAD
-        $identifierFields = array_intersect_key($class->getReflectionProperties(), $identifiers);
-
-        $proxyFactory = Closure::bind(static function (array $identifier) use ($initializer, $skippedProperties, $identifierFields, $className): InternalProxy {
-            $proxy = self::createLazyGhost($initializer, $skippedProperties);
-=======
         $identifierFields = [];
 
         foreach (array_keys($identifiers) as $identifier) {
@@ -497,7 +416,6 @@ EOPHP;
             $proxy = self::createLazyGhost(static function (InternalProxy $object) use ($initializer, $identifier): void {
                 $initializer($object, $identifier);
             }, $skippedProperties);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             foreach ($identifierFields as $idField => $reflector) {
                 if (! isset($identifier[$idField])) {
@@ -530,22 +448,6 @@ EOPHP;
 
         $fileName = $this->getProxyFileName($class->getName(), $this->proxyDir);
 
-<<<<<<< HEAD
-        switch ($this->autoGenerate) {
-            case self::AUTOGENERATE_FILE_NOT_EXISTS_OR_CHANGED:
-                if (file_exists($fileName) && filemtime($fileName) >= filemtime($class->getReflectionClass()->getFileName())) {
-                    break;
-                }
-                // no break
-            case self::AUTOGENERATE_FILE_NOT_EXISTS:
-                if (file_exists($fileName)) {
-                    break;
-                }
-                // no break
-            case self::AUTOGENERATE_ALWAYS:
-                $this->generateProxyClass($class, $fileName, $proxyClassName);
-                break;
-=======
         $needsGeneration = match ($this->autoGenerate) {
             self::AUTOGENERATE_FILE_NOT_EXISTS_OR_CHANGED => ! file_exists($fileName)
                 || filemtime($fileName) < filemtime($class->getReflectionClass()->getFileName()),
@@ -555,7 +457,6 @@ EOPHP;
         };
         if ($needsGeneration) {
             $this->generateProxyClass($class, $fileName, $proxyClassName);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         require $fileName;
@@ -608,26 +509,16 @@ EOPHP;
 
     private function generateUseLazyGhostTrait(ClassMetadata $class): string
     {
-<<<<<<< HEAD
-=======
         // @phpstan-ignore staticMethod.notFound (This method has been removed in Symfony 8)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $code = ProxyHelper::generateLazyGhost($class->getReflectionClass());
         $code = substr($code, 7 + (int) strpos($code, "\n{"));
         $code = substr($code, 0, (int) strpos($code, "\n}"));
         $code = str_replace('LazyGhostTrait;', str_replace("\n    ", "\n", 'LazyGhostTrait {
-<<<<<<< HEAD
-            initializeLazyObject as __load;
-=======
             initializeLazyObject as private;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             setLazyObjectAsInitialized as public __setInitialized;
             isLazyObjectInitialized as private;
             createLazyGhost as private;
             resetLazyObject as private;
-<<<<<<< HEAD
-        }'), $code);
-=======
         }
 
         public function __load(): void
@@ -635,7 +526,6 @@ EOPHP;
             $this->initializeLazyObject();
         }
         '), $code);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $code;
     }

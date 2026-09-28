@@ -54,11 +54,7 @@ class ProblemNormalizer implements NormalizerInterface, SerializerAwareInterface
     public function normalize(mixed $object, ?string $format = null, array $context = []): array
     {
         if (!$object instanceof FlattenException) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('The object must implement "%s".', FlattenException::class));
-=======
             throw new InvalidArgumentException(\sprintf('The object must implement "%s".', FlattenException::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $data = [];
@@ -69,21 +65,13 @@ class ProblemNormalizer implements NormalizerInterface, SerializerAwareInterface
             $exception = $exception->getPrevious();
 
             if ($exception instanceof PartialDenormalizationException) {
-<<<<<<< HEAD
-                $trans = $this->translator ? $this->translator->trans(...) : fn ($m, $p) => strtr($m, $p);
-=======
                 $trans = $this->translator ? $this->translator->trans(...) : static fn ($m, $p) => strtr($m, $p);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $template = 'This value should be of type {{ type }}.';
                 $data = [
                     self::TYPE => 'https://symfony.com/errors/validation',
                     self::TITLE => 'Validation Failed',
                     'violations' => array_map(
-<<<<<<< HEAD
-                        fn ($e) => [
-=======
                         static fn ($e) => [
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                             'propertyPath' => $e->getPath(),
                             'title' => $trans($template, [
                                 '{{ type }}' => implode('|', $e->getExpectedTypes() ?? ['?']),
@@ -96,11 +84,7 @@ class ProblemNormalizer implements NormalizerInterface, SerializerAwareInterface
                         $exception->getErrors()
                     ),
                 ];
-<<<<<<< HEAD
-                $data['detail'] = implode("\n", array_map(fn ($e) => $e['propertyPath'].': '.$e['title'], $data['violations']));
-=======
                 $data['detail'] = implode("\n", array_map(static fn ($e) => $e['propertyPath'].': '.$e['title'], $data['violations']));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } elseif (($exception instanceof ValidationFailedException || $exception instanceof MessageValidationFailedException)
                 && $this->serializer instanceof NormalizerInterface
                 && $this->serializer->supportsNormalization($exception->getViolations(), $format, $context)

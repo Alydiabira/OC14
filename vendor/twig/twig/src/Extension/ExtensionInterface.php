@@ -12,11 +12,8 @@
 namespace Twig\Extension;
 
 use Twig\ExpressionParser;
-<<<<<<< HEAD
-=======
 use Twig\ExpressionParser\ExpressionParserInterface;
 use Twig\ExpressionParser\PrecedenceChange;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Twig\Node\Expression\Binary\AbstractBinary;
 use Twig\Node\Expression\Unary\AbstractUnary;
 use Twig\NodeVisitor\NodeVisitorInterface;
@@ -29,11 +26,8 @@ use Twig\TwigTest;
  * Interface implemented by extension classes.
  *
  * @author Fabien Potencier <fabien@symfony.com>
-<<<<<<< HEAD
-=======
  *
  * @method array<ExpressionParserInterface> getExpressionParsers()
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  */
 interface ExtensionInterface
 {
@@ -75,19 +69,11 @@ interface ExtensionInterface
     /**
      * Returns a list of operators to add to the existing list.
      *
-<<<<<<< HEAD
-     * @return array<array> First array of unary operators, second array of binary operators
-     *
-     * @psalm-return array{
-     *     array<string, array{precedence: int, class: class-string<AbstractUnary>}>,
-     *     array<string, array{precedence: int, class: class-string<AbstractBinary>, associativity: ExpressionParser::OPERATOR_*}>
-=======
      * @return array<array>
      *
      * @psalm-return array{
      *     array<string, array{precedence: int, precedence_change?: PrecedenceChange, class: class-string<AbstractUnary>}>,
      *     array<string, array{precedence: int, precedence_change?: PrecedenceChange, class?: class-string<AbstractBinary>, associativity: ExpressionParser::OPERATOR_*}>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * }
      */
     public function getOperators();

@@ -32,13 +32,10 @@ class EvenTest extends TestExpression
             ->raw(')')
         ;
     }
-<<<<<<< HEAD
-=======
 
     public function getStringCoercedChildNames(): array
     {
         // PHP `%` rejects Stringable with a TypeError, no coercion
         return [];
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

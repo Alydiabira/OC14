@@ -5,21 +5,15 @@ namespace Doctrine\DBAL\Driver\PDO\OCI;
 use Doctrine\DBAL\Driver\AbstractOracleDriver;
 use Doctrine\DBAL\Driver\PDO\Connection;
 use Doctrine\DBAL\Driver\PDO\Exception;
-<<<<<<< HEAD
-=======
 use Doctrine\DBAL\Driver\PDO\PDOConnect;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use PDO;
 use PDOException;
 use SensitiveParameter;
 
 final class Driver extends AbstractOracleDriver
 {
-<<<<<<< HEAD
-=======
     use PDOConnect;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * {@inheritDoc}
      *
@@ -39,11 +33,7 @@ final class Driver extends AbstractOracleDriver
         unset($safeParams['password'], $safeParams['url']);
 
         try {
-<<<<<<< HEAD
-            $pdo = new PDO(
-=======
             $pdo = $this->doConnect(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $this->constructPdoDsn($params),
                 $params['user'] ?? '',
                 $params['password'] ?? '',

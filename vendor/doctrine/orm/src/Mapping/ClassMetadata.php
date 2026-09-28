@@ -7,39 +7,25 @@ namespace Doctrine\ORM\Mapping;
 use BackedEnum;
 use BadMethodCallException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-<<<<<<< HEAD
-=======
 use Doctrine\DBAL\Schema\DefaultExpression\CurrentTimestamp;
 use Doctrine\DBAL\Types\Types;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\Deprecations\Deprecation;
 use Doctrine\Instantiator\Instantiator;
 use Doctrine\Instantiator\InstantiatorInterface;
 use Doctrine\ORM\Cache\Exception\NonCacheableEntityAssociation;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Id\AbstractIdGenerator;
-<<<<<<< HEAD
-use Doctrine\Persistence\Mapping\ClassMetadata as PersistenceClassMetadata;
-use Doctrine\Persistence\Mapping\ReflectionService;
-use Doctrine\Persistence\Reflection\EnumReflectionProperty;
-=======
 use Doctrine\ORM\Mapping\PropertyAccessors\EmbeddablePropertyAccessor;
 use Doctrine\ORM\Mapping\PropertyAccessors\EnumPropertyAccessor;
 use Doctrine\ORM\Mapping\PropertyAccessors\PropertyAccessor;
 use Doctrine\ORM\Mapping\PropertyAccessors\PropertyAccessorFactory;
 use Doctrine\Persistence\Mapping\ClassMetadata as PersistenceClassMetadata;
 use Doctrine\Persistence\Mapping\ReflectionService;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use InvalidArgumentException;
 use LogicException;
 use ReflectionClass;
 use ReflectionNamedType;
 use ReflectionProperty;
-<<<<<<< HEAD
-use Stringable;
-
-use function array_diff;
-=======
 use SortDirection;
 use Stringable;
 
@@ -48,7 +34,6 @@ use function array_count_values;
 use function array_diff;
 use function array_filter;
 use function array_flip;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function array_intersect;
 use function array_key_exists;
 use function array_keys;
@@ -59,17 +44,12 @@ use function array_values;
 use function assert;
 use function class_exists;
 use function count;
-<<<<<<< HEAD
-use function enum_exists;
-use function explode;
-=======
 use function defined;
 use function enum_exists;
 use function explode;
 use function func_get_arg;
 use function func_num_args;
 use function implode;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function in_array;
 use function interface_exists;
 use function is_string;
@@ -81,15 +61,10 @@ use function sprintf;
 use function str_contains;
 use function str_replace;
 use function strtolower;
-<<<<<<< HEAD
-use function trait_exists;
-use function trim;
-=======
 use function strtoupper;
 use function trait_exists;
 use function trim;
 use function usort;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * A <tt>ClassMetadata</tt> instance holds all the object-relational mapping metadata
@@ -105,21 +80,14 @@ use function usort;
  *    get the whole class name, namespace inclusive, prepended to every property in
  *    the serialized representation).
  *
-<<<<<<< HEAD
- * @psalm-type ConcreteAssociationMapping = OneToOneOwningSideMapping|OneToOneInverseSideMapping|ManyToOneAssociationMapping|OneToManyAssociationMapping|ManyToManyOwningSideMapping|ManyToManyInverseSideMapping
-=======
  * @phpstan-type ConcreteAssociationMapping = OneToOneOwningSideMapping|OneToOneInverseSideMapping|ManyToOneAssociationMapping|OneToManyAssociationMapping|ManyToManyOwningSideMapping|ManyToManyInverseSideMapping
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  * @template-covariant T of object
  * @template-implements PersistenceClassMetadata<T>
  */
 class ClassMetadata implements PersistenceClassMetadata, Stringable
 {
-<<<<<<< HEAD
-=======
     use GetReflectionClassImplementation;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /* The inheritance mapping types */
     /**
      * NONE means the class does not participate in an inheritance hierarchy
@@ -278,11 +246,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * hierarchy. If the entity is not part of a mapped inheritance hierarchy this is the same
      * as {@link $name}.
      *
-<<<<<<< HEAD
-     * @psalm-var class-string
-=======
      * @phpstan-var class-string
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public string $rootEntityName;
 
@@ -306,11 +270,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * The name of the custom repository class used for the entity class.
      * (Optional).
      *
-<<<<<<< HEAD
-     * @psalm-var ?class-string<EntityRepository>
-=======
      * @phpstan-var ?class-string<EntityRepository>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public string|null $customRepositoryClassName = null;
 
@@ -328,11 +288,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * READ-ONLY: The names of the parent <em>entity</em> classes (ancestors), starting with the
      * nearest one and ending with the root entity class.
      *
-<<<<<<< HEAD
-     * @psalm-var list<class-string>
-=======
      * @phpstan-var list<class-string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $parentClasses = [];
 
@@ -359,22 +315,14 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * For subclasses of such root entities, the list can be reused/passed downwards, it only needs to
      * be filtered accordingly (only keep remaining subclasses)
      *
-<<<<<<< HEAD
-     * @psalm-var list<class-string>
-=======
      * @phpstan-var list<class-string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $subClasses = [];
 
     /**
      * READ-ONLY: The names of all embedded classes based on properties.
      *
-<<<<<<< HEAD
-     * @psalm-var array<string, EmbeddedClassMapping>
-=======
      * @phpstan-var array<string, EmbeddedClassMapping>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $embeddedClasses = [];
 
@@ -382,20 +330,11 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * READ-ONLY: The field names of all fields that are part of the identifier/primary key
      * of the mapped entity class.
      *
-<<<<<<< HEAD
-     * @psalm-var list<string>
-=======
      * @phpstan-var list<string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $identifier = [];
 
     /**
-<<<<<<< HEAD
-     * READ-ONLY: The inheritance mapping type used by the class.
-     *
-     * @psalm-var self::INHERITANCE_TYPE_*
-=======
      * READ-ONLY: The position of each identifier field, used to control the order of composite primary key fields.
      *
      * @phpstan-var array<string, int>
@@ -406,18 +345,13 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * READ-ONLY: The inheritance mapping type used by the class.
      *
      * @phpstan-var self::INHERITANCE_TYPE_*
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public int $inheritanceType = self::INHERITANCE_TYPE_NONE;
 
     /**
      * READ-ONLY: The Id generator type used by the class.
      *
-<<<<<<< HEAD
-     * @psalm-var self::GENERATOR_TYPE_*
-=======
      * @phpstan-var self::GENERATOR_TYPE_*
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public int $generatorType = self::GENERATOR_TYPE_NONE;
 
@@ -433,11 +367,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * READ-ONLY: An array of field names. Used to look up field names from column names.
      * Keys are column names and values are field names.
      *
-<<<<<<< HEAD
-     * @psalm-var array<string, string>
-=======
      * @phpstan-var array<string, string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $fieldNames = [];
 
@@ -472,11 +402,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      *
      * @var array<int|string, string>
      *
-<<<<<<< HEAD
-     * @psalm-var array<int|string, class-string>
-=======
      * @phpstan-var array<int|string, class-string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $discriminatorMap = [];
 
@@ -487,25 +413,12 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     public DiscriminatorColumnMapping|null $discriminatorColumn = null;
 
     /**
-<<<<<<< HEAD
-     * READ-ONLY: The primary table definition. The definition is an array with the
-     * following entries:
-     *
-     * name => <tableName>
-     * schema => <schemaName>
-     * indexes => array
-     * uniqueConstraints => array
-     *
-     * @var mixed[]
-     * @psalm-var array{
-=======
      * READ-ONLY: The primary table definition.
      *
      * "quoted" indicates whether the table name is quoted (with backticks) or not
      *
      * @var mixed[]
      * @phpstan-var array{
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *               name: string,
      *               schema?: string,
      *               indexes?: array,
@@ -519,22 +432,14 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     /**
      * READ-ONLY: The registered lifecycle callbacks for entities of this class.
      *
-<<<<<<< HEAD
-     * @psalm-var array<string, list<string>>
-=======
      * @phpstan-var array<string, list<string>>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $lifecycleCallbacks = [];
 
     /**
      * READ-ONLY: The registered entity listeners.
      *
-<<<<<<< HEAD
-     * @psalm-var array<string, list<array{class: class-string, method: string}>>
-=======
      * @phpstan-var array<string, list<array{class: class-string, method: string}>>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $entityListeners = [];
 
@@ -550,11 +455,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * )
      * </pre>
      *
-<<<<<<< HEAD
-     * @psalm-var array<string, ConcreteAssociationMapping>
-=======
      * @phpstan-var array<string, ConcreteAssociationMapping>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public array $associationMappings = [];
 
@@ -598,11 +499,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * </code>
      *
      * @var array<string, mixed>|null
-<<<<<<< HEAD
-     * @psalm-var array{sequenceName: string, allocationSize: string, initialValue: string, quoted?: mixed}|null
-=======
      * @phpstan-var array{sequenceName: string, allocationSize: string, initialValue: string, quoted?: mixed}|null
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @todo Merge with tableGeneratorDefinition into generic generatorDefinition
      */
     public array|null $sequenceGeneratorDefinition = null;
@@ -656,11 +553,6 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     /**
      * The ReflectionProperty instances of the mapped class.
      *
-<<<<<<< HEAD
-     * @var array<string, ReflectionProperty|null>
-     */
-    public array $reflFields = [];
-=======
      * @deprecated Use $propertyAccessors instead.
      *
      * @var LegacyReflectionFields|array<string, ReflectionProperty>
@@ -669,7 +561,6 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
 
     /** @var array<string, PropertyAccessor> */
     public array $propertyAccessors = [];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     private InstantiatorInterface|null $instantiator = null;
 
@@ -680,11 +571,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * metadata of the class with the given name.
      *
      * @param string $name The name of the entity class the new instance is used for.
-<<<<<<< HEAD
-     * @psalm-param class-string<T> $name
-=======
      * @phpstan-param class-string<T> $name
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct(public string $name, NamingStrategy|null $namingStrategy = null, TypedFieldMapper|null $typedFieldMapper = null)
     {
@@ -697,27 +584,17 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     /**
      * Gets the ReflectionProperties of the mapped class.
      *
-<<<<<<< HEAD
-     * @return ReflectionProperty[]|null[] An array of ReflectionProperty instances.
-     * @psalm-return array<ReflectionProperty|null>
-     */
-    public function getReflectionProperties(): array
-=======
      * @deprecated Use getPropertyAccessors() instead.
      *
      * @return LegacyReflectionFields|ReflectionProperty[] An array of ReflectionProperty instances.
      * @phpstan-return LegacyReflectionFields|array<string, ReflectionProperty>
      */
     public function getReflectionProperties(): array|LegacyReflectionFields
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         return $this->reflFields;
     }
 
     /**
-<<<<<<< HEAD
-     * Gets a ReflectionProperty for a specific field of the mapped class.
-=======
      * Gets the ReflectionProperties of the mapped class.
      *
      * @return array<string, PropertyAccessor> An array of PropertyAccessor instances by name.
@@ -731,17 +608,12 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * Gets a ReflectionProperty for a specific field of the mapped class.
      *
      * @deprecated Use getPropertyAccessor() instead.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getReflectionProperty(string $name): ReflectionProperty|null
     {
         return $this->reflFields[$name];
     }
 
-<<<<<<< HEAD
-    /**
-     * Gets the ReflectionProperty for the single identifier field.
-=======
     public function getPropertyAccessor(string $name): PropertyAccessor|null
     {
         return $this->propertyAccessors[$name] ?? null;
@@ -749,7 +621,6 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
 
     /**
      * @deprecated Use getPropertyAccessor() instead.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws BadMethodCallException If the class has a composite identifier.
      */
@@ -762,8 +633,6 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
         return $this->reflFields[$this->identifier[0]];
     }
 
-<<<<<<< HEAD
-=======
     /** @throws BadMethodCallException If the class has a composite identifier. */
     public function getSingleIdPropertyAccessor(): PropertyAccessor|null
     {
@@ -774,7 +643,6 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
         return $this->propertyAccessors[$this->identifier[0]];
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Extracts the identifier values of an entity of this class.
      *
@@ -789,11 +657,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
             $id = [];
 
             foreach ($this->identifier as $idField) {
-<<<<<<< HEAD
-                $value = $this->reflFields[$idField]->getValue($entity);
-=======
                 $value = $this->propertyAccessors[$idField]->getValue($entity);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 if ($value !== null) {
                     $id[$idField] = $value;
@@ -804,11 +668,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
         }
 
         $id    = $this->identifier[0];
-<<<<<<< HEAD
-        $value = $this->reflFields[$id]->getValue($entity);
-=======
         $value = $this->propertyAccessors[$id]->getValue($entity);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if ($value === null) {
             return [];
@@ -820,22 +680,14 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     /**
      * Populates the entity identifier of an entity.
      *
-<<<<<<< HEAD
-     * @psalm-param array<string, mixed> $id
-=======
      * @phpstan-param array<string, mixed> $id
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @todo Rename to assignIdentifier()
      */
     public function setIdentifierValues(object $entity, array $id): void
     {
         foreach ($id as $idField => $idValue) {
-<<<<<<< HEAD
-            $this->reflFields[$idField]->setValue($entity, $idValue);
-=======
             $this->propertyAccessors[$idField]->setValue($entity, $idValue);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -844,11 +696,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      */
     public function setFieldValue(object $entity, string $field, mixed $value): void
     {
-<<<<<<< HEAD
-        $this->reflFields[$field]->setValue($entity, $value);
-=======
         $this->propertyAccessors[$field]->setValue($entity, $value);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -856,11 +704,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      */
     public function getFieldValue(object $entity, string $field): mixed
     {
-<<<<<<< HEAD
-        return $this->reflFields[$field]->getValue($entity);
-=======
         return $this->propertyAccessors[$field]->getValue($entity);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -898,10 +742,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
             'fieldNames',
             'embeddedClasses',
             'identifier',
-<<<<<<< HEAD
-=======
             'identifierPositions',
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             'isIdentifierComposite', // TODO: REMOVE
             'name',
             'namespace', // TODO: REMOVE
@@ -997,34 +838,16 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     public function wakeupReflection(ReflectionService $reflService): void
     {
         // Restore ReflectionClass and properties
-<<<<<<< HEAD
-        $this->reflClass    = $reflService->getClass($this->name);
-        $this->instantiator = $this->instantiator ?: new Instantiator();
-
-        $parentReflFields = [];
-=======
         $this->reflClass = $reflService->getClass($this->name);
         /** @phpstan-ignore property.deprecated */
         $this->reflFields   = new LegacyReflectionFields($this, $reflService);
         $this->instantiator = $this->instantiator ?: new Instantiator();
 
         $parentAccessors = [];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         foreach ($this->embeddedClasses as $property => $embeddedClass) {
             if (isset($embeddedClass->declaredField)) {
                 assert($embeddedClass->originalField !== null);
-<<<<<<< HEAD
-                $childProperty = $this->getAccessibleProperty(
-                    $reflService,
-                    $this->embeddedClasses[$embeddedClass->declaredField]->class,
-                    $embeddedClass->originalField,
-                );
-                assert($childProperty !== null);
-                $parentReflFields[$property] = new ReflectionEmbeddedProperty(
-                    $parentReflFields[$embeddedClass->declaredField],
-                    $childProperty,
-=======
                 $childAccessor = PropertyAccessorFactory::createPropertyAccessor(
                     $this->embeddedClasses[$embeddedClass->declaredField]->class,
                     $embeddedClass->originalField,
@@ -1033,39 +856,17 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
                 $parentAccessors[$property] = new EmbeddablePropertyAccessor(
                     $parentAccessors[$embeddedClass->declaredField],
                     $childAccessor,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $this->embeddedClasses[$embeddedClass->declaredField]->class,
                 );
 
                 continue;
             }
 
-<<<<<<< HEAD
-            $fieldRefl = $this->getAccessibleProperty(
-                $reflService,
-=======
             $accessor = PropertyAccessorFactory::createPropertyAccessor(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $embeddedClass->declared ?? $this->name,
                 $property,
             );
 
-<<<<<<< HEAD
-            $parentReflFields[$property] = $fieldRefl;
-            $this->reflFields[$property] = $fieldRefl;
-        }
-
-        foreach ($this->fieldMappings as $field => $mapping) {
-            if (isset($mapping->declaredField) && isset($parentReflFields[$mapping->declaredField])) {
-                assert($mapping->originalField !== null);
-                assert($mapping->originalClass !== null);
-                $childProperty = $this->getAccessibleProperty($reflService, $mapping->originalClass, $mapping->originalField);
-                assert($childProperty !== null);
-
-                if (isset($mapping->enumType)) {
-                    $childProperty = new EnumReflectionProperty(
-                        $childProperty,
-=======
             $parentAccessors[$property]         = $accessor;
             $this->propertyAccessors[$property] = $accessor;
         }
@@ -1079,34 +880,18 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
                 if ($mapping->enumType !== null) {
                     $accessor = new EnumPropertyAccessor(
                         $accessor,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $mapping->enumType,
                     );
                 }
 
-<<<<<<< HEAD
-                $this->reflFields[$field] = new ReflectionEmbeddedProperty(
-                    $parentReflFields[$mapping->declaredField],
-                    $childProperty,
-=======
                 $this->propertyAccessors[$field] = new EmbeddablePropertyAccessor(
                     $parentAccessors[$mapping->declaredField],
                     $accessor,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $mapping->originalClass,
                 );
                 continue;
             }
 
-<<<<<<< HEAD
-            $this->reflFields[$field] = isset($mapping->declared)
-                ? $this->getAccessibleProperty($reflService, $mapping->declared, $field)
-                : $this->getAccessibleProperty($reflService, $this->name, $field);
-
-            if (isset($mapping->enumType) && $this->reflFields[$field] !== null) {
-                $this->reflFields[$field] = new EnumReflectionProperty(
-                    $this->reflFields[$field],
-=======
             $this->propertyAccessors[$field] = isset($mapping->declared)
                 ? PropertyAccessorFactory::createPropertyAccessor($mapping->declared, $field)
                 : PropertyAccessorFactory::createPropertyAccessor($this->name, $field);
@@ -1114,22 +899,15 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
             if ($mapping->enumType !== null) {
                 $this->propertyAccessors[$field] = new EnumPropertyAccessor(
                     $this->propertyAccessors[$field],
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $mapping->enumType,
                 );
             }
         }
 
         foreach ($this->associationMappings as $field => $mapping) {
-<<<<<<< HEAD
-            $this->reflFields[$field] = isset($mapping->declared)
-                ? $this->getAccessibleProperty($reflService, $mapping->declared, $field)
-                : $this->getAccessibleProperty($reflService, $this->name, $field);
-=======
             $this->propertyAccessors[$field] = isset($mapping->declared)
                 ? PropertyAccessorFactory::createPropertyAccessor($mapping->declared, $field)
                 : PropertyAccessorFactory::createPropertyAccessor($this->name, $field);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -1206,21 +984,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
         }
     }
 
-<<<<<<< HEAD
-    /**
-     * {@inheritDoc}
-     *
-     * Can return null when using static reflection, in violation of the LSP
-     */
-    public function getReflectionClass(): ReflectionClass|null
-    {
-        return $this->reflClass;
-    }
-
-    /** @psalm-param array{usage?: mixed, region?: mixed} $cache */
-=======
     /** @phpstan-param array{usage?: mixed, region?: mixed} $cache */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function enableCache(array $cache): void
     {
         if (! isset($cache['usage'])) {
@@ -1234,28 +998,17 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
         $this->cache = $cache;
     }
 
-<<<<<<< HEAD
-    /** @psalm-param array{usage?: int, region?: string} $cache */
-=======
     /** @phpstan-param array{usage?: int, region?: string} $cache */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function enableAssociationCache(string $fieldName, array $cache): void
     {
         $this->associationMappings[$fieldName]->cache = $this->getAssociationCacheDefaults($fieldName, $cache);
     }
 
     /**
-<<<<<<< HEAD
-     * @psalm-param array{usage?: int, region?: string|null} $cache
-     *
-     * @return int[]|string[]
-     * @psalm-return array{usage: int, region: string|null}
-=======
      * @phpstan-param array{usage?: int, region?: string|null} $cache
      *
      * @return int[]|string[]
      * @phpstan-return array{usage: int, region: string|null}
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getAssociationCacheDefaults(string $fieldName, array $cache): array
     {
@@ -1324,8 +1077,6 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
         return $mapping !== false && isset($mapping->nullable) && $mapping->nullable;
     }
 
-<<<<<<< HEAD
-=======
     public function isIndexed(string $fieldName): bool
     {
         $mapping = $this->getFieldMapping($fieldName);
@@ -1333,7 +1084,6 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
         return isset($mapping->index) && $mapping->index;
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Gets a column name for a field name.
      * If the column name for the field cannot be found, the given field name
@@ -1341,10 +1091,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      */
     public function getColumnName(string $fieldName): string
     {
-<<<<<<< HEAD
-=======
         // @phpstan-ignore property.deprecated
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return $this->columnNames[$fieldName] ?? $fieldName;
     }
 
@@ -1385,11 +1132,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     /**
      * Gets all association mappings of the class.
      *
-<<<<<<< HEAD
-     * @psalm-return array<string, AssociationMapping>
-=======
      * @phpstan-return array<string, AssociationMapping>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getAssociationMappings(): array
     {
@@ -1428,13 +1171,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     {
         $field = $this->reflClass->getProperty($mapping['fieldName']);
 
-<<<<<<< HEAD
-        $mapping = $this->typedFieldMapper->validateAndComplete($mapping, $field);
-
-        return $mapping;
-=======
         return $this->typedFieldMapper->validateAndComplete($mapping, $field);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -1462,11 +1199,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     /**
      * Validates & completes the given field mapping.
      *
-<<<<<<< HEAD
-     * @psalm-param array{
-=======
      * @phpstan-param array{
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *     fieldName?: string,
      *     columnName?: string,
      *     id?: bool,
@@ -1506,10 +1239,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
             $mapping->quoted     = true;
         }
 
-<<<<<<< HEAD
-=======
         // @phpstan-ignore property.deprecated
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->columnNames[$mapping->fieldName] = $mapping->columnName;
 
         if (isset($this->fieldNames[$mapping->columnName]) || ($this->discriminatorColumn && $this->discriminatorColumn->name === $mapping->columnName)) {
@@ -1525,11 +1255,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
             }
 
             if (! in_array($mapping->fieldName, $this->identifier, true)) {
-<<<<<<< HEAD
-                $this->identifier[] = $mapping->fieldName;
-=======
                 $this->registerIdentifierField($mapping->fieldName, $mapping->idPosition);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             // Check for composite key
@@ -1556,8 +1282,6 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
             if (! empty($mapping->id)) {
                 $this->containsEnumIdentifier = true;
             }
-<<<<<<< HEAD
-=======
 
             if (
                 defined('Doctrine\DBAL\Types\Types::ENUM')
@@ -1566,7 +1290,6 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
             ) {
                 $mapping->options['values'] = array_column($mapping->enumType::cases(), 'value');
             }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $mapping;
@@ -1576,11 +1299,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * Validates & completes the basic mapping information that is common to all
      * association mappings (one-to-one, many-ot-one, one-to-many, many-to-many).
      *
-<<<<<<< HEAD
-     * @psalm-param array<string, mixed> $mapping The mapping.
-=======
      * @phpstan-param array<string, mixed> $mapping The mapping.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return ConcreteAssociationMapping
      *
@@ -1639,11 +1358,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
                 }
 
                 assert(is_string($mapping['fieldName']));
-<<<<<<< HEAD
-                $this->identifier[]              = $mapping['fieldName'];
-=======
                 $this->registerIdentifierField($mapping['fieldName'], $mapping['idPosition'] ?? null);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $this->containsForeignIdentifier = true;
             }
 
@@ -1660,11 +1375,8 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
             }
         }
 
-<<<<<<< HEAD
-=======
         unset($mapping['idPosition']);
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         // Mandatory attributes for both sides
         // Mandatory: fieldName, targetEntity
         if (! isset($mapping['fieldName']) || ! $mapping['fieldName']) {
@@ -1804,13 +1516,6 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * Sets the mapped identifier/primary key fields of this class.
      * Mainly used by the ClassMetadataFactory to assign inherited identifiers.
      *
-<<<<<<< HEAD
-     * @psalm-param list<mixed> $identifier
-     */
-    public function setIdentifier(array $identifier): void
-    {
-        $this->identifier            = $identifier;
-=======
      * @phpstan-param list<mixed> $identifier
      */
     public function setIdentifier(array $identifier/*, array $positions = []*/): void
@@ -1824,7 +1529,6 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
             $this->registerIdentifierField($fieldName, $positions[$fieldName] ?? null);
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->isIdentifierComposite = (count($this->identifier) > 1);
     }
 
@@ -1844,17 +1548,10 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     /**
      * Gets an array containing all the column names.
      *
-<<<<<<< HEAD
-     * @psalm-param list<string>|null $fieldNames
-     *
-     * @return mixed[]
-     * @psalm-return list<string>
-=======
      * @phpstan-param list<string>|null $fieldNames
      *
      * @return mixed[]
      * @phpstan-return list<string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getColumnNames(array|null $fieldNames = null): array
     {
@@ -1868,11 +1565,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     /**
      * Returns an array with all the identifier column names.
      *
-<<<<<<< HEAD
-     * @psalm-return list<string>
-=======
      * @phpstan-return list<string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getIdentifierColumnNames(): array
     {
@@ -1899,11 +1592,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     /**
      * Sets the type of Id generator to use for the mapped class.
      *
-<<<<<<< HEAD
-     * @psalm-param self::GENERATOR_TYPE_* $generatorType
-=======
      * @phpstan-param self::GENERATOR_TYPE_* $generatorType
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function setIdGeneratorType(int $generatorType): void
     {
@@ -1956,11 +1645,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     /**
      * Checks whether the class uses a sequence for id generation.
      *
-<<<<<<< HEAD
-     * @psalm-assert-if-true !null $this->sequenceGeneratorDefinition
-=======
      * @phpstan-assert-if-true !null $this->sequenceGeneratorDefinition
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function isIdGeneratorSequence(): bool
     {
@@ -2016,11 +1701,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     /**
      * Sets the mapped subclasses of this class.
      *
-<<<<<<< HEAD
-     * @psalm-param list<string> $subclasses The names of all mapped subclasses.
-=======
      * @phpstan-param list<string> $subclasses The names of all mapped subclasses.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function setSubclasses(array $subclasses): void
     {
@@ -2035,11 +1716,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * Assumes that the class names in the passed array are in the order:
      * directParent -> directParentParent -> directParentParentParent ... -> root.
      *
-<<<<<<< HEAD
-     * @psalm-param list<class-string> $classNames
-=======
      * @phpstan-param list<class-string> $classNames
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function setParentClasses(array $classNames): void
     {
@@ -2053,11 +1730,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     /**
      * Sets the inheritance type used by the class and its subclasses.
      *
-<<<<<<< HEAD
-     * @psalm-param self::INHERITANCE_TYPE_* $type
-=======
      * @phpstan-param self::INHERITANCE_TYPE_* $type
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws MappingException
      */
@@ -2073,11 +1746,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     /**
      * Sets the association to override association mapping of property for an entity relationship.
      *
-<<<<<<< HEAD
-     * @psalm-param array<string, mixed> $overrideMapping
-=======
      * @phpstan-param array{joinColumns?: array, inversedBy?: ?string, joinTable?: array, fetch?: ?string, cascade?: string[]} $overrideMapping
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws MappingException
      */
@@ -2113,13 +1782,10 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
             $mapping['fetch'] = $overrideMapping['fetch'];
         }
 
-<<<<<<< HEAD
-=======
         if (isset($overrideMapping['cascade'])) {
             $mapping['cascade'] = $overrideMapping['cascade'];
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         switch ($mapping['type']) {
             case self::ONE_TO_ONE:
             case self::MANY_TO_ONE:
@@ -2138,11 +1804,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     /**
      * Sets the override for a mapped field.
      *
-<<<<<<< HEAD
-     * @psalm-param array<string, mixed> $overrideMapping
-=======
      * @phpstan-param array<string, mixed> $overrideMapping
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws MappingException
      */
@@ -2180,10 +1842,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
 
         unset($this->fieldMappings[$fieldName]);
         unset($this->fieldNames[$mapping->columnName]);
-<<<<<<< HEAD
-=======
         // @phpstan-ignore property.deprecated
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         unset($this->columnNames[$mapping->fieldName]);
 
         $overrideMapping = $this->validateAndCompleteFieldMapping($overrideMapping);
@@ -2240,11 +1899,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      *
      * If a key is omitted, the current value is kept.
      *
-<<<<<<< HEAD
-     * @psalm-param array<string, mixed> $table The table description.
-=======
      * @phpstan-param array<string, mixed> $table The table description.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function setPrimaryTable(array $table): void
     {
@@ -2296,11 +1951,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     /**
      * Adds a mapped field to the class.
      *
-<<<<<<< HEAD
-     * @psalm-param array<string, mixed> $mapping The field mapping.
-=======
      * @phpstan-param array<string, mixed> $mapping The field mapping.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws MappingException
      */
@@ -2342,14 +1993,9 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     public function addInheritedFieldMapping(FieldMapping $fieldMapping): void
     {
         $this->fieldMappings[$fieldMapping->fieldName] = $fieldMapping;
-<<<<<<< HEAD
-        $this->columnNames[$fieldMapping->fieldName]   = $fieldMapping->columnName;
-        $this->fieldNames[$fieldMapping->columnName]   = $fieldMapping->fieldName;
-=======
         // @phpstan-ignore property.deprecated
         $this->columnNames[$fieldMapping->fieldName] = $fieldMapping->columnName;
         $this->fieldNames[$fieldMapping->columnName] = $fieldMapping->fieldName;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (isset($fieldMapping->generated)) {
             $this->requiresFetchAfterChange = true;
@@ -2373,23 +2019,16 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     /**
      * Adds a one-to-many mapping.
      *
-<<<<<<< HEAD
-     * @psalm-param array<string, mixed> $mapping The mapping.
-=======
      * @phpstan-param array<string, mixed> $mapping The mapping.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function mapOneToMany(array $mapping): void
     {
         $mapping['type'] = self::ONE_TO_MANY;
 
-<<<<<<< HEAD
-=======
         if (isset($mapping['orderBy'])) {
             $mapping['orderBy'] = $this->normalizeOrderBy($mapping['orderBy'], $mapping['fieldName']);
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $mapping = $this->_validateAndCompleteAssociationMapping($mapping);
 
         $this->_storeAssociationMapping($mapping);
@@ -2398,11 +2037,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     /**
      * Adds a many-to-one mapping.
      *
-<<<<<<< HEAD
-     * @psalm-param array<string, mixed> $mapping The mapping.
-=======
      * @phpstan-param array<string, mixed> $mapping The mapping.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function mapManyToOne(array $mapping): void
     {
@@ -2416,23 +2051,16 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     /**
      * Adds a many-to-many mapping.
      *
-<<<<<<< HEAD
-     * @psalm-param array<string, mixed> $mapping The mapping.
-=======
      * @phpstan-param array<string, mixed> $mapping The mapping.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function mapManyToMany(array $mapping): void
     {
         $mapping['type'] = self::MANY_TO_MANY;
 
-<<<<<<< HEAD
-=======
         if (isset($mapping['orderBy'])) {
             $mapping['orderBy'] = $this->normalizeOrderBy($mapping['orderBy'], $mapping['fieldName']);
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $mapping = $this->_validateAndCompleteAssociationMapping($mapping);
 
         $this->_storeAssociationMapping($mapping);
@@ -2458,11 +2086,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * Registers a custom repository class for the entity class.
      *
      * @param string|null $repositoryClassName The class name of the custom mapper.
-<<<<<<< HEAD
-     * @psalm-param class-string<EntityRepository>|null $repositoryClassName
-=======
      * @phpstan-param class-string<EntityRepository>|null $repositoryClassName
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function setCustomRepositoryClass(string|null $repositoryClassName): void
     {
@@ -2502,11 +2126,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * Gets the registered lifecycle callbacks for an event.
      *
      * @return string[]
-<<<<<<< HEAD
-     * @psalm-return list<string>
-=======
      * @phpstan-return list<string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getLifecycleCallbacks(string $event): array
     {
@@ -2533,11 +2153,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * Sets the lifecycle callbacks for entities of this class.
      * Any previously registered callbacks are overwritten.
      *
-<<<<<<< HEAD
-     * @psalm-param array<string, list<string>> $callbacks
-=======
      * @phpstan-param array<string, list<string>> $callbacks
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function setLifecycleCallbacks(array $callbacks): void
     {
@@ -2583,11 +2199,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * @see getDiscriminatorColumn()
      *
      * @param DiscriminatorColumnMapping|mixed[]|null $columnDef
-<<<<<<< HEAD
-     * @psalm-param DiscriminatorColumnMapping|array{
-=======
      * @phpstan-param DiscriminatorColumnMapping|array{
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *     name: string|null,
      *     fieldName?: string|null,
      *     type?: string|null,
@@ -2624,8 +2236,6 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
                 throw MappingException::invalidDiscriminatorColumnType($this->name, $columnDef['type']);
             }
 
-<<<<<<< HEAD
-=======
             if (isset($columnDef['enumType'])) {
                 if (! enum_exists($columnDef['enumType'])) {
                     throw MappingException::nonEnumTypeMapped($this->name, $columnDef['fieldName'], $columnDef['enumType']);
@@ -2640,7 +2250,6 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
                 }
             }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $this->discriminatorColumn = DiscriminatorColumnMapping::fromMappingArray($columnDef);
         }
     }
@@ -2659,11 +2268,6 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * Used for JOINED and SINGLE_TABLE inheritance mapping strategies.
      *
      * @param array<int|string, string> $map
-<<<<<<< HEAD
-     */
-    public function setDiscriminatorMap(array $map): void
-    {
-=======
      *
      * @throws MappingException
      */
@@ -2695,7 +2299,6 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
             }
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         foreach ($map as $value => $className) {
             $this->addDiscriminatorMapClass($value, $className);
         }
@@ -2844,11 +2447,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     /**
      * Sets definition.
      *
-<<<<<<< HEAD
-     * @psalm-param array<string, string|null> $definition
-=======
      * @phpstan-param array<string, string|null> $definition
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function setCustomGeneratorDefinition(array $definition): void
     {
@@ -2868,11 +2467,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * )
      * </code>
      *
-<<<<<<< HEAD
-     * @psalm-param array{sequenceName?: string, allocationSize?: int|string, initialValue?: int|string, quoted?: mixed} $definition
-=======
      * @phpstan-param array{sequenceName?: string, allocationSize?: int|string, initialValue?: int|string, quoted?: mixed} $definition
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws MappingException
      */
@@ -2905,11 +2500,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * Sets the version field mapping used for versioning. Sets the default
      * value to use depending on the column type.
      *
-<<<<<<< HEAD
-     * @psalm-param array<string, mixed> $mapping The version field mapping array.
-=======
      * @phpstan-param array<string, mixed> $mapping The version field mapping array.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws MappingException
      */
@@ -2921,15 +2512,9 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
 
         if (! isset($mapping['default'])) {
             if (in_array($mapping['type'], ['integer', 'bigint', 'smallint'], true)) {
-<<<<<<< HEAD
-                $mapping['default'] = 1;
-            } elseif ($mapping['type'] === 'datetime') {
-                $mapping['default'] = 'CURRENT_TIMESTAMP';
-=======
                 $mapping['options']['default'] = 1;
             } elseif ($mapping['type'] === 'datetime') {
                 $mapping['options']['default'] = class_exists(CurrentTimestamp::class) ? new CurrentTimestamp() : 'CURRENT_TIMESTAMP';
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             } else {
                 throw MappingException::unsupportedOptimisticLockingType($this->name, $mapping['fieldName'], $mapping['type']);
             }
@@ -2984,11 +2569,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     /**
      * {@inheritDoc}
      *
-<<<<<<< HEAD
-     * @psalm-return class-string
-=======
      * @phpstan-return class-string
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws InvalidArgumentException
      */
@@ -3033,11 +2614,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
      * @param C $className
      *
      * @return string|null null if and only if the input value is null
-<<<<<<< HEAD
-     * @psalm-return (C is class-string ? class-string : (C is string ? string : null))
-=======
      * @phpstan-return (C is class-string ? class-string : (C is string ? string : null))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @template C of string|null
      */
@@ -3069,11 +2646,7 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
     /**
      * Map Embedded Class
      *
-<<<<<<< HEAD
-     * @psalm-param array{
-=======
      * @phpstan-param array{
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *     fieldName: string,
      *     class?: class-string,
      *     declaredField?: string,
@@ -3182,24 +2755,6 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
         return $sequencePrefix;
     }
 
-<<<<<<< HEAD
-    /** @psalm-param class-string $class */
-    private function getAccessibleProperty(ReflectionService $reflService, string $class, string $field): ReflectionProperty|null
-    {
-        $reflectionProperty = $reflService->getAccessibleProperty($class, $field);
-        if ($reflectionProperty?->isReadOnly()) {
-            $declaringClass = $reflectionProperty->class;
-            if ($declaringClass !== $class) {
-                $reflectionProperty = $reflService->getAccessibleProperty($declaringClass, $field);
-            }
-
-            if ($reflectionProperty !== null) {
-                $reflectionProperty = new ReflectionReadonlyProperty($reflectionProperty);
-            }
-        }
-
-        return $reflectionProperty;
-=======
     private function registerIdentifierField(string $fieldName, int|null $idPosition): void
     {
         $this->identifier[]                    = $fieldName;
@@ -3248,6 +2803,5 @@ class ClassMetadata implements PersistenceClassMetadata, Stringable
         }
 
         return $normalized;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

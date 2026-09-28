@@ -85,10 +85,7 @@
     "strict": "error",
     "unicorn/explicit-length-check": "off",
     "unicorn/filename-case": "off",
-<<<<<<< HEAD
-=======
     "unicorn/no-anonymous-default-export": "off",
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     "unicorn/no-array-callback-reference": "off",
     "unicorn/no-array-method-this-argument": "off",
     "unicorn/no-null": "off",
@@ -98,12 +95,6 @@
     "unicorn/prefer-array-flat": "off",
     "unicorn/prefer-at": "off",
     "unicorn/prefer-dom-node-dataset": "off",
-<<<<<<< HEAD
-    "unicorn/prefer-module": "off",
-    "unicorn/prefer-query-selector": "off",
-    "unicorn/prefer-spread": "off",
-    "unicorn/prefer-string-replace-all": "off",
-=======
     "unicorn/prefer-global-this": "off",
     "unicorn/prefer-module": "off",
     "unicorn/prefer-query-selector": "off",
@@ -111,7 +102,6 @@
     "unicorn/prefer-string-raw": "off",
     "unicorn/prefer-string-replace-all": "off",
     "unicorn/prefer-structured-clone": "off",
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     "unicorn/prevent-abbreviations": "off"
   },
   "overrides": [
@@ -213,8 +203,6 @@
     },
     {
       "files": [
-<<<<<<< HEAD
-=======
         "site/src/assets/application.js",
         "site/src/assets/partials/*.js",
         "site/src/assets/search.js",
@@ -229,7 +217,6 @@
     },
     {
       "files": [
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         "**/*.md"
       ],
       "plugins": [
@@ -239,16 +226,10 @@
     },
     {
       "files": [
-<<<<<<< HEAD
-        "**/*.md/*.js"
-      ],
-      "extends": "plugin:markdown/recommended",
-=======
         "**/*.md/*.js",
         "**/*.md/*.mjs"
       ],
       "extends": "plugin:markdown/recommended-legacy",
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
       "parserOptions": {
         "sourceType": "module"
       },

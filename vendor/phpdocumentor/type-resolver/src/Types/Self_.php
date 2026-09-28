@@ -15,11 +15,8 @@ namespace phpDocumentor\Reflection\Types;
 
 use phpDocumentor\Reflection\Type;
 
-<<<<<<< HEAD
-=======
 use function implode;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /**
  * Value Object representing the 'self' type.
  *
@@ -29,8 +26,6 @@ use function implode;
  */
 final class Self_ implements Type
 {
-<<<<<<< HEAD
-=======
     /** @var Type[] */
     private $genericTypes;
 
@@ -47,19 +42,15 @@ final class Self_ implements Type
         return $this->genericTypes;
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Returns a rendered output of the Type as it would be used in a DocBlock.
      */
     public function __toString(): string
     {
-<<<<<<< HEAD
-=======
         if ($this->genericTypes) {
             return 'self<' . implode(', ', $this->genericTypes) . '>';
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return 'self';
     }
 }

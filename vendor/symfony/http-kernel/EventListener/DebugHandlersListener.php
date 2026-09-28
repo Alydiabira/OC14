@@ -47,12 +47,8 @@ class DebugHandlersListener implements EventSubscriberInterface
             // BC with Symfony 5
             $webMode = null;
         }
-<<<<<<< HEAD
-        $handler = set_exception_handler('is_int');
-=======
 
         $handler = set_exception_handler('var_dump');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->earlyHandler = \is_array($handler) ? $handler[0] : null;
         restore_exception_handler();
 
@@ -72,10 +68,7 @@ class DebugHandlersListener implements EventSubscriberInterface
             return;
         }
         $this->firstCall = $this->hasTerminatedWithException = false;
-<<<<<<< HEAD
-=======
         $hasRun = null;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (!$this->exceptionHandler) {
             if ($event instanceof KernelEvent) {
@@ -102,11 +95,7 @@ class DebugHandlersListener implements EventSubscriberInterface
             }
         }
         if ($this->exceptionHandler) {
-<<<<<<< HEAD
-            $handler = set_exception_handler(static fn () => null);
-=======
             $handler = set_exception_handler('var_dump');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $handler = \is_array($handler) ? $handler[0] : null;
             restore_exception_handler();
 
@@ -116,8 +105,6 @@ class DebugHandlersListener implements EventSubscriberInterface
 
             if ($handler instanceof ErrorHandler) {
                 $handler->setExceptionHandler($this->exceptionHandler);
-<<<<<<< HEAD
-=======
                 if (null !== $hasRun) {
                     $throwAt = $handler->throwAt(0) | \E_ERROR | \E_CORE_ERROR | \E_COMPILE_ERROR | \E_USER_ERROR | \E_RECOVERABLE_ERROR | \E_PARSE;
                     $loggers = [];
@@ -131,7 +118,6 @@ class DebugHandlersListener implements EventSubscriberInterface
                     // Assume $kernel->terminateWithException() will log uncaught exceptions appropriately
                     $handler->setLoggers($loggers);
                 }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $this->exceptionHandler = null;
         }

@@ -17,13 +17,6 @@ namespace Twig;
  */
 final class Token
 {
-<<<<<<< HEAD
-    private $value;
-    private $type;
-    private $lineno;
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public const EOF_TYPE = -1;
     public const TEXT_TYPE = 0;
     public const BLOCK_START_TYPE = 1;
@@ -37,21 +30,6 @@ final class Token
     public const PUNCTUATION_TYPE = 9;
     public const INTERPOLATION_START_TYPE = 10;
     public const INTERPOLATION_END_TYPE = 11;
-<<<<<<< HEAD
-    public const ARROW_TYPE = 12;
-    public const SPREAD_TYPE = 13;
-
-    public function __construct(int $type, $value, int $lineno)
-    {
-        $this->type = $type;
-        $this->value = $value;
-        $this->lineno = $lineno;
-    }
-
-    public function __toString()
-    {
-        return sprintf('%s(%s)', self::typeToString($this->type, true), $this->value);
-=======
     /**
      * @deprecated since Twig 3.21, "arrow" is now an operator
      */
@@ -69,6 +47,7 @@ final class Token
         private $value,
         private int $lineno,
         private ?int $offset = null,
+        private ?string $documentation = null,
     ) {
         if (self::ARROW_TYPE === $type) {
             trigger_deprecation('twig/twig', '3.21', 'The "%s" token type is deprecated, "arrow" is now an operator.', self::ARROW_TYPE);
@@ -81,7 +60,6 @@ final class Token
     public function __toString(): string
     {
         return \sprintf('%s(%s)', self::typeToString($this->type, true), $this->value);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -102,11 +80,6 @@ final class Token
             $type = self::NAME_TYPE;
         }
 
-<<<<<<< HEAD
-        return ($this->type === $type) && (
-            null === $values
-            || (\is_array($values) && \in_array($this->value, $values))
-=======
         if (self::ARROW_TYPE === $type) {
             trigger_deprecation('twig/twig', '3.21', 'The "%s" token type is deprecated, "arrow" is now an operator.', self::typeToEnglish(self::ARROW_TYPE));
 
@@ -147,7 +120,6 @@ final class Token
         return $typeMatches && (
             null === $values
             || (\is_array($values) && \in_array($this->value, $values, true))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             || $this->value == $values
         );
     }
@@ -157,10 +129,6 @@ final class Token
         return $this->lineno;
     }
 
-<<<<<<< HEAD
-    public function getType(): int
-    {
-=======
     /**
      * Returns the 0-based byte offset of the token in the source code.
      *
@@ -174,6 +142,11 @@ final class Token
         return $this->offset;
     }
 
+    public function getDocumentation(): ?string
+    {
+        return $this->documentation;
+    }
+
     /**
      * @deprecated since Twig 3.19
      */
@@ -181,7 +154,6 @@ final class Token
     {
         trigger_deprecation('twig/twig', '3.19', \sprintf('The "%s()" method is deprecated.', __METHOD__));
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         return $this->type;
     }
 
@@ -190,14 +162,11 @@ final class Token
         return $this->value;
     }
 
-<<<<<<< HEAD
-=======
     public function toEnglish(): string
     {
         return self::typeToEnglish($this->type);
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public static function typeToString(int $type, bool $short = false): string
     {
         switch ($type) {
@@ -247,11 +216,7 @@ final class Token
                 $name = 'SPREAD_TYPE';
                 break;
             default:
-<<<<<<< HEAD
-                throw new \LogicException(sprintf('Token of type "%s" does not exist.', $type));
-=======
                 throw new \LogicException(\sprintf('Token of type "%s" does not exist.', $type));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $short ? $name : 'Twig\Token::'.$name;
@@ -291,11 +256,7 @@ final class Token
             case self::SPREAD_TYPE:
                 return 'spread operator';
             default:
-<<<<<<< HEAD
-                throw new \LogicException(sprintf('Token of type "%s" does not exist.', $type));
-=======
                 throw new \LogicException(\sprintf('Token of type "%s" does not exist.', $type));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 }

@@ -31,11 +31,7 @@ class TableCell
 
         // check option names
         if ($diff = array_diff(array_keys($options), array_keys($this->options))) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('The TableCell does not support the following options: \'%s\'.', implode('\', \'', $diff)));
-=======
             throw new InvalidArgumentException(\sprintf('The TableCell does not support the following options: \'%s\'.', implode('\', \'', $diff)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (isset($options['style']) && !$options['style'] instanceof TableCellStyle) {

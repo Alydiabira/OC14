@@ -10,10 +10,7 @@
 namespace Gedmo\Tree\Strategy\ODM\MongoDB;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
-<<<<<<< HEAD
-=======
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\Persistence\ObjectManager;
 use Gedmo\Mapping\Event\AdapterInterface;
 use Gedmo\Tool\Wrapper\AbstractWrapper;
@@ -30,12 +27,8 @@ use MongoDB\BSON\UTCDateTime;
 class MaterializedPath extends AbstractMaterializedPath
 {
     /**
-<<<<<<< HEAD
-     * @param DocumentManager $om
-=======
      * @param DocumentManager       $om
      * @param ClassMetadata<object> $meta
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function removeNode($om, $meta, $config, $node)
     {
@@ -55,12 +48,8 @@ class MaterializedPath extends AbstractMaterializedPath
     }
 
     /**
-<<<<<<< HEAD
-     * @param DocumentManager $om
-=======
      * @param DocumentManager       $om
      * @param ClassMetadata<object> $meta
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getChildren($om, $meta, $config, $originalPath)
     {
@@ -82,15 +71,8 @@ class MaterializedPath extends AbstractMaterializedPath
         foreach ($this->rootsOfTreesWhichNeedsLocking as $root) {
             $meta = $om->getClassMetadata(get_class($root));
             $config = $this->listener->getConfiguration($om, $meta->getName());
-<<<<<<< HEAD
-            $lockTimeProp = $meta->getReflectionProperty($config['lock_time']);
-            $lockTimeProp->setAccessible(true);
-            $lockTimeValue = new UTCDateTime();
-            $lockTimeProp->setValue($root, $lockTimeValue);
-=======
             $lockTimeValue = new UTCDateTime();
             $meta->setFieldValue($root, $config['lock_time'], $lockTimeValue);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             $ea->recomputeSingleObjectChangeSet($uow, $meta, $root);
         }
@@ -106,15 +88,8 @@ class MaterializedPath extends AbstractMaterializedPath
         foreach ($this->rootsOfTreesWhichNeedsLocking as $oid => $root) {
             $meta = $om->getClassMetadata(get_class($root));
             $config = $this->listener->getConfiguration($om, $meta->getName());
-<<<<<<< HEAD
-            $lockTimeProp = $meta->getReflectionProperty($config['lock_time']);
-            $lockTimeProp->setAccessible(true);
-            $lockTimeValue = null;
-            $lockTimeProp->setValue($root, $lockTimeValue);
-=======
             $lockTimeValue = null;
             $meta->setFieldValue($root, $config['lock_time'], $lockTimeValue);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             $ea->recomputeSingleObjectChangeSet($uow, $meta, $root);
 

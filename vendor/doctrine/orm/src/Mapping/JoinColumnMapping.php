@@ -13,20 +13,14 @@ final class JoinColumnMapping implements ArrayAccess
 {
     use ArrayAccessImplementation;
 
-<<<<<<< HEAD
-=======
     public bool|null $deferrable         = null;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public bool|null $unique             = null;
     public bool|null $quoted             = null;
     public string|null $fieldName        = null;
     public string|null $onDelete         = null;
     public string|null $columnDefinition = null;
     public bool|null $nullable           = null;
-<<<<<<< HEAD
-=======
     public string|null $foreignKeyName   = null;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /** @var array<string, mixed>|null */
     public array|null $options = null;
@@ -39,25 +33,16 @@ final class JoinColumnMapping implements ArrayAccess
 
     /**
      * @param array<string, mixed> $mappingArray
-<<<<<<< HEAD
-     * @psalm-param array{
-     *     name: string,
-     *     referencedColumnName: string,
-=======
      * @phpstan-param array{
      *     name: string,
      *     referencedColumnName: string|null,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *     unique?: bool|null,
      *     quoted?: bool|null,
      *     fieldName?: string|null,
      *     onDelete?: string|null,
      *     columnDefinition?: string|null,
      *     nullable?: bool|null,
-<<<<<<< HEAD
-=======
      *     foreignKeyName?: string|null,
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *     options?: array<string, mixed>|null,
      * } $mappingArray
      */
@@ -78,9 +63,6 @@ final class JoinColumnMapping implements ArrayAccess
     {
         $serialized = [];
 
-<<<<<<< HEAD
-        foreach (['name', 'fieldName', 'onDelete', 'columnDefinition', 'referencedColumnName', 'options'] as $stringOrArrayKey) {
-=======
         foreach (
             [
                 'columnDefinition',
@@ -92,17 +74,12 @@ final class JoinColumnMapping implements ArrayAccess
                 'referencedColumnName',
             ] as $stringOrArrayKey
         ) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if ($this->$stringOrArrayKey !== null) {
                 $serialized[] = $stringOrArrayKey;
             }
         }
 
-<<<<<<< HEAD
-        foreach (['unique', 'quoted', 'nullable'] as $boolKey) {
-=======
         foreach (['deferrable', 'unique', 'quoted', 'nullable'] as $boolKey) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if ($this->$boolKey !== null) {
                 $serialized[] = $boolKey;
             }

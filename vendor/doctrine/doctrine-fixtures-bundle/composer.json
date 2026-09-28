@@ -1,12 +1,5 @@
 {
     "name": "doctrine/doctrine-fixtures-bundle",
-<<<<<<< HEAD
-    "type": "symfony-bundle",
-    "description": "Symfony DoctrineFixturesBundle",
-    "keywords": ["Persistence", "Fixture"],
-    "homepage": "https://www.doctrine-project.org",
-    "license": "MIT",
-=======
     "description": "Symfony DoctrineFixturesBundle",
     "license": "MIT",
     "type": "symfony-bundle",
@@ -14,7 +7,6 @@
         "Persistence",
         "Fixture"
     ],
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     "authors": [
         {
             "name": "Fabien Potencier",
@@ -29,27 +21,6 @@
             "homepage": "https://symfony.com/contributors"
         }
     ],
-<<<<<<< HEAD
-    "require": {
-        "php": "^7.4 || ^8.0",
-        "doctrine/data-fixtures": "^1.3",
-        "doctrine/doctrine-bundle": "^2.2",
-        "doctrine/orm": "^2.14.0 || ^3.0",
-        "doctrine/persistence": "^2.4|^3.0",
-        "symfony/config": "^5.4|^6.0|^7.0",
-        "symfony/console": "^5.4|^6.0|^7.0",
-        "symfony/dependency-injection": "^5.4|^6.0|^7.0",
-        "symfony/deprecation-contracts": "^2.1|^3",
-        "symfony/doctrine-bridge": "^5.4|^6.0|^7.0",
-        "symfony/http-kernel": "^5.4|^6.0|^7.0"
-    },
-    "require-dev": {
-        "doctrine/coding-standard": "^12",
-        "phpstan/phpstan": "^1.10.39",
-        "phpunit/phpunit": "^9.6.13",
-        "symfony/phpunit-bridge": "^6.3.6",
-        "vimeo/psalm": "^5.15"
-=======
     "homepage": "https://www.doctrine-project.org",
     "require": {
         "php": "^7.4 || ^8.0",
@@ -70,24 +41,11 @@
         "phpstan/phpstan": "2.1.32",
         "phpunit/phpunit": "^9.6.13 || 11.4.14",
         "symfony/phpunit-bridge": "7.3.4"
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     },
     "conflict": {
         "doctrine/dbal": "< 3"
     },
     "autoload": {
-<<<<<<< HEAD
-        "psr-4": { "Doctrine\\Bundle\\FixturesBundle\\": "src" }
-    },
-    "autoload-dev": {
-        "psr-4": { "Doctrine\\Bundle\\FixturesBundle\\Tests\\": "tests" }
-    },
-    "config": {
-        "sort-packages": true,
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        }
-=======
         "psr-4": {
             "Doctrine\\Bundle\\FixturesBundle\\": "src"
         }
@@ -102,6 +60,5 @@
             "dealerdirect/phpcodesniffer-composer-installer": true
         },
         "sort-packages": true
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

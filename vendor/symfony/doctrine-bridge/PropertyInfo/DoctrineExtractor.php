@@ -12,10 +12,7 @@
 namespace Symfony\Bridge\Doctrine\PropertyInfo;
 
 use Doctrine\Common\Collections\Collection;
-<<<<<<< HEAD
-=======
 use Doctrine\DBAL\Types\BigIntType;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\AssociationMapping;
@@ -51,11 +48,7 @@ class DoctrineExtractor implements PropertyListExtractorInterface, PropertyTypeE
         $properties = array_merge($metadata->getFieldNames(), $metadata->getAssociationNames());
 
         if ($metadata instanceof ClassMetadata && $metadata->embeddedClasses) {
-<<<<<<< HEAD
-            $properties = array_filter($properties, fn ($property) => !str_contains($property, '.'));
-=======
             $properties = array_filter($properties, static fn ($property) => !str_contains($property, '.'));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             $properties = array_merge($properties, array_keys($metadata->embeddedClasses));
         }
@@ -140,8 +133,6 @@ class DoctrineExtractor implements PropertyListExtractorInterface, PropertyTypeE
             }
 
             $nullable = $metadata instanceof ClassMetadata && $metadata->isNullable($property);
-<<<<<<< HEAD
-=======
 
             // DBAL 4 has a special fallback strategy for BINGINT (int -> string)
             if (Types::BIGINT === $typeOfField && !method_exists(BigIntType::class, 'getName')) {
@@ -151,7 +142,6 @@ class DoctrineExtractor implements PropertyListExtractorInterface, PropertyTypeE
                 ];
             }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $enumType = null;
             if (null !== $enumClass = self::getMappingValue($metadata->getFieldMapping($property), 'enumType') ?? null) {
                 $enumType = new Type(Type::BUILTIN_TYPE_OBJECT, $nullable, $enumClass);

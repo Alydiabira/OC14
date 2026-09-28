@@ -44,48 +44,16 @@ class FileBinaryMimeTypeGuesser implements MimeTypeGuesserInterface
             return $supported;
         }
 
-<<<<<<< HEAD
-        if ('\\' === \DIRECTORY_SEPARATOR || !\function_exists('passthru') || !\function_exists('escapeshellarg')) {
-            return $supported = false;
-        }
-
-        ob_start();
-        passthru('command -v file', $exitStatus);
-        $binPath = trim(ob_get_clean());
-
-        return $supported = 0 === $exitStatus && '' !== $binPath;
-=======
         if ('\\' === \DIRECTORY_SEPARATOR || !\function_exists('shell_exec') || !\function_exists('escapeshellarg')) {
             return $supported = false;
         }
 
         return $supported = '' !== trim(shell_exec('command -v file') ?: '');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function guessMimeType(string $path): ?string
     {
         if (!is_file($path) || !is_readable($path)) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('The "%s" file does not exist or is not readable.', $path));
-        }
-
-        if (!$this->isGuesserSupported()) {
-            throw new LogicException(sprintf('The "%s" guesser is not supported.', __CLASS__));
-        }
-
-        ob_start();
-
-        // need to use --mime instead of -i. see #6641
-        passthru(sprintf($this->cmd, escapeshellarg((str_starts_with($path, '-') ? './' : '').$path)), $return);
-        if ($return > 0) {
-            ob_end_clean();
-
-            return null;
-        }
-
-        $type = trim(ob_get_clean());
-=======
             throw new InvalidArgumentException(\sprintf('The "%s" file does not exist or is not readable.', $path));
         }
 
@@ -95,7 +63,6 @@ class FileBinaryMimeTypeGuesser implements MimeTypeGuesserInterface
 
         // need to use --mime instead of -i. see #6641
         $type = trim(shell_exec(\sprintf($this->cmd, escapeshellarg((str_starts_with($path, '-') ? './' : '').$path))) ?: '');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (!preg_match('#^([a-z0-9\-]+/[a-z0-9\-\+\.]+)#i', $type, $match)) {
             // it's not a type, but an error message

@@ -19,10 +19,6 @@ use Twig\Node\Node;
  */
 final class InlinePrint extends AbstractExpression
 {
-<<<<<<< HEAD
-    public function __construct(Node $node, int $lineno)
-    {
-=======
     /**
      * @param AbstractExpression $node
      */
@@ -30,7 +26,6 @@ final class InlinePrint extends AbstractExpression
     {
         trigger_deprecation('twig/twig', '3.16', \sprintf('The "%s" class is deprecated with no replacement.', static::class));
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         parent::__construct(['node' => $node], [], $lineno);
     }
 

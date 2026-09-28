@@ -12,10 +12,7 @@
 namespace Symfony\Component\AssetMapper;
 
 use Symfony\Component\Asset\PackageInterface;
-<<<<<<< HEAD
-=======
 use Symfony\Component\HttpFoundation\RequestStack;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * Decorates asset packages to support resolving assets from the asset mapper.
@@ -24,25 +21,24 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 final class MapperAwareAssetPackage implements PackageInterface
 {
-<<<<<<< HEAD
-    public function __construct(
-        private readonly PackageInterface $innerPackage,
-        private readonly AssetMapperInterface $assetMapper,
-    ) {
-=======
     private readonly ?string $devServerPrefix;
+    private readonly ?string $publicPrefix;
 
     /**
-     * @param string|null $devServerPublicPrefix The public prefix served by AssetMapperDevServerSubscriber, null when it is disabled
+     * @param string|null           $devServerPublicPrefix      The public prefix served by AssetMapperDevServerSubscriber, null when it is disabled
+     * @param PackageInterface|null $innerPackageWithoutVersion The decorated package without its version strategy, null when the Asset component is not configured
+     * @param string|null           $publicPrefix               The public prefix of the mapped assets, used to recognize a path the mapper already resolved
      */
     public function __construct(
         private readonly PackageInterface $innerPackage,
         private readonly AssetMapperInterface $assetMapper,
         private readonly ?RequestStack $requestStack = null,
         ?string $devServerPublicPrefix = null,
+        private readonly ?PackageInterface $innerPackageWithoutVersion = null,
+        ?string $publicPrefix = null,
     ) {
         $this->devServerPrefix = null === $devServerPublicPrefix ? null : '/'.trim($devServerPublicPrefix, '/').'/';
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
+        $this->publicPrefix = null === $publicPrefix ? null : '/'.trim($publicPrefix, '/').'/';
     }
 
     public function getVersion(string $path): string
@@ -53,12 +49,18 @@ final class MapperAwareAssetPackage implements PackageInterface
     public function getUrl(string $path): string
     {
         $publicPath = $this->assetMapper->getPublicPath($path);
+
+        // the content hash is the version, so the configured strategy must not add a second one.
+        // The import map renders public paths, which the mapper does not resolve again, hence the prefix test.
+        // The package must be picked before the block below prepends the front controller.
+        $package = $publicPath || (null !== $this->publicPrefix && str_starts_with('/'.$path, $this->publicPrefix))
+            ? $this->innerPackageWithoutVersion ?? $this->innerPackage
+            : $this->innerPackage;
+
         if ($publicPath) {
             $path = ltrim($publicPath, '/');
         }
 
-<<<<<<< HEAD
-=======
         if (null !== $this->devServerPrefix && str_starts_with('/'.$path, $this->devServerPrefix)) {
             // the dev server serves those assets through the kernel, so the front controller must be part of the URL
             $request = $this->requestStack?->getMainRequest();
@@ -69,7 +71,6 @@ final class MapperAwareAssetPackage implements PackageInterface
             }
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
-        return $this->innerPackage->getUrl($path);
+        return $package->getUrl($path);
     }
 }

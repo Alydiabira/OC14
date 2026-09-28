@@ -8,7 +8,6 @@ use App\Tests\Functional\FunctionalTestCase;
 
 final class FilterTest extends FunctionalTestCase
 {
-<<<<<<< HEAD
     /**
      * @return iterable<string, array{
      *     query: array<string, mixed>,
@@ -210,14 +209,10 @@ final class FilterTest extends FunctionalTestCase
     }
 
     public function testShouldSortVideoGames(): void
-=======
-    public function testShouldListTenVideoGames(): void
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->get('/');
         self::assertResponseIsSuccessful();
         self::assertSelectorCount(10, 'article.game-card');
-<<<<<<< HEAD
         self::assertSelectorTextSame(
             'article.game-card:nth-child(1) h2.game-card-title a',
             'Jeu vidéo 0'
@@ -241,18 +236,10 @@ final class FilterTest extends FunctionalTestCase
     }
 
     public function testShouldFilterBySearchVideoGames(): void
-=======
-        $this->client->clickLink('2');
-        self::assertResponseIsSuccessful();
-    }
-
-    public function testShouldFilterVideoGamesBySearch(): void
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->get('/');
         self::assertResponseIsSuccessful();
         self::assertSelectorCount(10, 'article.game-card');
-<<<<<<< HEAD
         self::assertSelectorTextSame(
             'article.game-card:nth-child(1) h2.game-card-title a',
             'Jeu vidéo 0'
@@ -372,10 +359,5 @@ final class FilterTest extends FunctionalTestCase
                     )
                 )
         ];
-=======
-        $this->client->submitForm('Filtrer', ['filter[search]' => 'Jeu vidéo 49'], 'GET');
-        self::assertResponseIsSuccessful();
-        self::assertSelectorCount(1, 'article.game-card');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

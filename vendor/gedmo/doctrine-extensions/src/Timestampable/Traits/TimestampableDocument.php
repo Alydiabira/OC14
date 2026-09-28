@@ -14,13 +14,9 @@ use Doctrine\ODM\MongoDB\Types\Type;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
-<<<<<<< HEAD
- * Timestampable Trait, usable with PHP >= 5.4
-=======
  * Trait for timestampable objects.
  *
  * This implementation provides a mapping configuration for the Doctrine MongoDB ODM.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @author Gediminas Morkevicius <gediminas.morkevicius@gmail.com>
  */

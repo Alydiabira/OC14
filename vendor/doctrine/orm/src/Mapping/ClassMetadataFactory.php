@@ -4,11 +4,7 @@ declare(strict_types=1);
 
 namespace Doctrine\ORM\Mapping;
 
-<<<<<<< HEAD
-use Doctrine\Common\EventManager;
-=======
 use Doctrine\Common\EventDispatcher;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\DBAL\Platforms;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\Deprecations\Deprecation;
@@ -45,11 +41,8 @@ use function strlen;
 use function strtolower;
 use function substr;
 
-<<<<<<< HEAD
-=======
 use const PHP_VERSION_ID;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /**
  * The ClassMetadataFactory is used to create ClassMetadata objects that contain all the
  * metadata mapping information of a class which describes how a class should be mapped
@@ -62,11 +55,7 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
     private EntityManagerInterface|null $em       = null;
     private AbstractPlatform|null $targetPlatform = null;
     private MappingDriver|null $driver            = null;
-<<<<<<< HEAD
-    private EventManager|null $evm                = null;
-=======
     private EventDispatcher|null $eventDispatcher = null;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /** @var mixed[] */
     private array $embeddablesActiveNesting = [];
@@ -77,13 +66,9 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
 
     public function setEntityManager(EntityManagerInterface $em): void
     {
-<<<<<<< HEAD
-        parent::setProxyClassNameResolver(new DefaultProxyClassNameResolver());
-=======
         if (! $em->getConfiguration()->isNativeLazyObjectsEnabled()) {
             parent::setProxyClassNameResolver(new DefaultProxyClassNameResolver());
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $this->em = $em;
     }
@@ -124,32 +109,16 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
 
     protected function initialize(): void
     {
-<<<<<<< HEAD
-        $this->driver      = $this->em->getConfiguration()->getMetadataDriverImpl();
-        $this->evm         = $this->em->getEventManager();
-        $this->initialized = true;
-=======
         $this->driver          = $this->em->getConfiguration()->getMetadataDriverImpl();
         $this->eventDispatcher = $this->em->getEventManager();
         $this->initialized     = true;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function onNotFoundMetadata(string $className): ClassMetadata|null
     {
-<<<<<<< HEAD
-        if (! $this->evm->hasListeners(Events::onClassMetadataNotFound)) {
-            return null;
-        }
-
-        $eventArgs = new OnClassMetadataNotFoundEventArgs($className, $this->em);
-
-        $this->evm->dispatchEvent(Events::onClassMetadataNotFound, $eventArgs);
-=======
         $eventArgs = new OnClassMetadataNotFoundEventArgs($className, $this->em);
 
         $this->eventDispatcher->dispatchEvent(Events::onClassMetadataNotFound, $eventArgs);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $classMetadata = $eventArgs->getFoundMetadata();
         assert($classMetadata instanceof ClassMetadata || $classMetadata === null);
 
@@ -172,11 +141,7 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
             $this->addInheritedFields($class, $parent);
             $this->addInheritedRelations($class, $parent);
             $this->addInheritedEmbeddedClasses($class, $parent);
-<<<<<<< HEAD
-            $class->setIdentifier($parent->identifier);
-=======
             $class->setIdentifier($parent->identifier, $parent->identifierPositions);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $class->setVersioned($parent->isVersioned);
             $class->setVersionField($parent->versionField);
             $class->setDiscriminatorMap($parent->discriminatorMap);
@@ -276,17 +241,10 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
         // During the following event, there may also be updates to the discriminator map as per GH-1257/GH-8402.
         // So, we must not discover the missing subclasses before that.
 
-<<<<<<< HEAD
-        if ($this->evm->hasListeners(Events::loadClassMetadata)) {
-            $eventArgs = new LoadClassMetadataEventArgs($class, $this->em);
-            $this->evm->dispatchEvent(Events::loadClassMetadata, $eventArgs);
-        }
-=======
         $this->eventDispatcher->dispatchEvent(
             Events::loadClassMetadata,
             new LoadClassMetadataEventArgs($class, $this->em),
         );
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $this->findAbstractEntityClassesNotListedInDiscriminatorMap($class);
 
@@ -441,11 +399,7 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
     /**
      * Gets the lower-case short name of a class.
      *
-<<<<<<< HEAD
-     * @psalm-param class-string $className
-=======
      * @param class-string $className
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private function getShortName(string $className): string
     {
@@ -486,13 +440,8 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
             $subClass->addInheritedFieldMapping($subClassMapping);
         }
 
-<<<<<<< HEAD
-        foreach ($parentClass->reflFields as $name => $field) {
-            $subClass->reflFields[$name] = $field;
-=======
         foreach ($parentClass->propertyAccessors as $name => $field) {
             $subClass->propertyAccessors[$name] = $field;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -663,11 +612,7 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
         }
     }
 
-<<<<<<< HEAD
-    /** @psalm-return ClassMetadata::GENERATOR_TYPE_* */
-=======
     /** @phpstan-return ClassMetadata::GENERATOR_TYPE_* */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     private function determineIdGeneratorStrategy(AbstractPlatform $platform): int
     {
         assert($this->em !== null);
@@ -754,8 +699,6 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
     protected function wakeupReflection(ClassMetadataInterface $class, ReflectionService $reflService): void
     {
         $class->wakeupReflection($reflService);
-<<<<<<< HEAD
-=======
 
         if (PHP_VERSION_ID < 80400) {
             return;
@@ -768,7 +711,6 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
                 throw MappingException::mappingVirtualPropertyNotAllowed($class->name, $property->getName());
             }
         }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     protected function initializeReflection(ClassMetadataInterface $class, ReflectionService $reflService): void

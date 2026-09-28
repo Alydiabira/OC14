@@ -124,11 +124,7 @@ abstract class AbstractUnicodeString extends AbstractString
                         }
 
                         if (null === $transliterator) {
-<<<<<<< HEAD
-                            throw new InvalidArgumentException(sprintf('Unknown transliteration rule "%s".', $rule));
-=======
                             throw new InvalidArgumentException(\sprintf('Unknown transliteration rule "%s".', $rule));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         }
 
                         self::$transliterators['any-latin/bgn'] = $transliterator;
@@ -139,17 +135,6 @@ abstract class AbstractUnicodeString extends AbstractString
             } elseif (!\function_exists('iconv')) {
                 $s = preg_replace('/[^\x00-\x7F]/u', '?', $s);
             } else {
-<<<<<<< HEAD
-                $s = @preg_replace_callback('/[^\x00-\x7F]/u', static function ($c) {
-                    $c = (string) iconv('UTF-8', 'ASCII//TRANSLIT', $c[0]);
-
-                    if ('' === $c && '' === iconv('UTF-8', 'ASCII//TRANSLIT', '²')) {
-                        throw new \LogicException(sprintf('"%s" requires a translit-able iconv implementation, try installing "gnu-libiconv" if you\'re using Alpine Linux.', static::class));
-                    }
-
-                    return 1 < \strlen($c) ? ltrim($c, '\'`"^~') : ('' !== $c ? $c : '?');
-                }, $s);
-=======
                 $previousLocale = setlocale(\LC_CTYPE, 0);
                 try {
                     setlocale(\LC_CTYPE, 'C');
@@ -165,7 +150,6 @@ abstract class AbstractUnicodeString extends AbstractString
                 } finally {
                     setlocale(\LC_CTYPE, $previousLocale);
                 }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -177,11 +161,7 @@ abstract class AbstractUnicodeString extends AbstractString
     public function camel(): static
     {
         $str = clone $this;
-<<<<<<< HEAD
-        $str->string = str_replace(' ', '', preg_replace_callback('/\b.(?![A-Z]{2,})/u', static function ($m) {
-=======
         $str->string = str_replace(' ', '', preg_replace_callback('/\b.(?!\p{Lu})/u', static function ($m) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             static $i = 0;
 
             return 1 === ++$i ? ('İ' === $m[0] ? 'i̇' : mb_strtolower($m[0], 'UTF-8')) : mb_convert_case($m[0], \MB_CASE_TITLE, 'UTF-8');
@@ -216,11 +196,7 @@ abstract class AbstractUnicodeString extends AbstractString
 
         if (!$compat || !\defined('Normalizer::NFKC_CF')) {
             $str->string = normalizer_normalize($str->string, $compat ? \Normalizer::NFKC : \Normalizer::NFC);
-<<<<<<< HEAD
-            $str->string = mb_strtolower(str_replace(self::FOLD_FROM, self::FOLD_TO, $this->string), 'UTF-8');
-=======
             $str->string = mb_strtolower(str_replace(self::FOLD_FROM, self::FOLD_TO, $str->string), 'UTF-8');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } else {
             $str->string = normalizer_normalize($str->string, \Normalizer::NFKC_CF);
         }
@@ -554,11 +530,8 @@ abstract class AbstractUnicodeString extends AbstractString
     private function wcswidth(string $string): int
     {
         $width = 0;
-<<<<<<< HEAD
-=======
         $lastChar = null;
         $lastWidth = null;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         foreach (preg_split('//u', $string, -1, \PREG_SPLIT_NO_EMPTY) as $c) {
             $codePoint = mb_ord($c, 'UTF-8');
@@ -581,8 +554,6 @@ abstract class AbstractUnicodeString extends AbstractString
                 return -1;
             }
 
-<<<<<<< HEAD
-=======
             if (0xFE0F === $codePoint) {
                 if (\PCRE_VERSION_MAJOR < 10 || \PCRE_VERSION_MAJOR === 10 && \PCRE_VERSION_MINOR < 40) {
                     $regex = '/\p{So}/u';
@@ -597,7 +568,6 @@ abstract class AbstractUnicodeString extends AbstractString
                 continue;
             }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             self::$tableZero ??= require __DIR__.'/Resources/data/wcswidth_table_zero.php';
 
             if ($codePoint >= self::$tableZero[0][0] && $codePoint <= self::$tableZero[$ubound = \count(self::$tableZero) - 1][1]) {
@@ -628,11 +598,8 @@ abstract class AbstractUnicodeString extends AbstractString
                         $ubound = $mid - 1;
                     } else {
                         $width += 2;
-<<<<<<< HEAD
-=======
                         $lastChar = $c;
                         $lastWidth = 2;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                         continue 2;
                     }
@@ -640,11 +607,8 @@ abstract class AbstractUnicodeString extends AbstractString
             }
 
             ++$width;
-<<<<<<< HEAD
-=======
             $lastChar = $c;
             $lastWidth = 1;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $width;

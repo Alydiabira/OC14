@@ -334,11 +334,7 @@ class DateTime extends Base
      *
      * @example 'Europe/Paris'
      */
-<<<<<<< HEAD
-    public static function timezone(string $countryCode = null)
-=======
     public static function timezone(?string $countryCode = null)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         if ($countryCode) {
             $timezones = \DateTimeZone::listIdentifiers(\DateTimeZone::PER_COUNTRY, $countryCode);

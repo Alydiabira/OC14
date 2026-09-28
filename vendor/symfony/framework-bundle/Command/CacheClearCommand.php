@@ -13,24 +13,16 @@ namespace Symfony\Bundle\FrameworkBundle\Command;
 
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-<<<<<<< HEAD
-=======
 use Symfony\Component\Console\ConsoleEvents;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-<<<<<<< HEAD
-use Symfony\Component\DependencyInjection\Dumper\Preloader;
-use Symfony\Component\EventDispatcher\EventDispatcher;
-=======
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Dumper\Preloader;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -67,21 +59,12 @@ class CacheClearCommand extends Command
                 new InputOption('no-optional-warmers', '', InputOption::VALUE_NONE, 'Skip optional cache warmers (faster)'),
             ])
             ->setHelp(<<<'EOF'
-<<<<<<< HEAD
-The <info>%command.name%</info> command clears and warms up the application cache for a given environment
-and debug mode:
-
-  <info>php %command.full_name% --env=dev</info>
-  <info>php %command.full_name% --env=prod --no-debug</info>
-EOF
-=======
                 The <info>%command.name%</info> command clears and warms up the application cache for a given environment
                 and debug mode:
 
                   <info>php %command.full_name% --env=dev</info>
                   <info>php %command.full_name% --env=prod --no-debug</info>
                 EOF
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -92,11 +75,8 @@ EOF
         $io = new SymfonyStyle($input, $output);
 
         $kernel = $this->getApplication()->getKernel();
-<<<<<<< HEAD
-=======
         // resolve the console listeners now, the container they are loaded from is about to be cleared
         $dispatcher = $this->createConsoleDispatcher($kernel->getContainer());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $realCacheDir = $kernel->getContainer()->getParameter('kernel.cache_dir');
         $realBuildDir = $kernel->getContainer()->hasParameter('kernel.build_dir') ? $kernel->getContainer()->getParameter('kernel.build_dir') : $realCacheDir;
         // the old cache dir name must not be longer than the real one to avoid exceeding
@@ -105,11 +85,7 @@ EOF
         $fs->remove($oldCacheDir);
 
         if (!is_writable($realCacheDir)) {
-<<<<<<< HEAD
-            throw new RuntimeException(sprintf('Unable to write in the "%s" directory.', $realCacheDir));
-=======
             throw new RuntimeException(\sprintf('Unable to write in the "%s" directory.', $realCacheDir));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $useBuildDir = $realBuildDir !== $realCacheDir;
@@ -118,11 +94,7 @@ EOF
             $fs->remove($oldBuildDir);
 
             if (!is_writable($realBuildDir)) {
-<<<<<<< HEAD
-                throw new RuntimeException(sprintf('Unable to write in the "%s" directory.', $realBuildDir));
-=======
                 throw new RuntimeException(\sprintf('Unable to write in the "%s" directory.', $realBuildDir));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if ($this->isNfs($realCacheDir)) {
@@ -133,22 +105,14 @@ EOF
             $fs->mkdir($realCacheDir);
         }
 
-<<<<<<< HEAD
-        $io->comment(sprintf('Clearing the cache for the <info>%s</info> environment with debug <info>%s</info>', $kernel->getEnvironment(), var_export($kernel->isDebug(), true)));
-=======
         $io->comment(\sprintf('Clearing the cache for the <info>%s</info> environment with debug <info>%s</info>', $kernel->getEnvironment(), var_export($kernel->isDebug(), true)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if ($useBuildDir) {
             $this->cacheClearer->clear($realBuildDir);
         }
         $this->cacheClearer->clear($realCacheDir);
 
         // The current event dispatcher is stale, let's not use it anymore
-<<<<<<< HEAD
-        $this->getApplication()->setDispatcher(new EventDispatcher());
-=======
         $this->getApplication()->setDispatcher($dispatcher);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $containerFile = (new \ReflectionObject($kernel->getContainer()))->getFileName();
         $containerDir = basename(\dirname($containerFile));
@@ -187,8 +151,6 @@ EOF
                     }
                     $this->warmupOptionals($useBuildDir ? $realCacheDir : $warmupDir, $warmupDir, $io);
                 }
-<<<<<<< HEAD
-=======
 
                 // fix references to cached files with the real cache directory name
                 $search = [$warmupDir, str_replace('/', '\\/', $warmupDir), str_replace('\\', '\\\\', $warmupDir)];
@@ -199,7 +161,6 @@ EOF
                         file_put_contents($file, $content);
                     }
                 }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if (!$fs->exists($warmupDir.'/'.$containerDir)) {
@@ -214,14 +175,11 @@ EOF
                 $fs->rename($realBuildDir, $oldBuildDir);
             }
 
-<<<<<<< HEAD
-=======
             // Under load, a concurrent request can boot the kernel and rebuild the cache
             // in $realBuildDir while it is moved aside above. Drop that partial rebuild,
             // the warmed-up directory supersedes it.
             $fs->remove($realBuildDir);
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $fs->rename($warmupDir, $realBuildDir);
 
             if ($output->isVerbose()) {
@@ -251,11 +209,7 @@ EOF
             $io->comment('Finished');
         }
 
-<<<<<<< HEAD
-        $io->success(sprintf('Cache for the "%s" environment (debug=%s) was successfully cleared.', $kernel->getEnvironment(), var_export($kernel->isDebug(), true)));
-=======
         $io->success(\sprintf('Cache for the "%s" environment (debug=%s) was successfully cleared.', $kernel->getEnvironment(), var_export($kernel->isDebug(), true)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return 0;
     }
@@ -293,19 +247,6 @@ EOF
             throw new \LogicException('Calling "cache:clear" with a kernel that does not implement "Symfony\Component\HttpKernel\RebootableInterface" is not supported.');
         }
         $kernel->reboot($warmupDir);
-<<<<<<< HEAD
-
-        // fix references to cached files with the real cache directory name
-        $search = [$warmupDir, str_replace('\\', '\\\\', $warmupDir)];
-        $replace = str_replace('\\', '/', $realBuildDir);
-        foreach (Finder::create()->files()->in($warmupDir) as $file) {
-            $content = str_replace($search, $replace, file_get_contents($file), $count);
-            if ($count) {
-                file_put_contents($file, $content);
-            }
-        }
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     private function warmupOptionals(string $cacheDir, string $warmupDir, SymfonyStyle $io): void
@@ -320,8 +261,6 @@ EOF
             Preloader::append($preloadFile, $preload);
         }
     }
-<<<<<<< HEAD
-=======
 
     private function createConsoleDispatcher(ContainerInterface $container): EventDispatcher
     {
@@ -340,5 +279,4 @@ EOF
 
         return $dispatcher;
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

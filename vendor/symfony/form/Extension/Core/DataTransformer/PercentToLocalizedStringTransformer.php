@@ -131,13 +131,6 @@ class PercentToLocalizedStringTransformer implements DataTransformerInterface
             $type = \PHP_INT_SIZE === 8 ? \NumberFormatter::TYPE_INT64 : \NumberFormatter::TYPE_INT32;
         }
 
-<<<<<<< HEAD
-        // replace normal spaces so that the formatter can read them
-        $result = $formatter->parse(str_replace(' ', "\xc2\xa0", $value), $type, $position);
-
-        if (intl_is_failure($formatter->getErrorCode())) {
-            throw new TransformationFailedException($formatter->getErrorMessage());
-=======
         try {
             // replace normal spaces so that the formatter can read them
             $result = @$formatter->parse(str_replace(' ', "\xc2\xa0", $value), $type, $position);
@@ -147,7 +140,6 @@ class PercentToLocalizedStringTransformer implements DataTransformerInterface
 
         if (intl_is_failure($formatter->getErrorCode())) {
             throw new TransformationFailedException($formatter->getErrorMessage(), $formatter->getErrorCode());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         if (self::FRACTIONAL == $this->type) {
@@ -170,11 +162,7 @@ class PercentToLocalizedStringTransformer implements DataTransformerInterface
             $remainder = trim($remainder, " \t\n\r\0\x0b\xc2\xa0");
 
             if ('' !== $remainder) {
-<<<<<<< HEAD
-                throw new TransformationFailedException(sprintf('The number contains unrecognized characters: "%s".', $remainder));
-=======
                 throw new TransformationFailedException(\sprintf('The number contains unrecognized characters: "%s".', $remainder));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 

@@ -96,11 +96,7 @@ class VarDumper
             $dumper = new ContextualizedDumper($dumper, [new SourceContextProvider()]);
         }
 
-<<<<<<< HEAD
-        self::$handler = function ($var, ?string $label = null) use ($cloner, $dumper) {
-=======
         self::$handler = static function ($var, ?string $label = null) use ($cloner, $dumper) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $var = $cloner->cloneVar($var);
 
             if (null !== $label) {

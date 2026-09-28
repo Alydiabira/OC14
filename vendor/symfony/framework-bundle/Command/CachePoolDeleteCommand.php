@@ -51,17 +51,10 @@ final class CachePoolDeleteCommand extends Command
                 new InputArgument('key', InputArgument::REQUIRED, 'The cache key to delete from the pool'),
             ])
             ->setHelp(<<<'EOF'
-<<<<<<< HEAD
-The <info>%command.name%</info> deletes an item from a given cache pool.
-
-    %command.full_name% <pool> <key>
-EOF
-=======
                 The <info>%command.name%</info> deletes an item from a given cache pool.
 
                     %command.full_name% <pool> <key>
                 EOF
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -74,27 +67,16 @@ EOF
         $cachePool = $this->poolClearer->getPool($pool);
 
         if (!$cachePool->hasItem($key)) {
-<<<<<<< HEAD
-            $io->note(sprintf('Cache item "%s" does not exist in cache pool "%s".', $key, $pool));
-=======
             $io->note(\sprintf('Cache item "%s" does not exist in cache pool "%s".', $key, $pool));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
             return 0;
         }
 
         if (!$cachePool->deleteItem($key)) {
-<<<<<<< HEAD
-            throw new \Exception(sprintf('Cache item "%s" could not be deleted.', $key));
-        }
-
-        $io->success(sprintf('Cache item "%s" was successfully deleted.', $key));
-=======
             throw new \Exception(\sprintf('Cache item "%s" could not be deleted.', $key));
         }
 
         $io->success(\sprintf('Cache item "%s" was successfully deleted.', $key));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return 0;
     }

@@ -72,11 +72,7 @@
     @include media-breakpoint-up($breakpoint, $breakpoints) {
       // Provide basic `.col-{bp}` classes for equal-width flexbox columns
       .col#{$infix} {
-<<<<<<< HEAD
-        flex: 1 0 0%; // Flexbugs #4: https://github.com/philipwalton/flexbugs#flexbug-4
-=======
         flex: 1 0 0;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
       }
 
       .row-cols#{$infix}-auto > * {

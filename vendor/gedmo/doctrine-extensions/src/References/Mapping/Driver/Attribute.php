@@ -9,18 +9,6 @@
 
 namespace Gedmo\References\Mapping\Driver;
 
-<<<<<<< HEAD
-use Gedmo\Mapping\Driver\AttributeDriverInterface;
-
-/**
- * This is an attribute mapping driver for References
- * behavioral extension.
- *
- * @internal
- */
-final class Attribute extends Annotation implements AttributeDriverInterface
-{
-=======
 use Gedmo\Mapping\Annotation\Reference;
 use Gedmo\Mapping\Annotation\ReferenceMany;
 use Gedmo\Mapping\Annotation\ReferenceManyEmbed;
@@ -94,5 +82,4 @@ class Attribute extends AbstractAnnotationDriver
 
         return $config;
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

@@ -74,18 +74,10 @@ class HttpFoundationRequestHandler implements RequestHandlerInterface
                 // Submit the form, but don't clear the default values
                 $form->submit(null, false);
 
-<<<<<<< HEAD
-                $form->addError(new FormError(
-                    $form->getConfig()->getOption('upload_max_size_message')(),
-                    null,
-                    ['{{ max }}' => $this->serverParams->getNormalizedIniPostMaxSize()]
-                ));
-=======
                 $messageTemplate = $form->getConfig()->getOption('upload_max_size_message')();
                 $messageParameters = ['{{ max }}' => $this->serverParams->getNormalizedIniPostMaxSize()];
 
                 $form->addError(new FormError(strtr($messageTemplate, $messageParameters), $messageTemplate, $messageParameters));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 return;
             }
@@ -110,11 +102,7 @@ class HttpFoundationRequestHandler implements RequestHandlerInterface
         }
 
         // Don't auto-submit the form unless at least one field is present.
-<<<<<<< HEAD
-        if ('' === $name && \count(array_intersect_key($data, $form->all())) <= 0) {
-=======
         if ('' === $name && !array_intersect_key($data, $form->all())) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             return;
         }
 

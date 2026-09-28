@@ -136,11 +136,7 @@
             </trans-unit>
             <trans-unit id="37" resname="This is not a valid IP address.">
                 <source>This value is not a valid IP address.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">یہ قیمت کوئی درست IP پتہ نہیں ہے۔</target>
-=======
                 <target>یہ ویلیو درست IP پتہ نہیں ہے</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="38">
                 <source>This value is not a valid language.</source>
@@ -196,11 +192,7 @@
             </trans-unit>
             <trans-unit id="51" resname="No temporary folder was configured in php.ini.">
                 <source>No temporary folder was configured in php.ini, or the configured folder does not exist.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">php.ini میں کوئی عارضی فولڈر ترتیب نہیں دیا گیا تھا، یا ترتیب دیا گیا فولڈر موجود نہیں ہے۔</target>
-=======
                 <target>php.ini میں کوئی عارضی فولڈر ترتیب نہیں دیا گیا تھا، یا ترتیب دیا گیا فولڈر موجود نہیں ہے۔</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="52">
                 <source>Cannot write temporary file to disk.</source>
@@ -232,11 +224,7 @@
             </trans-unit>
             <trans-unit id="59" resname="This is not a valid International Bank Account Number (IBAN).">
                 <source>This value is not a valid International Bank Account Number (IBAN).</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">یہ قیمت کوئی درست بین الاقوامی بینک اکاؤنٹ نمبر (IBAN) نہیں ہے۔</target>
-=======
                 <target>یہ ویلیو درست بین الاقوامی بینک اکاؤنٹ نمبر (IBAN) نہیں ہے</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="60">
                 <source>This value is not a valid ISBN-10.</source>
@@ -324,11 +312,7 @@
             </trans-unit>
             <trans-unit id="81" resname="This is not a valid Business Identifier Code (BIC).">
                 <source>This value is not a valid Business Identifier Code (BIC).</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">یہ قیمت کوئی درست بزنس شناختی کوڈ (BIC) نہیں ہے۔</target>
-=======
                 <target>یہ ویلیو درست کاروباری شناختی کوڈ (BIC) نہیں ہے</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="82">
                 <source>Error</source>
@@ -336,11 +320,7 @@
             </trans-unit>
             <trans-unit id="83" resname="This is not a valid UUID.">
                 <source>This value is not a valid UUID.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">یہ قیمت کوئی درست UUID نہیں ہے۔</target>
-=======
                 <target>یہ ویلیو درست UUID نہیں ہے</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="84">
                 <source>This value should be a multiple of {{ compared_value }}.</source>
@@ -424,45 +404,6 @@
             </trans-unit>
             <trans-unit id="104">
                 <source>The filename is too long. It should have {{ filename_max_length }} character or less.|The filename is too long. It should have {{ filename_max_length }} characters or less.</source>
-<<<<<<< HEAD
-                <target state="needs-review-translation">فائل کا نام بہت لمبا ہے۔ اس میں {{ filename_max_length }} حرف یا اس سے کم ہونے چاہئیں۔|فائل کا نام بہت لمبا ہے۔ اس میں {{ filename_max_length }} حروف یا اس سے کم ہونے چاہئیں۔</target>
-            </trans-unit>
-            <trans-unit id="105">
-                <source>The password strength is too low. Please use a stronger password.</source>
-                <target state="needs-review-translation">پاس ورڈ کی طاقت بہت کم ہے۔ براہ کرم مضبوط پاس ورڈ استعمال کریں۔</target>
-            </trans-unit>
-            <trans-unit id="106">
-                <source>This value contains characters that are not allowed by the current restriction-level.</source>
-                <target state="needs-review-translation">اس قدر میں ایسے حروف موجود ہیں جو موجودہ پابندی کی سطح کی طرف سے اجازت نہیں ہیں۔</target>
-            </trans-unit>
-            <trans-unit id="107">
-                <source>Using invisible characters is not allowed.</source>
-                <target state="needs-review-translation">نادیدہ حروف استعمال کرنے کی اجازت نہیں ہے۔</target>
-            </trans-unit>
-            <trans-unit id="108">
-                <source>Mixing numbers from different scripts is not allowed.</source>
-                <target state="needs-review-translation">مختلف اسکرپٹس سے نمبروں کو ملا کر استعمال کرنے کی اجازت نہیں ہے۔</target>
-            </trans-unit>
-            <trans-unit id="109">
-                <source>Using hidden overlay characters is not allowed.</source>
-                <target state="needs-review-translation">چھپے ہوئے اوورلے کریکٹرز کا استعمال کرنے کی اجازت نہیں ہے۔</target>
-            </trans-unit>
-            <trans-unit id="110">
-                <source>The extension of the file is invalid ({{ extension }}). Allowed extensions are {{ extensions }}.</source>
-                <target state="needs-review-translation">فائل کی توسیع نامناسب ہے ({{ extension }})۔ اجازت شدہ توسیعات {{ extensions }} ہیں۔</target>
-            </trans-unit>
-            <trans-unit id="111">
-                <source>The detected character encoding is invalid ({{ detected }}). Allowed encodings are {{ encodings }}.</source>
-                <target state="needs-review-translation">پتہ چلنے والی کریکٹر انکوڈنگ نامناسب ہے ({{ detected }})۔ اجازت شدہ انکوڈنگز {{ encodings }} ہیں۔</target>
-            </trans-unit>
-            <trans-unit id="112">
-                <source>This value is not a valid MAC address.</source>
-                <target state="needs-review-translation">یہ قیمت کوئی درست MAC پتہ نہیں ہے۔</target>
-            </trans-unit>
-            <trans-unit id="113">
-                <source>This URL is missing a top-level domain.</source>
-                <target state="needs-review-translation">اس URL میں ٹاپ لیول ڈومین موجود نہیں ہے۔</target>
-=======
                 <target>فائل کا نام بہت لمبا ہے۔ اس میں {{ filename_max_length }} حرف یا اس سے کم ہونے چاہئیں۔|فائل کا نام بہت لمبا ہے۔ اس میں {{ filename_max_length }} حروف یا اس سے کم ہونے چاہئیں۔</target>
             </trans-unit>
             <trans-unit id="105">
@@ -636,7 +577,6 @@
             <trans-unit id="148" resname="This is not a valid ULID.">
                 <source>This value is not a valid ULID.</source>
                 <target>یہ ویلیو درست ULID نہیں ہے</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
         </body>
     </file>

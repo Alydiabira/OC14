@@ -46,16 +46,11 @@ class UsernamePasswordToken extends AbstractToken
 
     public function __unserialize(array $data): void
     {
-<<<<<<< HEAD
-        [, $this->firewallName, $parentData] = $data;
-        $parentData = \is_array($parentData) ? $parentData : unserialize($parentData);
-=======
         if (($data[1] ?? null) instanceof \Stringable) {
             throw new \BadMethodCallException('Cannot unserialize '.self::class);
         }
 
         [, $this->firewallName, $parentData] = $data;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         parent::__unserialize($parentData);
     }
 }

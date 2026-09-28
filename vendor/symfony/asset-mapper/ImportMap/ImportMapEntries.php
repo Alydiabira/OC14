@@ -45,11 +45,7 @@ class ImportMapEntries implements \IteratorAggregate
     public function get(string $importName): ImportMapEntry
     {
         if (!$this->has($importName)) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('The importmap entry "%s" does not exist.', $importName));
-=======
             throw new \InvalidArgumentException(\sprintf('The importmap entry "%s" does not exist.', $importName));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->entries[$importName];

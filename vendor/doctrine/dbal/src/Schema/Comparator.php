@@ -636,11 +636,7 @@ class Comparator
         // null != 0, null != false, null != '' etc. This affects platform's table alteration SQL generation.
         if (
             ($properties1['default'] === null) !== ($properties2['default'] === null)
-<<<<<<< HEAD
-            || $properties1['default'] != $properties2['default']
-=======
             || $properties1['default'] != $properties2['default'] // @phpstan-ignore notEqual.notAllowed
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ) {
             $changedProperties[] = 'default';
         }

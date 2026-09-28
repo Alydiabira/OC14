@@ -12,11 +12,6 @@
 namespace Twig\Node\Expression\Binary;
 
 use Twig\Compiler;
-<<<<<<< HEAD
-
-class MatchesBinary extends AbstractBinary
-{
-=======
 use Twig\Error\SyntaxError;
 use Twig\Node\CoercesChildrenToStringInterface;
 use Twig\Node\Expression\AbstractExpression;
@@ -48,7 +43,6 @@ class MatchesBinary extends AbstractBinary implements ReturnBoolInterface, Coerc
         parent::__construct($left, $right, $lineno);
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function compile(Compiler $compiler): void
     {
         $compiler
@@ -64,12 +58,9 @@ class MatchesBinary extends AbstractBinary implements ReturnBoolInterface, Coerc
     {
         return $compiler->raw('');
     }
-<<<<<<< HEAD
-=======
 
     public function getStringCoercedChildNames(): array
     {
         return ['left', 'right'];
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

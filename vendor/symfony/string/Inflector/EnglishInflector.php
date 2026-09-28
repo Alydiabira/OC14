@@ -25,10 +25,6 @@ final class EnglishInflector implements InflectorInterface
         // Fourth entry: Whether the suffix may succeed a consonant
         // Fifth entry: singular suffix, normal
 
-<<<<<<< HEAD
-        // bacteria (bacterium), criteria (criterion), phenomena (phenomenon)
-        ['a', 1, true, true, ['on', 'um']],
-=======
         // insignias (insigne), insignia (insigne)
         ['saingisni', 9, true, true, 'insigne'],
         ['aingisni', 8, true, true, 'insigne'],
@@ -71,7 +67,6 @@ final class EnglishInflector implements InflectorInterface
 
         // strata (stratum)
         ['atarts', 6, true, true, 'stratum'],
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         // nebulae (nebula)
         ['ea', 2, true, true, 'a'],
@@ -142,12 +137,9 @@ final class EnglishInflector implements InflectorInterface
         // statuses (status)
         ['sesutats', 8, true, true, 'status'],
 
-<<<<<<< HEAD
-=======
         // article (articles), ancle (ancles)
         ['sel', 3, true, true, 'le'],
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         // analyses (analysis), ellipses (ellipsis), fungi (fungus),
         // neuroses (neurosis), theses (thesis), emphases (emphasis),
         // oases (oasis), crises (crisis), houses (house), bases (base),
@@ -160,8 +152,17 @@ final class EnglishInflector implements InflectorInterface
         // drives (drive)
         ['sevird', 6, false, true, 'drive'],
 
-        // lives (life), wives (wife)
-        ['sevi', 4, false, true, 'ife'],
+        // knives (knife), jackknives (jackknife)
+        ['sevink', 6, true, true, 'knife'],
+
+        // wives (wife), midwives (midwife)
+        ['seviw', 5, true, true, 'wife'],
+
+        // lives (life)
+        ['sevil', 5, false, true, 'life'],
+
+        // archives (archive), explosives (explosive), hives (hive), olives (olive)
+        ['sevi', 4, true, true, 'ive'],
 
         // moves (move)
         ['sevom', 5, true, true, 'move'],
@@ -187,25 +188,18 @@ final class EnglishInflector implements InflectorInterface
         // edges (edge)
         ['segd', 4, true, true, 'dge'],
 
-<<<<<<< HEAD
-=======
         // outages (outage) - specific fix to avoid 'outag'
         ['segatuo', 7, true, true, 'outage'],
 
         // traces (trace), faces (face), places (place), pieces (piece)
         ['sec', 3, true, true, 'ce'],
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         // roses (rose), garages (garage), cassettes (cassette),
         // waltzes (waltz), heroes (hero), bushes (bush), arches (arch),
         // shoes (shoe)
         ['se', 2, true, true, ['', 'e']],
 
-<<<<<<< HEAD
-         // status (status)
-=======
         // status (status)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ['sutats', 6, true, true, 'status'],
 
         // tags (tag)
@@ -230,8 +224,6 @@ final class EnglishInflector implements InflectorInterface
         // Fourth entry: Whether the suffix may succeed a consonant
         // Fifth entry: plural suffix, normal
 
-<<<<<<< HEAD
-=======
         // passerby (passersby)
         ['ybressap', 8, true, true, 'passersby'],
 
@@ -241,7 +233,6 @@ final class EnglishInflector implements InflectorInterface
         // nodes (node)
         ['edon', 4, true, true, 'nodes'],
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         // axes (axis)
         ['sixa', 4, false, false, 'axes'],
 
@@ -314,9 +305,6 @@ final class EnglishInflector implements InflectorInterface
         // teeth (tooth)
         ['htoot', 5, true, true, 'teeth'],
 
-<<<<<<< HEAD
-        // bacteria (bacterium), criteria (criterion), phenomena (phenomenon)
-=======
         // albums (album)
         ['mubla', 5, true, true, 'albums'],
 
@@ -324,7 +312,6 @@ final class EnglishInflector implements InflectorInterface
         ['murouq', 6, true, true, ['quora', 'quorums']],
 
         // bacteria (bacterium), curricula (curriculum), media (medium), memoranda (memorandum), phenomena (phenomenon), strata (stratum)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         ['mu', 2, true, true, 'a'],
 
         // men (man), women (woman)
@@ -333,28 +320,11 @@ final class EnglishInflector implements InflectorInterface
         // people (person)
         ['nosrep', 6, true, true, ['persons', 'people']],
 
-<<<<<<< HEAD
-        // bacteria (bacterium), criteria (criterion), phenomena (phenomenon)
-        ['noi', 3, true, true, 'ions'],
-
-        // coupon (coupons)
-        ['nop', 3, true, true, 'pons'],
-
-        // seasons (season), treasons (treason), poisons (poison), lessons (lesson)
-        ['nos', 3, true, true, 'sons'],
-
-        // icons (icon)
-        ['noc', 3, true, true, 'cons'],
-
-        // bacteria (bacterium), criteria (criterion), phenomena (phenomenon)
-        ['no', 2, true, true, 'a'],
-=======
         // criteria (criterion)
         ['noiretirc', 9, true, true, 'criteria'],
 
         // phenomena (phenomenon)
         ['nonemonehp', 10, true, true, 'phenomena'],
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         // echoes (echo)
         ['ohce', 4, true, true, 'echoes'],
@@ -365,12 +335,9 @@ final class EnglishInflector implements InflectorInterface
         // atlases (atlas)
         ['salta', 5, true, true, 'atlases'],
 
-<<<<<<< HEAD
-=======
         // aliases (alias)
         ['saila', 5, true, true, 'aliases'],
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         // irises (iris)
         ['siri', 4, true, true, 'irises'],
 
@@ -403,12 +370,9 @@ final class EnglishInflector implements InflectorInterface
         // conspectuses (conspectus), prospectuses (prospectus)
         ['sutcep', 6, true, true, 'pectuses'],
 
-<<<<<<< HEAD
-=======
         // nexuses (nexus)
         ['suxen', 5, false, false, 'nexuses'],
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         // fungi (fungus), alumni (alumnus), syllabi (syllabus), radii (radius)
         ['su', 2, true, true, 'i'],
 
@@ -430,16 +394,6 @@ final class EnglishInflector implements InflectorInterface
         // indices (index)
         ['xedni', 5, false, true, ['indicies', 'indexes']],
 
-<<<<<<< HEAD
-        // boxes (box)
-        ['xo', 2, false, true, 'oxes'],
-
-        // indexes (index), matrixes (matrix)
-        ['x', 1, true, false, ['cies', 'xes']],
-
-        // appendices (appendix)
-        ['xi', 2, false, true, 'ices'],
-=======
         // fax (faxes, faxxes)
         ['xaf', 3, true, true, ['faxes', 'faxxes']],
 
@@ -448,7 +402,6 @@ final class EnglishInflector implements InflectorInterface
 
         // indexes (index), matrixes (matrix), appendices (appendix)
         ['x', 1, true, false, ['ces', 'xes']],
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         // babies (baby)
         ['y', 1, false, true, 'ies'],
@@ -513,12 +466,9 @@ final class EnglishInflector implements InflectorInterface
 
         // aircraft
         'tfarcria',
-<<<<<<< HEAD
-=======
 
         // hardware
         'erawdrah',
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ];
 
     public function singularize(string $plural): array

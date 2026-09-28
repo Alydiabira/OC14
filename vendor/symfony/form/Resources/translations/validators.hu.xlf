@@ -16,11 +16,7 @@
             </trans-unit>
             <trans-unit id="99">
                 <source>This value is not a valid HTML5 color.</source>
-<<<<<<< HEAD
-                <target>Ez az érték nem egy érvényes HTML5 szín.</target>
-=======
                 <target>Ez az érték nem érvényes HTML5 szín.</target>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             </trans-unit>
             <trans-unit id="100">
                 <source>Please enter a valid birthdate.</source>
@@ -138,13 +134,14 @@
                 <source>Please enter a valid week.</source>
                 <target>Kérjük, adjon meg egy érvényes hetet.</target>
             </trans-unit>
-<<<<<<< HEAD
-=======
             <trans-unit id="129">
                 <source>Please enter a valid UUID.</source>
                 <target>Kérjük, adjon meg egy érvényes UUID-t.</target>
             </trans-unit>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
+            <trans-unit id="130">
+                <source>The lower bound must not be greater than the upper bound.</source>
+                <target state="needs-review-translation">Az alsó határérték nem lehet nagyobb a felső határértéknél.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

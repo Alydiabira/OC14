@@ -31,10 +31,6 @@ use function array_map;
 use function array_push;
 use function array_search;
 use function array_values;
-<<<<<<< HEAD
-use function assert;
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function class_exists;
 use function class_parents;
 use function count;
@@ -85,11 +81,7 @@ class SchemaValidator
      * 2. Check if "mappedBy" and "inversedBy" are consistent to each other.
      * 3. Check if "referencedColumnName" attributes are really pointing to primary key columns.
      *
-<<<<<<< HEAD
-     * @psalm-return array<string, list<string>>
-=======
      * @phpstan-return array<string, list<string>>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function validateMapping(): array
     {
@@ -111,11 +103,7 @@ class SchemaValidator
      * Validates a single class of the current.
      *
      * @return string[]
-<<<<<<< HEAD
-     * @psalm-return list<string>
-=======
      * @phpstan-return list<string>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function validateClass(ClassMetadata $class): array
     {
@@ -147,14 +135,11 @@ class SchemaValidator
                 return $ce;
             }
 
-<<<<<<< HEAD
-=======
             if ($assoc->isManyToOne() && count($class->identifier) === 1 && $class->identifier[0] === $fieldName) {
                 $ce[] = "The association '" . $class->name . '#' . $fieldName . "' is a many-to-one association and is the sole identifier of the entity. " .
                         'This effectively makes the association one-to-one; use a one-to-one association instead or add another identifier field.';
             }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (isset($assoc->id) && $targetMetadata->containsForeignIdentifier) {
                 $ce[] = "Cannot map association '" . $class->name . '#' . $fieldName . ' as identifier, because ' .
                         "the target entity '" . $targetMetadata->name . "' also maps an association as identifier.";
@@ -173,11 +158,7 @@ class SchemaValidator
                     $ce[] = 'The field ' . $class->name . '#' . $fieldName . ' is on the inverse side of a ' .
                             'bi-directional relationship, but the specified mappedBy association on the target-entity ' .
                             $assoc->targetEntity . '#' . $assoc->mappedBy . ' does not contain the required ' .
-<<<<<<< HEAD
-                            "'inversedBy=\"" . $fieldName . "\"' attribute.";
-=======
                             "'inversedBy: \"" . $fieldName . "\"' attribute.";
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 } elseif ($targetMetadata->associationMappings[$assoc->mappedBy]->inversedBy !== $fieldName) {
                     $ce[] = 'The mappings ' . $class->name . '#' . $fieldName . ' and ' .
                             $assoc->targetEntity . '#' . $assoc->mappedBy . ' are ' .
@@ -198,11 +179,7 @@ class SchemaValidator
                     $ce[] = 'The field ' . $class->name . '#' . $fieldName . ' is on the owning side of a ' .
                             'bi-directional relationship, but the specified inversedBy association on the target-entity ' .
                             $assoc->targetEntity . '#' . $assoc->inversedBy . ' does not contain the required ' .
-<<<<<<< HEAD
-                            "'mappedBy=\"" . $fieldName . "\"' attribute.";
-=======
                             "'mappedBy: \"" . $fieldName . "\"' attribute.";
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 } elseif ($targetMetadata->associationMappings[$assoc->inversedBy]->mappedBy !== $fieldName) {
                     $ce[] = 'The mappings ' . $class->name . '#' . $fieldName . ' and ' .
                             $assoc->targetEntity . '#' . $assoc->inversedBy . ' are ' .
@@ -222,15 +199,12 @@ class SchemaValidator
                         $ce[] = 'If association ' . $class->name . '#' . $fieldName . ' is many-to-many, then the inversed ' .
                                 'side ' . $targetMetadata->name . '#' . $assoc->inversedBy . ' has to be many-to-many as well.';
                     }
-<<<<<<< HEAD
-=======
 
                     if (! is_a($targetAssoc->targetEntity, $assoc->sourceEntity, true)) {
                         $ce[] = 'The association ' . $class->name . '#' . $fieldName . ' refers to the inverse side ' .
                                 $assoc->targetEntity . '#' . $assoc->inversedBy . ' which targets a different entity (' .
                                 $targetAssoc->targetEntity . ').';
                     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
 
@@ -365,14 +339,8 @@ class SchemaValidator
             array_filter(
                 array_map(
                     function (FieldMapping $fieldMapping) use ($class): string|null {
-<<<<<<< HEAD
-                        $fieldName = $fieldMapping->fieldName;
-                        assert(isset($class->reflFields[$fieldName]));
-                        $propertyType = $class->reflFields[$fieldName]->getType();
-=======
                         $fieldName    = $fieldMapping->fieldName;
                         $propertyType = $class->propertyAccessors[$fieldName]->getUnderlyingReflector()->getType();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                         // If the field type is not a built-in type, we cannot check it
                         if (! Type::hasType($fieldMapping->type)) {

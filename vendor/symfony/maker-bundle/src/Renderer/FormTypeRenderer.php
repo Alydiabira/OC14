@@ -43,11 +43,7 @@ final class FormTypeRenderer
                     $extraUseClasses = array_merge($extraUseClasses, $fieldTypeOptions['extra_use_classes'] ?? []);
                     $fieldTypeOptions['options_code'] = str_replace(
                         $fieldTypeOptions['extra_use_classes'],
-<<<<<<< HEAD
-                        array_map(fn ($class) => Str::getShortClassName($class), $fieldTypeOptions['extra_use_classes']),
-=======
                         array_map(static fn ($class) => Str::getShortClassName($class), $fieldTypeOptions['extra_use_classes']),
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         $fieldTypeOptions['options_code']
                     );
                 }

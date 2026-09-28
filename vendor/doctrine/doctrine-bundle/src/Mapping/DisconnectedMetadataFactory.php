@@ -1,10 +1,7 @@
 <?php
 
-<<<<<<< HEAD
-=======
 declare(strict_types=1);
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 namespace Doctrine\Bundle\DoctrineBundle\Mapping;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -26,17 +23,9 @@ use function strpos;
  */
 class DisconnectedMetadataFactory
 {
-<<<<<<< HEAD
-    private ManagerRegistry $registry;
-
-    public function __construct(ManagerRegistry $registry)
-    {
-        $this->registry = $registry;
-=======
     public function __construct(
         private readonly ManagerRegistry $registry,
     ) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -157,10 +146,7 @@ class DisconnectedMetadataFactory
     private function getMetadataForClass(string $entity): ClassMetadataCollection
     {
         foreach ($this->registry->getManagers() as $em) {
-<<<<<<< HEAD
-=======
             /* @phpstan-ignore class.notFound */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $cmf = new DisconnectedClassMetadataFactory();
             $cmf->setEntityManager($em);
 
@@ -177,10 +163,7 @@ class DisconnectedMetadataFactory
     {
         $metadata = [];
         foreach ($this->registry->getManagers() as $em) {
-<<<<<<< HEAD
-=======
             /* @phpstan-ignore class.notFound */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $cmf = new DisconnectedClassMetadataFactory();
             $cmf->setEntityManager($em);
             foreach ($cmf->getAllMetadata() as $m) {

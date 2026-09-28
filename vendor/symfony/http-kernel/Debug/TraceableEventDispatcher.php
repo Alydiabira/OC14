@@ -66,15 +66,11 @@ class TraceableEventDispatcher extends BaseTraceableEventDispatcher
                 if (null === $sectionId) {
                     break;
                 }
-<<<<<<< HEAD
-                $this->stopwatch->stopSection($sectionId);
-=======
                 try {
                     $this->stopwatch->stopSection($sectionId);
                 } catch (\LogicException) {
                     // The stop watch service might have been reset in the meantime
                 }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 break;
             case KernelEvents::TERMINATE:
                 // In the special case described in the `preDispatch` method above, the `$token` section

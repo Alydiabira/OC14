@@ -61,11 +61,7 @@ abstract class DataCollector implements DataCollectorInterface
     protected function getCasters()
     {
         $casters = [
-<<<<<<< HEAD
-            '*' => function ($v, array $a, Stub $s, $isNested) {
-=======
             '*' => static function ($v, array $a, Stub $s, $isNested) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if (!$v instanceof Stub) {
                     $b = $a;
                     foreach ($a as $k => $v) {

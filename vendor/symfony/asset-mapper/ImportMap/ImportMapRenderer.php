@@ -27,13 +27,9 @@ use Symfony\Component\WebLink\Link;
  */
 class ImportMapRenderer
 {
-<<<<<<< HEAD
-    private const DEFAULT_ES_MODULE_SHIMS_POLYFILL_URL = 'https://ga.jspm.io/npm:es-module-shims@1.8.0/dist/es-module-shims.js';
-=======
     // https://generator.jspm.io/#S2NnYGAIzSvJLMlJTWEAAMYOgCAOAA
     private const DEFAULT_ES_MODULE_SHIMS_POLYFILL_URL = 'https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js';
     private const DEFAULT_ES_MODULE_SHIMS_POLYFILL_INTEGRITY = 'sha384-ie1x72Xck445i0j4SlNJ5W5iGeL3Dpa0zD48MZopgWsjNB/lt60SuG1iduZGNnJn';
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     public function __construct(
         private readonly ImportMapGenerator $importMapGenerator,
@@ -77,22 +73,14 @@ class ImportMapRenderer
             if ('css' !== $data['type']) {
                 $importMap[$importName] = $path;
                 if ($preload) {
-<<<<<<< HEAD
-                    $modulePreloads[] = $path;
-=======
                     $modulePreloads[$path] = $path;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             } elseif ($preload) {
                 $cssLinks[] = $path;
                 // importmap entry is a noop
                 $importMap[$importName] = 'data:application/javascript,';
             } else {
-<<<<<<< HEAD
-                $importMap[$importName] = 'data:application/javascript,'.rawurlencode(sprintf('document.head.appendChild(Object.assign(document.createElement("link"),{rel:"stylesheet",href:"%s"}))', addslashes($path)));
-=======
                 $importMap[$importName] = 'data:application/javascript,'.rawurlencode(\sprintf('document.head.appendChild(Object.assign(document.createElement("link"),{rel:"stylesheet",href:"%s"}))', addslashes($path)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -108,11 +96,7 @@ class ImportMapRenderer
         }
 
         $scriptAttributes = $this->createAttributesString($attributes);
-<<<<<<< HEAD
-        $importMapJson = json_encode(['imports' => $importMap], \JSON_THROW_ON_ERROR | \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES | \JSON_HEX_TAG);
-=======
         $importMapJson = json_encode(['imports' => $importMap ?: new \stdClass()], \JSON_THROW_ON_ERROR | \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES | \JSON_HEX_TAG);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $output .= <<<HTML
 
             <script type="importmap"$scriptAttributes>
@@ -122,11 +106,7 @@ class ImportMapRenderer
 
         if (false !== $this->polyfillImportName && null === $polyFillPath) {
             if ('es-module-shims' !== $this->polyfillImportName) {
-<<<<<<< HEAD
-                throw new \InvalidArgumentException(sprintf('The JavaScript module polyfill was not found in your import map. Either disable the polyfill or run "php bin/console importmap:require "%s"" to install it.', $this->polyfillImportName));
-=======
                 throw new \InvalidArgumentException(\sprintf('The JavaScript module polyfill was not found in your import map. Either disable the polyfill or run "php bin/console importmap:require "%s"" to install it.', $this->polyfillImportName));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             // a fallback for the default polyfill in case it's not in the importmap
@@ -173,11 +153,7 @@ class ImportMapRenderer
 
         $attributes += $this->scriptAttributes;
         if (isset($attributes['src']) || isset($attributes['type'])) {
-<<<<<<< HEAD
-            throw new \InvalidArgumentException(sprintf('The "src" and "type" attributes are not allowed on the <script> tag rendered by "%s".', self::class));
-=======
             throw new \InvalidArgumentException(\sprintf('The "src" and "type" attributes are not allowed on the <script> tag rendered by "%s".', self::class));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         foreach ($attributes as $name => $value) {
@@ -187,11 +163,7 @@ class ImportMapRenderer
 
                 continue;
             }
-<<<<<<< HEAD
-            $attributeString .= sprintf('%s="%s"', $name, $this->escapeAttributeValue($value));
-=======
             $attributeString .= \sprintf('%s="%s"', $name, $this->escapeAttributeValue($value));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $attributeString;
@@ -199,11 +171,7 @@ class ImportMapRenderer
 
     private function addWebLinkPreloads(Request $request, array $cssLinks): void
     {
-<<<<<<< HEAD
-        $cssPreloadLinks = array_map(fn ($url) => (new Link('preload', $url))->withAttribute('as', 'style'), $cssLinks);
-=======
         $cssPreloadLinks = array_map(static fn ($url) => (new Link('preload', $url))->withAttribute('as', 'style'), $cssLinks);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         if (null === $linkProvider = $request->attributes->get('_links')) {
             $request->attributes->set('_links', new GenericLinkProvider($cssPreloadLinks));

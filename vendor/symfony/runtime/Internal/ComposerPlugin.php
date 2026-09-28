@@ -70,11 +70,7 @@ class ComposerPlugin implements PluginInterface, EventSubscriberInterface
             }
 
             if (!is_file($autoloadTemplate)) {
-<<<<<<< HEAD
-                throw new \InvalidArgumentException(sprintf('File "%s" defined under "extra.runtime.autoload_template" in your composer.json file not found.', $this->composer->getPackage()->getExtra()['runtime']['autoload_template']));
-=======
                 throw new \InvalidArgumentException(\sprintf('File "%s" defined under "extra.runtime.autoload_template" in your composer.json file not found.', $this->composer->getPackage()->getExtra()['runtime']['autoload_template']));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -121,8 +117,5 @@ class ComposerPlugin implements PluginInterface, EventSubscriberInterface
         ];
     }
 }
-<<<<<<< HEAD
-=======
 
 // @php-cs-fixer-ignore no_useless_concat_operator Disable to not override hack about __DIR__ and Composer pre-processes plugins
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96

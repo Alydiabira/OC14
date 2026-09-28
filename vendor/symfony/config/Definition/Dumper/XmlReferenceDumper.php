@@ -59,15 +59,9 @@ class XmlReferenceDumper
 
         // xml remapping
         if ($node->getParent()) {
-<<<<<<< HEAD
-            $remapping = array_filter($node->getParent()->getXmlRemappings(), fn (array $mapping) => $rootName === $mapping[1]);
-
-            if (\count($remapping)) {
-=======
             $remapping = array_filter($node->getParent()->getXmlRemappings(), static fn (array $mapping) => $rootName === $mapping[1]);
 
             if ($remapping) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 [$singular] = current($remapping);
                 $rootName = $singular;
             }
@@ -107,11 +101,7 @@ class XmlReferenceDumper
 
                 if ($prototype instanceof PrototypedArrayNode) {
                     $prototype->setName($key ?? '');
-<<<<<<< HEAD
-                    $children = [$key => $prototype];
-=======
                     $children = [$key ?? '' => $prototype];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 } elseif ($prototype instanceof ArrayNode) {
                     $children = $prototype->getChildren();
                 } else {
@@ -161,22 +151,14 @@ class XmlReferenceDumper
 
                 if ($child instanceof BaseNode && $child->isDeprecated()) {
                     $deprecation = $child->getDeprecation($child->getName(), $node->getPath());
-<<<<<<< HEAD
-                    $comments[] = sprintf('Deprecated (%s)', ($deprecation['package'] || $deprecation['version'] ? "Since {$deprecation['package']} {$deprecation['version']}: " : '').$deprecation['message']);
-=======
                     $comments[] = \sprintf('Deprecated (%s)', ($deprecation['package'] || $deprecation['version'] ? "Since {$deprecation['package']} {$deprecation['version']}: " : '').$deprecation['message']);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 if ($child instanceof EnumNode) {
                     $comments[] = 'One of '.$child->getPermissibleValues('; ');
                 }
 
-<<<<<<< HEAD
-                if (\count($comments)) {
-=======
                 if ($comments) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $rootAttributeComments[$name] = implode(";\n", $comments);
                 }
 
@@ -193,22 +175,14 @@ class XmlReferenceDumper
         // render comments
 
         // root node comment
-<<<<<<< HEAD
-        if (\count($rootComments)) {
-=======
         if ($rootComments) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             foreach ($rootComments as $comment) {
                 $this->writeLine('<!-- '.$comment.' -->', $depth);
             }
         }
 
         // attribute comments
-<<<<<<< HEAD
-        if (\count($rootAttributeComments)) {
-=======
         if ($rootAttributeComments) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             foreach ($rootAttributeComments as $attrName => $comment) {
                 $commentDepth = $depth + 4 + \strlen($attrName) + 2;
                 $commentLines = explode("\n", $comment);
@@ -227,19 +201,11 @@ class XmlReferenceDumper
 
         // render start tag + attributes
         $rootIsVariablePrototype = isset($prototypeValue);
-<<<<<<< HEAD
-        $rootIsEmptyTag = (0 === \count($rootChildren) && !$rootIsVariablePrototype);
-        $rootOpenTag = '<'.$rootName;
-        if (1 >= ($attributesCount = \count($rootAttributes))) {
-            if (1 === $attributesCount) {
-                $rootOpenTag .= sprintf(' %s="%s"', current(array_keys($rootAttributes)), $this->writeValue(current($rootAttributes)));
-=======
         $rootIsEmptyTag = (!$rootChildren && !$rootIsVariablePrototype);
         $rootOpenTag = '<'.$rootName;
         if (1 >= ($attributesCount = \count($rootAttributes))) {
             if (1 === $attributesCount) {
                 $rootOpenTag .= \sprintf(' %s="%s"', current(array_keys($rootAttributes)), $this->writeValue(current($rootAttributes)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $rootOpenTag .= $rootIsEmptyTag ? ' />' : '>';
@@ -255,11 +221,7 @@ class XmlReferenceDumper
             $i = 1;
 
             foreach ($rootAttributes as $attrName => $attrValue) {
-<<<<<<< HEAD
-                $attr = sprintf('%s="%s"', $attrName, $this->writeValue($attrValue));
-=======
                 $attr = \sprintf('%s="%s"', $attrName, $this->writeValue($attrValue));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                 $this->writeLine($attr, $depth + 4);
 
@@ -296,11 +258,7 @@ class XmlReferenceDumper
         $indent = \strlen($text) + $indent;
         $format = '%'.$indent.'s';
 
-<<<<<<< HEAD
-        $this->reference .= sprintf($format, $text).\PHP_EOL;
-=======
         $this->reference .= \sprintf($format, $text).\PHP_EOL;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

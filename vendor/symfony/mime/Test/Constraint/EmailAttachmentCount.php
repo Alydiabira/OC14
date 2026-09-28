@@ -28,11 +28,7 @@ final class EmailAttachmentCount extends Constraint
 
     public function toString(): string
     {
-<<<<<<< HEAD
-        return sprintf('has sent "%d" attachment(s)', $this->expectedValue);
-=======
         return \sprintf('has sent "%d" attachment(s)', $this->expectedValue);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

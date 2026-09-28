@@ -19,10 +19,6 @@ use Symfony\Component\Console\Exception\InvalidArgumentException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
-<<<<<<< HEAD
-use Symfony\Component\Console\Output\ConsoleOutputInterface;
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -67,13 +63,10 @@ class TranslationUpdateCommand extends Command
     {
         parent::__construct();
 
-<<<<<<< HEAD
-=======
         if (!method_exists($writer, 'getFormats')) {
             throw new \InvalidArgumentException(\sprintf('The writer class "%s" does not implement the "getFormats()" method.', $writer::class));
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $this->writer = $writer;
         $this->reader = $reader;
         $this->extractor = $extractor;
@@ -91,45 +84,6 @@ class TranslationUpdateCommand extends Command
             ->setDefinition([
                 new InputArgument('locale', InputArgument::REQUIRED, 'The locale'),
                 new InputArgument('bundle', InputArgument::OPTIONAL, 'The bundle name or directory where to load the messages'),
-<<<<<<< HEAD
-                new InputOption('prefix', null, InputOption::VALUE_OPTIONAL, 'Override the default prefix', '__'),
-                new InputOption('format', null, InputOption::VALUE_OPTIONAL, 'Override the default output format', 'xlf12'),
-                new InputOption('dump-messages', null, InputOption::VALUE_NONE, 'Should the messages be dumped in the console'),
-                new InputOption('force', null, InputOption::VALUE_NONE, 'Should the extract be done'),
-                new InputOption('clean', null, InputOption::VALUE_NONE, 'Should clean not found messages'),
-                new InputOption('domain', null, InputOption::VALUE_OPTIONAL, 'Specify the domain to extract'),
-                new InputOption('sort', null, InputOption::VALUE_OPTIONAL, 'Return list of messages sorted alphabetically (only works with --dump-messages)', 'asc'),
-                new InputOption('as-tree', null, InputOption::VALUE_OPTIONAL, 'Dump the messages as a tree-like structure: The given value defines the level where to switch to inline YAML'),
-            ])
-            ->setHelp(<<<'EOF'
-The <info>%command.name%</info> command extracts translation strings from templates
-of a given bundle or the default translations directory. It can display them or merge
-the new ones into the translation files.
-
-When new translation strings are found it can automatically add a prefix to the translation
-message.
-
-Example running against a Bundle (AcmeBundle)
-
-  <info>php %command.full_name% --dump-messages en AcmeBundle</info>
-  <info>php %command.full_name% --force --prefix="new_" fr AcmeBundle</info>
-
-Example running against default messages directory
-
-  <info>php %command.full_name% --dump-messages en</info>
-  <info>php %command.full_name% --force --prefix="new_" fr</info>
-
-You can sort the output with the <comment>--sort</> flag:
-
-    <info>php %command.full_name% --dump-messages --sort=asc en AcmeBundle</info>
-    <info>php %command.full_name% --dump-messages --sort=desc fr</info>
-
-You can dump a tree-like structure using the yaml format with <comment>--as-tree</> flag:
-
-    <info>php %command.full_name% --force --format=yaml --as-tree=3 en AcmeBundle</info>
-
-EOF
-=======
                 new InputOption('prefix', null, InputOption::VALUE_REQUIRED, 'Override the default prefix', '__'),
                 new InputOption('format', null, InputOption::VALUE_REQUIRED, 'Override the default output format', 'xlf12'),
                 new InputOption('dump-messages', null, InputOption::VALUE_NONE, 'Should the messages be dumped in the console'),
@@ -167,7 +121,6 @@ EOF
                     <info>php %command.full_name% --force --format=yaml --as-tree=3 en AcmeBundle</info>
 
                 EOF
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             )
         ;
     }
@@ -175,16 +128,6 @@ EOF
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-<<<<<<< HEAD
-        $errorIo = $output instanceof ConsoleOutputInterface ? new SymfonyStyle($input, $output->getErrorOutput()) : $io;
-
-        if ('translation:update' === $input->getFirstArgument()) {
-            $errorIo->caution('Command "translation:update" is deprecated since version 5.4 and will be removed in Symfony 6.0. Use "translation:extract" instead.');
-        }
-
-        $io = new SymfonyStyle($input, $output);
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $errorIo = $io->getErrorStyle();
 
         // check presence of force or dump-message
@@ -240,21 +183,13 @@ EOF
                 $codePaths = [$path.'/templates'];
 
                 if (!is_dir($transPaths[0])) {
-<<<<<<< HEAD
-                    throw new InvalidArgumentException(sprintf('"%s" is neither an enabled bundle nor a directory.', $transPaths[0]));
-=======
                     throw new InvalidArgumentException(\sprintf('"%s" is neither an enabled bundle nor a directory.', $transPaths[0]));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
         }
 
         $io->title('Translation Messages Extractor and Dumper');
-<<<<<<< HEAD
-        $io->comment(sprintf('Generating "<info>%s</info>" translation files for "<info>%s</info>"', $input->getArgument('locale'), $currentName));
-=======
         $io->comment(\sprintf('Generating "<info>%s</info>" translation files for "<info>%s</info>"', $input->getArgument('locale'), $currentName));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $io->comment('Parsing templates...');
         $extractedCatalogue = $this->extractMessages($input->getArgument('locale'), $codePaths, $input->getOption('prefix'));
@@ -293,13 +228,8 @@ EOF
 
                 $list = array_merge(
                     array_diff($allKeys, $newKeys),
-<<<<<<< HEAD
-                    array_map(fn ($id) => sprintf('<fg=green>%s</>', $id), $newKeys),
-                    array_map(fn ($id) => sprintf('<fg=red>%s</>', $id), array_keys($operation->getObsoleteMessages($domain)))
-=======
                     array_map(static fn ($id) => \sprintf('<fg=green>%s</>', $id), $newKeys),
                     array_map(static fn ($id) => \sprintf('<fg=red>%s</>', $id), array_keys($operation->getObsoleteMessages($domain)))
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 );
 
                 $domainMessagesCount = \count($list);
@@ -319,28 +249,17 @@ EOF
                     }
                 }
 
-<<<<<<< HEAD
-                $io->section(sprintf('Messages extracted for domain "<info>%s</info>" (%d message%s)', $domain, $domainMessagesCount, $domainMessagesCount > 1 ? 's' : ''));
-=======
                 $io->section(\sprintf('Messages extracted for domain "<info>%s</info>" (%d message%s)', $domain, $domainMessagesCount, $domainMessagesCount > 1 ? 's' : ''));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $io->listing($list);
 
                 $extractedMessagesCount += $domainMessagesCount;
             }
 
             if ('xlf' === $format) {
-<<<<<<< HEAD
-                $io->comment(sprintf('Xliff output version is <info>%s</info>', $xliffVersion));
-            }
-
-            $resultMessage = sprintf('%d message%s successfully extracted', $extractedMessagesCount, $extractedMessagesCount > 1 ? 's were' : ' was');
-=======
                 $io->comment(\sprintf('Xliff output version is <info>%s</info>', $xliffVersion));
             }
 
             $resultMessage = \sprintf('%d message%s successfully extracted', $extractedMessagesCount, $extractedMessagesCount > 1 ? 's were' : ' was');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         // save the files

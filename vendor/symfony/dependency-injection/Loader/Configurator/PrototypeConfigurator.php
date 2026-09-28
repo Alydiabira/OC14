@@ -53,11 +53,7 @@ class PrototypeConfigurator extends AbstractServiceConfigurator
         $definition->setAutowired($defaults->isAutowired());
         $definition->setAutoconfigured($defaults->isAutoconfigured());
         // deep clone, to avoid multiple process of the same instance in the passes
-<<<<<<< HEAD
-        $definition->setBindings(unserialize(serialize($defaults->getBindings())));
-=======
         $definition->setBindings(unserialize(serialize($defaults->getBindings()), ['allowed_classes' => true]));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $definition->setChanges([]);
 
         $this->loader = $loader;

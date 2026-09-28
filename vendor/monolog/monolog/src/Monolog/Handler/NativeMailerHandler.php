@@ -78,11 +78,7 @@ class NativeMailerHandler extends MailHandler
     /**
      * Add headers to the message
      *
-<<<<<<< HEAD
-     * @param string|string[] $headers Custom added headers
-=======
      * @param  string|string[] $headers Custom added headers
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return $this
      */
     public function addHeader($headers): self
@@ -100,11 +96,7 @@ class NativeMailerHandler extends MailHandler
     /**
      * Add parameters to the message
      *
-<<<<<<< HEAD
-     * @param string|string[] $parameters Custom added parameters
-=======
      * @param  string|string[] $parameters Custom added parameters
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return $this
      */
     public function addParameter($parameters): self
@@ -136,11 +128,7 @@ class NativeMailerHandler extends MailHandler
 
         $parameters = implode(' ', $this->parameters);
         foreach ($this->to as $to) {
-<<<<<<< HEAD
-            mail($to, $subject, $content, $headers, $parameters);
-=======
             $this->mail($to, $subject, $content, $headers, $parameters);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -155,11 +143,7 @@ class NativeMailerHandler extends MailHandler
     }
 
     /**
-<<<<<<< HEAD
-     * @param string $contentType The content type of the email - Defaults to text/plain. Use text/html for HTML messages.
-=======
      * @param  string $contentType The content type of the email - Defaults to text/plain. Use text/html for HTML messages.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @return $this
      */
     public function setContentType(string $contentType): self
@@ -186,13 +170,10 @@ class NativeMailerHandler extends MailHandler
 
         return $this;
     }
-<<<<<<< HEAD
-=======
 
 
     protected function mail(string $to, string $subject, string $content, string $headers, string $parameters): void
     {
         mail($to, $subject, $content, $headers, $parameters);
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

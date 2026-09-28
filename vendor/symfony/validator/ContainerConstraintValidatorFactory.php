@@ -44,11 +44,7 @@ class ContainerConstraintValidatorFactory implements ConstraintValidatorFactoryI
                 $this->validators[$name] = $this->container->get($name);
             } else {
                 if (!class_exists($name)) {
-<<<<<<< HEAD
-                    throw new ValidatorException(sprintf('Constraint validator "%s" does not exist or is not enabled. Check the "validatedBy" method in your constraint class "%s".', $name, get_debug_type($constraint)));
-=======
                     throw new ValidatorException(\sprintf('Constraint validator "%s" does not exist or is not enabled. Check the "validatedBy" method in your constraint class "%s".', $name, get_debug_type($constraint)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 $this->validators[$name] = new $name();

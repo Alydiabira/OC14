@@ -88,11 +88,7 @@ class FormDataExtractor implements FormDataExtractorInterface
             $errorData = [
                 'message' => $error->getMessage(),
                 'origin' => \is_object($error->getOrigin())
-<<<<<<< HEAD
-                    ? spl_object_hash($error->getOrigin())
-=======
                     ? spl_object_id($error->getOrigin())
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     : null,
                 'trace' => [],
             ];

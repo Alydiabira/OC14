@@ -11,18 +11,11 @@ namespace PHPUnit\Util;
 
 use const E_DEPRECATED;
 use const E_NOTICE;
-<<<<<<< HEAD
-use const E_STRICT;
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use const E_USER_DEPRECATED;
 use const E_USER_NOTICE;
 use const E_USER_WARNING;
 use const E_WARNING;
-<<<<<<< HEAD
-=======
 use function defined;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use function error_reporting;
 use function restore_error_handler;
 use function set_error_handler;
@@ -100,12 +93,6 @@ final class ErrorHandler
             return false;
         }
 
-<<<<<<< HEAD
-        switch ($errorNumber) {
-            case E_NOTICE:
-            case E_USER_NOTICE:
-            case E_STRICT:
-=======
         /**
          * E_STRICT is deprecated since PHP 8.4.
          *
@@ -118,7 +105,6 @@ final class ErrorHandler
         switch ($errorNumber) {
             case E_NOTICE:
             case E_USER_NOTICE:
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if (!$this->convertNoticesToExceptions) {
                     return false;
                 }

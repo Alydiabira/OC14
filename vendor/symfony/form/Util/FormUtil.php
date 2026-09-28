@@ -11,11 +11,8 @@
 
 namespace Symfony\Component\Form\Util;
 
-<<<<<<< HEAD
-=======
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
  */
@@ -44,30 +41,6 @@ class FormUtil
     }
 
     /**
-<<<<<<< HEAD
-     * Recursively replaces or appends elements of the first array with elements
-     * of second array. If the key is an integer, the values will be appended to
-     * the new array; otherwise, the value from the second array will replace
-     * the one from the first array.
-     */
-    public static function mergeParamsAndFiles(array $params, array $files): array
-    {
-        $isFilesList = array_is_list($files);
-
-        foreach ($params as $key => $value) {
-            if (\is_array($value) && \is_array($files[$key] ?? null)) {
-                $params[$key] = self::mergeParamsAndFiles($value, $files[$key]);
-                unset($files[$key]);
-            }
-        }
-
-        if (!$isFilesList) {
-            return array_replace($params, $files);
-        }
-
-        foreach ($files as $value) {
-            $params[] = $value;
-=======
      * Merges query string or post parameters with uploaded files.
      */
     public static function mergeParamsAndFiles(array $params, array $files): array
@@ -113,13 +86,10 @@ class FormUtil
 
         if (self::isFileUpload($files)) {
             return $files; // if the array is a file upload field, it has the precedence
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $params;
     }
-<<<<<<< HEAD
-=======
 
     private static function isFileUpload(mixed $value): bool
     {
@@ -151,5 +121,4 @@ class FormUtil
 
         return true;
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

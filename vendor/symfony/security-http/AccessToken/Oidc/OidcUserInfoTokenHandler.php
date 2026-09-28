@@ -29,11 +29,7 @@ final class OidcUserInfoTokenHandler implements AccessTokenHandlerInterface
     public function __construct(
         private HttpClientInterface $client,
         private ?LoggerInterface $logger = null,
-<<<<<<< HEAD
-        private string $claim = 'sub'
-=======
         private string $claim = 'sub',
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     ) {
     }
 
@@ -44,16 +40,10 @@ final class OidcUserInfoTokenHandler implements AccessTokenHandlerInterface
             // If the token is invalid or expired, the OIDC server will return an error
             $claims = $this->client->request('GET', '', [
                 'auth_bearer' => $accessToken,
+                'max_redirects' => 0,
             ])->toArray();
 
             if (empty($claims[$this->claim])) {
-<<<<<<< HEAD
-                throw new MissingClaimException(sprintf('"%s" claim not found on OIDC server response.', $this->claim));
-            }
-
-            // UserLoader argument can be overridden by a UserProvider on AccessTokenAuthenticator::authenticate
-            return new UserBadge($claims[$this->claim], new FallbackUserLoader(fn () => $this->createUser($claims)), $claims);
-=======
                 throw new MissingClaimException(\sprintf('"%s" claim not found on OIDC server response.', $this->claim));
             }
 
@@ -63,7 +53,6 @@ final class OidcUserInfoTokenHandler implements AccessTokenHandlerInterface
 
                 return $this->createUser($claims);
             }), $claims);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         } catch (\Exception $e) {
             $this->logger?->error('An error occurred on OIDC server.', [
                 'error' => $e->getMessage(),

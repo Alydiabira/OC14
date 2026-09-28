@@ -29,11 +29,7 @@ class OptionsResolverIntrospector
         $this->get = \Closure::bind(function ($property, $option, $message) {
             /** @var OptionsResolver $this */
             if (!$this->isDefined($option)) {
-<<<<<<< HEAD
-                throw new UndefinedOptionsException(sprintf('The option "%s" does not exist.', $option));
-=======
                 throw new UndefinedOptionsException(\sprintf('The option "%s" does not exist.', $option));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if (!\array_key_exists($option, $this->{$property})) {
@@ -49,11 +45,7 @@ class OptionsResolverIntrospector
      */
     public function getDefault(string $option): mixed
     {
-<<<<<<< HEAD
-        return ($this->get)('defaults', $option, sprintf('No default value was set for the "%s" option.', $option));
-=======
         return ($this->get)('defaults', $option, \sprintf('No default value was set for the "%s" option.', $option));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -63,11 +55,7 @@ class OptionsResolverIntrospector
      */
     public function getLazyClosures(string $option): array
     {
-<<<<<<< HEAD
-        return ($this->get)('lazy', $option, sprintf('No lazy closures were set for the "%s" option.', $option));
-=======
         return ($this->get)('lazy', $option, \sprintf('No lazy closures were set for the "%s" option.', $option));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -77,11 +65,7 @@ class OptionsResolverIntrospector
      */
     public function getAllowedTypes(string $option): array
     {
-<<<<<<< HEAD
-        return ($this->get)('allowedTypes', $option, sprintf('No allowed types were set for the "%s" option.', $option));
-=======
         return ($this->get)('allowedTypes', $option, \sprintf('No allowed types were set for the "%s" option.', $option));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -91,11 +75,7 @@ class OptionsResolverIntrospector
      */
     public function getAllowedValues(string $option): array
     {
-<<<<<<< HEAD
-        return ($this->get)('allowedValues', $option, sprintf('No allowed values were set for the "%s" option.', $option));
-=======
         return ($this->get)('allowedValues', $option, \sprintf('No allowed values were set for the "%s" option.', $option));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -111,11 +91,7 @@ class OptionsResolverIntrospector
      */
     public function getNormalizers(string $option): array
     {
-<<<<<<< HEAD
-        return ($this->get)('normalizers', $option, sprintf('No normalizer was set for the "%s" option.', $option));
-=======
         return ($this->get)('normalizers', $option, \sprintf('No normalizer was set for the "%s" option.', $option));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -123,10 +99,6 @@ class OptionsResolverIntrospector
      */
     public function getDeprecation(string $option): array
     {
-<<<<<<< HEAD
-        return ($this->get)('deprecated', $option, sprintf('No deprecation was set for the "%s" option.', $option));
-=======
         return ($this->get)('deprecated', $option, \sprintf('No deprecation was set for the "%s" option.', $option));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

@@ -10,13 +10,9 @@
 namespace Gedmo\IpTraceable\Traits;
 
 /**
-<<<<<<< HEAD
- * IpTraceable Trait, usable with PHP >= 5.4
-=======
  * Trait for IP traceable objects.
  *
  * This implementation does not provide any mapping configurations.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  *
  * @author Pierre-Charles Bertineau <pc.bertineau@alterphp.com>
  */

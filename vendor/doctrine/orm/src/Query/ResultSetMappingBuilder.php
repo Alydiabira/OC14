@@ -46,11 +46,7 @@ class ResultSetMappingBuilder extends ResultSetMapping implements Stringable
 
     private int $sqlCounter = 0;
 
-<<<<<<< HEAD
-    /** @psalm-param self::COLUMN_RENAMING_* $defaultRenameMode */
-=======
     /** @phpstan-param self::COLUMN_RENAMING_* $defaultRenameMode */
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     public function __construct(
         private readonly EntityManagerInterface $em,
         private readonly int $defaultRenameMode = self::COLUMN_RENAMING_NONE,
@@ -60,19 +56,10 @@ class ResultSetMappingBuilder extends ResultSetMapping implements Stringable
     /**
      * Adds a root entity and all of its fields to the result set.
      *
-<<<<<<< HEAD
-     * @param string   $class          The class name of the root entity.
-     * @param string   $alias          The unique alias to use for the root entity.
-     * @param string[] $renamedColumns Columns that have been renamed (tableColumnName => queryColumnName).
-     * @psalm-param class-string $class
-     * @psalm-param array<string, string> $renamedColumns
-     * @psalm-param self::COLUMN_RENAMING_*|null $renameMode
-=======
      * @param class-string          $class          The class name of the root entity.
      * @param string                $alias          The unique alias to use for the root entity.
      * @param array<string, string> $renamedColumns Columns that have been renamed (tableColumnName => queryColumnName).
      * @phpstan-param self::COLUMN_RENAMING_*|null $renameMode
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function addRootEntityFromClassMetadata(
         string $class,
@@ -90,17 +77,6 @@ class ResultSetMappingBuilder extends ResultSetMapping implements Stringable
     /**
      * Adds a joined entity and all of its fields to the result set.
      *
-<<<<<<< HEAD
-     * @param string   $class          The class name of the joined entity.
-     * @param string   $alias          The unique alias to use for the joined entity.
-     * @param string   $parentAlias    The alias of the entity result that is the parent of this joined result.
-     * @param string   $relation       The association field that connects the parent entity result
-     *                                 with the joined entity result.
-     * @param string[] $renamedColumns Columns that have been renamed (tableColumnName => queryColumnName).
-     * @psalm-param class-string $class
-     * @psalm-param array<string, string> $renamedColumns
-     * @psalm-param self::COLUMN_RENAMING_*|null $renameMode
-=======
      * @param class-string          $class          The class name of the joined entity.
      * @param string                $alias          The unique alias to use for the joined entity.
      * @param string                $parentAlias    The alias of the entity result that is the parent of this joined result.
@@ -108,7 +84,6 @@ class ResultSetMappingBuilder extends ResultSetMapping implements Stringable
      *                                              with the joined entity result.
      * @param array<string, string> $renamedColumns Columns that have been renamed (tableColumnName => queryColumnName).
      * @phpstan-param self::COLUMN_RENAMING_*|null $renameMode
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function addJoinedEntityFromClassMetadata(
         string $class,
@@ -129,11 +104,7 @@ class ResultSetMappingBuilder extends ResultSetMapping implements Stringable
      * Adds all fields of the given class to the result set mapping (columns and meta fields).
      *
      * @param string[] $columnAliasMap
-<<<<<<< HEAD
-     * @psalm-param array<string, string> $columnAliasMap
-=======
      * @phpstan-param array<string, string> $columnAliasMap
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws InvalidArgumentException
      */
@@ -203,15 +174,9 @@ class ResultSetMappingBuilder extends ResultSetMapping implements Stringable
     /**
      * Gets column alias for a given column.
      *
-<<<<<<< HEAD
-     * @psalm-param array<string, string>  $customRenameColumns
-     *
-     * @psalm-assert self::COLUMN_RENAMING_* $mode
-=======
      * @phpstan-param array<string, string>  $customRenameColumns
      *
      * @phpstan-assert self::COLUMN_RENAMING_* $mode
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private function getColumnAlias(string $columnName, int $mode, array $customRenameColumns): string
     {
@@ -228,20 +193,11 @@ class ResultSetMappingBuilder extends ResultSetMapping implements Stringable
      *
      * This depends on the renaming mode selected by the user.
      *
-<<<<<<< HEAD
-     * @psalm-param class-string $className
-     * @psalm-param self::COLUMN_RENAMING_* $mode
-     * @psalm-param array<string, string> $customRenameColumns
-     *
-     * @return string[]
-     * @psalm-return array<array-key, string>
-=======
      * @param class-string $className
      * @phpstan-param self::COLUMN_RENAMING_* $mode
      * @phpstan-param array<string, string> $customRenameColumns
      *
      * @return string[]
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private function getColumnAliasMap(
         string $className,
@@ -278,11 +234,7 @@ class ResultSetMappingBuilder extends ResultSetMapping implements Stringable
      * expressions have to be written manually.
      *
      * @param string[] $tableAliases
-<<<<<<< HEAD
-     * @psalm-param array<string, string> $tableAliases
-=======
      * @phpstan-param array<string, string> $tableAliases
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function generateSelectClause(array $tableAliases = []): string
     {

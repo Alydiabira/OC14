@@ -20,10 +20,6 @@ class AccessDeniedException extends FileException
 {
     public function __construct(string $path)
     {
-<<<<<<< HEAD
-        parent::__construct(sprintf('The file %s could not be accessed', $path));
-=======
         parent::__construct(\sprintf('The file %s could not be accessed', $path));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 }

@@ -62,8 +62,6 @@ final class Idn
     public const MAX_INT = 2147483647;
 
     /**
-<<<<<<< HEAD
-=======
      * Punycode decoding does work quadratic in the payload length. Valid ACE
      * labels are limited to 63 bytes, so payloads beyond this (generous) bound
      * are rejected without being decoded to keep the work bounded.
@@ -79,7 +77,6 @@ final class Idn
     private const MAX_CODE_POINTS = 255;
 
     /**
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * Contains the numeric value of a basic code point (for use in representing integers) in the
      * range 0 to BASE-1, or -1 if b is does not represent a value.
      *
@@ -163,12 +160,6 @@ final class Idn
      */
     public static function idn_to_ascii($domainName, $options = self::IDNA_DEFAULT, $variant = self::INTL_IDNA_VARIANT_UTS46, &$idna_info = [])
     {
-<<<<<<< HEAD
-        if (\PHP_VERSION_ID >= 70200 && self::INTL_IDNA_VARIANT_2003 === $variant) {
-            @trigger_error('idn_to_ascii(): INTL_IDNA_VARIANT_2003 is deprecated', \E_USER_DEPRECATED);
-        }
-
-=======
         if (\PHP_VERSION_ID > 80400 && '' === $domainName) {
             throw new \ValueError('idn_to_ascii(): Argument #1 ($domain) cannot be empty');
         }
@@ -185,7 +176,6 @@ final class Idn
             return false;
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $options = [
             'CheckHyphens' => true,
             'CheckBidi' => self::INTL_IDNA_VARIANT_2003 === $variant || 0 !== ($options & self::IDNA_CHECK_BIDI),
@@ -235,15 +225,11 @@ final class Idn
      */
     public static function idn_to_utf8($domainName, $options = self::IDNA_DEFAULT, $variant = self::INTL_IDNA_VARIANT_UTS46, &$idna_info = [])
     {
-<<<<<<< HEAD
-        if (\PHP_VERSION_ID >= 70200 && self::INTL_IDNA_VARIANT_2003 === $variant) {
-=======
         if (\PHP_VERSION_ID > 80400 && '' === $domainName) {
             throw new \ValueError('idn_to_utf8(): Argument #1 ($domain) cannot be empty');
         }
 
         if (self::INTL_IDNA_VARIANT_2003 === $variant) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             @trigger_error('idn_to_utf8(): INTL_IDNA_VARIANT_2003 is deprecated', \E_USER_DEPRECATED);
         }
 
@@ -325,13 +311,6 @@ final class Idn
 
             switch ($data['status']) {
                 case 'disallowed':
-<<<<<<< HEAD
-                    $info->errors |= self::ERROR_DISALLOWED;
-
-                    // no break.
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 case 'valid':
                     $str .= mb_chr($codePoint, 'utf-8');
 
@@ -342,11 +321,7 @@ final class Idn
                     break;
 
                 case 'mapped':
-<<<<<<< HEAD
-                    $str .= $data['mapping'];
-=======
                     $str .= $transitional && 0x1E9E === $codePoint ? 'ss' : $data['mapping'];
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                     break;
 
@@ -398,8 +373,6 @@ final class Idn
             $validationOptions = $options;
 
             if ('xn--' === substr($label, 0, 4)) {
-<<<<<<< HEAD
-=======
                 // Step 4.1. If the label contains any non-ASCII code point (i.e., a code point greater than U+007F),
                 // record that there was an error, and continue with the next label.
                 if (preg_match('/[^\x00-\x7F]/', $label)) {
@@ -423,7 +396,6 @@ final class Idn
                 // with the next label. Otherwise replace the original label in the string by the results of the
                 // conversion. Per UTS #46 revision 33, if the conversion succeeds but the result is empty or
                 // contains only ASCII code points, record that there was an error and continue with the next label.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 try {
                     $label = self::punycodeDecode(substr($label, 4));
                 } catch (\Exception $e) {
@@ -432,15 +404,12 @@ final class Idn
                     continue;
                 }
 
-<<<<<<< HEAD
-=======
                 if ('' === $label || 1 !== preg_match('/[^\x00-\x7F]/', $label)) {
                     $info->errors |= self::ERROR_INVALID_ACE_LABEL;
 
                     continue;
                 }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $validationOptions['Transitional_Processing'] = false;
                 $labels[$i] = $label;
             }
@@ -603,11 +572,8 @@ final class Idn
             if ('-' === substr($label, -1, 1)) {
                 $info->errors |= self::ERROR_TRAILING_HYPHEN;
             }
-<<<<<<< HEAD
-=======
         } elseif ('xn--' === substr($label, 0, 4)) {
             $info->errors |= self::ERROR_PUNYCODE;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         // Step 4. The label must not contain a U+002E (.) FULL STOP.
@@ -834,8 +800,6 @@ final class Idn
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Counts the code points of a UTF-8 string, malformed bytes included.
      *
      * This is the expression Mbstring::mb_strlen() falls back to in
@@ -854,7 +818,6 @@ final class Idn
     }
 
     /**
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      * @see https://tools.ietf.org/html/rfc3492#section-6.1
      *
      * @param int  $delta

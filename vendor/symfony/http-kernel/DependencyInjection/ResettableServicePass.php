@@ -39,11 +39,7 @@ class ResettableServicePass implements CompilerPassInterface
 
             foreach ($tags as $attributes) {
                 if (!isset($attributes['method'])) {
-<<<<<<< HEAD
-                    throw new RuntimeException(sprintf('Tag "kernel.reset" requires the "method" attribute to be set on service "%s".', $id));
-=======
                     throw new RuntimeException(\sprintf('Tag "kernel.reset" requires the "method" attribute to be set on service "%s".', $id));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 if (!isset($methods[$id])) {

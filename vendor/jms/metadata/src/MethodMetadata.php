@@ -72,13 +72,9 @@ class MethodMetadata implements \Serializable
     {
         if (null === $this->reflection) {
             $this->reflection = new \ReflectionMethod($this->class, $this->name);
-<<<<<<< HEAD
-            $this->reflection->setAccessible(true);
-=======
             if (\PHP_VERSION_ID < 80100) {
                 $this->reflection->setAccessible(true);
             }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return $this->reflection;

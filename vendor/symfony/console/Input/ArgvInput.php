@@ -122,11 +122,7 @@ class ArgvInput extends Input
         for ($i = 0; $i < $len; ++$i) {
             if (!$this->definition->hasShortcut($name[$i])) {
                 $encoding = mb_detect_encoding($name, null, true);
-<<<<<<< HEAD
-                throw new RuntimeException(sprintf('The "-%s" option does not exist.', false === $encoding ? $name[$i] : mb_substr($name, $i, 1, $encoding)));
-=======
                 throw new RuntimeException(\sprintf('The "-%s" option does not exist.', false === $encoding ? $name[$i] : mb_substr($name, $i, 1, $encoding)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $option = $this->definition->getOptionForShortcut($name[$i]);
@@ -134,14 +130,8 @@ class ArgvInput extends Input
                 $this->addLongOption($option->getName(), $i === $len - 1 ? null : substr($name, $i + 1));
 
                 break;
-<<<<<<< HEAD
-            } else {
-                $this->addLongOption($option->getName(), null);
-            }
-=======
             }
             $this->addLongOption($option->getName(), null);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
     }
 
@@ -185,27 +175,11 @@ class ArgvInput extends Input
         } else {
             $all = $this->definition->getArguments();
             $symfonyCommandName = null;
-<<<<<<< HEAD
-            if (($inputArgument = $all[$key = array_key_first($all)] ?? null) && 'command' === $inputArgument->getName()) {
-=======
             if (($inputArgument = $all[$key = array_key_first($all) ?? ''] ?? null) && 'command' === $inputArgument->getName()) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $symfonyCommandName = $this->arguments['command'] ?? null;
                 unset($all[$key]);
             }
 
-<<<<<<< HEAD
-            if (\count($all)) {
-                if ($symfonyCommandName) {
-                    $message = sprintf('Too many arguments to "%s" command, expected arguments "%s".', $symfonyCommandName, implode('" "', array_keys($all)));
-                } else {
-                    $message = sprintf('Too many arguments, expected arguments "%s".', implode('" "', array_keys($all)));
-                }
-            } elseif ($symfonyCommandName) {
-                $message = sprintf('No arguments expected for "%s" command, got "%s".', $symfonyCommandName, $token);
-            } else {
-                $message = sprintf('No arguments expected, got "%s".', $token);
-=======
             if ($all) {
                 if ($symfonyCommandName) {
                     $message = \sprintf('Too many arguments to "%s" command, expected arguments "%s".', $symfonyCommandName, implode('" "', array_keys($all)));
@@ -216,7 +190,6 @@ class ArgvInput extends Input
                 $message = \sprintf('No arguments expected for "%s" command, got "%s".', $symfonyCommandName, $token);
             } else {
                 $message = \sprintf('No arguments expected, got "%s".', $token);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             throw new RuntimeException($message);
@@ -231,11 +204,7 @@ class ArgvInput extends Input
     private function addShortOption(string $shortcut, mixed $value): void
     {
         if (!$this->definition->hasShortcut($shortcut)) {
-<<<<<<< HEAD
-            throw new RuntimeException(sprintf('The "-%s" option does not exist.', $shortcut));
-=======
             throw new RuntimeException(\sprintf('The "-%s" option does not exist.', $shortcut));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->addLongOption($this->definition->getOptionForShortcut($shortcut)->getName(), $value);
@@ -250,20 +219,12 @@ class ArgvInput extends Input
     {
         if (!$this->definition->hasOption($name)) {
             if (!$this->definition->hasNegation($name)) {
-<<<<<<< HEAD
-                throw new RuntimeException(sprintf('The "--%s" option does not exist.', $name));
-=======
                 throw new RuntimeException(\sprintf('The "--%s" option does not exist.', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $optionName = $this->definition->negationToName($name);
             if (null !== $value) {
-<<<<<<< HEAD
-                throw new RuntimeException(sprintf('The "--%s" option does not accept a value.', $name));
-=======
                 throw new RuntimeException(\sprintf('The "--%s" option does not accept a value.', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
             $this->options[$optionName] = false;
 
@@ -273,17 +234,10 @@ class ArgvInput extends Input
         $option = $this->definition->getOption($name);
 
         if (null !== $value && !$option->acceptValue()) {
-<<<<<<< HEAD
-            throw new RuntimeException(sprintf('The "--%s" option does not accept a value.', $name));
-        }
-
-        if (\in_array($value, ['', null], true) && $option->acceptValue() && \count($this->parsed)) {
-=======
             throw new RuntimeException(\sprintf('The "--%s" option does not accept a value.', $name));
         }
 
         if (\in_array($value, ['', null], true) && $option->acceptValue() && $this->parsed) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             // if option accepts an optional or mandatory argument
             // let's see if there is one provided
             $next = array_shift($this->parsed);
@@ -296,11 +250,7 @@ class ArgvInput extends Input
 
         if (null === $value) {
             if ($option->isValueRequired()) {
-<<<<<<< HEAD
-                throw new RuntimeException(sprintf('The "--%s" option requires a value.', $name));
-=======
                 throw new RuntimeException(\sprintf('The "--%s" option requires a value.', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if (!$option->isArray() && !$option->isValueOptional()) {
@@ -374,11 +324,7 @@ class ArgvInput extends Input
         $values = (array) $values;
         $tokens = $this->tokens;
 
-<<<<<<< HEAD
-        while (0 < \count($tokens)) {
-=======
         while ($tokens) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             $token = array_shift($tokens);
             if ($onlyParams && '--' === $token) {
                 return $default;

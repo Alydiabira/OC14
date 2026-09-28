@@ -22,23 +22,15 @@ trait HttpExceptionTrait
 {
     private ResponseInterface $response;
 
-<<<<<<< HEAD
-    public function __construct(ResponseInterface $response)
-=======
     /**
      * @param (\Closure(): string)|null $getErrorBody Returns the part of the body the message is parsed from
      */
     public function __construct(ResponseInterface $response, ?\Closure $getErrorBody = null)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->response = $response;
         $code = $response->getInfo('http_code');
         $url = $response->getInfo('url');
-<<<<<<< HEAD
-        $message = sprintf('HTTP %d returned for "%s".', $code, $url);
-=======
         $message = \sprintf('HTTP %d returned for "%s".', $code, $url);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $httpCodeFound = false;
         $isJson = false;
@@ -48,11 +40,7 @@ trait HttpExceptionTrait
                     break;
                 }
 
-<<<<<<< HEAD
-                $message = sprintf('%s returned for "%s".', $h, $url);
-=======
                 $message = \sprintf('%s returned for "%s".', $h, $url);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $httpCodeFound = true;
             }
 
@@ -70,11 +58,7 @@ trait HttpExceptionTrait
         // Try to guess a better error message using common API error formats
         // The MIME type isn't explicitly checked because some formats inherit from others
         // Ex: JSON:API follows RFC 7807 semantics, Hydra can be used in any JSON-LD-compatible format
-<<<<<<< HEAD
-        if ($isJson && $body = json_decode($response->getContent(false), true)) {
-=======
         if ($isJson && $body = json_decode($getErrorBody ? $getErrorBody() : $response->getContent(false), true)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (isset($body['hydra:title']) || isset($body['hydra:description'])) {
                 // see http://www.hydra-cg.com/spec/latest/core/#description-of-http-status-codes-and-errors
                 $separator = isset($body['hydra:title'], $body['hydra:description']) ? "\n\n" : '';

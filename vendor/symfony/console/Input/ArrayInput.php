@@ -140,11 +140,7 @@ class ArrayInput extends Input
     private function addShortOption(string $shortcut, mixed $value): void
     {
         if (!$this->definition->hasShortcut($shortcut)) {
-<<<<<<< HEAD
-            throw new InvalidOptionException(sprintf('The "-%s" option does not exist.', $shortcut));
-=======
             throw new InvalidOptionException(\sprintf('The "-%s" option does not exist.', $shortcut));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->addLongOption($this->definition->getOptionForShortcut($shortcut)->getName(), $value);
@@ -160,11 +156,7 @@ class ArrayInput extends Input
     {
         if (!$this->definition->hasOption($name)) {
             if (!$this->definition->hasNegation($name)) {
-<<<<<<< HEAD
-                throw new InvalidOptionException(sprintf('The "--%s" option does not exist.', $name));
-=======
                 throw new InvalidOptionException(\sprintf('The "--%s" option does not exist.', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             $optionName = $this->definition->negationToName($name);
@@ -177,11 +169,7 @@ class ArrayInput extends Input
 
         if (null === $value) {
             if ($option->isValueRequired()) {
-<<<<<<< HEAD
-                throw new InvalidOptionException(sprintf('The "--%s" option requires a value.', $name));
-=======
                 throw new InvalidOptionException(\sprintf('The "--%s" option requires a value.', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if (!$option->isValueOptional()) {
@@ -200,11 +188,7 @@ class ArrayInput extends Input
     private function addArgument(string|int $name, mixed $value): void
     {
         if (!$this->definition->hasArgument($name)) {
-<<<<<<< HEAD
-            throw new InvalidArgumentException(sprintf('The "%s" argument does not exist.', $name));
-=======
             throw new InvalidArgumentException(\sprintf('The "%s" argument does not exist.', $name));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         $this->arguments[$name] = $value;

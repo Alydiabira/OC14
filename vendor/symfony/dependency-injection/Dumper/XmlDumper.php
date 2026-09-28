@@ -130,11 +130,7 @@ class XmlDumper extends Dumper
         }
 
         $tags = $definition->getTags();
-<<<<<<< HEAD
-        $tags['container.error'] = array_map(fn ($e) => ['message' => $e], $definition->getErrors());
-=======
         $tags['container.error'] = array_map(static fn ($e) => ['message' => $e], $definition->getErrors());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         foreach ($tags as $name => $tags) {
             foreach ($tags as $attributes) {
                 $tag = $this->document->createElement('tag');
@@ -426,15 +422,9 @@ class XmlDumper extends Dumper
             case $value instanceof Parameter:
                 return '%'.$value.'%';
             case $value instanceof \UnitEnum:
-<<<<<<< HEAD
-                return sprintf('%s::%s', $value::class, $value->name);
-            case \is_object($value) || \is_resource($value):
-                throw new RuntimeException(sprintf('Unable to dump a service container if a parameter is an object or a resource, got "%s".', get_debug_type($value)));
-=======
                 return \sprintf('%s::%s', $value::class, $value->name);
             case \is_object($value) || \is_resource($value):
                 throw new RuntimeException(\sprintf('Unable to dump a service container if a parameter is an object or a resource, got "%s".', get_debug_type($value)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             default:
                 return (string) $value;
         }

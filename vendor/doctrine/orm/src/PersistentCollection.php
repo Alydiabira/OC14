@@ -8,13 +8,8 @@ use Doctrine\Common\Collections\AbstractLazyCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
-<<<<<<< HEAD
-use Doctrine\Common\Collections\Order;
-use Doctrine\Common\Collections\Selectable;
-=======
 use Doctrine\Common\Collections\Selectable;
 use Doctrine\ORM\Cache\Persister\CompatOrderings;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ORM\Mapping\AssociationMapping;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Mapping\ToManyAssociationMapping;
@@ -29,10 +24,6 @@ use function array_walk;
 use function assert;
 use function is_object;
 use function spl_object_id;
-<<<<<<< HEAD
-use function strtoupper;
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * A PersistentCollection represents a collection of elements that have persistent state.
@@ -43,33 +34,21 @@ use function strtoupper;
  * Similarly, if you remove entities from a collection that is part of a one-many
  * mapping this will only result in the nulling out of the foreign keys on flush.
  *
-<<<<<<< HEAD
- * @psalm-template TKey of array-key
- * @psalm-template T
-=======
  * @phpstan-template TKey of array-key
  * @phpstan-template T
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
  * @template-extends AbstractLazyCollection<TKey,T>
  * @template-implements Selectable<TKey,T>
  */
 final class PersistentCollection extends AbstractLazyCollection implements Selectable
 {
-<<<<<<< HEAD
-=======
     use CompatOrderings;
     use PersistentCollectionImplementation;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * A snapshot of the collection at the moment it was fetched from the database.
      * This is used to create a diff of the collection at commit time.
      *
-<<<<<<< HEAD
-     * @psalm-var array<string|int, mixed>
-=======
      * @phpstan-var array<string|int, mixed>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private array $snapshot = [];
 
@@ -103,11 +82,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
      *
      * @param EntityManagerInterface $em        The EntityManager the collection will be associated with.
      * @param ClassMetadata          $typeClass The class descriptor of the entity type of this collection.
-<<<<<<< HEAD
-     * @psalm-param Collection<TKey, T>&Selectable<TKey, T> $collection The collection elements.
-=======
      * @phpstan-param Collection<TKey, T>&Selectable<TKey, T> $collection The collection elements.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct(
         private EntityManagerInterface|null $em,
@@ -167,11 +142,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
         if ($this->backRefFieldName && $this->getMapping()->isOneToMany()) {
             assert($this->typeClass !== null);
             // Set back reference to owner
-<<<<<<< HEAD
-            $this->typeClass->reflFields[$this->backRefFieldName]->setValue(
-=======
             $this->typeClass->propertyAccessors[$this->backRefFieldName]->setValue(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $element,
                 $this->owner,
             );
@@ -197,11 +168,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
         if ($this->backRefFieldName && $this->getMapping()->isOneToMany()) {
             assert($this->typeClass !== null);
             // Set back reference to owner
-<<<<<<< HEAD
-            $this->typeClass->reflFields[$this->backRefFieldName]->setValue(
-=======
             $this->typeClass->propertyAccessors[$this->backRefFieldName]->setValue(
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $element,
                 $this->owner,
             );
@@ -237,11 +204,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
      * INTERNAL:
      * Returns the last snapshot of the elements in the collection.
      *
-<<<<<<< HEAD
-     * @psalm-return array<string|int, mixed> The last snapshot of the elements.
-=======
      * @phpstan-return array<string|int, mixed> The last snapshot of the elements.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function getSnapshot(): array
     {
@@ -441,11 +404,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
         }
     }
 
-<<<<<<< HEAD
-    public function add(mixed $value): bool
-=======
     private function doAdd(mixed $value): void
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         $this->unwrap()->add($value);
 
@@ -454,11 +413,6 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
         if (is_object($value) && $this->em) {
             $this->getUnitOfWork()->cancelOrphanRemoval($value);
         }
-<<<<<<< HEAD
-
-        return true;
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function offsetExists(mixed $offset): bool
@@ -538,11 +492,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
      *                with circular references. This solution seems simpler and works well.
      *
      * @return string[]
-<<<<<<< HEAD
-     * @psalm-return array{0: string, 1: string}
-=======
      * @phpstan-return array{0: string, 1: string}
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __sleep(): array
     {
@@ -554,8 +504,6 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
         $this->em = null;
     }
 
-<<<<<<< HEAD
-=======
     /** {@inheritDoc} */
     public function first(): mixed
     {
@@ -568,7 +516,6 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
         return parent::first();
     }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     /**
      * Extracts a slice of $length elements starting at position $offset from the Collection.
      *
@@ -577,11 +524,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
      * selected slice and NOT change the elements contained in the collection slice is called on.
      *
      * @return mixed[]
-<<<<<<< HEAD
-     * @psalm-return array<TKey,T>
-=======
      * @phpstan-return array<TKey,T>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function slice(int $offset, int|null $length = null): array
     {
@@ -623,11 +566,7 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
      * Selects all elements from a selectable that match the expression and
      * return a new collection containing these elements.
      *
-<<<<<<< HEAD
-     * @psalm-return Collection<TKey, T>
-=======
      * @phpstan-return Collection<TKey, T>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @throws RuntimeException
      */
@@ -655,17 +594,8 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
 
         $criteria = clone $criteria;
         $criteria->where($expression);
-<<<<<<< HEAD
-        $criteria->orderBy(
-            $criteria->orderings() ?: array_map(
-                static fn (string $order): Order => Order::from(strtoupper($order)),
-                $association->orderBy(),
-            ),
-        );
-=======
 
         $this->orderCriteriaByAssociation($criteria, $association);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         $persister = $this->getUnitOfWork()->getEntityPersister($association->targetEntity);
 
@@ -682,10 +612,6 @@ final class PersistentCollection extends AbstractLazyCollection implements Selec
     public function unwrap(): Selectable&Collection
     {
         assert($this->collection instanceof Collection);
-<<<<<<< HEAD
-        assert($this->collection instanceof Selectable);
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         return $this->collection;
     }

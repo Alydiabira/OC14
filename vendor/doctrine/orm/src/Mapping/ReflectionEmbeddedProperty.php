@@ -23,11 +23,7 @@ final class ReflectionEmbeddedProperty extends ReflectionProperty
     /**
      * @param ReflectionProperty $parentProperty reflection property of the class where the embedded object has to be put
      * @param ReflectionProperty $childProperty  reflection property of the embedded object
-<<<<<<< HEAD
-     * @psalm-param class-string $embeddedClass
-=======
      * @phpstan-param class-string $embeddedClass
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function __construct(
         private readonly ReflectionProperty $parentProperty,

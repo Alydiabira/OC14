@@ -22,6 +22,8 @@ jobs:
           - "8.0"
           - "8.1"
           - "8.2"
+          - "8.3"
+          - "8.4"
 
     steps:
       - name: "Checkout"
@@ -56,6 +58,7 @@ jobs:
         with:
           repository: "phpstan/build-cs"
           path: "build-cs"
+          ref: "1.x"
 
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
@@ -93,6 +96,8 @@ jobs:
           - "8.0"
           - "8.1"
           - "8.2"
+          - "8.3"
+          - "8.4"
         dependencies:
           - "lowest"
           - "highest"
@@ -132,6 +137,8 @@ jobs:
           - "8.0"
           - "8.1"
           - "8.2"
+          - "8.3"
+          - "8.4"
         dependencies:
           - "lowest"
           - "highest"

@@ -124,12 +124,9 @@ return static function (ContainerConfigurator $container) {
             ->tag('console.command')
 
         ->set('console.command.config_debug', ConfigDebugCommand::class)
-<<<<<<< HEAD
-=======
             ->args([
                 service('container.env_var_processors_locator'),
             ])
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->tag('console.command')
 
         ->set('console.command.config_dump_reference', ConfigDumpReferenceCommand::class)

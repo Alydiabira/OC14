@@ -38,8 +38,6 @@ class TextNode extends Node implements NodeOutputInterface
             ->raw(";\n")
         ;
     }
-<<<<<<< HEAD
-=======
 
     public function isBlank(): bool
     {
@@ -56,5 +54,4 @@ class TextNode extends Node implements NodeOutputInterface
 
         return false;
     }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 }

@@ -17,12 +17,6 @@ Here is a script to run all checks, you can use it as a git hook:
 ```shell
 #!/bin/bash -eu
 vendor/bin/phpunit --testdox
-<<<<<<< HEAD
-vendor/bin/psalm
-echo '' | vendor/bin/phpcs
-vendor/bin/phpstan analyze
-```
-=======
 echo '' | vendor/bin/phpcs
 vendor/bin/phpstan analyze
 ```
@@ -30,4 +24,3 @@ vendor/bin/phpstan analyze
 ## Regenerating expected output
 
 To regenerate expected tests output, run `bin/regenerate-expected-output`.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96

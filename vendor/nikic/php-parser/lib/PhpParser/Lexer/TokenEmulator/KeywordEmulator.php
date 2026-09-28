@@ -14,17 +14,12 @@ abstract class KeywordEmulator extends TokenEmulator {
 
     /** @param Token[] $tokens */
     protected function isKeywordContext(array $tokens, int $pos): bool {
-<<<<<<< HEAD
-        $previousNonSpaceToken = $this->getPreviousNonSpaceToken($tokens, $pos);
-        return $previousNonSpaceToken === null || $previousNonSpaceToken->id !== \T_OBJECT_OPERATOR;
-=======
         $prevToken = $this->getPreviousNonIgnorableToken($tokens, $pos);
         if ($prevToken === null) {
             return false;
         }
         return $prevToken->id !== \T_OBJECT_OPERATOR
             && $prevToken->id !== \T_NULLSAFE_OBJECT_OPERATOR;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function emulate(string $code, array $tokens): array {
@@ -40,15 +35,6 @@ abstract class KeywordEmulator extends TokenEmulator {
     }
 
     /** @param Token[] $tokens */
-<<<<<<< HEAD
-    private function getPreviousNonSpaceToken(array $tokens, int $start): ?Token {
-        for ($i = $start - 1; $i >= 0; --$i) {
-            if ($tokens[$i]->id === T_WHITESPACE) {
-                continue;
-            }
-
-            return $tokens[$i];
-=======
     private function getPreviousNonIgnorableToken(array $tokens, int $start): ?Token {
         for ($i = $start - 1; $i >= 0; --$i) {
             $token = $tokens[$i];
@@ -57,7 +43,6 @@ abstract class KeywordEmulator extends TokenEmulator {
             }
 
             return $token;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         }
 
         return null;

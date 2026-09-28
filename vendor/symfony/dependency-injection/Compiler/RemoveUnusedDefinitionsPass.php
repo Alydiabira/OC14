@@ -67,11 +67,7 @@ class RemoveUnusedDefinitionsPass extends AbstractRecursivePass
                 if (!isset($connectedIds[$id])) {
                     $container->removeDefinition($id);
                     $container->resolveEnvPlaceholders(!$definition->hasErrors() ? serialize($definition) : $definition);
-<<<<<<< HEAD
-                    $container->log($this, sprintf('Removed service "%s"; reason: unused.', $id));
-=======
                     $container->log($this, \sprintf('Removed service "%s"; reason: unused.', $id));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
         } finally {

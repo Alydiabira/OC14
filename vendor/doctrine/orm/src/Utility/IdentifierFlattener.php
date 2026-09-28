@@ -12,10 +12,7 @@ use Doctrine\Persistence\Mapping\ClassMetadataFactory;
 use function assert;
 use function implode;
 use function is_a;
-<<<<<<< HEAD
-=======
 use function is_object;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 /**
  * The IdentifierFlattener utility now houses some of the identifier manipulation logic from unit of work, so that it
@@ -44,22 +41,14 @@ final class IdentifierFlattener
      * @param mixed[] $id
      *
      * @return mixed[]
-<<<<<<< HEAD
-     * @psalm-return array<string, mixed>
-=======
      * @phpstan-return array<string, mixed>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     public function flattenIdentifier(ClassMetadata $class, array $id): array
     {
         $flatId = [];
 
         foreach ($class->identifier as $field) {
-<<<<<<< HEAD
-            if (isset($class->associationMappings[$field]) && isset($id[$field]) && is_a($id[$field], $class->associationMappings[$field]->targetEntity)) {
-=======
             if (isset($class->associationMappings[$field]) && isset($id[$field]) && is_object($id[$field]) && is_a($id[$field], $class->associationMappings[$field]->targetEntity)) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 $targetClassMetadata = $this->metadataFactory->getMetadataFor(
                     $class->associationMappings[$field]->targetEntity,
                 );

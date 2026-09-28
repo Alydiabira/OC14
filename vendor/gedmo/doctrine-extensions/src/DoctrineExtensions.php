@@ -12,10 +12,7 @@ namespace Gedmo;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\PsrCachedReader;
 use Doctrine\Common\Annotations\Reader;
-<<<<<<< HEAD
-=======
 use Doctrine\Deprecations\Deprecation;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Doctrine\ODM\MongoDB\Mapping\Driver as DriverMongodbODM;
 use Doctrine\ORM\Mapping\Driver as DriverORM;
 use Doctrine\Persistence\Mapping\Driver\MappingDriverChain;
@@ -33,11 +30,7 @@ final class DoctrineExtensions
     /**
      * Current version of extensions
      */
-<<<<<<< HEAD
-    public const VERSION = '3.14.0';
-=======
     public const VERSION = '3.22.1';
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * Hooks all extension metadata mapping drivers into
@@ -128,19 +121,12 @@ final class DoctrineExtensions
      */
     public static function registerAnnotations(): void
     {
-<<<<<<< HEAD
-        @trigger_error(sprintf(
-            '"%s()" is deprecated since gedmo/doctrine-extensions 3.11 and will be removed in version 4.0.',
-            __METHOD__
-        ), E_USER_DEPRECATED);
-=======
         Deprecation::trigger(
             'gedmo/doctrine-extensions',
             'https://github.com/doctrine-extensions/DoctrineExtensions/pull/2558',
             '"%s()" is deprecated since gedmo/doctrine-extensions 3.11 and will be removed in version 4.0.',
             __METHOD__
         );
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         // Purposefully no-op'd, all supported versions of `doctrine/annotations` support autoloading
     }

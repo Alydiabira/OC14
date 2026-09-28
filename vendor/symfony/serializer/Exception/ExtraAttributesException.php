@@ -22,11 +22,7 @@ class ExtraAttributesException extends RuntimeException
         private readonly array $extraAttributes,
         ?\Throwable $previous = null,
     ) {
-<<<<<<< HEAD
-        $msg = sprintf('Extra attributes are not allowed ("%s" %s unknown).', implode('", "', $extraAttributes), \count($extraAttributes) > 1 ? 'are' : 'is');
-=======
         $msg = \sprintf('Extra attributes are not allowed ("%s" %s unknown).', implode('", "', $extraAttributes), \count($extraAttributes) > 1 ? 'are' : 'is');
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
         parent::__construct($msg, 0, $previous);
     }

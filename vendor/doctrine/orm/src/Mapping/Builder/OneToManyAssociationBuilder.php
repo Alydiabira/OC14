@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace Doctrine\ORM\Mapping\Builder;
 
-<<<<<<< HEAD
-=======
 use SortDirection;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 /**
  * OneToMany Association Builder
  *
@@ -17,11 +14,7 @@ use SortDirection;
 class OneToManyAssociationBuilder extends AssociationBuilder
 {
     /**
-<<<<<<< HEAD
-     * @psalm-param array<string, string> $fieldNames
-=======
      * @phpstan-param array<string, string|SortDirection> $fieldNames
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      *
      * @return $this
      */

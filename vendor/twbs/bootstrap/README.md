@@ -16,11 +16,6 @@
   ·
   <a href="https://github.com/twbs/bootstrap/issues/new?assignees=&labels=feature&template=feature_request.yml">Request feature</a>
   ·
-<<<<<<< HEAD
-  <a href="https://themes.getbootstrap.com/">Themes</a>
-  ·
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
   <a href="https://blog.getbootstrap.com/">Blog</a>
 </p>
 
@@ -34,11 +29,7 @@ Our default branch is for development of our Bootstrap 5 release. Head to the [`
 
 - [Quick start](#quick-start)
 - [Status](#status)
-<<<<<<< HEAD
-- [What's included](#whats-included)
-=======
 - [What’s included](#whats-included)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 - [Bugs and feature requests](#bugs-and-feature-requests)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
@@ -53,20 +44,12 @@ Our default branch is for development of our Bootstrap 5 release. Head to the [`
 
 Several quick start options are available:
 
-<<<<<<< HEAD
-- [Download the latest release](https://github.com/twbs/bootstrap/archive/v5.3.3.zip)
-- Clone the repo: `git clone https://github.com/twbs/bootstrap.git`
-- Install with [npm](https://www.npmjs.com/): `npm install bootstrap@v5.3.3`
-- Install with [yarn](https://yarnpkg.com/): `yarn add bootstrap@v5.3.3`
-- Install with [Composer](https://getcomposer.org/): `composer require twbs/bootstrap:5.3.3`
-=======
 - [Download the latest release](https://github.com/twbs/bootstrap/archive/v5.3.8.zip)
 - Clone the repo: `git clone https://github.com/twbs/bootstrap.git`
 - Install with [npm](https://www.npmjs.com/): `npm install bootstrap@v5.3.8`
 - Install with [yarn](https://yarnpkg.com/): `yarn add bootstrap@v5.3.8`
 - Install with [Bun](https://bun.sh/): `bun add bootstrap@v5.3.8`
 - Install with [Composer](https://getcomposer.org/): `composer require twbs/bootstrap:5.3.8`
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 - Install with [NuGet](https://www.nuget.org/): CSS: `Install-Package bootstrap` Sass: `Install-Package bootstrap.sass`
 
 Read the [Getting started page](https://getbootstrap.com/docs/5.3/getting-started/introduction/) for information on the framework contents, templates, examples, and more.
@@ -85,23 +68,14 @@ Read the [Getting started page](https://getbootstrap.com/docs/5.3/getting-starte
 [![CSS Brotli size](https://img.badgesize.io/twbs/bootstrap/main/dist/css/bootstrap.min.css?compression=brotli&label=CSS%20Brotli%20size)](https://github.com/twbs/bootstrap/blob/main/dist/css/bootstrap.min.css)
 [![JS gzip size](https://img.badgesize.io/twbs/bootstrap/main/dist/js/bootstrap.min.js?compression=gzip&label=JS%20gzip%20size)](https://github.com/twbs/bootstrap/blob/main/dist/js/bootstrap.min.js)
 [![JS Brotli size](https://img.badgesize.io/twbs/bootstrap/main/dist/js/bootstrap.min.js?compression=brotli&label=JS%20Brotli%20size)](https://github.com/twbs/bootstrap/blob/main/dist/js/bootstrap.min.js)
-<<<<<<< HEAD
-=======
 ![Open Source Security Foundation Scorecard](https://img.shields.io/ossf-scorecard/github.com/twbs/bootstrap)
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 [![Backers on Open Collective](https://img.shields.io/opencollective/backers/bootstrap?logo=opencollective&logoColor=fff)](#backers)
 [![Sponsors on Open Collective](https://img.shields.io/opencollective/sponsors/bootstrap?logo=opencollective&logoColor=fff)](#sponsors)
 
 
-<<<<<<< HEAD
-## What's included
-
-Within the download you'll find the following directories and files, logically grouping common assets and providing both compiled and minified variations.
-=======
 ## What’s included
 
 Within the download you’ll find the following directories and files, logically grouping common assets and providing both compiled and minified variations.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 <details>
   <summary>Download contents</summary>
@@ -157,11 +131,7 @@ Within the download you’ll find the following directories and files, logically
   ```
 </details>
 
-<<<<<<< HEAD
-We provide compiled CSS and JS (`bootstrap.*`), as well as compiled and minified CSS and JS (`bootstrap.min.*`). [Source maps](https://developers.google.com/web/tools/chrome-devtools/javascript/source-maps) (`bootstrap.*.map`) are available for use with certain browsers' developer tools. Bundled JS files (`bootstrap.bundle.js` and minified `bootstrap.bundle.min.js`) include [Popper](https://popper.js.org/).
-=======
 We provide compiled CSS and JS (`bootstrap.*`), as well as compiled and minified CSS and JS (`bootstrap.min.*`). [Source maps](https://web.dev/articles/source-maps) (`bootstrap.*.map`) are available for use with certain browsers’ developer tools. Bundled JS files (`bootstrap.bundle.js` and minified `bootstrap.bundle.min.js`) include [Popper](https://popper.js.org/docs/v2/).
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 
 ## Bugs and feature requests
@@ -171,31 +141,18 @@ Have a bug or a feature request? Please first read the [issue guidelines](https:
 
 ## Documentation
 
-<<<<<<< HEAD
-Bootstrap's documentation, included in this repo in the root directory, is built with [Hugo](https://gohugo.io/) and publicly hosted on GitHub Pages at <https://getbootstrap.com/>. The docs may also be run locally.
-=======
 Bootstrap’s documentation, included in this repo in the root directory, is built with [Astro](https://astro.build/) and publicly hosted on GitHub Pages at <https://getbootstrap.com/>. The docs may also be run locally.
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 Documentation search is powered by [Algolia's DocSearch](https://docsearch.algolia.com/).
 
 ### Running documentation locally
 
-<<<<<<< HEAD
-1. Run `npm install` to install the Node.js dependencies, including Hugo (the site builder).
-2. Run `npm run test` (or a specific npm script) to rebuild distributed CSS and JavaScript files, as well as our docs assets.
-3. From the root `/bootstrap` directory, run `npm run docs-serve` in the command line.
-4. Open `http://localhost:9001/` in your browser, and voilà.
-
-Learn more about using Hugo by reading its [documentation](https://gohugo.io/documentation/).
-=======
 1. Run `npm install` to install the Node.js dependencies, including Astro (the site builder).
 2. Run `npm run test` (or a specific npm script) to rebuild distributed CSS and JavaScript files, as well as our docs assets.
 3. From the root `/bootstrap` directory, run `npm run docs-serve` in the command line.
 4. Open <http://localhost:9001> in your browser, and voilà.
 
 Learn more about using Astro by reading its [documentation](https://docs.astro.build/en/getting-started/).
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
 ### Documentation for previous releases
 
@@ -215,21 +172,12 @@ Editor preferences are available in the [editor config](https://github.com/twbs/
 
 ## Community
 
-<<<<<<< HEAD
-Get updates on Bootstrap's development and chat with the project maintainers and community members.
-
-- Follow [@getbootstrap on Twitter](https://twitter.com/getbootstrap).
-- Read and subscribe to [The Official Bootstrap Blog](https://blog.getbootstrap.com/).
-- Ask questions and explore [our GitHub Discussions](https://github.com/twbs/bootstrap/discussions).
-- Discuss, ask questions, and more on [the community Discord](https://discord.gg/bZUvakRU3M) or [Bootstrap subreddit](https://reddit.com/r/bootstrap).
-=======
 Get updates on Bootstrap’s development and chat with the project maintainers and community members.
 
 - Follow [@getbootstrap on X](https://x.com/getbootstrap).
 - Read and subscribe to [The Official Bootstrap Blog](https://blog.getbootstrap.com/).
 - Ask questions and explore [our GitHub Discussions](https://github.com/twbs/bootstrap/discussions).
 - Discuss, ask questions, and more on [the community Discord](https://discord.gg/bZUvakRU3M) or [Bootstrap subreddit](https://www.reddit.com/r/bootstrap/).
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 - Chat with fellow Bootstrappers in IRC. On the `irc.libera.chat` server, in the `#bootstrap` channel.
 - Implementation help may be found at Stack Overflow (tagged [`bootstrap-5`](https://stackoverflow.com/questions/tagged/bootstrap-5)).
 - Developers should use the keyword `bootstrap` on packages which modify or add to the functionality of Bootstrap when distributing through [npm](https://www.npmjs.com/browse/keyword/bootstrap) or similar delivery mechanisms for maximum discoverability.
@@ -246,20 +194,12 @@ See [the Releases section of our GitHub project](https://github.com/twbs/bootstr
 
 **Mark Otto**
 
-<<<<<<< HEAD
-- <https://twitter.com/mdo>
-=======
 - <https://x.com/mdo>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 - <https://github.com/mdo>
 
 **Jacob Thornton**
 
-<<<<<<< HEAD
-- <https://twitter.com/fat>
-=======
 - <https://x.com/fat>
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 - <https://github.com/fat>
 
 
@@ -303,8 +243,4 @@ Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com
 
 ## Copyright and license
 
-<<<<<<< HEAD
-Code and documentation copyright 2011–2024 the [Bootstrap Authors](https://github.com/twbs/bootstrap/graphs/contributors). Code released under the [MIT License](https://github.com/twbs/bootstrap/blob/main/LICENSE). Docs released under [Creative Commons](https://creativecommons.org/licenses/by/3.0/).
-=======
 Code and documentation copyright 2011-2025 the [Bootstrap Authors](https://github.com/twbs/bootstrap/graphs/contributors). Code released under the [MIT License](https://github.com/twbs/bootstrap/blob/main/LICENSE). Docs released under [Creative Commons](https://creativecommons.org/licenses/by/3.0/).
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96

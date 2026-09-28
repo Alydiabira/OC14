@@ -29,11 +29,7 @@ trait NoUnknownNamedArguments
      * @param TItem[] $parameter
      *
      * @template TItem
-<<<<<<< HEAD
-     * @psalm-assert list<TItem> $parameter
-=======
      * @phpstan-assert list<TItem> $parameter
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
      */
     private static function validateVariadicParameter(array $parameter): void
     {

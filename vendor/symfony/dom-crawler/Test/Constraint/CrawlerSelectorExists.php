@@ -25,11 +25,7 @@ final class CrawlerSelectorExists extends Constraint
 
     public function toString(): string
     {
-<<<<<<< HEAD
-        return sprintf('matches selector "%s"', $this->selector);
-=======
         return \sprintf('matches selector "%s"', $this->selector);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**

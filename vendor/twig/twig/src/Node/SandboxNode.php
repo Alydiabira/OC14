@@ -22,15 +22,9 @@ use Twig\Compiler;
 #[YieldReady]
 class SandboxNode extends Node
 {
-<<<<<<< HEAD
-    public function __construct(Node $body, int $lineno, ?string $tag = null)
-    {
-        parent::__construct(['body' => $body], [], $lineno, $tag);
-=======
     public function __construct(Node $body, int $lineno)
     {
         parent::__construct(['body' => $body], [], $lineno);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     public function compile(Compiler $compiler): void
@@ -39,7 +33,7 @@ class SandboxNode extends Node
             ->addDebugInfo($this)
             ->write("if (!\$alreadySandboxed = \$this->sandbox->isSandboxed()) {\n")
             ->indent()
-            ->write("\$this->sandbox->enableSandbox();\n")
+            ->write("\$this->sandbox->setSandboxed(true);\n")
             ->outdent()
             ->write("}\n")
             ->write("try {\n")
@@ -50,7 +44,7 @@ class SandboxNode extends Node
             ->indent()
             ->write("if (!\$alreadySandboxed) {\n")
             ->indent()
-            ->write("\$this->sandbox->disableSandbox();\n")
+            ->write("\$this->sandbox->setSandboxed(false);\n")
             ->outdent()
             ->write("}\n")
             ->outdent()

@@ -35,10 +35,6 @@ trait LdapFactoryTrait
     public function createAuthenticator(ContainerBuilder $container, string $firewallName, array $config, string $userProviderId): string
     {
         $key = str_replace('-', '_', $this->getKey());
-<<<<<<< HEAD
-        $authenticatorId = parent::createAuthenticator($container, $firewallName, $config, $userProviderId);
-
-=======
         $definitions = $container->getDefinitions();
         $authenticatorId = parent::createAuthenticator($container, $firewallName, $config, $userProviderId);
 
@@ -55,7 +51,6 @@ trait LdapFactoryTrait
 
         $authenticatorId = $decoratedId;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         $container->setDefinition('security.listener.'.$key.'.'.$firewallName, new Definition(CheckLdapCredentialsListener::class))
             ->addTag('kernel.event_subscriber', ['dispatcher' => 'security.event_dispatcher.'.$firewallName])
             ->addArgument(new Reference('security.ldap_locator'))

@@ -30,9 +30,6 @@ final class EnumType extends AbstractType
             ->setAllowedTypes('class', 'string')
             ->setAllowedValues('class', enum_exists(...))
             ->setDefault('choices', static fn (Options $options): array => $options['class']::cases())
-<<<<<<< HEAD
-            ->setDefault('choice_label', static fn (\UnitEnum $choice) => $choice instanceof TranslatableInterface ? $choice : $choice->name)
-=======
             ->setDefault('choice_label', static function (Options $options) {
                 return static function (\UnitEnum $choice, int|string $key): string|TranslatableInterface {
                     if (\is_int($key)) {
@@ -44,7 +41,6 @@ final class EnumType extends AbstractType
                     return $key;
                 };
             })
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             ->setDefault('choice_value', static function (Options $options): ?\Closure {
                 if (!is_a($options['class'], \BackedEnum::class, true)) {
                     return null;

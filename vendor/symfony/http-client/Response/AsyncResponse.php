@@ -12,10 +12,6 @@
 namespace Symfony\Component\HttpClient\Response;
 
 use Symfony\Component\HttpClient\Chunk\ErrorChunk;
-<<<<<<< HEAD
-use Symfony\Component\HttpClient\Chunk\FirstChunk;
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 use Symfony\Component\HttpClient\Chunk\LastChunk;
 use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Contracts\HttpClient\ChunkInterface;
@@ -44,10 +40,7 @@ class AsyncResponse implements ResponseInterface, StreamableInterface
     private $passthru;
     private ?\Iterator $stream = null;
     private ?int $yieldedState = null;
-<<<<<<< HEAD
-=======
     private bool $hasThrown = false;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
     /**
      * @param ?callable(ChunkInterface, AsyncContext): ?\Iterator $passthru
@@ -72,11 +65,7 @@ class AsyncResponse implements ResponseInterface, StreamableInterface
 
             while (true) {
                 foreach (self::stream([$response], $timeout) as $chunk) {
-<<<<<<< HEAD
-                    if ($chunk->isTimeout() && $response->passthru) {
-=======
                     if ($chunk->isTimeout() && ($response->passthru || $response = self::findInnerPassthru($response))) {
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                         // Timeouts thrown during initialization are transport errors
                         foreach (self::passthru($response->client, $response, new ErrorChunk($response->offset, new TransportException($chunk->getError()))) as $chunk) {
                             if ($chunk->isFirst()) {
@@ -129,8 +118,6 @@ class AsyncResponse implements ResponseInterface, StreamableInterface
 
     public function getInfo(?string $type = null): mixed
     {
-<<<<<<< HEAD
-=======
         if ('debug' === ($type ?? 'debug')) {
             $debug = implode('', array_column($this->info['previous_info'] ?? [], 'debug'));
             $debug .= $this->response->getInfo('debug');
@@ -140,16 +127,11 @@ class AsyncResponse implements ResponseInterface, StreamableInterface
             }
         }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
         if (null !== $type) {
             return $this->info[$type] ?? $this->response->getInfo($type);
         }
 
-<<<<<<< HEAD
-        return $this->info + $this->response->getInfo();
-=======
         return array_merge($this->info + $this->response->getInfo(), ['debug' => $debug]);
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
@@ -207,13 +189,6 @@ class AsyncResponse implements ResponseInterface, StreamableInterface
         $httpException = null;
 
         if ($this->initializer && null === $this->getInfo('error')) {
-<<<<<<< HEAD
-            try {
-                self::initialize($this, -0.0);
-                $this->getHeaders(true);
-            } catch (HttpExceptionInterface $httpException) {
-                // no-op
-=======
             if (!$this->hasThrown) {
                 try {
                     self::initialize($this);
@@ -224,7 +199,6 @@ class AsyncResponse implements ResponseInterface, StreamableInterface
             } else {
                 // Ensure the wrapped response cannot throw on destruct either: an error was already thrown
                 $this->response->cancel();
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
         }
 
@@ -257,11 +231,7 @@ class AsyncResponse implements ResponseInterface, StreamableInterface
 
             foreach ($responses as $r) {
                 if (!$r instanceof self) {
-<<<<<<< HEAD
-                    throw new \TypeError(sprintf('"%s::stream()" expects parameter 1 to be an iterable of AsyncResponse objects, "%s" given.', $class ?? static::class, get_debug_type($r)));
-=======
                     throw new \TypeError(\sprintf('"%s::stream()" expects parameter 1 to be an iterable of AsyncResponse objects, "%s" given.', $class ?? static::class, get_debug_type($r)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
 
                 if (null !== $e = $r->info['error'] ?? null) {
@@ -280,11 +250,7 @@ class AsyncResponse implements ResponseInterface, StreamableInterface
                 $wrappedResponses[] = $r->response;
 
                 if ($r->stream) {
-<<<<<<< HEAD
-                    yield from self::passthruStream($response = $r->response, $r, new FirstChunk(), $asyncMap);
-=======
                     yield from self::passthruStream($response = $r->response, $r, $asyncMap, new LastChunk());
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 
                     if (!isset($asyncMap[$response])) {
                         array_pop($wrappedResponses);
@@ -301,10 +267,7 @@ class AsyncResponse implements ResponseInterface, StreamableInterface
                 return;
             }
 
-<<<<<<< HEAD
-=======
             $chunk = null;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             foreach ($client->stream($wrappedResponses, $timeout) as $response => $chunk) {
                 $r = $asyncMap[$response];
 
@@ -317,41 +280,10 @@ class AsyncResponse implements ResponseInterface, StreamableInterface
                     }
                 }
 
-<<<<<<< HEAD
-                if (!$r->passthru) {
-                    if (null !== $chunk->getError() || $chunk->isLast()) {
-                        unset($asyncMap[$response]);
-                    } elseif (null !== $r->content && '' !== ($content = $chunk->getContent()) && \strlen($content) !== fwrite($r->content, $content)) {
-                        $chunk = new ErrorChunk($r->offset, new TransportException(sprintf('Failed writing %d bytes to the response buffer.', \strlen($content))));
-                        $r->info['error'] = $chunk->getError();
-                        $r->response->cancel();
-                    }
-
-                    yield $r => $chunk;
-                    continue;
-                }
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 if (null !== $chunk->getError()) {
                     // no-op
                 } elseif ($chunk->isFirst()) {
                     $r->yieldedState = self::FIRST_CHUNK_YIELDED;
-<<<<<<< HEAD
-                } elseif (self::FIRST_CHUNK_YIELDED !== $r->yieldedState && null === $chunk->getInformationalStatus()) {
-                    throw new \LogicException(sprintf('Instance of "%s" is already consumed and cannot be managed by "%s". A decorated client should not call any of the response\'s methods in its "request()" method.', get_debug_type($response), $class ?? static::class));
-                }
-
-                foreach (self::passthru($r->client, $r, $chunk, $asyncMap) as $chunk) {
-                    yield $r => $chunk;
-                }
-
-                if ($r->response !== $response && isset($asyncMap[$response])) {
-                    break;
-                }
-            }
-
-=======
                 } elseif (null === $r->yieldedState && null === $chunk->getInformationalStatus()) {
                     throw new \LogicException(\sprintf('Instance of "%s" is already consumed and cannot be managed by "%s". A decorated client should not call any of the response\'s methods in its "request()" method.', get_debug_type($response), $class ?? static::class));
                 }
@@ -384,7 +316,6 @@ class AsyncResponse implements ResponseInterface, StreamableInterface
             if (null === $chunk) {
                 throw new \LogicException(\sprintf('"%s" is not compliant with HttpClientInterface: its "stream()" method didn\'t yield any chunks when it should have.', get_debug_type($client)));
             }
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             if (null === $chunk->getError() && $chunk->isLast()) {
                 $r->yieldedState = self::LAST_CHUNK_YIELDED;
             }
@@ -397,11 +328,7 @@ class AsyncResponse implements ResponseInterface, StreamableInterface
                 $r = $asyncMap[$response];
 
                 if (null !== $r->client) {
-<<<<<<< HEAD
-                    $responses[] = $asyncMap[$response];
-=======
                     $responses[] = $r;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 }
             }
         }
@@ -424,13 +351,6 @@ class AsyncResponse implements ResponseInterface, StreamableInterface
         }
 
         if (!$stream instanceof \Iterator) {
-<<<<<<< HEAD
-            throw new \LogicException(sprintf('A chunk passthru must return an "Iterator", "%s" returned.', get_debug_type($stream)));
-        }
-        $r->stream = $stream;
-
-        yield from self::passthruStream($response, $r, null, $asyncMap);
-=======
             throw new \LogicException(\sprintf('A chunk passthru must return an "Iterator", "%s" returned.', get_debug_type($stream)));
         }
         $r->stream = $stream;
@@ -451,17 +371,12 @@ class AsyncResponse implements ResponseInterface, StreamableInterface
         }
 
         return null;
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     }
 
     /**
      * @param \SplObjectStorage<ResponseInterface, AsyncResponse>|null $asyncMap
      */
-<<<<<<< HEAD
-    private static function passthruStream(ResponseInterface $response, self $r, ?ChunkInterface $chunk, ?\SplObjectStorage $asyncMap): \Generator
-=======
     private static function passthruStream(ResponseInterface $response, self $r, ?\SplObjectStorage $asyncMap, ?ChunkInterface $chunk = null): \Generator
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
     {
         while (true) {
             try {
@@ -487,11 +402,7 @@ class AsyncResponse implements ResponseInterface, StreamableInterface
             $chunk = $r->stream->current();
 
             if (!$chunk instanceof ChunkInterface) {
-<<<<<<< HEAD
-                throw new \LogicException(sprintf('A chunk passthru must yield instances of "%s", "%s" yielded.', ChunkInterface::class, get_debug_type($chunk)));
-=======
                 throw new \LogicException(\sprintf('A chunk passthru must yield instances of "%s", "%s" yielded.', ChunkInterface::class, get_debug_type($chunk)));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             if (null !== $chunk->getError()) {
@@ -518,11 +429,7 @@ class AsyncResponse implements ResponseInterface, StreamableInterface
                 }
 
                 if (null !== $r->content && \strlen($content) !== fwrite($r->content, $content)) {
-<<<<<<< HEAD
-                    $chunk = new ErrorChunk($r->offset, new TransportException(sprintf('Failed writing %d bytes to the response buffer.', \strlen($content))));
-=======
                     $chunk = new ErrorChunk($r->offset, new TransportException(\sprintf('Failed writing %d bytes to the response buffer.', \strlen($content))));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     $r->info['error'] = $chunk->getError();
                     $r->response->cancel();
                 }
@@ -561,11 +468,8 @@ class AsyncResponse implements ResponseInterface, StreamableInterface
                     }
                 }
 
-<<<<<<< HEAD
-=======
                 $r->hasThrown = true;
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                 yield $r => $chunk;
                 $chunk->didThrow() ?: $chunk->getContent();
             }

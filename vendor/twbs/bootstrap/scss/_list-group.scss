@@ -43,34 +43,6 @@
   }
 }
 
-<<<<<<< HEAD
-// Interactive list items
-//
-// Use anchor or button elements instead of `li`s or `div`s to create interactive
-// list items. Includes an extra `.active` modifier class for selected items.
-
-.list-group-item-action {
-  width: 100%; // For `<button>`s (anchors become 100% by default though)
-  color: var(--#{$prefix}list-group-action-color);
-  text-align: inherit; // For `<button>`s (anchors inherit)
-
-  // Hover state
-  &:hover,
-  &:focus {
-    z-index: 1; // Place hover/focus items above their siblings for proper border styling
-    color: var(--#{$prefix}list-group-action-hover-color);
-    text-decoration: none;
-    background-color: var(--#{$prefix}list-group-action-hover-bg);
-  }
-
-  &:active {
-    color: var(--#{$prefix}list-group-action-active-color);
-    background-color: var(--#{$prefix}list-group-action-active-bg);
-  }
-}
-
-=======
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 // Individual list items
 //
 // Use on `li`s or `div`s within the `.list-group` parent.
@@ -118,8 +90,6 @@
   }
 }
 
-<<<<<<< HEAD
-=======
 // Interactive list items
 //
 // Use anchor or button elements instead of `li`s or `div`s to create interactive
@@ -147,7 +117,6 @@
   }
 }
 
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
 // Horizontal
 //
 // Change the layout of list group items from vertical (default) to horizontal.

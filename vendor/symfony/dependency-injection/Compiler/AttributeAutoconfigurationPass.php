@@ -52,11 +52,7 @@ final class AttributeAutoconfigurationPass extends AbstractRecursivePass
             } elseif ($parameterType instanceof \ReflectionNamedType) {
                 $types[] = $parameterType->getName();
             } else {
-<<<<<<< HEAD
-                throw new LogicException(sprintf('Argument "$%s" of attribute autoconfigurator should have a type, use one or more of "\ReflectionClass|\ReflectionMethod|\ReflectionProperty|\ReflectionParameter|\Reflector" in "%s" on line "%d".', $reflectorParameter->getName(), $callableReflector->getFileName(), $callableReflector->getStartLine()));
-=======
                 throw new LogicException(\sprintf('Argument "$%s" of attribute autoconfigurator should have a type, use one or more of "\ReflectionClass|\ReflectionMethod|\ReflectionProperty|\ReflectionParameter|\Reflector" in "%s" on line "%d".', $reflectorParameter->getName(), $callableReflector->getFileName(), $callableReflector->getStartLine()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
             }
 
             try {
@@ -74,11 +70,7 @@ final class AttributeAutoconfigurationPass extends AbstractRecursivePass
                         continue;
                     }
                     if (!($targets & \constant('Attribute::TARGET_'.strtoupper($symbol)))) {
-<<<<<<< HEAD
-                        throw new LogicException(sprintf('Invalid type "Reflection%s" on argument "$%s": attribute "%s" cannot target a '.$symbol.' in "%s" on line "%d".', ucfirst($symbol), $reflectorParameter->getName(), $attributeName, $callableReflector->getFileName(), $callableReflector->getStartLine()));
-=======
                         throw new LogicException(\sprintf('Invalid type "Reflection%s" on argument "$%s": attribute "%s" cannot target a '.$symbol.' in "%s" on line "%d".', ucfirst($symbol), $reflectorParameter->getName(), $attributeName, $callableReflector->getFileName(), $callableReflector->getStartLine()));
->>>>>>> 2e72f1632cadb8c405e63c6aa2090259be9a8e96
                     }
                 }
                 $this->{$symbol.'AttributeConfigurators'}[$attributeName] = $callable;
