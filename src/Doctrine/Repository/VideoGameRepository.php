@@ -50,33 +50,19 @@ final class VideoGameRepository extends ServiceEntityRepository
                 );
         }
 
-        if ([] !== $filter->getTags()) {
-            $tagIds = array_map(
-                static function ($tag): ?int {
-                    return $tag->getId();
-                },
-                $filter->getTags()
-            );
+       if ([] !== $filter->getTags()) {
+    $tagIds = array_map(
+        static fn ($tag): ?int => $tag->getId(),
+        $filter->getTags()
+    );
 
-            $subQuery = $this->getEntityManager()
-                ->createQueryBuilder()
-                ->select('vg2.id')
-                ->from(VideoGame::class, 'vg2')
-                ->join('vg2.tags', 't2')
-                ->where('t2.id IN (:tags)')
-                ->groupBy('vg2.id')
-                ->having('COUNT(DISTINCT t2.id) = :tagCount');
-
-            $queryBuilder
-                ->andWhere(
-                    $queryBuilder->expr()->in(
-                        'vg.id',
-                        $subQuery->getDQL()
-                    )
-                )
-                ->setParameter('tags', $tagIds)
-                ->setParameter('tagCount', count($tagIds));
-        }
+    $queryBuilder
+        ->andWhere('t.id IN (:tags)')
+        ->setParameter('tags', $tagIds)
+        ->groupBy('vg.id')
+        ->having('COUNT(DISTINCT t.id) = :tagCount')
+        ->setParameter('tagCount', count($tagIds));
+}
 
         return new Paginator(
             $queryBuilder,
