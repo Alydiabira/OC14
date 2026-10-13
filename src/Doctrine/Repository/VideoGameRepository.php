@@ -36,38 +36,51 @@ final class VideoGameRepository extends ServiceEntityRepository
                 $pagination->getDirection()->getSql()
             );
 
-        if ($filter->getSearch() !== null) {
+        if (null !== $filter->getSearch()) {
             $queryBuilder
                 ->andWhere(
                     $queryBuilder->expr()->orX(
                         $queryBuilder->expr()->like('vg.title', ':search'),
-                        $queryBuilder->expr()->like('vg.description', ':search'),
-                        $queryBuilder->expr()->like('vg.test', ':search'),
+                        $queryBuilder->expr()->like('vg.description', ':search')
                     )
                 )
-                ->setParameter('search', '%' . $filter->getSearch() . '%');
+                ->setParameter(
+                    'search',
+                    '%' . $filter->getSearch() . '%'
+                );
         }
 
-       if ([] !== $filter->getTags()) {
-        $tagIds = array_map(
-        static fn ($tag) => $tag->getId(),
-        $filter->getTags()
+        if ([] !== $filter->getTags()) {
+            $tagIds = array_map(
+                static function ($tag): ?int {
+                    return $tag->getId();
+                },
+                $filter->getTags()
+            );
+
+            $subQuery = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->select('vg2.id')
+                ->from(VideoGame::class, 'vg2')
+                ->join('vg2.tags', 't2')
+                ->where('t2.id IN (:tags)')
+                ->groupBy('vg2.id')
+                ->having('COUNT(DISTINCT t2.id) = :tagCount');
+
+            $queryBuilder
+                ->andWhere(
+                    $queryBuilder->expr()->in(
+                        'vg.id',
+                        $subQuery->getDQL()
+                    )
+                )
+                ->setParameter('tags', $tagIds)
+                ->setParameter('tagCount', count($tagIds));
+        }
+
+        return new Paginator(
+            $queryBuilder,
+            fetchJoinCollection: true
         );
-         
-        $subQuery = $this->getEntityManager()->createQueryBuilder()
-        ->select('vg2.id')
-        ->from(VideoGame::class, 'vg2')
-        ->join('vg2.tags', 't2')
-        ->where('t2.id IN (:tags)')
-        ->groupBy('vg2.id')
-        ->having('COUNT(DISTINCT t2.id) = :tagCount');
-         
-        $queryBuilder
-        ->andWhere($queryBuilder->expr()->in('vg.id', $subQuery->getDQL()))
-        ->setParameter('tags', $tagIds)
-        ->setParameter('tagCount', count($tagIds));
-        }
-
-        return new Paginator($queryBuilder, fetchJoinCollection: true);
     }
 }

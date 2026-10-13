@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\ValueResolver;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use App\Doctrine\Repository\VideoGameRepository;
+
 
 #[Route('/', name: 'video_games_')]
 final class VideoGameController extends AbstractController
@@ -28,31 +30,62 @@ final class VideoGameController extends AbstractController
         Request $request,
         ListFactory $listFactory,
     ): Response {
+        
         $videoGamesList = $listFactory->createVideoGamesList($pagination)->handleRequest($request);
 
         return $this->render('views/video_games/list.html.twig', ['list' => $videoGamesList]);
     }
 
+
     #[Route('{slug}', name: 'show', methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    public function show(VideoGame $videoGame, EntityManagerInterface $entityManager, Request $request): Response
-    {
+    public function show(
+        string $slug,
+        VideoGameRepository $videoGameRepository,
+        EntityManagerInterface $entityManager,
+        Request $request
+    ): Response {
+        $videoGame = $videoGameRepository->findOneBy([
+            'slug' => $slug,
+        ]);
+
+        if (!$videoGame) {
+            throw $this->createNotFoundException();
+        }
+
         $review = new Review();
 
-        $form = $this->createForm(ReviewType::class, $review)->handleRequest($request);
+        $form = $this->createForm(
+            ReviewType::class,
+            $review
+        )->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->denyAccessUnlessGranted('review', $videoGame);
+
             $review->setVideoGame($videoGame);
 
             /** @var User $user */
             $user = $this->getUser();
 
             $review->setUser($user);
+
             $entityManager->persist($review);
             $entityManager->flush();
-            return $this->redirectToRoute('video_games_show', ['slug' => $videoGame->getSlug()]);
+
+            return $this->redirectToRoute(
+                'video_games_show',
+                [
+                    'slug' => $videoGame->getSlug(),
+                ]
+            );
         }
 
-        return $this->render('views/video_games/show.html.twig', ['video_game' => $videoGame, 'form' => $form]);
+        return $this->render(
+            'views/video_games/show.html.twig',
+            [
+                'video_game' => $videoGame,
+                'form' => $form,
+            ]
+        );
     }
 }
