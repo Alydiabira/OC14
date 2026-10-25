@@ -27,7 +27,6 @@ final class VideoGameRepository extends ServiceEntityRepository
     public function getVideoGames(Pagination $pagination, Filter $filter): Paginator
     {
         $queryBuilder = $this->createQueryBuilder('vg')
-            ->addSelect('t')
             ->leftJoin('vg.tags', 't')
             ->setFirstResult($pagination->getOffset())
             ->setMaxResults($pagination->getLimit())
@@ -50,23 +49,23 @@ final class VideoGameRepository extends ServiceEntityRepository
                 );
         }
 
-       if ([] !== $filter->getTags()) {
-    $tagIds = array_map(
-        static fn ($tag): ?int => $tag->getId(),
-        $filter->getTags()
-    );
+        if ([] !== $filter->getTags()) {
+            $tagIds = array_map(
+                static fn($tag): ?int => $tag->getId(),
+                $filter->getTags()
+            );
 
-    $queryBuilder
-        ->andWhere('t.id IN (:tags)')
-        ->setParameter('tags', $tagIds)
-        ->groupBy('vg.id')
-        ->having('COUNT(DISTINCT t.id) = :tagCount')
-        ->setParameter('tagCount', count($tagIds));
-}
+            $queryBuilder
+                ->andWhere('t.id IN (:tags)')
+                ->setParameter('tags', $tagIds)
+                ->groupBy('vg.id')
+                ->having('COUNT(DISTINCT t.id) = :tagCount')
+                ->setParameter('tagCount', count($tagIds));
+        }
 
         return new Paginator(
             $queryBuilder,
-            fetchJoinCollection: true
+            false
         );
     }
 }
