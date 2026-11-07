@@ -8,7 +8,7 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 /**
  * This class is automatically generated to help in creating a config.
  */
-class RemoteeventConfig 
+class RemoteEventConfig 
 {
     private $enabled;
     private $_usedProperties = [];

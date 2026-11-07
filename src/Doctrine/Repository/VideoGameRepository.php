@@ -65,7 +65,7 @@ final class VideoGameRepository extends ServiceEntityRepository
 
         return new Paginator(
             $queryBuilder,
-            false
+            true
         );
     }
 }

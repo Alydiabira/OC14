@@ -1,0 +1,48 @@
+<?php //ux.twig_component.component_properties
+
+return [PHP_INT_MAX, [
+    'App\\Twig\\Components\\Alert' => [
+        'properties' => [],
+        'methods' => [],
+    ],
+    'App\\Twig\\Components\\Card' => [
+        'properties' => [],
+        'methods' => [],
+    ],
+    'App\\Twig\\Components\\Filter' => [
+        'properties' => [],
+        'methods' => [],
+    ],
+    'App\\Twig\\Components\\Info' => [
+        'properties' => [],
+        'methods' => [],
+    ],
+    'App\\Twig\\Components\\NavBar' => [
+        'properties' => [],
+        'methods' => [],
+    ],
+    'App\\Twig\\Components\\Pagination' => [
+        'properties' => [],
+        'methods' => [],
+    ],
+    'App\\Twig\\Components\\Progress' => [
+        'properties' => [],
+        'methods' => [],
+    ],
+    'App\\Twig\\Components\\Rating' => [
+        'properties' => [],
+        'methods' => [],
+    ],
+    'App\\Twig\\Components\\Review' => [
+        'properties' => [],
+        'methods' => [],
+    ],
+    'App\\Twig\\Components\\Sorting' => [
+        'properties' => [],
+        'methods' => [],
+    ],
+    'App\\Twig\\Components\\Tabs' => [
+        'properties' => [],
+        'methods' => [],
+    ],
+]];

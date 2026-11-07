@@ -16,6 +16,7 @@ class VichUploaderConfig implements \Symfony\Component\Config\Builder\ConfigBuil
     private $defaultFilenameAttributeSuffix;
     private $dbDriver;
     private $storage;
+    private $useFlysystemToResolveUri;
     private $twig;
     private $form;
     private $metadata;
@@ -57,6 +58,19 @@ class VichUploaderConfig implements \Symfony\Component\Config\Builder\ConfigBuil
     {
         $this->_usedProperties['storage'] = true;
         $this->storage = $value;
+
+        return $this;
+    }
+
+    /**
+     * @default false
+     * @param ParamConfigurator|bool $value
+     * @return $this
+     */
+    public function useFlysystemToResolveUri($value): static
+    {
+        $this->_usedProperties['useFlysystemToResolveUri'] = true;
+        $this->useFlysystemToResolveUri = $value;
 
         return $this;
     }
@@ -140,6 +154,12 @@ class VichUploaderConfig implements \Symfony\Component\Config\Builder\ConfigBuil
             unset($value['storage']);
         }
 
+        if (array_key_exists('use_flysystem_to_resolve_uri', $value)) {
+            $this->_usedProperties['useFlysystemToResolveUri'] = true;
+            $this->useFlysystemToResolveUri = $value['use_flysystem_to_resolve_uri'];
+            unset($value['use_flysystem_to_resolve_uri']);
+        }
+
         if (array_key_exists('twig', $value)) {
             $this->_usedProperties['twig'] = true;
             $this->twig = $value['twig'];
@@ -180,6 +200,9 @@ class VichUploaderConfig implements \Symfony\Component\Config\Builder\ConfigBuil
         }
         if (isset($this->_usedProperties['storage'])) {
             $output['storage'] = $this->storage;
+        }
+        if (isset($this->_usedProperties['useFlysystemToResolveUri'])) {
+            $output['use_flysystem_to_resolve_uri'] = $this->useFlysystemToResolveUri;
         }
         if (isset($this->_usedProperties['twig'])) {
             $output['twig'] = $this->twig;

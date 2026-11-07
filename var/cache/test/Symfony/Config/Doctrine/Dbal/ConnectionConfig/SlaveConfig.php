@@ -140,6 +140,7 @@ class SlaveConfig
     }
 
     /**
+     * Adds the given suffix to the configured database name, this option has no effects for the SQLite platform
      * @default null
      * @param ParamConfigurator|mixed $value
      * @return $this
@@ -303,7 +304,7 @@ class SlaveConfig
     }
 
     /**
-     * Override the default database (postgres) to connect to for PostgreSQL connexion.
+     * Override the default database (postgres) to connect to for PostgreSQL connection.
      * @default null
      * @param ParamConfigurator|mixed $value
      * @return $this

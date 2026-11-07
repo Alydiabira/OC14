@@ -57,8 +57,8 @@ class LoginThrottlingConfig
     }
 
     /**
-     * The service ID of the lock factory used by the login rate limiter (or null to disable locking)
-     * @default null
+     * The service ID of the lock factory used by the login rate limiter ("auto" to use the default one when the Lock component is configured, or null to disable locking)
+     * @default 'auto'
      * @param ParamConfigurator|mixed $value
      * @return $this
      */

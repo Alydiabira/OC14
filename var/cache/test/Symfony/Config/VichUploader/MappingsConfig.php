@@ -18,8 +18,10 @@ class MappingsConfig
     private $namer;
     private $directoryNamer;
     private $deleteOnRemove;
+    private $eraseFields;
     private $deleteOnUpdate;
     private $injectOnLoad;
+    private $namerKeepExtension;
     private $dbDriver;
     private $_usedProperties = [];
 
@@ -50,7 +52,7 @@ class MappingsConfig
     }
 
     /**
-     * @template TValue
+     * @template TValue of string|array
      * @param TValue $value
      * @default {"service":null,"options":null}
      * @return \Symfony\Config\VichUploader\MappingsConfig\NamerConfig|$this
@@ -76,7 +78,7 @@ class MappingsConfig
     }
 
     /**
-     * @template TValue
+     * @template TValue of string|array
      * @param TValue $value
      * @default {"service":null,"options":null}
      * @return \Symfony\Config\VichUploader\MappingsConfig\DirectoryNamerConfig|$this
@@ -119,6 +121,19 @@ class MappingsConfig
      * @param ParamConfigurator|mixed $value
      * @return $this
      */
+    public function eraseFields($value): static
+    {
+        $this->_usedProperties['eraseFields'] = true;
+        $this->eraseFields = $value;
+
+        return $this;
+    }
+
+    /**
+     * @default true
+     * @param ParamConfigurator|mixed $value
+     * @return $this
+     */
     public function deleteOnUpdate($value): static
     {
         $this->_usedProperties['deleteOnUpdate'] = true;
@@ -136,6 +151,19 @@ class MappingsConfig
     {
         $this->_usedProperties['injectOnLoad'] = true;
         $this->injectOnLoad = $value;
+
+        return $this;
+    }
+
+    /**
+     * @default false
+     * @param ParamConfigurator|mixed $value
+     * @return $this
+     */
+    public function namerKeepExtension($value): static
+    {
+        $this->_usedProperties['namerKeepExtension'] = true;
+        $this->namerKeepExtension = $value;
 
         return $this;
     }
@@ -185,6 +213,12 @@ class MappingsConfig
             unset($value['delete_on_remove']);
         }
 
+        if (array_key_exists('erase_fields', $value)) {
+            $this->_usedProperties['eraseFields'] = true;
+            $this->eraseFields = $value['erase_fields'];
+            unset($value['erase_fields']);
+        }
+
         if (array_key_exists('delete_on_update', $value)) {
             $this->_usedProperties['deleteOnUpdate'] = true;
             $this->deleteOnUpdate = $value['delete_on_update'];
@@ -195,6 +229,12 @@ class MappingsConfig
             $this->_usedProperties['injectOnLoad'] = true;
             $this->injectOnLoad = $value['inject_on_load'];
             unset($value['inject_on_load']);
+        }
+
+        if (array_key_exists('namer_keep_extension', $value)) {
+            $this->_usedProperties['namerKeepExtension'] = true;
+            $this->namerKeepExtension = $value['namer_keep_extension'];
+            unset($value['namer_keep_extension']);
         }
 
         if (array_key_exists('db_driver', $value)) {
@@ -226,11 +266,17 @@ class MappingsConfig
         if (isset($this->_usedProperties['deleteOnRemove'])) {
             $output['delete_on_remove'] = $this->deleteOnRemove;
         }
+        if (isset($this->_usedProperties['eraseFields'])) {
+            $output['erase_fields'] = $this->eraseFields;
+        }
         if (isset($this->_usedProperties['deleteOnUpdate'])) {
             $output['delete_on_update'] = $this->deleteOnUpdate;
         }
         if (isset($this->_usedProperties['injectOnLoad'])) {
             $output['inject_on_load'] = $this->injectOnLoad;
+        }
+        if (isset($this->_usedProperties['namerKeepExtension'])) {
+            $output['namer_keep_extension'] = $this->namerKeepExtension;
         }
         if (isset($this->_usedProperties['dbDriver'])) {
             $output['db_driver'] = $this->dbDriver;

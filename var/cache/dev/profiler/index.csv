@@ -20,3 +20,13 @@ ba94eb,127.0.0.1,GET,https://127.0.0.1:8000/?direction=Descending&filter%5Bsearc
 05f785,127.0.0.1,GET,https://127.0.0.1:8000/,1792931463,,200,request
 0343c2,127.0.0.1,GET,https://127.0.0.1:8000/,1792931467,,200,request
 c40fce,127.0.0.1,GET,https://127.0.0.1:8000/,1792931914,,200,request
+e02e5e,127.0.0.1,GET,https://127.0.0.1:8000/video-games,1794059271,e0fdb0,404,request
+e0fdb0,127.0.0.1,GET,https://127.0.0.1:8000/video-games,1794059271,,404,request
+f64d28,127.0.0.1,GET,https://127.0.0.1:8000/video-games,1794059288,2e0f4e,404,request
+2e0f4e,127.0.0.1,GET,https://127.0.0.1:8000/video-games,1794059288,,404,request
+6b5489,127.0.0.1,GET,https://127.0.0.1:8000/video-games,1794059295,5e6637,404,request
+5e6637,127.0.0.1,GET,https://127.0.0.1:8000/video-games,1794059295,,404,request
+5970d7,127.0.0.1,GET,https://127.0.0.1:8000/video-games,1794062151,f2c329,404,request
+f2c329,127.0.0.1,GET,https://127.0.0.1:8000/video-games,1794062151,,404,request
+f4c2ed,127.0.0.1,GET,https://127.0.0.1:8000/video-games,1794062153,db0bef,404,request
+db0bef,127.0.0.1,GET,https://127.0.0.1:8000/video-games,1794062153,,404,request

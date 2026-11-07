@@ -5,6 +5,7 @@ namespace Symfony\Config;
 require_once __DIR__.\DIRECTORY_SEPARATOR.'StofDoctrineExtensions'.\DIRECTORY_SEPARATOR.'OrmConfig.php';
 require_once __DIR__.\DIRECTORY_SEPARATOR.'StofDoctrineExtensions'.\DIRECTORY_SEPARATOR.'MongodbConfig.php';
 require_once __DIR__.\DIRECTORY_SEPARATOR.'StofDoctrineExtensions'.\DIRECTORY_SEPARATOR.'ClassConfig.php';
+require_once __DIR__.\DIRECTORY_SEPARATOR.'StofDoctrineExtensions'.\DIRECTORY_SEPARATOR.'SoftdeleteableConfig.php';
 require_once __DIR__.\DIRECTORY_SEPARATOR.'StofDoctrineExtensions'.\DIRECTORY_SEPARATOR.'UploadableConfig.php';
 
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -18,6 +19,7 @@ class StofDoctrineExtensionsConfig implements \Symfony\Component\Config\Builder\
     private $orm;
     private $mongodb;
     private $class;
+    private $softdeleteable;
     private $uploadable;
     private $defaultLocale;
     private $translationFallback;
@@ -63,6 +65,21 @@ class StofDoctrineExtensionsConfig implements \Symfony\Component\Config\Builder\
         }
 
         return $this->class;
+    }
+
+    /**
+     * @default {"handle_post_flush_event":false}
+    */
+    public function softdeleteable(array $value = []): \Symfony\Config\StofDoctrineExtensions\SoftdeleteableConfig
+    {
+        if (null === $this->softdeleteable) {
+            $this->_usedProperties['softdeleteable'] = true;
+            $this->softdeleteable = new \Symfony\Config\StofDoctrineExtensions\SoftdeleteableConfig($value);
+        } elseif (0 < \func_num_args()) {
+            throw new InvalidConfigurationException('The node created by "softdeleteable()" has already been initialized. You cannot pass values the second time you call softdeleteable().');
+        }
+
+        return $this->softdeleteable;
     }
 
     /**
@@ -170,6 +187,12 @@ class StofDoctrineExtensionsConfig implements \Symfony\Component\Config\Builder\
             unset($value['class']);
         }
 
+        if (array_key_exists('softdeleteable', $value)) {
+            $this->_usedProperties['softdeleteable'] = true;
+            $this->softdeleteable = new \Symfony\Config\StofDoctrineExtensions\SoftdeleteableConfig($value['softdeleteable']);
+            unset($value['softdeleteable']);
+        }
+
         if (array_key_exists('uploadable', $value)) {
             $this->_usedProperties['uploadable'] = true;
             $this->uploadable = new \Symfony\Config\StofDoctrineExtensions\UploadableConfig($value['uploadable']);
@@ -222,6 +245,9 @@ class StofDoctrineExtensionsConfig implements \Symfony\Component\Config\Builder\
         }
         if (isset($this->_usedProperties['class'])) {
             $output['class'] = $this->class->toArray();
+        }
+        if (isset($this->_usedProperties['softdeleteable'])) {
+            $output['softdeleteable'] = $this->softdeleteable->toArray();
         }
         if (isset($this->_usedProperties['uploadable'])) {
             $output['uploadable'] = $this->uploadable->toArray();

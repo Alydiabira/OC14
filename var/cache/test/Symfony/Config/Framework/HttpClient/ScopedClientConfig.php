@@ -37,6 +37,7 @@ class ScopedClientConfig
     private $passphrase;
     private $ciphers;
     private $peerFingerprint;
+    private $cryptoMethod;
     private $extra;
     private $retryFailed;
     private $_usedProperties = [];
@@ -370,20 +371,32 @@ class ScopedClientConfig
     }
 
     /**
-     * @param ParamConfigurator|list<ParamConfigurator|mixed> $value
-     *
+     * The minimum version of TLS to accept; must be one of STREAM_CRYPTO_METHOD_TLSv*_CLIENT constants.
+     * @default null
+     * @param ParamConfigurator|mixed $value
      * @return $this
      */
-    public function extra(ParamConfigurator|array $value): static
+    public function cryptoMethod($value): static
     {
-        $this->_usedProperties['extra'] = true;
-        $this->extra = $value;
+        $this->_usedProperties['cryptoMethod'] = true;
+        $this->cryptoMethod = $value;
 
         return $this;
     }
 
     /**
-     * @template TValue
+     * @return $this
+     */
+    public function extra(string $name, mixed $value): static
+    {
+        $this->_usedProperties['extra'] = true;
+        $this->extra[$name] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @template TValue of mixed
      * @param TValue $value
      * @default {"enabled":false,"retry_strategy":null,"http_codes":[],"max_retries":3,"delay":1000,"multiplier":2,"max_delay":0,"jitter":0.1}
      * @return \Symfony\Config\Framework\HttpClient\ScopedClientConfig\RetryFailedConfig|$this
@@ -554,6 +567,12 @@ class ScopedClientConfig
             unset($value['peer_fingerprint']);
         }
 
+        if (array_key_exists('crypto_method', $value)) {
+            $this->_usedProperties['cryptoMethod'] = true;
+            $this->cryptoMethod = $value['crypto_method'];
+            unset($value['crypto_method']);
+        }
+
         if (array_key_exists('extra', $value)) {
             $this->_usedProperties['extra'] = true;
             $this->extra = $value['extra'];
@@ -645,6 +664,9 @@ class ScopedClientConfig
         }
         if (isset($this->_usedProperties['peerFingerprint'])) {
             $output['peer_fingerprint'] = $this->peerFingerprint->toArray();
+        }
+        if (isset($this->_usedProperties['cryptoMethod'])) {
+            $output['crypto_method'] = $this->cryptoMethod;
         }
         if (isset($this->_usedProperties['extra'])) {
             $output['extra'] = $this->extra;

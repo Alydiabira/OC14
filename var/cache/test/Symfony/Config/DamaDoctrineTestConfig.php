@@ -13,6 +13,7 @@ class DamaDoctrineTestConfig implements \Symfony\Component\Config\Builder\Config
     private $enableStaticConnection;
     private $enableStaticMetaDataCache;
     private $enableStaticQueryCache;
+    private $connectionKeys;
     private $_usedProperties = [];
 
     /**
@@ -55,6 +56,19 @@ class DamaDoctrineTestConfig implements \Symfony\Component\Config\Builder\Config
         return $this;
     }
 
+    /**
+     * @param ParamConfigurator|list<ParamConfigurator|mixed> $value
+     *
+     * @return $this
+     */
+    public function connectionKeys(ParamConfigurator|array $value): static
+    {
+        $this->_usedProperties['connectionKeys'] = true;
+        $this->connectionKeys = $value;
+
+        return $this;
+    }
+
     public function getExtensionAlias(): string
     {
         return 'dama_doctrine_test';
@@ -80,6 +94,12 @@ class DamaDoctrineTestConfig implements \Symfony\Component\Config\Builder\Config
             unset($value['enable_static_query_cache']);
         }
 
+        if (array_key_exists('connection_keys', $value)) {
+            $this->_usedProperties['connectionKeys'] = true;
+            $this->connectionKeys = $value['connection_keys'];
+            unset($value['connection_keys']);
+        }
+
         if ([] !== $value) {
             throw new InvalidConfigurationException(sprintf('The following keys are not supported by "%s": ', __CLASS__).implode(', ', array_keys($value)));
         }
@@ -96,6 +116,9 @@ class DamaDoctrineTestConfig implements \Symfony\Component\Config\Builder\Config
         }
         if (isset($this->_usedProperties['enableStaticQueryCache'])) {
             $output['enable_static_query_cache'] = $this->enableStaticQueryCache;
+        }
+        if (isset($this->_usedProperties['connectionKeys'])) {
+            $output['connection_keys'] = $this->connectionKeys;
         }
 
         return $output;

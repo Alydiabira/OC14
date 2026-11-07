@@ -3,6 +3,7 @@
 namespace Symfony\Config;
 
 require_once __DIR__.\DIRECTORY_SEPARATOR.'TwigComponent'.\DIRECTORY_SEPARATOR.'DefaultsConfig.php';
+require_once __DIR__.\DIRECTORY_SEPARATOR.'TwigComponent'.\DIRECTORY_SEPARATOR.'ProfilerConfig.php';
 
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\Loader\ParamConfigurator;
@@ -14,11 +15,12 @@ class TwigComponentConfig implements \Symfony\Component\Config\Builder\ConfigBui
 {
     private $defaults;
     private $anonymousTemplateDirectory;
+    private $profiler;
     private $controllersJson;
     private $_usedProperties = [];
 
     /**
-     * @template TValue
+     * @template TValue of string|array
      * @param TValue $value
      * @default ["__deprecated__use_old_naming_behavior"]
      * @return \Symfony\Config\TwigComponent\DefaultsConfig|$this
@@ -58,8 +60,25 @@ class TwigComponentConfig implements \Symfony\Component\Config\Builder\ConfigBui
     }
 
     /**
-     * @default '%kernel.project_dir%/assets/controllers.json'
+     * Enables the profiler for Twig Component
+     * @default {"enabled":"%kernel.debug%","collect_components":true}
+    */
+    public function profiler(array $value = []): \Symfony\Config\TwigComponent\ProfilerConfig
+    {
+        if (null === $this->profiler) {
+            $this->_usedProperties['profiler'] = true;
+            $this->profiler = new \Symfony\Config\TwigComponent\ProfilerConfig($value);
+        } elseif (0 < \func_num_args()) {
+            throw new InvalidConfigurationException('The node created by "profiler()" has already been initialized. You cannot pass values the second time you call profiler().');
+        }
+
+        return $this->profiler;
+    }
+
+    /**
+     * @default null
      * @param ParamConfigurator|mixed $value
+     * @deprecated The "twig_component.controllers_json" config option is deprecated, and will be removed in 3.0.
      * @return $this
      */
     public function controllersJson($value): static
@@ -89,6 +108,12 @@ class TwigComponentConfig implements \Symfony\Component\Config\Builder\ConfigBui
             unset($value['anonymous_template_directory']);
         }
 
+        if (array_key_exists('profiler', $value)) {
+            $this->_usedProperties['profiler'] = true;
+            $this->profiler = \is_array($value['profiler']) ? new \Symfony\Config\TwigComponent\ProfilerConfig($value['profiler']) : $value['profiler'];
+            unset($value['profiler']);
+        }
+
         if (array_key_exists('controllers_json', $value)) {
             $this->_usedProperties['controllersJson'] = true;
             $this->controllersJson = $value['controllers_json'];
@@ -108,6 +133,9 @@ class TwigComponentConfig implements \Symfony\Component\Config\Builder\ConfigBui
         }
         if (isset($this->_usedProperties['anonymousTemplateDirectory'])) {
             $output['anonymous_template_directory'] = $this->anonymousTemplateDirectory;
+        }
+        if (isset($this->_usedProperties['profiler'])) {
+            $output['profiler'] = $this->profiler instanceof \Symfony\Config\TwigComponent\ProfilerConfig ? $this->profiler->toArray() : $this->profiler;
         }
         if (isset($this->_usedProperties['controllersJson'])) {
             $output['controllers_json'] = $this->controllersJson;

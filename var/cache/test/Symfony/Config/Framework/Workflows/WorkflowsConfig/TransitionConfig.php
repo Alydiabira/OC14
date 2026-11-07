@@ -72,14 +72,12 @@ class TransitionConfig
     }
 
     /**
-     * @param ParamConfigurator|list<ParamConfigurator|mixed> $value
-     *
      * @return $this
      */
-    public function metadata(ParamConfigurator|array $value): static
+    public function metadata(string $key, mixed $value): static
     {
         $this->_usedProperties['metadata'] = true;
-        $this->metadata = $value;
+        $this->metadata[$key] = $value;
 
         return $this;
     }

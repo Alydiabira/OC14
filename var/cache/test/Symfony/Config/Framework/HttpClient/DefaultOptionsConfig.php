@@ -49,14 +49,12 @@ class DefaultOptionsConfig
     }
 
     /**
-     * @param ParamConfigurator|list<ParamConfigurator|mixed> $value
-     *
      * @return $this
      */
-    public function vars(ParamConfigurator|array $value): static
+    public function vars(string $name, mixed $value): static
     {
         $this->_usedProperties['vars'] = true;
-        $this->vars = $value;
+        $this->vars[$name] = $value;
 
         return $this;
     }
@@ -312,20 +310,18 @@ class DefaultOptionsConfig
     }
 
     /**
-     * @param ParamConfigurator|list<ParamConfigurator|mixed> $value
-     *
      * @return $this
      */
-    public function extra(ParamConfigurator|array $value): static
+    public function extra(string $name, mixed $value): static
     {
         $this->_usedProperties['extra'] = true;
-        $this->extra = $value;
+        $this->extra[$name] = $value;
 
         return $this;
     }
 
     /**
-     * @template TValue
+     * @template TValue of mixed
      * @param TValue $value
      * @default {"enabled":false,"retry_strategy":null,"http_codes":[],"max_retries":3,"delay":1000,"multiplier":2,"max_delay":0,"jitter":0.1}
      * @return \Symfony\Config\Framework\HttpClient\DefaultOptions\RetryFailedConfig|$this
