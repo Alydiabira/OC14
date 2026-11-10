@@ -31,10 +31,16 @@ final class FilterType extends AbstractType
                 'expanded' => true,
                 'class' => Tag::class,
                 'choice_label' => 'name',
+                'by_reference' => false,
                 'attr' =>  [
                     'class' => 'd-flex gap-2 flex-wrap',
                 ],
+
             ]);
+    }
+    public function getBlockPrefix(): string
+    {
+        return 'filter';
     }
 
     public function configureOptions(OptionsResolver $resolver)

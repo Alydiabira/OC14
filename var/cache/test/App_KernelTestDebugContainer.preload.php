@@ -765,10 +765,3 @@ $classes[] = 'Symfony\Bundle\WebProfilerBundle\Csp\ContentSecurityPolicyHandler'
 $classes[] = 'Symfony\Bundle\WebProfilerBundle\Csp\NonceGenerator';
 
 $preloaded = Preloader::preload($classes);
-
-$classes = [];
-$classes[] = 'Symfony\\Component\\Routing\\Generator\\CompiledUrlGenerator';
-$classes[] = 'Symfony\\Bundle\\FrameworkBundle\\Routing\\RedirectableCompiledUrlMatcher';
-$classes[] = 'Symfony\\Component\\Validator\\Mapping\\ClassMetadata';
-$classes[] = 'Symfony\\Component\\Form\\Extension\\Validator\\Constraints\\Form';
-$preloaded = Preloader::preload($classes, $preloaded);
