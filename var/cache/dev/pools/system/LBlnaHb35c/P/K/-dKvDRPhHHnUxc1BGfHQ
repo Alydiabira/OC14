@@ -1,0 +1,3 @@
+<?php //f761cd08d22b092b73b1501207c4784a
+
+return [PHP_INT_MAX, 'images/favicon/apple-touch-icon.png'];

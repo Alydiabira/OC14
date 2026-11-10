@@ -27,7 +27,6 @@ final class VideoGameRepository extends ServiceEntityRepository
     public function getVideoGames(Pagination $pagination, Filter $filter): Paginator
     {
         $queryBuilder = $this->createQueryBuilder('vg')
-            ->leftJoin('vg.tags', 't')
             ->setFirstResult($pagination->getOffset())
             ->setMaxResults($pagination->getLimit())
             ->orderBy(
@@ -50,17 +49,14 @@ final class VideoGameRepository extends ServiceEntityRepository
         }
 
         if ([] !== $filter->getTags()) {
-            $tagIds = array_map(
-                static fn($tag): ?int => $tag->getId(),
-                $filter->getTags()
-            );
+            foreach ($filter->getTags() as $index => $tag) {
+                $alias = 'tag_' . $index;
 
-            $queryBuilder
-                ->andWhere('t.id IN (:tags)')
-                ->setParameter('tags', $tagIds)
-                ->groupBy('vg.id')
-                ->having('COUNT(DISTINCT t.id) = :tagCount')
-                ->setParameter('tagCount', count($tagIds));
+                $queryBuilder
+                    ->innerJoin('vg.tags', $alias)
+                    ->andWhere($alias . ' = :' . $alias)
+                    ->setParameter($alias, $tag);
+            }
         }
 
         return new Paginator(
