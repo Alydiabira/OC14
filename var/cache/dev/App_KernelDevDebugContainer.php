@@ -16,7 +16,7 @@ if (!\class_exists(App_KernelDevDebugContainer::class, false)) {
 
 return new \ContainerLtLMSxv\App_KernelDevDebugContainer([
     'container.build_hash' => 'LtLMSxv',
-    'container.build_id' => 'c9b6720a',
-    'container.build_time' => 1792929293,
+    'container.build_id' => '1fa5e549',
+    'container.build_time' => 1794476450,
     'container.runtime_mode' => \in_array(\PHP_SAPI, ['cli', 'phpdbg', 'embed'], true) ? 'web=0' : 'web=1',
 ], __DIR__.\DIRECTORY_SEPARATOR.'ContainerLtLMSxv');

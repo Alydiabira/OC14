@@ -16,7 +16,7 @@ if (!\class_exists(App_KernelTestDebugContainer::class, false)) {
 
 return new \ContainerQQDoOwd\App_KernelTestDebugContainer([
     'container.build_hash' => 'QQDoOwd',
-    'container.build_id' => '428c49a9',
-    'container.build_time' => 1794312652,
+    'container.build_id' => '2807a3eb',
+    'container.build_time' => 1794485281,
     'container.runtime_mode' => \in_array(\PHP_SAPI, ['cli', 'phpdbg', 'embed'], true) ? 'web=0' : 'web=1',
 ], __DIR__.\DIRECTORY_SEPARATOR.'ContainerQQDoOwd');

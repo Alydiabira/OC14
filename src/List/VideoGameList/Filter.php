@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\List\VideoGameList;
 
 use App\Model\Entity\Tag;
+use Doctrine\Common\Collections\Collection;
+
 
 final class Filter
 {
@@ -14,8 +16,7 @@ final class Filter
     public function __construct(
         private ?string $search = null,
         private array $tags = []
-    ) {
-    }
+    ) {}
 
     public function getSearch(): ?string
     {
@@ -39,9 +40,12 @@ final class Filter
     /**
      * @param Tag[] $tags
      */
-    public function setTags(array $tags): Filter
+    public function setTags(array|Collection $tags): Filter
     {
-        $this->tags = $tags;
+        $this->tags = $tags instanceof Collection
+            ? $tags->toArray()
+            : $tags;
+
         return $this;
     }
 }

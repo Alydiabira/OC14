@@ -59,6 +59,8 @@ final class VideoGamesList implements Countable, IteratorAggregate
         $this->route = $route;
         $this->routeParameters = $request->query->all();
 
+
+
         $this->form = $this->formFactory
             ->create(
                 FilterType::class,
