@@ -31,23 +31,13 @@ final class FilterType extends AbstractType
                 'expanded' => true,
                 'class' => Tag::class,
                 'choice_label' => 'name',
-                // 'by_reference' => false,
-                'attr' =>  [
+                'by_reference' => false,
+                'attr' => [
                     'class' => 'd-flex gap-2 flex-wrap',
                 ],
-
             ]);
     }
 
-    /**
- * @param Tag[] $tags
- */
-public function setTags(array $tags): Filter
-{
-    $this->tags = $tags;
-
-    return $this;
-}
     public function getBlockPrefix(): string
     {
         return 'filter';
@@ -60,25 +50,3 @@ public function setTags(array $tags): Filter
         ]);
     }
 }
-
-
-
-// Dans ton FilterType, enlève : à corriger 
-
-// PHP
-// 'by_reference' => false,
-
-// et remets ton setter d'origine :
-
-// PHP
-// /**
-// * @param Tag[] $tags
-// */
-// public function setTags(array $tags): Filter
-// {
-// $this->tags = $tags;
-//  
-// return $this;
-// }
-
-// Ensuite vérifie la structure HTML générée pour les checkboxes.

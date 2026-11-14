@@ -61,7 +61,7 @@ final class VideoGamesList implements Countable, IteratorAggregate
 
 
 
-        $this->form = $this->formFactory
+        $form = $this->formFactory
             ->create(
                 FilterType::class,
                 $this->filter,
@@ -69,9 +69,12 @@ final class VideoGamesList implements Countable, IteratorAggregate
                     'method' => Request::METHOD_GET,
                     'csrf_protection' => false,
                 ]
-            )
-            ->handleRequest($request)
-            ->createView();
+            );
+
+        $form->handleRequest($request);
+
+
+        $this->form = $form->createView();
 
         $this->data = $this->videoGameRepository->getVideoGames($this->pagination, $this->filter);
 
