@@ -62,6 +62,7 @@ final class VideoGamesList implements Countable, IteratorAggregate
 
 
         $form = $this->formFactory
+
             ->create(
                 FilterType::class,
                 $this->filter,
@@ -73,8 +74,36 @@ final class VideoGamesList implements Countable, IteratorAggregate
 
         $form->handleRequest($request);
 
+        // dump('query', $request->query->all());
+        // dump('request', $request->request->all());
+        // die();
+
+        if ($form->isSubmitted()) {
+            dump(
+                'submitted',
+                true,
+                'tags',
+                count($this->filter->getTags()),
+                $this->filter->getTags()
+            );
+        }
+
 
         $this->form = $form->createView();
+
+        // dd(
+        //     count($this->filter->getTags())
+        // );
+        // dd(
+        //     $form->isSubmitted(),
+        //     $this->filter->getTags()
+        // );
+        //         dd(
+        //     'submitted',
+        //     $form->isSubmitted(),
+        //     'tags',
+        //     $this->filter->getTags()
+        // );
 
         $this->data = $this->videoGameRepository->getVideoGames($this->pagination, $this->filter);
 

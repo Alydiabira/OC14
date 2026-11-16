@@ -50,6 +50,7 @@ final class VideoGameRepository extends ServiceEntityRepository
                 );
         }
 
+
         dump(
             'repository tags',
             count($filter->getTags())
@@ -65,9 +66,12 @@ final class VideoGameRepository extends ServiceEntityRepository
                     ->setParameter($alias, $tag);
             }
         }
+
+
+
         dd(
-            count($filter->getTags()),
-            count($queryBuilder->getQuery()->getResult())
+            $queryBuilder->getDQL(),
+            $queryBuilder->getParameters()->count()
         );
 
         return new Paginator(
