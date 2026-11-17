@@ -26,8 +26,6 @@ final class VideoGameRepository extends ServiceEntityRepository
      */
     public function getVideoGames(Pagination $pagination, Filter $filter): Paginator
     {
-
-
         $queryBuilder = $this->createQueryBuilder('vg')
             ->setFirstResult($pagination->getOffset())
             ->setMaxResults($pagination->getLimit())
@@ -50,29 +48,31 @@ final class VideoGameRepository extends ServiceEntityRepository
                 );
         }
 
+        // if ([] !== $filter->getTags()) {
+        //     foreach ($filter->getTags() as $index => $tag) {
+        //         $alias = sprintf('tag_%d', $index);
 
-        dump(
-            'repository tags',
-            count($filter->getTags())
-        );
+        //         $queryBuilder
+        //             ->join('vg.tags', $alias)
+        //             ->andWhere(sprintf('%s.id = :%s', $alias, $alias))
+        //             ->setParameter($alias, $tag->getId());
+        //     }
+        // }
 
         if ([] !== $filter->getTags()) {
             foreach ($filter->getTags() as $index => $tag) {
-                $alias = 'tag_' . $index;
+                $alias = sprintf('tag_%d', $index);
 
                 $queryBuilder
-                    ->innerJoin('vg.tags', $alias)
-                    ->andWhere($alias . ' = :' . $alias)
-                    ->setParameter($alias, $tag);
+                    ->join('vg.tags', $alias)
+                    ->andWhere(sprintf('%s.id = :%s', $alias, $alias))
+                    ->setParameter($alias, $tag->getId());
             }
+
+            dd(
+                $queryBuilder->getDQL()
+            );
         }
-
-
-
-        dd(
-            $queryBuilder->getDQL(),
-            $queryBuilder->getParameters()->count()
-        );
 
         return new Paginator(
             $queryBuilder,

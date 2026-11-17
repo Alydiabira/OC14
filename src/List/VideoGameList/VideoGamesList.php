@@ -78,15 +78,15 @@ final class VideoGamesList implements Countable, IteratorAggregate
         // dump('request', $request->request->all());
         // die();
 
-        if ($form->isSubmitted()) {
-            dump(
-                'submitted',
-                true,
-                'tags',
-                count($this->filter->getTags()),
-                $this->filter->getTags()
-            );
-        }
+        // if ($form->isSubmitted()) {
+        //     dump(
+        //         'submitted',
+        //         true,
+        //         'tags',
+        //         count($this->filter->getTags()),
+        //         $this->filter->getTags()
+        //     );
+        // }
 
 
         $this->form = $form->createView();
