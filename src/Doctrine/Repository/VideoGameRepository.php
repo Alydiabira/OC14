@@ -59,20 +59,20 @@ final class VideoGameRepository extends ServiceEntityRepository
         //     }
         // }
 
-        if ([] !== $filter->getTags()) {
-            foreach ($filter->getTags() as $index => $tag) {
-                $alias = sprintf('tag_%d', $index);
+        // if ([] !== $filter->getTags()) {
+        //     foreach ($filter->getTags() as $index => $tag) {
+        //         $alias = sprintf('tag_%d', $index);
 
-                $queryBuilder
-                    ->join('vg.tags', $alias)
-                    ->andWhere(sprintf('%s.id = :%s', $alias, $alias))
-                    ->setParameter($alias, $tag->getId());
-            }
+        //         $queryBuilder
+        //             ->join('vg.tags', $alias)
+        //             ->andWhere(sprintf('%s.id = :%s', $alias, $alias))
+        //             ->setParameter($alias, $tag->getId());
+        //     }
 
-            dd(
-                $queryBuilder->getDQL()
-            );
-        }
+        //     dd(
+        //         $queryBuilder->getDQL()
+        //     );
+        // }
 
         return new Paginator(
             $queryBuilder,
