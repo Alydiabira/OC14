@@ -49,3 +49,9 @@ a8a239,127.0.0.1,GET,https://127.0.0.1:8000/,1794673783,,200,request
 f81e48,127.0.0.1,GET,https://127.0.0.1:8000/,1794822819,,200,request
 c3de7f,127.0.0.1,GET,https://127.0.0.1:8000/,1794840498,,200,request
 90ce4f,127.0.0.1,GET,https://127.0.0.1:8000/,1795258910,,200,request
+b81213,127.0.0.1,GET,https://127.0.0.1:8000/,1795265381,,200,request
+316008,127.0.0.1,GET,https://127.0.0.1:8000/?direction=Descending&filter%5Bsearch%5D=&filter%5Btags%5D%5B0%5D=6&limit=10&page=1&sorting=ReleaseDate,1795265382,,200,request
+f60de3,127.0.0.1,GET,https://127.0.0.1:8000/jeu-video-0,1795265385,,200,request
+bd45fa,127.0.0.1,GET,https://127.0.0.1:8000/,1795265389,,200,request
+390354,127.0.0.1,GET,https://127.0.0.1:8000/,1795265390,,200,request
+aac835,127.0.0.1,GET,https://127.0.0.1:8000/,1795265396,,200,request
