@@ -1,0 +1,14 @@
+Projet : Implementez des tests avec Symfony pour assurer la qualite du code en production
+Etudiant : Aly Diabira
+
+Repository GitHub (code source et tests) :
+https://github.com/Alydiabira/OC14
+
+Integration continue (GitHub Actions) :
+https://github.com/Alydiabira/OC14/actions
+
+Livrable 1 - Mise en place des tests :
+Le code source, les tests et leur configuration sont disponibles dans le repository GitHub ci-dessus.
+
+Livrable 2 - Deploiement du site :
+URL publique du site : A COMPLETER AVANT LE DEPOT
