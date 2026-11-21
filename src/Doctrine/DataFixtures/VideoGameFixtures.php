@@ -52,8 +52,16 @@ final class VideoGameFixtures extends Fixture implements DependentFixtureInterfa
 
 
         array_walk($videoGames, static function (VideoGame $videoGame, int $index) use ($tags) {
-            for ($tagIndex = 0; $tagIndex < 5; $tagIndex++) {
-                $videoGame->getTags()->add($tags[($index + $tagIndex) % count($tags)]);
+            $tagCount = match (true) {
+                $index === 0 || $index === 25 => 5,
+                $index === 49 => 4,
+                $index >= 21 && $index <= 24 => $index - 20,
+                $index >= 46 && $index <= 48 => $index - 45,
+                default => 0,
+            };
+
+            for ($tagIndex = 0; $tagIndex < $tagCount; $tagIndex++) {
+                $videoGame->getTags()->add($tags[$tagIndex]);
             }
         });
 

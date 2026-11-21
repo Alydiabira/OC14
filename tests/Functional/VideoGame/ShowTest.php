@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\VideoGame;
 
+use App\Model\Entity\User;
+use App\Model\Entity\VideoGame;
 use App\Tests\Functional\FunctionalTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,7 +20,21 @@ final class ShowTest extends FunctionalTestCase
 
     public function testShouldPostReview(): void
     {
-        $this->login();
+        $videoGame = $this->getEntityManager()
+            ->getRepository(VideoGame::class)
+            ->findOneBy(['slug' => 'jeu-video-49']);
+        self::assertNotNull($videoGame);
+
+        $reviewingUser = null;
+        foreach ($this->getEntityManager()->getRepository(User::class)->findAll() as $user) {
+            if (!$videoGame->hasAlreadyReview($user)) {
+                $reviewingUser = $user;
+                break;
+            }
+        }
+        self::assertNotNull($reviewingUser);
+
+        $this->login($reviewingUser->getEmail());
         $this->get('/jeu-video-49');
         self::assertResponseIsSuccessful();
         $this->submit(
@@ -30,7 +46,10 @@ final class ShowTest extends FunctionalTestCase
         );
         self::assertResponseStatusCodeSame(Response::HTTP_FOUND);
         $this->client->followRedirect();
-        self::assertSelectorTextContains('div.list-group-item:last-child h3', 'user+0');
+        self::assertSelectorTextContains(
+            'div.list-group-item:last-child h3',
+            $reviewingUser->getUsername()
+        );
         self::assertSelectorTextContains('div.list-group-item:last-child p', 'Mon commentaire');
         self::assertSelectorTextContains('div.list-group-item:last-child span.value', '4');
     }

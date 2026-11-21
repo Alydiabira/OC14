@@ -48,31 +48,28 @@ final class VideoGameRepository extends ServiceEntityRepository
                 );
         }
 
-        // if ([] !== $filter->getTags()) {
-        //     foreach ($filter->getTags() as $index => $tag) {
-        //         $alias = sprintf('tag_%d', $index);
+        if ([] !== $filter->getTags()) {
+            $connection = $this->getEntityManager()->getConnection();
+            $matchingVideoGameIds = null;
 
-        //         $queryBuilder
-        //             ->join('vg.tags', $alias)
-        //             ->andWhere(sprintf('%s.id = :%s', $alias, $alias))
-        //             ->setParameter($alias, $tag->getId());
-        //     }
-        // }
+            foreach ($filter->getTags() as $tag) {
+                $videoGameIds = $connection->fetchFirstColumn(
+                    'SELECT video_game_id FROM video_game_tags WHERE tag_id = ?',
+                    [$tag->getId()]
+                );
 
-        // if ([] !== $filter->getTags()) {
-        //     foreach ($filter->getTags() as $index => $tag) {
-        //         $alias = sprintf('tag_%d', $index);
+                $matchingVideoGameIds = $matchingVideoGameIds === null
+                    ? $videoGameIds
+                    : array_values(array_intersect($matchingVideoGameIds, $videoGameIds));
+            }
 
-        //         $queryBuilder
-        //             ->join('vg.tags', $alias)
-        //             ->andWhere(sprintf('%s.id = :%s', $alias, $alias))
-        //             ->setParameter($alias, $tag->getId());
-        //     }
-
-        //     dd(
-        //         $queryBuilder->getDQL()
-        //     );
-        // }
+            $queryBuilder
+                ->andWhere($queryBuilder->expr()->in('vg.id', ':taggedVideoGameIds'))
+                ->setParameter(
+                    'taggedVideoGameIds',
+                    $matchingVideoGameIds ?: [0]
+                );
+        }
 
         return new Paginator(
             $queryBuilder,

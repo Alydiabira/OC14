@@ -47,6 +47,8 @@ final class FilterType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Filter::class,
+            'method' => 'GET',
+            'csrf_protection' => false,
         ]);
     }
 }

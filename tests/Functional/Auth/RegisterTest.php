@@ -15,16 +15,19 @@ final class RegisterTest extends FunctionalTestCase
         $this->get('/auth/register');
         self::assertResponseIsSuccessful();
 
-        $this->submit('S\'inscrire', self::createFormData());
+        $formData = self::createFormData();
+        $this->submit('S\'inscrire', $formData);
         self::assertResponseRedirects('/auth/login');
 
-        $user = $this->getEntityManager()->getRepository(User::class)->findOneByEmail('user@email.com');
+        $user = $this->getEntityManager()->getRepository(User::class)->findOneByEmail(
+            $formData['register[email]']
+        );
 
         $userPasswordHasher = $this->service(UserPasswordHasherInterface::class);
 
         self::assertNotNull($user);
-        self::assertSame('username', $user->getUsername());
-        self::assertSame('user@email.com', $user->getEmail());
+        self::assertSame($formData['register[username]'], $user->getUsername());
+        self::assertSame($formData['register[email]'], $user->getEmail());
         self::assertTrue($userPasswordHasher->isPasswordValid($user, 'SuperPassword123!'));
     }
 
@@ -60,9 +63,11 @@ final class RegisterTest extends FunctionalTestCase
      */
     public static function createFormData(array $overrideData = []): array
     {
+        $uniqueId = bin2hex(random_bytes(8));
+
         return $overrideData + [
-            'register[username]' => 'username',
-            'register[email]' => 'user@email.com',
+            'register[username]' => 'registered-' . $uniqueId,
+            'register[email]' => 'registered-' . $uniqueId . '@email.com',
             'register[plainPassword]' => 'SuperPassword123!'
         ];
     }
