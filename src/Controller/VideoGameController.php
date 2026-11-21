@@ -4,21 +4,18 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Doctrine\Repository\VideoGameRepository;
 use App\Form\ReviewType;
 use App\List\ListFactory;
 use App\List\VideoGameList\Pagination;
 use App\Model\Entity\Review;
 use App\Model\Entity\User;
-use App\Model\Entity\VideoGame;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\ValueResolver;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
-use App\Doctrine\Repository\VideoGameRepository;
-
 
 #[Route('/', name: 'video_games_')]
 final class VideoGameController extends AbstractController
@@ -30,25 +27,23 @@ final class VideoGameController extends AbstractController
         Request $request,
         ListFactory $listFactory,
     ): Response {
-        
         $videoGamesList = $listFactory->createVideoGamesList($pagination)->handleRequest($request);
 
         return $this->render('views/video_games/list.html.twig', ['list' => $videoGamesList]);
     }
-
 
     #[Route('{slug}', name: 'show', methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function show(
         string $slug,
         VideoGameRepository $videoGameRepository,
         EntityManagerInterface $entityManager,
-        Request $request
+        Request $request,
     ): Response {
         $videoGame = $videoGameRepository->findOneBy([
             'slug' => $slug,
         ]);
 
-        if (!$videoGame) {
+        if (null === $videoGame) {
             throw $this->createNotFoundException();
         }
 

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
-use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -22,8 +21,8 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Range;
-use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
-use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
+use Vich\UploaderBundle\Mapping\Attribute\Uploadable;
+use Vich\UploaderBundle\Mapping\Attribute\UploadableField;
 
 #[Entity]
 #[UniqueEntity('slug')]
@@ -51,17 +50,17 @@ class VideoGame
 
     #[Column(length: 255, unique: true)]
     #[Slug(fields: ['title'])]
-    private ?string $slug = null;
+    private string $slug = '';
 
     #[NotBlank]
     #[Column(type: Types::TEXT)]
     private string $description;
 
     #[Column(type: Types::DATE_IMMUTABLE)]
-    private DateTimeImmutable $releaseDate;
+    private \DateTimeImmutable $releaseDate;
 
     #[Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    private ?DateTimeImmutable $updatedAt = null;
+    private ?\DateTimeImmutable $updatedAt = null;
 
     #[Column(type: Types::TEXT, nullable: true)]
     private ?string $test = null;
@@ -94,7 +93,7 @@ class VideoGame
         $this->numberOfRatingsPerValue = new NumberOfRatingPerValue();
         $this->tags = new ArrayCollection();
         $this->reviews = new ArrayCollection();
-        $this->updatedAt = new DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -114,7 +113,7 @@ class VideoGame
         return $this;
     }
 
-    public function getSlug(): ?string
+    public function getSlug(): string
     {
         return $this->slug;
     }
@@ -131,7 +130,7 @@ class VideoGame
         $this->imageFile = $imageFile;
 
         if (null !== $imageFile) {
-            $this->updatedAt = new DateTimeImmutable();
+            $this->updatedAt = new \DateTimeImmutable();
         }
     }
 
@@ -176,12 +175,12 @@ class VideoGame
         return $this;
     }
 
-    public function getReleaseDate(): DateTimeImmutable
+    public function getReleaseDate(): \DateTimeImmutable
     {
         return $this->releaseDate;
     }
 
-    public function setReleaseDate(DateTimeImmutable $releaseDate): self
+    public function setReleaseDate(\DateTimeImmutable $releaseDate): self
     {
         $this->releaseDate = $releaseDate;
 
@@ -248,7 +247,7 @@ class VideoGame
     public function hasAlreadyReview(User $user): bool
     {
         return $this->reviews->exists(
-            static fn(int $key, Review $review): bool => $review->getUser() === $user
+            static fn (int $key, Review $review): bool => $review->getUser() === $user
         );
     }
 }

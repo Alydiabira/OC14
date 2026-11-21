@@ -73,10 +73,32 @@ symfony console sass:build
 
 ### Tests
 ```bash
-symfony php bin/phpunit
+composer test
 ```
 
-*Note : Penser à charger les fixtures avant chaque éxécution des tests.*
+La commande recrée la base de test, son schéma et ses fixtures avant de lancer PHPUnit.
+
+### Analyse statique et style
+
+PHPStan vérifie statiquement les types et la cohérence du code, avec les extensions Symfony et
+Doctrine activées. Il détecte notamment des erreurs de types sans exécuter l'application, mais
+nécessite une configuration adaptée aux services dynamiques de Symfony.
+
+PHP-CS-Fixer applique automatiquement les règles Symfony de formatage. Il harmonise le style et
+peut corriger les fichiers, mais ne valide ni les types ni le comportement métier. Ces outils sont
+donc complémentaires : PHPStan ne reformate pas le code et PHP-CS-Fixer ne vérifie pas sa logique.
+
+```bash
+composer qa       # vérification du style et analyse PHPStan
+composer cs-fix   # applique le formatage PHP-CS-Fixer
+composer phpstan  # lance uniquement PHPStan
+```
+
+Le niveau PHPStan est configuré à 6. La configuration se trouve dans `phpstan.dist.neon` et les
+règles de style dans `.php-cs-fixer.dist.php`.
+
+GitHub Actions exécute ces vérifications ainsi que les tests sur PHP 8.2 et 8.3 à chaque push
+sur `main` et sur chaque pull request.
 
 ### Serveur web
 ```bash

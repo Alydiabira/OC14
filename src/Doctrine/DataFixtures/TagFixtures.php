@@ -23,7 +23,7 @@ final class TagFixtures extends Fixture
             $tag->setName($name);
             $manager->persist($tag);
 
-            $this->addReference('tag_' . ($index + 1), $tag);
+            $this->addReference('tag_'.($index + 1), $tag);
         }
 
         $manager->flush();

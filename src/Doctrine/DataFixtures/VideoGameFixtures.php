@@ -8,21 +8,19 @@ use App\Model\Entity\User;
 use App\Model\Entity\VideoGame;
 use App\Rating\CalculateAverageRating;
 use App\Rating\CountRatingsPerValue;
-use DateInterval;
-use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Generator;
-use function array_fill_callback;
 
 final class VideoGameFixtures extends Fixture implements DependentFixtureInterface
 {
     public function __construct(
         private readonly Generator $faker,
         private readonly CalculateAverageRating $calculateAverageRating,
-        private readonly CountRatingsPerValue $countRatingsPerValue
-    ) {}
+        private readonly CountRatingsPerValue $countRatingsPerValue,
+    ) {
+    }
 
     public function load(ObjectManager $manager): void
     {
@@ -36,31 +34,30 @@ final class VideoGameFixtures extends Fixture implements DependentFixtureInterfa
         /** @var string $fakeText */
         $fakeText = $this->faker->paragraphs(5, true);
 
-        $videoGames = array_fill_callback(
+        $videoGames = \array_fill_callback(
             0,
             50,
-            fn(int $index): VideoGame => (new VideoGame)
+            fn (int $index): VideoGame => (new VideoGame())
                 ->setTitle(sprintf('Jeu vidéo %d', $index))
                 ->setSlug(sprintf('jeu-video-%d', $index))   // ← INDISPENSABLE
                 ->setDescription($fakeText)
-                ->setReleaseDate((new DateTimeImmutable())->sub(new DateInterval(sprintf('P%dD', $index))))
+                ->setReleaseDate((new \DateTimeImmutable())->sub(new \DateInterval(sprintf('P%dD', $index))))
                 ->setTest($fakeText)
                 ->setRating(($index % 5) + 1)
                 ->setImageName(sprintf('video_game_%d.png', $index))
                 ->setImageSize(2_098_872)
         );
 
-
         array_walk($videoGames, static function (VideoGame $videoGame, int $index) use ($tags) {
             $tagCount = match (true) {
-                $index === 0 || $index === 25 => 5,
-                $index === 49 => 4,
+                0 === $index || 25 === $index => 5,
+                49 === $index => 4,
                 $index >= 21 && $index <= 24 => $index - 20,
                 $index >= 46 && $index <= 48 => $index - 45,
                 default => 0,
             };
 
-            for ($tagIndex = 0; $tagIndex < $tagCount; $tagIndex++) {
+            for ($tagIndex = 0; $tagIndex < $tagCount; ++$tagIndex) {
                 $videoGame->getTags()->add($tags[$tagIndex]);
             }
         });

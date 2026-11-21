@@ -20,7 +20,7 @@ final class FilterType extends AbstractType
             ->add('search', TextType::class, [
                 'label' => 'Rechercher',
                 'required' => false,
-                'attr' =>  [
+                'attr' => [
                     'placeholder' => 'Rechercher...',
                 ],
             ])

@@ -7,16 +7,16 @@ namespace App\List\VideoGameList;
 use App\Model\Entity\Tag;
 use Doctrine\Common\Collections\Collection;
 
-
 final class Filter
 {
     /**
-     * @param Tag[] $tags
+     * @param array<int, Tag> $tags
      */
     public function __construct(
         private ?string $search = null,
-        private array $tags = []
-    ) {}
+        private array $tags = [],
+    ) {
+    }
 
     public function getSearch(): ?string
     {
@@ -26,11 +26,12 @@ final class Filter
     public function setSearch(?string $search): Filter
     {
         $this->search = $search;
+
         return $this;
     }
 
     /**
-     * @return Tag[]
+     * @return array<int, Tag>
      */
     public function getTags(): array
     {
@@ -38,7 +39,7 @@ final class Filter
     }
 
     /**
-     * @param Tag[] $tags
+     * @param array<int, Tag>|Collection<int, Tag> $tags
      */
     public function setTags(array|Collection $tags): Filter
     {

@@ -44,7 +44,7 @@ final class VideoGameRepository extends ServiceEntityRepository
                 )
                 ->setParameter(
                     'search',
-                    '%' . $filter->getSearch() . '%'
+                    '%'.$filter->getSearch().'%'
                 );
         }
 
@@ -58,7 +58,7 @@ final class VideoGameRepository extends ServiceEntityRepository
                     [$tag->getId()]
                 );
 
-                $matchingVideoGameIds = $matchingVideoGameIds === null
+                $matchingVideoGameIds = null === $matchingVideoGameIds
                     ? $videoGameIds
                     : array_values(array_intersect($matchingVideoGameIds, $videoGameIds));
             }
@@ -67,7 +67,7 @@ final class VideoGameRepository extends ServiceEntityRepository
                 ->andWhere($queryBuilder->expr()->in('vg.id', ':taggedVideoGameIds'))
                 ->setParameter(
                     'taggedVideoGameIds',
-                    $matchingVideoGameIds ?: [0]
+                    [] !== $matchingVideoGameIds ? $matchingVideoGameIds : [0]
                 );
         }
 
